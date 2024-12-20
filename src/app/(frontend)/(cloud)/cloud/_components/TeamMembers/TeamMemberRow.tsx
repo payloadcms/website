@@ -1,20 +1,19 @@
-import React from 'react'
 import { Select } from '@forms/fields/Select/index.js'
 import { Text } from '@forms/fields/Text/index.js'
+import React from 'react'
 
 import { userTeamRoles } from '../InviteTeammates/index.js'
-
 import classes from './TeamMemberRow.module.scss'
 
 export const TeamMemberRow: React.FC<{
-  leader?: string
-  initialEmail?: string
-  initialRoles?: ('owner' | 'admin' | 'user')[]
   footer?: React.ReactNode
-  onUpdateRoles?: (newRoles: ('owner' | 'admin' | 'user')[]) => void
+  initialEmail?: string
+  initialRoles?: ('admin' | 'owner' | 'user')[]
   isOwnerOrGlobalAdmin?: boolean
+  leader?: string
+  onUpdateRoles?: (newRoles: ('admin' | 'owner' | 'user')[]) => void
 }> = props => {
-  const { initialEmail, leader, footer, initialRoles, onUpdateRoles, isOwnerOrGlobalAdmin } = props
+  const { footer, initialEmail, initialRoles, isOwnerOrGlobalAdmin, leader, onUpdateRoles } = props
 
   // Called when there's a change in the roles of the team member. It triggers the onUpdateRoles prop.
   const handleRolesChange = (newRoles: any) => {
@@ -29,14 +28,6 @@ export const TeamMemberRow: React.FC<{
       <div className={classes.memberFields}>
         <Text disabled initialValue={initialEmail} label="Email" />
         <Select
-          isMulti
-          isClearable={false}
-          disabled={!onUpdateRoles || !isOwnerOrGlobalAdmin}
-          initialValue={initialRoles}
-          value={initialRoles}
-          onChange={handleRolesChange}
-          label="Roles"
-          options={userTeamRoles}
           className={[
             classes.memberSelect,
             (!onUpdateRoles || !isOwnerOrGlobalAdmin || !isRoleClearable) &&
@@ -44,6 +35,14 @@ export const TeamMemberRow: React.FC<{
           ]
             .filter(Boolean)
             .join(' ')}
+          disabled={!onUpdateRoles || !isOwnerOrGlobalAdmin}
+          initialValue={initialRoles}
+          isClearable={false}
+          isMulti
+          label="Roles"
+          onChange={handleRolesChange}
+          options={userTeamRoles}
+          value={initialRoles}
         />
       </div>
       <div className={classes.footer}>{footer}</div>

@@ -1,4 +1,4 @@
-import JSX from 'react'
+import type JSX from 'react'
 
 export type AllowedElements = Extract<
   // @ts-expect-error

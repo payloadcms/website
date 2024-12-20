@@ -2,17 +2,19 @@
 
 import { usePathname } from 'next/navigation'
 
-import { Tab, Tabs } from '../Tabs/index.js'
+import type { Tab} from '../Tabs/index.js';
+
+import { Tabs } from '../Tabs/index.js'
 
 export const cloudSlug = 'cloud'
 
 export type TabsType = {
   [key: string]: {
-    label?: string
-    href?: string
-    subpaths?: string[]
-    error?: boolean
     disabled?: boolean
+    error?: boolean
+    href?: string
+    label?: string
+    subpaths?: string[]
     warning?: boolean
   }
 }
@@ -29,11 +31,11 @@ export const DashboardTabs: React.FC<{
       )
 
       acc.push({
+        disabled: tab.disabled,
+        error: tab.error,
+        isActive: onTabPath,
         label: tab.label,
         url: tab.href,
-        isActive: onTabPath,
-        error: tab.error,
-        disabled: tab.disabled,
         warning: tab.warning,
       })
     }

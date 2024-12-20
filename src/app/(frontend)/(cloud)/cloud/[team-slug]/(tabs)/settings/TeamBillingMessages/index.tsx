@@ -1,14 +1,13 @@
 'use client'
 
-import React from 'react'
-import { TeamWithCustomer } from '@cloud/_api/fetchTeam.js'
+import type { TeamWithCustomer } from '@cloud/_api/fetchTeam.js'
+
 import { teamHasDefaultPaymentMethod } from '@cloud/_utilities/teamHasDefaultPaymentMethod.js'
 import { cloudSlug } from '@cloud/slug.js'
-import Link from 'next/link'
-
-import { usePathname } from 'next/navigation'
-
 import { Message } from '@components/Message/index.js'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import React from 'react'
 
 import classes from './index.module.scss'
 

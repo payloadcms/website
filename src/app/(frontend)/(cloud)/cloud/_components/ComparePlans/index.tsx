@@ -1,22 +1,22 @@
-import React, { Fragment } from 'react'
-import { useModal } from '@faceless-ui/modal'
+import type { Plan } from '@root/payload-cloud-types.js'
 
 import { PricingCard } from '@components/cards/PricingCard/index.js'
 import { Drawer, DrawerToggler } from '@components/Drawer/index.js'
+import { useModal } from '@faceless-ui/modal'
 import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'
 import { CheckIcon } from '@root/icons/CheckIcon/index.js'
 import { CloseIcon } from '@root/icons/CloseIcon/index.js'
-import { Plan } from '@root/payload-cloud-types.js'
+import React, { Fragment } from 'react'
 
 import classes from './index.module.scss'
 
 type ComparePlansProps = {
+  handlePlanChange: (value?: null | Plan) => void  
   plans: Plan[]
-  handlePlanChange: (value?: Plan | null) => void // eslint-disable-line no-unused-vars
 }
 
 export const ComparePlans: React.FC<ComparePlansProps> = props => {
-  const { plans, handlePlanChange } = props
+  const { handlePlanChange, plans } = props
   const { closeModal } = useModal()
 
   const handleSelect = (plan: Plan) => {
@@ -26,11 +26,11 @@ export const ComparePlans: React.FC<ComparePlansProps> = props => {
 
   return (
     <Fragment>
-      <DrawerToggler slug={`comparePlans`} className={classes.drawerToggle}>
+      <DrawerToggler className={classes.drawerToggle} slug={`comparePlans`}>
         Compare Plans
         <ArrowIcon />
       </DrawerToggler>
-      <Drawer slug={`comparePlans`} title={'Compare Plans'} size={plans.length > 2 ? 'l' : 'm'}>
+      <Drawer size={plans.length > 2 ? 'l' : 'm'} slug={`comparePlans`} title={'Compare Plans'}>
         <div className={classes.compareTable}>
           {plans?.map((plan, i) => {
             const getPrice = plan => {
@@ -39,8 +39,8 @@ export const ComparePlans: React.FC<ComparePlansProps> = props => {
                 price = plan?.priceJSON?.toString() || ''
                 const parsed = JSON.parse(price)
                 return (parsed?.unit_amount / 100).toLocaleString('en-US', {
-                  style: 'currency',
                   currency: 'USD',
+                  style: 'currency',
                 })
               }
             }
@@ -48,18 +48,18 @@ export const ComparePlans: React.FC<ComparePlansProps> = props => {
             const highlight = plan.highlight ? classes.highlight : ''
 
             return (
-              <div key={i} className={classes.planCard} onClick={() => handleSelect(plan)}>
+              <div className={classes.planCard} key={i} onClick={() => handleSelect(plan)}>
                 <PricingCard
+                  className={[classes.pricingCard, highlight].join(' ')}
+                  description={plan.description}
                   key={plan.name}
                   leader={plan.name}
                   price={getPrice(plan)}
-                  description={plan.description}
-                  className={[classes.pricingCard, highlight].join(' ')}
                 />
                 <ul className={classes.features}>
                   {plan?.features?.map((feature, i) => {
                     return (
-                      <li key={i} className={classes.feature}>
+                      <li className={classes.feature} key={i}>
                         <div className={feature.icon && classes[feature.icon]}>
                           {feature.icon === 'check' && <CheckIcon size="medium" />}
                           {feature.icon === 'x' && <CloseIcon />}

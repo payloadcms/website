@@ -1,17 +1,17 @@
-import React from 'react'
-
 import { BlockSpacing } from '@components/BlockSpacing/index.js'
 import { Gutter } from '@components/Gutter/index.js'
+import React from 'react'
+
 import { StyleguideBreadcrumbs } from './Breadcrumbs/index.js'
 import { RenderDarkMode } from './RenderDarkMode/index.js'
 
 export const StyleguidePageContent: React.FC<{
-  title?: string
   children: React.ReactNode
-  darkModePadding?: boolean
   darkModeMargins?: boolean
+  darkModePadding?: boolean
   renderHeader?: boolean
-}> = ({ title, children, darkModePadding, darkModeMargins, renderHeader = true }) => {
+  title?: string
+}> = ({ children, darkModeMargins, darkModePadding, renderHeader = true, title }) => {
   return (
     <div>
       {renderHeader && (

@@ -1,6 +1,7 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
-import { Validate, Value } from '@forms/types.js'
+import type { Validate, Value } from '@forms/types.js'
+
 import { useFormField } from '@forms/useFormField/index.js'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 // the purpose of this hook is to provide a way to:
 // 1. allow the field to update its own value without debounce
@@ -8,42 +9,42 @@ import { useFormField } from '@forms/useFormField/index.js'
 // 3. allow the field be controlled externally either through props or form context
 // 4. standardize repetitive logic across all fields
 export const useField = <T extends Value>(props: {
-  path?: string
   initialValue?: T
-  onChange?: (value: T) => void // eslint-disable-line no-unused-vars
-  validate?: Validate
+  onChange?: (value: T) => void  
+  path?: string
   required?: boolean
+  validate?: Validate
 }): {
-  onChange: (value: T) => void // eslint-disable-line no-unused-vars
-  value: T | null
-  showError: boolean
   errorMessage?: string
+  onChange: (value: T) => void  
+  showError: boolean
+  value: null | T
 } => {
-  const { path, onChange: onChangeFromProps, validate, initialValue, required } = props
+  const { initialValue, onChange: onChangeFromProps, path, required, validate } = props
   const hasInitialized = useRef(false)
 
   const {
-    value: valueFromContext,
     debouncedValue: debouncedValueFromContext,
-    showError,
-    setValue: setValueInContext,
     errorMessage,
+    setValue: setValueInContext,
+    showError,
+    value: valueFromContext,
   } = useFormField<T>({
-    path,
-    validate,
     initialValue,
+    path,
     required,
+    validate,
   })
 
   const valueFromContextOrProps = valueFromContext !== undefined ? valueFromContext : initialValue
 
-  const [internalState, setInternalState] = useState<T | null>(
+  const [internalState, setInternalState] = useState<null | T>(
     valueFromContext || initialValue || null,
   ) // not debounced
 
   useEffect(() => {
     if (valueFromContextOrProps !== undefined && valueFromContextOrProps !== internalState)
-      setInternalState(valueFromContextOrProps)
+      {setInternalState(valueFromContextOrProps)}
   }, [valueFromContextOrProps, internalState])
 
   const onChange = useCallback(
@@ -74,9 +75,9 @@ export const useField = <T extends Value>(props: {
   }, [debouncedValueFromContext, onChangeFromProps, path])
 
   return {
-    onChange,
-    value: internalState,
-    showError,
     errorMessage,
+    onChange,
+    showError,
+    value: internalState,
   }
 }

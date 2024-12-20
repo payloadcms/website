@@ -4,24 +4,24 @@ import { isAdmin } from '../access/isAdmin'
 
 export const Docs: CollectionConfig = {
   slug: 'docs',
-  admin: {
-    useAsTitle: 'path',
-    defaultColumns: ['path', 'topic', 'slug', 'title'],
-  },
   access: {
     create: isAdmin,
+    delete: isAdmin,
     read: () => true,
     update: isAdmin,
-    delete: isAdmin,
+  },
+  admin: {
+    defaultColumns: ['path', 'topic', 'slug', 'title'],
+    useAsTitle: 'path',
   },
   fields: [
     {
       name: 'title',
       type: 'text',
-      required: true,
       admin: {
         readOnly: true,
       },
+      required: true,
     },
     {
       name: 'description',
@@ -54,48 +54,48 @@ export const Docs: CollectionConfig = {
     {
       name: 'path',
       type: 'text',
+      admin: {
+        position: 'sidebar',
+        readOnly: true,
+      },
       hooks: {
         afterRead: [
           ({ data }) => {
-            if (data) return `${data.topic}/${data.slug}`
+            if (data) {return `${data.topic}/${data.slug}`}
           },
         ],
-      },
-      admin: {
-        readOnly: true,
-        position: 'sidebar',
       },
     },
     {
       name: 'topic',
       type: 'text',
       admin: {
-        readOnly: true,
         position: 'sidebar',
+        readOnly: true,
       },
     },
     {
       name: 'slug',
       type: 'text',
       admin: {
-        readOnly: true,
         position: 'sidebar',
+        readOnly: true,
       },
     },
     {
       name: 'label',
       type: 'text',
       admin: {
-        readOnly: true,
         position: 'sidebar',
+        readOnly: true,
       },
     },
     {
       name: 'order',
       type: 'number',
       admin: {
-        readOnly: true,
         position: 'sidebar',
+        readOnly: true,
       },
     },
   ],

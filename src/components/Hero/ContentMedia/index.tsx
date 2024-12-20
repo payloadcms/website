@@ -1,6 +1,7 @@
 'use client'
 
-import React from 'react'
+import type { BlocksProp } from '@components/RenderBlocks/index.js'
+import type { Page } from '@root/payload-types.js'
 
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
 import { BlockWrapper } from '@components/BlockWrapper/index.js'
@@ -8,34 +9,33 @@ import { CMSLink } from '@components/CMSLink/index.js'
 import { Gutter } from '@components/Gutter/index.js'
 import { useGetHeroPadding } from '@components/Hero/useGetHeroPadding.js'
 import { Media } from '@components/Media/index.js'
-import { BlocksProp } from '@components/RenderBlocks/index.js'
 import { RichText } from '@components/RichText/index.js'
-import { Page } from '@root/payload-types.js'
+import React from 'react'
 
 import classes from './index.module.scss'
 
 export const ContentMediaHero: React.FC<
-  Pick<Page['hero'], 'richText' | 'media' | 'links' | 'description' | 'theme'> & {
+  {
     breadcrumbs?: Page['breadcrumbs']
     firstContentBlock?: BlocksProp
-  }
-> = ({ richText, media, links, description, theme, firstContentBlock }) => {
+  } & Pick<Page['hero'], 'description' | 'links' | 'media' | 'richText' | 'theme'>
+> = ({ description, firstContentBlock, links, media, richText, theme }) => {
   const padding = useGetHeroPadding(theme, firstContentBlock)
 
   return (
-    <BlockWrapper settings={{ theme }} padding={padding}>
+    <BlockWrapper padding={padding} settings={{ theme }}>
       <BackgroundGrid zIndex={0} />
       <Gutter>
         <div className={[classes.wrapper, 'grid'].filter(Boolean).join(' ')}>
           <div
             className={[classes.sidebar, `cols-4`, 'cols-m-8 start-1'].filter(Boolean).join(' ')}
           >
-            <RichText content={richText} className={[classes.richText].filter(Boolean).join(' ')} />
+            <RichText className={[classes.richText].filter(Boolean).join(' ')} content={richText} />
 
             <div className={[classes.linksWrapper].filter(Boolean).join(' ')}>
               <RichText
-                content={description}
                 className={[classes.description].filter(Boolean).join(' ')}
+                content={description}
               />
 
               {Array.isArray(links) &&

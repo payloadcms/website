@@ -1,18 +1,18 @@
 'use client'
 
-import * as React from 'react'
 import { Modal } from '@faceless-ui/modal'
+import * as React from 'react'
 
 import classes from './index.module.scss'
 
 type ModalWindowProps = {
-  slug: string
   children: React.ReactNode
   className?: string
+  slug: string
 }
-export const ModalWindow: React.FC<ModalWindowProps> = ({ children, slug, className }) => {
+export const ModalWindow: React.FC<ModalWindowProps> = ({ slug, children, className }) => {
   return (
-    <Modal slug={slug} className={[className, classes.modalWindow].filter(Boolean).join(' ')}>
+    <Modal className={[className, classes.modalWindow].filter(Boolean).join(' ')} slug={slug}>
       <div className={classes.window}>{children}</div>
     </Modal>
   )

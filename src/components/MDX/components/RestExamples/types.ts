@@ -1,24 +1,24 @@
 export interface Example {
-  slug: string
+  drawerContent?: React.ReactNode | string
   req: {
-    headers?: boolean | string
     body?: any
-    query?: boolean | string
     credentials?: boolean
+    headers?: boolean | string
+    query?: boolean | string
   }
   res: {
-    paginated?: boolean
     data?: any
+    paginated?: boolean
   }
-  drawerContent?: React.ReactNode | string
+  slug: string
 }
 
 export interface Data {
-  operation: string
   description: string
-  method: string
-  path: string
   example: Example
+  method: string
+  operation: string
+  path: string
 }
 
 export interface Props {

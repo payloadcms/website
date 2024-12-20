@@ -1,11 +1,12 @@
-import React from 'react'
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
 import { fetchBlogPosts } from '@data'
-import { RenderBlogArchive } from './renderBlogArchive.js'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
 import { unstable_cache } from 'next/cache'
 import { draftMode } from 'next/headers.js'
+import React from 'react'
+
+import { RenderBlogArchive } from './renderBlogArchive.js'
 
 const Page = async () => {
   const { isEnabled: draft } = await draftMode()

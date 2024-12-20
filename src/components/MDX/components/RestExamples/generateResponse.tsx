@@ -1,24 +1,23 @@
-import React from 'react'
-
 import Code from '@components/Code/index.js'
+import React from 'react'
 
 import classes from './index.module.scss'
 
 export const GenerateResponse = ({ res }) => {
-  if (!res) return null
+  if (!res) {return null}
 
   if (res.paginated) {
     const paginatedRes = {
       docs: [res.data],
-      totalDocs: res.data.length || 1,
+      hasNextPage: false,
+      hasPrevPage: false,
       limit: 10,
-      totalPages: 1,
+      nextPage: null,
       page: 1,
       pagingCounter: 1,
-      hasPrevPage: false,
-      hasNextPage: false,
       prevPage: null,
-      nextPage: null,
+      totalDocs: res.data.length || 1,
+      totalPages: 1,
     }
 
     return (

@@ -1,35 +1,35 @@
 'use client'
 
-import React, { useEffect } from 'react'
-import Error from '@forms/Error/index.js'
-import { FieldProps } from '@forms/fields/types.js'
-import { useField } from '@forms/fields/useField/index.js'
+import type { FieldProps } from '@forms/fields/types.js'
 
 import Label from '@components/CMSForm/Label/index.js'
+import Error from '@forms/Error/index.js'
+import { useField } from '@forms/fields/useField/index.js'
 import { CheckIcon } from '@root/icons/CheckIcon/index.js'
+import React, { useEffect } from 'react'
 
 import classes from './index.module.scss'
 
 export const Checkbox: React.FC<
-  FieldProps<boolean> & {
+  {
     checked?: boolean
-  }
+  } & FieldProps<boolean>
 > = props => {
   const {
-    path,
-    required,
+    checked: checkedFromProps,
+    className,
+    disabled,
+    initialValue,
     label,
     onChange: onChangeFromProps,
-    initialValue,
+    path,
+    required,
     validate,
-    className,
-    checked: checkedFromProps,
-    disabled,
   } = props
 
-  const [checked, setChecked] = React.useState<boolean | undefined | null>(initialValue || false)
-  const prevChecked = React.useRef<boolean | undefined | null>(checked)
-  const prevContextValue = React.useRef<boolean | undefined | null>(initialValue)
+  const [checked, setChecked] = React.useState<boolean | null | undefined>(initialValue || false)
+  const prevChecked = React.useRef<boolean | null | undefined>(checked)
+  const prevContextValue = React.useRef<boolean | null | undefined>(initialValue)
 
   const defaultValidateFunction = React.useCallback(
     (fieldValue: boolean): string | true => {
@@ -47,16 +47,16 @@ export const Checkbox: React.FC<
   )
 
   const {
-    onChange,
-    value: valueFromContext,
-    showError,
     errorMessage,
+    onChange,
+    showError,
+    value: valueFromContext,
   } = useField<boolean>({
     initialValue,
     onChange: onChangeFromProps,
     path,
-    validate: validate || defaultValidateFunction,
     required,
+    validate: validate || defaultValidateFunction,
   })
 
   // allow external control
@@ -98,29 +98,29 @@ export const Checkbox: React.FC<
         .join(' ')}
     >
       <input
-        className={classes.htmlInput}
-        type="checkbox"
-        name={path}
-        id={path}
         checked={Boolean(checked)}
-        readOnly
+        className={classes.htmlInput}
         disabled={disabled}
+        id={path}
+        name={path}
+        readOnly
         tabIndex={-1}
+        type="checkbox"
       />
       <button
-        type="button"
         className={classes.button}
-        onClick={() => {
-          if (!disabled) onChange(!checked)
-        }}
         disabled={disabled}
+        onClick={() => {
+          if (!disabled) {onChange(!checked)}
+        }}
+        type="button"
       >
         <span className={classes.input}>
-          <CheckIcon className={classes.icon} size="medium" bold />
+          <CheckIcon bold className={classes.icon} size="medium" />
         </span>
         <Label className={classes.label} htmlFor={path} label={label} required={required} />
       </button>
-      <Error className={classes.errorLabel} showError={showError} message={errorMessage} />
+      <Error className={classes.errorLabel} message={errorMessage} showError={showError} />
     </div>
   )
 }

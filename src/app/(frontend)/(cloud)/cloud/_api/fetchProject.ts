@@ -10,9 +10,9 @@ import type { Customer, TeamWithCustomer } from './fetchTeam.js'
 
 import { payloadCloudToken } from './token.js'
 
-export type ProjectWithSubscription = Project & {
+export type ProjectWithSubscription = {
   stripeSubscription: Subscription
-}
+} & Project
 
 export const fetchProject = async (args: {
   projectSlug?: string
@@ -20,7 +20,7 @@ export const fetchProject = async (args: {
 }): Promise<Project> => {
   const { projectSlug, teamID } = args || {}
   const token = (await cookies()).get(payloadCloudToken)?.value ?? null
-  if (!token) throw new Error('No token provided')
+  if (!token) {throw new Error('No token provided')}
 
   const doc: Project = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql`, {
     body: JSON.stringify({
@@ -39,7 +39,7 @@ export const fetchProject = async (args: {
   })
     ?.then(res => res.json())
     ?.then(res => {
-      if (res.errors) throw new Error(res?.errors?.[0]?.message ?? 'Error fetching doc')
+      if (res.errors) {throw new Error(res?.errors?.[0]?.message ?? 'Error fetching doc')}
       return res?.data?.Projects?.docs?.[0]
     })
 
@@ -71,24 +71,24 @@ export const fetchProjectAndRedirect = async (args: {
   }
 }
 
-type ProjectWithSubscriptionWithTeamAndCustomer = ProjectWithSubscription & {
+type ProjectWithSubscriptionWithTeamAndCustomer = {
   customer: Customer
   team: TeamWithCustomer
-}
+} & ProjectWithSubscription
 
 export const fetchProjectWithSubscription = async (args: {
   environmentSlug?: string
   projectSlug?: string
   teamSlug?: string
 }): Promise<
-  ProjectWithSubscription & {
+  {
     customer: Customer
     team: TeamWithCustomer
-  }
+  } & ProjectWithSubscription
 > => {
   const { environmentSlug, projectSlug, teamSlug } = args || {}
   const token = (await cookies()).get(payloadCloudToken)?.value ?? null
-  if (!token) throw new Error('No token provided')
+  if (!token) {throw new Error('No token provided')}
 
   const projectWithSubscription = await fetch(
     `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${projectSlug}/with-subscription`,
@@ -106,7 +106,7 @@ export const fetchProjectWithSubscription = async (args: {
   )
     ?.then(res => res.json())
     ?.then(res => {
-      if (res.errors) throw new Error(res?.errors?.[0]?.message ?? 'Error fetching doc')
+      if (res.errors) {throw new Error(res?.errors?.[0]?.message ?? 'Error fetching doc')}
       return res
     })
 

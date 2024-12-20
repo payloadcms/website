@@ -1,53 +1,53 @@
 'use client'
 
-import React, { Fragment, useEffect, useRef, useState } from 'react'
-import { TeamWithCustomer } from '@cloud/_api/fetchTeam.js'
-import { CreditCardElement } from '@cloud/_components/CreditCardElement/index.js'
-import { useModal } from '@faceless-ui/modal'
-import { Elements } from '@stripe/react-stripe-js'
+import type { TeamWithCustomer } from '@cloud/_api/fetchTeam.js'
 import type { PaymentMethod } from '@stripe/stripe-js'
-import { loadStripe } from '@stripe/stripe-js'
-import { v4 as uuid } from 'uuid'
 
+import { CreditCardElement } from '@cloud/_components/CreditCardElement/index.js'
 import { Button } from '@components/Button/index.js'
 import { CircleIconButton } from '@components/CircleIconButton/index.js'
 import { DropdownMenu } from '@components/DropdownMenu/index.js'
 import { Heading } from '@components/Heading/index.js'
 import { ModalWindow } from '@components/ModalWindow/index.js'
 import { Pill } from '@components/Pill/index.js'
-import { usePaymentMethods } from './usePaymentMethods.js'
+import { useModal } from '@faceless-ui/modal'
+import { Elements } from '@stripe/react-stripe-js'
+import { loadStripe } from '@stripe/stripe-js'
+import React, { Fragment, useEffect, useRef, useState } from 'react'
+import { v4 as uuid } from 'uuid'
 
 import classes from './index.module.scss'
+import { usePaymentMethods } from './usePaymentMethods.js'
 
 const apiKey = `${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`
 const Stripe = loadStripe(apiKey)
 
 type CreditCardListType = {
+  initialPaymentMethods?: null | PaymentMethod[]
   team: TeamWithCustomer
-  initialPaymentMethods?: PaymentMethod[] | null
 }
 
 const modalSlug = 'confirm-delete-payment-method'
 
 const CardList: React.FC<CreditCardListType> = props => {
-  const { team, initialPaymentMethods } = props
+  const { initialPaymentMethods, team } = props
   const scrollRef = useRef<HTMLDivElement>(null)
   const newCardID = useRef<string>(`new-card-${uuid()}`)
   const [showNewCard, setShowNewCard] = useState(false)
-  const paymentMethodToDelete = useRef<PaymentMethod | null>(null)
+  const paymentMethodToDelete = useRef<null | PaymentMethod>(null)
   const { closeModal, openModal } = useModal()
 
   const {
-    result: paymentMethods,
-    error: paymentMethodsError,
-    deletePaymentMethod,
-    saveNewPaymentMethod,
-    isLoading,
     defaultPaymentMethod,
+    deletePaymentMethod,
+    error: paymentMethodsError,
+    isLoading,
+    result: paymentMethods,
+    saveNewPaymentMethod,
     setDefaultPaymentMethod,
   } = usePaymentMethods({
-    team,
     initialValue: initialPaymentMethods,
+    team,
   })
 
   useEffect(() => {
@@ -60,7 +60,7 @@ const CardList: React.FC<CreditCardListType> = props => {
 
   return (
     <div className={classes.creditCardList}>
-      <div ref={scrollRef} className={classes.scrollRef} />
+      <div className={classes.scrollRef} ref={scrollRef} />
       <div className={classes.formState}>
         {paymentMethodsError && <p className={classes.error}>{paymentMethodsError}</p>}
       </div>
@@ -87,32 +87,32 @@ const CardList: React.FC<CreditCardListType> = props => {
                 )}
               </div>
               <DropdownMenu
+                className={classes.tooltipButton}
                 menu={
                   <Fragment>
                     <button
-                      type="button"
                       className={classes.deleteCard}
                       onClick={() => {
                         paymentMethodToDelete.current = paymentMethod
                         openModal(modalSlug)
                       }}
+                      type="button"
                     >
                       Delete
                     </button>
                     {!isDefault && (
                       <button
-                        type="button"
                         className={classes.makeDefault}
                         onClick={() => {
                           setDefaultPaymentMethod(paymentMethod.id)
                         }}
+                        type="button"
                       >
                         Make default
                       </button>
                     )}
                   </Fragment>
                 }
-                className={classes.tooltipButton}
               />
             </div>
           )
@@ -127,10 +127,10 @@ const CardList: React.FC<CreditCardListType> = props => {
         {showNewCard && (
           <Button
             appearance="primary"
+            label={isLoading === 'saving' ? 'Saving...' : 'Save new card'}
             onClick={() => {
               saveNewPaymentMethod(newCardID.current)
             }}
-            label={isLoading === 'saving' ? 'Saving...' : 'Save new card'}
           />
         )}
         {/* Only show the add/remove new card button if there are existing payment methods */}
@@ -138,20 +138,20 @@ const CardList: React.FC<CreditCardListType> = props => {
           <Fragment>
             {!showNewCard && (
               <CircleIconButton
+                icon="add"
+                label="Add new card"
                 onClick={() => {
                   setShowNewCard(true)
                 }}
-                label="Add new card"
-                icon="add"
               />
             )}
             {showNewCard && (
               <Button
                 appearance="secondary"
+                label={'Cancel'}
                 onClick={() => {
                   setShowNewCard(false)
                 }}
-                label={'Cancel'}
               />
             )}
           </Fragment>
@@ -159,7 +159,7 @@ const CardList: React.FC<CreditCardListType> = props => {
       </div>
       <ModalWindow slug={modalSlug}>
         <div className={classes.modalContent}>
-          <Heading marginTop={false} as="h4">
+          <Heading as="h4" marginTop={false}>
             {`You are about to delete `}
             <b>{`${paymentMethodToDelete?.current?.card?.brand}`}</b>
             {` ending in `}
@@ -169,16 +169,16 @@ const CardList: React.FC<CreditCardListType> = props => {
           <p>Are you sure you want to do this? This action cannot be undone.</p>
           <div className={classes.modalActions}>
             <Button
-              label="Cancel"
               appearance="secondary"
+              label="Cancel"
               onClick={() => {
                 paymentMethodToDelete.current = null
                 closeModal(modalSlug)
               }}
             />
             <Button
-              label="Delete"
               appearance="danger"
+              label="Delete"
               onClick={() => {
                 if (paymentMethodToDelete.current) {
                   deletePaymentMethod(paymentMethodToDelete?.current?.id)

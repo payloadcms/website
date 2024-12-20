@@ -1,10 +1,10 @@
+import type { Team, User } from '@root/payload-cloud-types.js'
+
+import { useTeamDrawer } from '@cloud/_components/TeamDrawer/index.js'
+import { LoadingShimmer } from '@components/LoadingShimmer/index.js'
+import { Select } from '@forms/fields/Select/index.js'
 import React, { Fragment, useEffect } from 'react'
 import { components } from 'react-select'
-import { useTeamDrawer } from '@cloud/_components/TeamDrawer/index.js'
-import { Select } from '@forms/fields/Select/index.js'
-
-import { LoadingShimmer } from '@components/LoadingShimmer/index.js'
-import { Team, User } from '@root/payload-cloud-types.js'
 
 import classes from './index.module.scss'
 
@@ -19,31 +19,31 @@ const SelectMenuButton = props => {
 }
 
 export const TeamSelector: React.FC<{
-  value?: string
-  onChange?: (value?: Team) => void // eslint-disable-line no-unused-vars
-  className?: string
   allowEmpty?: boolean
+  className?: string
   initialValue?: string
-  label?: string | false
+  label?: false | string
+  onChange?: (value?: Team) => void  
   required?: boolean
-  user?: User | null
+  user?: null | User
+  value?: string
 }> = props => {
   const {
-    onChange,
-    value: valueFromProps,
-    className,
     allowEmpty,
+    className,
     initialValue,
+    onChange,
     required,
     user,
+    value: valueFromProps,
   } = props
 
   const teams = user && user?.teams?.map(({ team }) => team)
-  const [selectedTeam, setSelectedTeam] = React.useState<Team['id'] | 'none' | undefined>(
+  const [selectedTeam, setSelectedTeam] = React.useState<'none' | Team['id'] | undefined>(
     initialValue || 'none',
   )
 
-  const prevSelectedTeam = React.useRef<Team['id'] | 'none' | undefined>(selectedTeam)
+  const prevSelectedTeam = React.useRef<'none' | Team['id'] | undefined>(selectedTeam)
   const teamToSelectAfterUserUpdates = React.useRef<string | undefined>(undefined)
 
   const [TeamDrawer, TeamDrawerToggler] = useTeamDrawer({
@@ -68,7 +68,7 @@ export const TeamSelector: React.FC<{
         team => typeof team === 'object' && team !== null && team.id === selectedTeam,
       ) as Team
 
-      if (typeof onChange === 'function') onChange(foundTeam)
+      if (typeof onChange === 'function') {onChange(foundTeam)}
     }
   }, [onChange, selectedTeam, teams])
 
@@ -84,7 +84,7 @@ export const TeamSelector: React.FC<{
       ? ([
           ...user?.teams
             ?.map(({ team }) => {
-              if (!team) return null
+              if (!team) {return null}
               return {
                 label: typeof team === 'string' ? team : team?.name || team?.id,
                 value: typeof team === 'string' ? team : team?.id,
@@ -98,7 +98,7 @@ export const TeamSelector: React.FC<{
             value: 'no-teams',
           },
         ]
-  ) as any
+  )
 
   const valueNotFound = selectedTeam && !options.find(option => option.value === selectedTeam)
 
@@ -113,16 +113,7 @@ export const TeamSelector: React.FC<{
     <Fragment>
       <div className={[classes.teamSelector, className].filter(Boolean).join(' ')}>
         <Select
-          label={props.label !== false ? 'Team' : ''}
-          value={selectedTeam}
           className={[classes.select, user === null && classes.hidden].filter(Boolean).join(' ')}
-          initialValue={selectedTeam}
-          disabled={user === null}
-          onChange={option => {
-            if (Array.isArray(option)) return
-            setSelectedTeam(option)
-          }}
-          options={[...(allowEmpty ? [{ label: 'All teams', value: 'none' }] : []), ...options]}
           components={{
             MenuList: menuListProps => (
               <SelectMenuButton
@@ -135,9 +126,18 @@ export const TeamSelector: React.FC<{
               />
             ),
           }}
+          disabled={user === null}
+          initialValue={selectedTeam}
+          label={props.label !== false ? 'Team' : ''}
+          onChange={option => {
+            if (Array.isArray(option)) {return}
+            setSelectedTeam(option)
+          }}
+          options={[...(allowEmpty ? [{ label: 'All teams', value: 'none' }] : []), ...options]}
           required={required}
+          value={selectedTeam}
         />
-        {user === null && <LoadingShimmer heightPercent={100} className={classes.loading} />}
+        {user === null && <LoadingShimmer className={classes.loading} heightPercent={100} />}
       </div>
       <TeamDrawer
         onCreate={newTeam => {

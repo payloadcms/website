@@ -1,4 +1,4 @@
-import { default as OverviewPage, metadata } from '../../../../(tabs)/(overview)/page'
+import { metadata, default as OverviewPage } from '../../../../(tabs)/(overview)/page'
 
 export default OverviewPage
 

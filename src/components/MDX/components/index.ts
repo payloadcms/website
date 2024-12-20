@@ -17,21 +17,21 @@ import { TableWithDrawers } from './TableWithDrawers/index.js'
 import { VideoDrawer } from './VideoDrawer/index.js'
 
 export default {
+  Banner,
+  BlogImage,
+  code: InlineCode,
   h1,
   h2,
   h3,
   h4,
   h5,
   h6,
-  Banner,
-  pre: Code,
-  code: InlineCode,
   HR,
-  BlogImage,
-  YouTube,
+  LightDarkImage,
+  pre: Code,
   RestExamples,
   table: Table,
-  LightDarkImage,
   TableWithDrawers,
   VideoDrawer,
+  YouTube,
 }

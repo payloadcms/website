@@ -1,12 +1,7 @@
 'use client'
 
-import React, { useCallback } from 'react'
 import { revalidateCache } from '@cloud/_actions/revalidateCache.js'
 import { fetchGithubTokenClient } from '@cloud/_api/fetchGitHubToken.js'
-import Link from 'next/link'
-
-import { useRouter, useSearchParams } from 'next/navigation'
-
 import { Gutter } from '@components/Gutter/index.js'
 import { Heading } from '@components/Heading/index.js'
 import { RenderParams } from '@components/RenderParams/index.js'
@@ -14,6 +9,9 @@ import { exchangeCode } from '@root/app/(frontend)/(cloud)/new/authorize/exchang
 import { GitHubIcon } from '@root/graphics/GitHub/index.js'
 import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'
 import { usePopupWindow } from '@root/utilities/use-popup-window.js'
+import Link from 'next/link'
+import { useRouter, useSearchParams } from 'next/navigation'
+import React, { useCallback } from 'react'
 
 import classes from './page.module.scss'
 
@@ -35,7 +33,7 @@ export const AuthorizePage: React.FC = () => {
     process.env.NEXT_PUBLIC_GITHUB_REDIRECT_URI || '',
   )}&state=${encodeURIComponent(`/new/import${teamParam ? `?team=${teamParam}` : ''}`)}`
 
-  const [exchangeError, setExchangeError] = React.useState<string | null>(null)
+  const [exchangeError, setExchangeError] = React.useState<null | string>(null)
 
   const handleMessage = useCallback(
     async ({ code }) => {
@@ -73,8 +71,8 @@ export const AuthorizePage: React.FC = () => {
   )
 
   const { openPopupWindow } = usePopupWindow({
-    href,
     eventType: 'github',
+    href,
     onMessage: handleMessage,
   })
 
@@ -85,9 +83,9 @@ export const AuthorizePage: React.FC = () => {
         <h2>{isRedirecting ? 'Redirecting, one moment...' : 'Authorize your Git provider'}</h2>
         {exchangeError && <div className={classes.error}>{exchangeError}</div>}
       </div>
-      <a className={classes.ghLink} href={href} type="button" onClick={openPopupWindow}>
+      <a className={classes.ghLink} href={href} onClick={openPopupWindow} type="button">
         <GitHubIcon className={classes.ghIcon} />
-        <Heading element="h2" as="h4" margin={false} className={classes.ghTitle}>
+        <Heading as="h4" className={classes.ghTitle} element="h2" margin={false}>
           Continue with GitHub
         </Heading>
         <ArrowIcon size="large" />

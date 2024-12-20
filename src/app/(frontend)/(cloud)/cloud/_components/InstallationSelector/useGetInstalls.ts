@@ -1,20 +1,21 @@
-import React, { useCallback, useEffect, useMemo } from 'react'
 import type { Install } from '@cloud/_api/fetchInstalls.js'
-import { fetchInstallsClient } from '@cloud/_api/fetchInstalls.js'
 import type { Endpoints } from '@octokit/types'
+
+import { fetchInstallsClient } from '@cloud/_api/fetchInstalls.js'
+import React, { useCallback, useEffect, useMemo } from 'react'
 
 export type GitHubOrgsResponse = Endpoints['GET /user/memberships/orgs']['response']
 
 export type GitHubOrg = GitHubOrgsResponse['data'][0]
 
 interface Add {
-  type: 'add'
   payload: Install
+  type: 'add'
 }
 
 interface Set {
-  type: 'set'
   payload: Install[]
+  type: 'set'
 }
 
 type Action = Add | Set
@@ -31,17 +32,17 @@ const installReducer = (state: Install[], action: Action): Install[] => {
 }
 
 export type UseGetInstalls = (args?: {
-  permissions?: Install['permissions']['administration']
   installs?: Install[]
+  permissions?: Install['permissions']['administration']
 }) => {
   error: string | undefined
-  loading: boolean
   installs: Install[]
+  loading: boolean
   reload: () => void
 }
 
 export const useGetInstalls: UseGetInstalls = args => {
-  const { permissions, installs: initialInstalls } = args || {}
+  const { installs: initialInstalls, permissions } = args || {}
   const [error, setError] = React.useState<string | undefined>()
   const [installsLoading, setInstallsLoading] = React.useState(false)
   const [installs, dispatchInstalls] = React.useReducer(installReducer, initialInstalls || [])
@@ -99,7 +100,7 @@ export const useGetInstalls: UseGetInstalls = args => {
   }, [loadInstalls])
 
   const memoizedState = useMemo(
-    () => ({ installs, error, loading: installsLoading, reload }),
+    () => ({ error, installs, loading: installsLoading, reload }),
     [installs, error, installsLoading, reload],
   )
 

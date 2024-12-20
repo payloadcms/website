@@ -1,8 +1,9 @@
-import React from 'react'
+import type { BlocksProp } from '@components/RenderBlocks/index.js'
+import type { Page } from '@root/payload-types.js'
 
 import BreadcrumbsBar from '@components/Hero/BreadcrumbsBar/index.js'
-import { BlocksProp } from '@components/RenderBlocks/index.js'
-import { Page } from '@root/payload-types.js'
+import React from 'react'
+
 import { CenteredContent } from './CenteredContent/index.js'
 import { ContentMediaHero } from './ContentMedia/index.js'
 import { DefaultHero } from './Default/index.js'
@@ -14,28 +15,28 @@ import { LivestreamHero } from './Livestream/index.js'
 import { ThreeHero } from './Three/index.js'
 
 const heroes = {
-  default: DefaultHero,
+  centeredContent: CenteredContent,
   contentMedia: ContentMediaHero,
+  default: DefaultHero,
+  form: FormHero,
+  gradient: GradientHero,
   home: HomeHero,
   homeNew: HomeNewHero,
-  form: FormHero,
   livestream: LivestreamHero,
-  centeredContent: CenteredContent,
-  gradient: GradientHero,
   three: ThreeHero,
 }
 
 export const Hero: React.FC<{
-  page: Page
   firstContentBlock?: BlocksProp
+  page: Page
 }> = props => {
   const {
+    firstContentBlock,
     page: {
-      hero,
       breadcrumbs,
+      hero,
       hero: { type },
     },
-    firstContentBlock,
   } = props
 
   const HeroToRender = heroes[type] as any
@@ -43,9 +44,9 @@ export const Hero: React.FC<{
   if (HeroToRender) {
     return (
       <>
-        <BreadcrumbsBar hero={hero} breadcrumbs={breadcrumbs} />
+        <BreadcrumbsBar breadcrumbs={breadcrumbs} hero={hero} />
 
-        <HeroToRender {...hero} firstContentBlock={firstContentBlock} breadcrumbs={breadcrumbs} />
+        <HeroToRender {...hero} breadcrumbs={breadcrumbs} firstContentBlock={firstContentBlock} />
       </>
     )
   }

@@ -1,41 +1,40 @@
 'use client'
 
-import React, { useCallback, useEffect, useState } from 'react'
+import type { InitialState } from '@forms/types.js'
+
 import { cloudSlug } from '@cloud/slug.js'
+import { Gutter } from '@components/Gutter/index.js'
+import { RenderParams } from '@components/RenderParams/index.js'
 import { Text } from '@forms/fields/Text/index.js'
 import Form from '@forms/Form/index.js'
 import FormProcessing from '@forms/FormProcessing/index.js'
 import FormSubmissionError from '@forms/FormSubmissionError/index.js'
 import Submit from '@forms/Submit/index.js'
-import { InitialState } from '@forms/types.js'
-import Link from 'next/link'
-
-import { redirect, useSearchParams } from 'next/navigation'
-
-import { Gutter } from '@components/Gutter/index.js'
-import { RenderParams } from '@components/RenderParams/index.js'
 import { useAuth } from '@root/providers/Auth/index.js'
+import Link from 'next/link'
+import { redirect, useSearchParams } from 'next/navigation'
+import React, { useCallback, useEffect, useState } from 'react'
 
 import classes from './page.module.scss'
 
 const initialFormState: InitialState = {
   email: {
-    value: '',
-    valid: false,
-    initialValue: '',
     errorMessage: 'Please enter a valid email address',
+    initialValue: '',
+    valid: false,
+    value: '',
   },
   password: {
-    value: '',
-    valid: false,
-    initialValue: '',
     errorMessage: 'Please enter a password',
+    initialValue: '',
+    valid: false,
+    value: '',
   },
 }
 
 export const Login: React.FC = () => {
   const searchParams = useSearchParams()
-  const { user, login } = useAuth()
+  const { login, user } = useAuth()
   const [redirectTo, setRedirectTo] = useState(cloudSlug)
 
   const trustedRoutes = ['/'] // .. add more routes or external links
@@ -81,9 +80,9 @@ export const Login: React.FC = () => {
     [login],
   )
 
-  if (user === undefined) return null
+  if (user === undefined) {return null}
 
-  if (user) redirect(redirectTo)
+  if (user) {redirect(redirectTo)}
 
   return (
     <Gutter>
@@ -91,19 +90,19 @@ export const Login: React.FC = () => {
       <h1 className={classes.heading}>Log in to Payload Cloud</h1>
       <div className="grid">
         <div className={['cols-6 cols-m-8'].filter(Boolean).join(' ')}>
-          <Form onSubmit={handleSubmit} className={classes.form} initialState={initialFormState}>
+          <Form className={classes.form} initialState={initialFormState} onSubmit={handleSubmit}>
             <FormSubmissionError />
             <FormProcessing message="Logging in, one moment..." />
             <Text
-              path="email"
-              label="Email"
-              required
               elementAttributes={{ autoComplete: 'on' }}
               initialValue={searchParams?.get('email') || undefined}
+              label="Email"
+              path="email"
+              required
             />
-            <Text path="password" label="Password" type="password" required />
+            <Text label="Password" path="password" required type="password" />
             <div>
-              <Submit label="Log in" className={classes.submit} />
+              <Submit className={classes.submit} label="Log in" />
             </div>
           </Form>
         </div>

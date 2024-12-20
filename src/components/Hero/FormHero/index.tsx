@@ -1,28 +1,28 @@
 'use client'
 
-import React, { useEffect, useRef, useState } from 'react'
+import type { BlocksProp } from '@components/RenderBlocks/index.js'
+import type { Page } from '@root/payload-types.js'
 
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
 import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
 import { BlockWrapper } from '@components/BlockWrapper/index.js'
 import { CMSForm } from '@components/CMSForm/index.js'
 import { Gutter } from '@components/Gutter/index.js'
-import { BlocksProp } from '@components/RenderBlocks/index.js'
 import { RichText } from '@components/RichText/index.js'
-import { Page } from '@root/payload-types.js'
-import { useGetHeroPadding } from '../useGetHeroPadding.js'
+import React, { useEffect, useRef, useState } from 'react'
 
+import { useGetHeroPadding } from '../useGetHeroPadding.js'
 import classes from './index.module.scss'
 
 export type FormHeroProps = Page['hero']
 
 export const FormHero: React.FC<
-  FormHeroProps & {
+  {
     breadcrumbs?: Page['breadcrumbs']
     firstContentBlock?: BlocksProp
-  }
+  } & FormHeroProps
 > = props => {
-  const { richText, description, form, theme, firstContentBlock } = props
+  const { description, firstContentBlock, form, richText, theme } = props
   const padding = useGetHeroPadding(theme, firstContentBlock)
 
   const formRef = useRef<HTMLDivElement | null>(null)
@@ -39,10 +39,10 @@ export const FormHero: React.FC<
     return () => window.removeEventListener('resize', updateBackgroundHeight)
   }, [])
 
-  if (typeof form === 'string') return null
+  if (typeof form === 'string') {return null}
 
   return (
-    <BlockWrapper settings={{ theme }} padding={padding}>
+    <BlockWrapper padding={padding} settings={{ theme }}>
       <BackgroundGrid zIndex={0} />
       <Gutter>
         <div className={[classes.formHero, 'grid'].filter(Boolean).join(' ')}>
@@ -51,11 +51,11 @@ export const FormHero: React.FC<
               .filter(Boolean)
               .join(' ')}
           >
-            <RichText content={richText} className={[classes.richText].filter(Boolean).join(' ')} />
+            <RichText className={[classes.richText].filter(Boolean).join(' ')} content={richText} />
             <div className={classes.contentWrapper}>
               <RichText
-                content={description}
                 className={[classes.description].filter(Boolean).join(' ')}
+                content={description}
               />
             </div>
           </div>
@@ -87,8 +87,8 @@ export const FormHero: React.FC<
               />
             </div>
             <div
-              ref={formRef}
               className={[classes.cmsForm, 'cols-16 cols-m-8'].filter(Boolean).join(' ')}
+              ref={formRef}
             >
               <CMSForm form={form} />
             </div>

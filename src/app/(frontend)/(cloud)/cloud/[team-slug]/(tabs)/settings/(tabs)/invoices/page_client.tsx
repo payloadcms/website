@@ -1,36 +1,36 @@
 'use client'
 
-import * as React from 'react'
-import { InvoicesResult } from '@cloud/_api/fetchInvoices.js'
-import { TeamWithCustomer } from '@cloud/_api/fetchTeam.js'
+import type { InvoicesResult } from '@cloud/_api/fetchInvoices.js'
+import type { TeamWithCustomer } from '@cloud/_api/fetchTeam.js'
+import type { User } from '@root/payload-cloud-types.js'
 
 import { CircleIconButton } from '@components/CircleIconButton/index.js'
 import { Heading } from '@components/Heading/index.js'
 import { Pill } from '@components/Pill/index.js'
-import { User } from '@root/payload-cloud-types.js'
 import { checkTeamRoles } from '@root/utilities/check-team-roles.js'
 import { formatDate } from '@root/utilities/format-date-time.js'
 import { priceFromJSON } from '@root/utilities/price-from-json.js'
-import { useInvoices } from './useInvoices.js'
+import Link from 'next/link.js'
+import * as React from 'react'
 
 import classes from './page.module.scss'
-import Link from 'next/link.js'
+import { useInvoices } from './useInvoices.js'
 
 export const TeamInvoicesPage: React.FC<{
-  team: TeamWithCustomer
   invoices: InvoicesResult
+  team: TeamWithCustomer
   user: User
-}> = ({ team, invoices: initialInvoices, user }) => {
+}> = ({ invoices: initialInvoices, team, user }) => {
   const isCurrentTeamOwner = checkTeamRoles(user, team, ['owner'])
   const hasCustomerID = team?.stripeCustomerID
 
   const {
-    result: invoices,
     isLoading,
     loadMoreInvoices,
+    result: invoices,
   } = useInvoices({
-    team,
     initialInvoices,
+    team,
   })
 
   return (
@@ -50,18 +50,18 @@ export const TeamInvoicesPage: React.FC<{
                   <ul className={classes.list}>
                     {invoices &&
                       invoices?.data?.map((invoice, index) => {
-                        const { status, total, created, lines, hosted_invoice_url } = invoice
+                        const { created, hosted_invoice_url, lines, status, total } = invoice
 
                         const dateCreated = new Date(created * 1000)
 
                         return (
-                          <li key={`${invoice.id}-${index}`} className={classes.invoice}>
+                          <li className={classes.invoice} key={`${invoice.id}-${index}`}>
                             <div className={classes.invoiceBlockLeft}>
                               <Heading
-                                element="h3"
                                 as="h5"
-                                margin={false}
                                 className={classes.invoiceDate}
+                                element="h3"
+                                margin={false}
                               >
                                 {formatDate({ date: dateCreated })}
                               </Heading>
@@ -95,10 +95,7 @@ export const TeamInvoicesPage: React.FC<{
                             </div>
                             <div className={classes.invoiceBlockRight}>
                               <Heading
-                                element="h4"
                                 as="h5"
-                                marginBottom={false}
-                                marginTop={false}
                                 className={[
                                   total < 0
                                     ? classes.invoiceTotalNegative
@@ -106,6 +103,9 @@ export const TeamInvoicesPage: React.FC<{
                                 ]
                                   .filter(Boolean)
                                   .join(' ')}
+                                element="h4"
+                                marginBottom={false}
+                                marginTop={false}
                               >
                                 {`${priceFromJSON(
                                   JSON.stringify({
@@ -115,8 +115,8 @@ export const TeamInvoicesPage: React.FC<{
                               </Heading>
                               {hosted_invoice_url && (
                                 <Link
-                                  href={hosted_invoice_url}
                                   className={classes.invoiceLink}
+                                  href={hosted_invoice_url}
                                   target="_blank"
                                 >
                                   View Invoice

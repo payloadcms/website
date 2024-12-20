@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
+ 
 import type { PayloadHandler } from 'payload'
 
 import matter from 'gray-matter'

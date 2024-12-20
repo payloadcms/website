@@ -9,19 +9,19 @@ export interface Subscription {
 
 export const useSubscription = (args: {
   delay?: number
-  initialValue?: Subscription | null
+  initialValue?: null | Subscription
   stripeSubscriptionID?: string
   team: Team
 }): {
   error: string
   isLoading: boolean | null
   refreshSubscription: () => void
-  result: Subscription | null | undefined
+  result: null | Subscription | undefined
   updateSubscription: (subscription: Subscription) => void
 } => {
   const { delay, initialValue, stripeSubscriptionID, team } = args
   const isRequesting = useRef(false)
-  const [result, setResult] = useState<Subscription | null | undefined>(initialValue)
+  const [result, setResult] = useState<null | Subscription | undefined>(initialValue)
   const [isLoading, setIsLoading] = useState<boolean | null>(null)
   const [error, setError] = useState('')
 
@@ -33,7 +33,7 @@ export const useSubscription = (args: {
       return
     }
 
-    if (isRequesting.current) return
+    if (isRequesting.current) {return}
 
     isRequesting.current = true
 
@@ -72,14 +72,14 @@ export const useSubscription = (args: {
 
     makeRetrieval()
 
-    // eslint-disable-next-line consistent-return
+     
     return () => {
       clearTimeout(timer)
     }
   }, [delay, stripeSubscriptionID, team?.id])
 
   useEffect(() => {
-    if (initialValue) return
+    if (initialValue) {return}
     getSubscriptions()
   }, [getSubscriptions, initialValue])
 
@@ -96,7 +96,7 @@ export const useSubscription = (args: {
         return
       }
 
-      if (isRequesting.current) return
+      if (isRequesting.current) {return}
 
       isRequesting.current = true
 
@@ -139,7 +139,7 @@ export const useSubscription = (args: {
 
       makeUpdate()
 
-      // eslint-disable-next-line consistent-return
+       
       return () => {
         clearTimeout(timer)
       }

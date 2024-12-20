@@ -1,24 +1,23 @@
 'use client'
 
-import * as React from 'react'
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleToggler,
   useCollapsible,
 } from '@faceless-ui/collapsibles'
-
 import { ChevronIcon } from '@root/graphics/ChevronIcon/index.js'
 import { EyeIcon } from '@root/icons/EyeIcon/index.js'
+import * as React from 'react'
 
 import classes from './index.module.scss'
 
 const Icons = {
-  eye: EyeIcon,
   chevron: ChevronIcon,
+  eye: EyeIcon,
 }
 
-const IconToRender: React.FC<{ icon: 'eye' | 'chevron' }> = ({ icon }) => {
+const IconToRender: React.FC<{ icon: 'chevron' | 'eye' }> = ({ icon }) => {
   const { isOpen } = useCollapsible()
 
   if (icon === 'eye') {
@@ -31,7 +30,7 @@ const IconToRender: React.FC<{ icon: 'eye' | 'chevron' }> = ({ icon }) => {
 
 type HeaderProps = {
   label: React.ReactNode
-  toggleIcon?: 'eye' | 'chevron'
+  toggleIcon?: 'chevron' | 'eye'
 }
 
 const Header: React.FC<HeaderProps> = ({ label, toggleIcon = 'chevron' }) => {
@@ -58,30 +57,30 @@ const Content: React.FC<ContentProps> = ({ children }) => {
   )
 }
 
-type AccordionProps = HeaderProps &
-  ContentProps & {
+type AccordionProps = {
     className?: string
-    openOnInit?: boolean
     onToggle?: () => void
-  }
+    openOnInit?: boolean
+  } &
+  ContentProps & HeaderProps
 
 export const Accordion: React.FC<AccordionProps> = ({
   children,
   className,
-  openOnInit,
   onToggle,
+  openOnInit,
   ...rest
 }) => {
   return (
     <Collapsible
-      openOnInit={openOnInit}
-      transTime={250}
-      transCurve="ease"
       onToggle={() => {
         if (typeof onToggle === 'function') {
           onToggle()
         }
       }}
+      openOnInit={openOnInit}
+      transCurve="ease"
+      transTime={250}
     >
       <div className={[classes.accordion, className].filter(Boolean).join(' ')}>
         <Header {...rest} />

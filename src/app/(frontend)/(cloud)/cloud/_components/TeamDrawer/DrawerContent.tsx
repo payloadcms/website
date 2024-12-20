@@ -1,21 +1,22 @@
-import React, { useCallback } from 'react'
-import { toast } from 'sonner'
+import type { Team } from '@root/payload-cloud-types.js'
+
 import { revalidateCache } from '@cloud/_actions/revalidateCache.js'
+import { HR } from '@components/HR/index.js'
 import { useModal } from '@faceless-ui/modal'
 import { Text } from '@forms/fields/Text/index.js'
 import Form from '@forms/Form/index.js'
 import FormProcessing from '@forms/FormProcessing/index.js'
 import FormSubmissionError from '@forms/FormSubmissionError/index.js'
 import Submit from '@forms/Submit/index.js'
-import { useRouter } from 'next/navigation'
-
-import { HR } from '@components/HR/index.js'
-import { Team } from '@root/payload-cloud-types.js'
 import { useAuth } from '@root/providers/Auth/index.js'
+import { useRouter } from 'next/navigation'
+import React, { useCallback } from 'react'
+import { toast } from 'sonner'
+
+import type { TeamDrawerProps } from './types.js'
+
 import { InviteTeammates } from '../InviteTeammates/index.js'
 import { UniqueTeamSlug } from '../UniqueSlug/index.js'
-import { TeamDrawerProps } from './types.js'
-
 import classes from './DrawerContent.module.scss'
 
 export const TeamDrawerContent: React.FC<TeamDrawerProps> = ({
@@ -23,16 +24,16 @@ export const TeamDrawerContent: React.FC<TeamDrawerProps> = ({
   onCreate,
   redirectOnCreate,
 }) => {
-  const { user, setUser } = useAuth()
+  const { setUser, user } = useAuth()
   const router = useRouter()
 
   const [errors, setErrors] = React.useState<{
+    data: { field: string; message: string }[]
     message: string
     name: string
-    data: { message: string; field: string }[]
   }>()
 
-  const { modalState, closeModal } = useModal()
+  const { closeModal, modalState } = useModal()
 
   const handleSubmit = useCallback(
     async ({ unflattenedData }) => {
@@ -59,22 +60,22 @@ export const TeamDrawerContent: React.FC<TeamDrawerProps> = ({
         }
 
         const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/teams`, {
-          method: 'POST',
+          body: JSON.stringify(newTeam),
           credentials: 'include',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(newTeam),
+          method: 'POST',
         })
 
         const response: {
           doc: Team
-          message: string
           errors: {
+            data: { field: string; message: string }[]
             message: string
             name: string
-            data: { message: string; field: string }[]
           }[]
+          message: string
         } = await req.json()
 
         if (!req.ok) {
@@ -89,8 +90,8 @@ export const TeamDrawerContent: React.FC<TeamDrawerProps> = ({
             // the api adds the user as an owner automatically, need to sync that here
             // this data does not come back from the API in the response
             {
-              team: response?.doc,
               roles: ['owner'],
+              team: response?.doc,
             },
           ],
         })
@@ -122,12 +123,11 @@ export const TeamDrawerContent: React.FC<TeamDrawerProps> = ({
 
   const isOpen = modalState[drawerSlug]?.isOpen
 
-  if (!isOpen) return null
+  if (!isOpen) {return null}
 
   return (
     <div className="list-drawer__content">
       <Form
-        onSubmit={handleSubmit}
         className={classes.form}
         errors={errors?.data}
         initialState={{
@@ -136,16 +136,17 @@ export const TeamDrawerContent: React.FC<TeamDrawerProps> = ({
             value: 'My Team',
           },
         }}
+        onSubmit={handleSubmit}
       >
         <FormProcessing message="Creating team..." />
         <FormSubmissionError />
-        <Text path="name" required label="Name" />
+        <Text label="Name" path="name" required />
         <UniqueTeamSlug initialValue="my-team" />
         <HR margin="small" />
         <InviteTeammates />
         <HR margin="small" />
         <div>
-          <Submit label="Create Team" className={classes.submit} />
+          <Submit className={classes.submit} label="Create Team" />
         </div>
       </Form>
     </div>

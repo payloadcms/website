@@ -1,9 +1,9 @@
 'use client'
-import React, { useCallback, useEffect, useState } from 'react'
 import { Modal, useModal } from '@faceless-ui/modal'
-
 import { CloseIcon } from '@root/icons/CloseIcon/index.js'
-import { Props, TogglerProps } from './types.js'
+import React, { useCallback, useEffect, useState } from 'react'
+
+import type { Props, TogglerProps } from './types.js'
 
 import classes from './index.module.scss'
 
@@ -13,8 +13,8 @@ export const DrawerToggler: React.FC<TogglerProps> = ({
   slug,
   children,
   className,
-  onClick,
   disabled,
+  onClick,
   ...rest
 }) => {
   const { openModal } = useModal()
@@ -22,13 +22,13 @@ export const DrawerToggler: React.FC<TogglerProps> = ({
   const handleClick = useCallback(
     e => {
       openModal(slug)
-      if (typeof onClick === 'function') onClick(e)
+      if (typeof onClick === 'function') {onClick(e)}
     },
     [openModal, slug, onClick],
   )
 
   return (
-    <button onClick={handleClick} type="button" className={className} disabled={disabled} {...rest}>
+    <button className={className} disabled={disabled} onClick={handleClick} type="button" {...rest}>
       {children}
     </button>
   )
@@ -38,10 +38,10 @@ export const Drawer: React.FC<Props> = ({
   slug,
   children,
   className,
-  header,
-  title,
   description,
+  header,
   size = 'l',
+  title,
 }) => {
   const { closeModal, modalState } = useModal()
   const [isOpen, setIsOpen] = useState(false)
@@ -58,7 +58,6 @@ export const Drawer: React.FC<Props> = ({
   if (isOpen) {
     return (
       <Modal
-        slug={slug}
         className={[
           className,
           classes.drawer,
@@ -67,14 +66,15 @@ export const Drawer: React.FC<Props> = ({
         ]
           .filter(Boolean)
           .join(' ')}
+        slug={slug}
       >
         <div className={classes.blurBG} />
         <button
+          aria-label="Close"
           className={classes.close}
           id={`close-drawer__${slug}`}
-          type="button"
           onClick={() => closeModal(slug)}
-          aria-label="Close"
+          type="button"
         />
         <div className={classes.content}>
           <div className={classes.contentChildren}>
@@ -86,11 +86,11 @@ export const Drawer: React.FC<Props> = ({
                   {description && <p className={classes.description}>{description}</p>}
                 </div>
                 <button
+                  aria-label="Close"
                   className={classes.headerClose}
                   id={`close-drawer__${slug}`}
-                  type="button"
                   onClick={() => closeModal(slug)}
-                  aria-label="Close"
+                  type="button"
                 >
                   <CloseIcon size="large" />
                 </button>

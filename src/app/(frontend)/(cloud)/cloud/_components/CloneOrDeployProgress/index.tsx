@@ -1,13 +1,13 @@
 'use client'
 
-import React, { Fragment, useEffect } from 'react'
-import { Install } from '@cloud/_api/fetchInstalls.js'
-import { useForm, useFormProcessing } from '@forms/Form/context.js'
+import type { Install } from '@cloud/_api/fetchInstalls.js'
+import type { Project, Template } from '@root/payload-cloud-types.js'
 
+import { useForm, useFormProcessing } from '@forms/Form/context.js'
 import { GithubIcon } from '@root/graphics/GithubIcon/index.js'
 import { PayloadIcon } from '@root/graphics/PayloadIcon/index.js'
 import { FolderIcon } from '@root/icons/FolderIcon/index.js'
-import { Project, Template } from '@root/payload-cloud-types.js'
+import React, { Fragment, useEffect } from 'react'
 
 import classes from './index.module.scss'
 
@@ -16,18 +16,18 @@ export const CloneOrDeployProgress: React.FC<
     id?: string
   } & (
     | {
-        type: 'clone'
-        template: Template | undefined
-        selectedInstall: Install | undefined
+        destination: string | undefined
+        repositoryFullName: Project['repositoryFullName']
+        type: 'deploy'
       }
     | {
-        type: 'deploy'
-        repositoryFullName: Project['repositoryFullName']
-        destination: string | undefined
+        selectedInstall: Install | undefined
+        template: Template | undefined
+        type: 'clone'
       }
   )
 > = props => {
-  const { type, id } = props
+  const { id, type } = props
 
   const { fields } = useForm()
 
@@ -61,7 +61,7 @@ export const CloneOrDeployProgress: React.FC<
         .filter(Boolean)
         .join(' ')}
     >
-      <div ref={ref} className={classes.scrollTarget} id={id} />
+      <div className={classes.scrollTarget} id={id} ref={ref} />
       <div className={classes.header}>
         <div className={classes.icons}>
           <div className={classes.headerIcon}>

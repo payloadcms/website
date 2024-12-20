@@ -1,9 +1,9 @@
-import { ProjectWithSubscription } from "@cloud/_api/fetchProject"
-import { Project } from "@root/payload-cloud-types"
+import type { ProjectWithSubscription } from "@cloud/_api/fetchProject"
+import type { Project } from "@root/payload-cloud-types"
 
 type Props<ReturnProject = Project> = {
   environmentSlug: string
-  project: ReturnProject | ProjectWithSubscription
+  project: ProjectWithSubscription | ReturnProject
 }
 export function mergeProjectEnvironment({ environmentSlug, project }: Props) {
   return {

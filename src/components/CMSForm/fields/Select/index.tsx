@@ -1,53 +1,53 @@
 'use client'
 
-import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
-import ReactSelect from 'react-select'
-import Error from '@forms/Error/index.js'
-import { FieldProps } from '@forms/fields/types.js'
-import { useFormField } from '@forms/useFormField/index.js'
+import type { FieldProps } from '@forms/fields/types.js'
 
 import Label from '@components/CMSForm/Label/index.js'
-import { countryOptions } from './countries.js'
-import { stateOptions } from './states.js'
+import Error from '@forms/Error/index.js'
+import { useFormField } from '@forms/useFormField/index.js'
+import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
+import ReactSelect from 'react-select'
 
+import { countryOptions } from './countries.js'
 import classes from './index.module.scss'
+import { stateOptions } from './states.js'
 
 type Option = {
   label: string
   value: any
 }
 
-type SelectProps = FieldProps<string | string[]> & {
-  options: Option[]
-  isMulti?: boolean
-  isClearable?: boolean
+type SelectProps = {
   components?: {
     [key: string]: React.FC<any>
   }
-  value?: string | string[]
+  isClearable?: boolean
+  isMulti?: boolean
   onMenuScrollToBottom?: () => void
-}
+  options: Option[]
+  value?: string | string[]
+} & FieldProps<string | string[]>
 
 export const Select: React.FC<
-  SelectProps & { selectType?: 'normal' | 'state' | 'country' }
+  { selectType?: 'country' | 'normal' | 'state' } & SelectProps
 > = props => {
   const {
-    path,
-    required,
-    validate,
-    label,
-    options: optionsFromProps,
-    onChange,
     className,
-    initialValue: initialValueFromProps, // allow external control
-    isMulti,
-    isClearable,
     components,
-    value: valueFromProps, // allow external control
     description,
     disabled,
+    initialValue: initialValueFromProps, // allow external control
+    isClearable,
+    isMulti,
+    label,
+    onChange,
     onMenuScrollToBottom,
+    options: optionsFromProps,
+    path,
+    required,
     selectType = 'normal',
+    validate,
+    value: valueFromProps, // allow external control
   } = props
 
   const [isFocused, setIsFocused] = React.useState(false)
@@ -58,10 +58,10 @@ export const Select: React.FC<
 
   const options = useMemo(() => {
     switch (selectType) {
-      case 'state':
-        return stateOptions
       case 'country':
         return countryOptions
+      case 'state':
+        return stateOptions
       default:
         return optionsFromProps
     }
@@ -83,7 +83,7 @@ export const Select: React.FC<
       const isValid = Array.isArray(fieldValue)
         ? fieldValue.every(v =>
             options.find(item => item.value === (typeof v === 'string' ? v : v?.value)),
-          ) // eslint-disable-line function-paren-newline
+          )  
         : options.find(
             item =>
               item.value === (typeof fieldValue === 'string' ? fieldValue : fieldValue?.value),
@@ -99,12 +99,12 @@ export const Select: React.FC<
   )
 
   const fieldFromContext = useFormField<string | string[]>({
+    initialValue: initialValueFromProps,
     path,
     validate: validate || defaultValidateFunction,
-    initialValue: initialValueFromProps,
   })
 
-  const { value: valueFromContext, showError, setValue, errorMessage } = fieldFromContext
+  const { errorMessage, setValue, showError, value: valueFromContext } = fieldFromContext
 
   const [internalState, setInternalState] = useState<Option | Option[] | undefined>(() => {
     const initialValue = valueFromContext || initialValueFromProps
@@ -235,24 +235,24 @@ export const Select: React.FC<
           label={label}
           required={required}
         />
-        <Error className={classes.errorLabel} showError={showError} message={errorMessage} />
+        <Error className={classes.errorLabel} message={errorMessage} showError={showError} />
       </div>
       <ReactSelect
-        ref={ref}
-        isMulti={isMulti}
-        isClearable={isClearable}
-        instanceId={id}
-        onChange={handleChange}
-        options={options}
-        value={internalState}
         className={classes.reactSelect}
         classNamePrefix="rs"
         components={components}
+        instanceId={id}
+        isClearable={isClearable}
         isDisabled={disabled}
-        onMenuScrollToBottom={onMenuScrollToBottom}
+        isMulti={isMulti}
         noOptionsMessage={() => 'No options'}
-        onMenuOpen={() => setIsFocused(true)}
+        onChange={handleChange}
         onMenuClose={handleMenuClose}
+        onMenuOpen={() => setIsFocused(true)}
+        onMenuScrollToBottom={onMenuScrollToBottom}
+        options={options}
+        ref={ref}
+        value={internalState}
       />
       {description && <div className={classes.description}>{description}</div>}
     </div>

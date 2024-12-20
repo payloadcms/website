@@ -6,8 +6,7 @@ import { VersionSelector } from '@root/components/VersionSelector/index.js'
 import { ChevronIcon } from '@root/icons/ChevronIcon/index.js'
 import { CloseIcon } from '@root/icons/CloseIcon/index.js'
 import Link from 'next/link'
-import React, { Fragment } from 'react'
-import { useEffect, useRef, useState } from 'react'
+import React, { Fragment , useEffect, useRef, useState } from 'react'
 
 import type { TopicGroup } from '../../app/(frontend)/(pages)/docs/api'
 

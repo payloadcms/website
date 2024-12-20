@@ -2,7 +2,7 @@
 import type { AnyThreadChannel, Message } from 'discord.js'
 import type { Payload } from 'payload'
 
-/* eslint-disable @typescript-eslint/no-unused-vars, no-console, no-underscore-dangle, no-use-before-define */
+/* eslint-disable @typescript-eslint/no-unused-vars, no-console */
 import { Bar } from 'cli-progress'
 import { ChannelType, Client, Events, GatewayIntentBits } from 'discord.js'
 import { toHTML } from 'discord-markdown'
@@ -101,14 +101,14 @@ export async function fetchDiscordThreads(payload: Payload): Promise<void> {
       if (info.messageCount && info.messageCount > 100) {
         let lastMessage = messages.last()?.id
 
-        // eslint-disable-next-line no-constant-condition
+         
         while (true) {
           const moreMessages = await info.messages.fetch({
             before: lastMessage,
             limit: 100,
           })
 
-          if (!moreMessages.last()) break
+          if (!moreMessages.last()) {break}
           messages = messages.concat(moreMessages)
           lastMessage = moreMessages.last()?.id
         }

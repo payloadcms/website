@@ -1,6 +1,7 @@
 'use client'
 
-import React from 'react'
+import type { BlocksProp } from '@components/RenderBlocks/index.js'
+import type { Page } from '@root/payload-types.js'
 
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
 import { BlockWrapper } from '@components/BlockWrapper/index.js'
@@ -9,51 +10,50 @@ import { Gutter } from '@components/Gutter/index.js'
 import { useGetHeroPadding } from '@components/Hero/useGetHeroPadding.js'
 import { Media } from '@components/Media/index.js'
 import MediaParallax from '@components/MediaParallax/index.js'
-import { BlocksProp } from '@components/RenderBlocks/index.js'
 import { RichText } from '@components/RichText/index.js'
-import { Page } from '@root/payload-types.js'
+import React from 'react'
 
 import classes from './index.module.scss'
 
 export const GradientHero: React.FC<
-  Pick<
-    Page['hero'],
-    | 'richText'
-    | 'images'
-    | 'fullBackground'
-    | 'links'
-    | 'description'
-    | 'theme'
-    | 'enableBreadcrumbsBar'
-  > & {
+  {
     breadcrumbs?: Page['breadcrumbs']
     firstContentBlock?: BlocksProp
-  }
+  } & Pick<
+    Page['hero'],
+    | 'description'
+    | 'enableBreadcrumbsBar'
+    | 'fullBackground'
+    | 'images'
+    | 'links'
+    | 'richText'
+    | 'theme'
+  >
 > = ({
-  richText,
-  images,
-  fullBackground,
-  links,
   description,
-  theme: themeFromProps,
   enableBreadcrumbsBar,
   firstContentBlock,
+  fullBackground,
+  images,
+  links,
+  richText,
+  theme: themeFromProps,
 }) => {
   const theme = fullBackground ? 'dark' : themeFromProps
   const padding = useGetHeroPadding(theme, firstContentBlock)
 
   return (
-    <BlockWrapper settings={{ theme }} padding={{ top: 'small', bottom: 'small' }}>
+    <BlockWrapper padding={{ bottom: 'small', top: 'small' }} settings={{ theme }}>
       {Boolean(fullBackground) && (
         <Media
+          alt=""
           className={[classes.bgFull, enableBreadcrumbsBar ? classes.hasBreadcrumbsEnabled : '']
             .filter(Boolean)
             .join(' ')}
-          src="/images/background-shapes.webp"
-          alt=""
-          width={1920}
           height={1080}
           priority
+          src="/images/background-shapes.webp"
+          width={1920}
         />
       )}
       <BackgroundGrid className={classes.backgroundGrid} zIndex={0} />
@@ -69,11 +69,11 @@ export const GradientHero: React.FC<
               .filter(Boolean)
               .join(' ')}
           >
-            <RichText content={richText} className={[classes.richText].filter(Boolean).join(' ')} />
+            <RichText className={[classes.richText].filter(Boolean).join(' ')} content={richText} />
             <div className={classes.contentWrapper}>
               <RichText
-                content={description}
                 className={[classes.description].filter(Boolean).join(' ')}
+                content={description}
               />
 
               <div className={[classes.linksWrapper].filter(Boolean).join(' ')}>
@@ -93,14 +93,14 @@ export const GradientHero: React.FC<
               </div>
             </div>
           </div>
-          {!Boolean(fullBackground) && (
+          {!fullBackground && (
             <Media
-              className={[classes.bgSquare, 'cols-8 start-9 start-m-1'].filter(Boolean).join(' ')}
-              src="/images/gradient-square.jpg"
               alt=""
-              width={800}
+              className={[classes.bgSquare, 'cols-8 start-9 start-m-1'].filter(Boolean).join(' ')}
               height={800}
               priority
+              src="/images/gradient-square.jpg"
+              width={800}
             />
           )}
           <div

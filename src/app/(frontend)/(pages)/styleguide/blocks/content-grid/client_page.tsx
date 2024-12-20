@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import type React from 'react'
 // import { ContentGrid, ContentGridProps } from '@blocks/ContentGrid/index.js'
 
 // import { StyleguidePageContent } from '../../PageContent/index.js'

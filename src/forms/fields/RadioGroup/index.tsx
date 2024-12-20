@@ -2,37 +2,37 @@
 
 import React, { useId } from 'react'
 
+import type { FieldProps } from '../types.js'
+
 import Error from '../../Error/index.js'
 import Label from '../../Label/index.js'
-import { FieldProps } from '../types.js'
 import { useField } from '../useField/index.js'
-
 import classes from './index.module.scss'
 
 export type Option = {
-  label: string | React.ReactElement
+  label: React.ReactElement | string
   value: string
 }
 
 const RadioGroup: React.FC<
-  FieldProps<string> & {
-    options: Option[]
-    layout?: 'vertical' | 'horizontal'
+  {
     hidden?: boolean
-  }
+    layout?: 'horizontal' | 'vertical'
+    options: Option[]
+  } & FieldProps<string>
 > = props => {
   const {
+    className,
+    hidden,
+    initialValue,
+    label,
+    layout,
+    onChange: onChangeFromProps,
+    onClick,
+    options,
     path,
     required = false,
     validate,
-    label,
-    options,
-    onChange: onChangeFromProps,
-    initialValue,
-    layout,
-    hidden,
-    onClick,
-    className,
   } = props
 
   const id = useId()
@@ -52,12 +52,12 @@ const RadioGroup: React.FC<
     [required, options],
   )
 
-  const { onChange, value, showError, errorMessage } = useField<string>({
+  const { errorMessage, onChange, showError, value } = useField<string>({
     initialValue,
     onChange: onChangeFromProps,
     path,
-    validate: validate || defaultValidateFunction,
     required,
+    validate: validate || defaultValidateFunction,
   })
 
   return (
@@ -66,7 +66,7 @@ const RadioGroup: React.FC<
         .filter(Boolean)
         .join(' ')}
     >
-      <Error showError={showError} message={errorMessage} />
+      <Error message={errorMessage} showError={showError} />
       <Label htmlFor={path} label={label} required={required} />
       <ul className={classes.ul}>
         {options.map((option, index) => {
@@ -74,15 +74,15 @@ const RadioGroup: React.FC<
           const optionId = `${id}-${index}`
 
           return (
-            <li key={index} className={classes.li}>
-              <label htmlFor={optionId} className={classes.radioWrap} onClick={onClick}>
+            <li className={classes.li} key={index}>
+              <label className={classes.radioWrap} htmlFor={optionId} onClick={onClick}>
                 <input
-                  id={optionId}
-                  type="radio"
                   checked={isSelected}
+                  id={optionId}
                   onChange={() => {
                     onChange(option.value)
                   }}
+                  type="radio"
                 />
                 <span
                   className={[

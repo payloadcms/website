@@ -1,8 +1,8 @@
 import type { Config } from '@types'
 
 import configPromise from '@payload-config'
-import { getPayload } from 'payload'
 import { unstable_cache } from 'next/cache'
+import { getPayload } from 'payload'
 
 type Collection = keyof Config['collections']
 

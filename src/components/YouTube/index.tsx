@@ -11,12 +11,12 @@ const YouTube: (props) => React.JSX.Element = ({ id, title }) => (
   <div className={classes.wrap}>
     <div className={classes.innerWrap}>
       <iframe
-        className={classes.iframe}
-        src={`https://www.youtube.com/embed/${id}`}
-        title={title}
-        frameBorder="0"
         allow="autoplay;"
         allowFullScreen
+        className={classes.iframe}
+        frameBorder="0"
+        src={`https://www.youtube.com/embed/${id}`}
+        title={title}
       />
     </div>
   </div>

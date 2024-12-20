@@ -1,21 +1,19 @@
 import type {
-  DOMExportOutput,
-  LexicalEditor,
-  ParagraphNode,
-  Spread,
-} from '@payloadcms/richtext-lexical/lexical'
-
-import {
   $applyNodeReplacement,
   $createParagraphNode,
+  DOMExportOutput,
   type EditorConfig,
+
   ElementNode,
+  isHTMLElement,
+  LexicalEditor,
   type LexicalNode,
   type NodeKey,
+  ParagraphNode,
   type RangeSelection,
   type SerializedElementNode,
-  isHTMLElement,
-} from '@payloadcms/richtext-lexical/lexical'
+  Spread} from '@payloadcms/richtext-lexical/lexical'
+
 import { addClassNamesToElement } from '@payloadcms/richtext-lexical/lexical/utils'
 
 export type SerializedLabelNode = Spread<
@@ -78,7 +76,7 @@ export class LabelNode extends ElementNode {
     const { element } = super.exportDOM(editor)
 
     if (element && isHTMLElement(element)) {
-      if (this.isEmpty()) element.append(document.createElement('br'))
+      if (this.isEmpty()) {element.append(document.createElement('br'))}
 
       const formatType = this.getFormatType()
       element.style.textAlign = formatType

@@ -1,8 +1,9 @@
 'use client'
 import React, { useCallback, useState } from 'react'
 
+import type { AddHeading, Heading, IContext } from './types.js'
+
 import Context from './context.js'
-import { AddHeading, Heading, IContext } from './types.js'
 
 export const MDXProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [toc, setTOC] = useState<Map<string, Heading>>(new Map())
@@ -11,7 +12,7 @@ export const MDXProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     (anchor, heading, type) => {
       if (!toc.has(anchor)) {
         const newTOC = new Map(toc)
-        newTOC.set(anchor, { heading, type, anchor })
+        newTOC.set(anchor, { type, anchor, heading })
         setTOC(newTOC)
       }
     },
@@ -19,8 +20,8 @@ export const MDXProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   )
 
   const context: IContext = {
-    toc: Array.from(toc).reverse(),
     addHeading,
+    toc: Array.from(toc).reverse(),
   }
 
   return (

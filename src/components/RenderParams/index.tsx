@@ -1,6 +1,8 @@
 import { Suspense } from 'react'
 
-import { Props, RenderParamsComponent } from './Component.js'
+import type { Props} from './Component.js';
+
+import { RenderParamsComponent } from './Component.js'
 
 // Using `useSearchParams` from `next/navigation` causes the entire route to de-optimize into client-side rendering
 // To fix this, we wrap the component in a `Suspense` component

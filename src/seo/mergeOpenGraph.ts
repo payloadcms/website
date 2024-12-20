@@ -2,8 +2,6 @@ import type { Metadata } from 'next'
 
 const defaultOpenGraph: Metadata['openGraph'] = {
   type: 'website',
-  siteName: 'Payload',
-  title: 'Payload',
   description:
     'Payload is a headless CMS and application framework built with TypeScript, Node.js, React and MongoDB',
   images: [
@@ -11,6 +9,8 @@ const defaultOpenGraph: Metadata['openGraph'] = {
       url: '/images/og-image.jpg',
     },
   ],
+  siteName: 'Payload',
+  title: 'Payload',
 }
 
 export const mergeOpenGraph = (og?: Metadata['openGraph']): Metadata['openGraph'] => {

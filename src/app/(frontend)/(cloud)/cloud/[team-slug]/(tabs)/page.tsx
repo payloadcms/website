@@ -1,9 +1,10 @@
+import type { Metadata } from 'next'
+
 import { fetchProjects } from '@cloud/_api/fetchProjects.js'
 import { fetchTeamWithCustomer } from '@cloud/_api/fetchTeam.js'
 import { fetchTemplates } from '@cloud/_api/fetchTemplates.js'
-import { Metadata } from 'next'
-
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
+
 import { TeamPage } from './page_client.js'
 
 export default async ({
@@ -19,7 +20,7 @@ export default async ({
 
   const templates = await fetchTemplates()
 
-  return <TeamPage team={team} initialState={projectsRes} templates={templates} />
+  return <TeamPage initialState={projectsRes} team={team} templates={templates} />
 }
 
 export async function generateMetadata({
@@ -31,10 +32,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { 'team-slug': teamSlug } = await params
   return {
-    title: `${teamSlug} - Team Projects`,
     openGraph: mergeOpenGraph({
       title: `${teamSlug} - Team Projects`,
       url: `/cloud/${teamSlug}`,
     }),
+    title: `${teamSlug} - Team Projects`,
   }
 }

@@ -10,15 +10,15 @@ export const updateSubscription = async (
   const sub = await fetch(
     `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/teams/${team?.id}/subscriptions/${project?.stripeSubscriptionID}`,
     {
-      method: 'PATCH',
+      body: JSON.stringify(subscription),
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(subscription),
+      method: 'PATCH',
     },
   )?.then(res => {
-    if (!res.ok) throw new Error('Failed to update subscription')
+    if (!res.ok) {throw new Error('Failed to update subscription')}
     return res.json()
   })
 

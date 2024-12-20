@@ -1,14 +1,14 @@
 import React from 'react'
 
-import { Props } from './types.js'
+import type { Props } from './types.js'
 
 import classes from './index.module.scss'
 
 const LabelOnly: React.FC<Props> = props => {
-  const { htmlFor, required, label, className } = props
+  const { className, htmlFor, label, required } = props
 
   return (
-    <label htmlFor={htmlFor} className={[classes.label, className].filter(Boolean).join(' ')}>
+    <label className={[classes.label, className].filter(Boolean).join(' ')} htmlFor={htmlFor}>
       {label}
       {required && <span className={classes.required}>*</span>}
     </label>
@@ -16,7 +16,7 @@ const LabelOnly: React.FC<Props> = props => {
 }
 
 const Label: React.FC<Props> = props => {
-  const { actionsClassName, label, actionsSlot, margin } = props
+  const { actionsClassName, actionsSlot, label, margin } = props
 
   if (label) {
     if (actionsSlot) {

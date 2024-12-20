@@ -3,19 +3,19 @@ import React from 'react'
 import classes from './index.module.scss'
 
 type Props = {
-  top?: boolean
   bottom?: boolean
   children: React.ReactNode
   className?: string
   style?: React.CSSProperties
+  top?: boolean
 }
 
 export const BlockSpacing: React.FC<Props> = ({
-  top = true,
   bottom = true,
-  className,
   children,
+  className,
   style,
+  top = true,
 }) => {
   return (
     <div

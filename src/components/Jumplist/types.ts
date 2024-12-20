@@ -5,17 +5,17 @@ export interface ListItemComponentProps {
 }
 
 export interface ListItem {
-  id: string
   anchor: string
   Component: React.ComponentType<ListItemComponentProps>
+  id: string
 }
 
 export interface Props {
-  list: ListItem[]
   className?: string
   injectProps?: {
     [prop: string]: unknown
   }
+  list: ListItem[]
 }
 
 export interface State {
@@ -23,8 +23,8 @@ export interface State {
 }
 
 export interface Action {
-  id: string
   active: boolean
+  id: string
 }
 
 export type Reducer = (state: State, action: Action) => State
@@ -37,7 +37,7 @@ export interface IContext {
 }
 
 export interface NodeProps {
-  id: string
   children: React.ReactNode
+  id: string
   type: 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 }

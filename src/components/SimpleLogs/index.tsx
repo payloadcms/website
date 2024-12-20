@@ -7,14 +7,14 @@ type MessageChunk = {
   text: string
 }
 export type LogLine = {
+  lineType?: 'default' | 'error' | 'info' | 'success' | 'warning'
+  messageChunks: MessageChunk[]
   service: string
   timestamp: string
-  messageChunks: MessageChunk[]
-  lineType?: 'default' | 'success' | 'error' | 'info' | 'warning'
 }
 
 const LogLine = ({ logLine }: { logLine: LogLine }) => {
-  const { timestamp, messageChunks, lineType } = logLine || {}
+  const { lineType, messageChunks, timestamp } = logLine || {}
 
   return (
     <tr className={[classes.logLine, classes[`lineType--${lineType}`]].join(' ')}>
@@ -23,10 +23,10 @@ const LogLine = ({ logLine }: { logLine: LogLine }) => {
         <td>
           {messageChunks.map((chunk, i) => (
             <span
-              key={i}
               className={[classes.logText, classes[`logTextAppearance--${chunk.appearance}`]].join(
                 ' ',
               )}
+              key={i}
             >
               {chunk.text}
             </span>
@@ -46,12 +46,12 @@ export const SimpleLogs: React.FC<Props> = ({ logs }) => {
   const pinnedScroll = React.useRef(true)
 
   const scrollToBottom = React.useCallback(() => {
-    if (!scrollContainer.current || !pinnedScroll.current) return
+    if (!scrollContainer.current || !pinnedScroll.current) {return}
     scrollContainer.current.scrollTop = scrollContainer.current.scrollHeight
   }, [])
 
   React.useEffect(() => {
-    if (!scrollContainer.current || !scrollContent.current) return
+    if (!scrollContainer.current || !scrollContent.current) {return}
 
     const observer = new MutationObserver((mutationsList, observer) => {
       const containerHeightChanged = mutationsList.some(mutation => {
@@ -67,7 +67,7 @@ export const SimpleLogs: React.FC<Props> = ({ logs }) => {
   }, [scrollToBottom])
 
   React.useEffect(() => {
-    if (!scrollContainer.current) return
+    if (!scrollContainer.current) {return}
 
     const onScroll = e => {
       const scrollBottom = e.target.scrollTop + e.target.clientHeight
@@ -102,7 +102,7 @@ export const SimpleLogs: React.FC<Props> = ({ logs }) => {
   )
 }
 
-const microTimestampPattern = /\x1B\[[0-9;]*[a-zA-Z]/g
+const microTimestampPattern = /\x1B\[[0-9;]*[a-z]/gi
 export function styleLogLine(logLine: string): LogLine {
   const [service, timestamp, ...rest] = logLine.split(' ')
   let message = rest.join(' ').trim().replace(microTimestampPattern, '')
@@ -162,10 +162,10 @@ export function styleLogLine(logLine: string): LogLine {
   }
 
   return {
-    service,
-    timestamp: timestamp,
-    messageChunks,
     lineType,
+    messageChunks,
+    service,
+    timestamp,
   }
 }
 

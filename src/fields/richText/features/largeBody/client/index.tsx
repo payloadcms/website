@@ -7,12 +7,12 @@ import {
 import { $getSelection, $isRangeSelection } from '@payloadcms/richtext-lexical/lexical'
 import { $setBlocksType } from '@payloadcms/richtext-lexical/lexical/selection'
 import { $findMatchingParent } from '@payloadcms/richtext-lexical/lexical/utils'
+import { LargeBodyIcon } from '@root/fields/richText/features/largeBody/client/icon'
 import {
   $createLargeBodyNode,
   $isLargeBodyNode,
   LargeBodyNode,
 } from '@root/fields/richText/features/largeBody/LargeBodyNode'
-import { LargeBodyIcon } from '@root/fields/richText/features/largeBody/client/icon'
 
 import './styles.scss'
 

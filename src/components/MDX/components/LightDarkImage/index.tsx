@@ -1,23 +1,22 @@
 'use client'
+import { useThemePreference } from '@root/providers/Theme/index.js'
 /* eslint-disable @next/next/no-img-element */
 import React from 'react'
-
-import { useThemePreference } from '@root/providers/Theme/index.js'
 
 import classes from './index.module.scss'
 
 const LightDarkImage: (props: {
-  srcLight: string
-  srcDark: string
   alt: string
   caption?: string
-}) => React.JSX.Element = ({ srcLight, srcDark, alt, caption }) => {
+  srcDark: string
+  srcLight: string
+}) => React.JSX.Element = ({ alt, caption, srcDark, srcLight }) => {
   const { theme } = useThemePreference()
   const src = theme === 'dark' ? srcDark : srcLight
 
   return (
     <div className={classes.imageWrap}>
-      <img src={src} alt={alt} />
+      <img alt={alt} src={src} />
       {caption && <div className={classes.caption}>{caption}</div>}
     </div>
   )

@@ -1,28 +1,29 @@
-import React from 'react'
-import { Collapsible, CollapsibleContent, CollapsibleToggler } from '@faceless-ui/collapsibles'
+import type { PaddingProps } from '@components/BlockWrapper/index.js';
+import type { Page } from '@root/payload-types.js'
 
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
 import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
-import { BlockWrapper, PaddingProps } from '@components/BlockWrapper/index.js'
+import { BlockWrapper } from '@components/BlockWrapper/index.js'
 import { PricingCard } from '@components/cards/PricingCard/index.js'
 import { CMSLink } from '@components/CMSLink/index.js'
 import CreatePayloadApp from '@components/CreatePayloadApp/index.js'
 import { Gutter } from '@components/Gutter/index.js'
+import { Collapsible, CollapsibleContent, CollapsibleToggler } from '@faceless-ui/collapsibles'
 import { ChevronIcon } from '@root/graphics/ChevronIcon/index.js'
 import { CheckIcon } from '@root/icons/CheckIcon/index.js'
 import { CloseIcon } from '@root/icons/CloseIcon/index.js'
 import { CrosshairIcon } from '@root/icons/CrosshairIcon/index.js'
-import { Page } from '@root/payload-types.js'
+import React from 'react'
 
 import classes from './index.module.scss'
 
-export type Props = Extract<Page['layout'][0], { blockType: 'pricing' }> & {
-  padding: PaddingProps
+export type Props = {
   hideBackground?: boolean
-}
+  padding: PaddingProps
+} & Extract<Page['layout'][0], { blockType: 'pricing' }>
 
-export const Pricing: React.FC<Props> = ({ pricingFields, padding, hideBackground }) => {
-  const { plans, disclaimer, settings } = pricingFields || {}
+export const Pricing: React.FC<Props> = ({ hideBackground, padding, pricingFields }) => {
+  const { disclaimer, plans, settings } = pricingFields || {}
 
   const [toggledPlan, setToggledPlan] = React.useState('')
   const hasPlans = Array.isArray(plans) && plans.length > 0
@@ -55,10 +56,10 @@ export const Pricing: React.FC<Props> = ({ pricingFields, padding, hideBackgroun
 
   return (
     <BlockWrapper
-      settings={settings}
-      padding={padding}
       className={classes.pricingBlock}
       hideBackground={hideBackground}
+      padding={padding}
+      settings={settings}
     >
       <BackgroundGrid zIndex={1} />
       <Gutter className={classes.gutter}>
@@ -68,48 +69,48 @@ export const Pricing: React.FC<Props> = ({ pricingFields, padding, hideBackgroun
             {plans.map((plan, i) => {
               const {
                 name,
-                title,
-                price,
-                hasPrice,
                 description,
-                link,
+                enableCreatePayload,
                 enableLink,
                 features,
-                enableCreatePayload,
+                hasPrice,
+                link,
+                price,
+                title,
               } = plan
               const isToggled = toggledPlan === name
               const isLast = i + 1 === plans.length
 
               return (
                 <div
-                  key={i}
                   className={[classes.plan, 'cols-4 cols-m-8', colsStart[i]]
                     .filter(Boolean)
                     .join(' ')}
+                  key={i}
                 >
                   <CrosshairIcon className={classes.crosshairTopLeft} />
 
                   {isLast && <CrosshairIcon className={classes.crosshairTopRight} />}
 
                   <PricingCard
-                    leader={name}
                     className={classes.card}
-                    price={price}
-                    hasPrice={hasPrice}
-                    title={title}
                     description={description}
+                    hasPrice={hasPrice}
+                    leader={name}
                     link={link}
+                    price={price}
+                    title={title}
                   />
 
                   <div className={classes.collapsibleList}>
                     <Collapsible
                       initialHeight={0}
-                      transTime={250}
-                      transCurve="ease-in"
                       onToggle={() => {
                         setToggledPlan(toggledPlan === name ? '' : name)
                       }}
                       open={isToggled}
+                      transCurve="ease-in"
+                      transTime={250}
                     >
                       <CollapsibleToggler className={classes.toggler}>
                         What's included

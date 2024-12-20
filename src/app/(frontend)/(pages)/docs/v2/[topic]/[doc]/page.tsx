@@ -75,7 +75,7 @@ export function generateStaticParams() {
     process.env.NEXT_PUBLIC_SKIP_BUILD_DOCS ||
     process.env.NEXT_PUBLIC_ENABLE_LEGACY_DOCS !== 'true'
   )
-    return []
+    {return []}
 
   const topics = fetchDocs('v2')
 

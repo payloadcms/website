@@ -1,11 +1,12 @@
-import React from 'react'
+import type { Metadata } from 'next'
+
+import { SectionHeader } from '@cloud/[team-slug]/[project-slug]/(tabs)/settings/_layoutComponents/SectionHeader/index.js'
 import { fetchInvoices } from '@cloud/_api/fetchInvoices.js'
 import { fetchMe } from '@cloud/_api/fetchMe.js'
 import { fetchTeamWithCustomer } from '@cloud/_api/fetchTeam.js'
-import { SectionHeader } from '@cloud/[team-slug]/[project-slug]/(tabs)/settings/_layoutComponents/SectionHeader/index.js'
-import { Metadata } from 'next'
-
 import { Message } from '@components/Message/index.js'
+import React from 'react'
+
 import { TeamInvoicesPage } from './page_client.js'
 
 export default async ({
@@ -28,7 +29,7 @@ export default async ({
       {!hasCustomerID && (
         <Message error="This team does not have a billing account. Please contact support to resolve this issue." />
       )}
-      <TeamInvoicesPage team={team} invoices={invoices} user={user} />
+      <TeamInvoicesPage invoices={invoices} team={team} user={user} />
     </React.Fragment>
   )
 }
@@ -42,10 +43,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { 'team-slug': teamSlug } = await params
   return {
-    title: `${teamSlug} - Team Invoices`,
     openGraph: {
       title: `${teamSlug} - Team Invoices`,
       url: `/cloud/${teamSlug}/invoices`,
     },
+    title: `${teamSlug} - Team Invoices`,
   }
 }

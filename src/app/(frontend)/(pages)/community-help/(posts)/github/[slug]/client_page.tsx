@@ -1,8 +1,8 @@
 'use client'
 
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
-import { DiscordGitCTA } from '@components/DiscordGitCTA/index.js'
 import { DiscordGitComments } from '@components/DiscordGitComments/index.js'
+import { DiscordGitCTA } from '@components/DiscordGitCTA/index.js'
 import { DiscordGitIntro } from '@components/DiscordGitIntro/index.js'
 import { Gutter } from '@components/Gutter/index.js'
 import OpenPost from '@components/OpenPost/index.js'
@@ -37,8 +37,8 @@ export type DiscussionProps = {
     answer?: Answer
     author: Author
     body: string
-    commentTotal: number
     comments: Comment[]
+    commentTotal: number
     createdAt: DateFromSource
     id: string
     slug: string
@@ -57,7 +57,7 @@ export type DiscussionProps = {
 export const GithubDiscussionPage: React.FC<DiscussionProps> = props => {
   const { communityHelpJSON } = props
 
-  const { id, answer, author, body, commentTotal, comments, createdAt, title, upvotes, url } =
+  const { id, answer, author, body, comments, commentTotal, createdAt, title, upvotes, url } =
     communityHelpJSON
 
   return (

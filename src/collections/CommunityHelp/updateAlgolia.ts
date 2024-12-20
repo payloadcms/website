@@ -13,8 +13,8 @@ export const updateAlgolia = async (id: string, helpful: boolean): Promise<void>
   await index
     .partialUpdateObject(
       {
+        helpful,
         objectID: id,
-        helpful: helpful,
       },
       {
         createIfNotExists: false,

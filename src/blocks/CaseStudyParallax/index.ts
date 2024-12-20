@@ -4,10 +4,6 @@ import { blockFields } from '../../fields/blockFields'
 
 export const CaseStudyParallax: Block = {
   slug: 'caseStudyParallax',
-  labels: {
-    singular: 'Case Study Parallax',
-    plural: 'Case Study Parallax',
-  },
   fields: [
     blockFields({
       name: 'caseStudyParallaxFields',
@@ -15,8 +11,6 @@ export const CaseStudyParallax: Block = {
         {
           name: 'items',
           type: 'array',
-          minRows: 4,
-          maxRows: 4,
           fields: [
             {
               name: 'quote',
@@ -51,10 +45,10 @@ export const CaseStudyParallax: Block = {
                 {
                   name: 'tabLabel',
                   type: 'text',
-                  required: true,
                   admin: {
                     description: 'A label for the navigation tab at the bottom of the parallax',
                   },
+                  required: true,
                 },
                 {
                   name: 'caseStudy',
@@ -65,8 +59,14 @@ export const CaseStudyParallax: Block = {
               ],
             },
           ],
+          maxRows: 4,
+          minRows: 4,
         },
       ],
     }),
   ],
+  labels: {
+    plural: 'Case Study Parallax',
+    singular: 'Case Study Parallax',
+  },
 }

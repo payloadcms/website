@@ -6,12 +6,12 @@ type Props = {
 export const QuoteIconAlt: React.FC<Props> = ({ className }) => {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="202"
+      className={className}
+      fill="none"
       height="156"
       viewBox="0 0 202 156"
-      fill="none"
-      className={className}
+      width="202"
+      xmlns="http://www.w3.org/2000/svg"
     >
       <path
         d="M199.78 78.811V154.523H111.569V76.3818C111.569 23.7478 147.748 1.07471 201 1.07471V41.5624C177.423 41.9673 158.317 46.4209 158.317 75.572V78.811H199.78ZM89.2114 78.811V154.523H1V76.3818C1 23.7478 37.1789 1.07471 90.4309 1.07471V41.5624C66.8537 41.9673 47.748 46.4209 47.748 75.572V78.811H89.2114Z"

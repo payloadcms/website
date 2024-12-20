@@ -1,35 +1,34 @@
-import * as React from 'react'
-import { Modal, useModal } from '@faceless-ui/modal'
-import Link from 'next/link'
-
-import { usePathname } from 'next/navigation'
+import type { MainMenu } from '@root/payload-types.js'
+import type { Theme } from '@root/providers/Theme/types.js'
 
 import { Avatar } from '@components/Avatar/index.js'
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
 import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
 import { Gutter } from '@components/Gutter/index.js'
 import { RichText } from '@components/RichText/index.js'
+import { Modal, useModal } from '@faceless-ui/modal'
+import { GitHubIcon } from '@root/graphics/GitHub/index.js'
 import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'
 import { CrosshairIcon } from '@root/icons/CrosshairIcon/index.js'
-import { MainMenu } from '@root/payload-types.js'
 import { useAuth } from '@root/providers/Auth/index.js'
 import { useHeaderObserver } from '@root/providers/HeaderIntersectionObserver/index.js'
-import { Theme } from '@root/providers/Theme/types.js'
+import { useStarCount } from '@root/utilities/use-star-count.js'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import * as React from 'react'
+
 import { FullLogo } from '../../../graphics/FullLogo/index.js'
 import { MenuIcon } from '../../../graphics/MenuIcon/index.js'
 import { CMSLink } from '../../CMSLink/index.js'
 import { DocSearch } from '../Docsearch/index.js'
-import { GitHubIcon } from '@root/graphics/GitHub/index.js'
-
 import classes from './index.module.scss'
-import { useStarCount } from '@root/utilities/use-star-count.js'
 
 export const modalSlug = 'mobile-nav'
 export const subMenuSlug = 'mobile-sub-menu'
 
-type NavItems = Pick<MainMenu, 'tabs' | 'menuCta'>
+type NavItems = Pick<MainMenu, 'menuCta' | 'tabs'>
 
-const MobileNavItems = ({ tabs, setActiveTab }) => {
+const MobileNavItems = ({ setActiveTab, tabs }) => {
   const { user } = useAuth()
   const { openModal } = useModal()
   const handleOnClick = index => {
@@ -40,17 +39,17 @@ const MobileNavItems = ({ tabs, setActiveTab }) => {
   return (
     <ul className={classes.mobileMenuItems}>
       {(tabs || []).map((tab, index) => {
-        const { link, label, enableDirectLink, enableDropdown } = tab
+        const { enableDirectLink, enableDropdown, label, link } = tab
 
         if (!enableDropdown)
-          return <CMSLink {...link} className={classes.mobileMenuItem} key={index} label={label} />
+          {return <CMSLink {...link} className={classes.mobileMenuItem} key={index} label={label} />}
 
         if (enableDirectLink)
-          return (
+          {return (
             <button
-              onClick={() => handleOnClick(index)}
               className={classes.mobileMenuItem}
               key={index}
+              onClick={() => handleOnClick(index)}
             >
               <CMSLink
                 className={classes.directLink}
@@ -60,11 +59,11 @@ const MobileNavItems = ({ tabs, setActiveTab }) => {
                   e.stopPropagation()
                 }}
               />
-              <ArrowIcon size="medium" rotation={45} />
+              <ArrowIcon rotation={45} size="medium" />
             </button>
-          )
+          )}
         else
-          return (
+          {return (
             <CMSLink
               {...link}
               className={classes.mobileMenuItem}
@@ -72,9 +71,9 @@ const MobileNavItems = ({ tabs, setActiveTab }) => {
               label={label}
               onClick={() => handleOnClick(index)}
             >
-              <ArrowIcon size="medium" rotation={45} />
+              <ArrowIcon rotation={45} size="medium" />
             </CMSLink>
-          )
+          )}
       })}
 
       <Link
@@ -102,15 +101,15 @@ const MobileNavItems = ({ tabs, setActiveTab }) => {
 }
 
 const MobileMenuModal: React.FC<
-  NavItems & {
+  {
     setActiveTab: (index: number) => void
-    theme?: Theme | null
-  }
-> = ({ tabs, setActiveTab, theme }) => {
+    theme?: null | Theme
+  } & NavItems
+> = ({ setActiveTab, tabs, theme }) => {
   return (
-    <Modal slug={modalSlug} className={classes.mobileMenuModal} trapFocus={false}>
-      <Gutter className={classes.mobileMenuWrap} rightGutter={false} dataTheme={`${theme}`}>
-        <MobileNavItems tabs={tabs} setActiveTab={setActiveTab} />
+    <Modal className={classes.mobileMenuModal} slug={modalSlug} trapFocus={false}>
+      <Gutter className={classes.mobileMenuWrap} dataTheme={`${theme}`} rightGutter={false}>
+        <MobileNavItems setActiveTab={setActiveTab} tabs={tabs} />
         <BackgroundGrid zIndex={0} />
         <BackgroundScanline />
         <div className={classes.modalBlur} />
@@ -120,23 +119,23 @@ const MobileMenuModal: React.FC<
 }
 
 const SubMenuModal: React.FC<
-  NavItems & {
+  {
     activeTab: number | undefined
-    theme?: Theme | null
-  }
-> = ({ tabs, activeTab, theme }) => {
-  const { closeModal, closeAllModals } = useModal()
+    theme?: null | Theme
+  } & NavItems
+> = ({ activeTab, tabs, theme }) => {
+  const { closeAllModals, closeModal } = useModal()
 
   return (
     <Modal
-      slug={subMenuSlug}
       className={[classes.mobileMenuModal, classes.mobileSubMenu].join(' ')}
-      trapFocus={false}
       onClick={closeAllModals}
+      slug={subMenuSlug}
+      trapFocus={false}
     >
       <Gutter className={classes.subMenuWrap} dataTheme={`${theme}`}>
         {(tabs || []).map((tab, tabIndex) => {
-          if (tabIndex !== activeTab) return null
+          if (tabIndex !== activeTab) {return null}
           return (
             <div className={classes.subMenuItems} key={tabIndex}>
               <button
@@ -146,7 +145,7 @@ const SubMenuModal: React.FC<
                   e.stopPropagation()
                 }}
               >
-                <ArrowIcon size="medium" rotation={225} />
+                <ArrowIcon rotation={225} size="medium" />
                 Back
                 <CrosshairIcon
                   className={[classes.crosshair, classes.crosshairTopLeft]
@@ -172,7 +171,7 @@ const SubMenuModal: React.FC<
                         <div className={classes.listLabelWrap}>
                           <div className={classes.listLabel}>
                             {item.defaultLink.link.label}
-                            <ArrowIcon size="medium" rotation={0} />
+                            <ArrowIcon rotation={0} size="medium" />
                           </div>
                           <div className={classes.itemDescription}>
                             {item.defaultLink.description}
@@ -239,7 +238,7 @@ const SubMenuModal: React.FC<
 }
 
 export const MobileNav: React.FC<NavItems> = props => {
-  const { isModalOpen, openModal, closeAllModals } = useModal()
+  const { closeAllModals, isModalOpen, openModal } = useModal()
   const { headerTheme } = useHeaderObserver()
   const { user } = useAuth()
   const pathname = usePathname()
@@ -270,20 +269,20 @@ export const MobileNav: React.FC<NavItems> = props => {
               className={[classes.menuBarContainer, 'cols-16 cols-m-8'].filter(Boolean).join(' ')}
             >
               <Link
-                href="/"
-                className={classes.logo}
-                prefetch={false}
                 aria-label="Full Payload Logo"
+                className={classes.logo}
+                href="/"
+                prefetch={false}
               >
                 <FullLogo className="w-auto h-[30px]" />
               </Link>
               <div className={classes.icons}>
                 <a
+                  aria-label="Payload's GitHub"
                   className={classes.github}
                   href="https://github.com/payloadcms/payload"
-                  target="_blank"
                   rel="noreferrer"
-                  aria-label="Payload's GitHub"
+                  target="_blank"
                 >
                   <GitHubIcon />
                   {starCount}
@@ -291,11 +290,11 @@ export const MobileNav: React.FC<NavItems> = props => {
                 {user && <Avatar className={classes.avatar} />}
                 <DocSearch />
                 <div
+                  aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
                   className={[classes.modalToggler, isMenuOpen ? classes.hamburgerOpen : '']
                     .filter(Boolean)
                     .join(' ')}
                   onClick={toggleModal}
-                  aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
                 >
                   <MenuIcon />
                 </div>

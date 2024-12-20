@@ -1,47 +1,48 @@
 'use client'
 
+import type { BlocksProp } from '@components/RenderBlocks/index.js'
+import type { Page } from '@root/payload-types.js'
+
 import BackgroundGradient from '@components/BackgroundGradient'
+import { BackgroundGrid } from '@components/BackgroundGrid'
 import { BlockWrapper } from '@components/BlockWrapper/index.js'
+import { Button } from '@components/Button'
 import { ChangeHeaderTheme } from '@components/ChangeHeaderTheme/index.js'
 import { CMSLink } from '@components/CMSLink/index.js'
+import { CommandLine } from '@components/CommandLine'
 import { Gutter } from '@components/Gutter/index.js'
 import { LogoShowcase } from '@components/Hero/HomeNew/LogoShowcase/index.js'
 import { Media } from '@components/Media/index.js'
-import { BlocksProp } from '@components/RenderBlocks/index.js'
-import { RichText } from '@components/RichText/index.js'
-import { Page } from '@root/payload-types.js'
 import { MediaStack } from '@components/MediaStack'
+import { RichText } from '@components/RichText/index.js'
 
 import classes from './index.module.scss'
-import { BackgroundGrid } from '@components/BackgroundGrid'
-import { CommandLine } from '@components/CommandLine'
-import { Button } from '@components/Button'
 
 export const HomeNewHero: React.FC<
-  Page['hero'] & {
+  {
     firstContentBlock?: BlocksProp
-  }
+  } & Page['hero']
 > = ({
-  enableAnnouncement,
   announcementLink,
-  richText,
   description,
-  primaryButtons,
-  secondaryHeading,
-  secondaryButtons,
+  enableAnnouncement,
   featureVideo,
   images,
-  logoShowcaseLabel,
   logoShowcase,
+  logoShowcaseLabel,
+  primaryButtons,
+  richText,
+  secondaryButtons,
+  secondaryHeading,
 }) => {
   const filteredLogos = logoShowcase?.filter(logo => typeof logo !== 'string')
 
   return (
     <ChangeHeaderTheme theme="dark">
       <BlockWrapper
-        settings={{ theme: 'dark' }}
-        padding={{ top: 'small', bottom: 'small' }}
         className={classes.heroWrapper}
+        padding={{ bottom: 'small', top: 'small' }}
+        settings={{ theme: 'dark' }}
       >
         <Gutter className={[classes.heroContentWrapper, 'grid'].join(' ')}>
           <div className={['cols-4 cols-m-8', classes.heroContent].filter(Boolean).join(' ')}>
@@ -50,7 +51,7 @@ export const HomeNewHero: React.FC<
                 <CMSLink {...announcementLink} />
               </div>
             )}
-            <RichText content={richText} className={classes.heroText} />
+            <RichText className={classes.heroText} content={richText} />
             {Array.isArray(primaryButtons) && (
               <ul className={classes.primaryButtons}>
                 {primaryButtons.map((button, i) => {
@@ -60,17 +61,17 @@ export const HomeNewHero: React.FC<
                         <CMSLink
                           {...button.link}
                           appearance="default"
-                          fullWidth
                           buttonProps={{
-                            icon: 'arrow',
                             hideHorizontalBorders: true,
+                            icon: 'arrow',
                           }}
+                          fullWidth
                         />
                       </li>
                     )
                   } else if (button.type === 'npmCta' && button.npmCta?.label) {
                     return (
-                      <li key={i} className={classes.command}>
+                      <li className={classes.command} key={i}>
                         <CommandLine command={button.npmCta?.label} inLinkGroup />
                       </li>
                     )
@@ -88,7 +89,6 @@ export const HomeNewHero: React.FC<
           {filteredLogos && <LogoShowcase logos={filteredLogos} />}
         </Gutter>
         <BackgroundGrid
-          zIndex={-2}
           gridLineStyles={[
             {
               background:
@@ -111,6 +111,7 @@ export const HomeNewHero: React.FC<
                 'linear-gradient(to bottom, transparent 80px, var(--theme-border-color) 240px)',
             },
           ]}
+          zIndex={-2}
         />
       </BlockWrapper>
       <BackgroundGradient className={classes.backgroundGradient} />

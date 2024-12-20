@@ -81,7 +81,7 @@ export const syncToAlgolia = async (): Promise<void> => {
     }
 
     if (githubID) {
-      const { id, slug, author, body, commentTotal, comments, createdAt, title, upvotes } =
+      const { id, slug, author, body, comments, commentTotal, createdAt, title, upvotes } =
         communityHelpJSON as any
 
       githubDocs.push({

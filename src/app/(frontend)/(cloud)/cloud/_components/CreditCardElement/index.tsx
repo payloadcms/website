@@ -1,8 +1,7 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import { useThemePreference } from '@root/providers/Theme/index.js'
 import { CardElement as StripeCardElement } from '@stripe/react-stripe-js'
 import { type StripeCardElementChangeEvent } from '@stripe/stripe-js'
-
-import { useThemePreference } from '@root/providers/Theme/index.js'
+import React, { useCallback, useEffect, useState } from 'react'
 
 import classes from './index.module.scss'
 
@@ -44,26 +43,26 @@ export const CreditCardElement: React.FC<{
     setStyle({
       style: {
         base: {
-          iconColor: color,
-          color: color,
+          color,
           fontWeight: '500',
+          iconColor: color,
           // fontFamily,
-          fontSize: '16px',
-          fontSmoothing: 'antialiased',
-          ':-webkit-autofill': {
-            color: autoFillColor,
-          },
           '::placeholder': {
             color: lightColor,
           },
-        },
-        invalid: {
-          iconColor: errorColor,
-          color: errorColor,
+          ':-webkit-autofill': {
+            color: autoFillColor,
+          },
+          fontSize: '16px',
+          fontSmoothing: 'antialiased',
         },
         empty: {
+          color,
           iconColor: color,
-          color: color,
+        },
+        invalid: {
+          color: errorColor,
+          iconColor: errorColor,
         },
       },
     })
@@ -73,15 +72,15 @@ export const CreditCardElement: React.FC<{
     <div className={classes.cardElement}>
       {error && <p className={classes.error}>{error}</p>}
       <StripeCardElement
+        className={classes.element}
         id="card-element"
-        options={style}
         onChange={e => {
           // `onChange` here acts more like `onError` where it does not fire when the value changes
           // instead, it only fires when Stripe revalidates the field, i.e. on focus, blur, complete, submit, etc
-          if (!disableChangeHandler) handleChange(e)
-          if (typeof onChange === 'function') onChange(e)
+          if (!disableChangeHandler) {handleChange(e)}
+          if (typeof onChange === 'function') {onChange(e)}
         }}
-        className={classes.element}
+        options={style}
       />
     </div>
   )

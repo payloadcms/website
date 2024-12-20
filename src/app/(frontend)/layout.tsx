@@ -1,15 +1,15 @@
-import React from 'react'
-import { Providers } from '@providers/index.js'
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 
 import { GoogleAnalytics } from '@components/Analytics/GoogleAnalytics/index.js'
 import { GoogleTagManager } from '@components/Analytics/GoogleTagManager/index.js'
 import { PrivacyBanner } from '@components/PrivacyBanner/index.js'
+import { Providers } from '@providers/index.js'
 import { PrivacyProvider } from '@root/providers/Privacy/index.js'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
-import { untitledSans } from './fonts.js'
 import { GeistMono } from 'geist/font/mono'
+import React from 'react'
 
+import { untitledSans } from './fonts.js'
 import '../../css/app.scss'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
@@ -17,12 +17,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <html lang="en">
       <PrivacyProvider>
         <head>
-          <link rel="icon" href="/images/favicon.svg" />
-          <link rel="dns-prefetch" href={process.env.NEXT_PUBLIC_CLOUD_CMS_URL} />
-          <link rel="dns-prefetch" href="https://api.github.com/repos/payloadcms/payload" />
-          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
-          <link rel="preconnect" href="https://www.googletagmanager.com" />
-          <link rel="preconnect" href="https://www.google-analytics.com" />
+          <link href="/images/favicon.svg" rel="icon" />
+          <link href={process.env.NEXT_PUBLIC_CLOUD_CMS_URL} rel="dns-prefetch" />
+          <link href="https://api.github.com/repos/payloadcms/payload" rel="dns-prefetch" />
+          <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" rel="stylesheet" />
+          <link href="https://www.googletagmanager.com" rel="preconnect" />
+          <link href="https://www.google-analytics.com" rel="preconnect" />
           <GoogleAnalytics />
         </head>
         <body className={[GeistMono.variable, untitledSans.variable].join(' ')}>
@@ -39,9 +39,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://payloadcms.com'),
+  openGraph: mergeOpenGraph(),
   twitter: {
     card: 'summary_large_image',
     creator: '@payloadcms',
   },
-  openGraph: mergeOpenGraph(),
 }

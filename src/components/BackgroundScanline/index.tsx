@@ -1,24 +1,23 @@
-import React from 'react'
-
 import { CrosshairIcon } from '@root/icons/CrosshairIcon/index.js'
+import React from 'react'
 
 import classes from './index.module.scss'
 
 const crosshairPositions = ['top-left', 'bottom-left', 'top-right', 'bottom-right'] as const
 
 interface Props {
+  className?: string
+  crosshairs?: 'all' | (typeof crosshairPositions)[number][]
   /**
    * Adds top and bottom borders to the scanline
    */
   enableBorders?: boolean
-  className?: string
-  crosshairs?: 'all' | (typeof crosshairPositions)[number][]
   style?: React.CSSProperties
 }
 export const BackgroundScanline: React.FC<Props> = ({
   className,
-  enableBorders,
   crosshairs,
+  enableBorders,
   style,
 }: Props) => {
   return (

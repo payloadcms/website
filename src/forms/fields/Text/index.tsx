@@ -1,54 +1,54 @@
 'use client'
 
-import React, { Fragment, useEffect } from 'react'
-import Label from '@forms/Label/index.js'
-
 import { CopyToClipboard } from '@components/CopyToClipboard/index.js'
 import { Tooltip } from '@components/Tooltip/index.js'
+import Label from '@forms/Label/index.js'
 import { EyeIcon } from '@root/icons/EyeIcon/index.js'
-import Error from '../../Error/index.js'
-import { FieldProps } from '../types.js'
-import { useField } from '../useField/index.js'
+import React, { Fragment, useEffect } from 'react'
 
+import type { FieldProps } from '../types.js'
+
+import Error from '../../Error/index.js'
+import { useField } from '../useField/index.js'
 import classes from './index.module.scss'
 
 export const Text: React.FC<
-  FieldProps<string> & {
-    type?: 'text' | 'password' | 'hidden'
+  {
     copy?: boolean
-    elementAttributes?: React.InputHTMLAttributes<HTMLInputElement>
-    value?: string
     customOnChange?: (e: any) => void
-    suffix?: React.ReactNode
+    elementAttributes?: React.InputHTMLAttributes<HTMLInputElement>
     readOnly?: boolean
-  }
+    suffix?: React.ReactNode
+    type?: 'hidden' | 'password' | 'text'
+    value?: string
+  } & FieldProps<string>
 > = props => {
   const {
-    path,
     name,
-    required = false,
-    validate,
-    label,
-    placeholder,
     type = 'text',
-    onChange: onChangeFromProps,
-    customOnChange,
-    initialValue,
     className,
     copy = false,
+    customOnChange,
+    description,
     disabled,
-    readOnly,
     elementAttributes = {
+      autoCapitalize: 'none',
       autoComplete: 'off',
       autoCorrect: 'off',
-      autoCapitalize: 'none',
     },
-    description,
-    value: valueFromProps,
-    showError: showErrorFromProps,
-    icon,
     fullWidth = true,
+    icon,
+    initialValue,
+    label,
+    onChange: onChangeFromProps,
+    path,
+    placeholder,
+    readOnly,
+    required = false,
+    showError: showErrorFromProps,
     suffix,
+    validate,
+    value: valueFromProps,
   } = props
 
   const prevValueFromProps = React.useRef(valueFromProps)
@@ -71,16 +71,16 @@ export const Text: React.FC<
   )
 
   const {
-    onChange,
-    value: valueFromContext,
-    showError,
     errorMessage,
+    onChange,
+    showError,
+    value: valueFromContext,
   } = useField<string>({
     initialValue,
     onChange: onChangeFromProps,
     path,
-    validate: validate || defaultValidateFunction,
     required,
+    validate: validate || defaultValidateFunction,
   })
 
   const value = valueFromProps || valueFromContext
@@ -116,9 +116,10 @@ export const Text: React.FC<
       <div className={classes.inputWrap}>
         <input
           {...elementAttributes}
-          disabled={disabled}
           className={classes.input}
-          value={value || ''}
+          disabled={disabled}
+          id={path}
+          name={name ?? path}
           onChange={e => {
             const onChangeFunction = customOnChange ? customOnChange : onChange
 
@@ -127,10 +128,9 @@ export const Text: React.FC<
             }
           }}
           placeholder={placeholder}
-          type={type === 'password' && !isHidden ? 'text' : type}
-          id={path}
-          name={name ?? path}
           readOnly={readOnly}
+          type={type === 'password' && !isHidden ? 'text' : type}
+          value={value || ''}
         />
         {(icon || suffix) && (
           <div className={classes.iconWrapper}>
@@ -142,28 +142,28 @@ export const Text: React.FC<
       {type !== 'hidden' && (
         <>
           <Error
-            showError={Boolean((showError || showErrorFromProps) && errorMessage)}
             message={errorMessage}
+            showError={Boolean((showError || showErrorFromProps) && errorMessage)}
           />
           <Label
-            htmlFor={path}
-            label={label}
-            required={required}
-            margin={false}
             actionsSlot={
               <Fragment>
                 {copy && <CopyToClipboard value={value} />}
                 {type === 'password' && (
                   <Tooltip
-                    text={isHidden ? 'show' : 'hide'}
-                    onClick={() => setIsHidden(h => !h)}
                     className={classes.tooltipButton}
+                    onClick={() => setIsHidden(h => !h)}
+                    text={isHidden ? 'show' : 'hide'}
                   >
                     <EyeIcon closed={isHidden} size="large" />
                   </Tooltip>
                 )}
               </Fragment>
             }
+            htmlFor={path}
+            label={label}
+            margin={false}
+            required={required}
           />
         </>
       )}

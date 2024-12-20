@@ -1,13 +1,14 @@
 'use client'
-import React, { useEffect, useMemo, useState } from 'react'
+import type { CMSLinkType } from '@components/CMSLink/index.js';
+import type { Page } from '@root/payload-types.js'
 
 import { Breadcrumbs } from '@components/Breadcrumbs/index.js'
 import { ChangeHeaderTheme } from '@components/ChangeHeaderTheme/index.js'
-import { CMSLink, CMSLinkType } from '@components/CMSLink/index.js'
+import { CMSLink } from '@components/CMSLink/index.js'
 import { Gutter } from '@components/Gutter/index.js'
 import { ChevronIcon } from '@root/icons/ChevronIcon/index.js'
-import { Page } from '@root/payload-types.js'
 import { useThemePreference } from '@root/providers/Theme/index.js'
+import React, { useEffect, useMemo, useState } from 'react'
 
 import classes from './index.module.scss'
 
@@ -28,8 +29,8 @@ type Props = {
 } & Conditional
 
 const BreadcrumbsBar: React.FC<Props> = ({
-  hero,
   breadcrumbs: breadcrumbsProps,
+  hero,
   links: linksFromProps,
 }) => {
   const { theme: themeFromContext } = useThemePreference()
@@ -38,12 +39,12 @@ const BreadcrumbsBar: React.FC<Props> = ({
   const hasBackground = () => {
     if (hero) {
       switch (hero.type) {
+        case 'gradient':
+          return Boolean(hero.fullBackground)
         case 'home':
           return true
         case 'three':
           return true
-        case 'gradient':
-          return Boolean(hero.fullBackground)
         default:
           return false
       }
@@ -56,9 +57,9 @@ const BreadcrumbsBar: React.FC<Props> = ({
   const enableBreadcrumbsBar = linksFromProps ?? hero?.enableBreadcrumbsBar
 
   useEffect(() => {
-    if (hero?.theme) setThemeState(hero.theme)
-    else if (themeFromContext) setThemeState(themeFromContext)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (hero?.theme) {setThemeState(hero.theme)}
+    else if (themeFromContext) {setThemeState(themeFromContext)}
+     
   }, [themeFromContext, hero])
 
   const breadcrumbs = useMemo(() => {

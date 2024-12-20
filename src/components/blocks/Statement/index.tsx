@@ -1,37 +1,38 @@
 'use client'
-import React from 'react'
+import type { PaddingProps } from '@components/BlockWrapper/index.js';
+import type { Page } from '@root/payload-types.js'
 
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
-import { BlockWrapper, PaddingProps } from '@components/BlockWrapper/index.js'
+import { BlockWrapper } from '@components/BlockWrapper/index.js'
 import { CMSLink } from '@components/CMSLink/index.js'
 import Code from '@components/Code/index.js'
 import { Gutter } from '@components/Gutter/index.js'
 import { Media } from '@components/Media/index.js'
 import { RichText } from '@components/RichText/index.js'
-import { Page } from '@root/payload-types.js'
+import React from 'react'
 
 import classes from './index.module.scss'
 
-export type StatementProps = Extract<Page['layout'][0], { blockType: 'statement' }> & {
-  padding?: PaddingProps
+export type StatementProps = {
   hideBackground?: boolean
-}
+  padding?: PaddingProps
+} & Extract<Page['layout'][0], { blockType: 'statement' }>
 
 export const Statement: React.FC<StatementProps> = props => {
   const {
-    statementFields: {
-      richText,
-      links,
-      assetType,
-      media,
-      code,
-      mediaWidth,
-      backgroundGlow,
-      settings,
-      assetCaption,
-    },
-    padding,
     hideBackground,
+    padding,
+    statementFields: {
+      assetCaption,
+      assetType,
+      backgroundGlow,
+      code,
+      links,
+      media,
+      mediaWidth,
+      richText,
+      settings,
+    },
   } = props
 
   const hasLinks = links && links.length > 0
@@ -46,7 +47,7 @@ export const Statement: React.FC<StatementProps> = props => {
       : 'cols-12 start-3 cols-m-8 start-m-1'
 
   return (
-    <BlockWrapper settings={settings} padding={padding} hideBackground={hideBackground}>
+    <BlockWrapper hideBackground={hideBackground} padding={padding} settings={settings}>
       <BackgroundGrid zIndex={0} />
       <Gutter className={classes.statementWrap}>
         <div className={['grid'].filter(Boolean).join(' ')}>
@@ -55,21 +56,21 @@ export const Statement: React.FC<StatementProps> = props => {
               .filter(Boolean)
               .join(' ')}
           >
-            <RichText content={richText} className={classes.content} />
+            <RichText className={classes.content} content={richText} />
             {hasLinks && (
               <div className={[classes.links].filter(Boolean).join(' ')}>
                 {links.map(({ link }, i) => {
                   return (
                     <CMSLink
                       {...link}
-                      key={i}
                       appearance="default"
-                      fullWidth
                       buttonProps={{
-                        icon: 'arrow',
-                        hideHorizontalBorders: true,
                         hideBottomBorderExceptLast: true,
+                        hideHorizontalBorders: true,
+                        icon: 'arrow',
                       }}
+                      fullWidth
+                      key={i}
                     />
                   )
                 })}
@@ -88,10 +89,10 @@ export const Statement: React.FC<StatementProps> = props => {
                       .join(' ')}
                   >
                     <Media
-                      resource={media}
                       className={[mediaWidthClass, backgroundGlow && classes[backgroundGlow]]
                         .filter(Boolean)
                         .join(' ')}
+                      resource={media}
                     />
                   </div>
                 )

@@ -1,14 +1,14 @@
-import React, { Fragment, useEffect } from 'react'
+import type { Plan } from '@root/payload-cloud-types.js'
 
 import { LargeRadio } from '@components/LargeRadio/index.js'
-import { Plan } from '@root/payload-cloud-types.js'
+import React, { Fragment, useEffect } from 'react'
 
 import classes from './index.module.scss'
 
 type PlanSelectorProps = {
+  onChange?: (value?: null | Plan) => void  
   plans: Plan[]
-  onChange?: (value?: Plan | null) => void // eslint-disable-line no-unused-vars
-  selectedPlan?: Plan | null
+  selectedPlan?: null | Plan
 }
 
 export const PlanSelector: React.FC<PlanSelectorProps> = props => {
@@ -27,13 +27,13 @@ export const PlanSelector: React.FC<PlanSelectorProps> = props => {
               return (
                 <>
                   <LargeRadio
-                    key={plan.id}
                     checked={checked}
-                    name={name}
                     id={plan.id}
-                    value={plan}
-                    onChange={onChange}
+                    key={plan.id}
                     label={<div className={classes.plan}>{name}</div>}
+                    name={name}
+                    onChange={onChange}
+                    value={plan}
                   />
                 </>
               )

@@ -1,21 +1,22 @@
-import { Fragment } from 'react'
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 
 import { Gutter } from '@components/Gutter/index.js'
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
 import { RenderParams } from '@components/RenderParams/index.js'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
+import { Fragment } from 'react'
+
 import { fetchMe } from './_api/fetchMe.js'
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | Payload Cloud',
     default: 'Payload Cloud',
+    template: '%s | Payload Cloud',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Payload',
-    description: 'The Node & React TypeScript Headless CMS',
     creator: '@payloadcms',
+    description: 'The Node & React TypeScript Headless CMS',
+    title: 'Payload',
   },
   // TODO: Add cloud graphic
   openGraph: mergeOpenGraph(),

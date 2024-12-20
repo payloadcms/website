@@ -1,9 +1,9 @@
 'use client'
-import React, { useEffect, useMemo, useState } from 'react'
+import type { Page } from '@root/payload-types.js'
 
 import { ChangeHeaderTheme } from '@components/ChangeHeaderTheme/index.js'
-import { Page } from '@root/payload-types.js'
 import { useThemePreference } from '@root/providers/Theme/index.js'
+import React, { useEffect, useMemo, useState } from 'react'
 
 import classes from './index.module.scss'
 
@@ -13,31 +13,31 @@ export type Settings = Extract<
 >['cardGridFields']['settings']
 
 export type PaddingProps = {
-  top?: 'large' | 'small' | 'hero'
   bottom?: 'large' | 'small'
+  top?: 'hero' | 'large' | 'small'
 }
 
 type Props = {
-  settings: Settings
-  className?: string
   children: React.ReactNode
-  padding?: PaddingProps
+  className?: string
   hideBackground?: boolean
+  padding?: PaddingProps
   /**
    * Controls whether or not to set the padding or just provide the css variables
    *
    * Useful for complex components that need to set padding on a child element
    */
   setPadding?: boolean
+  settings: Settings
 } & React.HTMLAttributes<HTMLDivElement>
 
 export const BlockWrapper: React.FC<Props> = ({
-  settings,
-  className,
   children,
+  className,
+  hideBackground,
   padding,
   setPadding = true,
-  hideBackground,
+  settings,
   ...rest
 }) => {
   const [themeState, setThemeState] = useState<Page['hero']['theme']>(settings?.theme)
@@ -45,9 +45,9 @@ export const BlockWrapper: React.FC<Props> = ({
   const theme = settings?.theme
 
   useEffect(() => {
-    if (settings?.theme) setThemeState(settings.theme)
+    if (settings?.theme) {setThemeState(settings.theme)}
     else {
-      if (themeFromContext) setThemeState(themeFromContext)
+      if (themeFromContext) {setThemeState(themeFromContext)}
     }
   }, [settings, themeFromContext])
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import type React from 'react'
 // import { FormBlock, FormBlockProps } from '@blocks/FormBlock/index.js'
 
 // import { StyleguidePageContent } from '../../PageContent/index.js'

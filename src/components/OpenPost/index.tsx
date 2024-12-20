@@ -1,11 +1,10 @@
-import React from 'react'
-
 import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
 import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'
+import React from 'react'
 
 import classes from './index.module.scss'
 
-const OpenPost: React.FC<{ url: string; platform: 'GitHub' | 'Discord' }> = ({ url, platform }) => {
+const OpenPost: React.FC<{ platform: 'Discord' | 'GitHub'; url: string }> = ({ platform, url }) => {
   return (
     <a className={classes.next} href={url} rel="noopener noreferrer" target="_blank">
       <BackgroundScanline className={classes.crosshairs} crosshairs="all" />

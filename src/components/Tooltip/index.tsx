@@ -1,33 +1,32 @@
-import * as React from 'react'
-
 import { TooltipContent } from '@components/Tooltip/TooltipContent/index.js'
+import * as React from 'react'
 
 import classes from './index.module.scss'
 
-type TooltipProps = React.HTMLAttributes<HTMLButtonElement> & {
-  text: React.ReactNode
+type TooltipProps = {
   children: React.ReactNode
+  text: React.ReactNode
 } & (
-    | {
-        isVisible?: never
-        setIsVisible?: never
-      }
     | {
         /**
          * If this is set, the button will not manage its own state
          */
         isVisible: boolean
-        setIsVisible: (isActive: boolean) => void // eslint-disable-line no-unused-vars
+        setIsVisible: (isActive: boolean) => void  
       }
-  )
+    | {
+        isVisible?: never
+        setIsVisible?: never
+      }
+  ) & React.HTMLAttributes<HTMLButtonElement>
 
 export const Tooltip: React.FC<TooltipProps> = ({
   children,
   className,
-  text,
-  onClick,
   isVisible: isActive,
+  onClick,
   setIsVisible: setIsActive,
+  text,
 }) => {
   const [isVisibleInternal, setIsVisibleInternal] = React.useState(false)
   const hoistControl = typeof setIsActive === 'function'
@@ -48,17 +47,17 @@ export const Tooltip: React.FC<TooltipProps> = ({
 
   return (
     <button
-      onFocus={() => onFocusChange('enter')}
+      className={[classes.tooltip, show && classes.show, className].filter(Boolean).join(' ')}
       onBlur={() => onFocusChange('leave')}
+      onClick={onClick}
+      onFocus={() => onFocusChange('enter')}
       onMouseEnter={() => {
         onFocusChange('enter')
       }}
       onMouseLeave={() => {
         onFocusChange('leave')
       }}
-      className={[classes.tooltip, show && classes.show, className].filter(Boolean).join(' ')}
       type="button"
-      onClick={onClick}
     >
       {children}
       <TooltipContent className={classes.tip}>{text}</TooltipContent>

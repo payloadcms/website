@@ -1,9 +1,9 @@
 import type { Team, User } from '@root/payload-cloud-types.js'
 
 export const checkTeamRoles = (
-  user: User | null | undefined,
-  currentTeam: Team | null | undefined,
-  roles: Array<'owner' | 'admin' | 'user'>,
+  user: null | undefined | User,
+  currentTeam: null | Team | undefined,
+  roles: Array<'admin' | 'owner' | 'user'>,
 ): boolean | undefined => {
   return user?.teams?.some(userTeam => {
     if (

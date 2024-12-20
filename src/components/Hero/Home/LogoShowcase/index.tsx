@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import type { Media as MediaType } from '@root/payload-types.js'
 
 import { Media } from '@components/Media/index.js'
 import { CrosshairIcon } from '@root/icons/CrosshairIcon/index.js'
-import { Media as MediaType } from '@root/payload-types.js'
+import React, { useEffect, useState } from 'react'
 
 import classes from './index.module.scss'
 
 type LogoItem = {
-  logoMedia: string | MediaType
-  id?: string | null
+  id?: null | string
+  logoMedia: MediaType | string
 }
 
 type PositionedLogo = {
+  isVisible: boolean
   logo: LogoItem
   position: number
-  isVisible: boolean
 }
 
 type Props = {
@@ -36,24 +36,24 @@ const getRandomPosition = (excludePositions: number[]) => {
 
 export const LogoShowcase: React.FC<Props> = ({ logos }) => {
   const [logoPositions, setLogoPositions] = useState<PositionedLogo[]>([])
-  const [currentAnimatingIndex, setCurrentAnimatingIndex] = useState<number | null>(null)
+  const [currentAnimatingIndex, setCurrentAnimatingIndex] = useState<null | number>(null)
 
   useEffect(() => {
     if (logos) {
-      let occupiedPositions: number[] = []
+      const occupiedPositions: number[] = []
       const initialPositions = logos.map(logo => {
         const position = getRandomPosition(occupiedPositions)
         occupiedPositions.push(position)
-        return { logo, position, isVisible: true }
+        return { isVisible: true, logo, position }
       })
       setLogoPositions(initialPositions)
     }
   }, [logos])
 
   useEffect(() => {
-    if (!logos || logos.length === 0 || logos.length > TOTAL_CELLS) return
+    if (!logos || logos.length === 0 || logos.length > TOTAL_CELLS) {return}
 
-    /* eslint-disable function-paren-newline */
+     
     const animateLogo = () => {
       const logoIndex =
         currentAnimatingIndex !== null ? (currentAnimatingIndex + 1) % logos.length : 0
@@ -72,7 +72,7 @@ export const LogoShowcase: React.FC<Props> = ({ logos }) => {
           } while (newPosition === prevPositions[logoIndex].position)
 
           return prevPositions.map((pos, idx) =>
-            idx === logoIndex ? { ...pos, position: newPosition, isVisible: false } : pos,
+            idx === logoIndex ? { ...pos, isVisible: false, position: newPosition } : pos,
           )
         })
 
@@ -85,7 +85,7 @@ export const LogoShowcase: React.FC<Props> = ({ logos }) => {
         }, 100)
       }, ANIMATION_DURATION + 500)
     }
-    /* eslint-enable function-paren-newline */
+     
 
     const interval = setInterval(animateLogo, ANIMATION_DELAY + ANIMATION_DURATION)
     return () => clearInterval(interval)
@@ -98,16 +98,16 @@ export const LogoShowcase: React.FC<Props> = ({ logos }) => {
       />
       {[...Array(2)].map((_, idx) => (
         <div
-          key={`h-line-${idx}`}
           className={classes.horizontalLine}
+          key={`h-line-${idx}`}
           style={{ top: `${(idx + 1) * 33.333}%` }}
         />
       ))}
       {[...Array(3)].map((_, idx) => {
         return (
           <div
-            key={`v-line-${idx}`}
             className={idx === 1 ? classes.verticalLineNoDesktop : classes.verticalLine}
+            key={`v-line-${idx}`}
             style={{ left: `${(idx + 1) * 25}%` }}
           />
         )
@@ -132,13 +132,13 @@ export const LogoShowcase: React.FC<Props> = ({ logos }) => {
             <div className={classes.contentWrapper}>
               {logoPositions
                 .filter(item => item.position === index)
-                .map(({ logo, isVisible }, idx) => (
+                .map(({ isVisible, logo }, idx) => (
                   <div
                     key={idx}
                     style={{
+                      filter: isVisible ? 'blur(0px)' : 'blur(8px)',
                       opacity: isVisible ? 1 : 0,
                       transition: `opacity ${ANIMATION_DURATION}ms ease, filter ${ANIMATION_DURATION}ms ease`,
-                      filter: isVisible ? 'blur(0px)' : 'blur(8px)',
                     }}
                   >
                     {typeof logo.logoMedia === 'object' && logo.logoMedia !== null && (

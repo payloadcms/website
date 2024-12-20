@@ -1,10 +1,9 @@
 'use client'
 
-import React from 'react'
-import { Cell, Grid } from '@faceless-ui/css-grid'
-
 import { BlockWrapper } from '@components/BlockWrapper/index.js'
 import { Gutter } from '@components/Gutter/index.js'
+import { Cell, Grid } from '@faceless-ui/css-grid'
+import React from 'react'
 
 import classes from './page.module.scss'
 

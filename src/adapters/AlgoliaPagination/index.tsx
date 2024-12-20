@@ -1,7 +1,6 @@
+import { ChevronIcon } from '@root/icons/ChevronIcon/index.js'
 import React from 'react'
 import { usePagination } from 'react-instantsearch'
-
-import { ChevronIcon } from '@root/icons/ChevronIcon/index.js'
 
 import classes from './index.module.scss'
 
@@ -9,8 +8,8 @@ export const AlgoliaPagination: React.FC<{
   className?: string
 }> = props => {
   const {
-    pages,
     currentRefinement,
+    pages,
     // nbHits,
     nbPages,
     // isLastPage,
@@ -49,12 +48,12 @@ export const AlgoliaPagination: React.FC<{
         {showFirstPage && (
           <>
             <button
-              type="button"
               className={classes.paginationButton}
               onClick={() => {
                 refine(0)
-                window.scrollTo({ top: 0, behavior: 'smooth' })
+                window.scrollTo({ behavior: 'smooth', top: 0 })
               }}
+              type="button"
             >
               1
             </button>
@@ -65,10 +64,9 @@ export const AlgoliaPagination: React.FC<{
           pages.map((page, index) => {
             const isCurrent = currentRefinement === page
             if (indexToShow.includes(index))
-              return (
+              {return (
                 <div key={index}>
                   <button
-                    type="button"
                     className={[
                       classes.paginationButton,
                       isCurrent && classes.paginationButtonActive,
@@ -78,24 +76,25 @@ export const AlgoliaPagination: React.FC<{
                       .join(' ')}
                     onClick={() => {
                       refine(page)
-                      window.scrollTo({ top: 0, behavior: 'smooth' })
+                      window.scrollTo({ behavior: 'smooth', top: 0 })
                     }}
+                    type="button"
                   >
                     {page + 1}
                   </button>
                 </div>
-              )
+              )}
           })}
         {showLastPage && (
           <>
             <div className={classes.dash}>&mdash;</div>
             <button
-              type="button"
               className={classes.paginationButton}
               onClick={() => {
                 refine(nbPages - 1)
-                window.scrollTo({ top: 0, behavior: 'smooth' })
+                window.scrollTo({ behavior: 'smooth', top: 0 })
               }}
+              type="button"
             >
               {nbPages}
             </button>
@@ -103,29 +102,29 @@ export const AlgoliaPagination: React.FC<{
         )}
       </div>
       <button
-        type="button"
         className={[classes.chevronButton, currentRefinement === 0 && classes.disabled]
           .filter(Boolean)
           .join(' ')}
+        disabled={currentRefinement === 0}
         onClick={() => {
           refine(currentRefinement - 1)
-          window.scrollTo({ top: 0, behavior: 'smooth' })
+          window.scrollTo({ behavior: 'smooth', top: 0 })
         }}
-        disabled={currentRefinement === 0}
+        type="button"
       >
         <ChevronIcon rotation={180} />
       </button>
       <div className={classes.nextPrev}>
         <button
-          type="button"
           className={[classes.chevronButton, currentRefinement >= nbPages - 1 && classes.disabled]
             .filter(Boolean)
             .join(' ')}
+          disabled={currentRefinement >= nbPages - 1}
           onClick={() => {
             refine(currentRefinement + 1)
-            window.scrollTo({ top: 0, behavior: 'smooth' })
+            window.scrollTo({ behavior: 'smooth', top: 0 })
           }}
-          disabled={currentRefinement >= nbPages - 1}
+          type="button"
         >
           <ChevronIcon />
         </button>

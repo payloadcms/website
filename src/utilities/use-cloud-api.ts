@@ -32,7 +32,7 @@ export const useCloudAPI = <R>(args: {
     let timer: NodeJS.Timeout
 
     if (url) {
-      if (isRequesting.current) return
+      if (isRequesting.current) {return}
       isRequesting.current = true
 
       const makeRequest = async (): Promise<void> => {
@@ -74,7 +74,7 @@ export const useCloudAPI = <R>(args: {
       void makeRequest()
     }
 
-    // eslint-disable-next-line consistent-return
+     
     return () => {
       clearTimeout(timer)
     }
@@ -95,7 +95,7 @@ export const useCloudAPI = <R>(args: {
     }
 
     return () => {
-      if (timer) clearTimeout(timer)
+      if (timer) {clearTimeout(timer)}
     }
   }, [url, requestTicker, reload, interval])
 
@@ -146,7 +146,7 @@ export const useGetProjects: UseCloudAPI<
   const userTeams =
     user?.teams?.map(({ team }) =>
       team && typeof team === 'object' && team !== null && 'id' in team ? team.id : team,
-    ) || [].filter(Boolean) // eslint-disable-line function-paren-newline
+    ) || [].filter(Boolean)  
 
   const teams = teamsWithoutNone && teamsWithoutNone?.length > 0 ? teamsWithoutNone : userTeams
 
@@ -173,13 +173,13 @@ export const useGetProjects: UseCloudAPI<
   })
 }
 
-type ProjectWithTeam = Omit<Project, 'team'> & {
+type ProjectWithTeam = {
   team: Team
-}
+} & Omit<Project, 'team'>
 
 // you can get projects with either the `id` or `teamSlug` and `projectSlug`
 export const useGetProject: UseCloudAPI<
-  ProjectWithTeam | null | undefined,
+  null | ProjectWithTeam | undefined,
   {
     projectID?: string
     projectSlug?: string
@@ -318,7 +318,7 @@ export const useGetActiveProjectDeployment: UseCloudAPI<
   }, [response])
 }
 
-export const useGetTeam: UseCloudAPI<Team | null | undefined, string> = teamSlug => {
+export const useGetTeam: UseCloudAPI<null | Team | undefined, string> = teamSlug => {
   const response = useCloudAPI<{
     docs: Team[]
   }>({

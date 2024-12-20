@@ -1,20 +1,19 @@
-import React from 'react'
-import Image from 'next/image'
-
 import { Drawer, DrawerToggler } from '@components/Drawer/index.js'
 import YouTube from '@components/YouTube/index.js'
 import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'
 import { PlayIcon } from '@root/icons/PlayIcon/index.js'
+import Image from 'next/image'
+import React from 'react'
 
 import classes from './index.module.scss'
 
 type Props = {
+  drawerTitle?: string
   id: string
   label?: string
-  drawerTitle?: string
 }
 
-export const VideoDrawer: (props) => React.JSX.Element = ({ id, label, drawerTitle }) => {
+export const VideoDrawer: (props) => React.JSX.Element = ({ id, drawerTitle, label }) => {
   const drawerSlug = `video-drawer-${id}`
 
   return (
@@ -23,10 +22,10 @@ export const VideoDrawer: (props) => React.JSX.Element = ({ id, label, drawerTit
         <div className={classes.wrap}>
           <div className={classes.thumbnail}>
             <Image
-              src={`https://img.youtube.com/vi/${id}/mqdefault.jpg`}
               alt={drawerTitle || label || 'Video Thumbnail'}
-              style={{ objectFit: 'cover', objectPosition: 'left', opacity: 0.85 }}
               fill
+              src={`https://img.youtube.com/vi/${id}/mqdefault.jpg`}
+              style={{ objectFit: 'cover', objectPosition: 'left', opacity: 0.85 }}
             />
             <PlayIcon className={classes.playIcon} size="large" />
           </div>
@@ -37,7 +36,7 @@ export const VideoDrawer: (props) => React.JSX.Element = ({ id, label, drawerTit
         </div>
       </DrawerToggler>
 
-      <Drawer slug={drawerSlug} size="m" title={drawerTitle}>
+      <Drawer size="m" slug={drawerSlug} title={drawerTitle}>
         <YouTube id={`${id}?autoplay=1`} title={drawerTitle || ''} />
       </Drawer>
     </>

@@ -1,38 +1,38 @@
 'use client'
 
+import { CopyToClipboard } from '@components/CopyToClipboard/index.js'
 import React from 'react'
 
-import { CopyToClipboard } from '@components/CopyToClipboard/index.js'
+import type { FieldProps } from '../types.js'
+
 import Error from '../../Error/index.js'
 import Label from '../../Label/index.js'
-import { FieldProps } from '../types.js'
 import { useField } from '../useField/index.js'
-
 import classes from './index.module.scss'
 
 export const Textarea: React.FC<
-  FieldProps<string> & {
-    rows?: number
+  {
     copy?: boolean
     elementAttributes?: React.InputHTMLAttributes<HTMLTextAreaElement>
-  }
+    rows?: number
+  } & FieldProps<string>
 > = props => {
   const {
-    path,
-    required = false,
-    validate,
-    label,
-    placeholder,
-    onChange: onChangeFromProps,
-    rows = 3,
-    initialValue,
     className,
     copy,
     elementAttributes = {
+      autoCapitalize: 'none',
       autoComplete: 'off',
       autoCorrect: 'off',
-      autoCapitalize: 'none',
     },
+    initialValue,
+    label,
+    onChange: onChangeFromProps,
+    path,
+    placeholder,
+    required = false,
+    rows = 3,
+    validate,
   } = props
 
   const defaultValidateFunction = React.useCallback(
@@ -50,34 +50,34 @@ export const Textarea: React.FC<
     [required],
   )
 
-  const { onChange, value, showError, errorMessage } = useField<string>({
+  const { errorMessage, onChange, showError, value } = useField<string>({
     initialValue,
     onChange: onChangeFromProps,
     path,
-    validate: validate || defaultValidateFunction,
     required,
+    validate: validate || defaultValidateFunction,
   })
 
   return (
     <div className={[className, classes.wrap].filter(Boolean).join(' ')}>
-      <Error showError={showError} message={errorMessage} />
+      <Error message={errorMessage} showError={showError} />
       <Label
+        actionsSlot={copy && <CopyToClipboard value={value} />}
         htmlFor={path}
         label={label}
         required={required}
-        actionsSlot={copy && <CopyToClipboard value={value} />}
       />
       <textarea
         {...elementAttributes}
-        rows={rows}
         className={classes.textarea}
-        value={value || ''}
+        id={path}
+        name={path}
         onChange={e => {
           onChange(e.target.value)
         }}
         placeholder={placeholder}
-        id={path}
-        name={path}
+        rows={rows}
+        value={value || ''}
       />
     </div>
   )

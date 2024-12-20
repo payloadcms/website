@@ -1,33 +1,33 @@
-import { Metadata } from 'next'
-import { redirect } from 'next/navigation'
+import type { Metadata } from 'next'
 
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
+import { redirect } from 'next/navigation'
 
 // force this component to use dynamic search params, see https://github.com/vercel/next.js/issues/43077
 // this is only an issue in production
 export const dynamic = 'force-dynamic'
 
 export default async ({ searchParams }) => {
-  const { token, redirect: redirectParam, email: emailParam } = searchParams
+  const { email: emailParam, redirect: redirectParam, token } = searchParams
 
   if (token) {
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql`, {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         body: JSON.stringify({
           query: `mutation {
             verifyEmailUser(token: "${token}")
         }`,
         }),
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
       })
 
       if (res.ok) {
         const { data, errors } = await res.json()
-        if (errors) throw new Error(errors[0].message)
+        if (errors) {throw new Error(errors[0].message)}
       } else {
         throw new Error('Invalid login')
       }
@@ -50,9 +50,9 @@ export default async ({ searchParams }) => {
 }
 
 export const metadata: Metadata = {
-  title: 'Verify Email | Payload Cloud',
   openGraph: mergeOpenGraph({
     title: 'Verify Email | Payload Cloud',
     url: '/verify',
   }),
+  title: 'Verify Email | Payload Cloud',
 }

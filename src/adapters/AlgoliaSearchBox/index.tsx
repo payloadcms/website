@@ -1,7 +1,6 @@
+import useDebounce from '@root/utilities/use-debounce.js'
 import React, { useCallback, useEffect } from 'react'
 import { useSearchBox } from 'react-instantsearch'
-
-import useDebounce from '@root/utilities/use-debounce.js'
 
 import classes from './index.module.scss'
 
@@ -13,9 +12,9 @@ export const AlgoliaSearchBox: React.FC<{
   const { className } = props
 
   const {
+    clear,
     query,
     refine,
-    clear,
     // isSearchStalled
   } = useSearchBox()
 
@@ -50,10 +49,10 @@ export const AlgoliaSearchBox: React.FC<{
   return (
     <input
       {...props}
-      type="text"
       className={[classes.algoliaSearchBox, className].filter(Boolean).join(' ')}
-      value={value}
       onChange={handleChange}
+      type="text"
+      value={value}
     />
   )
 }

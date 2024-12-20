@@ -1,29 +1,31 @@
 'use client'
 
+import canUseDom from '@root/utilities/can-use-dom.js'
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react'
 
-import canUseDom from '@root/utilities/can-use-dom.js'
-import { locate, LocateResponse } from '../../../functions-api.js'
+import type { LocateResponse } from '../../../functions-api.js';
+
+import { locate } from '../../../functions-api.js'
 
 type Privacy = {
-  showConsent?: boolean
   cookieConsent?: boolean
-  updateCookieConsent: (accepted: boolean, rejected: boolean) => void
   country?: string
+  showConsent?: boolean
+  updateCookieConsent: (accepted: boolean, rejected: boolean) => void
 }
 
 const Context = createContext<Privacy>({
-  showConsent: undefined,
   cookieConsent: undefined,
-  updateCookieConsent: () => false,
   country: undefined,
+  showConsent: undefined,
+  updateCookieConsent: () => false,
 })
 
 type CookieConsent = {
   accepted: boolean
-  rejected: boolean
   at: string
   country: string
+  rejected: boolean
 }
 
 const getLocaleStorage = (): CookieConsent =>
@@ -31,9 +33,9 @@ const getLocaleStorage = (): CookieConsent =>
 const setLocaleStorage = (accepted: boolean, rejected: boolean, country: string) => {
   const cookieConsent: CookieConsent = {
     accepted,
-    rejected,
-    country,
     at: new Date().toISOString(),
+    country,
+    rejected,
   }
   window.localStorage.setItem('cookieConsent', JSON.stringify(cookieConsent))
 }
@@ -100,10 +102,10 @@ const PrivacyProvider: React.FC<PrivacyProviderProps> = props => {
   return (
     <Context.Provider
       value={{
-        showConsent,
         cookieConsent,
-        updateCookieConsent,
         country,
+        showConsent,
+        updateCookieConsent,
       }}
     >
       {children}

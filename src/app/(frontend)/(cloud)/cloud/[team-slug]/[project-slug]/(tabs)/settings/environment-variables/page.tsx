@@ -11,8 +11,8 @@ import { NoData } from '../_layoutComponents/NoData/index.js'
 import { SectionHeader } from '../_layoutComponents/SectionHeader/index.js'
 import { AddEnvs } from './AddEnvs/index.js'
 import { ManageEnvs } from './ManageEnvs/index.js'
-import { Secret } from './Secret/index.js'
 import classes from './page.module.scss'
+import { Secret } from './Secret/index.js'
 
 export default async ({
   params,

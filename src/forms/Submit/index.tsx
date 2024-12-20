@@ -1,24 +1,26 @@
 'use client'
 
+import type { ButtonProps } from '@components/Button/index.js';
+
+import { Button } from '@components/Button/index.js'
 import React, { forwardRef } from 'react'
 
-import { Button, ButtonProps } from '@components/Button/index.js'
 import { useFormProcessing } from '../Form/context.js'
 
-type SubmitProps = ButtonProps & {
-  label?: string | null
+type SubmitProps = {
+  label?: null | string
   processing?: boolean
-}
+} & ButtonProps
 
 const Submit = forwardRef<HTMLButtonElement, SubmitProps>((props, ref) => {
   const {
+    appearance = 'primary',
+    className,
+    disabled,
+    icon = 'arrow',
     label,
     processing: processingFromProps,
-    className,
-    appearance = 'primary',
     size = 'default',
-    icon = 'arrow',
-    disabled,
   } = props
 
   const processing = useFormProcessing()
@@ -26,14 +28,14 @@ const Submit = forwardRef<HTMLButtonElement, SubmitProps>((props, ref) => {
 
   return (
     <Button
-      ref={ref}
-      htmlButtonType="submit"
       appearance={appearance}
-      size={size}
-      icon={icon && !isProcessing ? icon : undefined}
-      label={isProcessing ? 'Processing...' : label || 'Submit'}
       className={className}
       disabled={isProcessing || disabled}
+      htmlButtonType="submit"
+      icon={icon && !isProcessing ? icon : undefined}
+      label={isProcessing ? 'Processing...' : label || 'Submit'}
+      ref={ref}
+      size={size}
     />
   )
 })

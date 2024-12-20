@@ -1,37 +1,36 @@
-import * as React from 'react'
-import Link from 'next/link'
-
 import { EdgeScroll } from '@components/EdgeScroll/index.js'
 import { Gutter } from '@components/Gutter/index.js'
 import { Heading } from '@components/Heading/index.js'
 import { ErrorIcon } from '@root/icons/ErrorIcon/index.js'
+import Link from 'next/link'
+import * as React from 'react'
 
 import classes from './index.module.scss'
 
 export type Tab = {
-  label: string | React.ReactNode
-  isActive?: boolean
-  error?: boolean
-  warning?: boolean
-  url?: string
-  onClick?: () => void
   disabled?: boolean
+  error?: boolean
+  isActive?: boolean
+  label: React.ReactNode | string
+  onClick?: () => void
+  url?: string
+  warning?: boolean
 }
 
 const TabContents: React.FC<Tab> = props => {
-  const { label, error, warning } = props
+  const { error, label, warning } = props
 
   return (
     <React.Fragment>
       {label}
       {error && (
         <div className={[classes.iconWrapper, classes.error].filter(Boolean).join(' ')}>
-          <ErrorIcon size="medium" className={classes.icon} />
+          <ErrorIcon className={classes.icon} size="medium" />
         </div>
       )}
       {!error && warning && (
         <div className={[classes.iconWrapper, classes.warning].filter(Boolean).join(' ')}>
-          <ErrorIcon size="medium" className={classes.icon} />
+          <ErrorIcon className={classes.icon} size="medium" />
         </div>
       )}
     </React.Fragment>
@@ -39,16 +38,16 @@ const TabContents: React.FC<Tab> = props => {
 }
 
 export const Tabs: React.FC<{
-  tabs?: Tab[]
   className?: string
+  tabs?: Tab[]
 }> = props => {
-  const { tabs, className } = props
+  const { className, tabs } = props
 
   return (
     <div className={[classes.tabsContainer, className].filter(Boolean).join(' ')}>
       <EdgeScroll className={classes.tabs}>
         {tabs?.map((tab, index) => {
-          const { url: tabURL, onClick, isActive, error, disabled, warning } = tab
+          const { disabled, error, isActive, onClick, url: tabURL, warning } = tab
 
           const classList = [
             classes.tab,
@@ -64,11 +63,11 @@ export const Tabs: React.FC<{
           if (onClick || disabled) {
             return (
               <button
+                className={classList}
+                disabled={disabled}
                 key={index}
                 onClick={onClick}
                 type="button"
-                className={classList}
-                disabled={disabled}
               >
                 <TabContents {...tab} />
               </button>
@@ -76,7 +75,7 @@ export const Tabs: React.FC<{
           }
 
           const RenderTab = (
-            <Link key={index} href={tabURL || ''} className={classList}>
+            <Link className={classList} href={tabURL || ''} key={index}>
               <TabContents {...tab} />
             </Link>
           )

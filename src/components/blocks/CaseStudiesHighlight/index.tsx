@@ -1,21 +1,20 @@
 'use client'
-import React, { useState } from 'react'
-import { useMouseInfo } from '@faceless-ui/mouse-info'
-import { PayloadIcon } from '@graphics/PayloadIcon/index.js'
-import Image from 'next/image'
-
-import Link from 'next/link'
+import type { CaseStudy, ReusableContent } from '@root/payload-types.js'
 
 import { Gutter } from '@components/Gutter/index.js'
 import { RichText } from '@components/RichText/index.js'
-import { CaseStudy, ReusableContent } from '@root/payload-types.js'
+import { useMouseInfo } from '@faceless-ui/mouse-info'
+import { PayloadIcon } from '@graphics/PayloadIcon/index.js'
+import Image from 'next/image'
+import Link from 'next/link'
+import React, { useState } from 'react'
 
 import classes from './index.module.scss'
 
 type Props = Extract<ReusableContent['layout'][0], { blockType: 'caseStudiesHighlight' }>
 
 export const CaseStudiesHighlightBlock: React.FC<Props> = ({
-  caseStudiesHighlightFields: { richText, caseStudies: allCaseStudies },
+  caseStudiesHighlightFields: { caseStudies: allCaseStudies, richText },
 }) => {
   const { xPercentage } = useMouseInfo()
 
@@ -32,7 +31,7 @@ export const CaseStudiesHighlightBlock: React.FC<Props> = ({
     const rows: CaseStudy[][] = []
 
     for (let n = 0; n < caseStudies.length; n += 3) {
-      rows.push((caseStudies as CaseStudy[]).slice(n, n + 3))
+      rows.push((caseStudies).slice(n, n + 3))
     }
 
     return rows
@@ -59,7 +58,7 @@ export const CaseStudiesHighlightBlock: React.FC<Props> = ({
           <div data-theme="darks">
             {caseStudyRows.map((row, i) => {
               return (
-                <ul key={i} className={classes.row}>
+                <ul className={classes.row} key={i}>
                   {row.map(caseStudy => {
                     const { slug, featuredImage } = caseStudy
 
@@ -72,13 +71,13 @@ export const CaseStudiesHighlightBlock: React.FC<Props> = ({
                     }
 
                     return (
-                      <li key={slug} className={classes.imageWrap}>
+                      <li className={classes.imageWrap} key={slug}>
                         <Link
-                          href={`/case-studies/${slug}`}
                           className={classes.image}
+                          href={`/case-studies/${slug}`}
                           prefetch={false}
                         >
-                          <Image src={`${process.env.NEXT_PUBLIC_CMS_URL}${url}`} fill alt={alt} />
+                          <Image alt={alt} fill src={`${process.env.NEXT_PUBLIC_CMS_URL}${url}`} />
                         </Link>
                       </li>
                     )

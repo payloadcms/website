@@ -1,51 +1,52 @@
 'use client'
-import React from 'react'
-import { ArrowIcon } from '@icons/ArrowIcon/index.js'
+import type { PaddingProps } from '@components/BlockWrapper/index.js';
+import type { Page } from '@root/payload-types.js'
 
+import BackgroundGradient from '@components/BackgroundGradient'
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
 import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
-import { BlockWrapper, PaddingProps } from '@components/BlockWrapper/index.js'
+import { BlockWrapper } from '@components/BlockWrapper/index.js'
 import { CMSLink } from '@components/CMSLink/index.js'
+import { CommandLine } from '@components/CommandLine'
 import CreatePayloadApp from '@components/CreatePayloadApp/index.js'
 import { Gutter } from '@components/Gutter/index.js'
-import { RichText } from '@components/RichText/index.js'
-import { CrosshairIcon } from '@root/icons/CrosshairIcon/index.js'
-import { Page } from '@root/payload-types.js'
 import { Media } from '@components/Media/index.js'
+import { RichText } from '@components/RichText/index.js'
+import { ArrowIcon } from '@icons/ArrowIcon/index.js'
+import { ArrowRightIcon } from '@icons/ArrowRightIcon'
+import { CrosshairIcon } from '@root/icons/CrosshairIcon/index.js'
+import React from 'react'
 
 import classes from './index.module.scss'
-import { ArrowRightIcon } from '@icons/ArrowRightIcon'
-import BackgroundGradient from '@components/BackgroundGradient'
-import { CommandLine } from '@components/CommandLine'
 
-export type CallToActionProps = Extract<Page['layout'][0], { blockType: 'cta' }> & {
-  padding?: PaddingProps
+export type CallToActionProps = {
   hideBackground?: boolean
-}
+  padding?: PaddingProps
+} & Extract<Page['layout'][0], { blockType: 'cta' }>
 
 export const CallToAction: React.FC<CallToActionProps> = props => {
   const {
     ctaFields: {
-      richText,
-      commandLine,
-      links,
-      style = 'buttons',
-      gradientBackground,
       bannerImage,
       bannerLink,
+      commandLine,
+      gradientBackground,
+      links,
+      richText,
       settings,
+      style = 'buttons',
     },
-    padding,
     hideBackground,
+    padding,
   } = props
 
   const hasLinks = links && links.length > 0
 
   return (
     <BlockWrapper
-      settings={settings}
-      padding={style === 'banner' ? { top: 'large', bottom: 'large' } : padding}
       hideBackground={hideBackground}
+      padding={style === 'banner' ? { bottom: 'large', top: 'large' } : padding}
+      settings={settings}
     >
       <BackgroundGrid zIndex={0} />
       <Gutter className={classes.callToAction}>
@@ -55,7 +56,7 @@ export const CallToAction: React.FC<CallToActionProps> = props => {
               <div
                 className={[classes.contentWrapper, 'cols-6 cols-m-8'].filter(Boolean).join(' ')}
               >
-                <RichText content={richText} className={classes.content} />
+                <RichText className={classes.content} content={richText} />
                 {commandLine && <CommandLine command={commandLine} />}
               </div>
               <div
@@ -77,17 +78,17 @@ export const CallToAction: React.FC<CallToActionProps> = props => {
 
                 {hasLinks && (
                   <div className={[classes.links, 'cols-16 cols-m-8'].filter(Boolean).join(' ')}>
-                    {links.map(({ link, type: ctaType, npmCta }, index) => {
+                    {links.map(({ type: ctaType, link, npmCta }, index) => {
                       const type = ctaType ?? 'link'
 
                       if (type === 'npmCta') {
                         return (
                           <CreatePayloadApp
-                            key={index}
-                            style="cta"
-                            label={npmCta?.label}
-                            className={classes.npmCta}
                             background={false}
+                            className={classes.npmCta}
+                            key={index}
+                            label={npmCta?.label}
+                            style="cta"
                           />
                         )
                       }
@@ -95,16 +96,16 @@ export const CallToAction: React.FC<CallToActionProps> = props => {
                       return (
                         <CMSLink
                           {...link}
-                          key={index}
                           appearance={'default'}
                           buttonProps={{
                             appearance: 'default',
-                            size: 'large',
-                            hideHorizontalBorders: true,
-                            hideBottomBorderExceptLast: true,
                             forceBackground: true,
+                            hideBottomBorderExceptLast: true,
+                            hideHorizontalBorders: true,
+                            size: 'large',
                           }}
                           className={[classes.button].filter(Boolean).join(' ')}
+                          key={index}
                         />
                       )
                     })}
@@ -117,8 +118,8 @@ export const CallToAction: React.FC<CallToActionProps> = props => {
         {style === 'banner' && (
           <CMSLink
             {...bannerLink}
-            label={null}
             className={[classes.bannerWrapper, 'grid'].filter(Boolean).join(' ')}
+            label={null}
           >
             <div className={[classes.bannerContent, 'cols-8'].filter(Boolean).join(' ')}>
               <RichText content={richText} />

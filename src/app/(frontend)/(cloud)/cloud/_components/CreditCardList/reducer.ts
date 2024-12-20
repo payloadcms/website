@@ -1,18 +1,18 @@
 import type { PaymentMethod } from '@stripe/stripe-js'
 
 interface ADD_CARD {
-  type: 'ADD_CARD'
   payload: PaymentMethod
+  type: 'ADD_CARD'
 }
 
 interface DELETE_CARD {
-  type: 'DELETE_CARD'
   payload: string
+  type: 'DELETE_CARD'
 }
 
 interface RESET_CARDS {
-  type: 'RESET_CARDS'
   payload: PaymentMethod[]
+  type: 'RESET_CARDS'
 }
 
 type Action = ADD_CARD | DELETE_CARD | RESET_CARDS

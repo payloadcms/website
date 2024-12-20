@@ -1,14 +1,14 @@
 'use client'
 
-import * as React from 'react'
-import { toast } from 'sonner'
+import type { OnSubmit } from '@forms/types.js'
+import type { Project } from '@root/payload-cloud-types.js'
+
 import { Text } from '@forms/fields/Text/index.js'
 import Form from '@forms/Form/index.js'
 import Submit from '@forms/Submit/index.js'
-import { OnSubmit } from '@forms/types.js'
 import { validateDomain } from '@forms/validations.js'
-
-import { Project } from '@root/payload-cloud-types.js'
+import * as React from 'react'
+import { toast } from 'sonner'
 
 import classes from './index.module.scss'
 
@@ -19,9 +19,9 @@ const generateUUID = () => {
 const emailDomainFieldPath = 'newEmailDomain'
 
 export const AddEmailDomain: React.FC<{
-  project: Project
   environmentSlug: string
-}> = ({ project, environmentSlug }) => {
+  project: Project
+}> = ({ environmentSlug, project }) => {
   const [fieldKey, setFieldKey] = React.useState(generateUUID())
 
   const projectID = project?.id
@@ -30,8 +30,8 @@ export const AddEmailDomain: React.FC<{
   const saveEmailDomain = React.useCallback<OnSubmit>(
     async ({ data }) => {
       const newEmailDomain: {
-        domain: string
         cloudflareID?: string
+        domain: string
         id?: string
       } = {
         domain: data[emailDomainFieldPath] as string,
@@ -48,14 +48,14 @@ export const AddEmailDomain: React.FC<{
               environmentSlug ? `?env=${environmentSlug}` : ''
             }`,
             {
-              method: 'PATCH',
+              body: JSON.stringify({
+                customEmailDomains: [newEmailDomain, ...(projectEmailDomains || [])],
+              }),
               credentials: 'include',
               headers: {
                 'Content-Type': 'application/json',
               },
-              body: JSON.stringify({
-                customEmailDomains: [newEmailDomain, ...(projectEmailDomains || [])],
-              }),
+              method: 'PATCH',
             },
           )
 
@@ -84,9 +84,9 @@ export const AddEmailDomain: React.FC<{
     <Form className={classes.formContent} onSubmit={saveEmailDomain}>
       <Text
         key={fieldKey}
-        required
         label="Domain"
         path={emailDomainFieldPath}
+        required
         validate={validateDomain}
       />
 

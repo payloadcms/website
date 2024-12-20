@@ -1,13 +1,13 @@
 'use client'
 
-import * as React from 'react'
-import { Secret } from '@forms/fields/Secret/index.js'
-import Label from '@forms/Label/index.js'
+import type { Project, Team } from '@root/payload-cloud-types.js'
 
 import { Banner } from '@components/Banner/index.js'
 import { CopyToClipboard } from '@components/CopyToClipboard/index.js'
 import { Gutter } from '@components/Gutter/index.js'
-import { Project, Team } from '@root/payload-cloud-types.js'
+import { Secret } from '@forms/fields/Secret/index.js'
+import Label from '@forms/Label/index.js'
+import * as React from 'react'
 
 import classes from './page.module.scss'
 
@@ -30,10 +30,10 @@ PAYLOAD_CLOUD_COGNITO_PASSWORD=
 }
 
 export const ProjectFileStoragePage: React.FC<{
+  environmentSlug: string
   project: Project
   team: Team
-  environmentSlug: string
-}> = ({ project, team, environmentSlug }) => {
+}> = ({ environmentSlug, project, team }) => {
   const loadPassword = React.useCallback(async () => {
     const { value } = await fetch(
       `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project?.id}/cognito-password${
@@ -58,8 +58,8 @@ export const ProjectFileStoragePage: React.FC<{
             Payload Cloud uses AWS Cognito for authentication to your S3 bucket. The{' '}
             <a
               href="https://github.com/payloadcms/payload/tree/main/packages/payload-cloud#accessing-file-storage-from-local-environment"
-              target="_blank"
               rel="noopener noreferrer"
+              target="_blank"
             >
               Payload Cloud Plugin
             </a>{' '}
@@ -69,9 +69,9 @@ export const ProjectFileStoragePage: React.FC<{
           </p>
         </Banner>
         <Label
-          label={<h4>Cognito Variables</h4>}
+          actionsSlot={<CopyToClipboard hoverText="Copy as .env" value={formatEnvVars(project)} />}
           className={classes.label}
-          actionsSlot={<CopyToClipboard value={formatEnvVars(project)} hoverText="Copy as .env" />}
+          label={<h4>Cognito Variables</h4>}
         />
         <ul className={classes.meta}>
           <li>
@@ -104,10 +104,10 @@ export const ProjectFileStoragePage: React.FC<{
           </li>
         </ul>
         <Secret
-          label="Cognito Password"
-          path="cognitoPassword"
           className={classes.secretInput}
+          label="Cognito Password"
           loadSecret={loadPassword}
+          path="cognitoPassword"
           readOnly
         />
       </div>

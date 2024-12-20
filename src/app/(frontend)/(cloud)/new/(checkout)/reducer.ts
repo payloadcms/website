@@ -1,47 +1,48 @@
 // project reducer
 
 import type { TeamWithCustomer } from '@cloud/_api/fetchTeam.js'
-
 import type { Plan } from '@root/payload-cloud-types.js'
 
 interface SET_PLAN {
-  type: 'SET_PLAN'
   payload: Plan
+  type: 'SET_PLAN'
 }
 
 interface SET_TEAM {
-  type: 'SET_TEAM'
   payload: TeamWithCustomer
+  type: 'SET_TEAM'
 }
 
 interface UPDATE_STATE {
-  type: 'UPDATE_STATE'
   payload: Partial<CheckoutState>
+  type: 'UPDATE_STATE'
 }
 
 interface SET_PAYMENT_METHOD {
-  type: 'SET_PAYMENT_METHOD'
   payload: string
+  type: 'SET_PAYMENT_METHOD'
 }
 
 interface SET_FREE_TRIAL {
-  type: 'SET_FREE_TRIAL'
   payload: boolean
+  type: 'SET_FREE_TRIAL'
 }
 
-type Action = UPDATE_STATE | SET_PLAN | SET_TEAM | SET_PAYMENT_METHOD | SET_FREE_TRIAL
+type Action = SET_FREE_TRIAL | SET_PAYMENT_METHOD | SET_PLAN | SET_TEAM | UPDATE_STATE
 
 export interface CheckoutState {
-  team: TeamWithCustomer
-  plan: Plan
-  paymentMethod: string
   freeTrial: boolean
+  paymentMethod: string
+  plan: Plan
+  team: TeamWithCustomer
 }
 
 export const checkoutReducer = (state: CheckoutState, action: Action): CheckoutState => {
   switch (action.type) {
-    case 'UPDATE_STATE':
-      return { ...state, ...action.payload }
+    case 'SET_FREE_TRIAL':
+      return { ...state, freeTrial: action.payload }
+    case 'SET_PAYMENT_METHOD':
+      return { ...state, paymentMethod: action.payload }
     case 'SET_PLAN':
       return {
         ...state,
@@ -52,10 +53,8 @@ export const checkoutReducer = (state: CheckoutState, action: Action): CheckoutS
         ...state,
         team: action.payload,
       }
-    case 'SET_PAYMENT_METHOD':
-      return { ...state, paymentMethod: action.payload }
-    case 'SET_FREE_TRIAL':
-      return { ...state, freeTrial: action.payload }
+    case 'UPDATE_STATE':
+      return { ...state, ...action.payload }
     default:
       return state
   }

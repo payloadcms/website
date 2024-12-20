@@ -1,22 +1,22 @@
 'use client'
-import React, { useMemo } from 'react'
-import { cubicBezier, motion, stagger, useAnimate, useInView } from 'framer-motion'
+import type { AllowedElements } from '@components/SpotlightAnimation/types.js'
 
-import { AllowedElements } from '@components/SpotlightAnimation/types.js'
+import { cubicBezier, motion, stagger, useAnimate, useInView } from 'framer-motion'
+import React, { useMemo } from 'react'
 
 import classes from './index.module.scss'
 
 interface Props {
-  text: string
-  className?: string
   as?: AllowedElements
   callback?: () => void
+  className?: string
+  text: string
 }
 const SplitAnimate: React.FC<Props> = ({
-  text,
-  className,
   as: Element = 'span',
   callback,
+  className,
+  text,
   ...props
 }) => {
   const [scope, animate] = useAnimate()
@@ -24,7 +24,7 @@ const SplitAnimate: React.FC<Props> = ({
   const easing = cubicBezier(0.165, 0.84, 0.44, 1)
 
   const textArray = useMemo(() => {
-    if (text === '') return []
+    if (text === '') {return []}
     return text
       .trim()
       .replace('-', '‑')
@@ -38,10 +38,10 @@ const SplitAnimate: React.FC<Props> = ({
     if (isInView) {
       animate(
         innerWorldSelector,
-        { y: '0%', rotate: 0 },
-        { duration: 1.125, delay: stagger(0.075), ease: easing },
+        { rotate: 0, y: '0%' },
+        { delay: stagger(0.075), duration: 1.125, ease: easing },
       ).then(() => {
-        if (callback) callback()
+        if (callback) {callback()}
       })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -49,14 +49,14 @@ const SplitAnimate: React.FC<Props> = ({
 
   return (
     // @ts-expect-error
-    <Element ref={scope} className={(classes.element, className)} {...props}>
+    <Element className={(classes.element, className)} ref={scope} {...props}>
       {textArray.map((text, index) => {
         const isLast = index + 1 === textArray.length
         return (
           <span className={[classes.word, 'word'].filter(Boolean).join(' ')} key={index}>
             <motion.span
-              initial={{ y: '150%', rotate: 10 }}
               className={[classes.innerWord, 'inner-word'].filter(Boolean).join(' ')}
+              initial={{ rotate: 10, y: '150%' }}
             >
               {isLast ? text : text + ' '}
             </motion.span>

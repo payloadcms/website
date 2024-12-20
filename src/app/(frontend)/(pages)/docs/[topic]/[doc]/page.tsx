@@ -54,7 +54,7 @@ export async function generateMetadata({
 }
 
 export function generateStaticParams() {
-  if (process.env.NEXT_PUBLIC_SKIP_BUILD_DOCS) return []
+  if (process.env.NEXT_PUBLIC_SKIP_BUILD_DOCS) {return []}
 
   const topics = fetchDocs()
 

@@ -1,31 +1,31 @@
 'use client'
 
-import React from 'react'
+import { Gutter } from '@components/Gutter/index.js'
 import { Text } from '@forms/fields/Text/index.js'
 import { Textarea } from '@forms/fields/Textarea/index.js'
 import Form from '@forms/Form/index.js'
 import Submit from '@forms/Submit/index.js'
+import React from 'react'
 
-import { Gutter } from '@components/Gutter/index.js'
 import { StyleguidePageContent } from '../PageContent/index.js'
 
 export const FormsExample: React.FC = () => {
   return (
-    <StyleguidePageContent title="Forms" darkModePadding darkModeMargins>
+    <StyleguidePageContent darkModeMargins darkModePadding title="Forms">
       <Gutter>
         <Form
-          onSubmit={args => {
-            console.log(args) // eslint-disable-line no-console
-          }}
           initialState={{
             name: {
               initialValue: 'Bob',
             },
           }}
+          onSubmit={args => {
+            console.log(args) // eslint-disable-line no-console
+          }}
         >
-          <Text path="name" label="Name" placeholder="John" required />
+          <Text label="Name" path="name" placeholder="John" required />
           <br />
-          <Textarea path="message" label="Message" placeholder="Message" />
+          <Textarea label="Message" path="message" placeholder="Message" />
           <br />
           <Submit label="Submit" />
         </Form>

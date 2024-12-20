@@ -7,11 +7,11 @@ export const ExternalLinkIcon: React.FC<Props> = ({ className }) => {
   return (
     <svg
       className={className}
-      stroke="currentColor"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
       fill="none"
+      height="24"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      width="24"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path d="M15.5714 6L11.5 6H7L7 18H19L19 9.42857" />

@@ -1,11 +1,10 @@
-import React from 'react'
-
 import Code from '@components/Code/index.js'
+import React from 'react'
 
 import classes from './index.module.scss'
 
 export const GenerateRequest = ({ req, row }) => {
-  if (!req) return null
+  if (!req) {return null}
 
   const reqBody = req.body
     ? Object.entries(req.body).map(([key, value]) => {

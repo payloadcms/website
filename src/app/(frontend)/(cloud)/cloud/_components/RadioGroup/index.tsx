@@ -1,5 +1,5 @@
-import * as React from 'react'
 import { useField } from '@forms/fields/useField/index.js'
+import * as React from 'react'
 
 import classes from './index.module.scss'
 
@@ -8,15 +8,15 @@ type RadioOption = {
   value: string
 }
 export const CloudRadioGroup: React.FC<{
-  path: string
   initialValue?: string
+  onChange: (option: any) => void  
   options: RadioOption[]
-  onChange: (option: any) => void // eslint-disable-line no-unused-vars
-}> = ({ path, options, initialValue, onChange: onChangeFromProps }) => {
-  const { value, onChange } = useField<string>({
+  path: string
+}> = ({ initialValue, onChange: onChangeFromProps, options, path }) => {
+  const { onChange, value } = useField<string>({
+    initialValue,
     path,
     required: true,
-    initialValue,
   })
 
   const handleChange = React.useCallback(
@@ -34,20 +34,20 @@ export const CloudRadioGroup: React.FC<{
 
         return (
           <div
-            key={option.value}
             className={[isSelected && classes.isSelected].filter(Boolean).join(' ')}
+            key={option.value}
           >
             <input
-              type="radio"
-              id={`teamID-${index}`}
-              value={option.value}
               checked={isSelected}
+              className={classes.radioInput}
+              id={`teamID-${index}`}
               onChange={() => {
                 handleChange(option)
               }}
-              className={classes.radioInput}
+              type="radio"
+              value={option.value}
             />
-            <label htmlFor={`teamID-${index}`} className={classes.radioCard}>
+            <label className={classes.radioCard} htmlFor={`teamID-${index}`}>
               <div className={classes.styledRadioInput} />
               <span>{option.label}</span>
             </label>

@@ -1,16 +1,16 @@
-import React from 'react'
+import type { ReusableContent } from '@root/payload-types.js'
 
 import Code from '@components/Code/index.js'
 import CodeBlip from '@components/CodeBlip/index.js'
 import { Gutter } from '@components/Gutter/index.js'
-import { ReusableContent } from '@root/payload-types.js'
+import React from 'react'
 
 import classes from './index.module.scss'
 
 type Props = Extract<ReusableContent['layout'][0], { blockType: 'code' }>
 
 export const CodeBlock: React.FC<
-  Props & { disableGutter?: boolean; disableMinHeight?: boolean }
+  { disableGutter?: boolean; disableMinHeight?: boolean } & Props
 > = ({ codeFields, disableGutter, disableMinHeight }) => {
   const {
     code,

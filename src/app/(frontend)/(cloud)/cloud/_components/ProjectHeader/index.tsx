@@ -1,7 +1,7 @@
 'use client'
 import { cloudSlug } from '@cloud/slug.js'
-import Form from '@forms/Form'
 import { Select } from '@forms/fields/Select'
+import Form from '@forms/Form'
 import { PRODUCTION_ENVIRONMENT_SLUG } from '@root/constants.js'
 import { generateRoutePath } from '@root/utilities/generate-route-path'
 import { useParams, usePathname, useRouter } from 'next/navigation'

@@ -77,7 +77,7 @@ export const DashboardBreadcrumbs = () => {
         )}
         {segments.map((segment, index) => {
           // removes env segment from breadcrumbs
-          if (segment.toLowerCase() === 'env') return
+          if (segment.toLowerCase() === 'env') {return}
           return (
             <React.Fragment key={segment}>
               <span className={classes.slash}>{' / '}</span>

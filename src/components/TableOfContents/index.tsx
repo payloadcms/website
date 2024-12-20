@@ -1,10 +1,10 @@
 'use client'
 
+import type { Heading } from '@root/app/(frontend)/(pages)/docs/types.js'
+
 import React, { useEffect, useRef, useState } from 'react'
 
-import { Heading } from '@root/app/(frontend)/(pages)/docs/types.js'
 import { Jumplist } from '../Jumplist/index.js'
-
 import classes from './index.module.scss'
 
 export type Props = {
@@ -15,7 +15,7 @@ export type Props = {
 export const TableOfContents: React.FC<Props> = ({ className, headings }) => {
   const listItemRefs = useRef<(HTMLDivElement | null)[]>([])
   const [indicatorTop, setIndicatorTop] = useState<number | undefined>(undefined)
-  const [activeHeadingId, setActiveHeadingId] = useState<string | null>(null)
+  const [activeHeadingId, setActiveHeadingId] = useState<null | string>(null)
   const [resetIndicator, setResetIndicator] = useState(true)
 
   useEffect(() => {
@@ -36,7 +36,7 @@ export const TableOfContents: React.FC<Props> = ({ className, headings }) => {
       <h6 className={classes.tocTitle}>On this page</h6>
       <Jumplist
         className={classes.toc}
-        list={headings.map(({ id, level, text, anchor }) => ({
+        list={headings.map(({ id, anchor, level, text }) => ({
           id,
           anchor,
           Component: ({ active }) => {
@@ -49,10 +49,10 @@ export const TableOfContents: React.FC<Props> = ({ className, headings }) => {
             }
             return (
               <div
-                key={id}
                 className={[classes[`heading-${level}`], active && classes.active]
                   .filter(Boolean)
                   .join(' ')}
+                key={id}
                 onMouseEnter={handleMouseEnter}
                 ref={ref => {
                   listItemRefs.current[id] = ref

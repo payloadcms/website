@@ -1,46 +1,47 @@
-import React from 'react'
+import type { PaddingProps } from '@components/BlockWrapper/index.js';
+import type { Page } from '@root/payload-types.js'
 
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
-import { BlockWrapper, PaddingProps } from '@components/BlockWrapper/index.js'
+import { BlockWrapper } from '@components/BlockWrapper/index.js'
 import { Gutter } from '@components/Gutter/index.js'
-import { Page } from '@root/payload-types.js'
+import React from 'react'
+
 import { DesktopMediaContentAccordion } from './Desktop/index.js'
+import classes from './index.module.scss'
 import { MobileMediaContentAccordion } from './Mobile/index.js'
 
-import classes from './index.module.scss'
-
-export type MediaContentAccordionProps = Extract<
+export type MediaContentAccordionProps = {
+  hideBackground?: boolean
+  padding: PaddingProps
+} & Extract<
   Page['layout'][0],
   { blockType: 'mediaContentAccordion' }
-> & {
-  padding: PaddingProps
-  hideBackground?: boolean
-}
+>
 
 export const MediaContentAccordion: React.FC<MediaContentAccordionProps> = ({
+  hideBackground,
   mediaContentAccordionFields,
   padding,
-  hideBackground,
 }) => {
   const { settings } = mediaContentAccordionFields || {}
 
   return (
     <BlockWrapper
-      settings={settings}
-      padding={padding}
-      hideBackground={hideBackground}
       className={[classes.mediaContentAccordion].filter(Boolean).join(' ')}
+      hideBackground={hideBackground}
+      padding={padding}
+      settings={settings}
     >
       <Gutter>
         <BackgroundGrid zIndex={0} />
         <DesktopMediaContentAccordion
-          className={classes.desktop}
           blockType="mediaContentAccordion"
+          className={classes.desktop}
           mediaContentAccordionFields={mediaContentAccordionFields}
         />
         <MobileMediaContentAccordion
-          className={classes.mobile}
           blockType="mediaContentAccordion"
+          className={classes.mobile}
           mediaContentAccordionFields={mediaContentAccordionFields}
         />
       </Gutter>

@@ -12,11 +12,11 @@ import { toast } from 'sonner'
 import { confirmCardSetup } from '../../../new/(checkout)/confirmCardSetup.js'
 import { cardReducer } from './reducer.js'
 
-type SaveNewPaymentMethod = (paymentMethodID: string) => Promise<SetupIntent | null | undefined>
+type SaveNewPaymentMethod = (paymentMethodID: string) => Promise<null | SetupIntent | undefined>
 
 export const usePaymentMethods = (args: {
   delay?: number
-  initialValue?: PaymentMethod[] | null | undefined
+  initialValue?: null | PaymentMethod[] | undefined
   team?: TeamWithCustomer
 }): {
   defaultPaymentMethod: string | undefined
@@ -24,7 +24,7 @@ export const usePaymentMethods = (args: {
   error?: string
   getPaymentMethods: () => void
   isLoading: 'deleting' | 'loading' | 'saving' | false | null
-  result: PaymentMethod[] | null | undefined
+  result: null | PaymentMethod[] | undefined
   saveNewPaymentMethod: SaveNewPaymentMethod
   setDefaultPaymentMethod: React.Dispatch<React.SetStateAction<string | undefined>>
 } => {
@@ -71,7 +71,7 @@ export const usePaymentMethods = (args: {
         return
       }
 
-      if (isRequesting.current) return
+      if (isRequesting.current) {return}
 
       isRequesting.current = true
 
@@ -96,7 +96,7 @@ export const usePaymentMethods = (args: {
 
       isRequesting.current = false
 
-      // eslint-disable-next-line consistent-return
+       
       return () => {
         clearTimeout(timer)
       }
@@ -105,7 +105,7 @@ export const usePaymentMethods = (args: {
   )
 
   useEffect(() => {
-    if (initialValue) return
+    if (initialValue) {return}
     getPaymentMethods()
   }, [getPaymentMethods, initialValue])
 
@@ -116,7 +116,7 @@ export const usePaymentMethods = (args: {
         return
       }
 
-      if (isDeleting.current) return
+      if (isDeleting.current) {return}
 
       isDeleting.current = true
       setError(undefined)
@@ -135,7 +135,7 @@ export const usePaymentMethods = (args: {
         )?.then(res => {
           const json = res.json()
           // @ts-expect-error
-          if (!res.ok) throw new Error(json?.message)
+          if (!res.ok) {throw new Error(json?.message)}
           return json
         })
 
@@ -221,7 +221,7 @@ export const usePaymentMethods = (args: {
 
         const newPaymentMethod = await fetchPaymentMethod({ paymentMethodID: pmID, team })
 
-        if (!newPaymentMethod) throw new Error('Could not retrieve new payment method')
+        if (!newPaymentMethod) {throw new Error('Could not retrieve new payment method')}
 
         dispatchResult({
           type: 'ADD_CARD',

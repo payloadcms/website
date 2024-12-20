@@ -1,19 +1,19 @@
+import type { Team } from '@root/payload-cloud-types.js'
+
+import { Heading } from '@components/Heading/index.js'
+import { formatDate } from '@root/utilities/format-date-time.js'
 import React, { Fragment } from 'react'
 import { toast } from 'sonner'
 
-import { Heading } from '@components/Heading/index.js'
-import { Team } from '@root/payload-cloud-types.js'
-import { formatDate } from '@root/utilities/format-date-time.js'
 import { TeamMemberRow } from '../TeamMembers/TeamMemberRow.js'
-
 import classes from './index.module.scss'
 
 export const TeamInvitations: React.FC<{
-  team: Team
   className?: string
+  team: Team
 }> = ({ className, team }) => {
   const ref = React.useRef<HTMLDivElement>(null)
-  const [error, setError] = React.useState<string | null>(null)
+  const [error, setError] = React.useState<null | string>(null)
   const [loading, setLoading] = React.useState<boolean>(false)
 
   const resendEmail = React.useCallback(
@@ -36,23 +36,23 @@ export const TeamInvitations: React.FC<{
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/teams/${team?.id}/send-invitations`,
           {
-            method: 'POST',
+            body: JSON.stringify({
+              invitations: [{ email }],
+            }),
             credentials: 'include',
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-              invitations: [{ email }],
-            }),
+            method: 'POST',
           },
         )
 
-        if (timer) clearTimeout(timer)
+        if (timer) {clearTimeout(timer)}
         setLoading(false)
 
         if (res.ok) {
           const { data, error } = await res.json()
-          if (error) setError(error)
+          if (error) {setError(error)}
           else {
             setError(null)
             toast.success('Invitation resent.')
@@ -65,15 +65,15 @@ export const TeamInvitations: React.FC<{
       }
 
       return () => {
-        if (timer) clearTimeout(timer)
+        if (timer) {clearTimeout(timer)}
       }
     },
     [team],
   )
 
   return (
-    <div ref={ref} className={[classes.invitations, className].filter(Boolean).join(' ')}>
-      <Heading element="h4" marginTop={false} marginBottom={false}>
+    <div className={[classes.invitations, className].filter(Boolean).join(' ')} ref={ref}>
+      <Heading element="h4" marginBottom={false} marginTop={false}>
         Current invitations
       </Heading>
       <div className={classes.formState}>
@@ -82,10 +82,6 @@ export const TeamInvitations: React.FC<{
       </div>
       {team?.invitations?.map((invite, index) => (
         <TeamMemberRow
-          key={`${invite?.id}-${index}`}
-          leader={`Invite ${(index + 1).toString()}`}
-          initialEmail={typeof invite?.email === 'string' ? invite?.email : ''}
-          initialRoles={invite?.roles}
           footer={
             <Fragment>
               {invite?.invitedOn && (
@@ -97,15 +93,19 @@ export const TeamInvitations: React.FC<{
               )}
               <button
                 className={classes.resendEmail}
-                type="button"
                 onClick={() => {
                   resendEmail(invite?.email)
                 }}
+                type="button"
               >
                 Resend invite
               </button>
             </Fragment>
           }
+          initialEmail={typeof invite?.email === 'string' ? invite?.email : ''}
+          initialRoles={invite?.roles}
+          key={`${invite?.id}-${index}`}
+          leader={`Invite ${(index + 1).toString()}`}
         />
       ))}
     </div>

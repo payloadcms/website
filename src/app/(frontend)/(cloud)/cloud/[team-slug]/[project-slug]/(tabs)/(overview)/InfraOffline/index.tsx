@@ -1,94 +1,94 @@
 'use client'
 
-import * as React from 'react'
-import { fetchProjectClient } from '@cloud/_api/fetchProjects.js'
-import Link from 'next/link'
+import type { Project, Team } from '@root/payload-cloud-types.js'
+import type { RequireField } from '@root/ts-helpers/requireField.js'
 
+import { fetchProjectClient } from '@cloud/_api/fetchProjects.js'
 import { Banner } from '@components/Banner/index.js'
+import { ExtendedBackground } from '@components/ExtendedBackground/index.js'
 import { Gutter } from '@components/Gutter/index.js'
 import { Heading } from '@components/Heading/index.js'
-import { ExtendedBackground } from '@components/ExtendedBackground/index.js'
 import { Indicator } from '@components/Indicator/index.js'
 import { Message } from '@components/Message/index.js'
-import { Project, Team } from '@root/payload-cloud-types.js'
-import { RequireField } from '@root/ts-helpers/requireField.js'
 import { useGetProjectDeployments } from '@root/utilities/use-cloud-api.js'
-import { DeploymentLogs } from '../DeploymentLogs/index.js'
+import Link from 'next/link'
+import * as React from 'react'
 
+import { DeploymentLogs } from '../DeploymentLogs/index.js'
 import classes from './index.module.scss'
 
 type DeploymentPhases = RequireField<Project, 'infraStatus'>['infraStatus']
 type DeploymentStates = {
   [key in DeploymentPhases]: {
-    status: 'SUCCESS' | 'ERROR' | 'SUSPENDED'
     label: string
-    timeframe?: string
+    status: 'ERROR' | 'SUCCESS' | 'SUSPENDED'
     step?: number
+    timeframe?: string
   }
 }
 
 const deploymentStates: DeploymentStates = {
-  notStarted: {
+  appCreationError: {
+    label: 'Failed to create application',
+    status: 'ERROR',
     step: 0,
-    status: 'SUCCESS',
-    label: 'Setting up your project',
-  },
-  reinstating: {
-    step: 0,
-    status: 'SUCCESS',
-    label: 'Reinstating your project',
   },
   awaitingDatabase: {
-    step: 1,
-    status: 'SUCCESS',
     label: 'Deploying project database',
+    status: 'SUCCESS',
+    step: 1,
     timeframe: '1 to 3 min',
   },
+  deployError: {
+    label: 'Deployment failed',
+    status: 'ERROR',
+    step: 0,
+  },
   deploying: {
-    step: 2,
-    status: 'SUCCESS',
     label: 'Deploying your project',
+    status: 'SUCCESS',
+    step: 2,
     timeframe: '5 to 10 min',
   },
   done: {
-    step: 4,
-    status: 'SUCCESS',
     label: 'Deployment complete, reloading page',
-  },
-  suspended: {
-    step: 0,
-    status: 'SUSPENDED',
-    label: 'Suspended. Contact info@payloadcms.com if you think this was a mistake.',
+    status: 'SUCCESS',
+    step: 4,
   },
   error: {
-    step: 0,
-    status: 'ERROR',
     label: 'Deployment failed',
-  },
-  deployError: {
-    step: 0,
     status: 'ERROR',
-    label: 'Deployment failed',
-  },
-  appCreationError: {
     step: 0,
-    status: 'ERROR',
-    label: 'Failed to create application',
   },
   infraCreationError: {
-    step: 0,
-    status: 'ERROR',
     label: 'Failed to create infrastructure',
+    status: 'ERROR',
+    step: 0,
+  },
+  notStarted: {
+    label: 'Setting up your project',
+    status: 'SUCCESS',
+    step: 0,
+  },
+  reinstating: {
+    label: 'Reinstating your project',
+    status: 'SUCCESS',
+    step: 0,
   },
   reinstatingError: {
-    step: 0,
-    status: 'ERROR',
     label: 'Failed to reinstate project',
+    status: 'ERROR',
+    step: 0,
+  },
+  suspended: {
+    label: 'Suspended. Contact info@payloadcms.com if you think this was a mistake.',
+    status: 'SUSPENDED',
+    step: 0,
   },
   suspendingError: {
-    step: 0,
-    status: 'ERROR',
     label: 'Failed to suspend project',
+    status: 'ERROR',
+    step: 0,
   },
 }
 
@@ -100,18 +100,18 @@ const initialDeploymentPhases: DeploymentPhases[] = [
 ]
 
 export const InfraOffline: React.FC<{
+  environmentSlug: string
   project: Project
   team: Team
-  environmentSlug: string
 }> = props => {
-  const { project: initialProject, team, environmentSlug } = props
+  const { environmentSlug, project: initialProject, team } = props
   const [project, setProject] = React.useState(initialProject)
 
   const reloadProject = React.useCallback(async () => {
     const newProject = await fetchProjectClient({
-      teamID: team.id,
-      projectSlug: initialProject.slug,
       environmentSlug,
+      projectSlug: initialProject.slug,
+      teamID: team.id,
     })
 
     setProject(newProject)
@@ -125,20 +125,20 @@ export const InfraOffline: React.FC<{
 
   const infraStatus = project?.infraStatus || 'notStarted'
   const failedDeployment = [
-    'error',
-    'deployError',
     'appCreationError',
+    'deployError',
+    'error',
     'infraCreationError',
   ].includes(infraStatus)
   const deploymentStep = deploymentStates[infraStatus]
 
   const {
-    result: deployments,
-    reqStatus,
     reload: reloadDeployments,
+    reqStatus,
+    result: deployments,
   } = useGetProjectDeployments({
-    projectID: project?.id,
     environmentSlug,
+    projectID: project?.id,
   })
 
   const latestDeployment = deployments?.[0]
@@ -203,8 +203,8 @@ export const InfraOffline: React.FC<{
               <div className={classes.indication}>
                 <div className={classes.indicationLine}>
                   <Indicator
-                    status={deploymentStep?.status}
                     spinner={initialDeploymentPhases.includes(infraStatus)}
+                    status={deploymentStep?.status}
                   />
                   <h6>{label}</h6>
                 </div>
@@ -304,7 +304,7 @@ export const InfraOffline: React.FC<{
                       </>
                     )}
                   </div>
-                  <Banner type="default" margin={false}>
+                  <Banner margin={false} type="default">
                     Still running into trouble? Connect with us on{' '}
                     <a href="https://discord.com/invite/r6sCXqVk3v" target="_blank">
                       discord.
@@ -321,9 +321,9 @@ export const InfraOffline: React.FC<{
 
       {latestDeployment && infraStatus !== 'suspended' && (
         <DeploymentLogs
-          key={latestDeployment?.id}
           deployment={latestDeployment}
           environmentSlug={environmentSlug}
+          key={latestDeployment?.id}
         />
       )}
     </>

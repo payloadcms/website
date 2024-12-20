@@ -1,6 +1,6 @@
 export interface LocateResponse {
-  isGDPR: boolean
   country?: string
+  isGDPR: boolean
 }
 
 export const locate = (): Promise<Response> =>

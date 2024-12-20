@@ -1,42 +1,43 @@
 'use client'
 
-import React, { useCallback, useState } from 'react'
-import { toast } from 'sonner'
-import { fetchInstalls, Install } from '@cloud/_api/fetchInstalls.js'
+import type { Install } from '@cloud/_api/fetchInstalls.js';
+import type { Team, Template, User } from '@root/payload-cloud-types.js'
+
+import { fetchInstalls } from '@cloud/_api/fetchInstalls.js'
 import { CloneOrDeployProgress } from '@cloud/_components/CloneOrDeployProgress/index.js'
 import { InstallationSelector } from '@cloud/_components/InstallationSelector/index.js'
 import { useTeamDrawer } from '@cloud/_components/TeamDrawer/index.js'
 import { UniqueRepoName } from '@cloud/_components/UniqueRepoName/index.js'
 import { cloudSlug } from '@cloud/slug.js'
+import { Gutter } from '@components/Gutter/index.js'
+import { HR } from '@components/HR/index.js'
+import { Message } from '@components/Message/index.js'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Checkbox } from '@forms/fields/Checkbox/index.js'
 import Form from '@forms/Form/index.js'
 import FormSubmissionError from '@forms/FormSubmissionError/index.js'
 import Label from '@forms/Label/index.js'
 import Submit from '@forms/Submit/index.js'
-import { useRouter, useSearchParams } from 'next/navigation'
-
-import { Gutter } from '@components/Gutter/index.js'
-import { HR } from '@components/HR/index.js'
-import { Message } from '@components/Message/index.js'
 import { createDraftProject } from '@root/app/(frontend)/(cloud)/new/createDraftProject.js'
 import { PayloadIcon } from '@root/graphics/PayloadIcon/index.js'
-import { Team, Template, User } from '@root/payload-cloud-types.js'
+import { useRouter, useSearchParams } from 'next/navigation'
+import React, { useCallback, useState } from 'react'
+import { toast } from 'sonner'
 
 import classes from './page.module.scss'
 
 export const CloneTemplate: React.FC<{
-  template?: Template
   installs?: Install[]
-  user: User | null | undefined
+  template?: Template
+  user: null | undefined | User
   uuid: string
 }> = props => {
   const searchParams = useSearchParams()
   const teamParam = searchParams?.get('team')
-  const { template, installs: initialInstalls, user, uuid } = props
+  const { installs: initialInstalls, template, user, uuid } = props
 
   const router = useRouter()
-  const [cloneError, setCloneError] = useState<string | null>(null)
+  const [cloneError, setCloneError] = useState<null | string>(null)
 
   const [installs, setInstalls] = useState<Install[]>(initialInstalls || [])
 
@@ -51,7 +52,7 @@ export const CloneTemplate: React.FC<{
 
   const matchedTeam = user?.teams?.find(
     ({ team }) => typeof team !== 'string' && team?.slug === teamParam,
-  )?.team as Team //eslint-disable-line function-paren-newline
+  )?.team as Team  
 
   const onDraftCreateProject = useCallback(
     ({ slug: draftProjectSlug, team }) => {
@@ -73,15 +74,15 @@ export const CloneTemplate: React.FC<{
     async ({ unflattenedData }) => {
       try {
         await createDraftProject({
+          installID: selectedInstall?.id,
+          makePrivate: unflattenedData?.makePrivate,
+          onSubmit: onDraftCreateProject,
+          projectName: template?.name,
           repo: {
             name: unflattenedData?.repositoryName,
           },
-          makePrivate: unflattenedData?.makePrivate,
-          projectName: template?.name,
-          installID: selectedInstall?.id,
-          templateID: template?.id,
           teamID: matchedTeam?.id, // the first team is used as a fallback
-          onSubmit: onDraftCreateProject,
+          templateID: template?.id,
           user,
         })
       } catch (err) {
@@ -111,10 +112,10 @@ export const CloneTemplate: React.FC<{
           {cloneError && <Message error={cloneError} />}
         </div>
         <Grid>
-          <Cell cols={4} colsM={8} className={classes.sidebarCell}>
+          <Cell className={classes.sidebarCell} cols={4} colsM={8}>
             <div className={classes.sidebar}>
               <div>
-                <Label label="Selected Template" htmlFor="" />
+                <Label htmlFor="" label="Selected Template" />
                 <div className={classes.template}>
                   <div className={classes.templateIcon}>
                     <PayloadIcon />
@@ -139,8 +140,8 @@ export const CloneTemplate: React.FC<{
                 </Cell>
                 <Cell cols={4}>
                   <UniqueRepoName
-                    repositoryOwner={(selectedInstall?.account as { login: string })?.login}
                     initialValue={template?.slug}
+                    repositoryOwner={(selectedInstall?.account as { login: string })?.login}
                   />
                 </Cell>
               </Grid>
@@ -153,20 +154,20 @@ export const CloneTemplate: React.FC<{
               </p>
               <div>
                 <Checkbox
-                  label="Create private Git repository"
                   initialValue={true}
+                  label="Create private Git repository"
                   path="makePrivate"
                 />
               </div>
               <div className={classes.submit}>
-                <Submit label="Clone Template" appearance="primary" />
+                <Submit appearance="primary" label="Clone Template" />
               </div>
             </div>
             <HR />
             <CloneOrDeployProgress
-              type="clone"
-              template={template}
               selectedInstall={selectedInstall}
+              template={template}
+              type="clone"
             />
           </Cell>
         </Grid>

@@ -1,37 +1,37 @@
 'use client'
 
-import * as React from 'react'
-import { toast } from 'sonner'
+import type { Project, Team } from '@root/payload-cloud-types.js'
+
 import { BranchSelector } from '@cloud/_components/BranchSelector/index.js'
 import { UniqueProjectSlug } from '@cloud/_components/UniqueSlug/index.js'
+import { MaxWidth } from '@components/MaxWidth/index.js'
 import { Text } from '@forms/fields/Text/index.js'
 import Form from '@forms/Form/index.js'
 import Submit from '@forms/Submit/index.js'
-import { useRouter } from 'next/navigation'
-
-import { MaxWidth } from '@components/MaxWidth/index.js'
-import { Project, Team } from '@root/payload-cloud-types.js'
-import { SectionHeader } from '../_layoutComponents/SectionHeader/index.js'
-
-import classes from './page.module.scss'
 import { PRODUCTION_ENVIRONMENT_SLUG } from '@root/constants.js'
+import { useRouter } from 'next/navigation'
+import * as React from 'react'
+import { toast } from 'sonner'
+
+import { SectionHeader } from '../_layoutComponents/SectionHeader/index.js'
+import classes from './page.module.scss'
 
 export const ProjectBuildSettingsPage: React.FC<{
-  team: Team
-  project: Project
   environmentSlug: string
-}> = ({ team, project, environmentSlug }) => {
+  project: Project
+  team: Team
+}> = ({ environmentSlug, project, team }) => {
   const router = useRouter()
 
   const [error, setError] = React.useState<{
+    data: { field: string; message: string }[]
     message: string
     name: string
-    data: { message: string; field: string }[]
   }>()
 
   const onSubmit = React.useCallback(
     async ({ unflattenedData }) => {
-      if (!project) return
+      if (!project) {return}
 
       try {
         const req = await fetch(
@@ -39,23 +39,23 @@ export const ProjectBuildSettingsPage: React.FC<{
             environmentSlug ? `?env=${environmentSlug}` : ''
           }`,
           {
-            method: 'POST',
+            body: JSON.stringify(unflattenedData),
             credentials: 'include',
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify(unflattenedData),
+            method: 'POST',
           },
         )
 
         const response: {
           doc: Project
-          message: string
           errors: {
+            data: { field: string; message: string }[]
             message: string
             name: string
-            data: { message: string; field: string }[]
           }[]
+          message: string
         } = await req.json()
 
         if (!req.ok) {
@@ -91,67 +91,67 @@ export const ProjectBuildSettingsPage: React.FC<{
     <MaxWidth>
       <SectionHeader title="Build Settings" />
       {error ? JSON.stringify(error) : null}
-      <Form className={classes.form} onSubmit={onSubmit} errors={error?.data}>
+      <Form className={classes.form} errors={error?.data} onSubmit={onSubmit}>
         <Text
-          label="Project name"
-          placeholder="Enter a name for your project"
-          path="name"
           initialValue={project?.name}
+          label="Project name"
+          path="name"
+          placeholder="Enter a name for your project"
           required
         />
         <UniqueProjectSlug
-          teamID={typeof project?.team === 'string' ? project?.team : project?.team?.id}
-          projectID={project?.id}
-          initialValue={project?.slug}
           disabled={environmentSlug !== 'prod'}
+          initialValue={project?.slug}
+          projectID={project?.id}
+          teamID={typeof project?.team === 'string' ? project?.team : project?.team?.id}
         />
         <Text
-          label="Root Directory"
-          placeholder="/"
-          path="rootDirectory"
           initialValue={project?.rootDirectory || '/'}
+          label="Root Directory"
+          path="rootDirectory"
+          placeholder="/"
           required
         />
         <Text
-          label="Install Command"
-          placeholder="pnpm install"
           description="Example: `pnpm install` or `npm install`"
-          path="installScript"
           initialValue={project?.installScript}
+          label="Install Command"
+          path="installScript"
+          placeholder="pnpm install"
           required
         />
         <Text
-          label="Build Command"
-          placeholder="pnpm build"
           description="Example: `pnpm build` or `npm run build`"
-          path="buildScript"
           initialValue={project?.buildScript}
+          label="Build Command"
+          path="buildScript"
+          placeholder="pnpm build"
           required
         />
         <Text
-          label="Serve Command"
-          placeholder="pnpm serve"
           description="Example: `pnpm serve` or `npm run serve`"
-          path="runScript"
           initialValue={project?.runScript}
+          label="Serve Command"
+          path="runScript"
+          placeholder="pnpm serve"
           required
         />
         <Text
-          label="Repository"
-          initialValue={project?.repositoryFullName}
-          required
-          disabled
           description="This was set when your project was first deployed."
+          disabled
+          initialValue={project?.repositoryFullName}
+          label="Repository"
+          required
         />
         <BranchSelector
-          repositoryFullName={project?.repositoryFullName}
           initialValue={project?.deploymentBranch}
+          repositoryFullName={project?.repositoryFullName}
         />
         <Text
+          description="Example: A Dockerfile in a src directory would require `src/Dockerfile`"
+          initialValue={project?.dockerfilePath}
           label="Dockerfile Path"
           path="dockerfilePath"
-          initialValue={project?.dockerfilePath}
-          description="Example: A Dockerfile in a src directory would require `src/Dockerfile`"
         />
         <div>
           <Submit label="Update" />

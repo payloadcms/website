@@ -1,4 +1,4 @@
-import { PayloadHandler } from 'payload'
+import type { PayloadHandler } from 'payload'
 
 const redeployWebsite: PayloadHandler = async req => {
   try {

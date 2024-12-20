@@ -1,4 +1,4 @@
-/* eslint-disable no-underscore-dangle */
+ 
 import type { Payload } from 'payload'
 
 import sanitizeSlug from '../utilities/sanitizeSlug'
@@ -19,7 +19,7 @@ export async function fetchGithubDiscussions(payload: Payload): Promise<void> {
 
   const discussionData: any = []
 
-  /* eslint-disable-next-line @typescript-eslint/default-param-last */
+   
   const createQuery = (cursor = null, hasNextPage: boolean): string => {
     const queryLine =
       cursor && hasNextPage
@@ -208,8 +208,8 @@ export async function fetchGithubDiscussions(payload: Payload): Promise<void> {
           url: discussion.author?.url,
         },
         body: discussion.bodyHTML,
-        commentTotal: discussion.comments.totalCount,
         comments,
+        commentTotal: discussion.comments.totalCount,
         createdAt: discussion.createdAt,
         title: discussion.title,
         upvotes: discussion.upvoteCount,

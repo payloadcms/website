@@ -1,6 +1,6 @@
 import type React from 'react'
 
-export type Validate = undefined | ((value: unknown) => boolean | string)
+export type Validate = ((value: unknown) => boolean | string) | undefined
 
 export type Value = any // eslint-disable-line @typescript-eslint/no-explicit-any
 
@@ -9,25 +9,25 @@ export interface Property {
 }
 
 export interface Data {
-  [key: string]: Value | Property | Property[]
+  [key: string]: Property | Property[] | Value
 }
 
 export interface OnSubmit {
   ({
     data,
-    unflattenedData,
     dispatchFields,
+    unflattenedData,
   }: {
     data: Property
-    unflattenedData: Data
     dispatchFields: React.Dispatch<Action>
-  }): void | Promise<void>
+    unflattenedData: Data
+  }): Promise<void> | void
 }
 
 export interface Field {
-  valid?: boolean
-  initialValue?: Value
   errorMessage?: string
+  initialValue?: Value
+  valid?: boolean
   value?: Value
 }
 
@@ -52,19 +52,19 @@ export interface SetSubmitted {
 }
 
 export interface RESET {
-  type: 'RESET'
   payload: Fields
+  type: 'RESET'
 }
 
 export interface REMOVE {
-  type: 'REMOVE'
   path: string
+  type: 'REMOVE'
 }
 
 export interface REMOVE_ROW {
-  type: 'REMOVE_ROW'
   path: string
   rowIndex: number
+  type: 'REMOVE_ROW'
 }
 
 export interface FieldWithPath extends Field {
@@ -72,27 +72,27 @@ export interface FieldWithPath extends Field {
 }
 
 export interface UPDATE {
-  type: 'UPDATE'
   payload: FieldWithPath | FieldWithPath[]
+  type: 'UPDATE'
 }
 
-export type Action = RESET | REMOVE | REMOVE_ROW | UPDATE
+export type Action = REMOVE | REMOVE_ROW | RESET | UPDATE
 
 export interface IFormContext {
-  initialState: InitialState
-  fields: Fields
-  validateForm: () => boolean
-  handleSubmit?: (e: React.ChangeEvent<HTMLFormElement>) => Promise<boolean> | void | false
-  getFields: () => Fields
-  getField: (path: string) => Field | undefined
-  getFormData?: () => Data
-  dispatchFields: React.Dispatch<Action>
-  setIsModified: (modified: boolean) => void
-  setIsProcessing: (processing: boolean) => void
-  setHasSubmitted: (submitted: boolean) => void
   apiErrors?: Array<{
     field: string
     message: string
   }>
+  dispatchFields: React.Dispatch<Action>
+  fields: Fields
+  getField: (path: string) => Field | undefined
+  getFields: () => Fields
+  getFormData?: () => Data
+  handleSubmit?: (e: React.ChangeEvent<HTMLFormElement>) => false | Promise<boolean> | void
+  initialState: InitialState
+  setHasSubmitted: (submitted: boolean) => void
+  setIsModified: (modified: boolean) => void
+  setIsProcessing: (processing: boolean) => void
   submissionError?: string
+  validateForm: () => boolean
 }

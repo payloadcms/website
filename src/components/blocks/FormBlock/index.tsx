@@ -1,24 +1,25 @@
 'use client'
 
-import React, { useEffect, useRef, useState } from 'react'
-import Image from 'next/image'
+import type { PaddingProps } from '@components/BlockWrapper/index.js';
+import type { Page } from '@root/payload-types.js'
 
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
-import { BlockWrapper, PaddingProps } from '@components/BlockWrapper/index.js'
+import { BlockWrapper } from '@components/BlockWrapper/index.js'
 import { CMSForm } from '@components/CMSForm/index.js'
 import { Gutter } from '@components/Gutter/index.js'
 import { RichText } from '@components/RichText/index.js'
-import { Page } from '@root/payload-types.js'
+import Image from 'next/image'
+import React, { useEffect, useRef, useState } from 'react'
 
 import classes from './index.module.scss'
 
-export type FormBlockProps = Extract<Page['layout'][0], { blockType: 'form' }> & {
-  padding: PaddingProps
+export type FormBlockProps = {
   hideBackground?: boolean
-}
+  padding: PaddingProps
+} & Extract<Page['layout'][0], { blockType: 'form' }>
 
 export const FormBlock: React.FC<FormBlockProps> = props => {
-  const { formFields: { richText, form, settings } = {}, padding, hideBackground } = props
+  const { formFields: { form, richText, settings } = {}, hideBackground, padding } = props
   const [imageLoaded, setImageLoaded] = useState(false)
 
   const sectionRef = useRef<HTMLDivElement | null>(null)
@@ -47,15 +48,15 @@ export const FormBlock: React.FC<FormBlockProps> = props => {
     return () => window.removeEventListener('resize', updateOuterBackgroundWidth)
   }, [])
 
-  if (typeof form === 'string') return null
+  if (typeof form === 'string') {return null}
 
   return (
     <BlockWrapper
-      data-theme="dark"
-      settings={settings}
-      padding={{ top: 'large', bottom: 'large' }}
-      hideBackground={hideBackground}
       className={classes.formBlock}
+      data-theme="dark"
+      hideBackground={hideBackground}
+      padding={{ bottom: 'large', top: 'large' }}
+      settings={settings}
     >
       <BackgroundGrid zIndex={0} />
       <div
@@ -72,26 +73,26 @@ export const FormBlock: React.FC<FormBlockProps> = props => {
       >
         <div className={classes.section} ref={sectionRef}>
           <Image
-            src="/images/stripe-overlay.png"
-            fill
             alt="Stripe Overlay"
+            fill
             onLoad={() => setImageLoaded(true)}
+            src="/images/stripe-overlay.png"
           />
         </div>
         <div className={classes.section}>
           <Image
-            src="/images/stripe-overlay.png"
-            fill
             alt="Stripe Overlay"
+            fill
             onLoad={() => setImageLoaded(true)}
+            src="/images/stripe-overlay.png"
           />
         </div>
         <div className={classes.section}>
           <Image
-            src="/images/stripe-overlay.png"
-            fill
             alt="Stripe Overlay"
+            fill
             onLoad={() => setImageLoaded(true)}
+            src="/images/stripe-overlay.png"
           />
         </div>
       </div>
@@ -116,10 +117,10 @@ export const FormBlock: React.FC<FormBlockProps> = props => {
       <div className={classes.outerBackgroundSectionWrap}>
         <div className={classes.outerBackgroundSection} style={outerBackgroundStyle}>
           <Image
-            src="/images/stripe-overlay.png"
-            fill
             alt="Stripe Overlay"
+            fill
             onLoad={() => setImageLoaded(true)}
+            src="/images/stripe-overlay.png"
           />
         </div>
       </div>

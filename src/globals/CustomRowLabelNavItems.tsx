@@ -1,7 +1,8 @@
 'use client'
-import React from 'react'
+import type { PayloadClientReactComponent, RowLabelComponent } from 'payload'
+
 import { useRowLabel } from '@payloadcms/ui'
-import { PayloadClientReactComponent, RowLabelComponent } from 'payload'
+import React from 'react'
 
 const CustomRowLabelNavItems: PayloadClientReactComponent<RowLabelComponent> = () => {
   const { data } = useRowLabel<any>()

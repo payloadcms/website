@@ -1,26 +1,28 @@
 'use client'
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
-import Image from 'next/image'
+import type { PaddingProps } from '@components/BlockWrapper/index.js';
+import type { Page } from '@root/payload-types.js'
+import type { Dispatch, SetStateAction} from 'react';
 
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
-import { BlockWrapper, PaddingProps } from '@components/BlockWrapper/index.js'
+import { BlockWrapper } from '@components/BlockWrapper/index.js'
 import { CMSLink } from '@components/CMSLink/index.js'
 import { Gutter } from '@components/Gutter/index.js'
 import { RichText } from '@components/RichText/index.js'
 import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'
 import { CrosshairIcon } from '@root/icons/CrosshairIcon/index.js'
-import { Page } from '@root/payload-types.js'
+import Image from 'next/image'
+import React, { useEffect, useState } from 'react'
 
 import classes from './index.module.scss'
 
-export type HoverCardsProps = Extract<Page['layout'][0], { blockType: 'hoverCards' }> & {
-  padding: PaddingProps
+export type HoverCardsProps = {
   hideBackground?: boolean
-}
+  padding: PaddingProps
+} & Extract<Page['layout'][0], { blockType: 'hoverCards' }>
 
 const Card: React.FC<{
-  leader: number
   card: NonNullable<HoverCardsProps['hoverCardsFields']['cards']>[number]
+  leader: number
   setHover: Dispatch<SetStateAction<number>>
 }> = ({ card, leader, setHover }) => {
   return (
@@ -42,7 +44,7 @@ const Card: React.FC<{
 }
 
 export const HoverCards: React.FC<HoverCardsProps> = props => {
-  const { hoverCardsFields, padding, hideBackground } = props
+  const { hideBackground, hoverCardsFields, padding } = props
   const [activeGradient, setActiveGradient] = useState(1)
 
   const gradients = [1, 2, 3, 4, 5]
@@ -51,10 +53,10 @@ export const HoverCards: React.FC<HoverCardsProps> = props => {
 
   return (
     <BlockWrapper
-      settings={{ theme: 'dark' }}
-      padding={{ bottom: 'large', top: 'large' }}
-      hideBackground={hideBackground}
       className={[classes.wrapper].filter(Boolean).join(' ')}
+      hideBackground={hideBackground}
+      padding={{ bottom: 'large', top: 'large' }}
+      settings={{ theme: 'dark' }}
     >
       <BackgroundGrid zIndex={1} />
       {!hideBackground && !hoverCardsFields.hideBackground && (
@@ -62,14 +64,14 @@ export const HoverCards: React.FC<HoverCardsProps> = props => {
           {gradients.map(gradient => {
             return (
               <Image
-                key={gradient}
                 alt=""
                 className={[classes.bg, activeGradient === gradient && classes.activeBg]
                   .filter(Boolean)
                   .join(' ')}
-                width={1920}
                 height={946}
+                key={gradient}
                 src={`/images/gradients/${gradient === 5 ? 2 : gradient}.jpg`}
+                width={1920}
               />
             )
           })}
@@ -92,7 +94,7 @@ export const HoverCards: React.FC<HoverCardsProps> = props => {
               {hoverCardsFields.cards &&
                 hoverCardsFields.cards.map((card, index) => {
                   return (
-                    <div key={card.id} className={'cols-4 cols-s-8'}>
+                    <div className={'cols-4 cols-s-8'} key={card.id}>
                       <Card card={card} leader={++index} setHover={setActiveGradient} />
                     </div>
                   )

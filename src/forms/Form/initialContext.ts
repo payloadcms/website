@@ -1,15 +1,15 @@
 import type { IFormContext } from '../types.js'
 
 const initialContext: IFormContext = {
-  initialState: {},
+  dispatchFields: () => false,
   fields: {},
-  validateForm: () => false,
+  getField: () => undefined,
+  getFields: () => ({}),
+  initialState: {},
+  setHasSubmitted: () => false,
   setIsModified: () => false,
   setIsProcessing: () => false,
-  setHasSubmitted: () => false,
-  dispatchFields: () => false,
-  getFields: () => ({}),
-  getField: () => undefined,
+  validateForm: () => false,
 }
 
 export default initialContext

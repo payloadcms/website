@@ -1,5 +1,5 @@
-import React from 'react'
 import Link from 'next/link'
+import React from 'react'
 
 export const StyleguideBreadcrumbs: React.FC<{
   pageTitle?: string
@@ -7,8 +7,8 @@ export const StyleguideBreadcrumbs: React.FC<{
   return (
     <div
       style={{
-        display: 'flex',
         alignItems: 'center',
+        display: 'flex',
         flexWrap: 'wrap',
       }}
     >

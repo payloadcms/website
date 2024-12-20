@@ -1,16 +1,15 @@
 'use client'
 
-import React, { useCallback } from 'react'
+import { Gutter } from '@components/Gutter/index.js'
+import { Heading } from '@components/Heading/index.js'
 import { Text } from '@forms/fields/Text/index.js'
 import Form from '@forms/Form/index.js'
 import FormProcessing from '@forms/FormProcessing/index.js'
 import FormSubmissionError from '@forms/FormSubmissionError/index.js'
 import Submit from '@forms/Submit/index.js'
-import { redirect, useSearchParams } from 'next/navigation'
-
-import { Gutter } from '@components/Gutter/index.js'
-import { Heading } from '@components/Heading/index.js'
 import { useAuth } from '@root/providers/Auth/index.js'
+import { redirect, useSearchParams } from 'next/navigation'
+import React, { useCallback } from 'react'
 
 import classes from './page.module.scss'
 
@@ -19,7 +18,7 @@ export const ResetPassword: React.FC = () => {
 
   const token = searchParams?.get('token')
 
-  const { user, resetPassword } = useAuth()
+  const { resetPassword, user } = useAuth()
 
   const handleSubmit = useCallback(
     async ({ data }) => {
@@ -36,7 +35,7 @@ export const ResetPassword: React.FC = () => {
     [resetPassword, token],
   )
 
-  if (user === undefined) return null
+  if (user === undefined) {return null}
 
   if (user) {
     redirect(
@@ -56,7 +55,6 @@ export const ResetPassword: React.FC = () => {
       <div className={['grid'].filter(Boolean).join(' ')}>
         <div className={['cols-5 cols-m-8'].filter(Boolean).join(' ')}>
           <Form
-            onSubmit={handleSubmit}
             className={classes.form}
             initialState={{
               password: {
@@ -69,13 +67,14 @@ export const ResetPassword: React.FC = () => {
                 value: '',
               },
             }}
+            onSubmit={handleSubmit}
           >
             <FormSubmissionError />
             <FormProcessing message="Resetting password, one moment..." />
-            <Text path="password" type="password" label="New Password" required />
-            <Text path="passwordConfirm" type="password" label="Confirm Password" required />
+            <Text label="New Password" path="password" required type="password" />
+            <Text label="Confirm Password" path="passwordConfirm" required type="password" />
             <div>
-              <Submit label="Reset Password" className={classes.submit} />
+              <Submit className={classes.submit} label="Reset Password" />
             </div>
           </Form>
         </div>

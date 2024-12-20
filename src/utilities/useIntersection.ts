@@ -1,23 +1,24 @@
 import type React from 'react'
+
 import { useEffect, useState } from 'react'
 
 interface Intersection {
-  isIntersecting: boolean
   hasIntersected?: boolean
+  isIntersecting: boolean
 }
 
 const useIntersection = ({
+  log,
   ref,
   root,
   rootMargin,
   threshold,
-  log,
 }: {
+  log?: boolean
   ref: React.MutableRefObject<null>
   root?: React.MutableRefObject<null>
   rootMargin?: string
   threshold?: number
-  log?: boolean
 }): Intersection => {
   const [isIntersecting, setIsIntersecting] = useState<boolean>(false)
   const [hasIntersected, setHasIntersected] = useState<boolean>()
@@ -35,9 +36,9 @@ const useIntersection = ({
           })
         },
         {
+          root: root?.current || null,
           rootMargin: rootMargin || '0px',
           threshold: threshold || 0.05,
-          root: root?.current || null,
         },
       )
 
@@ -58,8 +59,8 @@ const useIntersection = ({
   }, [isIntersecting])
 
   return {
-    isIntersecting,
     hasIntersected,
+    isIntersecting,
   }
 }
 

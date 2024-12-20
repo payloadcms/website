@@ -1,14 +1,15 @@
-import { Fragment } from 'react'
+import type { Metadata } from 'next'
+
 import { fetchGitHubToken } from '@cloud/_api/fetchGitHubToken.js'
 import { fetchInstalls } from '@cloud/_api/fetchInstalls.js'
 import { fetchMe } from '@cloud/_api/fetchMe.js'
 import { fetchTemplate } from '@cloud/_api/fetchTemplate.js'
-import { Metadata } from 'next'
-import { redirect } from 'next/navigation'
-
 import { Gutter } from '@components/Gutter/index.js'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
 import { uuid as generateUUID } from '@root/utilities/uuid.js'
+import { redirect } from 'next/navigation'
+import { Fragment } from 'react'
+
 import { CloneTemplate } from './page_client.js'
 
 const title = `Create new from template`
@@ -52,7 +53,7 @@ export default async ({
       <Gutter>
         <h2>{title}</h2>
       </Gutter>
-      {<CloneTemplate template={template} installs={installs} user={user} uuid={uuid} />}
+      {<CloneTemplate installs={installs} template={template} user={user} uuid={uuid} />}
     </Fragment>
   )
 }
@@ -66,9 +67,9 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { template } = await params
   return {
-    title: 'Clone Template | Payload Cloud',
     openGraph: mergeOpenGraph({
       url: `/new/clone/${template}`,
     }),
+    title: 'Clone Template | Payload Cloud',
   }
 }

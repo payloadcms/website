@@ -1,56 +1,57 @@
-import React from 'react'
+import type { PaddingProps } from '@components/BlockWrapper/index.js';
+import type { ReusableContent } from '@root/payload-types.js'
 
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
-import { BlockWrapper, PaddingProps } from '@components/BlockWrapper/index.js'
+import { BlockWrapper } from '@components/BlockWrapper/index.js'
 import { Gutter } from '@components/Gutter/index.js'
 import { Media } from '@components/Media/index.js'
 import { RichText } from '@components/RichText/index.js'
-import { ReusableContent } from '@root/payload-types.js'
+import React from 'react'
 
 import classes from './index.module.scss'
 
-type Props = Extract<ReusableContent['layout'][0], { blockType: 'mediaBlock' }> & {
-  padding: PaddingProps
+type Props = {
   disableGrid?: boolean
   hideBackground?: boolean
-}
+  padding: PaddingProps
+} & Extract<ReusableContent['layout'][0], { blockType: 'mediaBlock' }>
 
-export const MediaBlock: React.FC<Props & { disableGutter?: boolean; marginAdjustment?: any }> = ({
-  mediaBlockFields,
-  disableGutter,
-  marginAdjustment = {},
-  padding,
+export const MediaBlock: React.FC<{ disableGutter?: boolean; marginAdjustment?: any } & Props> = ({
   disableGrid = false,
+  disableGutter,
   hideBackground,
+  marginAdjustment = {},
+  mediaBlockFields,
+  padding,
 }) => {
-  const { media, caption, position, settings } = mediaBlockFields
+  const { caption, media, position, settings } = mediaBlockFields
 
-  if (typeof media === 'string') return null
+  if (typeof media === 'string') {return null}
 
   return (
-    <BlockWrapper settings={settings} padding={padding} hideBackground={hideBackground}>
+    <BlockWrapper hideBackground={hideBackground} padding={padding} settings={settings}>
       <div
         className={classes.mediaBlock}
         style={{
-          marginRight: marginAdjustment.marginRight,
           marginLeft: marginAdjustment.marginLeft,
+          marginRight: marginAdjustment.marginRight,
         }}
       >
         {!disableGrid && <BackgroundGrid zIndex={0} />}
         {disableGutter ? (
           <Media
-            resource={media}
             className={[classes.mediaResource, classes[`position--${position}`]]
               .filter(Boolean)
               .join(' ')}
+            resource={media}
           />
         ) : (
           <Gutter className={classes.mediaWrapper}>
             <Media
-              resource={media}
               className={[classes.mediaResource, classes[`position--${position}`]]
                 .filter(Boolean)
                 .join(' ')}
+              resource={media}
             />
 
             {caption && (

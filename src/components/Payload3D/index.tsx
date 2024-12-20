@@ -1,5 +1,7 @@
 'use client'
-import React, { CSSProperties, useEffect, useRef, useState } from 'react'
+import type { CSSProperties} from 'react';
+
+import React, { useEffect, useRef, useState } from 'react'
 
 import classes from './index.module.scss'
 
@@ -64,14 +66,14 @@ const Payload3D: React.FC<Payload3DProps> = props => {
     }
 
     return () => {
-      if (intersectionObserver) intersectionObserver.disconnect()
+      if (intersectionObserver) {intersectionObserver.disconnect()}
       window.removeEventListener('mousemove', handleMouseMovement)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
   }, [containerRef])
 
   return (
-    <div ref={containerRef} className={classes.container} data-theme="dark">
+    <div className={classes.container} data-theme="dark" ref={containerRef}>
       <div className={classes.mask}>
         <div className={classes.noise} />
         <div className={classes.gradient} style={gradientStyles} />

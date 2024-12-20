@@ -1,8 +1,9 @@
+import type { Metadata } from 'next'
+
 import { fetchMe } from '@cloud/_api/fetchMe.js'
-import { Metadata } from 'next'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
 import { redirect } from 'next/navigation'
 
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
 import { ForgotPassword } from './page_client.js'
 
 export default async props => {
@@ -16,10 +17,10 @@ export default async props => {
 }
 
 export const metadata: Metadata = {
-  title: 'Forgot Password | Payload Cloud',
   description: 'If you forgot your password, reset it',
   openGraph: mergeOpenGraph({
     title: 'Forgot Password | Payload Cloud',
     url: '/forgot-password',
   }),
+  title: 'Forgot Password | Payload Cloud',
 }

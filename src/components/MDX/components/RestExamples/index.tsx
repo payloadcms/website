@@ -62,7 +62,7 @@ const columns = [
     components: {
       Heading: 'View',
       renderCell: (row, data) => {
-        if (!data || !row) return null
+        if (!data || !row) {return null}
         return <ExampleCell example={data} row={row} />
       },
     },

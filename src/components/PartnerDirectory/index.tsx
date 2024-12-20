@@ -1,45 +1,45 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import type { Budget, Industry, Partner, Region, Specialty } from '@root/payload-types'
 
 import { BackgroundGrid } from '@components/BackgroundGrid'
+import { BlockWrapper } from '@components/BlockWrapper'
 import { Gutter } from '@components/Gutter'
 import { PartnerGrid } from '@components/PartnerGrid'
 import { ChevronDownIcon } from '@root/icons/ChevronDownIcon'
 import { CloseIcon } from '@root/icons/CloseIcon'
-import type { Budget, Industry, Partner, Region, Specialty } from '@root/payload-types'
+import { useEffect, useState } from 'react'
 
 import classes from './index.module.scss'
-import { BlockWrapper } from '@components/BlockWrapper'
 
-type FilterablePartner = Omit<Partner, 'industries' | 'specialties' | 'regions' | 'budgets'> & {
-  industries: string[]
-  specialties: string[]
-  regions: string[]
+type FilterablePartner = {
   budgets: string[]
-}
+  industries: string[]
+  regions: string[]
+  specialties: string[]
+} & Omit<Partner, 'budgets' | 'industries' | 'regions' | 'specialties'>
 
 export const PartnerDirectory: React.FC<{
-  partnerList: FilterablePartner[]
   filterOptions: {
-    industries: Industry[]
-    specialties: Specialty[]
-    regions: Region[]
     budgets: Budget[]
+    industries: Industry[]
+    regions: Region[]
+    specialties: Specialty[]
   }
+  partnerList: FilterablePartner[]
 }> = props => {
-  const { partnerList, filterOptions } = props
+  const { filterOptions, partnerList } = props
 
   const [filters, setFilters] = useState<{
-    industries: string[]
-    specialties: string[]
-    regions: string[]
     budgets: string[]
+    industries: string[]
+    regions: string[]
+    specialties: string[]
   }>({
-    industries: [],
-    specialties: [],
-    regions: [],
     budgets: [],
+    industries: [],
+    regions: [],
+    specialties: [],
   })
 
   const [openFilters, setOpenFilters] = useState<boolean>(false)
@@ -47,15 +47,15 @@ export const PartnerDirectory: React.FC<{
   const [filteredPartners, setFilteredPartners] = useState<FilterablePartner[]>(partnerList)
 
   const [validFilters, setValidFilters] = useState<{
-    industries: string[]
-    specialties: string[]
-    regions: string[]
     budgets: string[]
+    industries: string[]
+    regions: string[]
+    specialties: string[]
   }>({
-    industries: [],
-    specialties: [],
-    regions: [],
     budgets: [],
+    industries: [],
+    regions: [],
+    specialties: [],
   })
 
   useEffect(() => {
@@ -76,16 +76,16 @@ export const PartnerDirectory: React.FC<{
   }, [filters, partnerList])
 
   useEffect(() => {
-    let filterSet: {
-      industries: string[]
-      specialties: string[]
-      regions: string[]
+    const filterSet: {
       budgets: string[]
+      industries: string[]
+      regions: string[]
+      specialties: string[]
     } = {
-      industries: [],
-      specialties: [],
-      regions: [],
       budgets: [],
+      industries: [],
+      regions: [],
+      specialties: [],
     }
 
     filteredPartners.forEach(partner => {
@@ -106,7 +106,7 @@ export const PartnerDirectory: React.FC<{
   const hasFilters = Object.values(filters).some(filter => filter.length > 0)
 
   const handleFilters = (
-    group: 'industries' | 'specialties' | 'regions' | 'budgets',
+    group: 'budgets' | 'industries' | 'regions' | 'specialties',
     filter: string,
     checked: boolean,
   ) => {
@@ -120,10 +120,10 @@ export const PartnerDirectory: React.FC<{
 
   const handleReset = () => {
     setFilters({
-      industries: [],
-      specialties: [],
-      regions: [],
       budgets: [],
+      industries: [],
+      regions: [],
+      specialties: [],
     })
   }
 
@@ -143,14 +143,14 @@ export const PartnerDirectory: React.FC<{
         <div className={['cols-4 cols-m-8', classes.sidebar].join(' ')}>
           <div className={classes.filterHeader}>
             <button
-              onClick={() => toggleFilterGroup()}
-              className={classes.filterToggle}
               aria-label="Show Filters"
+              className={classes.filterToggle}
+              onClick={() => toggleFilterGroup()}
             >
               <CloseIcon className={openFilters ? classes.openToggle : ''} />
             </button>
             <span>Filters</span>
-            <button onClick={() => handleReset()} disabled={!hasFilters}>
+            <button disabled={!hasFilters} onClick={() => handleReset()}>
               Clear
             </button>
           </div>
@@ -160,29 +160,29 @@ export const PartnerDirectory: React.FC<{
               .join(' ')}
           >
             <FilterGroup
-              group={'industries'}
               filters={filters['industries']}
+              group={'industries'}
               handleFilters={handleFilters}
               options={filterOptions['industries']}
               validOptions={validFilters.industries}
             />
             <FilterGroup
-              group={'specialties'}
               filters={filters['specialties']}
+              group={'specialties'}
               handleFilters={handleFilters}
               options={filterOptions['specialties']}
               validOptions={validFilters.specialties}
             />
             <FilterGroup
-              group={'regions'}
               filters={filters['regions']}
+              group={'regions'}
               handleFilters={handleFilters}
               options={filterOptions['regions']}
               validOptions={validFilters.regions}
             />
             <FilterGroup
-              group={'budgets'}
               filters={filters['budgets']}
+              group={'budgets'}
               handleFilters={handleFilters}
               options={filterOptions['budgets']}
               validOptions={validFilters.budgets}
@@ -199,17 +199,17 @@ export const PartnerDirectory: React.FC<{
 }
 
 const FilterGroup: React.FC<{
-  group: 'industries' | 'specialties' | 'regions' | 'budgets'
   filters: string[]
-  options: (Industry | Specialty | Region | Budget)[]
-  validOptions?: string[]
+  group: 'budgets' | 'industries' | 'regions' | 'specialties'
   handleFilters: (
-    group: 'industries' | 'specialties' | 'regions' | 'budgets',
+    group: 'budgets' | 'industries' | 'regions' | 'specialties',
     filter: string,
     checked: boolean,
   ) => void
+  options: (Budget | Industry | Region | Specialty)[]
+  validOptions?: string[]
 }> = props => {
-  const { group, filters, options, validOptions, handleFilters } = props
+  const { filters, group, handleFilters, options, validOptions } = props
 
   const [open, setOpen] = useState(true)
 
@@ -223,7 +223,7 @@ const FilterGroup: React.FC<{
       >
         {group.charAt(0).toUpperCase() + group.slice(1) + ' '}
         {filters.length > 0 && <div className={classes.pill}>{filters.length}</div>}
-        <ChevronDownIcon size="small" className={classes.chevron} />
+        <ChevronDownIcon className={classes.chevron} size="small" />
       </button>
       <div className={classes.checkboxes}>
         {options
@@ -231,11 +231,11 @@ const FilterGroup: React.FC<{
           .map(option => (
             <label key={option.id}>
               <input
-                type="checkbox"
-                name={option.value}
-                onChange={e => handleFilters(group, option.value, e.target.checked)}
                 checked={filters.includes(option.value)}
                 disabled={validOptions?.includes(option.value) ? false : true}
+                name={option.value}
+                onChange={e => handleFilters(group, option.value, e.target.checked)}
+                type="checkbox"
               />
               {option.name}
             </label>

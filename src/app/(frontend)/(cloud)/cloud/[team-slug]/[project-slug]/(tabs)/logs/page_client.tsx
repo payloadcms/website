@@ -1,18 +1,19 @@
 'use client'
 
-import * as React from 'react'
+import type { LogLine} from '@components/SimpleLogs/index.js';
+import type { Project, Team } from '@root/payload-cloud-types.js'
 
 import { Gutter } from '@components/Gutter/index.js'
 import { Heading } from '@components/Heading/index.js'
-import { LogLine, SimpleLogs, styleLogLine } from '@components/SimpleLogs/index.js'
-import { Project, Team } from '@root/payload-cloud-types.js'
+import { SimpleLogs, styleLogLine } from '@components/SimpleLogs/index.js'
 import { useWebSocket } from '@root/utilities/use-websocket.js'
+import * as React from 'react'
 
 export const ProjectLogsPage: React.FC<{
+  environmentSlug: string
   project: Project
   team: Team
-  environmentSlug: string
-}> = ({ project, environmentSlug }) => {
+}> = ({ environmentSlug, project }) => {
   const [runtimeLogs, setRuntimeLogs] = React.useState<LogLine[]>([])
   const previousLogs = React.useRef<LogLine[]>([])
 
@@ -37,14 +38,14 @@ export const ProjectLogsPage: React.FC<{
   }, [])
 
   useWebSocket({
+    onMessage,
+    onOpen: () => setRuntimeLogs([]),
+    retryOnClose: true,
     url: hasSuccessfullyDeployed
       ? `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project?.id}/logs${
           environmentSlug ? `?env=${environmentSlug}` : ''
         }`.replace('http', 'ws')
       : '',
-    onOpen: () => setRuntimeLogs([]),
-    onMessage,
-    retryOnClose: true,
   })
 
   const logsToShow =

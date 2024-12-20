@@ -1,25 +1,25 @@
-import React, { useEffect } from 'react'
 import type { Install } from '@cloud/_api/fetchInstalls.js'
 import type { Repo, RepoResults } from '@cloud/_api/fetchRepos.js'
-import { fetchReposClient } from '@cloud/_api/fetchRepos.js'
 
+import { fetchReposClient } from '@cloud/_api/fetchRepos.js'
 import { useAuth } from '@root/providers/Auth/index.js'
+import React, { useEffect } from 'react'
 
 export const useGetRepos = (props: {
-  selectedInstall: Install | undefined
   delay?: number
   perPage?: number
-  repos?: Repo[]
   reloadTicker?: number
+  repos?: Repo[]
+  selectedInstall: Install | undefined
 }): {
   error: string | undefined
   loading: boolean
-  results: RepoResults
   page: number
   perPage: number
+  results: RepoResults
   setPage: React.Dispatch<React.SetStateAction<number>>
 } => {
-  const { selectedInstall, delay = 250, perPage = 30, repos: initialRepos, reloadTicker } = props
+  const { delay = 250, perPage = 30, reloadTicker, repos: initialRepos, selectedInstall } = props
 
   const prevSelectedInstall = React.useRef<number | undefined>(selectedInstall?.id)
   const [page, setPage] = React.useState<number>(1)
@@ -29,8 +29,8 @@ export const useGetRepos = (props: {
   const [loading, setLoading] = React.useState<boolean>(initialRepos === undefined)
 
   const [results, setResults] = React.useState<RepoResults>({
-    total_count: initialRepos?.length ?? 0,
     repositories: initialRepos ?? [],
+    total_count: initialRepos?.length ?? 0,
   })
 
   const { user } = useAuth()
@@ -40,7 +40,7 @@ export const useGetRepos = (props: {
   useEffect(() => {
     // keep a timer reference so that we can cancel the old request
     // this is if the old request takes longer than the debounce time
-    if (requestRef.current) clearTimeout(requestRef.current)
+    if (requestRef.current) {clearTimeout(requestRef.current)}
 
     let pageToUse = page
 
@@ -48,21 +48,21 @@ export const useGetRepos = (props: {
     // so we keep track of the previous props and compare their values
     // I know this is disgusting, but it works
     const scopeChanged = prevSelectedInstall.current !== selectedInstall?.id
-    if (scopeChanged) prevSelectedInstall.current = selectedInstall?.id
+    if (scopeChanged) {prevSelectedInstall.current = selectedInstall?.id}
     const pageChanged = prevPage.current !== page
-    if (pageChanged) prevPage.current = page
+    if (pageChanged) {prevPage.current = page}
     const reloadChanged =
       typeof reloadTicker === 'number' &&
       reloadTicker <= 0 &&
       prevReloadTicker.current !== reloadTicker
-    if (reloadChanged) prevReloadTicker.current = reloadTicker
+    if (reloadChanged) {prevReloadTicker.current = reloadTicker}
 
     if (user && selectedInstall && (scopeChanged || pageChanged || reloadChanged)) {
       // scroll to the top of the page while the results are updating
       window.scrollTo({
-        top: 0,
-        left: 0,
         behavior: 'smooth',
+        left: 0,
+        top: 0,
       })
 
       requestRef.current = setTimeout(() => {
@@ -89,8 +89,8 @@ export const useGetRepos = (props: {
               })
 
               setResults({
-                total_count: reposRes.total_count,
                 repositories: reposRes.repositories,
+                total_count: reposRes.total_count,
               })
 
               setLoading(false)
@@ -110,12 +110,12 @@ export const useGetRepos = (props: {
     }
 
     return () => {
-      if (requestRef.current) clearTimeout(requestRef.current)
+      if (requestRef.current) {clearTimeout(requestRef.current)}
     }
   }, [user, selectedInstall, delay, perPage, page, reloadTicker])
 
   const memoizedState = React.useMemo(
-    () => ({ results, error, loading, perPage, setPage, page }),
+    () => ({ error, loading, page, perPage, results, setPage }),
     [results, error, loading, perPage, setPage, page],
   )
 

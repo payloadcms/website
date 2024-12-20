@@ -5,7 +5,7 @@ export default function NotFound() {
   return (
     <Gutter>
       <h2>404</h2>
-      <Button href={`/cloud`} label="Cloud home" appearance="primary" />
+      <Button appearance="primary" href={`/cloud`} label="Cloud home" />
     </Gutter>
   )
 }

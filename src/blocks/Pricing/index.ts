@@ -12,8 +12,6 @@ export const Pricing: Block = {
         {
           name: 'plans',
           type: 'array',
-          minRows: 1,
-          maxRows: 4,
           fields: [
             {
               name: 'name',
@@ -30,21 +28,21 @@ export const Pricing: Block = {
             },
             {
               name: 'price',
-              label: 'Price per month',
               type: 'text',
-              required: true,
               admin: {
                 condition: (_, { hasPrice }) => Boolean(hasPrice),
               },
+              label: 'Price per month',
+              required: true,
             },
             {
               name: 'title',
-              label: 'Title',
               type: 'text',
-              required: true,
               admin: {
-                condition: (_, { hasPrice }) => !Boolean(hasPrice),
+                condition: (_, { hasPrice }) => !hasPrice,
               },
+              label: 'Title',
+              required: true,
             },
             {
               name: 'description',
@@ -82,12 +80,14 @@ export const Pricing: Block = {
                 },
                 {
                   name: 'feature',
-                  label: false,
                   type: 'text',
+                  label: false,
                 },
               ],
             },
           ],
+          maxRows: 4,
+          minRows: 1,
         },
         {
           name: 'disclaimer',

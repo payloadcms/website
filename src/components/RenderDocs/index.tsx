@@ -1,10 +1,14 @@
+import type { TopicGroup } from '@root/app/(frontend)/(pages)/docs/api'
+
 import { BackgroundGrid } from '@components/BackgroundGrid'
 import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
 import { DiscordGitCTA } from '@components/DiscordGitCTA/index.js'
 import { DocsNavigation } from '@components/DocsNavigation'
+import { Feedback } from '@components/Feedback'
 import { Gutter } from '@components/Gutter'
 import { JumplistProvider } from '@components/Jumplist'
 import components from '@components/MDX/components/index.js'
+import { PayloadRedirects } from '@components/PayloadRedirects'
 import { RelatedHelpList } from '@components/RelatedHelpList/index.js'
 import { TableOfContents } from '@components/TableOfContents/index.js'
 import { VersionSelector } from '@components/VersionSelector/index.js'
@@ -14,14 +18,10 @@ import { unstable_cache } from 'next/cache'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { MDXRemote } from 'next-mdx-remote/rsc'
-import React from 'react'
-import { Suspense } from 'react'
+import React, { Suspense } from 'react'
 import remarkGfm from 'remark-gfm'
 
 import classes from './index.module.scss'
-import { TopicGroup } from '@root/app/(frontend)/(pages)/docs/api'
-import { Feedback } from '@components/Feedback'
-import { PayloadRedirects } from '@components/PayloadRedirects'
 
 export const RenderDocs = async ({
   children,
@@ -110,12 +110,12 @@ export const RenderDocs = async ({
         <div className="grid">
           <DocsNavigation
             currentTopic={params.topic}
+            docIndex={docIndex}
+            groupIndex={groupIndex}
+            indexInGroup={topicIndex}
             params={params}
             topics={topicGroups}
             version={version}
-            groupIndex={groupIndex}
-            indexInGroup={topicIndex}
-            docIndex={docIndex}
           />
           <div aria-hidden className={classes.navOverlay} />
           <main className={['cols-8 start-5 cols-m-8 start-m-1', classes.content].join(' ')}>

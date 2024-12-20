@@ -1,5 +1,5 @@
-import FormComponent from '@forms/Form/index.js'
 import { Text } from '@forms/fields/Text/index.js'
+import FormComponent from '@forms/Form/index.js'
 import { validateEmail } from '@forms/validations.js'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
 import { ErrorIcon } from '@root/icons/ErrorIcon'

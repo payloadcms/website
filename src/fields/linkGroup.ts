@@ -9,7 +9,7 @@ type LinkGroupType = (options?: {
   additions?: {
     npmCta?: boolean
   }
-  appearances?: LinkAppearances[] | false
+  appearances?: false | LinkAppearances[]
   overrides?: Partial<ArrayField>
 }) => Field
 

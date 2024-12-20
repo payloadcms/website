@@ -45,9 +45,9 @@ export const PayloadRedirects: React.FC<Props> = async ({ disableNotFound, url }
           : `${redirectItem.to?.reference?.value?.breadcrumbs?.at(-1)?.url}`
     }
 
-    if (redirectUrl) redirect(redirectUrl)
+    if (redirectUrl) {redirect(redirectUrl)}
   }
 
-  if (disableNotFound) return null
+  if (disableNotFound) {return null}
   return notFound()
 }

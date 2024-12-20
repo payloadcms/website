@@ -1,20 +1,19 @@
-import * as React from 'react'
-
 import { CircleIconButton } from '@components/CircleIconButton/index.js'
 import { TrashIcon } from '@root/icons/TrashIcon/index.js'
-import { useArray } from './context.js'
+import * as React from 'react'
 
+import { useArray } from './context.js'
 import classes from './index.module.scss'
 
 type ArrayRowProps = {
+  allowRemove: boolean
   children: React.ReactNode
   className?: string
   index: number
-  allowRemove: boolean
 }
 export const ArrayRow: React.FC<ArrayRowProps> = props => {
   const { removeRow } = useArray()
-  const { children, allowRemove, index, className } = props
+  const { allowRemove, children, className, index } = props
 
   return (
     <div className={[className, classes.row].filter(Boolean).join(' ')}>
@@ -22,11 +21,11 @@ export const ArrayRow: React.FC<ArrayRowProps> = props => {
 
       {allowRemove && (
         <button
-          type="button"
+          className={classes.trashButton}
           onClick={() => {
             removeRow(index)
           }}
-          className={classes.trashButton}
+          type="button"
         >
           <TrashIcon />
         </button>
@@ -36,19 +35,19 @@ export const ArrayRow: React.FC<ArrayRowProps> = props => {
 }
 
 type AddRowProps = {
+  baseLabel?: string
   className?: string
   label?: string
-  singularLabel?: string
   pluralLabel?: string
-  baseLabel?: string
+  singularLabel?: string
 }
 
 export const AddArrayRow: React.FC<AddRowProps> = ({
+  baseLabel = 'Add',
   className,
   label: labelFromProps,
-  baseLabel = 'Add',
-  singularLabel = 'one',
   pluralLabel = 'another',
+  singularLabel = 'one',
 }) => {
   const { addRow, uuids } = useArray()
 
@@ -56,5 +55,5 @@ export const AddArrayRow: React.FC<AddRowProps> = ({
     labelFromProps ||
     (!uuids?.length ? `${baseLabel} ${pluralLabel}` : `${baseLabel} ${singularLabel}`)
 
-  return <CircleIconButton className={className} onClick={addRow} label={label} />
+  return <CircleIconButton className={className} label={label} onClick={addRow} />
 }

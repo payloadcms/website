@@ -1,38 +1,38 @@
 'use client'
 
-import React, { useState } from 'react'
-import NextImage from 'next/image'
-
 import type { StaticImageData } from 'next/image'
 
-import cssVariables from '../../../../cssVariables.cjs'
-import { Props } from '../types.js'
+import NextImage from 'next/image'
+import React, { useState } from 'react'
 
+import type { Props } from '../types.js'
+
+import cssVariables from '../../../../cssVariables.cjs'
 import classes from './index.module.scss'
 
 const { breakpoints } = cssVariables
 
 export const Image: React.FC<Props> = props => {
   const {
+    alt: altFromProps,
+    fill,
+    height: heightFromProps,
     imgClassName,
     onClick,
     onLoad: onLoadFromProps,
-    sizes: sizesFromProps,
-    resource,
     priority,
-    fill,
+    resource,
+    sizes: sizesFromProps,
     src: srcFromProps,
-    alt: altFromProps,
     width: widthFromProps,
-    height: heightFromProps,
   } = props
 
   const [isLoading, setIsLoading] = useState(true)
 
-  let width: number | undefined | null = widthFromProps
-  let height: number | undefined | null = heightFromProps
+  let width: null | number | undefined = widthFromProps
+  let height: null | number | undefined = heightFromProps
   let alt = altFromProps
-  let src: StaticImageData | string | undefined | null = srcFromProps
+  let src: null | StaticImageData | string | undefined = srcFromProps
 
   const hasDarkModeFallback =
     resource?.darkModeFallback &&
@@ -66,9 +66,10 @@ export const Image: React.FC<Props> = props => {
   return (
     <React.Fragment>
       <NextImage
-        className={`${baseClasses} ${classes.themeLight}`}
-        src={src || ''}
         alt={alt || ''}
+        className={`${baseClasses} ${classes.themeLight}`}
+        fill={fill}
+        height={!fill ? height ?? undefined : undefined}
         onClick={onClick}
         onLoad={() => {
           setIsLoading(false)
@@ -76,20 +77,20 @@ export const Image: React.FC<Props> = props => {
             onLoadFromProps()
           }
         }}
-        fill={fill}
-        width={!fill ? width ?? undefined : undefined}
-        height={!fill ? height ?? undefined : undefined}
-        sizes={sizes}
         priority={priority}
         quality={90}
+        sizes={sizes}
+        src={src || ''}
+        width={!fill ? width ?? undefined : undefined}
       />
       {hasDarkModeFallback &&
         typeof resource.darkModeFallback === 'object' &&
         resource.darkModeFallback !== null && (
           <NextImage
-            className={`${baseClasses} ${classes.themeDark}`}
-            src={resource.darkModeFallback.url || ''}
             alt={alt || ''}
+            className={`${baseClasses} ${classes.themeDark}`}
+            fill={fill}
+            height={!fill ? height ?? undefined : undefined}
             onClick={onClick}
             onLoad={() => {
               setIsLoading(false)
@@ -97,12 +98,11 @@ export const Image: React.FC<Props> = props => {
                 onLoadFromProps()
               }
             }}
-            fill={fill}
-            width={!fill ? width ?? undefined : undefined}
-            height={!fill ? height ?? undefined : undefined}
-            sizes={sizes}
             priority={priority}
             quality={90}
+            sizes={sizes}
+            src={resource.darkModeFallback.url || ''}
+            width={!fill ? width ?? undefined : undefined}
           />
         )}
     </React.Fragment>

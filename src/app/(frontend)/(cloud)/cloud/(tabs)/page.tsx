@@ -1,6 +1,7 @@
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
+
 import { fetchMe } from '../_api/fetchMe.js'
 import { fetchProjects } from '../_api/fetchProjects.js'
 import { fetchTemplates } from '../_api/fetchTemplates.js'
@@ -19,9 +20,9 @@ export default async () => {
 }
 
 export const metadata: Metadata = {
-  title: 'Home | Payload Cloud',
   openGraph: mergeOpenGraph({
     title: 'Home | Payload Cloud',
     url: '/cloud',
   }),
+  title: 'Home | Payload Cloud',
 }

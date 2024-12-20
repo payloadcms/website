@@ -1,17 +1,17 @@
 'use client'
-import React from 'react'
-
 import { GradientBorderIcon } from '@root/icons/GradientBorderIcon/index.js'
 import { PlusIcon } from '@root/icons/PlusIcon/index.js'
-import { CodeBlip } from '../../Code/types.js'
-import { useCodeBlip } from '../CodeBlipContext.js'
+import React from 'react'
 
+import type { CodeBlip } from '../../Code/types.js'
+
+import { useCodeBlip } from '../CodeBlipContext.js'
 import classes from './index.module.scss'
 
-const CodeBlipButton: React.FC<{ blip: CodeBlip; index?: number; delay?: number }> = ({
+const CodeBlipButton: React.FC<{ blip: CodeBlip; delay?: number; index?: number }> = ({
   blip,
-  index = 1,
   delay: delayFromProps = 500,
+  index = 1,
 }) => {
   const { isOpen, openModal } = useCodeBlip()
 
@@ -19,9 +19,9 @@ const CodeBlipButton: React.FC<{ blip: CodeBlip; index?: number; delay?: number 
 
   return (
     <button
-      onClick={() => openModal(blip)}
       aria-pressed={isOpen}
       className={[classes.button, isOpen && classes.hidden].filter(Boolean).join(' ')}
+      onClick={() => openModal(blip)}
       style={style}
     >
       <span className="visually-hidden">Code feature</span>

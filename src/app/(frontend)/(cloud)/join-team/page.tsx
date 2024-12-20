@@ -1,8 +1,9 @@
+import type { Metadata } from 'next'
+
 import { fetchMe } from '@cloud/_api/fetchMe.js'
-import { Metadata } from 'next'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
 import { redirect } from 'next/navigation'
 
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
 import { JoinTeam } from './page_client.js'
 
 // TODO: server render the `JoinTeam` page
@@ -22,10 +23,10 @@ export default async function JoinTeamPage(props) {
 }
 
 export const metadata: Metadata = {
-  title: 'Join Team | Payload Cloud',
   description: 'Join a Payload team',
   openGraph: mergeOpenGraph({
     title: 'Join Team | Payload Cloud',
     url: '/join-team',
   }),
+  title: 'Join Team | Payload Cloud',
 }

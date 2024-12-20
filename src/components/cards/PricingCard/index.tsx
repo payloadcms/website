@@ -1,13 +1,13 @@
-import React from 'react'
-import { ArrowIcon } from '@icons/ArrowIcon/index.js'
-
 import { CMSLink } from '@components/CMSLink/index.js'
-import { PricingCardProps } from '../types.js'
+import { ArrowIcon } from '@icons/ArrowIcon/index.js'
+import React from 'react'
+
+import type { PricingCardProps } from '../types.js'
 
 import classes from './index.module.scss'
 
 export const PricingCard: React.FC<PricingCardProps> = props => {
-  const { title, price, className, leader, description, hasPrice } = props
+  const { className, description, hasPrice, leader, price, title } = props
 
   const link = props.link || {}
 

@@ -1,21 +1,22 @@
 'use client'
 
-import { useState } from 'react'
+import type { CMSLinkType } from '@components/CMSLink/index.js';
 
 import { Button } from '@components/Button/index.js'
-import { CMSLink, CMSLinkType } from '@components/CMSLink/index.js'
+import { CMSLink } from '@components/CMSLink/index.js'
+import { useState } from 'react'
 
 import classes from '../index.module.scss'
 
 export const Highlights: React.FC<{
-  beforeHighlights?: string | null
-  afterHighlights?: string | null
+  afterHighlights?: null | string
+  beforeHighlights?: null | string
   button?: CMSLinkType | null
-  children: React.ReactNode[] | React.ReactNode
+  children: React.ReactNode | React.ReactNode[]
 }> = props => {
   const [active, setActive] = useState(0)
 
-  const { beforeHighlights, afterHighlights, button, children } = props
+  const { afterHighlights, beforeHighlights, button, children } = props
 
   // get index of child on hover
   const handleHover = index => {
@@ -29,7 +30,6 @@ export const Highlights: React.FC<{
         {Array.isArray(children) ? (
           children.map((child, index) => (
             <div
-              key={index}
               className={[
                 classes.highlightText,
                 index < active ? classes.beforeActive : '',
@@ -38,6 +38,7 @@ export const Highlights: React.FC<{
               ]
                 .filter(Boolean)
                 .join(' ')}
+              key={index}
               onMouseOver={() => handleHover(index)}
             >
               {child}
@@ -53,9 +54,9 @@ export const Highlights: React.FC<{
       {props.button && (
         <CMSLink
           {...button}
-          className={classes.button}
           appearance={'default'}
           buttonProps={{ hideHorizontalBorders: true, icon: 'arrow' }}
+          className={classes.button}
         />
       )}
     </div>

@@ -1,13 +1,13 @@
-import * as React from 'react'
-import { useModal } from '@faceless-ui/modal'
-import Link from 'next/link'
+import type { Project, Team } from '@root/payload-cloud-types.js'
 
+import { Accordion } from '@components/Accordion/index.js'
 import { Button } from '@components/Button/index.js'
 import { Heading } from '@components/Heading/index.js'
 import { ModalWindow } from '@components/ModalWindow/index.js'
-import { Accordion } from '@components/Accordion/index.js'
+import { useModal } from '@faceless-ui/modal'
 import { ExternalLinkIcon } from '@root/icons/ExternalLinkIcon/index.js'
-import { Project, Team } from '@root/payload-cloud-types.js'
+import Link from 'next/link'
+import * as React from 'react'
 
 import classes from './index.module.scss'
 
@@ -15,16 +15,16 @@ const domainValueFieldPath = 'domain'
 
 type Props = {
   domain: NonNullable<Project['domains']>[0]
+  environmentSlug: string
   project: Project
   team: Team
-  environmentSlug: string
 }
 
-export const ManageDomain: React.FC<Props> = ({ domain, project, team, environmentSlug }) => {
-  const { id, domain: domainURL, recordType, recordName, recordContent } = domain
+export const ManageDomain: React.FC<Props> = ({ domain, environmentSlug, project, team }) => {
+  const { id, domain: domainURL, recordContent, recordName, recordType } = domain
   const modalSlug = `delete-domain-${id}`
 
-  const { openModal, closeModal } = useModal()
+  const { closeModal, openModal } = useModal()
   const projectID = project?.id
   const projectDomains = project?.domains
   const cnameRecord = project?.defaultDomain
@@ -37,12 +37,12 @@ export const ManageDomain: React.FC<Props> = ({ domain, project, team, environme
             environmentSlug ? `?env=${environmentSlug}` : ''
           }`,
           {
-            method: 'PATCH',
+            body: JSON.stringify({ domains }),
             credentials: 'include',
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ domains }),
+            method: 'PATCH',
           },
         )
 
@@ -75,15 +75,15 @@ export const ManageDomain: React.FC<Props> = ({ domain, project, team, environme
     <React.Fragment>
       <Accordion
         className={classes.domainAccordion}
-        openOnInit
         label={
           <div className={classes.labelWrap}>
-            <Link href={`https://${domainURL}`} target="_blank" className={classes.linkedDomain}>
+            <Link className={classes.linkedDomain} href={`https://${domainURL}`} target="_blank">
               <div className={classes.domainTitleName}>{domainURL}</div>
               <ExternalLinkIcon className={classes.externalLinkIcon} />
             </Link>
           </div>
         }
+        openOnInit
       >
         <div className={classes.domainContent}>
           <p>Add the following record to your DNS provider:</p>
@@ -105,19 +105,19 @@ export const ManageDomain: React.FC<Props> = ({ domain, project, team, environme
           </table>
           <div className={classes.domainActions}>
             <div className={classes.rightActions}>
-              <Button label="Delete" appearance="danger" onClick={() => openModal(modalSlug)} />
+              <Button appearance="danger" label="Delete" onClick={() => openModal(modalSlug)} />
             </div>
           </div>
         </div>
       </Accordion>
       <ModalWindow slug={modalSlug}>
         <div className={classes.modalContent}>
-          <Heading marginTop={false} as="h4">
+          <Heading as="h4" marginTop={false}>
             Are you sure you want to delete this domain?
           </Heading>
           <div className={classes.modalActions}>
-            <Button label="Cancel" appearance="secondary" onClick={() => closeModal(modalSlug)} />
-            <Button label="Delete" appearance="danger" onClick={deleteDomain} />
+            <Button appearance="secondary" label="Cancel" onClick={() => closeModal(modalSlug)} />
+            <Button appearance="danger" label="Delete" onClick={deleteDomain} />
           </div>
         </div>
       </ModalWindow>

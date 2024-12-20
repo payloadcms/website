@@ -1,36 +1,38 @@
-import { toast } from 'sonner'
+import type { Project, User } from '@root/payload-cloud-types.js'
+import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime.js'
+
 import { updateCustomer } from '@cloud/_api/updateCustomer.js'
 import { teamHasDefaultPaymentMethod } from '@cloud/_utilities/teamHasDefaultPaymentMethod.js'
 import { type Stripe, type StripeElements } from '@stripe/stripe-js'
-import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime.js'
+import { toast } from 'sonner'
 
-import { Project, User } from '@root/payload-cloud-types.js'
+import type { CheckoutState } from './reducer.js'
+
 import { confirmCardPayment } from './confirmCardPayment.js'
 import { confirmCardSetup } from './confirmCardSetup.js'
 import { createSubscription } from './createSubscription.js'
-import { CheckoutState } from './reducer.js'
 
 export const deploy = async (args: {
-  project: Project | null | undefined
   checkoutState: CheckoutState
+  elements: null | StripeElements | undefined
   installID?: string
   onDeploy?: (project: Project) => void
-  user: User | null | undefined
-  stripe: Stripe | null | undefined
-  elements: StripeElements | null | undefined
-  unflattenedData: any
+  project: null | Project | undefined
   router: AppRouterInstance
+  stripe: null | Stripe | undefined
+  unflattenedData: any
+  user: null | undefined | User
 }): Promise<void> => {
   const {
     checkoutState,
-    installID,
-    project,
-    onDeploy,
-    user,
-    stripe,
     elements,
-    unflattenedData: formState,
+    installID,
+    onDeploy,
+    project,
     router,
+    stripe,
+    unflattenedData: formState,
+    user,
   } = args
 
   try {
@@ -62,9 +64,9 @@ export const deploy = async (args: {
     // `confirmCardSetup` will throw its own errors, no need to catch them here
     if (checkoutState.paymentMethod) {
       const { setupIntent } = await confirmCardSetup({
+        elements,
         paymentMethod: checkoutState.paymentMethod,
         stripe,
-        elements,
         team: checkoutState.team,
       })
 
@@ -87,20 +89,15 @@ export const deploy = async (args: {
     // attempt to deploy the project
     // do not create the subscription yet to ensure the project will deploy
     const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/deploy`, {
-      credentials: 'include',
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
       body: JSON.stringify({
         project: {
           id: project?.id,
+          freeTrial: checkoutState.freeTrial,
+          paymentMethod: checkoutState.paymentMethod,
           template:
             project?.template && typeof project.template !== 'string'
               ? project.template.id
               : project?.template,
-          paymentMethod: checkoutState.paymentMethod,
-          freeTrial: checkoutState.freeTrial,
           // reduce large payloads to only the ID, i.e. plan and team
           plan: typeof checkoutState.plan === 'string' ? checkoutState.plan : checkoutState.plan.id,
           team: typeof checkoutState.team === 'string' ? checkoutState.team : checkoutState.team.id,
@@ -112,12 +109,17 @@ export const deploy = async (args: {
           installID,
         },
       }),
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
     })
 
     const res: {
       doc: Project
-      message: string
       error
+      message: string
     } = await req.json()
 
     if (req.ok) {
@@ -128,16 +130,16 @@ export const deploy = async (args: {
         project: res.doc,
       })
 
-      if (!elements || !stripe) throw new Error(`Stripe is not initialized.`)
+      if (!elements || !stripe) {throw new Error(`Stripe is not initialized.`)}
 
       // confirm the `SetupIntent` if a payment method was supplied
       // the `setupIntent` has already determined that the card is valid an has sufficient funds
       // free trials will mark the subscription as paid immediately
       await confirmCardPayment({
-        subscription,
+        checkoutState,
         elements,
         stripe,
-        checkoutState,
+        subscription,
       })
 
       if (typeof onDeploy === 'function') {

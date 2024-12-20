@@ -172,9 +172,9 @@ export const UniqueSlug: React.FC<{
   }
 
   let icon: React.ReactNode = null
-  if (isLoading) icon = <Spinner />
-  if (slugIsValid) icon = <CheckIcon bold className={classes.check} size="medium" />
-  if (slugIsFetched && isError) icon = <CloseIcon bold className={classes.error} size="medium" />
+  if (isLoading) {icon = <Spinner />}
+  if (slugIsValid) {icon = <CheckIcon bold className={classes.check} size="medium" />}
+  if (slugIsFetched && isError) {icon = <CloseIcon bold className={classes.error} size="medium" />}
 
   // two fields are rendered here, the first is controlled, user-facing and not debounced
   // the other is a hidden field that has been validated

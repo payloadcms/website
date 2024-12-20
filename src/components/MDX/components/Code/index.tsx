@@ -1,11 +1,10 @@
 import React from 'react'
 
 import Code from '../../../Code/index.js'
-
 import classes from './index.module.scss'
 
-const CodeMarkdown: (props) => React.JSX.Element | null = ({ children }) => {
-  let childrenToRender: string | null = null
+const CodeMarkdown: (props) => null | React.JSX.Element = ({ children }) => {
+  let childrenToRender: null | string = null
 
   if (typeof children === 'string') {
     childrenToRender = children
@@ -15,10 +14,10 @@ const CodeMarkdown: (props) => React.JSX.Element | null = ({ children }) => {
     childrenToRender = String(children.props.children)
   }
 
-  if (childrenToRender === null) return null
+  if (childrenToRender === null) {return null}
 
   return (
-    <Code parentClassName={classes.code} disableMinHeight>
+    <Code disableMinHeight parentClassName={classes.code}>
       {childrenToRender.trim()}
     </Code>
   )

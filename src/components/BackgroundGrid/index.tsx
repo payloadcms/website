@@ -8,20 +8,20 @@ type GridLineStyles = {
 
 type Props = {
   className?: string
+  gridLineStyles?: GridLineStyles
   ignoreGutter?: boolean
   style?: React.CSSProperties
-  zIndex?: number
-  gridLineStyles?: GridLineStyles
   wideGrid?: boolean
+  zIndex?: number
 }
 
 export const BackgroundGrid: React.FC<Props> = ({
   className,
+  gridLineStyles = {},
   ignoreGutter,
   style,
-  zIndex = -1,
-  gridLineStyles = {},
   wideGrid = false,
+  zIndex = -1,
 }: Props) => {
   return (
     <div
@@ -39,8 +39,8 @@ export const BackgroundGrid: React.FC<Props> = ({
     >
       {[...Array(wideGrid ? 4 : 5)].map((_, index) => (
         <div
-          key={index}
           className={[classes.column, 'cols-4'].join(' ')}
+          key={index}
           style={gridLineStyles[index] || {}}
         ></div>
       ))}

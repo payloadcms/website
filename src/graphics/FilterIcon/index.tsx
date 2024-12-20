@@ -8,10 +8,10 @@ export const FilterIcon: React.FC<Props> = ({ className }) => {
   return (
     <svg
       className={className}
-      width="21"
+      fill="none"
       height="14"
       viewBox="0 0 21 14"
-      fill="none"
+      width="21"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path d="M0 1H21" stroke="#ECECEC" />

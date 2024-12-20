@@ -1,14 +1,14 @@
-import React from 'react'
+import type { Metadata } from 'next'
+
+import { SectionHeader } from '@cloud/[team-slug]/[project-slug]/(tabs)/settings/_layoutComponents/SectionHeader/index.js'
 import { fetchMe } from '@cloud/_api/fetchMe.js'
 import { fetchPaymentMethods } from '@cloud/_api/fetchPaymentMethods.js'
 import { fetchTeamWithCustomer } from '@cloud/_api/fetchTeam.js'
 import { CreditCardList } from '@cloud/_components/CreditCardList/index.js'
-import { SectionHeader } from '@cloud/[team-slug]/[project-slug]/(tabs)/settings/_layoutComponents/SectionHeader/index.js'
-import { Text } from '@forms/fields/Text/index.js'
-import { Metadata } from 'next'
-
 import HR from '@components/MDX/components/HR/index.js'
+import { Text } from '@forms/fields/Text/index.js'
 import { checkTeamRoles } from '@root/utilities/check-team-roles.js'
+import React from 'react'
 
 import classes from './page.module.scss'
 
@@ -31,7 +31,6 @@ export default async ({
   return (
     <React.Fragment>
       <SectionHeader
-        title="Billing"
         intro={
           <React.Fragment>
             {!hasCustomerID && (
@@ -42,6 +41,7 @@ export default async ({
             )}
           </React.Fragment>
         }
+        title="Billing"
       />
       {hasCustomerID && (
         <React.Fragment>
@@ -55,16 +55,16 @@ export default async ({
                 The following payment methods are available for this team. Projects that do not
                 specify a payment method will use this team's default payment method (if any).
               </p>
-              <CreditCardList team={team} initialPaymentMethods={paymentMethods} />
+              <CreditCardList initialPaymentMethods={paymentMethods} team={team} />
             </React.Fragment>
           )}
           <HR />
           <div className={classes.fields}>
             <Text
-              value={team?.stripeCustomerID}
-              label="Customer ID"
-              disabled
               description="This value was automatically generated when this team was created."
+              disabled
+              label="Customer ID"
+              value={team?.stripeCustomerID}
             />
           </div>
         </React.Fragment>
@@ -82,10 +82,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { 'team-slug': teamSlug } = await params
   return {
-    title: `${teamSlug} - Team Billing`,
     openGraph: {
       title: `${teamSlug} - Team Billing`,
       url: `/cloud/${teamSlug}/settings/billing`,
     },
+    title: `${teamSlug} - Team Billing`,
   }
 }

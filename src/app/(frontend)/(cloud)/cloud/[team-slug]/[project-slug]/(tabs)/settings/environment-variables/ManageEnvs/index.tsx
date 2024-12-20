@@ -1,45 +1,45 @@
 'use client'
 
-import * as React from 'react'
-import { toast } from 'sonner'
+import type { Project } from '@root/payload-cloud-types.js'
+
 import { revalidateCache } from '@cloud/_actions/revalidateCache.js'
+import { Accordion } from '@components/Accordion/index.js'
+import { Button } from '@components/Button/index.js'
+import { Heading } from '@components/Heading/index.js'
+import { ModalWindow } from '@components/ModalWindow/index.js'
 import { CollapsibleGroup } from '@faceless-ui/collapsibles'
 import { useModal } from '@faceless-ui/modal'
 import { Text } from '@forms/fields/Text/index.js'
 import { Textarea } from '@forms/fields/Textarea/index.js'
 import Form from '@forms/Form/index.js'
 import Submit from '@forms/Submit/index.js'
-
-import { Button } from '@components/Button/index.js'
-import { Heading } from '@components/Heading/index.js'
-import { ModalWindow } from '@components/ModalWindow/index.js'
-import { Accordion } from '@components/Accordion/index.js'
-import { Project } from '@root/payload-cloud-types.js'
-import { validateKey, validateValue } from '../validations.js'
 import { qs } from '@root/utilities/qs.js'
+import * as React from 'react'
+import { toast } from 'sonner'
 
+import { validateKey, validateValue } from '../validations.js'
 import classes from './index.module.scss'
 
 const envKeyFieldPath = 'envKey'
 const envValueFieldPath = 'envValue'
 
 type Props = {
-  envs: Project['environmentVariables']
-  projectID: Project['id']
   // env: Project['environmentVariables'][0]
   env: {
+    id?: string
     key?: string
     value?: string
-    id?: string
   }
   environmentSlug?: string
+  envs: Project['environmentVariables']
+  projectID: Project['id']
 }
 
 export const ManageEnv: React.FC<Props> = ({
+  env: { id, key },
+  environmentSlug,
   envs,
   projectID,
-  env: { key, id },
-  environmentSlug,
 }) => {
   const modalSlug = `delete-env-${id}`
   const [fetchedEnvValue, setFetchedEnvValue] = React.useState<string | undefined>(undefined)
@@ -51,7 +51,7 @@ export const ManageEnv: React.FC<Props> = ({
     return acc
   }, [])
 
-  const fetchEnv = React.useCallback(async (): Promise<string | null> => {
+  const fetchEnv = React.useCallback(async (): Promise<null | string> => {
     try {
       const query = qs.stringify({
         env: environmentSlug,
@@ -93,12 +93,12 @@ export const ManageEnv: React.FC<Props> = ({
               query ? `?${query}` : ''
             }`,
             {
-              method: 'PATCH',
+              body: JSON.stringify({ arrayID: id, key: newEnvKey, value: newEnvValue }),
               credentials: 'include',
               headers: {
                 'Content-Type': 'application/json',
               },
-              body: JSON.stringify({ arrayID: id, key: newEnvKey, value: newEnvValue }),
+              method: 'PATCH',
             },
           )
 
@@ -139,11 +139,11 @@ export const ManageEnv: React.FC<Props> = ({
       const req = await fetch(
         `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${projectID}/env?${query}`,
         {
-          method: 'DELETE',
           credentials: 'include',
           headers: {
             'Content-Type': 'application/json',
           },
+          method: 'DELETE',
         },
       )
 
@@ -162,47 +162,47 @@ export const ManageEnv: React.FC<Props> = ({
   return (
     <>
       <Accordion
-        onToggle={async () => {
-          if (!fetchedEnvValue && key) {
-            const envValue = await fetchEnv()
-            if (envValue) setFetchedEnvValue(envValue)
-          }
-        }}
         label={
           <>
             <p>{key}</p>
             <div>••••••••••••</div>
           </>
         }
+        onToggle={async () => {
+          if (!fetchedEnvValue && key) {
+            const envValue = await fetchEnv()
+            if (envValue) {setFetchedEnvValue(envValue)}
+          }
+        }}
         toggleIcon="eye"
       >
         <Form className={classes.accordionFormContent} onSubmit={updateEnv}>
           <Text
-            required
+            initialValue={key}
             label="Key"
             path={envKeyFieldPath}
-            initialValue={key}
+            required
             validate={(keyValue: string) => validateKey(keyValue, existingEnvKeys)}
           />
 
           <Textarea
             copy
-            required
+            initialValue={fetchedEnvValue}
             label="Value"
             path={envValueFieldPath}
-            initialValue={fetchedEnvValue}
+            required
             validate={validateValue}
           />
 
           <div className={classes.actionFooter}>
-            <Button label="Remove" appearance="danger" onClick={() => openModal(modalSlug)} />
-            <Submit label="Update" icon={false} />
+            <Button appearance="danger" label="Remove" onClick={() => openModal(modalSlug)} />
+            <Submit icon={false} label="Update" />
           </div>
         </Form>
       </Accordion>
       <ModalWindow slug={modalSlug}>
         <div className={classes.modalContent}>
-          <Heading marginTop={false} as="h4">
+          <Heading as="h4" marginTop={false}>
             Are you sure you want to delete this environment variable?
           </Heading>
           <p>
@@ -211,8 +211,8 @@ export const ManageEnv: React.FC<Props> = ({
           </p>
 
           <div className={classes.modalActions}>
-            <Button label="Cancel" appearance="secondary" onClick={() => closeModal(modalSlug)} />
-            <Button label="Delete" appearance="danger" onClick={deleteEnv} />
+            <Button appearance="secondary" label="Cancel" onClick={() => closeModal(modalSlug)} />
+            <Button appearance="danger" label="Delete" onClick={deleteEnv} />
           </div>
         </div>
       </ModalWindow>
@@ -221,22 +221,22 @@ export const ManageEnv: React.FC<Props> = ({
 }
 
 export const ManageEnvs: React.FC<{
+  environmentSlug?: string
   envs: Project['environmentVariables']
   projectID: Project['id']
-  environmentSlug?: string
 }> = props => {
-  const { envs, projectID, environmentSlug } = props
+  const { environmentSlug, envs, projectID } = props
 
   return (
-    <CollapsibleGroup transTime={250} transCurve="ease" allowMultiple>
+    <CollapsibleGroup allowMultiple transCurve="ease" transTime={250}>
       <div className={classes.envs}>
         {envs?.map(env => (
           <ManageEnv
-            key={env.id}
             env={env}
-            envs={envs}
-            projectID={projectID}
             environmentSlug={environmentSlug}
+            envs={envs}
+            key={env.id}
+            projectID={projectID}
           />
         ))}
       </div>

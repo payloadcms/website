@@ -1,17 +1,17 @@
 'use client'
 
-import * as React from 'react'
-import { Secret } from '@forms/fields/Secret/index.js'
+import type { Project, Team } from '@root/payload-cloud-types.js'
 
 import { Banner } from '@components/Banner/index.js'
 import { Gutter } from '@components/Gutter/index.js'
-import { Project, Team } from '@root/payload-cloud-types.js'
+import { Secret } from '@forms/fields/Secret/index.js'
+import * as React from 'react'
 
 export const ProjectDatabasePage: React.FC<{
+  environmentSlug: string
   project: Project
   team: Team
-  environmentSlug: string
-}> = ({ project, team, environmentSlug }) => {
+}> = ({ environmentSlug, project, team }) => {
   const loadConnectionString = React.useCallback(async () => {
     const { value } = await fetch(
       `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project?.id}/atlas-connection${

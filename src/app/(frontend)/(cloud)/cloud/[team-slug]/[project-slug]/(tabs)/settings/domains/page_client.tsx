@@ -1,26 +1,26 @@
 'use client'
 
-import * as React from 'react'
-import { CollapsibleGroup } from '@faceless-ui/collapsibles'
+import type { Project, Team } from '@root/payload-cloud-types.js'
 
 import { Accordion } from '@components/Accordion/index.js'
 import { HR } from '@components/HR/index.js'
 import { MaxWidth } from '@components/MaxWidth/index.js'
-import { Project, Team } from '@root/payload-cloud-types.js'
+import { CollapsibleGroup } from '@faceless-ui/collapsibles'
+import * as React from 'react'
+
 import { NoData } from '../_layoutComponents/NoData/index.js'
 import { SectionHeader } from '../_layoutComponents/SectionHeader/index.js'
 import { AddDomain } from './AddDomain/index.js'
 import { ManageDomain } from './ManageDomain/index.js'
 
 export const ProjectDomainsPage: React.FC<{
+  environmentSlug: string
   project: Project
   team: Team
-  environmentSlug: string
-}> = ({ project, team, environmentSlug }) => {
+}> = ({ environmentSlug, project, team }) => {
   return (
     <MaxWidth>
       <SectionHeader
-        title="Custom Domains"
         intro={
           <>
             {project?.defaultDomain && (
@@ -33,25 +33,26 @@ export const ProjectDomainsPage: React.FC<{
             )}
           </>
         }
+        title="Custom Domains"
       />
-      <CollapsibleGroup transTime={250} transCurve="ease">
+      <CollapsibleGroup transCurve="ease" transTime={250}>
         <Accordion label="New Domain" openOnInit>
-          <AddDomain project={project} team={team} environmentSlug={environmentSlug} />
+          <AddDomain environmentSlug={environmentSlug} project={project} team={team} />
         </Accordion>
       </CollapsibleGroup>
       <HR />
       {project?.domains && project.domains.length > 0 ? (
         <React.Fragment>
           <SectionHeader title="Manage Domains" />
-          <CollapsibleGroup transTime={250} transCurve="ease" allowMultiple>
+          <CollapsibleGroup allowMultiple transCurve="ease" transTime={250}>
             <div>
               {project.domains.map(domain => (
                 <ManageDomain
-                  key={domain.id}
                   domain={domain}
+                  environmentSlug={environmentSlug}
+                  key={domain.id}
                   project={project}
                   team={team}
-                  environmentSlug={environmentSlug}
                 />
               ))}
             </div>
