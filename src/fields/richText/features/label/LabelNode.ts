@@ -1,19 +1,21 @@
 import type {
-  $applyNodeReplacement,
-  $createParagraphNode,
   DOMExportOutput,
-  type EditorConfig,
-  ElementNode,
-  isHTMLElement,
+  EditorConfig,
   LexicalEditor,
-  type LexicalNode,
-  type NodeKey,
+  LexicalNode,
+  NodeKey,
   ParagraphNode,
-  type RangeSelection,
-  type SerializedElementNode,
+  RangeSelection,
+  SerializedElementNode,
   Spread,
 } from '@payloadcms/richtext-lexical/lexical'
 
+import {
+  $applyNodeReplacement,
+  $createParagraphNode,
+  ElementNode,
+  isHTMLElement,
+} from '@payloadcms/richtext-lexical/lexical'
 import { addClassNamesToElement } from '@payloadcms/richtext-lexical/lexical/utils'
 
 export type SerializedLabelNode = Spread<

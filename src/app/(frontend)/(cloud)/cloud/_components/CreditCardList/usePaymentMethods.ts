@@ -139,8 +139,8 @@ export const usePaymentMethods = (args: {
           },
         )?.then((res) => {
           const json = res.json()
-          // @ts-expect-error
           if (!res.ok) {
+            // @ts-expect-error
             throw new Error(json?.message)
           }
           return json

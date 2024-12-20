@@ -31,7 +31,8 @@ const HeadingElement: React.FC<Partial<Props>> = (props) => {
 }
 
 export const Heading: React.FC<Props> = (props) => {
-  const { as = el, className, element: el = 'h1', margin, marginBottom, marginTop } = props
+  const { as: asFromProps, className, element: el = 'h1', margin, marginBottom, marginTop } = props
+  const as = asFromProps ?? el
 
   const classList = [
     className,
