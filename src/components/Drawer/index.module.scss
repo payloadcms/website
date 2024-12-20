@@ -1,4 +1,4 @@
-@use "@scss/common" as *;
+@use '@scss/common' as *;
 
 .drawer {
   display: flex;
@@ -44,7 +44,7 @@
   padding: calc(var(--header-height) + 4rem) var(--gutter-h) 4rem 4rem;
 
   @include mid-break {
-    padding:  calc(var(--header-height) + 5rem) 1.5rem 1.5rem 1.5rem;
+    padding: calc(var(--header-height) + 5rem) 1.5rem 1.5rem 1.5rem;
   }
 }
 
@@ -172,7 +172,9 @@
 }
 
 @include small-break {
-  .size-l, .size-m, .size-s {
+  .size-l,
+  .size-m,
+  .size-s {
     .close {
       width: var(--gutter-h);
     }

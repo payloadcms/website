@@ -5,7 +5,7 @@ import React from 'react'
 
 import { PrivacyClientPage } from './page_client.js'
 
-export default props => {
+export default (props) => {
   return <PrivacyClientPage {...props} />
 }
 

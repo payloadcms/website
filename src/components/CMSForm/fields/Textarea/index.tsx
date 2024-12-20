@@ -16,7 +16,7 @@ export const Textarea: React.FC<
     elementAttributes?: React.InputHTMLAttributes<HTMLTextAreaElement>
     rows?: number
   } & FieldProps<string>
-> = props => {
+> = (props) => {
   const {
     className,
     copy,
@@ -112,7 +112,7 @@ export const Textarea: React.FC<
         id={path}
         name={path}
         onBlur={handleBlur}
-        onChange={e => {
+        onChange={(e) => {
           onChange(e.target.value)
         }}
         onFocus={handleFocus}

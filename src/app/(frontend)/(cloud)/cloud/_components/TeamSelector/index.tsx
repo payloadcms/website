@@ -8,7 +8,7 @@ import { components } from 'react-select'
 
 import classes from './index.module.scss'
 
-const SelectMenuButton = props => {
+const SelectMenuButton = (props) => {
   const { children, TeamDrawerToggler } = props
   return (
     <components.MenuList {...props}>
@@ -23,11 +23,11 @@ export const TeamSelector: React.FC<{
   className?: string
   initialValue?: string
   label?: false | string
-  onChange?: (value?: Team) => void  
+  onChange?: (value?: Team) => void
   required?: boolean
   user?: null | User
   value?: string
-}> = props => {
+}> = (props) => {
   const {
     allowEmpty,
     className,
@@ -48,7 +48,7 @@ export const TeamSelector: React.FC<{
 
   const [TeamDrawer, TeamDrawerToggler] = useTeamDrawer({
     team: teams?.find(
-      team => typeof team === 'object' && team !== null && team.id === selectedTeam,
+      (team) => typeof team === 'object' && team !== null && team.id === selectedTeam,
     ) as Team,
   })
 
@@ -65,10 +65,12 @@ export const TeamSelector: React.FC<{
       prevSelectedTeam.current = selectedTeam
 
       const foundTeam = teams?.find(
-        team => typeof team === 'object' && team !== null && team.id === selectedTeam,
+        (team) => typeof team === 'object' && team !== null && team.id === selectedTeam,
       ) as Team
 
-      if (typeof onChange === 'function') {onChange(foundTeam)}
+      if (typeof onChange === 'function') {
+        onChange(foundTeam)
+      }
     }
   }, [onChange, selectedTeam, teams])
 
@@ -79,12 +81,14 @@ export const TeamSelector: React.FC<{
     }
   }, [user])
 
-  const options = (
+  const options =
     user?.teams && user.teams?.length > 0
       ? ([
           ...user?.teams
             ?.map(({ team }) => {
-              if (!team) {return null}
+              if (!team) {
+                return null
+              }
               return {
                 label: typeof team === 'string' ? team : team?.name || team?.id,
                 value: typeof team === 'string' ? team : team?.id,
@@ -98,9 +102,8 @@ export const TeamSelector: React.FC<{
             value: 'no-teams',
           },
         ]
-  )
 
-  const valueNotFound = selectedTeam && !options.find(option => option.value === selectedTeam)
+  const valueNotFound = selectedTeam && !options.find((option) => option.value === selectedTeam)
 
   if (selectedTeam !== 'none' && valueNotFound) {
     options.push({
@@ -115,7 +118,7 @@ export const TeamSelector: React.FC<{
         <Select
           className={[classes.select, user === null && classes.hidden].filter(Boolean).join(' ')}
           components={{
-            MenuList: menuListProps => (
+            MenuList: (menuListProps) => (
               <SelectMenuButton
                 {...menuListProps}
                 TeamDrawerToggler={
@@ -129,8 +132,10 @@ export const TeamSelector: React.FC<{
           disabled={user === null}
           initialValue={selectedTeam}
           label={props.label !== false ? 'Team' : ''}
-          onChange={option => {
-            if (Array.isArray(option)) {return}
+          onChange={(option) => {
+            if (Array.isArray(option)) {
+              return
+            }
             setSelectedTeam(option)
           }}
           options={[...(allowEmpty ? [{ label: 'All teams', value: 'none' }] : []), ...options]}
@@ -140,7 +145,7 @@ export const TeamSelector: React.FC<{
         {user === null && <LoadingShimmer className={classes.loading} heightPercent={100} />}
       </div>
       <TeamDrawer
-        onCreate={newTeam => {
+        onCreate={(newTeam) => {
           teamToSelectAfterUserUpdates.current = newTeam.id
         }}
       />

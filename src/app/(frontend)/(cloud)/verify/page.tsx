@@ -27,7 +27,9 @@ export default async ({ searchParams }) => {
 
       if (res.ok) {
         const { data, errors } = await res.json()
-        if (errors) {throw new Error(errors[0].message)}
+        if (errors) {
+          throw new Error(errors[0].message)
+        }
       } else {
         throw new Error('Invalid login')
       }

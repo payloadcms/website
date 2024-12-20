@@ -6,7 +6,7 @@ export const RenderDarkMode: React.FC<{
   children: React.ReactNode
   enableMargins?: boolean
   enablePadding?: boolean
-}> = props => {
+}> = (props) => {
   const { children, enableMargins, enablePadding } = props
 
   return (

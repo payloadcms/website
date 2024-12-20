@@ -3,9 +3,9 @@
 @use './vars.scss' as *;
 @use './queries.scss' as *;
 @use './type.scss' as *;
-@use "./colors.scss";
+@use './colors.scss';
 @use './docsearch.scss';
-@use "./theme.scss";
+@use './theme.scss';
 @use './toasts.scss';
 
 :root {
@@ -83,7 +83,6 @@
   @include mid-break {
     --column: calc((100vw - (var(--gutter-h) * 2)) / 8);
   }
-
 }
 
 /////////////////////////////
@@ -104,12 +103,12 @@ html {
     scroll-behavior: smooth;
   }
 
-  &[data-theme=dark],
-  &[data-theme=light] {
+  &[data-theme='dark'],
+  &[data-theme='light'] {
     opacity: initial;
   }
 
-  &[data-theme=dark] {
+  &[data-theme='dark'] {
     background: var(--color-base-1000);
     color-scheme: dark;
   }
@@ -206,7 +205,6 @@ a {
   }
 
   @include mid-break {
-
     &:focus,
     &:active {
       opacity: 1;
@@ -276,7 +274,7 @@ dialog {
   width: 20px;
   height: 20px;
   vertical-align: middle;
-  margin: 0!important;
+  margin: 0 !important;
 }
 
 .payload__modal-item {
@@ -307,9 +305,11 @@ dialog {
   background-image: url('/images/scanline-dark.png');
   background-repeat: repeat;
   opacity: 0.08;
-  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  transition:
+    transform 0.3s ease-in-out,
+    opacity 0.3s ease-in-out;
 
-  [data-theme="dark"]  & {
+  [data-theme='dark'] & {
     background-image: url('/images/scanline-light.png');
   }
 }

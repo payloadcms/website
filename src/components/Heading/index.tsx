@@ -17,7 +17,7 @@ type Props = {
   marginTop?: boolean
 }
 
-const HeadingElement: React.FC<Partial<Props>> = props => {
+const HeadingElement: React.FC<Partial<Props>> = (props) => {
   const { id, children, className = [], element: Element = 'h1', margin } = props
 
   return (
@@ -30,7 +30,7 @@ const HeadingElement: React.FC<Partial<Props>> = props => {
   )
 }
 
-export const Heading: React.FC<Props> = props => {
+export const Heading: React.FC<Props> = (props) => {
   const { as = el, className, element: el = 'h1', margin, marginBottom, marginTop } = props
 
   const classList = [

@@ -30,8 +30,8 @@ const useIntersection = ({
 
     if (currentRef) {
       observer = new IntersectionObserver(
-        entries => {
-          entries.forEach(entry => {
+        (entries) => {
+          entries.forEach((entry) => {
             setIsIntersecting(entry.isIntersecting)
           })
         },

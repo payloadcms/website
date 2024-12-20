@@ -17,7 +17,7 @@ export type Tab = {
   warning?: boolean
 }
 
-const TabContents: React.FC<Tab> = props => {
+const TabContents: React.FC<Tab> = (props) => {
   const { error, label, warning } = props
 
   return (
@@ -40,7 +40,7 @@ const TabContents: React.FC<Tab> = props => {
 export const Tabs: React.FC<{
   className?: string
   tabs?: Tab[]
-}> = props => {
+}> = (props) => {
   const { className, tabs } = props
 
   return (

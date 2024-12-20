@@ -29,7 +29,7 @@ import React, { useId } from 'react'
 
 import classes from './index.module.scss'
 
-export const Footer: React.FC<FooterType> = props => {
+export const Footer: React.FC<FooterType> = (props) => {
   const { columns } = props
   const [products, developers, company] = columns ?? []
   const { setTheme } = useThemePreference()
@@ -42,7 +42,9 @@ export const Footer: React.FC<FooterType> = props => {
       const implicitPreference = getImplicitPreference() ?? 'light'
       setHeaderTheme(implicitPreference)
       setTheme(implicitPreference)
-      if (selectRef.current) {selectRef.current.value = 'auto'}
+      if (selectRef.current) {
+        selectRef.current.value = 'auto'
+      }
     } else {
       setTheme(themeToSet)
       setHeaderTheme(themeToSet)
@@ -72,7 +74,7 @@ export const Footer: React.FC<FooterType> = props => {
   ]
 
   const pathnameSegments = pathname.split('/').filter(Boolean)
-  const isCloudPage = pathnameSegments.some(segment => allowedSegments.includes(segment))
+  const isCloudPage = pathnameSegments.some((segment) => allowedSegments.includes(segment))
 
   const themeId = useId()
 
@@ -182,7 +184,7 @@ export const Footer: React.FC<FooterType> = props => {
 
               <select
                 id={themeId}
-                onChange={e => onThemeChange(e.target.value as 'auto' & Theme)}
+                onChange={(e) => onThemeChange(e.target.value as 'auto' & Theme)}
                 ref={selectRef}
               >
                 <option value="auto">Auto</option>

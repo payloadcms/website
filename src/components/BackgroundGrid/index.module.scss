@@ -1,4 +1,4 @@
-@use "@scss/common" as *;
+@use '@scss/common' as *;
 
 .backgroundGrid {
   position: absolute;
@@ -16,13 +16,11 @@
   }
 }
 
-
 .column {
   width: 1px;
 
   &:nth-of-type(1) {
     grid-area: 1/1/1/1;
-
   }
 
   &:nth-of-type(2) {
@@ -31,7 +29,6 @@
     @include small-break {
       display: none;
     }
-
   }
 
   &:nth-of-type(3) {
@@ -84,4 +81,3 @@
     }
   }
 }
-

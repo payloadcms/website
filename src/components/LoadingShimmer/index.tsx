@@ -9,7 +9,7 @@ export const LoadingShimmer: React.FC<{
   number?: number
   shimmerClassName?: string
   width?: number // in `base` units
-}> = props => {
+}> = (props) => {
   const { className, height: heightBase, heightPercent, number, shimmerClassName } = props
 
   const arrayFromNumber = Array.from(Array(number || 1).keys())

@@ -4,7 +4,7 @@ const isValidEmail = new RegExp(
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-z\-0-9]+\.)+[a-z]{2,}))$/i,
 )
 
-export const validateEmail: Validate = value => {
+export const validateEmail: Validate = (value) => {
   const stringValue = value as string
 
   if (!isValidEmail.test(stringValue)) {

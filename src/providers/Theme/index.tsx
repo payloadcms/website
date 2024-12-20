@@ -3,7 +3,7 @@
 import canUseDom from '@root/utilities/can-use-dom.js'
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react'
 
-import type { Theme, ThemePreferenceContextType } from './types.js';
+import type { Theme, ThemePreferenceContextType } from './types.js'
 
 import { defaultTheme, getImplicitPreference, themeLocalStorageKey } from './shared.js'
 import { themeIsValid } from './types.js'
@@ -25,7 +25,9 @@ export const ThemePreferenceProvider: React.FC<{ children?: React.ReactNode }> =
       window.localStorage.removeItem(themeLocalStorageKey)
       const implicitPreference = getImplicitPreference()
       document.documentElement.setAttribute('data-theme', implicitPreference || '')
-      if (implicitPreference) {setThemeState(implicitPreference)}
+      if (implicitPreference) {
+        setThemeState(implicitPreference)
+      }
     } else {
       setThemeState(themeToSet)
       window.localStorage.setItem(themeLocalStorageKey, themeToSet)

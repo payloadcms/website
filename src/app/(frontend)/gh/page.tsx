@@ -11,7 +11,9 @@ const Page = () => {
 
   useEffect(() => {
     ;(async () => {
-      if (window.opener == null) {window.close()}
+      if (window.opener == null) {
+        window.close()
+      }
 
       const paramObj = Object.fromEntries(
         searchParams?.entries() || [],

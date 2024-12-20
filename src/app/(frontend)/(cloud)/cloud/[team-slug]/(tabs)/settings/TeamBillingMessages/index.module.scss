@@ -1,9 +1,9 @@
 @use '@scss/common.scss' as *;
 
 .billingMessages {
-    margin-bottom: 2rem;
+  margin-bottom: 2rem;
 
-    @include mid-break {
-      margin-bottom: 1rem;
-    }
+  @include mid-break {
+    margin-bottom: 1rem;
+  }
 }

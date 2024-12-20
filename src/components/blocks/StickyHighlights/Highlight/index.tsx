@@ -62,8 +62,8 @@ export const StickyHighlightComponent: React.FC<Props> = ({
 
       if (refCopy) {
         intersectionObserver = new IntersectionObserver(
-          entries => {
-            entries.forEach(entry => {
+          (entries) => {
+            entries.forEach((entry) => {
               setVisible(entry.isIntersecting)
             })
           },
@@ -77,8 +77,8 @@ export const StickyHighlightComponent: React.FC<Props> = ({
       }
 
       if (codeWrapRefCopy && codeMediaInnerRef?.current) {
-        resizeObserver = new ResizeObserver(entries => {
-          entries.forEach(entry => {
+        resizeObserver = new ResizeObserver((entries) => {
+          entries.forEach((entry) => {
             setCenterCodeMedia(
               // @ts-expect-error
               entry.contentRect.height > (codeMediaInnerRef?.current?.clientHeight || 0),
@@ -194,7 +194,7 @@ export const StickyHighlightComponent: React.FC<Props> = ({
   )
 }
 
-export const StickyHighlight: React.FC<Props> = React.memo(props => {
+export const StickyHighlight: React.FC<Props> = React.memo((props) => {
   return (
     <CodeBlip.Provider>
       <StickyHighlightComponent {...props} />

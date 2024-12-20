@@ -1,4 +1,3 @@
- 
 import type { PayloadHandler } from 'payload'
 
 import matter from 'gray-matter'
@@ -33,7 +32,7 @@ function getHeadings(source: string) {
   })
 }
 
-const syncDocs: PayloadHandler = async req => {
+const syncDocs: PayloadHandler = async (req) => {
   const { payload } = req
   let topics
 
@@ -45,7 +44,7 @@ const syncDocs: PayloadHandler = async req => {
     const fetchDoc = async (topicSlug: string, docFilename: string): Promise<Doc> => {
       const json: any = await fetch(`${githubAPI}/contents/docs/${topicSlug}/${docFilename}`, {
         headers,
-      }).then(response => response.json())
+      }).then((response) => response.json())
 
       const parsedDoc = matter(decodeBase64(json.content))
 
@@ -106,22 +105,22 @@ const syncDocs: PayloadHandler = async req => {
 
     const getTopics: any = await fetch(`${githubAPI}/contents/docs`, {
       headers,
-    }).then(response => response.json())
+    }).then((response) => response.json())
 
     topics = getTopics.map(({ name }) => name)
 
     const allDocs = await Promise.all(
-      topics.map(async unsanitizedTopicSlug => {
+      topics.map(async (unsanitizedTopicSlug) => {
         const topicSlug = unsanitizedTopicSlug.toLowerCase()
 
         const docs: any = await fetch(`${githubAPI}/contents/docs/${topicSlug}`, {
           headers,
-        }).then(response => response.json())
+        }).then((response) => response.json())
 
         const docFilenames = docs.map(({ name }) => name)
 
         const parsedDocs = await Promise.all(
-          docFilenames.map(docFilename => fetchDoc(topicSlug, docFilename)),
+          docFilenames.map((docFilename) => fetchDoc(topicSlug, docFilename)),
         )
 
         return parsedDocs

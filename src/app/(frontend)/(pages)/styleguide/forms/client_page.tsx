@@ -19,7 +19,7 @@ export const FormsExample: React.FC = () => {
               initialValue: 'Bob',
             },
           }}
-          onSubmit={args => {
+          onSubmit={(args) => {
             console.log(args) // eslint-disable-line no-console
           }}
         >

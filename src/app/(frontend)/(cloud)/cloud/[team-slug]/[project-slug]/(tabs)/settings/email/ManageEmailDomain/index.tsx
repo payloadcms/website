@@ -1,4 +1,4 @@
-import type { ButtonProps } from '@components/Button/index.js';
+import type { ButtonProps } from '@components/Button/index.js'
 import type { Project, Team } from '@root/payload-cloud-types.js'
 
 import { Accordion } from '@components/Accordion/index.js'
@@ -59,7 +59,7 @@ export const ManageEmailDomain: React.FC<Props> = ({
             'Content-Type': 'application/json',
           },
         },
-      ).then(res => res.json())
+      ).then((res) => res.json())
       setVerificationStatus(status)
     },
     [project?.id],
@@ -68,7 +68,9 @@ export const ManageEmailDomain: React.FC<Props> = ({
   useEffect(() => {
     if (!hasInitialized.current) {
       hasInitialized.current = true
-      if (resendDomainID) {getDomainVerificationStatus(resendDomainID)}
+      if (resendDomainID) {
+        getDomainVerificationStatus(resendDomainID)
+      }
     }
   }, [getDomainVerificationStatus, resendDomainID])
 
@@ -88,7 +90,7 @@ export const ManageEmailDomain: React.FC<Props> = ({
             'Content-Type': 'application/json',
           },
         },
-      ).then(res => res.json())
+      ).then((res) => res.json())
 
       return value
     },
@@ -164,7 +166,7 @@ export const ManageEmailDomain: React.FC<Props> = ({
 
   const deleteEmailDomain = useCallback(async () => {
     const remainingDomains = (projectEmailDomains || []).filter(
-      existingDomain => existingDomain.id !== id,
+      (existingDomain) => existingDomain.id !== id,
     )
 
     await patchEmailDomains(remainingDomains)

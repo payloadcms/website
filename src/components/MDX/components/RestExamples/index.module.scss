@@ -1,4 +1,4 @@
-@use "@scss/common" as *;
+@use '@scss/common' as *;
 
 .toggle {
   @include btnReset;
@@ -28,7 +28,7 @@
 .table {
   & td {
     white-space: nowrap;
-    padding-block: .75rem;
+    padding-block: 0.75rem;
 
     &:first-child {
       padding-left: 1.5rem;
@@ -36,7 +36,6 @@
 
     &:last-child {
       padding-right: 1.5rem;
-
     }
   }
   overflow-x: scroll;
@@ -51,16 +50,16 @@
   }
 
   th:first-child {
-    padding: 0 0.75rem 0.75rem 0.75rem
+    padding: 0 0.75rem 0.75rem 0.75rem;
   }
 
   td:first-child {
     padding: 0.75rem;
-
   }
 
   :global {
-    #heading-example, .cell-example {
+    #heading-example,
+    .cell-example {
       display: none;
     }
   }
@@ -85,12 +84,14 @@
   }
 
   .table {
-    & td, & th {
+    & td,
+    & th {
       padding: 0.5rem;
     }
   }
 
-  .drawerTable, .table {
+  .drawerTable,
+  .table {
     font-size: 14px;
 
     & label {
@@ -104,7 +105,8 @@
     padding: 0.15rem;
   }
 
-  .drawerTable, .table {
+  .drawerTable,
+  .table {
     font-size: 12px;
 
     & label {

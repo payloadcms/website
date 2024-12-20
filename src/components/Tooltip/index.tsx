@@ -7,18 +7,19 @@ type TooltipProps = {
   children: React.ReactNode
   text: React.ReactNode
 } & (
-    | {
-        /**
-         * If this is set, the button will not manage its own state
-         */
-        isVisible: boolean
-        setIsVisible: (isActive: boolean) => void  
-      }
-    | {
-        isVisible?: never
-        setIsVisible?: never
-      }
-  ) & React.HTMLAttributes<HTMLButtonElement>
+  | {
+      /**
+       * If this is set, the button will not manage its own state
+       */
+      isVisible: boolean
+      setIsVisible: (isActive: boolean) => void
+    }
+  | {
+      isVisible?: never
+      setIsVisible?: never
+    }
+) &
+  React.HTMLAttributes<HTMLButtonElement>
 
 export const Tooltip: React.FC<TooltipProps> = ({
   children,

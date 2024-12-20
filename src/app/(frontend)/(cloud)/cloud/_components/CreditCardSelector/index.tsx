@@ -15,12 +15,12 @@ type CreditCardSelectorType = {
   enableInlineSave?: boolean
   initialPaymentMethods?: null | PaymentMethod[]
   initialValue?: string
-  onChange?: (method?: string) => void  
+  onChange?: (method?: string) => void
   onPaymentMethodChange?: (paymentMethod: string) => Promise<void>
   team: TeamWithCustomer
 }
 
-export const CreditCardSelector: React.FC<CreditCardSelectorType> = props => {
+export const CreditCardSelector: React.FC<CreditCardSelectorType> = (props) => {
   const {
     enableInlineSave = true,
     initialPaymentMethods,
@@ -54,7 +54,7 @@ export const CreditCardSelector: React.FC<CreditCardSelectorType> = props => {
 
   const initializeState = useCallback(() => {
     if (paymentMethods) {
-      if (!initialValue || !paymentMethods?.find(method => method?.id === initialValue)) {
+      if (!initialValue || !paymentMethods?.find((method) => method?.id === initialValue)) {
         // setShowNewCard(true)
         // to preselect the first card, do this instead:
         const firstCard = paymentMethods?.[0]?.id
@@ -117,7 +117,7 @@ export const CreditCardSelector: React.FC<CreditCardSelectorType> = props => {
       <div className={classes.scrollRef} ref={scrollRef} />
       <div className={classes.formState}>{error && <p className={classes.error}>{error}</p>}</div>
       <div className={classes.cards}>
-        {paymentMethods?.map(paymentMethod => {
+        {paymentMethods?.map((paymentMethod) => {
           const isDefault = defaultPaymentMethod === paymentMethod.id
           const isChecked = internalState === paymentMethod.id
 

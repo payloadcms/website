@@ -1,4 +1,4 @@
-@use "@scss/common" as *;
+@use '@scss/common' as *;
 
 .logoShowcase {
   display: grid;
@@ -7,7 +7,9 @@
   position: relative;
   width: 100%;
 
-  .horizontalLine, .verticalLine, .verticalLineNoDesktop {
+  .horizontalLine,
+  .verticalLine,
+  .verticalLineNoDesktop {
     position: absolute;
     z-index: 1;
   }
@@ -65,7 +67,7 @@
     opacity: 0.08;
     z-index: 0;
 
-    [data-theme="dark"]  & {
+    [data-theme='dark'] & {
       background-image: url('/images/scanline-light.png');
     }
   }
@@ -97,7 +99,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: opacity 1s ease, filter 1s ease;
+      transition:
+        opacity 1s ease,
+        filter 1s ease;
       opacity: 0;
       filter: blur(0px);
     }
@@ -108,7 +112,7 @@
   &::before {
     background-image: none;
 
-    [data-theme="dark"]  & {
+    [data-theme='dark'] & {
       background-image: none;
     }
   }
@@ -118,7 +122,7 @@
   &::before {
     background-image: none;
 
-    [data-theme="dark"]  & {
+    [data-theme='dark'] & {
       background-image: none;
     }
   }
@@ -134,36 +138,40 @@
 }
 
 .crosshairBottomLeft {
-  left: -.5rem;
-  bottom: -.5rem;
+  left: -0.5rem;
+  bottom: -0.5rem;
 }
 
 .crosshairTopRight {
-  right: -.5rem;
-  top: -.5rem;
+  right: -0.5rem;
+  top: -0.5rem;
 }
 
 .crosshairFirstCell {
-  left: calc(25% - .45rem);
-  bottom: calc(66.666% - .55rem)
+  left: calc(25% - 0.45rem);
+  bottom: calc(66.666% - 0.55rem);
 }
 
 .crosshairSecondRowThirdCell {
-  left: calc(75% - .45rem);
-  bottom: calc(33.333% - .55rem);
+  left: calc(75% - 0.45rem);
+  bottom: calc(33.333% - 0.55rem);
 }
 
-:global([data-theme="dark"]) {
+:global([data-theme='dark']) {
   .logoShowcase {
-    .horizontalLine, .verticalLine, .verticalLineNoDesktop {
+    .horizontalLine,
+    .verticalLine,
+    .verticalLineNoDesktop {
       background: var(--grid-line-dark);
     }
   }
 }
 
-:global([data-theme="light"]) {
+:global([data-theme='light']) {
   .logoShowcase {
-    .horizontalLine, .verticalLine, .verticalLineNoDesktop {
+    .horizontalLine,
+    .verticalLine,
+    .verticalLineNoDesktop {
       background: var(--grid-line-dark);
     }
   }

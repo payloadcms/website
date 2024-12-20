@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation'
 
-import type { Tab} from '../Tabs/index.js';
+import type { Tab } from '../Tabs/index.js'
 
 import { Tabs } from '../Tabs/index.js'
 

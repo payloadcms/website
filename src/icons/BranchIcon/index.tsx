@@ -4,7 +4,7 @@ import type { IconProps } from '../types.js'
 
 import classes from '../index.module.scss'
 
-export const BranchIcon: React.FC<IconProps> = props => {
+export const BranchIcon: React.FC<IconProps> = (props) => {
   const { bold, className, color, size } = props
 
   return (

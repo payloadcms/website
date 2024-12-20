@@ -1,4 +1,4 @@
-import type { PaddingProps } from '@components/BlockWrapper/index.js';
+import type { PaddingProps } from '@components/BlockWrapper/index.js'
 import type { Page } from '@root/payload-types.js'
 
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'

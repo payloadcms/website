@@ -171,7 +171,9 @@ export const ManageEnv: React.FC<Props> = ({
         onToggle={async () => {
           if (!fetchedEnvValue && key) {
             const envValue = await fetchEnv()
-            if (envValue) {setFetchedEnvValue(envValue)}
+            if (envValue) {
+              setFetchedEnvValue(envValue)
+            }
           }
         }}
         toggleIcon="eye"
@@ -224,13 +226,13 @@ export const ManageEnvs: React.FC<{
   environmentSlug?: string
   envs: Project['environmentVariables']
   projectID: Project['id']
-}> = props => {
+}> = (props) => {
   const { environmentSlug, envs, projectID } = props
 
   return (
     <CollapsibleGroup allowMultiple transCurve="ease" transTime={250}>
       <div className={classes.envs}>
-        {envs?.map(env => (
+        {envs?.map((env) => (
           <ManageEnv
             env={env}
             environmentSlug={environmentSlug}

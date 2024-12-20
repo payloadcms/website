@@ -6,12 +6,12 @@ import React, { Fragment, useEffect } from 'react'
 import classes from './index.module.scss'
 
 type PlanSelectorProps = {
-  onChange?: (value?: null | Plan) => void  
+  onChange?: (value?: null | Plan) => void
   plans: Plan[]
   selectedPlan?: null | Plan
 }
 
-export const PlanSelector: React.FC<PlanSelectorProps> = props => {
+export const PlanSelector: React.FC<PlanSelectorProps> = (props) => {
   const { onChange, plans, selectedPlan } = props
 
   return (
@@ -20,7 +20,7 @@ export const PlanSelector: React.FC<PlanSelectorProps> = props => {
         <div className={classes.plans}>
           {plans &&
             plans.length > 0 &&
-            plans.map(plan => {
+            plans.map((plan) => {
               const { name } = plan || {}
               const checked = selectedPlan?.id === plan?.id
 

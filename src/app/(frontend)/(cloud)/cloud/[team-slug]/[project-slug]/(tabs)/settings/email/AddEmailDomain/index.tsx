@@ -38,7 +38,7 @@ export const AddEmailDomain: React.FC<{
       }
 
       const domainExists = projectEmailDomains?.find(
-        projectEmailDomains => projectEmailDomains.domain === newEmailDomain.domain,
+        (projectEmailDomains) => projectEmailDomains.domain === newEmailDomain.domain,
       )
 
       if (!domainExists) {

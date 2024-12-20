@@ -34,7 +34,9 @@ export const TrialMessage: React.FC<{
   // ensure that new projects don't show a warning message so that users do not think they made a mistake
   // we still need to display a message to the user, but not a warning message
   let severity = 'message'
-  if (hasPaymentError) {severity = daysLeft < 3 ? 'error' : daysLeft < 7 ? 'warning' : 'message'}
+  if (hasPaymentError) {
+    severity = daysLeft < 3 ? 'error' : daysLeft < 7 ? 'warning' : 'message'
+  }
 
   return (
     <Message

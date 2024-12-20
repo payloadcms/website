@@ -51,7 +51,7 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ hideBackground, menuCta, 
   }, [hideBackground])
   const hoverTimeout = React.useRef<null | number>(null)
 
-  const handleMouseEnter = args => {
+  const handleMouseEnter = (args) => {
     if (!activeDropdown) {
       hoverTimeout.current = window.setTimeout(() => {
         handleHoverEnter(args)
@@ -68,7 +68,7 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ hideBackground, menuCta, 
     }
   }
 
-  const handleHoverEnter = index => {
+  const handleHoverEnter = (index) => {
     setActiveTab(index)
     setActiveDropdown(true)
 
@@ -129,7 +129,7 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ hideBackground, menuCta, 
                   >
                     <button
                       className={classes.tab}
-                      ref={ref => {
+                      ref={(ref) => {
                         menuItemRefs[tabIndex] = ref
                       }}
                     >
@@ -153,7 +153,7 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ hideBackground, menuCta, 
                           .filter(Boolean)
                           .join(' ')}
                         onClick={resetHoverStyles}
-                        ref={ref => {
+                        ref={(ref) => {
                           dropdownMenuRefs[tabIndex] = ref
                         }}
                       >
@@ -178,7 +178,7 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ hideBackground, menuCta, 
                             const isActive = activeDropdownItem === index
                             let columnSpan = 12 / (tab.navItems?.length || 1)
                             const containsFeatured = tab.navItems?.some(
-                              navItem => navItem.style === 'featured',
+                              (navItem) => navItem.style === 'featured',
                             )
                             const showUnderline = isActive && item.style === 'default'
 

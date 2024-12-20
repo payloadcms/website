@@ -20,8 +20,8 @@ export const useResize = <T>(ref: React.MutableRefObject<null | T>): Resize => {
     const { current: currentRef } = ref
 
     if (currentRef) {
-      observer = new ResizeObserver(entries => {
-        entries.forEach(entry => {
+      observer = new ResizeObserver((entries) => {
+        entries.forEach((entry) => {
           const {
             contentBoxSize,
             contentRect, // for Safari iOS compatibility, will be deprecated eventually (see https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserverEntry/contentRect)

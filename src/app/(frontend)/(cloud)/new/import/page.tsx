@@ -1,4 +1,4 @@
-import type { RepoResults } from '@cloud/_api/fetchRepos.js';
+import type { RepoResults } from '@cloud/_api/fetchRepos.js'
 import type { Metadata } from 'next'
 
 import { fetchGitHubToken } from '@cloud/_api/fetchGitHubToken.js'

@@ -1,4 +1,4 @@
-@use "@scss/common" as *;
+@use '@scss/common' as *;
 
 .wrapper {
   position: absolute;
@@ -18,23 +18,23 @@
   }
 
   .crosshairTopLeft {
-    top: -.5rem;
-    left: -.5rem;
+    top: -0.5rem;
+    left: -0.5rem;
   }
 
   .crosshairBottomLeft {
-    bottom: -.5rem;
-    left: -.5rem;
+    bottom: -0.5rem;
+    left: -0.5rem;
   }
 
   .crosshairTopRight {
-    top: -.5rem;
-    right: -.5rem;
+    top: -0.5rem;
+    right: -0.5rem;
   }
 
   .crosshairBottomRight {
-    bottom: -.5rem;
-    right: -.5rem;
+    bottom: -0.5rem;
+    right: -0.5rem;
   }
 }
 
@@ -54,10 +54,9 @@
     opacity: 0.08;
   }
 
-
   @include data-theme-selector('dark') {
     background-image: url('/images/scanline-light.png');
-    opacity: 0.10;
+    opacity: 0.1;
   }
 }
 
@@ -74,7 +73,7 @@
   }
 }
 
-:global([data-theme="light"]) {
+:global([data-theme='light']) {
   .crosshair {
     color: var(--theme-elevation-400);
   }

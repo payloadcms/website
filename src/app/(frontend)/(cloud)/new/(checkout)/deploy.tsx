@@ -130,7 +130,9 @@ export const deploy = async (args: {
         project: res.doc,
       })
 
-      if (!elements || !stripe) {throw new Error(`Stripe is not initialized.`)}
+      if (!elements || !stripe) {
+        throw new Error(`Stripe is not initialized.`)
+      }
 
       // confirm the `SetupIntent` if a payment method was supplied
       // the `setupIntent` has already determined that the card is valid an has sufficient funds

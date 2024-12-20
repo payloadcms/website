@@ -21,11 +21,17 @@ export const confirmCardSetup = async (args: {
   // first create the `SetupIntent`, then confirm it using the `confirmCardSetup` method
   const setupIntent = await createSetupIntent({ team })
 
-  if (!setupIntent) {throw new Error('No setup intent')}
+  if (!setupIntent) {
+    throw new Error('No setup intent')
+  }
 
-  if (!stripe || !elements) {throw new Error('Stripe not loaded')}
+  if (!stripe || !elements) {
+    throw new Error('Stripe not loaded')
+  }
 
-  if (!paymentMethod) {throw new Error('Please select a payment method and try again')}
+  if (!paymentMethod) {
+    throw new Error('Please select a payment method and try again')
+  }
 
   const { client_secret: clientSecret } = setupIntent
 

@@ -10,7 +10,7 @@ import Label from '../../Label/index.js'
 import { useField } from '../useField/index.js'
 import classes from './index.module.scss'
 
-export const NumberInput: React.FC<FieldProps<number>> = props => {
+export const NumberInput: React.FC<FieldProps<number>> = (props) => {
   const {
     className,
     initialValue,
@@ -54,7 +54,7 @@ export const NumberInput: React.FC<FieldProps<number>> = props => {
         className={classes.input}
         id={path}
         name={path}
-        onChange={e => {
+        onChange={(e) => {
           onChange(Number(e.target.value))
         }}
         placeholder={placeholder}

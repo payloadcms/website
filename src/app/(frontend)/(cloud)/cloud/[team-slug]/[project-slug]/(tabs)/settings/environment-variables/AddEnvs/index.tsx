@@ -22,7 +22,7 @@ type AddEnvsProps = {
   projectID: Project['id']
 }
 
-export const AddEnvsComponent: React.FC<AddEnvsProps> = props => {
+export const AddEnvsComponent: React.FC<AddEnvsProps> = (props) => {
   const { environmentSlug, envs, projectID } = props
 
   const { clearRows, uuids } = useArray()
@@ -119,7 +119,7 @@ export const AddEnvsComponent: React.FC<AddEnvsProps> = props => {
   )
 }
 
-export const AddEnvs: React.FC<AddEnvsProps> = props => {
+export const AddEnvs: React.FC<AddEnvsProps> = (props) => {
   return (
     <ArrayProvider>
       <AddEnvsComponent {...props} />

@@ -16,7 +16,7 @@ export const NewProjectBlock: React.FC<{
   largeHeading?: boolean
   teamSlug?: Team['slug']
   templates?: Template[]
-}> = props => {
+}> = (props) => {
   const {
     cardLeader,
     description,

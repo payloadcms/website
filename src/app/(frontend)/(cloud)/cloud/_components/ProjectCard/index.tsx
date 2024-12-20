@@ -18,7 +18,7 @@ export const ProjectCard: React.FC<{
   isLoading?: boolean | null
   project: Partial<Project>
   showTeamName?: boolean
-}> = props => {
+}> = (props) => {
   const { className, isLoading, project, showTeamName } = props
 
   const { deploymentBranch, repositoryFullName, status, stripeSubscriptionStatus, team } =
@@ -115,8 +115,9 @@ export const ProjectCard: React.FC<{
 
   // link the card directly to the billing page if the subscription is past due
   let href = `/${cloudSlug}/${teamSlug}/${project.slug}${status === 'draft' ? '/configure' : ''}`
-  if (status == 'published' && hasBadSubscriptionStatus)
-    {href = `/${cloudSlug}/${teamSlug}/${project.slug}/settings/billing`}
+  if (status == 'published' && hasBadSubscriptionStatus) {
+    href = `/${cloudSlug}/${teamSlug}/${project.slug}/settings/billing`
+  }
 
   return (
     <Link

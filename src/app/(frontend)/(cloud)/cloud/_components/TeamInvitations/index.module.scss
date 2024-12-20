@@ -1,4 +1,4 @@
-@use "@scss/common" as *;
+@use '@scss/common' as *;
 
 .invitations {
   display: flex;
@@ -7,11 +7,11 @@
 }
 
 .success {
-  color: var(--theme-success-500)
+  color: var(--theme-success-500);
 }
 
 .error {
-  color: var(--theme-error-500)
+  color: var(--theme-error-500);
 }
 
 .resendEmail {
@@ -33,6 +33,6 @@
   gap: 0.5rem;
 
   & > * {
-      margin: 0;
+    margin: 0;
   }
 }

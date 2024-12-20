@@ -20,8 +20,10 @@ export const useWebSocket = ({
   const socketRef = React.useRef<null | WebSocket>(null)
 
   const setupWebSocket = React.useCallback(
-    newURL => {
-      if (!newURL) {return null}
+    (newURL) => {
+      if (!newURL) {
+        return null
+      }
 
       const webSocket = new WebSocket(newURL)
 
@@ -31,11 +33,11 @@ export const useWebSocket = ({
         }
       }
 
-      webSocket.onmessage = event => {
+      webSocket.onmessage = (event) => {
         onMessage(event)
       }
 
-      webSocket.onerror = error => {
+      webSocket.onerror = (error) => {
         if (onError) {
           onError(error)
         }

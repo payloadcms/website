@@ -53,7 +53,7 @@ export const TeamDrawerContent: React.FC<TeamDrawerProps> = ({
           billingEmail: user?.email,
           // flatten `roles` to an array of values
           // there's probably a better way to do this like using `flattenedData` or modifying the API handler
-          sendEmailInvitationsTo: unflattenedData?.sendEmailInvitationsTo?.map(invite => ({
+          sendEmailInvitationsTo: unflattenedData?.sendEmailInvitationsTo?.map((invite) => ({
             email: invite?.email,
             roles: invite?.roles,
           })),
@@ -123,7 +123,9 @@ export const TeamDrawerContent: React.FC<TeamDrawerProps> = ({
 
   const isOpen = modalState[drawerSlug]?.isOpen
 
-  if (!isOpen) {return null}
+  if (!isOpen) {
+    return null
+  }
 
   return (
     <div className="list-drawer__content">

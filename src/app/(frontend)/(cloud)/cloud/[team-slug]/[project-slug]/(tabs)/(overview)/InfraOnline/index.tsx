@@ -24,7 +24,7 @@ const finalDeploymentStages: FinalDeploymentStages[] = ['ACTIVE', 'SUPERSEDED']
 export const InfraOnline: React.FC<{
   environmentSlug: string
   project: Project
-}> = props => {
+}> = (props) => {
   const { environmentSlug, project } = props
 
   const {
@@ -55,7 +55,7 @@ export const InfraOnline: React.FC<{
         credentials: 'include',
         method: 'POST',
       },
-    ).then(res => {
+    ).then((res) => {
       setRedeployTriggered(false)
 
       if (res.status === 200) {
@@ -133,7 +133,7 @@ export const InfraOnline: React.FC<{
     if (latestDeployment?.deploymentStatus === 'ACTIVE') {
       setLiveDeployment(latestDeployment)
     } else {
-      const liveDeployment = deployments?.find(deployment => {
+      const liveDeployment = deployments?.find((deployment) => {
         return finalDeploymentStages.includes(deployment.deploymentStatus as FinalDeploymentStages)
       })
 
@@ -146,7 +146,7 @@ export const InfraOnline: React.FC<{
   }, [latestDeployment, deployments, project?.id])
 
   const projectDomains = [
-    ...(project?.domains || []).map(domain => domain.domain),
+    ...(project?.domains || []).map((domain) => domain.domain),
     project?.defaultDomain,
   ]
 
@@ -242,20 +242,20 @@ export const InfraOnline: React.FC<{
                   liveDeployment === undefined
                     ? undefined
                     : finalDeploymentStages.includes(
-                        liveDeployment?.deploymentStatus as FinalDeploymentStages,
-                      )
-                    ? 'SUCCESS'
-                    : 'ERROR'
+                          liveDeployment?.deploymentStatus as FinalDeploymentStages,
+                        )
+                      ? 'SUCCESS'
+                      : 'ERROR'
                 }
               />
               <p className={classes.detail}>
                 {liveDeployment === undefined
                   ? 'No status'
                   : finalDeploymentStages.includes(
-                      liveDeployment?.deploymentStatus as FinalDeploymentStages,
-                    )
-                  ? 'Online'
-                  : 'Offline'}
+                        liveDeployment?.deploymentStatus as FinalDeploymentStages,
+                      )
+                    ? 'Online'
+                    : 'Offline'}
               </p>
               <button
                 className={classes.reTriggerButton}
@@ -312,7 +312,7 @@ const DeploymentIndicator: React.FC<{ deployment: Deployment }> = ({ deployment 
       str
         ?.toLowerCase()
         .split('_')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
         .join(' ') || ''
     )
   }

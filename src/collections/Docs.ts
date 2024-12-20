@@ -61,7 +61,9 @@ export const Docs: CollectionConfig = {
       hooks: {
         afterRead: [
           ({ data }) => {
-            if (data) {return `${data.topic}/${data.slug}`}
+            if (data) {
+              return `${data.topic}/${data.slug}`
+            }
           },
         ],
       },

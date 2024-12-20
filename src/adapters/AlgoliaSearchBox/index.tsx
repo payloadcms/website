@@ -8,7 +8,7 @@ const minValueLength = 3
 
 export const AlgoliaSearchBox: React.FC<{
   className?: string
-}> = props => {
+}> = (props) => {
   const { className } = props
 
   const {

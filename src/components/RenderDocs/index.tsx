@@ -35,18 +35,18 @@ export const RenderDocs = async ({
   version?: 'beta' | 'current' | 'v2'
 }) => {
   const groupIndex = topicGroups.findIndex(({ topics: tGroup }) =>
-    tGroup.some(topic => topic?.slug?.toLowerCase() === params.topic),
+    tGroup.some((topic) => topic?.slug?.toLowerCase() === params.topic),
   )
 
   const topicIndex = topicGroups[groupIndex]?.topics.findIndex(
-    topic => topic?.slug?.toLowerCase() === params.topic,
+    (topic) => topic?.slug?.toLowerCase() === params.topic,
   )
 
   const topicGroup = topicGroups?.[groupIndex]
 
   const topic = topicGroup?.topics?.[topicIndex]
 
-  const docIndex = topic?.docs.findIndex(doc => doc.slug.replace('.mdx', '') === params.doc)
+  const docIndex = topic?.docs.findIndex((doc) => doc.slug.replace('.mdx', '') === params.doc)
 
   const currentDoc = topic?.docs?.[docIndex]
 
@@ -66,7 +66,7 @@ export const RenderDocs = async ({
     process.env.NEXT_PUBLIC_ENABLE_BETA_DOCS !== 'true' &&
     process.env.NEXT_PUBLIC_ENABLE_LEGACY_DOCS !== 'true'
 
-  const getRelatedThreads = path => unstable_cache(fetchRelatedThreads, ['relatedThreads'])(path)
+  const getRelatedThreads = (path) => unstable_cache(fetchRelatedThreads, ['relatedThreads'])(path)
   const relatedThreads = await getRelatedThreads(path)
 
   const hasRelatedThreads =

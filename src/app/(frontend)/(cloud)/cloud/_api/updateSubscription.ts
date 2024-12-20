@@ -17,8 +17,10 @@ export const updateSubscription = async (
       },
       method: 'PATCH',
     },
-  )?.then(res => {
-    if (!res.ok) {throw new Error('Failed to update subscription')}
+  )?.then((res) => {
+    if (!res.ok) {
+      throw new Error('Failed to update subscription')
+    }
     return res.json()
   })
 

@@ -20,7 +20,9 @@ export const fetchRepos = async (args: {
   const installID = install && typeof install === 'object' ? install.id : install
   const { cookies } = await import('next/headers')
   const token = (await cookies()).get(payloadCloudToken)?.value ?? null
-  if (!token) {throw new Error('No token provided')}
+  if (!token) {
+    throw new Error('No token provided')
+  }
 
   const docs: RepoResults = await fetch(
     `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/github`,
@@ -41,12 +43,16 @@ export const fetchRepos = async (args: {
       },
     },
   )
-    ?.then(res => {
-      if (!res.ok) {throw new Error(`Error getting repositories: ${res.status} ${res.statusText}`)}
+    ?.then((res) => {
+      if (!res.ok) {
+        throw new Error(`Error getting repositories: ${res.status} ${res.statusText}`)
+      }
       return res.json()
     })
-    ?.then(res => {
-      if (res.errors) {throw new Error(res?.errors?.[0]?.message ?? 'Error fetching docs')}
+    ?.then((res) => {
+      if (res.errors) {
+        throw new Error(res?.errors?.[0]?.message ?? 'Error fetching docs')
+      }
       return res?.data
     })
 
@@ -77,12 +83,16 @@ export const fetchReposClient = async ({
     },
     method: 'POST',
   })
-    ?.then(res => {
-      if (!res.ok) {throw new Error(`Error getting repositories: ${res.status}`)}
+    ?.then((res) => {
+      if (!res.ok) {
+        throw new Error(`Error getting repositories: ${res.status}`)
+      }
       return res.json()
     })
-    ?.then(res => {
-      if (res.errors) {throw new Error(res?.errors?.[0]?.message ?? 'Error fetching docs')}
+    ?.then((res) => {
+      if (res.errors) {
+        throw new Error(res?.errors?.[0]?.message ?? 'Error fetching docs')
+      }
       return res?.data
     })
 

@@ -1,4 +1,4 @@
-import type { PaddingProps } from '@components/BlockWrapper/index.js';
+import type { PaddingProps } from '@components/BlockWrapper/index.js'
 import type { Page } from '@root/payload-types.js'
 
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
@@ -76,7 +76,7 @@ const Columns: React.FC<Props> = ({ contentFields, padding }) => {
   }
 }
 
-export const ContentBlock: React.FC<Props> = props => {
+export const ContentBlock: React.FC<Props> = (props) => {
   const {
     contentFields: { leadingHeader, settings, useLeadingHeader },
     hideBackground,

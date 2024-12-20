@@ -19,7 +19,7 @@ export const Partners: CollectionConfig = {
     livePreview: {
       url: ({ data }) => formatPreviewURL('partners', data),
     },
-    preview: doc => formatPreviewURL('partners', doc),
+    preview: (doc) => formatPreviewURL('partners', doc),
     useAsTitle: 'name',
   },
   defaultPopulate: {

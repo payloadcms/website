@@ -1,4 +1,4 @@
-@use "@scss/common" as *;
+@use '@scss/common' as *;
 
 .filterBar {
   @include formInput;
@@ -41,7 +41,7 @@
   height: 1rem;
 }
 
-:global([data-theme="light"]) {
+:global([data-theme='light']) {
   .searchIcon {
     & path {
       stroke: var(--color-base-300);

@@ -1,5 +1,5 @@
-@use "@scss/common" as *;
-@use "../shared.scss";
+@use '@scss/common' as *;
+@use '../shared.scss';
 
 .wrap {
   position: relative;
@@ -21,7 +21,7 @@
   }
 }
 
-:global([data-theme="light"]) {
+:global([data-theme='light']) {
   .textarea {
     background: var(--theme-elevation-50);
   }

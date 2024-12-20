@@ -31,7 +31,7 @@ type NavItems = Pick<MainMenu, 'menuCta' | 'tabs'>
 const MobileNavItems = ({ setActiveTab, tabs }) => {
   const { user } = useAuth()
   const { openModal } = useModal()
-  const handleOnClick = index => {
+  const handleOnClick = (index) => {
     openModal(subMenuSlug)
     setActiveTab(index)
   }
@@ -41,11 +41,12 @@ const MobileNavItems = ({ setActiveTab, tabs }) => {
       {(tabs || []).map((tab, index) => {
         const { enableDirectLink, enableDropdown, label, link } = tab
 
-        if (!enableDropdown)
-          {return <CMSLink {...link} className={classes.mobileMenuItem} key={index} label={label} />}
+        if (!enableDropdown) {
+          return <CMSLink {...link} className={classes.mobileMenuItem} key={index} label={label} />
+        }
 
-        if (enableDirectLink)
-          {return (
+        if (enableDirectLink) {
+          return (
             <button
               className={classes.mobileMenuItem}
               key={index}
@@ -55,15 +56,15 @@ const MobileNavItems = ({ setActiveTab, tabs }) => {
                 className={classes.directLink}
                 {...link}
                 label={label}
-                onClick={e => {
+                onClick={(e) => {
                   e.stopPropagation()
                 }}
               />
               <ArrowIcon rotation={45} size="medium" />
             </button>
-          )}
-        else
-          {return (
+          )
+        } else {
+          return (
             <CMSLink
               {...link}
               className={classes.mobileMenuItem}
@@ -73,7 +74,8 @@ const MobileNavItems = ({ setActiveTab, tabs }) => {
             >
               <ArrowIcon rotation={45} size="medium" />
             </CMSLink>
-          )}
+          )
+        }
       })}
 
       <Link
@@ -135,12 +137,14 @@ const SubMenuModal: React.FC<
     >
       <Gutter className={classes.subMenuWrap} dataTheme={`${theme}`}>
         {(tabs || []).map((tab, tabIndex) => {
-          if (tabIndex !== activeTab) {return null}
+          if (tabIndex !== activeTab) {
+            return null
+          }
           return (
             <div className={classes.subMenuItems} key={tabIndex}>
               <button
                 className={classes.backButton}
-                onClick={e => {
+                onClick={(e) => {
                   closeModal(subMenuSlug)
                   e.stopPropagation()
                 }}
@@ -237,7 +241,7 @@ const SubMenuModal: React.FC<
   )
 }
 
-export const MobileNav: React.FC<NavItems> = props => {
+export const MobileNav: React.FC<NavItems> = (props) => {
   const { closeAllModals, isModalOpen, openModal } = useModal()
   const { headerTheme } = useHeaderObserver()
   const { user } = useAuth()

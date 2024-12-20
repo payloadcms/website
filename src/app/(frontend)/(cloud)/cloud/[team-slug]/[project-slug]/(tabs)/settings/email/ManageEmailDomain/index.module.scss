@@ -1,6 +1,6 @@
 @use '@scss/common' as *;
 
-:global([data-theme="light"]) {
+:global([data-theme='light']) {
   .configureDomain {
     background: var(--theme-elevation-100);
   }

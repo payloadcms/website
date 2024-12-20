@@ -35,7 +35,9 @@ export const ResetPassword: React.FC = () => {
     [resetPassword, token],
   )
 
-  if (user === undefined) {return null}
+  if (user === undefined) {
+    return null
+  }
 
   if (user) {
     redirect(

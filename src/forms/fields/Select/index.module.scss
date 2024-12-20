@@ -1,5 +1,5 @@
-@use "@scss/common" as *;
-@use "../shared.scss";
+@use '@scss/common' as *;
+@use '../shared.scss';
 
 .select {
   position: relative;
@@ -25,15 +25,15 @@
       &--is-disabled {
         cursor: not-allowed;
 
-          :global {
-            .rs__single-value {
-              color: var(--theme-elevation-400);
-            }
-
-            .rs__indicators {
-              display: none;
-            }
+        :global {
+          .rs__single-value {
+            color: var(--theme-elevation-400);
           }
+
+          .rs__indicators {
+            display: none;
+          }
+        }
       }
     }
 
@@ -106,7 +106,6 @@
     .rs__menu-list {
       padding: 0.25rem 0;
       border: 1px solid var(--theme-border-color);
-
     }
 
     .rs__group-heading {
@@ -160,11 +159,11 @@
   }
 }
 
-:global([data-theme="dark"]) {
+:global([data-theme='dark']) {
   .select {
     .reactSelect {
       :global {
-        .rs__menu{
+        .rs__menu {
           background-color: var(--theme-elevation-50);
         }
       }
@@ -172,7 +171,7 @@
   }
 }
 
-:global([data-theme="light"]) {
+:global([data-theme='light']) {
   .select {
     .reactSelect {
       :global {
@@ -185,9 +184,9 @@
 }
 
 .description {
-    @include small;
-    & {
-      margin-top: 0.5rem;
-      color: var(--theme-elevation-400);
-    }
+  @include small;
+  & {
+    margin-top: 0.5rem;
+    color: var(--theme-elevation-400);
+  }
 }

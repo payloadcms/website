@@ -22,10 +22,7 @@ import classes from './index.module.scss'
 
 export type MediaContentAccordionProps = {
   className?: string
-} & Extract<
-  Page['layout'][0],
-  { blockType: 'mediaContentAccordion' }
->
+} & Extract<Page['layout'][0], { blockType: 'mediaContentAccordion' }>
 
 export const DesktopMediaContentAccordion: React.FC<MediaContentAccordionProps> = ({
   className,
@@ -65,7 +62,7 @@ export const DesktopMediaContentAccordion: React.FC<MediaContentAccordionProps> 
     updateContainerHeight()
     updateContentWidth()
 
-    const resizeObserver = new ResizeObserver(entries => {
+    const resizeObserver = new ResizeObserver((entries) => {
       updateContainerHeight()
       updateContentWidth()
     })

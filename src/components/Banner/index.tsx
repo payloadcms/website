@@ -32,7 +32,9 @@ export const Banner: React.FC<Props> = ({
   marginAdjustment = {},
 }) => {
   let Icon = icon && Icons[icon]
-  if (!Icon && checkmark) {Icon = Icons.checkmark}
+  if (!Icon && checkmark) {
+    Icon = Icons.checkmark
+  }
 
   return (
     <div

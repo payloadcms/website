@@ -26,7 +26,7 @@ const modalSlug = 'delete-account'
 
 export const SettingsPage: React.FC<{
   user: User
-}> = props => {
+}> = (props) => {
   const { user } = props
 
   const { updateUser } = useAuth()

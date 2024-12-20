@@ -13,7 +13,7 @@ export type RelatedPostsBlock = {
   relatedPosts: (Post | string)[] | null
 }
 
-export const RelatedPosts: React.FC<RelatedPostsBlock> = props => {
+export const RelatedPosts: React.FC<RelatedPostsBlock> = (props) => {
   const { id = '', disableGutter, relatedPosts } = props
 
   if (!relatedPosts || relatedPosts?.length === 0) {

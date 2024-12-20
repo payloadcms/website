@@ -23,7 +23,7 @@ export const Text: React.FC<
     type?: 'hidden' | 'password' | 'text'
     value?: string
   } & FieldProps<string>
-> = props => {
+> = (props) => {
   const {
     type = 'text',
     className,
@@ -129,7 +129,7 @@ export const Text: React.FC<
                 {type === 'password' && (
                   <Tooltip
                     className={classes.tooltipButton}
-                    onClick={() => setIsHidden(h => !h)}
+                    onClick={() => setIsHidden((h) => !h)}
                     text={isHidden ? 'show' : 'hide'}
                   >
                     <EyeIcon closed={isHidden} size="large" />
@@ -161,7 +161,7 @@ export const Text: React.FC<
         onChange={
           customOnChange
             ? customOnChange
-            : e => {
+            : (e) => {
                 onChange(e.target.value)
               }
         }

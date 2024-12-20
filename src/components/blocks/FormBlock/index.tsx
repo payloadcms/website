@@ -1,6 +1,6 @@
 'use client'
 
-import type { PaddingProps } from '@components/BlockWrapper/index.js';
+import type { PaddingProps } from '@components/BlockWrapper/index.js'
 import type { Page } from '@root/payload-types.js'
 
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
@@ -18,7 +18,7 @@ export type FormBlockProps = {
   padding: PaddingProps
 } & Extract<Page['layout'][0], { blockType: 'form' }>
 
-export const FormBlock: React.FC<FormBlockProps> = props => {
+export const FormBlock: React.FC<FormBlockProps> = (props) => {
   const { formFields: { form, richText, settings } = {}, hideBackground, padding } = props
   const [imageLoaded, setImageLoaded] = useState(false)
 
@@ -48,7 +48,9 @@ export const FormBlock: React.FC<FormBlockProps> = props => {
     return () => window.removeEventListener('resize', updateOuterBackgroundWidth)
   }, [])
 
-  if (typeof form === 'string') {return null}
+  if (typeof form === 'string') {
+    return null
+  }
 
   return (
     <BlockWrapper

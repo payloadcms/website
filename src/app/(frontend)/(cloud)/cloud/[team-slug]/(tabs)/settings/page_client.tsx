@@ -22,7 +22,7 @@ import classes from './page.module.scss'
 
 export const TeamSettingsPage: React.FC<{
   team: TeamWithCustomer
-}> = props => {
+}> = (props) => {
   const { team } = props
 
   const router = useRouter()

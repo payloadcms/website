@@ -1,72 +1,72 @@
 @use '@scss/common' as *;
 
 .creditCardSelector {
-    position: relative;
+  position: relative;
 }
 
 .scrollRef {
-    position: absolute;
-    top: -6rem;
+  position: absolute;
+  top: -6rem;
 }
 
 .error {
-    color: var(--theme-error-500);
+  color: var(--theme-error-500);
 }
 
 .success {
-    color: var(--theme-success-500);
+  color: var(--theme-success-500);
 }
 
 .cards {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 
-    @include mid-break {
-        gap: 0.5rem;
-    }
+  @include mid-break {
+    gap: 0.5rem;
+  }
 }
 
 .cardBrand {
-    flex-grow: 1;
-    line-height: 1rem;
-    display: flex;
-    align-items: center;
+  flex-grow: 1;
+  line-height: 1rem;
+  display: flex;
+  align-items: center;
 }
 
 .default {
-    margin-left: 1rem;
+  margin-left: 1rem;
 }
 
 .notice {
-    @include small;
-    & {
-        color: var(--theme-elevation-500);
-        margin: 0;
-        margin-top: 0.5rem;
-    }
+  @include small;
+  & {
+    color: var(--theme-elevation-500);
+    margin: 0;
+    margin-top: 0.5rem;
+  }
 }
 
 .controls {
-    display: flex;
-    align-items: center;
-    margin-top: 1rem;
-    gap: 1rem;
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+  gap: 1rem;
 }
 
 .deleteCard,
 .saveNewCard,
 .cancelNewCard {
-    background-color: transparent;
-    margin: 0;
-    padding: 0;
-    border: none;
-    line-height: inherit;
-    font-family: inherit;
-    cursor: pointer;
-    font-size: inherit;
+  background-color: transparent;
+  margin: 0;
+  padding: 0;
+  border: none;
+  line-height: inherit;
+  font-family: inherit;
+  cursor: pointer;
+  font-size: inherit;
 }
 
 .cancelNewCard {
-    color: var(--theme-elevation-500);
+  color: var(--theme-elevation-500);
 }

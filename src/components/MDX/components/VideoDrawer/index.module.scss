@@ -1,4 +1,4 @@
-@use "@scss/common" as *;
+@use '@scss/common' as *;
 
 .videoDrawerToggler {
   @include btnReset;
@@ -74,7 +74,7 @@
   }
 }
 
-html[data-theme="light"] {
+html[data-theme='light'] {
   .videoDrawerToggler {
     background: var(--theme-elevation-100);
     border-bottom: 2px solid var(--theme-elevation-400);

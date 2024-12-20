@@ -6,7 +6,7 @@ import type { PricingCardProps } from '../types.js'
 
 import classes from './index.module.scss'
 
-export const PricingCard: React.FC<PricingCardProps> = props => {
+export const PricingCard: React.FC<PricingCardProps> = (props) => {
   const { className, description, hasPrice, leader, price, title } = props
 
   const link = props.link || {}

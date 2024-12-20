@@ -54,7 +54,9 @@ export default async () => {
             linkGridFields={{
               links:
                 teams?.map((team, index) => {
-                  if (!team || typeof team === 'string') {return null as any}
+                  if (!team || typeof team === 'string') {
+                    return null as any
+                  }
 
                   return {
                     link: {

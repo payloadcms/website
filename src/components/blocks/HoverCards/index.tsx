@@ -1,7 +1,7 @@
 'use client'
-import type { PaddingProps } from '@components/BlockWrapper/index.js';
+import type { PaddingProps } from '@components/BlockWrapper/index.js'
 import type { Page } from '@root/payload-types.js'
-import type { Dispatch, SetStateAction} from 'react';
+import type { Dispatch, SetStateAction } from 'react'
 
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
 import { BlockWrapper } from '@components/BlockWrapper/index.js'
@@ -43,7 +43,7 @@ const Card: React.FC<{
   )
 }
 
-export const HoverCards: React.FC<HoverCardsProps> = props => {
+export const HoverCards: React.FC<HoverCardsProps> = (props) => {
   const { hideBackground, hoverCardsFields, padding } = props
   const [activeGradient, setActiveGradient] = useState(1)
 
@@ -61,7 +61,7 @@ export const HoverCards: React.FC<HoverCardsProps> = props => {
       <BackgroundGrid zIndex={1} />
       {!hideBackground && !hoverCardsFields.hideBackground && (
         <div className={classes.noiseWrapper}>
-          {gradients.map(gradient => {
+          {gradients.map((gradient) => {
             return (
               <Image
                 alt=""

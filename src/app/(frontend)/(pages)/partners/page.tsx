@@ -35,20 +35,20 @@ export default async function Partners() {
 
   const getPartners = draft ? fetchPartners : unstable_cache(fetchPartners, ['partners'])
   const partners = await getPartners()
-  const partnerList = partners.map(partner => {
+  const partnerList = partners.map((partner) => {
     return {
       ...partner,
       budgets: partner.budgets
-        .map(budget => typeof budget !== 'string' && budget.value)
+        .map((budget) => typeof budget !== 'string' && budget.value)
         .filter((value): value is string => !!value),
       industries: partner.industries
-        .map(industry => typeof industry !== 'string' && industry.value)
+        .map((industry) => typeof industry !== 'string' && industry.value)
         .filter((value): value is string => !!value),
       regions: partner.regions
-        .map(region => typeof region !== 'string' && region.value)
+        .map((region) => typeof region !== 'string' && region.value)
         .filter((value): value is string => !!value),
       specialties: partner.specialties
-        .map(specialty => typeof specialty !== 'string' && specialty.value)
+        .map((specialty) => typeof specialty !== 'string' && specialty.value)
         .filter((value): value is string => !!value),
     }
   })
@@ -57,17 +57,17 @@ export default async function Partners() {
   const filters = await getFilters()
 
   const filterOptions = {
-    budgets: filters.budgets.filter(budget => {
-      return partnerList.some(partner => partner.budgets.includes(budget.value))
+    budgets: filters.budgets.filter((budget) => {
+      return partnerList.some((partner) => partner.budgets.includes(budget.value))
     }),
-    industries: filters.industries.filter(industry => {
-      return partnerList.some(partner => partner.industries.includes(industry.value))
+    industries: filters.industries.filter((industry) => {
+      return partnerList.some((partner) => partner.industries.includes(industry.value))
     }),
-    regions: filters.regions.filter(region => {
-      return partnerList.some(partner => partner.regions.includes(region.value))
+    regions: filters.regions.filter((region) => {
+      return partnerList.some((partner) => partner.regions.includes(region.value))
     }),
-    specialties: filters.specialties.filter(specialty => {
-      return partnerList.some(partner => partner.specialties.includes(specialty.value))
+    specialties: filters.specialties.filter((specialty) => {
+      return partnerList.some((partner) => partner.specialties.includes(specialty.value))
     }),
   }
 

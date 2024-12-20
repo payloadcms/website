@@ -16,14 +16,16 @@ import React from 'react'
 
 import { AuthorsList } from '../AuthorsList/index.js'
 import classes from './index.module.scss'
-export const BlogPost: React.FC<Post> = props => {
+export const BlogPost: React.FC<Post> = (props) => {
   const { content, excerpt, image, publishedOn, relatedPosts, title, useVideo, videoUrl } = props
   const [docPadding, setDocPadding] = React.useState(0)
   const docRef = React.useRef<HTMLDivElement>(null)
   const docSize = useResize(docRef)
 
   React.useEffect(() => {
-    if (docRef.current?.offsetWidth === undefined) {return}
+    if (docRef.current?.offsetWidth === undefined) {
+      return
+    }
     setDocPadding(Math.round(docRef.current?.offsetWidth / 16) - 2)
   }, [docRef.current?.offsetWidth, docSize])
 

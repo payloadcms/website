@@ -6,7 +6,7 @@ import React, { useEffect, useReducer, useRef, useState } from 'react'
 
 export const PageTransition: React.FC<{
   children: React.ReactNode
-}> = props => {
+}> = (props) => {
   const { children } = props
   const nodeRef = useRef(null)
   const pathname = usePathname()
@@ -17,7 +17,9 @@ export const PageTransition: React.FC<{
   const [transitionTicker, dispatchTransitionTicker] = useReducer((state: number) => state + 1, 0)
 
   const [hash, setHash] = useState<string>(() => {
-    if (!canUseDom) {return ''}
+    if (!canUseDom) {
+      return ''
+    }
     return window.location.hash
   })
 
@@ -47,7 +49,9 @@ export const PageTransition: React.FC<{
   }, [pathname, hasInitialized])
 
   useEffect(() => {
-    if (hash) {dispatchTransitionTicker()}
+    if (hash) {
+      dispatchTransitionTicker()
+    }
   }, [hash])
 
   return <div ref={nodeRef}>{children}</div>

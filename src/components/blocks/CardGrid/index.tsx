@@ -1,8 +1,8 @@
 'use client'
 
-import type { PaddingProps } from '@components/BlockWrapper/index.js';
+import type { PaddingProps } from '@components/BlockWrapper/index.js'
 import type { Page } from '@root/payload-types.js'
-import type { CSSProperties} from 'react';
+import type { CSSProperties } from 'react'
 
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
 import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
@@ -20,7 +20,7 @@ export type CardGridProps = {
   padding: PaddingProps
 } & Extract<Page['layout'][0], { blockType: 'cardGrid' }>
 
-export const CardGrid: React.FC<CardGridProps> = props => {
+export const CardGrid: React.FC<CardGridProps> = (props) => {
   const {
     cardGridFields: { cards, links, revealDescription, richText, settings },
     hideBackground,

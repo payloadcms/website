@@ -1,6 +1,6 @@
 'use client'
 
-import type { PaddingProps } from '@components/BlockWrapper/index.js';
+import type { PaddingProps } from '@components/BlockWrapper/index.js'
 import type { Page } from '@root/payload-types.js'
 
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
@@ -47,8 +47,8 @@ export const CodeFeatureComponent: React.FC<Props> = ({
     const ref = tabWrapperRef.current
 
     if (ref) {
-      observer = new ResizeObserver(entries => {
-        entries.forEach(entry => {
+      observer = new ResizeObserver((entries) => {
+        entries.forEach((entry) => {
           const {
             contentBoxSize,
             contentRect, // for Safari iOS compatibility, will be deprecated eventually (see https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserverEntry/contentRect)
@@ -386,7 +386,7 @@ export const CodeFeatureComponent: React.FC<Props> = ({
   )
 }
 
-export const CodeFeature: React.FC<Props> = props => (
+export const CodeFeature: React.FC<Props> = (props) => (
   <CodeBlip.Provider>
     <CodeFeatureComponent {...props} />
   </CodeBlip.Provider>

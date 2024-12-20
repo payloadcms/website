@@ -1,4 +1,4 @@
-@use "@scss/common" as *;
+@use '@scss/common' as *;
 
 .theme-dark {
   background: var(--color-base-1000);
@@ -41,7 +41,6 @@
   --wrapper-padding-bottom: 0;
 
   position: relative;
-
 
   &.padding-top {
     &-hero {

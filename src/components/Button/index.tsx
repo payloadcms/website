@@ -1,7 +1,7 @@
 'use client'
 
 import type { Page } from '@root/payload-types.js'
-import type { HTMLAttributes} from 'react';
+import type { HTMLAttributes } from 'react'
 
 import { CopyIcon } from '@icons/CopyIcon/index.js'
 import { GitHubIcon } from '@root/graphics/GitHub/index.js'
@@ -113,7 +113,7 @@ const generateHref = (args: GenerateSlugType): string => {
   return ''
 }
 
-const ButtonContent: React.FC<ButtonProps> = props => {
+const ButtonContent: React.FC<ButtonProps> = (props) => {
   const {
     appearance,
     arrowClassName,

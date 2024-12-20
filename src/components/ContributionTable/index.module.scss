@@ -24,7 +24,7 @@
 }
 
 .number {
-  opacity: .75;
+  opacity: 0.75;
   width: 3rem;
   @include small;
 }
@@ -40,16 +40,17 @@
 
 .arrow {
   display: block;
-  transition: transform .3s;
+  transition: transform 0.3s;
   margin-left: auto;
 }
 
 .contribution:hover {
-  & > .title, & > .pill {
-    opacity: .75;
+  & > .title,
+  & > .pill {
+    opacity: 0.75;
   }
 
   & > .arrow {
-    transform: translate(.25rem, -.25rem);
+    transform: translate(0.25rem, -0.25rem);
   }
 }

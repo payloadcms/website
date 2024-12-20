@@ -16,7 +16,7 @@ interface NewsletterSignUpProps {
   placeholder?: string
 }
 
-export const NewsletterSignUp: React.FC<NewsletterSignUpProps> = props => {
+export const NewsletterSignUp: React.FC<NewsletterSignUpProps> = (props) => {
   const { className, description = false, placeholder = 'Enter your email' } = props
 
   const [buttonClicked, setButtonClicked] = React.useState(false)
@@ -47,7 +47,7 @@ export const NewsletterSignUp: React.FC<NewsletterSignUpProps> = props => {
     setButtonClicked(true)
   }
 
-  const handleChange = value => {
+  const handleChange = (value) => {
     setFormData({ ...formData, email: value })
   }
 

@@ -39,7 +39,7 @@
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  gap: .5rem;
+  gap: 0.5rem;
   align-items: flex-start;
 }
 
@@ -50,7 +50,7 @@
 .invoiceLines {
   flex-grow: 2;
   display: flex;
-  gap: .5rem;
+  gap: 0.5rem;
   align-items: flex-start;
   @include mid-break {
     flex-grow: 1;
@@ -82,7 +82,7 @@
 .invoiceTotalNegative {
   @include body;
   & {
-    color: var(--theme-success-750)
+    color: var(--theme-success-750);
   }
 }
 

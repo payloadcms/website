@@ -1,4 +1,4 @@
-import type { SearchClient } from 'algoliasearch/lite.js';
+import type { SearchClient } from 'algoliasearch/lite.js'
 
 import algoliasearch from 'algoliasearch/lite.js'
 import React, { useState } from 'react'
@@ -11,12 +11,14 @@ const appID = process.env.NEXT_PUBLIC_ALGOLIA_CH_ID
 const apiKey = process.env.NEXT_PUBLIC_ALGOLIA_PUBLIC_KEY
 const indexName = process.env.NEXT_PUBLIC_ALGOLIA_CH_INDEX_NAME
 // @ts-ignore
-if (appID && apiKey) {searchClient = algoliasearch(appID, apiKey)}
+if (appID && apiKey) {
+  searchClient = algoliasearch(appID, apiKey)
+}
 export const algoliaPerPage = 20
 
 export const AlgoliaProvider: React.FC<{
   children?: React.ReactNode
-}> = props => {
+}> = (props) => {
   const { children } = props
 
   const [initialURLState] = useState(() => getInitialState())

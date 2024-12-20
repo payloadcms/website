@@ -1,5 +1,5 @@
-import type { Tab} from '@cloud/_components/Tabs/index.js';
-import type { LogLine} from '@components/SimpleLogs/index.js';
+import type { Tab } from '@cloud/_components/Tabs/index.js'
+import type { LogLine } from '@components/SimpleLogs/index.js'
 import type { Deployment } from '@root/payload-cloud-types.js'
 
 import { Tabs } from '@cloud/_components/Tabs/index.js'
@@ -65,7 +65,7 @@ const LiveLogs = ({
           setLogs(styledLogs)
         } else {
           // live log - append
-          setLogs(existingLogs => [...(existingLogs || []), ...styledLogs])
+          setLogs((existingLogs) => [...(existingLogs || []), ...styledLogs])
         }
       }
     } catch (e) {
@@ -80,7 +80,7 @@ const LiveLogs = ({
     onError: () => {
       setWsStatus('CLOSED')
     },
-    onMessage: e => onLogMessage(e),
+    onMessage: (e) => onLogMessage(e),
     url:
       wsStatus === 'CONNECTING'
         ? `${`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}`.replace(
@@ -98,7 +98,9 @@ const LiveLogs = ({
     }
   }, [active, wsStatus])
 
-  if (!logs || !active) {return null}
+  if (!logs || !active) {
+    return null
+  }
 
   return <SimpleLogs logs={logs} />
 }

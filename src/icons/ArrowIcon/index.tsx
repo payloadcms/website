@@ -4,7 +4,7 @@ import type { IconProps } from '../types.js'
 
 import classes from '../index.module.scss'
 
-export const ArrowIcon: React.FC<IconProps> = props => {
+export const ArrowIcon: React.FC<IconProps> = (props) => {
   const { bold, className, rotation, size } = props
 
   return (

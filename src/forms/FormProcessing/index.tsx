@@ -6,7 +6,7 @@ const FormProcessing: React.FC<{
   className?: string
   delay?: number
   message?: string
-}> = props => {
+}> = (props) => {
   const { className, delay = 250, message = 'Processing...' } = props
 
   const isProcessing = useFormProcessing()

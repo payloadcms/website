@@ -14,7 +14,9 @@ const reducer = (
 ): InvoicesResult | null => {
   switch (action.type) {
     case 'add':
-      if (!state) {return action.payload || null}
+      if (!state) {
+        return action.payload || null
+      }
       return {
         data: [...state.data, ...(action.payload?.data || [])],
         has_more: action.payload?.has_more || false,
@@ -46,7 +48,9 @@ export const useInvoices = (args: {
 
   const loadInvoices = useCallback(
     async (successMessage?: string, starting_after?: string) => {
-      if (isRequesting.current) {return}
+      if (isRequesting.current) {
+        return
+      }
 
       isRequesting.current = true
 

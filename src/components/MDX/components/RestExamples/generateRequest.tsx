@@ -4,7 +4,9 @@ import React from 'react'
 import classes from './index.module.scss'
 
 export const GenerateRequest = ({ req, row }) => {
-  if (!req) {return null}
+  if (!req) {
+    return null
+  }
 
   const reqBody = req.body
     ? Object.entries(req.body).map(([key, value]) => {
@@ -38,11 +40,11 @@ const stringifiedQuery = qs.stringify({
 
   const body = `{
     method: "${row.method}", ${
-    req.credentials
-      ? `
+      req.credentials
+        ? `
     credentials: "include",`
-      : ``
-  }
+        : ``
+    }
     headers: {
       "Content-Type": "application/json",
     },${

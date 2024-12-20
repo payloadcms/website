@@ -21,7 +21,7 @@ export const FormHero: React.FC<
     breadcrumbs?: Page['breadcrumbs']
     firstContentBlock?: BlocksProp
   } & FormHeroProps
-> = props => {
+> = (props) => {
   const { description, firstContentBlock, form, richText, theme } = props
   const padding = useGetHeroPadding(theme, firstContentBlock)
 
@@ -39,7 +39,9 @@ export const FormHero: React.FC<
     return () => window.removeEventListener('resize', updateBackgroundHeight)
   }, [])
 
-  if (typeof form === 'string') {return null}
+  if (typeof form === 'string') {
+    return null
+  }
 
   return (
     <BlockWrapper padding={padding} settings={{ theme }}>

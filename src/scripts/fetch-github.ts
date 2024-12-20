@@ -1,4 +1,3 @@
- 
 import type { Payload } from 'payload'
 
 import sanitizeSlug from '../utilities/sanitizeSlug'
@@ -19,7 +18,6 @@ export async function fetchGithubDiscussions(payload: Payload): Promise<void> {
 
   const discussionData: any = []
 
-   
   const createQuery = (cursor = null, hasNextPage: boolean): string => {
     const queryLine =
       cursor && hasNextPage
@@ -117,7 +115,7 @@ export async function fetchGithubDiscussions(payload: Payload): Promise<void> {
     }),
     headers,
     method: 'POST',
-  }).then(res => res.json())
+  }).then((res) => res.json())
 
   discussionData.push(...initialReq.data.repository.discussions.nodes)
   let hasNextPage = initialReq.data.repository.discussions.pageInfo.hasNextPage
@@ -130,7 +128,7 @@ export async function fetchGithubDiscussions(payload: Payload): Promise<void> {
       }),
       headers,
       method: 'POST',
-    }).then(res => res.json())
+    }).then((res) => res.json())
 
     discussionData.push(...nextReq.data.repository.discussions.nodes)
 
@@ -139,11 +137,11 @@ export async function fetchGithubDiscussions(payload: Payload): Promise<void> {
   }
 
   console.log(`Retrieved ${discussionData.length} discussions from GitHub`)
-  const formattedDiscussions = discussionData.map(discussion => {
+  const formattedDiscussions = discussionData.map((discussion) => {
     const { answer, answerChosenAt, answerChosenBy, category } = discussion
 
     if (answer !== null && category.isAnswerable) {
-      const answerReplies = answer?.replies.edges.map(replyEdge => {
+      const answerReplies = answer?.replies.edges.map((replyEdge) => {
         const reply = replyEdge.node
 
         return {
@@ -169,10 +167,10 @@ export async function fetchGithubDiscussions(payload: Payload): Promise<void> {
         createdAt: answer.createdAt,
         replies: answerReplies?.length > 0 ? answerReplies : null,
       }
-      const comments = discussion.comments.edges.map(edge => {
+      const comments = discussion.comments.edges.map((edge) => {
         const comment = edge.node
 
-        const replies = comment.replies.edges.map(replyEdge => {
+        const replies = comment.replies.edges.map((replyEdge) => {
           const reply = replyEdge.node
 
           return {
@@ -219,10 +217,10 @@ export async function fetchGithubDiscussions(payload: Payload): Promise<void> {
     return null
   })
 
-  const filteredDiscussions = formattedDiscussions.filter(discussion => discussion !== null)
+  const filteredDiscussions = formattedDiscussions.filter((discussion) => discussion !== null)
 
   await Promise.all(
-    filteredDiscussions.map(async discussion => {
+    filteredDiscussions.map(async (discussion) => {
       if (discussion) {
         // Check if discussion exists, if it does update existing discussion else add discussion to collection
         const existingDiscussion = await payload.find({

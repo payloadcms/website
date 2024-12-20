@@ -9,7 +9,9 @@ const gtmMeasurementID = process.env.NEXT_PUBLIC_GTM_MEASUREMENT_ID
 export const GoogleTagManager: React.FC = () => {
   const { cookieConsent } = usePrivacy()
 
-  if (!cookieConsent || !gtmMeasurementID) {return null}
+  if (!cookieConsent || !gtmMeasurementID) {
+    return null
+  }
 
   return (
     <Fragment>

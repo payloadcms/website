@@ -59,7 +59,7 @@ export type ThreadProps = {
   slug?: string
   title?: string
 }
-export const DiscordThreadPage: React.FC<ThreadProps> = props => {
+export const DiscordThreadPage: React.FC<ThreadProps> = (props) => {
   const { communityHelpJSON } = props
 
   const { info, intro, messageCount, messages } = communityHelpJSON

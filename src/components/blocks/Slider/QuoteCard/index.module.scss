@@ -1,6 +1,6 @@
 @use '@scss/common' as *;
 
-$curve: cubic-bezier(.165, 0.84, 0.44, 1);
+$curve: cubic-bezier(0.165, 0.84, 0.44, 1);
 
 .quoteCard {
   text-decoration: none;
@@ -122,8 +122,8 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
     opacity: 0.5;
 
     svg {
-      width: .75rem;
-      height: .75rem;
+      width: 0.75rem;
+      height: 0.75rem;
 
       path {
         stroke: var(--theme-text);

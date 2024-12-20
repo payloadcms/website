@@ -19,9 +19,11 @@ export const fetchTemplates = async (): Promise<Template[]> => {
     method: 'POST',
     next: { tags: ['templates'] },
   })
-    ?.then(res => res.json())
-    ?.then(res => {
-      if (res.errors) {throw new Error(res?.errors?.[0]?.message ?? 'Error fetching doc')}
+    ?.then((res) => res.json())
+    ?.then((res) => {
+      if (res.errors) {
+        throw new Error(res?.errors?.[0]?.message ?? 'Error fetching doc')
+      }
       return res?.data?.Templates?.docs
     })
 

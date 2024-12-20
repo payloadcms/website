@@ -6,7 +6,7 @@ import classes from './index.module.scss'
 
 export const AlgoliaPagination: React.FC<{
   className?: string
-}> = props => {
+}> = (props) => {
   const {
     currentRefinement,
     pages,
@@ -63,8 +63,8 @@ export const AlgoliaPagination: React.FC<{
         {hasPages &&
           pages.map((page, index) => {
             const isCurrent = currentRefinement === page
-            if (indexToShow.includes(index))
-              {return (
+            if (indexToShow.includes(index)) {
+              return (
                 <div key={index}>
                   <button
                     className={[
@@ -83,7 +83,8 @@ export const AlgoliaPagination: React.FC<{
                     {page + 1}
                   </button>
                 </div>
-              )}
+              )
+            }
           })}
         {showLastPage && (
           <>

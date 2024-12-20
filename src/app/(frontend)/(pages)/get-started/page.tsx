@@ -28,7 +28,7 @@ export default async function GetStartedPage() {
         {tabs && tabs.length > 0 && (
           <Tabs.Root className={classes.tabs} defaultValue={tabs[0].id ?? ''}>
             <Tabs.List className={classes.tabsList}>
-              {tabs.map(tab => {
+              {tabs.map((tab) => {
                 return (
                   tab &&
                   tab.id && (
@@ -39,7 +39,7 @@ export default async function GetStartedPage() {
                 )
               })}
             </Tabs.List>
-            {tabs.map(tab => {
+            {tabs.map((tab) => {
               return (
                 tab &&
                 tab.id && (

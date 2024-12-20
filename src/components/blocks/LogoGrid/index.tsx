@@ -1,6 +1,6 @@
 'use client'
 
-import type { PaddingProps } from '@components/BlockWrapper/index.js';
+import type { PaddingProps } from '@components/BlockWrapper/index.js'
 import type { Media as MediaType, Page } from '@root/payload-types.js'
 
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
@@ -51,7 +51,7 @@ export const LogoGrid: React.FC<LogoGridProps> = ({ hideBackground, logoGridFiel
   useEffect(() => {
     if (logos) {
       const occupiedPositions: number[] = []
-      const initialPositions = logos.map(logo => {
+      const initialPositions = logos.map((logo) => {
         const position = getRandomPosition(occupiedPositions)
         occupiedPositions.push(position)
         return { isVisible: true, logo, position }
@@ -61,21 +61,22 @@ export const LogoGrid: React.FC<LogoGridProps> = ({ hideBackground, logoGridFiel
   }, [logos])
 
   useEffect(() => {
-    if (!logos || logos.length === 0 || logos.length > TOTAL_CELLS) {return}
+    if (!logos || logos.length === 0 || logos.length > TOTAL_CELLS) {
+      return
+    }
 
-     
     const animateLogo = () => {
       const logoIndex =
         currentAnimatingIndex !== null ? (currentAnimatingIndex + 1) % logos.length : 0
       setCurrentAnimatingIndex(logoIndex)
 
-      setLogoPositions(prevPositions =>
+      setLogoPositions((prevPositions) =>
         prevPositions.map((pos, idx) => (idx === logoIndex ? { ...pos, isVisible: false } : pos)),
       )
 
       setTimeout(() => {
-        setLogoPositions(prevPositions => {
-          const occupiedPositions = prevPositions.map(p => p.position)
+        setLogoPositions((prevPositions) => {
+          const occupiedPositions = prevPositions.map((p) => p.position)
           let newPosition
           do {
             newPosition = getRandomPosition(occupiedPositions)
@@ -87,7 +88,7 @@ export const LogoGrid: React.FC<LogoGridProps> = ({ hideBackground, logoGridFiel
         })
 
         setTimeout(() => {
-          setLogoPositions(prevPositions =>
+          setLogoPositions((prevPositions) =>
             prevPositions.map((pos, idx) =>
               idx === logoIndex ? { ...pos, isVisible: true } : pos,
             ),
@@ -95,7 +96,6 @@ export const LogoGrid: React.FC<LogoGridProps> = ({ hideBackground, logoGridFiel
         }, 100)
       }, ANIMATION_DURATION + 500)
     }
-     
 
     const interval = setInterval(animateLogo, ANIMATION_DELAY + ANIMATION_DURATION)
     return () => clearInterval(interval)
@@ -134,7 +134,9 @@ export const LogoGrid: React.FC<LogoGridProps> = ({ hideBackground, logoGridFiel
               <div className={[classes.horizontalLine, classes.topHorizontalLine].join(' ')} />
               <div className={classes.horizontalLine} style={{ top: '50%' }} />
               {[...Array(3)].map((_, idx) => {
-                if (idx === 1) {return null}
+                if (idx === 1) {
+                  return null
+                }
                 return (
                   <div
                     className={classes.verticalLine}
@@ -146,7 +148,7 @@ export const LogoGrid: React.FC<LogoGridProps> = ({ hideBackground, logoGridFiel
               <div className={[classes.horizontalLine, classes.bottomHorizontalLine].join(' ')} />
               {Array.from({ length: TOTAL_CELLS }).map((_, index) => {
                 const hasLogo = logoPositions.some(
-                  item => item.position === index && item.isVisible,
+                  (item) => item.position === index && item.isVisible,
                 )
                 return (
                   <div
@@ -157,7 +159,7 @@ export const LogoGrid: React.FC<LogoGridProps> = ({ hideBackground, logoGridFiel
                   >
                     <div className={classes.contentWrapper}>
                       {logoPositions
-                        .filter(item => item.position === index)
+                        .filter((item) => item.position === index)
                         .map(({ isVisible, logo }, idx) => (
                           <div
                             key={idx}

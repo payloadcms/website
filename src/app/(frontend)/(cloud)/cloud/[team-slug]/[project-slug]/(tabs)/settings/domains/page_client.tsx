@@ -46,7 +46,7 @@ export const ProjectDomainsPage: React.FC<{
           <SectionHeader title="Manage Domains" />
           <CollapsibleGroup allowMultiple transCurve="ease" transTime={250}>
             <div>
-              {project.domains.map(domain => (
+              {project.domains.map((domain) => (
                 <ManageDomain
                   domain={domain}
                   environmentSlug={environmentSlug}

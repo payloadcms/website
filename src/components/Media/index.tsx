@@ -1,4 +1,4 @@
-import type { ElementType} from 'react';
+import type { ElementType } from 'react'
 
 import React, { forwardRef, Fragment } from 'react'
 
@@ -16,11 +16,7 @@ export const Media = forwardRef<HTMLDivElement | HTMLImageElement | HTMLVideoEle
 
     return (
       <Tag ref={ref} {...(htmlElement !== null ? { className } : {})}>
-        {isVideo ? (
-          <Video {...props} />
-        ) : (
-          <Image {...props} />  
-        )}
+        {isVideo ? <Video {...props} /> : <Image {...props} />}
       </Tag>
     )
   },

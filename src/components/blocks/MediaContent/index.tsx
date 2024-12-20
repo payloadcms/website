@@ -1,4 +1,4 @@
-import type { PaddingProps } from '@components/BlockWrapper/index.js';
+import type { PaddingProps } from '@components/BlockWrapper/index.js'
 import type { Page } from '@root/payload-types.js'
 
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
@@ -92,7 +92,7 @@ export const MediaContentBlock: React.FC<MediaContentProps> = ({ mediaContentFie
   )
 }
 
-export const MediaContent: React.FC<MediaContentProps> = props => {
+export const MediaContent: React.FC<MediaContentProps> = (props) => {
   const { settings } = props.mediaContentFields
 
   return (

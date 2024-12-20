@@ -1,5 +1,5 @@
 'use client'
-import type { PaddingProps } from '@components/BlockWrapper/index.js';
+import type { PaddingProps } from '@components/BlockWrapper/index.js'
 import type { Page } from '@root/payload-types.js'
 
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
@@ -18,7 +18,7 @@ export type StatementProps = {
   padding?: PaddingProps
 } & Extract<Page['layout'][0], { blockType: 'statement' }>
 
-export const Statement: React.FC<StatementProps> = props => {
+export const Statement: React.FC<StatementProps> = (props) => {
   const {
     hideBackground,
     padding,
@@ -41,10 +41,10 @@ export const Statement: React.FC<StatementProps> = props => {
     mediaWidth === 'small'
       ? 'cols-8 start-5 cols-m-8 start-m-1'
       : mediaWidth === 'large'
-      ? 'cols-16 cols-m-8'
-      : mediaWidth === 'full'
-      ? 'cols-16 cols-m-8'
-      : 'cols-12 start-3 cols-m-8 start-m-1'
+        ? 'cols-16 cols-m-8'
+        : mediaWidth === 'full'
+          ? 'cols-16 cols-m-8'
+          : 'cols-12 start-3 cols-m-8 start-m-1'
 
   return (
     <BlockWrapper hideBackground={hideBackground} padding={padding} settings={settings}>

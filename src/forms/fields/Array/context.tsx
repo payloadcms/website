@@ -4,7 +4,7 @@ import * as React from 'react'
 const ArrayContext = React.createContext<{
   addRow: () => void
   clearRows: () => void
-  removeRow: (index: number) => void  
+  removeRow: (index: number) => void
   uuids: string[]
 }>({
   addRow: () => {},
@@ -19,18 +19,18 @@ export const ArrayProvider: React.FC<{
   children: React.ReactNode
   clearCount?: number // increment this to clear the array
   instantiateEmpty?: boolean
-}> = props => {
+}> = (props) => {
   const { children, clearCount, instantiateEmpty } = props
 
   const [uuids, setUUIDs] = React.useState<string[]>(instantiateEmpty ? [] : [uuid()])
 
   const addRow = React.useCallback(() => {
-    setUUIDs(prev => [...prev, uuid()])
+    setUUIDs((prev) => [...prev, uuid()])
   }, [])
 
   const removeRow = React.useCallback(
     (index: number) => {
-      setUUIDs(prev => {
+      setUUIDs((prev) => {
         const initialRows = (instantiateEmpty ? [] : [uuid()]) as string[]
         const remainingRows = prev.filter((_, i) => i !== index)
         return remainingRows.length > 0 ? remainingRows : initialRows

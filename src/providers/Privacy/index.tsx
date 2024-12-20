@@ -3,7 +3,7 @@
 import canUseDom from '@root/utilities/can-use-dom.js'
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react'
 
-import type { LocateResponse } from '../../../functions-api.js';
+import type { LocateResponse } from '../../../functions-api.js'
 
 import { locate } from '../../../functions-api.js'
 
@@ -53,7 +53,7 @@ type PrivacyProviderProps = {
   children: React.ReactNode
 }
 
-const PrivacyProvider: React.FC<PrivacyProviderProps> = props => {
+const PrivacyProvider: React.FC<PrivacyProviderProps> = (props) => {
   const { children } = props
   const [showConsent, setShowConsent] = useState<boolean | undefined>()
   const [cookieConsent, setCookieConsent] = useState<boolean | undefined>()
@@ -89,8 +89,8 @@ const PrivacyProvider: React.FC<PrivacyProviderProps> = props => {
 
   useEffect(() => {
     import('react-facebook-pixel')
-      .then(x => x.default)
-      .then(ReactPixel => {
+      .then((x) => x.default)
+      .then((ReactPixel) => {
         if (cookieConsent) {
           ReactPixel.grantConsent()
         } else {

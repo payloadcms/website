@@ -11,7 +11,7 @@ const migratePostsToLexical = async () => {
     limit: 3,
   })
 
-  const formatBlocks: (content: Post['content']) => Post['lexicalContent'] = content => {
+  const formatBlocks: (content: Post['content']) => Post['lexicalContent'] = (content) => {
     const newData: any[] = []
     for (const [index, block] of content.entries()) {
       if (block.blockType === 'blogContent') {

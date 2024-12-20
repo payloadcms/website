@@ -25,7 +25,7 @@ export type DeletePlanModalProps = {
   project: Project
 }
 
-export const DeletePlanModal: React.FC<DeletePlanModalProps> = props => {
+export const DeletePlanModal: React.FC<DeletePlanModalProps> = (props) => {
   const { canManageProject, confirmSlug, environmentSlug, project } = props
   const { closeModal } = useModal()
   const [isDisabled, setIsDisabled] = React.useState(true)
@@ -73,7 +73,7 @@ export const DeletePlanModal: React.FC<DeletePlanModalProps> = props => {
           </p>
           <Text
             label={`Confirm by typing: ${confirmSlug}`}
-            onChange={value => {
+            onChange={(value) => {
               setIsDisabled(value.toLowerCase() !== confirmSlug.toLowerCase())
             }}
             path="confirmSlug"

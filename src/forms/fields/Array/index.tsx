@@ -11,7 +11,7 @@ type ArrayRowProps = {
   className?: string
   index: number
 }
-export const ArrayRow: React.FC<ArrayRowProps> = props => {
+export const ArrayRow: React.FC<ArrayRowProps> = (props) => {
   const { removeRow } = useArray()
   const { allowRemove, children, className, index } = props
 

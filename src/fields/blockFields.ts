@@ -8,7 +8,7 @@ interface Args {
   overrides?: Partial<GroupField>
 }
 
-export const themeField: (width?: number) => Field = width => ({
+export const themeField: (width?: number) => Field = (width) => ({
   name: 'theme',
   type: 'select',
   admin: {

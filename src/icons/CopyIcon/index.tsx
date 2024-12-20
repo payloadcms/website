@@ -4,7 +4,7 @@ import type { IconProps } from '../types.js'
 
 import classes from '../index.module.scss'
 
-export const CopyIcon: React.FC<IconProps> = props => {
+export const CopyIcon: React.FC<IconProps> = (props) => {
   const { bold, className, size } = props
 
   return (

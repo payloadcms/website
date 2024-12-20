@@ -4,7 +4,7 @@ import type { IconProps } from '../types.js'
 
 import classes from '../index.module.scss'
 
-export const PlayIcon: React.FC<IconProps> = props => {
+export const PlayIcon: React.FC<IconProps> = (props) => {
   const { bold, className, color, rotation, size } = props
 
   return (

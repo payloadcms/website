@@ -45,9 +45,12 @@ export const BlockWrapper: React.FC<Props> = ({
   const theme = settings?.theme
 
   useEffect(() => {
-    if (settings?.theme) {setThemeState(settings.theme)}
-    else {
-      if (themeFromContext) {setThemeState(themeFromContext)}
+    if (settings?.theme) {
+      setThemeState(settings.theme)
+    } else {
+      if (themeFromContext) {
+        setThemeState(themeFromContext)
+      }
     }
   }, [settings, themeFromContext])
 

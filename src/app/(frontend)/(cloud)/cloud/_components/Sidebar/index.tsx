@@ -12,7 +12,7 @@ export const Sidebar: React.FC<{
     label: string
     url?: string
   }[]
-}> = props => {
+}> = (props) => {
   const { routes } = props
   const pathname = usePathname()
 

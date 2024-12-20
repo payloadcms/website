@@ -14,7 +14,7 @@ import classes from './page.module.scss'
 
 export const DeletionConfirmationForm: React.FC<{
   modalSlug: string
-}> = props => {
+}> = (props) => {
   const { modalSlug } = props
   const { closeModal } = useModal()
   const [hasEmail, setHasEmail] = React.useState(false)
@@ -77,7 +77,7 @@ export const DeletionConfirmationForm: React.FC<{
       <Text
         className={classes.emailInput}
         label="Email"
-        onChange={value => {
+        onChange={(value) => {
           setHasEmail(Boolean(value))
         }}
         path="modalEmail"
@@ -85,7 +85,7 @@ export const DeletionConfirmationForm: React.FC<{
       />
       <Text
         label="Password"
-        onChange={value => {
+        onChange={(value) => {
           setHasPW(Boolean(value))
         }}
         path="modalPassword"

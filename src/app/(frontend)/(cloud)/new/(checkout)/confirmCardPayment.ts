@@ -18,11 +18,17 @@ export const confirmCardPayment = async (args: {
 }): Promise<null | PaymentIntent> => {
   const { checkoutState, elements, stripe, subscription } = args
 
-  if (!subscription) {throw new Error('No subscription')}
+  if (!subscription) {
+    throw new Error('No subscription')
+  }
 
-  if (!stripe || !elements) {throw new Error('Stripe not loaded')}
+  if (!stripe || !elements) {
+    throw new Error('Stripe not loaded')
+  }
 
-  if (!checkoutState) {throw new Error('No checkout state')}
+  if (!checkoutState) {
+    throw new Error('No checkout state')
+  }
 
   const { client_secret: clientSecret, paid } = subscription
   const { paymentMethod } = checkoutState

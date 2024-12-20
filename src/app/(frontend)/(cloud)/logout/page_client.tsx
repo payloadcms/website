@@ -32,7 +32,9 @@ export const Logout: React.FC = () => {
           const delay = threshold - time
 
           // give the illusion of a delay, so that the content doesn't blink on fast networks
-          if (delay > 0) {await new Promise(resolve => setTimeout(resolve, delay))}
+          if (delay > 0) {
+            await new Promise((resolve) => setTimeout(resolve, delay))
+          }
 
           setLoggingOut(false)
           setLoggedOut(true)

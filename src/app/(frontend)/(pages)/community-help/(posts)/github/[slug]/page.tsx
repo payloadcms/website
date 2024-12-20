@@ -8,7 +8,7 @@ import { draftMode } from 'next/headers.js'
 import { notFound } from 'next/navigation'
 import React from 'react'
 
-import type { Answer, Author, Comment} from './client_page.js';
+import type { Answer, Author, Comment } from './client_page.js'
 
 import { GithubDiscussionPage } from './client_page.js'
 
@@ -59,7 +59,9 @@ const Discussion = async ({ params }) => {
   const { slug } = await params
 
   const discussion = await getDiscussion(slug, draft)
-  if (!discussion || !discussion.helpful) {return notFound()}
+  if (!discussion || !discussion.helpful) {
+    return notFound()
+  }
 
   if (!isDiscussionData(discussion)) {
     throw new Error('Unexpected github discussion thread data')
@@ -71,7 +73,9 @@ const Discussion = async ({ params }) => {
 export default Discussion
 
 export async function generateStaticParams() {
-  if (process.env.NEXT_PUBLIC_SKIP_BUILD_HELPS) {return []}
+  if (process.env.NEXT_PUBLIC_SKIP_BUILD_HELPS) {
+    return []
+  }
 
   try {
     const getGithubDiscussions = unstable_cache(fetchCommunityHelps, ['github-discussions'])

@@ -15,7 +15,7 @@ export interface PopupMessage {
 export const usePopupWindow = (props: {
   eventType?: string
   href: string
-   
+
   onMessage?: (searchParams: PopupMessage['searchParams']) => Promise<void>
 }): {
   openPopupWindow: (e: React.MouseEvent<HTMLAnchorElement>) => void
@@ -54,7 +54,7 @@ export const usePopupWindow = (props: {
   }, [onMessage, eventType])
 
   const openPopupWindow = useCallback(
-    e => {
+    (e) => {
       e.preventDefault()
 
       const features = {

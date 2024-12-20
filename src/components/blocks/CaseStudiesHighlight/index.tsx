@@ -31,7 +31,7 @@ export const CaseStudiesHighlightBlock: React.FC<Props> = ({
     const rows: CaseStudy[][] = []
 
     for (let n = 0; n < caseStudies.length; n += 3) {
-      rows.push((caseStudies).slice(n, n + 3))
+      rows.push(caseStudies.slice(n, n + 3))
     }
 
     return rows
@@ -59,7 +59,7 @@ export const CaseStudiesHighlightBlock: React.FC<Props> = ({
             {caseStudyRows.map((row, i) => {
               return (
                 <ul className={classes.row} key={i}>
-                  {row.map(caseStudy => {
+                  {row.map((caseStudy) => {
                     const { slug, featuredImage } = caseStudy
 
                     let url

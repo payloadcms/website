@@ -12,7 +12,7 @@ export const TeamMemberRow: React.FC<{
   isOwnerOrGlobalAdmin?: boolean
   leader?: string
   onUpdateRoles?: (newRoles: ('admin' | 'owner' | 'user')[]) => void
-}> = props => {
+}> = (props) => {
   const { footer, initialEmail, initialRoles, isOwnerOrGlobalAdmin, leader, onUpdateRoles } = props
 
   // Called when there's a change in the roles of the team member. It triggers the onUpdateRoles prop.

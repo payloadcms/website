@@ -27,7 +27,7 @@ export const PartnerDirectory: React.FC<{
     specialties: Specialty[]
   }
   partnerList: FilterablePartner[]
-}> = props => {
+}> = (props) => {
   const { filterOptions, partnerList } = props
 
   const [filters, setFilters] = useState<{
@@ -60,16 +60,16 @@ export const PartnerDirectory: React.FC<{
 
   useEffect(() => {
     setFilteredPartners(
-      partnerList.filter(partner => {
+      partnerList.filter((partner) => {
         return (
           (filters.industries.length === 0 ||
-            filters.industries.every(industry => partner.industries.includes(industry))) &&
+            filters.industries.every((industry) => partner.industries.includes(industry))) &&
           (filters.specialties.length === 0 ||
-            filters.specialties.every(specialty => partner.specialties.includes(specialty))) &&
+            filters.specialties.every((specialty) => partner.specialties.includes(specialty))) &&
           (filters.regions.length === 0 ||
-            filters.regions.every(region => partner.regions.includes(region))) &&
+            filters.regions.every((region) => partner.regions.includes(region))) &&
           (filters.budgets.length === 0 ||
-            filters.budgets.every(budget => partner.budgets.includes(budget)))
+            filters.budgets.every((budget) => partner.budgets.includes(budget)))
         )
       }),
     )
@@ -88,7 +88,7 @@ export const PartnerDirectory: React.FC<{
       specialties: [],
     }
 
-    filteredPartners.forEach(partner => {
+    filteredPartners.forEach((partner) => {
       filterSet.industries.push(...partner.industries)
       filterSet.specialties.push(...partner.specialties)
       filterSet.regions.push(...partner.regions)
@@ -103,17 +103,17 @@ export const PartnerDirectory: React.FC<{
     setValidFilters(filterSet)
   }, [filteredPartners])
 
-  const hasFilters = Object.values(filters).some(filter => filter.length > 0)
+  const hasFilters = Object.values(filters).some((filter) => filter.length > 0)
 
   const handleFilters = (
     group: 'budgets' | 'industries' | 'regions' | 'specialties',
     filter: string,
     checked: boolean,
   ) => {
-    setFilters(prev => {
+    setFilters((prev) => {
       return {
         ...prev,
-        [group]: checked ? [...prev[group], filter] : prev[group].filter(f => f !== filter),
+        [group]: checked ? [...prev[group], filter] : prev[group].filter((f) => f !== filter),
       }
     })
   }
@@ -208,7 +208,7 @@ const FilterGroup: React.FC<{
   ) => void
   options: (Budget | Industry | Region | Specialty)[]
   validOptions?: string[]
-}> = props => {
+}> = (props) => {
   const { filters, group, handleFilters, options, validOptions } = props
 
   const [open, setOpen] = useState(true)
@@ -228,13 +228,13 @@ const FilterGroup: React.FC<{
       <div className={classes.checkboxes}>
         {options
           .sort((a, b) => a.value.localeCompare(b.value))
-          .map(option => (
+          .map((option) => (
             <label key={option.id}>
               <input
                 checked={filters.includes(option.value)}
                 disabled={validOptions?.includes(option.value) ? false : true}
                 name={option.value}
-                onChange={e => handleFilters(group, option.value, e.target.checked)}
+                onChange={(e) => handleFilters(group, option.value, e.target.checked)}
                 type="checkbox"
               />
               {option.name}

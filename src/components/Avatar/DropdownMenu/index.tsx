@@ -9,7 +9,7 @@ import classes from './index.module.scss'
 
 export const DropdownMenu: React.FC<{
   isOpen: boolean
-  onChange: (isOpen: boolean) => void  
+  onChange: (isOpen: boolean) => void
 }> = ({ isOpen: isOpenFromProps, onChange }) => {
   const { user } = useAuth()
   const pathname = usePathname()

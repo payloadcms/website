@@ -4,7 +4,7 @@ import type { IconProps } from '../types.js'
 
 import classes from '../index.module.scss'
 
-export const CrosshairIcon: React.FC<IconProps> = props => {
+export const CrosshairIcon: React.FC<IconProps> = (props) => {
   const { bold, className, rotation, size = 'large' } = props
 
   return (

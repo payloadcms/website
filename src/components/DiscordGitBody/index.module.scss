@@ -6,7 +6,7 @@
     line-height: 1.35;
   }
 
-  &>* {
+  & > * {
     &:not(pre) {
       display: inline;
     }
@@ -31,13 +31,14 @@
     display: block;
   }
 
-  img, video {
+  img,
+  video {
     @include shadow-lg;
     margin: 20px 0;
     max-width: 100%;
   }
 
-  &>* {
+  & > * {
     &:last-child {
       margin-bottom: 0;
     }
@@ -85,7 +86,7 @@
     }
   }
 
-  & p>code {
+  & p > code {
     color: var(--theme-elevation-900);
   }
 
@@ -137,7 +138,7 @@
   }
 }
 
-:global([data-theme="light"]) {
+:global([data-theme='light']) {
   .body {
     & pre {
       & code {

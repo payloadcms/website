@@ -70,8 +70,8 @@ export const HeaderIntersectionObserver: React.FC<HeaderIntersectionObserverProp
       const halfHeaderHeight = windowHeight - Math.ceil(cssHeaderHeight / 2)
 
       observerRef = new IntersectionObserver(
-        entries => {
-          const intersectingElement = entries.find(entry => entry.isIntersecting)
+        (entries) => {
+          const intersectingElement = entries.find((entry) => entry.isIntersecting)
 
           if (intersectingElement) {
             setHeaderTheme(intersectingElement.target.getAttribute('data-theme') as Theme)
@@ -90,7 +90,9 @@ export const HeaderIntersectionObserver: React.FC<HeaderIntersectionObserverProp
     }
 
     return () => {
-      if (tickTimeout) {clearTimeout(tickTimeout)}
+      if (tickTimeout) {
+        clearTimeout(tickTimeout)
+      }
       if (observerRef) {
         observerRef.disconnect()
       }

@@ -24,7 +24,9 @@ export const LogoShowcase: React.FC<{ logos: Array<MediaType> }> = ({ logos }) =
   }, [logos])
 
   useEffect(() => {
-    if (!logos || logos.length === 0 || logos.length <= 6) {return}
+    if (!logos || logos.length === 0 || logos.length <= 6) {
+      return
+    }
 
     const interval = setInterval(() => {
       const nextIndex = Math.floor(Math.random() * 6)
@@ -36,7 +38,7 @@ export const LogoShowcase: React.FC<{ logos: Array<MediaType> }> = ({ logos }) =
     return () => clearInterval(interval)
   })
 
-  const swapLogo = index => {
+  const swapLogo = (index) => {
     const newActive = [...activeLogos]
     const newInactive = [...inactiveLogos]
 

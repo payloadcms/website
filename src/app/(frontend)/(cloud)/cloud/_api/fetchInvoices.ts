@@ -38,11 +38,15 @@ export interface InvoicesResult {
 
 export const fetchInvoices = async (team?: string | Team): Promise<InvoicesResult> => {
   const teamID = typeof team === 'string' ? team : team?.id
-  if (!teamID) {throw new Error('No team ID provided')}
+  if (!teamID) {
+    throw new Error('No team ID provided')
+  }
 
   const { cookies } = await import('next/headers')
   const token = (await cookies()).get(payloadCloudToken)?.value ?? null
-  if (!token) {throw new Error('No token provided')}
+  if (!token) {
+    throw new Error('No token provided')
+  }
 
   const res: InvoicesResult = await fetch(
     `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/teams/${teamID}/invoices`,
@@ -53,7 +57,7 @@ export const fetchInvoices = async (team?: string | Team): Promise<InvoicesResul
       },
       method: 'POST',
     },
-  )?.then(r => r.json())
+  )?.then((r) => r.json())
 
   return res
 }
@@ -67,7 +71,9 @@ export const fetchInvoicesClient = async ({
 }): Promise<InvoicesResult> => {
   const teamID = typeof team === 'string' ? team : team?.id
 
-  if (!teamID) {throw new Error('No team ID provided')}
+  if (!teamID) {
+    throw new Error('No team ID provided')
+  }
 
   const res: InvoicesResult = await fetch(
     `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/teams/${teamID}/invoices`,
@@ -81,7 +87,7 @@ export const fetchInvoicesClient = async ({
       },
       method: 'POST',
     },
-  ).then(r => r.json())
+  ).then((r) => r.json())
 
   return res
 }

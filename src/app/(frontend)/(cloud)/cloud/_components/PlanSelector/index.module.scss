@@ -1,20 +1,20 @@
 @use '@scss/common' as *;
 
 .plans {
-    & > *:not(:last-child) {
-        margin-bottom: 1rem;
-    }
+  & > *:not(:last-child) {
+    margin-bottom: 1rem;
+  }
 
-    .plan {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
+  .plan {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
 
-        & button {
-            @include btnReset;
-            &:hover {
-                cursor: pointer;
-            }
-        }
+    & button {
+      @include btnReset;
+      &:hover {
+        cursor: pointer;
+      }
     }
+  }
 }

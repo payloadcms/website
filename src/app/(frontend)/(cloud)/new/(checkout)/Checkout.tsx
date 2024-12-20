@@ -35,7 +35,7 @@ import { redirect, useRouter } from 'next/navigation'
 import React, { Fragment, useCallback } from 'react'
 import { toast } from 'sonner'
 
-import type { CheckoutState } from './reducer.js';
+import type { CheckoutState } from './reducer.js'
 
 import { CloneOrDeployProgress } from '../../cloud/_components/CloneOrDeployProgress/index.js'
 import classes from './Checkout.module.scss'
@@ -60,7 +60,7 @@ const Checkout: React.FC<{
   project: null | Project | undefined
   templates: Template[]
   user: null | undefined | User
-}> = props => {
+}> = (props) => {
   const { initialPaymentMethods, installs, plans, project, templates, user } = props
   const isClone = Boolean(project?.template)
   const stripe = useStripe()
@@ -304,7 +304,7 @@ const Checkout: React.FC<{
                         label="Template"
                         options={[
                           { label: 'None', value: '' },
-                          ...(templates || [])?.map(template => ({
+                          ...(templates || [])?.map((template) => ({
                             label: template.name || '',
                             value: template.id,
                           })),
@@ -445,7 +445,7 @@ const CheckoutProvider: React.FC<{
   templates: Template[]
   token: null | string
   user: null | undefined | User
-}> = props => {
+}> = (props) => {
   const { initialPaymentMethods, installs, plans, project, team, templates, token, user } = props
 
   if (!project) {

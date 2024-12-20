@@ -19,7 +19,7 @@ export const UniqueRepoName: React.FC<{
   initialValue?: Project['repositoryFullName']
   onChange?: (value: string) => void
   repositoryOwner?: string // i.e. `trouble`
-}> = props => {
+}> = (props) => {
   const { initialValue = '', onChange, repositoryOwner } = props
   const [value, setValue] = React.useState(initialValue)
   const debouncedValue = useDebounce(value, 200)
@@ -89,17 +89,29 @@ export const UniqueRepoName: React.FC<{
   }, [debouncedValue, onChange])
 
   let description = 'Choose a repository name'
-  if (!debouncedValue) {description = 'Please enter a repository name'}
-  if (error) {description = error}
-  if (debouncedValue && isAvailable === false)
-    {description = `'${debouncedValue}' is not available. Please choose another.`}
-  if (debouncedValue && isAvailable) {description = `'${debouncedValue}' is available`}
+  if (!debouncedValue) {
+    description = 'Please enter a repository name'
+  }
+  if (error) {
+    description = error
+  }
+  if (debouncedValue && isAvailable === false) {
+    description = `'${debouncedValue}' is not available. Please choose another.`
+  }
+  if (debouncedValue && isAvailable) {
+    description = `'${debouncedValue}' is available`
+  }
 
   let icon: React.ReactNode = null
-  if (isLoading) {icon = <Spinner />}
-  if (isAvailable) {icon = <CheckIcon bold className={classes.check} size="medium" />}
-  if (error || isAvailable === false)
-    {icon = <CloseIcon bold className={classes.error} size="medium" />}
+  if (isLoading) {
+    icon = <Spinner />
+  }
+  if (isAvailable) {
+    icon = <CheckIcon bold className={classes.check} size="medium" />
+  }
+  if (error || isAvailable === false) {
+    icon = <CloseIcon bold className={classes.error} size="medium" />
+  }
 
   return (
     <div className={classes.uniqueRepoName}>
@@ -112,7 +124,7 @@ export const UniqueRepoName: React.FC<{
         placeholder="Choose the name of your repository"
         required
         showError={Boolean(!value || error || isAvailable === false)}
-        validate={value => {
+        validate={(value) => {
           const newValid = Boolean(!value || error || isAvailable !== false)
           return newValid
         }}

@@ -14,8 +14,10 @@ export const updateCustomer = async (
       },
       method: 'PATCH',
     },
-  )?.then(res => {
-    if (!res.ok) {throw new Error(`Failed to update customer`)}
+  )?.then((res) => {
+    if (!res.ok) {
+      throw new Error(`Failed to update customer`)
+    }
     return res.json()
   })
 

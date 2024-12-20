@@ -36,10 +36,7 @@ export const rootParserOptions = {
 export const rootEslintConfig = [
   ...payloadEsLintConfig,
   {
-    ignores: [
-      ...defaultESLintIgnores,
-      'packages/**/*.spec.ts',
-    ],
+    ignores: [...defaultESLintIgnores, 'packages/**/*.spec.ts'],
   },
   {
     plugins: {

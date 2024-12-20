@@ -14,10 +14,10 @@ import { fields } from './fields.js'
 import classes from './index.module.scss'
 import Submit from './Submit/index.js'
 
-const buildInitialState = fields => {
+const buildInitialState = (fields) => {
   const state = {}
 
-  fields.forEach(field => {
+  fields.forEach((field) => {
     state[field.name] = {
       errorMessage: 'This field is required.',
       initialValue: field.defaultValue ?? undefined,
@@ -99,7 +99,9 @@ const RenderForm = ({ form, hiddenFields }: { form: FormType; hiddenFields: stri
           if (confirmationType === 'redirect' && formRedirect) {
             const { url } = formRedirect
 
-            if (!url) {return}
+            if (!url) {
+              return
+            }
 
             const redirectUrl = new URL(url, process.env.NEXT_PUBLIC_SITE_URL)
 
@@ -132,7 +134,9 @@ const RenderForm = ({ form, hiddenFields }: { form: FormType; hiddenFields: stri
     [router, formID, formRedirect, confirmationType, pathname],
   )
 
-  if (!form?.id) {return null}
+  if (!form?.id) {
+    return null
+  }
 
   return (
     <div className={classes.cmsForm}>
@@ -193,10 +197,12 @@ const RenderForm = ({ form, hiddenFields }: { form: FormType; hiddenFields: stri
 export const CMSForm: React.FC<{
   form?: FormType | null | string
   hiddenFields?: string[]
-}> = props => {
+}> = (props) => {
   const { form, hiddenFields } = props
 
-  if (!form || typeof form === 'string') {return null}
+  if (!form || typeof form === 'string') {
+    return null
+  }
 
   return <RenderForm form={form} hiddenFields={hiddenFields ?? []} />
 }

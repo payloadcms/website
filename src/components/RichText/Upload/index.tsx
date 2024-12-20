@@ -1,4 +1,4 @@
-import type { CMSLinkType } from '@components/CMSLink/index.js';
+import type { CMSLinkType } from '@components/CMSLink/index.js'
 import type { SerializedUploadNode } from '@payloadcms/richtext-lexical'
 import type { Media as MediaType } from '@types'
 
@@ -20,7 +20,7 @@ export type Props = {
   node: SerializedUploadNode
 }
 
-export const RichTextUpload: React.FC<Props> = props => {
+export const RichTextUpload: React.FC<Props> = (props) => {
   const {
     className,
     node: { fields, value },

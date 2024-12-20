@@ -5,19 +5,19 @@
 }
 
 .success {
-    color: var(--theme-success-500);
+  color: var(--theme-success-500);
 }
 
 .form {
-    & > * {
-        margin-bottom: 1rem;
-    }
+  & > * {
+    margin-bottom: 1rem;
+  }
 
-    & > *:last-child {
-        margin-bottom: 0;
-    }
+  & > *:last-child {
+    margin-bottom: 0;
+  }
 }
 
 .hr {
-    margin: 2rem 0;
+  margin: 2rem 0;
 }

@@ -5,7 +5,7 @@ import React from 'react'
 const FormSubmissionError: React.FC<{
   className?: string
   message?: string
-}> = props => {
+}> = (props) => {
   const { className, message } = props
 
   const { submissionError } = useForm()

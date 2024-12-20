@@ -15,7 +15,7 @@ export const createDraftProject = async ({
 }: {
   installID: number | undefined
   makePrivate?: boolean
-  onSubmit?: (project: Project) => void  
+  onSubmit?: (project: Project) => void
   projectName?: string
   repo: Partial<Repo>
   teamID: string | undefined

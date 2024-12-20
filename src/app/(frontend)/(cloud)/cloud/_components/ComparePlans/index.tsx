@@ -11,11 +11,11 @@ import React, { Fragment } from 'react'
 import classes from './index.module.scss'
 
 type ComparePlansProps = {
-  handlePlanChange: (value?: null | Plan) => void  
+  handlePlanChange: (value?: null | Plan) => void
   plans: Plan[]
 }
 
-export const ComparePlans: React.FC<ComparePlansProps> = props => {
+export const ComparePlans: React.FC<ComparePlansProps> = (props) => {
   const { handlePlanChange, plans } = props
   const { closeModal } = useModal()
 
@@ -33,7 +33,7 @@ export const ComparePlans: React.FC<ComparePlansProps> = props => {
       <Drawer size={plans.length > 2 ? 'l' : 'm'} slug={`comparePlans`} title={'Compare Plans'}>
         <div className={classes.compareTable}>
           {plans?.map((plan, i) => {
-            const getPrice = plan => {
+            const getPrice = (plan) => {
               let price = ''
               if (typeof plan === 'object' && plan !== null && 'priceJSON' in plan) {
                 price = plan?.priceJSON?.toString() || ''

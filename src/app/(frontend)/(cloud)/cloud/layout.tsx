@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   openGraph: mergeOpenGraph(),
 }
 
-export default async props => {
+export default async (props) => {
   const { children } = props
 
   await fetchMe({

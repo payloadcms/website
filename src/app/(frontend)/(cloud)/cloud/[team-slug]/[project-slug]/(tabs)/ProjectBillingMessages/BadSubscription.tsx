@@ -13,7 +13,7 @@ import React from 'react'
 export const BadSubscriptionMessage: React.FC<{
   project: ProjectWithSubscription
   team: TeamWithCustomer
-}> = props => {
+}> = (props) => {
   const { project, team } = props
   const subscriptionStatus = project?.stripeSubscriptionStatus
 

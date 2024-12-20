@@ -34,13 +34,13 @@ const unflattenRowsFromState = (
   // Loop over all keys from state
   // If the key begins with the name of the parent field,
   // Add value to rowsFromStateObject and delete it from remaining state
-  Object.keys(state).forEach(key => {
+  Object.keys(state).forEach((key) => {
     if (key.indexOf(`${path}.`) === 0) {
       const name = key.replace(pathPrefixToRemove, '')
       rowsFromStateObject[name] = state[key]
       rowsFromStateObject[name].initialValue = rowsFromStateObject[name].value
 
-      delete remainingFlattenedState[key]  
+      delete remainingFlattenedState[key]
     }
   })
 
@@ -56,7 +56,7 @@ function fieldReducer(state: Fields, action: Action): Fields {
   switch (action.type) {
     case 'REMOVE': {
       const newState = { ...state }
-      delete newState[action.path]  
+      delete newState[action.path]
       return newState
     }
 
@@ -88,7 +88,7 @@ function fieldReducer(state: Fields, action: Action): Fields {
 
       const newState = { ...state }
 
-      fields.forEach(field => {
+      fields.forEach((field) => {
         newState[field.path] = {
           ...(newState[field.path] || {}),
           errorMessage: field.errorMessage,

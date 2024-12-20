@@ -54,7 +54,7 @@ export const TableOfContents: React.FC<Props> = ({ className, headings }) => {
                   .join(' ')}
                 key={id}
                 onMouseEnter={handleMouseEnter}
-                ref={ref => {
+                ref={(ref) => {
                   listItemRefs.current[id] = ref
                 }}
               >

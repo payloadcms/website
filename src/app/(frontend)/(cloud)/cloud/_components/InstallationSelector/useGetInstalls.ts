@@ -41,7 +41,7 @@ export type UseGetInstalls = (args?: {
   reload: () => void
 }
 
-export const useGetInstalls: UseGetInstalls = args => {
+export const useGetInstalls: UseGetInstalls = (args) => {
   const { installs: initialInstalls, permissions } = args || {}
   const [error, setError] = React.useState<string | undefined>()
   const [installsLoading, setInstallsLoading] = React.useState(false)
@@ -53,7 +53,7 @@ export const useGetInstalls: UseGetInstalls = args => {
       const installations = await fetchInstallsClient()
 
       // filter these based on the given permissions and user role
-      const installationsWithPermission = installations.filter(install => {
+      const installationsWithPermission = installations.filter((install) => {
         return permissions ? permissions === install.permissions?.administration : true
       })
 

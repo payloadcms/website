@@ -1,5 +1,5 @@
 'use client'
-import type { PaddingProps } from '@components/BlockWrapper/index.js';
+import type { PaddingProps } from '@components/BlockWrapper/index.js'
 import type { Page } from '@root/payload-types.js'
 
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
@@ -33,7 +33,7 @@ type QuoteProps = {
   item: any
 }
 
-export const QuoteBlock: React.FC<QuoteProps> = props => {
+export const QuoteBlock: React.FC<QuoteProps> = (props) => {
   const { className, isVisible, item } = props
   return (
     <div
@@ -79,7 +79,7 @@ export const QuoteBlock: React.FC<QuoteProps> = props => {
   )
 }
 
-export const QuoteStickyBlock: React.FC<StickyBlockProps> = props => {
+export const QuoteStickyBlock: React.FC<StickyBlockProps> = (props) => {
   const { caseStudyParallaxFields, currentIndex } = props
 
   if (caseStudyParallaxFields?.items && caseStudyParallaxFields?.items?.length > 0) {
@@ -103,7 +103,7 @@ export const QuoteStickyBlock: React.FC<StickyBlockProps> = props => {
   return null
 }
 
-export const CaseStudyParallax: React.FC<Props> = props => {
+export const CaseStudyParallax: React.FC<Props> = (props) => {
   const { caseStudyParallaxFields, hideBackground, padding } = props
   const activeIndex = React.useRef(0)
   const [scrollProgress, setScrollProgress] = React.useState<number>(0)
@@ -151,7 +151,6 @@ export const CaseStudyParallax: React.FC<Props> = props => {
         }
       }
     }
-     
   }, [scrollProgress, navButtonsRef, navGridRef, delayNavScroll])
 
   React.useEffect(() => {
@@ -169,8 +168,9 @@ export const CaseStudyParallax: React.FC<Props> = props => {
         if (anchor > 0) {
           const scrollPosition = (anchor / totalDocScrollLength) * 100
 
-          if (scrollPosition > 100) {setScrollProgress(0)}
-          else {
+          if (scrollPosition > 100) {
+            setScrollProgress(0)
+          } else {
             setScrollProgress(100 - scrollPosition)
           }
         } else {
@@ -194,8 +194,8 @@ export const CaseStudyParallax: React.FC<Props> = props => {
 
     if (containerRef.current) {
       intersectionObserver = new IntersectionObserver(
-        entries => {
-          entries.forEach(entry => {
+        (entries) => {
+          entries.forEach((entry) => {
             if (entry.isIntersecting) {
               window.addEventListener('scroll', handleScroll)
             } else {
@@ -219,7 +219,7 @@ export const CaseStudyParallax: React.FC<Props> = props => {
 
   const handleTabClick =
     (index: number): React.MouseEventHandler<HTMLButtonElement> =>
-    event => {
+    (event) => {
       if (cardsRef.current?.length) {
         setDelayNavScroll(true)
         cardsRef.current[index]?.scrollIntoView({
@@ -266,8 +266,10 @@ export const CaseStudyParallax: React.FC<Props> = props => {
                   data-index={index}
                   id={`${id}${index}`}
                   key={index}
-                  ref={el => {
-                    if (el) {cardsRef.current[index] = el}
+                  ref={(el) => {
+                    if (el) {
+                      cardsRef.current[index] = el
+                    }
                   }}
                 >
                   {item.images?.length && item.images.length > 0 ? (
@@ -300,8 +302,10 @@ export const CaseStudyParallax: React.FC<Props> = props => {
                       <div
                         className={[classes.navItem, `cols-4 cols-m-8`].filter(Boolean).join(' ')}
                         key={index}
-                        ref={el => {
-                          if (el) {navButtonsRef.current[index] = el}
+                        ref={(el) => {
+                          if (el) {
+                            navButtonsRef.current[index] = el
+                          }
                         }}
                       >
                         {typeof item.caseStudy !== 'string' && (

@@ -7,7 +7,7 @@ import type { SquareCardProps } from '../types.js'
 
 import classes from './index.module.scss'
 
-export const SquareCard: React.FC<SquareCardProps> = props => {
+export const SquareCard: React.FC<SquareCardProps> = (props) => {
   const { className, description, enableLink, leader, revealDescription, title } = props
   const link = props.link || {}
   const hasLink = enableLink

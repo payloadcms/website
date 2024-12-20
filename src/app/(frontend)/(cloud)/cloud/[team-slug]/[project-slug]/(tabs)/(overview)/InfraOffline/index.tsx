@@ -103,7 +103,7 @@ export const InfraOffline: React.FC<{
   environmentSlug: string
   project: Project
   team: Team
-}> = props => {
+}> = (props) => {
   const { environmentSlug, project: initialProject, team } = props
   const [project, setProject] = React.useState(initialProject)
 

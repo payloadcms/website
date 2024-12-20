@@ -1,5 +1,5 @@
 'use client'
-import type { PaddingProps } from '@components/BlockWrapper/index.js';
+import type { PaddingProps } from '@components/BlockWrapper/index.js'
 import type { Page } from '@root/payload-types.js'
 
 import BackgroundGradient from '@components/BackgroundGradient'
@@ -24,7 +24,7 @@ export type CallToActionProps = {
   padding?: PaddingProps
 } & Extract<Page['layout'][0], { blockType: 'cta' }>
 
-export const CallToAction: React.FC<CallToActionProps> = props => {
+export const CallToAction: React.FC<CallToActionProps> = (props) => {
   const {
     ctaFields: {
       bannerImage,

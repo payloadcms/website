@@ -10,13 +10,13 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 // 4. standardize repetitive logic across all fields
 export const useField = <T extends Value>(props: {
   initialValue?: T
-  onChange?: (value: T) => void  
+  onChange?: (value: T) => void
   path?: string
   required?: boolean
   validate?: Validate
 }): {
   errorMessage?: string
-  onChange: (value: T) => void  
+  onChange: (value: T) => void
   showError: boolean
   value: null | T
 } => {
@@ -43,8 +43,9 @@ export const useField = <T extends Value>(props: {
   ) // not debounced
 
   useEffect(() => {
-    if (valueFromContextOrProps !== undefined && valueFromContextOrProps !== internalState)
-      {setInternalState(valueFromContextOrProps)}
+    if (valueFromContextOrProps !== undefined && valueFromContextOrProps !== internalState) {
+      setInternalState(valueFromContextOrProps)
+    }
   }, [valueFromContextOrProps, internalState])
 
   const onChange = useCallback(

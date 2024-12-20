@@ -52,8 +52,8 @@ export const Pagination: React.FC<{
         const currentPage = index + 1
         const isCurrent = page === currentPage
 
-        if (indexToShow.includes(index))
-          {return (
+        if (indexToShow.includes(index)) {
+          return (
             <div key={index}>
               <button
                 className={[
@@ -72,7 +72,8 @@ export const Pagination: React.FC<{
                 {currentPage}
               </button>
             </div>
-          )}
+          )
+        }
       })}
       {showLastPage && (
         <React.Fragment>
@@ -95,7 +96,9 @@ export const Pagination: React.FC<{
         className={[classes.button, page - 1 < 1 && classes.disabled].filter(Boolean).join(' ')}
         disabled={page - 1 < 1}
         onClick={() => {
-          if (page - 1 < 1) {return}
+          if (page - 1 < 1) {
+            return
+          }
           window.scrollTo(0, 0)
           setPage(page > 1 ? page - 1 : 1)
         }}
@@ -109,7 +112,9 @@ export const Pagination: React.FC<{
           .join(' ')}
         disabled={page + 1 > totalPages}
         onClick={() => {
-          if (page + 1 > totalPages) {return}
+          if (page + 1 > totalPages) {
+            return
+          }
 
           window.scrollTo(0, 0)
           setPage(page + 1)

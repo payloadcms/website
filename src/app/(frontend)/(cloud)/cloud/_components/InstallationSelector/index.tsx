@@ -13,7 +13,7 @@ import { Option } from './components/Option/index.js'
 import { SingleValue } from './components/SingleValue/index.js'
 import classes from './index.module.scss'
 
-export const InstallationSelector: React.FC<InstallationSelectorProps> = props => {
+export const InstallationSelector: React.FC<InstallationSelectorProps> = (props) => {
   const {
     className,
     description,
@@ -38,7 +38,7 @@ export const InstallationSelector: React.FC<InstallationSelectorProps> = props =
       if (valueFromProps !== undefined) {
         const idFromProps =
           typeof valueFromProps === 'string' ? parseInt(valueFromProps, 10) : valueFromProps
-        return installs.find(install => install.id === idFromProps)
+        return installs.find((install) => install.id === idFromProps)
       } else {
         return installs[0]
       }
@@ -51,14 +51,16 @@ export const InstallationSelector: React.FC<InstallationSelectorProps> = props =
     onMessage: async (searchParams: { installation_id: string; state: string }) => {
       if (searchParams.state === uuid) {
         selectAfterLoad.current = parseInt(searchParams.installation_id, 10)
-        if (typeof onInstall === 'function') {onInstall()}
+        if (typeof onInstall === 'function') {
+          onInstall()
+        }
       }
     },
   })
 
   useEffect(() => {
     if (selectAfterLoad.current) {
-      const newSelection = installs?.find(install => install.id === selectAfterLoad.current)
+      const newSelection = installs?.find((install) => install.id === selectAfterLoad.current)
       setSelection(newSelection)
       selectAfterLoad.current = undefined
     }
@@ -76,7 +78,7 @@ export const InstallationSelector: React.FC<InstallationSelectorProps> = props =
       {!loading && (
         <Select
           components={{
-            MenuList: menuListProps => (
+            MenuList: (menuListProps) => (
               <MenuList {...menuListProps} href={href} openPopupWindow={openPopupWindow} />
             ),
             Option,
@@ -85,10 +87,12 @@ export const InstallationSelector: React.FC<InstallationSelectorProps> = props =
           disabled={disabled}
           initialValue={(installs?.[0]?.account as { login: string })?.login}
           label={!hideLabel ? 'GitHub Scope' : undefined}
-          onChange={option => {
-            if (Array.isArray(option)) {return}
+          onChange={(option) => {
+            if (Array.isArray(option)) {
+              return
+            }
             const newSelection = installs?.find(
-              install => (install?.account as { login: string })?.login === option,
+              (install) => (install?.account as { login: string })?.login === option,
             )
             setSelection(newSelection)
             if (typeof onChange === 'function') {
@@ -98,7 +102,7 @@ export const InstallationSelector: React.FC<InstallationSelectorProps> = props =
           options={[
             ...(installs && installs.length > 0
               ? [
-                  ...installs.map(install => ({
+                  ...installs.map((install) => ({
                     label: (install?.account as { login: string })?.login || 'Untitled',
                     value: (install?.account as { login: string })?.login || '',
                   })),

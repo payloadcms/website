@@ -6,7 +6,7 @@ import { redirect } from 'next/navigation'
 
 import { ForgotPassword } from './page_client.js'
 
-export default async props => {
+export default async (props) => {
   const { user } = await fetchMe()
 
   if (user) {

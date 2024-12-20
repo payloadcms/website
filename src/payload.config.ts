@@ -324,7 +324,7 @@ export default buildConfig({
                     pageName: 'pageName' in body ? body?.pageName : '',
                     pageUri: 'pageUri' in body ? body?.pageUri : '',
                   },
-                  fields: submissionData.map(key => ({
+                  fields: submissionData.map((key) => ({
                     name: key.field,
                     value: key.value,
                   })),
@@ -361,7 +361,7 @@ export default buildConfig({
     nestedDocsPlugin({
       collections: ['pages'],
       generateLabel: (_, doc) => doc.title as string,
-      generateURL: docs => docs.reduce((url, doc) => `${url}/${doc.slug as string}`, ''),
+      generateURL: (docs) => docs.reduce((url, doc) => `${url}/${doc.slug as string}`, ''),
     }),
     redirectsPlugin({
       collections: ['case-studies', 'pages', 'posts'],

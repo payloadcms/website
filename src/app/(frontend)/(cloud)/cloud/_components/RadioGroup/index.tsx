@@ -9,7 +9,7 @@ type RadioOption = {
 }
 export const CloudRadioGroup: React.FC<{
   initialValue?: string
-  onChange: (option: any) => void  
+  onChange: (option: any) => void
   options: RadioOption[]
   path: string
 }> = ({ initialValue, onChange: onChangeFromProps, options, path }) => {
@@ -20,7 +20,7 @@ export const CloudRadioGroup: React.FC<{
   })
 
   const handleChange = React.useCallback(
-    option => {
+    (option) => {
       onChange(option.value)
       onChangeFromProps(option)
     },

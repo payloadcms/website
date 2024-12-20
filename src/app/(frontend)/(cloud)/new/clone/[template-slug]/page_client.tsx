@@ -1,6 +1,6 @@
 'use client'
 
-import type { Install } from '@cloud/_api/fetchInstalls.js';
+import type { Install } from '@cloud/_api/fetchInstalls.js'
 import type { Team, Template, User } from '@root/payload-cloud-types.js'
 
 import { fetchInstalls } from '@cloud/_api/fetchInstalls.js'
@@ -31,7 +31,7 @@ export const CloneTemplate: React.FC<{
   template?: Template
   user: null | undefined | User
   uuid: string
-}> = props => {
+}> = (props) => {
   const searchParams = useSearchParams()
   const teamParam = searchParams?.get('team')
   const { installs: initialInstalls, template, user, uuid } = props
@@ -52,7 +52,7 @@ export const CloneTemplate: React.FC<{
 
   const matchedTeam = user?.teams?.find(
     ({ team }) => typeof team !== 'string' && team?.slug === teamParam,
-  )?.team as Team  
+  )?.team as Team
 
   const onDraftCreateProject = useCallback(
     ({ slug: draftProjectSlug, team }) => {

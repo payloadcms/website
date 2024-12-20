@@ -31,7 +31,9 @@ export const ProjectBuildSettingsPage: React.FC<{
 
   const onSubmit = React.useCallback(
     async ({ unflattenedData }) => {
-      if (!project) {return}
+      if (!project) {
+        return
+      }
 
       try {
         const req = await fetch(

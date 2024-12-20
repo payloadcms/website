@@ -19,7 +19,7 @@ export const RenderParamsComponent: React.FC<Props> = ({
   params = ['error', 'warning', 'success', 'message'],
 }) => {
   const searchParams = useSearchParams()
-  const paramValues = params.map(param => searchParams?.get(param))
+  const paramValues = params.map((param) => searchParams?.get(param))
 
   useEffect(() => {
     if (paramValues.length && onParams) {
@@ -31,7 +31,9 @@ export const RenderParamsComponent: React.FC<Props> = ({
     return (
       <div className={className}>
         {paramValues.map((paramValue, index) => {
-          if (!paramValue) {return null}
+          if (!paramValue) {
+            return null
+          }
 
           return (
             <Message

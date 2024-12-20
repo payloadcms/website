@@ -13,7 +13,7 @@ import classes from './index.module.scss'
 
 export const TeamBillingMessages: React.FC<{
   team: TeamWithCustomer
-}> = props => {
+}> = (props) => {
   const { team } = props
   const pathname = usePathname()
 

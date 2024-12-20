@@ -1,5 +1,5 @@
 'use client'
- 
+
 import CodeBlip from '@components/CodeBlip/index.js'
 import { Highlight } from 'prism-react-renderer'
 import React, { useCallback } from 'react'
@@ -15,7 +15,7 @@ const highlightClassName = 'highlight-line'
 const highlightLine = (lineArray: { content: string }[], lineProps: { className: string }) => {
   let shouldExclude = false
 
-  lineArray.forEach(line => {
+  lineArray.forEach((line) => {
     const { content } = line
     const lineContent = content.replace(/\s/g, '')
 
@@ -46,7 +46,7 @@ const highlightLine = (lineArray: { content: string }[], lineProps: { className:
   return shouldExclude
 }
 
-const Code: React.FC<Props> = props => {
+const Code: React.FC<Props> = (props) => {
   const {
     children,
     className,
@@ -59,8 +59,10 @@ const Code: React.FC<Props> = props => {
 
   const getCodeBlip = useCallback(
     (rowNumber: number) => {
-      if (!codeBlips) {return null}
-      return codeBlips.find(blip => blip.row === rowNumber) ?? null
+      if (!codeBlips) {
+        return null
+      }
+      return codeBlips.find((blip) => blip.row === rowNumber) ?? null
     },
     [codeBlips],
   )
@@ -95,7 +97,9 @@ const Code: React.FC<Props> = props => {
               .map(({ line, lineProps }, i) => {
                 const rowNumber = i + 1
                 const codeBlip = getCodeBlip(rowNumber)
-                if (codeBlip) {blipCounter = blipCounter + 1}
+                if (codeBlip) {
+                  blipCounter = blipCounter + 1
+                }
                 return (
                   <div {...lineProps} key={i}>
                     <>

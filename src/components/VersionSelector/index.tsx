@@ -16,7 +16,7 @@ export const VersionSelector: React.FC<{
         aria-label="Select Version"
         className={classes.select}
         defaultValue={initialVersion}
-        onChange={e => {
+        onChange={(e) => {
           e.target.value === 'latest'
             ? router.push('/docs')
             : router.push(`/docs/${e.target.value}`)

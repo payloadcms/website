@@ -43,7 +43,8 @@
   }
 }
 
-.default, .info {
+.default,
+.info {
   color: var(--theme-text);
   background: var(--theme-elevation-50);
   border: 1px solid var(--theme-elevation-200);
@@ -58,7 +59,6 @@
     margin: 0;
     line-height: 1.4rem;
   }
-
 
   & > p {
     line-height: 1.6;

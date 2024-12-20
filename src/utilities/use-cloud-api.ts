@@ -32,7 +32,9 @@ export const useCloudAPI = <R>(args: {
     let timer: NodeJS.Timeout
 
     if (url) {
-      if (isRequesting.current) {return}
+      if (isRequesting.current) {
+        return
+      }
       isRequesting.current = true
 
       const makeRequest = async (): Promise<void> => {
@@ -74,7 +76,6 @@ export const useCloudAPI = <R>(args: {
       void makeRequest()
     }
 
-     
     return () => {
       clearTimeout(timer)
     }
@@ -95,7 +96,9 @@ export const useCloudAPI = <R>(args: {
     }
 
     return () => {
-      if (timer) {clearTimeout(timer)}
+      if (timer) {
+        clearTimeout(timer)
+      }
     }
   }, [url, requestTicker, reload, interval])
 
@@ -137,16 +140,16 @@ export const useGetProjects: UseCloudAPI<
     search?: string
     teams?: string[]
   }
-> = args => {
+> = (args) => {
   const { user } = useAuth()
   const { delay, initialState, page, search, teams: teamsFromArgs } = args || {}
 
-  const teamsWithoutNone = teamsFromArgs?.filter(team => team !== 'none') || []
+  const teamsWithoutNone = teamsFromArgs?.filter((team) => team !== 'none') || []
 
   const userTeams =
     user?.teams?.map(({ team }) =>
       team && typeof team === 'object' && team !== null && 'id' in team ? team.id : team,
-    ) || [].filter(Boolean)  
+    ) || [].filter(Boolean)
 
   const teams = teamsWithoutNone && teamsWithoutNone?.length > 0 ? teamsWithoutNone : userTeams
 
@@ -185,7 +188,7 @@ export const useGetProject: UseCloudAPI<
     projectSlug?: string
     teamSlug?: string
   }
-> = args => {
+> = (args) => {
   const { projectID, projectSlug, teamSlug } = args || {}
 
   const query = qs.stringify({
@@ -237,7 +240,7 @@ export const useGetProjectDeployments: UseCloudAPI<
     page?: number
     projectID?: string
   }
-> = args => {
+> = (args) => {
   const { environmentSlug, interval, page = 0, projectID } = args || {}
 
   const query = qs.stringify({
@@ -282,7 +285,7 @@ export const useGetActiveProjectDeployment: UseCloudAPI<
   {
     projectID?: string
   }
-> = args => {
+> = (args) => {
   const { projectID } = args || {}
 
   const query = qs.stringify({
@@ -318,7 +321,7 @@ export const useGetActiveProjectDeployment: UseCloudAPI<
   }, [response])
 }
 
-export const useGetTeam: UseCloudAPI<null | Team | undefined, string> = teamSlug => {
+export const useGetTeam: UseCloudAPI<null | Team | undefined, string> = (teamSlug) => {
   const response = useCloudAPI<{
     docs: Team[]
   }>({

@@ -20,7 +20,7 @@ const RadioGroup: React.FC<
     layout?: 'horizontal' | 'vertical'
     options: Option[]
   } & FieldProps<string>
-> = props => {
+> = (props) => {
   const {
     className,
     hidden,
@@ -43,7 +43,7 @@ const RadioGroup: React.FC<
         return 'Please make a selection.'
       }
 
-      if (fieldValue && !options.find(option => option && option.value === fieldValue)) {
+      if (fieldValue && !options.find((option) => option && option.value === fieldValue)) {
         return 'This field has an invalid selection'
       }
 

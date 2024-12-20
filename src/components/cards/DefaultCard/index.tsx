@@ -9,7 +9,7 @@ import type { DefaultCardProps } from '../types.js'
 
 import classes from './index.module.scss'
 
-export const DefaultCard: React.FC<DefaultCardProps> = props => {
+export const DefaultCard: React.FC<DefaultCardProps> = (props) => {
   const { className, description, href, leader, media, pill, title } = props
 
   return (

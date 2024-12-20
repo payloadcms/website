@@ -1,6 +1,6 @@
 'use client'
 
-import type { RelatedPostsBlock } from '@blocks/RelatedPosts/index.js';
+import type { RelatedPostsBlock } from '@blocks/RelatedPosts/index.js'
 import type { PaddingProps, Settings } from '@components/BlockWrapper/index.js'
 import type { Page, ReusableContent } from '@root/payload-types.js'
 import type { Theme } from '@root/providers/Theme/types.js'
@@ -84,7 +84,7 @@ type Props = {
   layout?: 'page' | 'post'
 }
 
-export const RenderBlocks: React.FC<Props> = props => {
+export const RenderBlocks: React.FC<Props> = (props) => {
   const { blocks, customId, disableGrid, disableGutter, disableOuterSpacing, hero, layout } = props
   const heroTheme = hero?.type === 'home' ? 'dark' : hero?.theme
   const hasBlocks = blocks && Array.isArray(blocks) && blocks.length > 0
@@ -95,7 +95,9 @@ export const RenderBlocks: React.FC<Props> = props => {
 
   // This is needed to avoid hydration errors when the theme is not yet available
   useEffect(() => {
-    if (themeFromContext) {setThemeState(themeFromContext)}
+    if (themeFromContext) {
+      setThemeState(themeFromContext)
+    }
   }, [themeFromContext])
 
   const paddingExceptions = useMemo(
@@ -163,13 +165,21 @@ export const RenderBlocks: React.FC<Props> = props => {
         bottomPadding = theme === currentBlockTheme ? 'small' : 'large'
       }
 
-      if (isLast) {bottomPadding = 'large'}
+      if (isLast) {
+        bottomPadding = 'large'
+      }
 
-      if (paddingExceptions.includes(block.blockType)) {bottomPadding = 'large'}
+      if (paddingExceptions.includes(block.blockType)) {
+        bottomPadding = 'large'
+      }
 
-      if (previousBlock?.blockType === 'hoverHighlights') {topPadding = 'large'}
+      if (previousBlock?.blockType === 'hoverHighlights') {
+        topPadding = 'large'
+      }
 
-      if (nextBlock?.blockType === 'hoverHighlights') {bottomPadding = 'large'}
+      if (nextBlock?.blockType === 'hoverHighlights') {
+        bottomPadding = 'large'
+      }
 
       return {
         bottom: bottomPadding ?? undefined,
@@ -180,7 +190,9 @@ export const RenderBlocks: React.FC<Props> = props => {
   )
 
   React.useEffect(() => {
-    if (docRef.current?.offsetWidth === undefined) {return}
+    if (docRef.current?.offsetWidth === undefined) {
+      return
+    }
     setDocPadding(layout === 'post' ? Math.round(docRef.current?.offsetWidth / 8) - 2 : 0)
   }, [docRef.current?.offsetWidth, layout])
 

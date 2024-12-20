@@ -28,9 +28,9 @@ type SelectProps = {
   value?: string | string[]
 } & FieldProps<string | string[]>
 
-export const Select: React.FC<
-  { selectType?: 'country' | 'normal' | 'state' } & SelectProps
-> = props => {
+export const Select: React.FC<{ selectType?: 'country' | 'normal' | 'state' } & SelectProps> = (
+  props,
+) => {
   const {
     className,
     components,
@@ -81,11 +81,11 @@ export const Select: React.FC<
       }
 
       const isValid = Array.isArray(fieldValue)
-        ? fieldValue.every(v =>
-            options.find(item => item.value === (typeof v === 'string' ? v : v?.value)),
-          )  
+        ? fieldValue.every((v) =>
+            options.find((item) => item.value === (typeof v === 'string' ? v : v?.value)),
+          )
         : options.find(
-            item =>
+            (item) =>
               item.value === (typeof fieldValue === 'string' ? fieldValue : fieldValue?.value),
           )
 
@@ -111,19 +111,19 @@ export const Select: React.FC<
 
     if (initialValue && Array.isArray(initialValue)) {
       const matchedOption =
-        options?.filter(item => {
+        options?.filter((item) => {
           // `item.value` could be string or array, i.e. `isMulti`
           if (Array.isArray(item.value)) {
-            return item.value.find(x => initialValue.find(y => y === x))
+            return item.value.find((x) => initialValue.find((y) => y === x))
           }
 
-          return initialValue.find(x => x === item.value)
+          return initialValue.find((x) => x === item.value)
         }) || []
 
       return matchedOption
     }
 
-    return options?.find(item => item.value === initialValue) || undefined
+    return options?.find((item) => item.value === initialValue) || undefined
   })
 
   const setFormattedValue = useCallback(
@@ -137,8 +137,8 @@ export const Select: React.FC<
 
       if (incomingSelection && internalState) {
         if (Array.isArray(incomingSelection) && Array.isArray(internalState)) {
-          const internalValues = internalState.map(item => item.value)
-          differences = incomingSelection.filter(x => internalValues.includes(x))
+          const internalValues = internalState.map((item) => item.value)
+          differences = incomingSelection.filter((x) => internalValues.includes(x))
           isDifferent = differences.length > 0
         }
 
@@ -160,11 +160,12 @@ export const Select: React.FC<
         let newValue: Option | Option[] | undefined = undefined
 
         if (Array.isArray(incomingSelection)) {
-          newValue = options?.filter(item => incomingSelection.find(x => x === item.value)) || []
+          newValue =
+            options?.filter((item) => incomingSelection.find((x) => x === item.value)) || []
         }
 
         if (typeof incomingSelection === 'string') {
-          newValue = options?.find(item => item.value === incomingSelection) || undefined
+          newValue = options?.find((item) => item.value === incomingSelection) || undefined
         }
 
         setInternalState(newValue)
@@ -190,7 +191,7 @@ export const Select: React.FC<
       let selectedOption
 
       if (Array.isArray(incomingSelection)) {
-        selectedOption = incomingSelection.map(item => item.value)
+        selectedOption = incomingSelection.map((item) => item.value)
       } else {
         selectedOption = incomingSelection.value
       }

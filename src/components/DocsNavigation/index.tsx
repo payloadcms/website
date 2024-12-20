@@ -6,7 +6,7 @@ import { VersionSelector } from '@root/components/VersionSelector/index.js'
 import { ChevronIcon } from '@root/icons/ChevronIcon/index.js'
 import { CloseIcon } from '@root/icons/CloseIcon/index.js'
 import Link from 'next/link'
-import React, { Fragment , useEffect, useRef, useState } from 'react'
+import React, { Fragment, useEffect, useRef, useState } from 'react'
 
 import type { TopicGroup } from '../../app/(frontend)/(pages)/docs/api'
 
@@ -97,7 +97,7 @@ export const DocsNavigation = ({
         setOpenTopicPreferences(newState)
         window.localStorage.setItem(openTopicsLocalStorageKey, JSON.stringify(newState))
       }
-      setCurrentTopicIsOpen(state => !state)
+      setCurrentTopicIsOpen((state) => !state)
     } else {
       const newState = [...(openTopicPreferences || [])]
 
@@ -142,7 +142,7 @@ export const DocsNavigation = ({
           )}
           <Accordion.Root
             defaultValue={[...openTopicPreferences, currentTopic]}
-            onValueChange={value =>
+            onValueChange={(value) =>
               window.localStorage.setItem(openTopicsLocalStorageKey, JSON.stringify(value))
             }
             type="multiple"
@@ -163,7 +163,7 @@ export const DocsNavigation = ({
                             .join(' ')}
                           onClick={() => handleMenuItemClick(topic.slug.toLowerCase())}
                           onMouseEnter={() => handleIndicator(`${groupIndex}-${index}`)}
-                          ref={ref => {
+                          ref={(ref) => {
                             topicRefs.current[`${groupIndex}-${index}`] = ref
                           }}
                         >
@@ -194,7 +194,7 @@ export const DocsNavigation = ({
                                         .filter(Boolean)
                                         .join(' ')}
                                       onMouseEnter={() => handleIndicator(nestedIndex)}
-                                      ref={ref => {
+                                      ref={(ref) => {
                                         topicRefs.current[nestedIndex] = ref
                                       }}
                                     >
@@ -223,7 +223,7 @@ export const DocsNavigation = ({
           <Portal.Root className={classes.mobileNav}>
             <button
               className={classes.mobileNavButton}
-              onClick={() => setNavOpen(open => !open)}
+              onClick={() => setNavOpen((open) => !open)}
               type="button"
             >
               Documentation

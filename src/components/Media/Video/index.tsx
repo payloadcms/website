@@ -6,7 +6,7 @@ import type { Props } from '../types.js'
 
 import classes from './index.module.scss'
 
-export const Video: React.FC<Props> = props => {
+export const Video: React.FC<Props> = (props) => {
   const { onClick, resource, videoClassName } = props
 
   const videoRef = useRef<HTMLVideoElement>(null)

@@ -4,7 +4,7 @@ import type { IconProps } from '../types.js'
 
 import classes from '../index.module.scss'
 
-export const GradientBorderIcon: React.FC<IconProps> = props => {
+export const GradientBorderIcon: React.FC<IconProps> = (props) => {
   const { className, size, style } = props
 
   return (

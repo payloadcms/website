@@ -45,7 +45,7 @@ export const ProjectFileStoragePage: React.FC<{
           'Content-Type': 'application/json',
         },
       },
-    ).then(res => res.json())
+    ).then((res) => res.json())
 
     return value
   }, [project?.id])

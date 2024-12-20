@@ -3,7 +3,7 @@ import { components } from 'react-select'
 
 import classes from './index.module.scss'
 
-export const MenuList: React.FC<any> = props => {
+export const MenuList: React.FC<any> = (props) => {
   const { children, href, openPopupWindow } = props
 
   return (

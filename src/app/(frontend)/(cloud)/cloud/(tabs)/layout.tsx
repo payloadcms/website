@@ -3,7 +3,7 @@ import { cloudSlug } from '@cloud/slug.js'
 import { Gutter } from '@components/Gutter/index.js'
 import { Fragment } from 'react'
 
-export default async props => {
+export default async (props) => {
   const { children } = props
 
   return (

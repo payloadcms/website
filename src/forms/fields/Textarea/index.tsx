@@ -16,7 +16,7 @@ export const Textarea: React.FC<
     elementAttributes?: React.InputHTMLAttributes<HTMLTextAreaElement>
     rows?: number
   } & FieldProps<string>
-> = props => {
+> = (props) => {
   const {
     className,
     copy,
@@ -72,7 +72,7 @@ export const Textarea: React.FC<
         className={classes.textarea}
         id={path}
         name={path}
-        onChange={e => {
+        onChange={(e) => {
           onChange(e.target.value)
         }}
         placeholder={placeholder}

@@ -15,15 +15,19 @@ import { Suspense } from 'react'
 import classes from './index.module.scss'
 
 export const ContributionTable = async ({ contributions }: ContributionTableProps) => {
-  if (!contributions || !contributions.length) {return null}
+  if (!contributions || !contributions.length) {
+    return null
+  }
 
   return (
     <Suspense>
       <div className={classes.contributionList}>
-        {contributions.map(async contribution => {
+        {contributions.map(async (contribution) => {
           const { type, number, repo } = contribution
           const { title, url } = await getContribution(type, number, repo)
-          if (!title || !url) {return null}
+          if (!title || !url) {
+            return null
+          }
           return (
             <Link className={classes.contribution} href={url} key={number} target="_blank">
               <span className={classes.number}>#{number}</span>

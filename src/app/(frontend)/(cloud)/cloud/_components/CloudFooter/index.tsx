@@ -29,7 +29,9 @@ export const CloudFooter = () => {
       const implicitPreference = getImplicitPreference() ?? 'light'
       setHeaderTheme(implicitPreference)
       setTheme(implicitPreference)
-      if (selectRef.current) {selectRef.current.value = 'auto'}
+      if (selectRef.current) {
+        selectRef.current.value = 'auto'
+      }
     } else {
       setTheme(themeToSet)
       setHeaderTheme(themeToSet)
@@ -59,7 +61,7 @@ export const CloudFooter = () => {
 
           <select
             id={themeId}
-            onChange={e => onThemeChange(e.target.value as 'auto' & Theme)}
+            onChange={(e) => onThemeChange(e.target.value as 'auto' & Theme)}
             ref={selectRef}
           >
             <option value="auto">Auto</option>

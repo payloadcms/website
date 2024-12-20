@@ -36,8 +36,7 @@
   }
 }
 
-
-[data-theme=dark] {
+[data-theme='dark'] {
   .defaultCard {
     &:hover {
       background-color: var(--color-base-850);

@@ -46,15 +46,19 @@ export const SimpleLogs: React.FC<Props> = ({ logs }) => {
   const pinnedScroll = React.useRef(true)
 
   const scrollToBottom = React.useCallback(() => {
-    if (!scrollContainer.current || !pinnedScroll.current) {return}
+    if (!scrollContainer.current || !pinnedScroll.current) {
+      return
+    }
     scrollContainer.current.scrollTop = scrollContainer.current.scrollHeight
   }, [])
 
   React.useEffect(() => {
-    if (!scrollContainer.current || !scrollContent.current) {return}
+    if (!scrollContainer.current || !scrollContent.current) {
+      return
+    }
 
     const observer = new MutationObserver((mutationsList, observer) => {
-      const containerHeightChanged = mutationsList.some(mutation => {
+      const containerHeightChanged = mutationsList.some((mutation) => {
         return mutation.type === 'childList' && mutation.target === scrollContent.current
       })
 
@@ -67,9 +71,11 @@ export const SimpleLogs: React.FC<Props> = ({ logs }) => {
   }, [scrollToBottom])
 
   React.useEffect(() => {
-    if (!scrollContainer.current) {return}
+    if (!scrollContainer.current) {
+      return
+    }
 
-    const onScroll = e => {
+    const onScroll = (e) => {
       const scrollBottom = e.target.scrollTop + e.target.clientHeight
       const scrollHeight = Math.ceil(e.target.scrollHeight - 1)
 
@@ -171,7 +177,7 @@ export function styleLogLine(logLine: string): LogLine {
 
 export function styleLogs(logData: string): LogLine[] {
   const logLines: string[] = logData.split('\n')
-  const styledLogs = logLines?.map(line => styleLogLine(line))
+  const styledLogs = logLines?.map((line) => styleLogLine(line))
 
   return styledLogs
 }

@@ -1,4 +1,4 @@
-import type { Props as BannerProps } from '@components/Banner/index.js';
+import type { Props as BannerProps } from '@components/Banner/index.js'
 import type { ReusableContent } from '@root/payload-types.js'
 
 import { Banner } from '@components/Banner/index.js'

@@ -46,7 +46,7 @@ export const CaseStudies: CollectionConfig = {
     livePreview: {
       url: ({ data }) => formatPreviewURL('case-studies', data),
     },
-    preview: doc => formatPreviewURL('case-studies', doc),
+    preview: (doc) => formatPreviewURL('case-studies', doc),
     useAsTitle: 'title',
   },
   defaultPopulate: {

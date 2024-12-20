@@ -8,7 +8,7 @@ import { draftMode } from 'next/headers.js'
 import { notFound } from 'next/navigation'
 import React from 'react'
 
-import type { Messages } from './client_page.js';
+import type { Messages } from './client_page.js'
 
 import { DiscordThreadPage } from './client_page.js'
 
@@ -63,7 +63,9 @@ const Thread = async ({ params }) => {
   // This is a temporary fix to still show the page even if the thread is not marked as helpful
 
   // if (!thread || !thread.helpful) return notFound()
-  if (!thread) {return notFound()}
+  if (!thread) {
+    return notFound()
+  }
 
   if (!isThreadData(thread)) {
     throw new Error('Unexpected thread data')
@@ -75,7 +77,9 @@ const Thread = async ({ params }) => {
 export default Thread
 
 export async function generateStaticParams() {
-  if (process.env.NEXT_PUBLIC_SKIP_BUILD_HELPS) {return []}
+  if (process.env.NEXT_PUBLIC_SKIP_BUILD_HELPS) {
+    return []
+  }
 
   try {
     const getDiscordThreads = unstable_cache(fetchCommunityHelps, ['discord-threads'])

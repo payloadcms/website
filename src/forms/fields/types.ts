@@ -9,7 +9,7 @@ export interface FieldProps<T> {
   initialValue?: T
   label?: React.ReactNode | string
   name?: string
-  onChange?: (value: T) => void  
+  onChange?: (value: T) => void
   onClick?: () => void
   path?: string
   placeholder?: string

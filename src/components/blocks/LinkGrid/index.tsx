@@ -1,6 +1,6 @@
 'use client'
 
-import type { PaddingProps } from '@components/BlockWrapper/index.js';
+import type { PaddingProps } from '@components/BlockWrapper/index.js'
 import type { Page } from '@root/payload-types.js'
 
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
@@ -23,7 +23,7 @@ type Fields = Exclude<LinkGridProps['linkGridFields'], undefined>
 
 type Props = Exclude<Fields['links'], null | undefined>[number]['link']
 
-const LinkGridItem: React.FC<Props> = props => {
+const LinkGridItem: React.FC<Props> = (props) => {
   return (
     <CMSLink {...props} className={classes.link}>
       <ArrowIcon className={classes.arrow} size="large" />
@@ -35,7 +35,7 @@ export const LinkGrid: React.FC<
   {
     className?: string
   } & LinkGridProps
-> = props => {
+> = (props) => {
   const { className, hideBackground, linkGridFields, padding } = props
 
   const links = linkGridFields?.links

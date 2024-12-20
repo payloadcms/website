@@ -10,11 +10,11 @@ export const LargeRadio: React.FC<{
   id: string
   label: React.ReactNode | string
   name?: string
-  onChange?: (value?: any) => void  
+  onChange?: (value?: any) => void
   pillLabel?: string
   price?: string
   value: any
-}> = props => {
+}> = (props) => {
   const { id, name, checked, disabled, label, onChange, pillLabel, price, value } = props
 
   return (

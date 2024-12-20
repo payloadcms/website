@@ -80,9 +80,13 @@ export const Login: React.FC = () => {
     [login],
   )
 
-  if (user === undefined) {return null}
+  if (user === undefined) {
+    return null
+  }
 
-  if (user) {redirect(redirectTo)}
+  if (user) {
+    redirect(redirectTo)
+  }
 
   return (
     <Gutter>

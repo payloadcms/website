@@ -8,7 +8,7 @@ export interface InstallationSelectorProps {
   hideLabel?: boolean
   installs?: Install[]
   loading?: boolean
-  onChange?: (value?: Install) => void  
+  onChange?: (value?: Install) => void
   onInstall?: () => void
   uuid: string
   value?: Install['id']

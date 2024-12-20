@@ -1,6 +1,6 @@
 'use client'
 
-import type { Install } from '@cloud/_api/fetchInstalls.js';
+import type { Install } from '@cloud/_api/fetchInstalls.js'
 import type { RepoResults } from '@cloud/_api/fetchRepos.js'
 import type { Team } from '@root/payload-cloud-types.js'
 
@@ -30,7 +30,7 @@ export const ImportProject: React.FC<{
   repos?: RepoResults
   user: any
   uuid: string
-}> = props => {
+}> = (props) => {
   const { installs: initialInstalls, repos: initialRepos, user, uuid } = props
   const searchParams = useSearchParams()
   const teamParam = searchParams?.get('team')
@@ -38,7 +38,7 @@ export const ImportProject: React.FC<{
   const submitButtonRef = React.useRef<HTMLButtonElement | null>(null)
   const formRef = React.useRef<HTMLFormElement | null>(null)
   const [hoverIndex, setHoverIndex] = React.useState<number | undefined>(undefined)
-  const [repoReloadTicker, reloadRepos] = useReducer(count => count + 1, 0)
+  const [repoReloadTicker, reloadRepos] = useReducer((count) => count + 1, 0)
 
   const [installs, setInstalls] = React.useState<Install[]>(initialInstalls || [])
 
@@ -66,7 +66,7 @@ export const ImportProject: React.FC<{
 
   const matchedTeam = user?.teams?.find(
     ({ team }) => typeof team !== 'string' && team?.slug === teamParam,
-  )?.team as Team  
+  )?.team as Team
 
   const onDraftProjectCreate = useCallback(
     ({ slug: draftProjectSlug, team }) =>
@@ -81,7 +81,7 @@ export const ImportProject: React.FC<{
   const handleSubmit = useCallback(
     async ({ unflattenedData }) => {
       const foundRepo = results?.repositories?.find(
-        repo => repo.name === unflattenedData.repositoryName,
+        (repo) => repo.name === unflattenedData.repositoryName,
       )
 
       if (!foundRepo) {
@@ -187,7 +187,7 @@ export const ImportProject: React.FC<{
                           isHovered={isHovered}
                           isLoading={loadingRepos}
                           key={index}
-                          onClick={async repo => {
+                          onClick={async (repo) => {
                             try {
                               await createDraftProject({
                                 installID: selectedInstall?.id,

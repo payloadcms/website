@@ -57,7 +57,7 @@ export const syncToAlgolia = async (): Promise<void> => {
   const discordDocs: DiscordDoc[] = []
   const githubDocs: GithubDoc[] = []
 
-  docs.forEach(doc => {
+  docs.forEach((doc) => {
     const { communityHelpJSON, discordID, githubID, helpful } = doc
 
     if (discordID) {
@@ -69,7 +69,7 @@ export const syncToAlgolia = async (): Promise<void> => {
         createdAt: info.createdAt,
         helpful: helpful ?? false,
         messageCount,
-        messages: messages.map(message => {
+        messages: messages.map((message) => {
           return {
             author: message.authorName,
             content: message.content,
@@ -88,8 +88,8 @@ export const syncToAlgolia = async (): Promise<void> => {
         name: title,
         slug,
         author: author.name,
-        comments: (comments || []).map(comment => {
-          const replies = comment.replies?.map(reply => {
+        comments: (comments || []).map((comment) => {
+          const replies = comment.replies?.map((reply) => {
             return {
               author: reply.author.name,
               content: reply.body,

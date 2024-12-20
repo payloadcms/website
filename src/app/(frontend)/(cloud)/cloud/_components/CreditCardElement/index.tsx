@@ -13,7 +13,7 @@ export const CreditCardElement: React.FC<{
   const { theme } = useThemePreference()
   const [style, setStyle] = useState<{ style: Record<string, unknown> }>()
 
-  const handleChange = useCallback(async event => {
+  const handleChange = useCallback(async (event) => {
     // listen for changes in the `CardElement` and display any errors as they occur
     // prevent this from firing when the input is empty so the error does not show when first focusing the input
     setDisableChangeHandler(event.empty)
@@ -74,11 +74,15 @@ export const CreditCardElement: React.FC<{
       <StripeCardElement
         className={classes.element}
         id="card-element"
-        onChange={e => {
+        onChange={(e) => {
           // `onChange` here acts more like `onError` where it does not fire when the value changes
           // instead, it only fires when Stripe revalidates the field, i.e. on focus, blur, complete, submit, etc
-          if (!disableChangeHandler) {handleChange(e)}
-          if (typeof onChange === 'function') {onChange(e)}
+          if (!disableChangeHandler) {
+            handleChange(e)
+          }
+          if (typeof onChange === 'function') {
+            onChange(e)
+          }
         }}
         options={style}
       />

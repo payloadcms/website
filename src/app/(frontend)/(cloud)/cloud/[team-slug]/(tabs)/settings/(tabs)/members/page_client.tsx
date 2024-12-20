@@ -1,7 +1,7 @@
 'use client'
 
 import type { TeamWithCustomer } from '@cloud/_api/fetchTeam.js'
-import type { Member} from '@cloud/_components/TeamMembers/index.js';
+import type { Member } from '@cloud/_components/TeamMembers/index.js'
 import type { OnSubmit } from '@forms/types.js'
 import type { Team } from '@root/payload-cloud-types.js'
 
@@ -41,8 +41,8 @@ export const TeamMembersPage: React.FC<{
   const [selectedMember, setSelectedMember] = React.useState<Member | null>(null)
 
   const [roles, setRoles] = React.useState<('admin' | 'owner' | 'user')[][]>(
-    (team?.members ?? []).map(member => member.roles ?? []),
-  )  
+    (team?.members ?? []).map((member) => member.roles ?? []),
+  )
 
   const [error, setError] = React.useState<{
     data: { field: string; message: string }[]
@@ -104,7 +104,7 @@ export const TeamMembersPage: React.FC<{
 
       const updatedTeam: Partial<Team> = {
         ...(unflattenedData || {}),
-        sendEmailInvitationsTo: unflattenedData?.sendEmailInvitationsTo?.map(invite => ({
+        sendEmailInvitationsTo: unflattenedData?.sendEmailInvitationsTo?.map((invite) => ({
           email: invite?.email,
           roles: invite?.roles,
         })),
@@ -143,7 +143,7 @@ export const TeamMembersPage: React.FC<{
         ...response.doc,
         invitations: [
           ...(team?.invitations || []),
-          ...(response.doc?.sendEmailInvitationsTo?.map(invite => ({
+          ...(response.doc?.sendEmailInvitationsTo?.map((invite) => ({
             email: invite?.email,
             invitedOn: new Date().toISOString(),
             roles: invite?.roles,
@@ -205,7 +205,7 @@ export const TeamMembersPage: React.FC<{
             memberIndex={selectedMemberIndex}
             modalSlug="updateRoles"
             newRoles={selectedNewRoles}
-            onRolesUpdated={newRoles => {
+            onRolesUpdated={(newRoles) => {
               const newRolesArray = [...roles]
               newRolesArray[selectedMemberIndex!] = newRoles
               setRoles(newRolesArray)

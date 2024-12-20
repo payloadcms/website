@@ -15,14 +15,18 @@ export const useGetHeroPadding = (
   const [themeState, setThemeState] = useState<Theme>()
 
   useEffect(() => {
-    if (themeFromContext) {setThemeState(themeFromContext)}
+    if (themeFromContext) {
+      setThemeState(themeFromContext)
+    }
   }, [themeFromContext])
 
   const padding = useMemo((): PaddingProps => {
     const topPadding: PaddingProps['top'] = 'hero'
     let bottomPadding: PaddingProps['bottom'] = 'large'
 
-    if (!block) {return { bottom: bottomPadding, top: topPadding }}
+    if (!block) {
+      return { bottom: bottomPadding, top: topPadding }
+    }
 
     const blockKey = getFieldsKeyFromBlock(block)
     const blockSettings: Settings = block[blockKey]?.settings

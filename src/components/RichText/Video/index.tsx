@@ -7,7 +7,7 @@ import { YouTubePlayer } from './YouTube/index.js'
 export const Video: React.FC<{
   id?: string
   platform?: 'vimeo' | 'youtube'
-}> = props => {
+}> = (props) => {
   const { id, platform = 'vimeo' } = props
 
   return (

@@ -39,7 +39,7 @@
   position: relative;
 
   &:before {
-    content: "";
+    content: '';
     position: absolute;
     background-color: var(--theme-blue-50);
     top: 0;
@@ -110,7 +110,7 @@
   top: unset;
 }
 
-:global([data-theme="light"]) {
+:global([data-theme='light']) {
   .answer {
     background-color: var(--theme-blue-50);
     border-color: var(--theme-elevation-100);

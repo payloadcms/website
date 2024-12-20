@@ -1,50 +1,50 @@
 @use '@scss/common.scss' as *;
 
 .buttonWrap {
-    display: flex;
-    gap: 1rem;
+  display: flex;
+  gap: 1rem;
 }
 
 .form {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .description {
-    margin: 1rem 0;
+  margin: 1rem 0;
 }
 
 .password {
-    @include label;
+  @include label;
 }
 
 .viewButton {
-    background-color: transparent;
-    border: 0;
-    cursor: pointer;
-    outline: none;
-    padding: 0;
-    line-height: inherit;
-    font-size: inherit;
-    font-family: inherit;
-    color: var(--theme-blue-500);
-    text-decoration: underline;
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  line-height: inherit;
+  font-size: inherit;
+  font-family: inherit;
+  color: var(--theme-blue-500);
+  text-decoration: underline;
 }
 
 .error {
-    color: var(--theme-error-500);
+  color: var(--theme-error-500);
 }
 
 .success {
-    color: var(--theme-success-500);
+  color: var(--theme-success-500);
 }
 
 .form {
-    & > * {
-        margin-bottom: 1rem;
-    }
+  & > * {
+    margin-bottom: 1rem;
+  }
 
-    & > *:last-child {
-        margin-bottom: 0;
-    }
+  & > *:last-child {
+    margin-bottom: 0;
+  }
 }

@@ -24,7 +24,9 @@ export interface Customer {
 export const fetchTeams = async (teamIDs: string[]): Promise<Team[]> => {
   const { cookies } = await import('next/headers')
   const token = (await cookies()).get(payloadCloudToken)?.value ?? null
-  if (!token) {throw new Error('No token provided')}
+  if (!token) {
+    throw new Error('No token provided')
+  }
 
   const res: Team[] = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql`, {
     body: JSON.stringify({
@@ -42,9 +44,11 @@ export const fetchTeams = async (teamIDs: string[]): Promise<Team[]> => {
     method: 'POST',
     next: { tags: ['teams'] },
   })
-    ?.then(r => r.json())
-    ?.then(data => {
-      if (data.errors) {throw new Error(data?.errors?.[0]?.message ?? 'Error fetching doc')}
+    ?.then((r) => r.json())
+    ?.then((data) => {
+      if (data.errors) {
+        throw new Error(data?.errors?.[0]?.message ?? 'Error fetching doc')
+      }
       return data?.data?.Teams?.docs
     })
 
@@ -54,7 +58,9 @@ export const fetchTeams = async (teamIDs: string[]): Promise<Team[]> => {
 export const fetchTeam = async (teamSlug?: string): Promise<Team> => {
   const { cookies } = await import('next/headers')
   const token = (await cookies()).get(payloadCloudToken)?.value ?? null
-  if (!token) {throw new Error('No token provided')}
+  if (!token) {
+    throw new Error('No token provided')
+  }
 
   const doc: Team = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql`, {
     body: JSON.stringify({
@@ -69,9 +75,11 @@ export const fetchTeam = async (teamSlug?: string): Promise<Team> => {
     },
     method: 'POST',
   })
-    ?.then(res => res.json())
-    ?.then(res => {
-      if (res.errors) {throw new Error(res?.errors?.[0]?.message ?? 'Error fetching doc')}
+    ?.then((res) => res.json())
+    ?.then((res) => {
+      if (res.errors) {
+        throw new Error(res?.errors?.[0]?.message ?? 'Error fetching doc')
+      }
       return res?.data?.Teams?.docs?.[0]
     })
 
@@ -94,7 +102,7 @@ export const fetchTeamClient = async (slug: string): Promise<Team> => {
       },
       method: 'POST',
     },
-  ).then(res => {
+  ).then((res) => {
     return res.json()
   })
 
@@ -104,9 +112,13 @@ export const fetchTeamClient = async (slug: string): Promise<Team> => {
 export const fetchTeamWithCustomer = async (slug?: string): Promise<TeamWithCustomer> => {
   const { cookies } = await import('next/headers')
   const token = (await cookies()).get(payloadCloudToken)?.value ?? null
-  if (!token) {throw new Error('No token provided')}
+  if (!token) {
+    throw new Error('No token provided')
+  }
 
-  if (!slug) {throw new Error('No slug provided')}
+  if (!slug) {
+    throw new Error('No slug provided')
+  }
 
   const data = await fetch(
     `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/teams/${slug}/with-customer`,
@@ -119,12 +131,16 @@ export const fetchTeamWithCustomer = async (slug?: string): Promise<TeamWithCust
       next: { tags: [`team_${slug}`] },
     },
   )
-    ?.then(res => {
-      if (!res.ok) {throw new Error(`Error getting team with customer: ${res.statusText}`)}
+    ?.then((res) => {
+      if (!res.ok) {
+        throw new Error(`Error getting team with customer: ${res.statusText}`)
+      }
       return res.json()
     })
-    ?.then(res => {
-      if (res.errors) {throw new Error(res?.errors?.[0]?.message ?? 'Error fetching docs')}
+    ?.then((res) => {
+      if (res.errors) {
+        throw new Error(res?.errors?.[0]?.message ?? 'Error fetching docs')
+      }
       return res
     })
 

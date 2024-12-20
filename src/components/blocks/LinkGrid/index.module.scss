@@ -1,4 +1,4 @@
-@use "@scss/common" as *;
+@use '@scss/common' as *;
 
 .linkGrid {
   position: relative;
@@ -28,7 +28,7 @@
     padding: 3rem 1.5rem;
     background-color: var(--theme-elevation-0);
     border-bottom: 1px solid var(--grid-line-dark);
-    transition: padding-left 0.3s cubic-bezier(.165, 0.84, 0.44, 1);
+    transition: padding-left 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
   }
 
   @include data-theme-selector('light') {
@@ -47,7 +47,7 @@
     width: 0px;
     height: 2px;
     background-color: var(--theme-elevation-1000);
-    transition: width 0.6s cubic-bezier(.165, 0.84, 0.44, 1);
+    transition: width 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
   }
 
   &:hover {
@@ -64,10 +64,10 @@
 }
 
 .arrow {
-  transform: translate(-.5rem, 0.5rem);
-  transition: transform 0.3s cubic-bezier(.165, 0.84, 0.44, 1);
+  transform: translate(-0.5rem, 0.5rem);
+  transition: transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
 
   @include mid-break {
-    transform: scale(.75);
+    transform: scale(0.75);
   }
 }

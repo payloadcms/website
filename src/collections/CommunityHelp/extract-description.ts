@@ -1,5 +1,7 @@
 export const extractDescription = (string: string): string => {
-  if (!string) {return ''}
+  if (!string) {
+    return ''
+  }
 
   let cleanedString = string.replace(/<[^>]+(>|$)/g, '')
 

@@ -35,7 +35,9 @@ export const useSubscriptions = (args: {
     async (successMessage?: string, starting_after?: string) => {
       let timer: NodeJS.Timeout
 
-      if (isRequesting.current) {return}
+      if (isRequesting.current) {
+        return
+      }
 
       isRequesting.current = true
 
@@ -66,7 +68,6 @@ export const useSubscriptions = (args: {
 
       isRequesting.current = false
 
-       
       return () => {
         clearTimeout(timer)
       }
@@ -92,7 +93,9 @@ export const useSubscriptions = (args: {
         return
       }
 
-      if (isUpdating.current) {return}
+      if (isUpdating.current) {
+        return
+      }
 
       isUpdating.current = true
 
@@ -137,7 +140,9 @@ export const useSubscriptions = (args: {
         return
       }
 
-      if (isDeleting.current) {return}
+      if (isDeleting.current) {
+        return
+      }
 
       isDeleting.current = true
 

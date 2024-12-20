@@ -1,6 +1,6 @@
 'use client'
 
-import type { CMSLinkType } from '@components/CMSLink/index.js';
+import type { CMSLinkType } from '@components/CMSLink/index.js'
 
 import { Button } from '@components/Button/index.js'
 import { CMSLink } from '@components/CMSLink/index.js'
@@ -13,13 +13,13 @@ export const Highlights: React.FC<{
   beforeHighlights?: null | string
   button?: CMSLinkType | null
   children: React.ReactNode | React.ReactNode[]
-}> = props => {
+}> = (props) => {
   const [active, setActive] = useState(0)
 
   const { afterHighlights, beforeHighlights, button, children } = props
 
   // get index of child on hover
-  const handleHover = index => {
+  const handleHover = (index) => {
     setActive(index)
   }
 

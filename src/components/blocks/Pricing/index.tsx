@@ -1,4 +1,4 @@
-import type { PaddingProps } from '@components/BlockWrapper/index.js';
+import type { PaddingProps } from '@components/BlockWrapper/index.js'
 import type { Page } from '@root/payload-types.js'
 
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
@@ -28,7 +28,7 @@ export const Pricing: React.FC<Props> = ({ hideBackground, padding, pricingField
   const [toggledPlan, setToggledPlan] = React.useState('')
   const hasPlans = Array.isArray(plans) && plans.length > 0
 
-  const featureList = features => {
+  const featureList = (features) => {
     return (
       <ul className={classes.features}>
         {features.map((item, index) => {

@@ -16,7 +16,7 @@ export type HoverHighlightProps = {
   hideBackground?: boolean
 } & Extract<Page['layout'][0], { blockType: 'hoverHighlights' }>
 
-export const HoverHighlights: React.FC<HoverHighlightProps> = props => {
+export const HoverHighlights: React.FC<HoverHighlightProps> = (props) => {
   const { hideBackground, hoverHighlightsFields } = props
   const { afterHighlights, beforeHighlights, highlights, link, settings } =
     hoverHighlightsFields || {}

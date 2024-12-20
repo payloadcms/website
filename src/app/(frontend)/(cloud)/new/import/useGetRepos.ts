@@ -40,7 +40,9 @@ export const useGetRepos = (props: {
   useEffect(() => {
     // keep a timer reference so that we can cancel the old request
     // this is if the old request takes longer than the debounce time
-    if (requestRef.current) {clearTimeout(requestRef.current)}
+    if (requestRef.current) {
+      clearTimeout(requestRef.current)
+    }
 
     let pageToUse = page
 
@@ -48,14 +50,20 @@ export const useGetRepos = (props: {
     // so we keep track of the previous props and compare their values
     // I know this is disgusting, but it works
     const scopeChanged = prevSelectedInstall.current !== selectedInstall?.id
-    if (scopeChanged) {prevSelectedInstall.current = selectedInstall?.id}
+    if (scopeChanged) {
+      prevSelectedInstall.current = selectedInstall?.id
+    }
     const pageChanged = prevPage.current !== page
-    if (pageChanged) {prevPage.current = page}
+    if (pageChanged) {
+      prevPage.current = page
+    }
     const reloadChanged =
       typeof reloadTicker === 'number' &&
       reloadTicker <= 0 &&
       prevReloadTicker.current !== reloadTicker
-    if (reloadChanged) {prevReloadTicker.current = reloadTicker}
+    if (reloadChanged) {
+      prevReloadTicker.current = reloadTicker
+    }
 
     if (user && selectedInstall && (scopeChanged || pageChanged || reloadChanged)) {
       // scroll to the top of the page while the results are updating
@@ -110,7 +118,9 @@ export const useGetRepos = (props: {
     }
 
     return () => {
-      if (requestRef.current) {clearTimeout(requestRef.current)}
+      if (requestRef.current) {
+        clearTimeout(requestRef.current)
+      }
     }
   }, [user, selectedInstall, delay, perPage, page, reloadTicker])
 

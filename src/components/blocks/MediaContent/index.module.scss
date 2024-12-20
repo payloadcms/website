@@ -1,15 +1,16 @@
 @use '@scss/common' as *;
 
-
 .media {
-  img, video {
+  img,
+  video {
     width: 100%;
   }
 
   @include mid-break {
     margin-inline: calc(-1 * var(--gutter-h));
     grid-row: 1;
-    img, video {
+    img,
+    video {
       max-width: initial;
     }
   }

@@ -41,7 +41,7 @@ export const LogoShowcase: React.FC<Props> = ({ logos }) => {
   useEffect(() => {
     if (logos) {
       const occupiedPositions: number[] = []
-      const initialPositions = logos.map(logo => {
+      const initialPositions = logos.map((logo) => {
         const position = getRandomPosition(occupiedPositions)
         occupiedPositions.push(position)
         return { isVisible: true, logo, position }
@@ -51,21 +51,22 @@ export const LogoShowcase: React.FC<Props> = ({ logos }) => {
   }, [logos])
 
   useEffect(() => {
-    if (!logos || logos.length === 0 || logos.length > TOTAL_CELLS) {return}
+    if (!logos || logos.length === 0 || logos.length > TOTAL_CELLS) {
+      return
+    }
 
-     
     const animateLogo = () => {
       const logoIndex =
         currentAnimatingIndex !== null ? (currentAnimatingIndex + 1) % logos.length : 0
       setCurrentAnimatingIndex(logoIndex)
 
-      setLogoPositions(prevPositions =>
+      setLogoPositions((prevPositions) =>
         prevPositions.map((pos, idx) => (idx === logoIndex ? { ...pos, isVisible: false } : pos)),
       )
 
       setTimeout(() => {
-        setLogoPositions(prevPositions => {
-          const occupiedPositions = prevPositions.map(p => p.position)
+        setLogoPositions((prevPositions) => {
+          const occupiedPositions = prevPositions.map((p) => p.position)
           let newPosition
           do {
             newPosition = getRandomPosition(occupiedPositions)
@@ -77,7 +78,7 @@ export const LogoShowcase: React.FC<Props> = ({ logos }) => {
         })
 
         setTimeout(() => {
-          setLogoPositions(prevPositions =>
+          setLogoPositions((prevPositions) =>
             prevPositions.map((pos, idx) =>
               idx === logoIndex ? { ...pos, isVisible: true } : pos,
             ),
@@ -85,7 +86,6 @@ export const LogoShowcase: React.FC<Props> = ({ logos }) => {
         }, 100)
       }, ANIMATION_DURATION + 500)
     }
-     
 
     const interval = setInterval(animateLogo, ANIMATION_DELAY + ANIMATION_DURATION)
     return () => clearInterval(interval)
@@ -116,7 +116,7 @@ export const LogoShowcase: React.FC<Props> = ({ logos }) => {
         className={[classes.horizontalLine, classes.bottomHorizontalLine].filter(Boolean).join(' ')}
       />
       {Array.from({ length: TOTAL_CELLS }).map((_, index) => {
-        const hasLogo = logoPositions.some(item => item.position === index && item.isVisible)
+        const hasLogo = logoPositions.some((item) => item.position === index && item.isVisible)
         // Determine if the current cell is the first or last cell
         const isEdgeCell = index === 0 || index === TOTAL_CELLS - 1
         return (
@@ -131,7 +131,7 @@ export const LogoShowcase: React.FC<Props> = ({ logos }) => {
           >
             <div className={classes.contentWrapper}>
               {logoPositions
-                .filter(item => item.position === index)
+                .filter((item) => item.position === index)
                 .map(({ isVisible, logo }, idx) => (
                   <div
                     key={idx}

@@ -149,7 +149,7 @@ export default async function PartnerPage({ params }: { params: Promise<{ slug: 
                 <CMSForm
                   form={{
                     ...contactForm,
-                    fields: contactForm.fields?.map(field => {
+                    fields: contactForm.fields?.map((field) => {
                       if (field.blockType === 'text' && field.name === 'toName') {
                         return {
                           ...field,
@@ -178,7 +178,7 @@ export default async function PartnerPage({ params }: { params: Promise<{ slug: 
   )
 }
 
-const PartnerDetails = partner => {
+const PartnerDetails = (partner) => {
   const { budgets, city, featured, industries, regions, social, specialties, topContributor } =
     partner
 
@@ -201,7 +201,7 @@ const PartnerDetails = partner => {
         <h6>Region{regions.length === 1 ? '' : 's'}</h6>
         <ul>
           {regions?.map(
-            region => typeof region !== 'string' && <li key={region.id}>{region.name}</li>,
+            (region) => typeof region !== 'string' && <li key={region.id}>{region.name}</li>,
           )}
         </ul>
       </div>
@@ -209,7 +209,8 @@ const PartnerDetails = partner => {
         <h6>Industr{industries.length === 1 ? 'y' : 'ies'}</h6>
         <ul>
           {industries?.map(
-            industry => typeof industry !== 'string' && <li key={industry.id}>{industry.name}</li>,
+            (industry) =>
+              typeof industry !== 'string' && <li key={industry.id}>{industry.name}</li>,
           )}
         </ul>
       </div>
@@ -217,7 +218,7 @@ const PartnerDetails = partner => {
         <h6>Specialt{specialties.length === 1 ? 'y' : 'ies'}</h6>
         <ul>
           {specialties?.map(
-            specialty =>
+            (specialty) =>
               typeof specialty !== 'string' && <li key={specialty.id}>{specialty.name}</li>,
           )}
         </ul>
@@ -233,7 +234,7 @@ const PartnerDetails = partner => {
           <h6>Social</h6>
           <ul className={classes.socialIcons}>
             {social?.map(
-              social =>
+              (social) =>
                 typeof social !== 'string' && (
                   <SocialIcon href={social.url} key={social.id} platform={social.platform} />
                 ),

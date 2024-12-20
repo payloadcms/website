@@ -5,7 +5,7 @@ import React from 'react'
 
 import { CookieClientPage } from './client_page.js'
 
-export default props => {
+export default (props) => {
   return <CookieClientPage {...props} />
 }
 

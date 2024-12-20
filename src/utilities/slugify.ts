@@ -8,7 +8,7 @@ function slugify(string: string): string {
       .toString()
       .toLowerCase()
       .replace(/\s+/g, '-') // Replace spaces with -
-      .replace(p, c => b.charAt(a.indexOf(c))) // Replace special characters
+      .replace(p, (c) => b.charAt(a.indexOf(c))) // Replace special characters
       .replace(/&/g, '-and-') // Replace & with 'and'
       // Remove all non-word characters
       .replace(/[^\w\-]+/g, '') // eslint-disable-line

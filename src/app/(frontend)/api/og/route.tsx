@@ -1,4 +1,4 @@
-import type { NextRequest} from 'next/server';
+import type { NextRequest } from 'next/server'
 
 import { ImageResponse } from 'next/og'
 import { NextResponse } from 'next/server'
@@ -10,15 +10,15 @@ export async function GET(req: NextRequest): Promise<ImageResponse> {
     // Make sure the font exists in the specified path:
     const untitledSansRegularFont = await fetch(
       new URL('../../../../../public/fonts/UntitledSans-Regular.woff', import.meta.url),
-    ).then(res => res.arrayBuffer())
+    ).then((res) => res.arrayBuffer())
 
     const untitledSansMediumFont = await fetch(
       new URL('../../../../../public/fonts/UntitledSans-Medium.woff', import.meta.url),
-    ).then(res => res.arrayBuffer())
+    ).then((res) => res.arrayBuffer())
 
     const robotoFont = await fetch(
       new URL('../../../../../public/fonts/RobotoMono-Regular.woff', import.meta.url),
-    ).then(res => res.arrayBuffer())
+    ).then((res) => res.arrayBuffer())
 
     const { searchParams } = new URL(req.url)
     const untitledSansRegular = await untitledSansRegularFont

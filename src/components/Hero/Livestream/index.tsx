@@ -16,7 +16,7 @@ export const LivestreamHero: React.FC<{
   breadcrumbs?: Page['breadcrumbs']
   links?: Page['hero']['links']
   livestream: NonNullable<Page['hero']['livestream']>
-}> = props => {
+}> = (props) => {
   const {
     breadcrumbs,
     links,

@@ -5,7 +5,7 @@ import classes from './index.module.scss'
 
 export const InstallationButton: React.FC<{
   label?: string
-  onInstall?: (installationId: number) => void  
+  onInstall?: (installationId: number) => void
   uuid: string
 }> = ({ label, onInstall, uuid }) => {
   // this will be validated after the redirect back

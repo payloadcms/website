@@ -58,11 +58,11 @@ const Content: React.FC<ContentProps> = ({ children }) => {
 }
 
 type AccordionProps = {
-    className?: string
-    onToggle?: () => void
-    openOnInit?: boolean
-  } &
-  ContentProps & HeaderProps
+  className?: string
+  onToggle?: () => void
+  openOnInit?: boolean
+} & ContentProps &
+  HeaderProps
 
 export const Accordion: React.FC<AccordionProps> = ({
   children,

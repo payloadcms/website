@@ -24,7 +24,9 @@ const SplitAnimate: React.FC<Props> = ({
   const easing = cubicBezier(0.165, 0.84, 0.44, 1)
 
   const textArray = useMemo(() => {
-    if (text === '') {return []}
+    if (text === '') {
+      return []
+    }
     return text
       .trim()
       .replace('-', '‑')
@@ -41,7 +43,9 @@ const SplitAnimate: React.FC<Props> = ({
         { rotate: 0, y: '0%' },
         { delay: stagger(0.075), duration: 1.125, ease: easing },
       ).then(() => {
-        if (callback) {callback()}
+        if (callback) {
+          callback()
+        }
       })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

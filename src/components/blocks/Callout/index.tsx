@@ -1,4 +1,4 @@
-import type { PaddingProps } from '@components/BlockWrapper/index.js';
+import type { PaddingProps } from '@components/BlockWrapper/index.js'
 import type { Page } from '@root/payload-types.js'
 
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
@@ -21,7 +21,7 @@ export type CalloutProps = {
   padding: PaddingProps
 } & Extract<Page['layout'][0], { blockType: 'callout' }>
 
-export const Callout: React.FC<CalloutProps> = props => {
+export const Callout: React.FC<CalloutProps> = (props) => {
   const {
     calloutFields: { author, images, logo, richText, role, settings },
     hideBackground,

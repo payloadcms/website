@@ -4,7 +4,9 @@ import React from 'react'
 import classes from './index.module.scss'
 
 export const GenerateResponse = ({ res }) => {
-  if (!res) {return null}
+  if (!res) {
+    return null
+  }
 
   if (res.paginated) {
     const paginatedRes = {

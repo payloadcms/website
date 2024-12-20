@@ -21,7 +21,7 @@
   font-weight: inherit;
   line-height: inherit;
 
-  &[aria-expanded="true"] {
+  &[aria-expanded='true'] {
     &:local() {
       .icon-eye {
         svg [data-show] {
@@ -42,7 +42,7 @@
   }
 }
 
-:global([data-theme="dark"]) {
+:global([data-theme='dark']) {
   .toggler {
     background-color: var(--theme-elevation-100);
 

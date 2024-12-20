@@ -63,7 +63,9 @@ export const ForgotPassword: React.FC = () => {
     [setSuccessfullySubmitted],
   )
 
-  if (user === undefined) {return null}
+  if (user === undefined) {
+    return null
+  }
 
   if (user) {
     redirect(

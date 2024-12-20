@@ -8,7 +8,7 @@ export const EyeIcon: React.FC<
   {
     closed?: boolean
   } & IconProps
-> = props => {
+> = (props) => {
   const { bold, className, closed, color, rotation, size } = props
 
   return (

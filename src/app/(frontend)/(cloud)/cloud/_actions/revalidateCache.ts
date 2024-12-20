@@ -11,7 +11,9 @@ import { revalidatePath, revalidateTag } from 'next/cache'
 export async function revalidateCache(args: { path?: string; tag?: string }): Promise<void> {
   const { path, tag } = args
 
-  if (!path && !tag) {throw new Error('No path or tag provided')}
+  if (!path && !tag) {
+    throw new Error('No path or tag provided')
+  }
 
   try {
     if (tag) {

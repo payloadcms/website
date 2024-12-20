@@ -39,7 +39,7 @@ export const ProjectEmailPage: React.FC<{
           'Content-Type': 'application/json',
         },
       },
-    ).then(res => res.json())
+    ).then((res) => res.json())
 
     return value
   }, [project?.id])
@@ -109,7 +109,7 @@ export default buildConfig({
               <SectionHeader title="Manage Email Domains" />
               <CollapsibleGroup allowMultiple transCurve="ease" transTime={250}>
                 <div>
-                  {project.customEmailDomains.map(emailDomain => (
+                  {project.customEmailDomains.map((emailDomain) => (
                     <ManageEmailDomain
                       emailDomain={emailDomain}
                       environmentSlug={environmentSlug}

@@ -17,7 +17,7 @@ export const TeamInvitations: React.FC<{
   const [loading, setLoading] = React.useState<boolean>(false)
 
   const resendEmail = React.useCallback(
-    async email => {
+    async (email) => {
       let timer: NodeJS.Timeout | null = null
 
       setTimeout(() => {
@@ -47,13 +47,16 @@ export const TeamInvitations: React.FC<{
           },
         )
 
-        if (timer) {clearTimeout(timer)}
+        if (timer) {
+          clearTimeout(timer)
+        }
         setLoading(false)
 
         if (res.ok) {
           const { data, error } = await res.json()
-          if (error) {setError(error)}
-          else {
+          if (error) {
+            setError(error)
+          } else {
             setError(null)
             toast.success('Invitation resent.')
           }
@@ -65,7 +68,9 @@ export const TeamInvitations: React.FC<{
       }
 
       return () => {
-        if (timer) {clearTimeout(timer)}
+        if (timer) {
+          clearTimeout(timer)
+        }
       }
     },
     [team],

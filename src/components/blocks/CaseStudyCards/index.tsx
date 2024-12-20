@@ -1,4 +1,4 @@
-import type { PaddingProps } from '@components/BlockWrapper/index.js';
+import type { PaddingProps } from '@components/BlockWrapper/index.js'
 import type { Page } from '@root/payload-types.js'
 
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
@@ -19,7 +19,7 @@ type Props = {
   padding?: PaddingProps
 } & Extract<Page['layout'][0], { blockType: 'caseStudyCards' }>
 
-export const CaseStudyCards: React.FC<Props> = props => {
+export const CaseStudyCards: React.FC<Props> = (props) => {
   const { caseStudyCardFields, hideBackground, padding } = props
 
   if (caseStudyCardFields?.cards && caseStudyCardFields?.cards?.length > 0) {

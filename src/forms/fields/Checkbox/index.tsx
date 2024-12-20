@@ -14,7 +14,7 @@ export const Checkbox: React.FC<
   {
     checked?: boolean
   } & FieldProps<boolean>
-> = props => {
+> = (props) => {
   const {
     checked: checkedFromProps,
     className,
@@ -114,7 +114,9 @@ export const Checkbox: React.FC<
         className={classes.button}
         disabled={disabled}
         onClick={() => {
-          if (!disabled) {onChange(!checked)}
+          if (!disabled) {
+            onChange(!checked)
+          }
         }}
         type="button"
       >

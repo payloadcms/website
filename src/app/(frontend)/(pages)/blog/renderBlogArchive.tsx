@@ -37,7 +37,7 @@ export const RenderBlogArchive: React.FC<{ posts: Partial<Post>[] }> = ({ posts 
 
           <FeaturedBlogPost {...latestPost} />
           <div className={[classes.cardGrid, 'grid'].filter(Boolean).join(' ')}>
-            {(posts || []).slice(1).map(blogPost => {
+            {(posts || []).slice(1).map((blogPost) => {
               const { id, slug, authors, image, publishedOn, title } = blogPost
 
               if (!id || !title || !publishedOn || !slug || !image || !authors) {

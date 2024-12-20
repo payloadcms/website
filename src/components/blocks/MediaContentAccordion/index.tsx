@@ -1,4 +1,4 @@
-import type { PaddingProps } from '@components/BlockWrapper/index.js';
+import type { PaddingProps } from '@components/BlockWrapper/index.js'
 import type { Page } from '@root/payload-types.js'
 
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
@@ -13,10 +13,7 @@ import { MobileMediaContentAccordion } from './Mobile/index.js'
 export type MediaContentAccordionProps = {
   hideBackground?: boolean
   padding: PaddingProps
-} & Extract<
-  Page['layout'][0],
-  { blockType: 'mediaContentAccordion' }
->
+} & Extract<Page['layout'][0], { blockType: 'mediaContentAccordion' }>
 
 export const MediaContentAccordion: React.FC<MediaContentAccordionProps> = ({
   hideBackground,

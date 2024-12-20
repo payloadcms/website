@@ -13,7 +13,7 @@ import useDebounce from '@root/utilities/use-debounce.js'
 import Link from 'next/link'
 import React, { useEffect } from 'react'
 
-import type { ProjectsRes } from '../_api/fetchProjects.js';
+import type { ProjectsRes } from '../_api/fetchProjects.js'
 
 import { fetchProjectsClient } from '../_api/fetchProjects.js'
 import classes from './page.module.scss'
@@ -50,7 +50,9 @@ export const CloudPage: React.FC<{
   useEffect(() => {
     // keep a timer reference so that we can cancel the old request
     // this is if the old request takes longer than the debounce time
-    if (requestRef.current) {clearTimeout(requestRef.current)}
+    if (requestRef.current) {
+      clearTimeout(requestRef.current)
+    }
 
     // only perform searches after the user has engaged with the search field or pagination
     // this will ensure this effect is accidentally run on initial load, etc
@@ -60,9 +62,13 @@ export const CloudPage: React.FC<{
 
       // reset the page back to 1 if the team or search has changed
       const searchChanged = prevSearch.current !== debouncedSearch
-      if (searchChanged) {prevSearch.current = debouncedSearch}
+      if (searchChanged) {
+        prevSearch.current = debouncedSearch
+      }
       const teamChanged = prevSelectedTeam.current !== selectedTeam
-      if (teamChanged) {prevSelectedTeam.current = selectedTeam}
+      if (teamChanged) {
+        prevSelectedTeam.current = selectedTeam
+      }
 
       const doFetch = async () => {
         // give the illusion of loading, so that fast network connections appear to flash
@@ -73,7 +79,7 @@ export const CloudPage: React.FC<{
         const userTeams =
           user?.teams?.map(({ team }) =>
             team && typeof team === 'object' && team !== null && 'id' in team ? team.id : team,
-          ) || [].filter(Boolean)  
+          ) || [].filter(Boolean)
 
         // filter 'none' from the selected teams array
         // select all user teams if no team is selected
@@ -92,7 +98,7 @@ export const CloudPage: React.FC<{
 
             // the request was too fast, so we'll add a delay to make it appear as if it took longer
             if (diff < delay) {
-              await new Promise(resolve => setTimeout(resolve, delay - diff))
+              await new Promise((resolve) => setTimeout(resolve, delay - diff))
             }
 
             setRenderNewProjectBlock(!debouncedSearch && projectsRes?.totalDocs === 0)
@@ -116,7 +122,7 @@ export const CloudPage: React.FC<{
 
   const matchedTeam = user?.teams?.find(({ team }) =>
     typeof team === 'string' ? team === selectedTeam : team?.id === selectedTeam,
-  )?.team as Team  
+  )?.team as Team
 
   if (initialState?.totalDocs === 0) {
     return (
@@ -149,7 +155,7 @@ export const CloudPage: React.FC<{
           className={['cols-6 cols-l-4 cols-m-6 cols-s-4', classes.teamSelector].join(' ')}
           initialValue="none"
           label={false}
-          onChange={incomingTeam => {
+          onChange={(incomingTeam) => {
             setSelectedTeam(incomingTeam?.id)
             setEnableSearch(true)
           }}
@@ -199,7 +205,7 @@ export const CloudPage: React.FC<{
         <Pagination
           className={classes.pagination}
           page={result?.page}
-          setPage={page => {
+          setPage={(page) => {
             setPage(page)
             setEnableSearch(true)
           }}

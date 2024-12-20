@@ -1,4 +1,4 @@
-import type { Reference } from '@components/CMSLink';
+import type { Reference } from '@components/CMSLink'
 import type { DefaultNodeTypes, SerializedBlockNode } from '@payloadcms/richtext-lexical'
 import type { SerializedLexicalNode } from '@payloadcms/richtext-lexical/lexical'
 import type { SerializedLabelNode } from '@root/fields/richText/features/label/LabelNode'
@@ -53,7 +53,9 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     br: () => <br />,
     commandLine: ({ node }) => {
       const { command } = node.fields
-      if (command) {return <CommandLine command={command} lexical />}
+      if (command) {
+        return <CommandLine command={command} lexical />
+      }
       return null
     },
     spotlight: ({ node, nodesToJSX }) => {
@@ -71,7 +73,9 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     },
     templateCards: ({ node }) => {
       const { templates } = node.fields
-      if (!templates) {return null}
+      if (!templates) {
+        return null
+      }
       return <TemplateCards templates={templates} />
     },
     video: ({ node }) => {

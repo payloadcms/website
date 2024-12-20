@@ -22,7 +22,9 @@ export const QuoteCard: React.FC<Props> = ({
   quote,
   role,
 }) => {
-  if (!quote) {return null}
+  if (!quote) {
+    return null
+  }
 
   return (
     <div className={[classes.quoteCard, isActive && classes.isActive].filter(Boolean).join(' ')}>

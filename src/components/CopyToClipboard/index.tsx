@@ -22,7 +22,9 @@ export const CopyToClipboard: React.FC<CopyToClipboardProps> = ({
   const copy = useCallback(async () => {
     if (ref && ref.current && value) {
       const copyValue = typeof value === 'string' ? value : await value()
-      if (!copyValue) {return}
+      if (!copyValue) {
+        return
+      }
 
       ref.current.value = copyValue
       ref.current.select()

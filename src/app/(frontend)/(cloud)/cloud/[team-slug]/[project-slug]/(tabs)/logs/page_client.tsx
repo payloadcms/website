@@ -1,6 +1,6 @@
 'use client'
 
-import type { LogLine} from '@components/SimpleLogs/index.js';
+import type { LogLine } from '@components/SimpleLogs/index.js'
 import type { Project, Team } from '@root/payload-cloud-types.js'
 
 import { Gutter } from '@components/Gutter/index.js'
@@ -19,13 +19,13 @@ export const ProjectLogsPage: React.FC<{
 
   const hasSuccessfullyDeployed = project?.infraStatus === 'done'
 
-  const onMessage = React.useCallback(event => {
+  const onMessage = React.useCallback((event) => {
     const message = event?.data
     try {
       const parsedMessage = JSON.parse(message)
       if (parsedMessage?.data) {
         const styledLogLine = styleLogLine(parsedMessage.data)
-        setRuntimeLogs(logs => {
+        setRuntimeLogs((logs) => {
           const newLogs = [...logs, styledLogLine]
           previousLogs.current =
             previousLogs.current?.length > newLogs.length ? previousLogs.current : newLogs

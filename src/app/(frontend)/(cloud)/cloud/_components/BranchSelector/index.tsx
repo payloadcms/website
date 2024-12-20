@@ -15,7 +15,7 @@ type GitHubFullRepoResponse = Endpoints['GET /repos/{owner}/{repo}']['response']
 export const BranchSelector: React.FC<{
   initialValue?: string
   repositoryFullName: Project['repositoryFullName']
-}> = props => {
+}> = (props) => {
   const { initialValue = 'main', repositoryFullName } = props
 
   const [page, dispatchPage] = useReducer((state: number, action: 'INCREMENT') => {
@@ -88,7 +88,7 @@ export const BranchSelector: React.FC<{
           dispatchResult({
             type: 'ADD',
             payload: {
-              branches: branchesRes.data.map(branch => branch.name),
+              branches: branchesRes.data.map((branch) => branch.name),
               defaultBranch,
             },
           })
@@ -142,7 +142,7 @@ export const BranchSelector: React.FC<{
           initialValue={result?.defaultBranch}
           label="Branch to deploy"
           onMenuScrollToBottom={onMenuScrollToBottom}
-          options={result?.branches?.map(branch => ({
+          options={result?.branches?.map((branch) => ({
             label: branch,
             value: branch,
           }))}

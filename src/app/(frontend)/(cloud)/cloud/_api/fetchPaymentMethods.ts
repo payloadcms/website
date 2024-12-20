@@ -7,11 +7,15 @@ export const fetchPaymentMethods = async (args: {
   team: null | Team | undefined
 }): Promise<null | PaymentMethod[]> => {
   const { team } = args
-  if (!team) {return null}
+  if (!team) {
+    return null
+  }
 
   const { cookies } = await import('next/headers')
   const token = (await cookies()).get(payloadCloudToken)?.value ?? null
-  if (!token) {throw new Error('No token provided')}
+  if (!token) {
+    throw new Error('No token provided')
+  }
 
   const paymentMethods: PaymentMethod[] = await fetch(
     `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/teams/${team?.id}/payment-methods`,
@@ -22,12 +26,14 @@ export const fetchPaymentMethods = async (args: {
       },
       method: 'GET',
     },
-  ).then(async res => {
+  ).then(async (res) => {
     const json: {
       data: PaymentMethod[]
       message: string
     } = await res.json()
-    if (!res.ok) {throw new Error(json.message)}
+    if (!res.ok) {
+      throw new Error(json.message)
+    }
     return json?.data
   })
 
@@ -38,7 +44,9 @@ export const fetchPaymentMethodsClient = async (args: {
   team: null | Team | undefined
 }): Promise<null | PaymentMethod[]> => {
   const { team } = args
-  if (!team) {throw new Error('Cannot fetch payment method without team')}
+  if (!team) {
+    throw new Error('Cannot fetch payment method without team')
+  }
 
   const paymentMethods: PaymentMethod[] = await fetch(
     `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/teams/${team?.id}/payment-methods`,
@@ -49,12 +57,14 @@ export const fetchPaymentMethodsClient = async (args: {
       },
       method: 'GET',
     },
-  ).then(async res => {
+  ).then(async (res) => {
     const json: {
       data: PaymentMethod[]
       message: string
     } = await res.json()
-    if (!res.ok) {throw new Error(json.message)}
+    if (!res.ok) {
+      throw new Error(json.message)
+    }
     return json?.data
   })
 

@@ -1,16 +1,8 @@
 'use client'
 
-import type {
-  ChangeEvent} from 'react';
+import type { ChangeEvent } from 'react'
 
-import React, {
-  forwardRef,
-  useCallback,
-  useEffect,
-  useReducer,
-  useRef,
-  useState,
-} from 'react'
+import React, { forwardRef, useCallback, useEffect, useReducer, useRef, useState } from 'react'
 
 import type { Data, Field, IFormContext, InitialState, OnSubmit } from '../types.js'
 

@@ -64,7 +64,7 @@ export const ManageDomain: React.FC<Props> = ({ domain, environmentSlug, project
 
   const deleteDomain = React.useCallback(async () => {
     const remainingDomains = (projectDomains || []).filter(
-      existingDomain => existingDomain.id !== id,
+      (existingDomain) => existingDomain.id !== id,
     )
 
     await patchDomains(remainingDomains)

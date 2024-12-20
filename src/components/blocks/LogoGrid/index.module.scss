@@ -1,4 +1,4 @@
-@use "@scss/common" as *;
+@use '@scss/common' as *;
 
 .logoGrid {
   position: relative;
@@ -47,7 +47,8 @@
   position: relative;
   width: 100%;
 
-  .horizontalLine, .verticalLine {
+  .horizontalLine,
+  .verticalLine {
     position: absolute;
     z-index: 1;
   }
@@ -93,7 +94,7 @@
     opacity: 0.08;
     z-index: 0;
 
-    [data-theme="dark"]  & {
+    [data-theme='dark'] & {
       background-image: url('/images/scanline-light.png');
     }
   }
@@ -125,7 +126,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: opacity 1s ease, filter 1s ease;
+      transition:
+        opacity 1s ease,
+        filter 1s ease;
       opacity: 0;
       filter: blur(0px);
     }
@@ -136,7 +139,7 @@
   &::before {
     background-image: none;
 
-    [data-theme="dark"]  & {
+    [data-theme='dark'] & {
       background-image: none;
     }
   }
@@ -146,7 +149,7 @@
   &::before {
     background-image: none;
 
-    [data-theme="dark"]  & {
+    [data-theme='dark'] & {
       background-image: none;
     }
   }
@@ -162,26 +165,28 @@
 }
 
 .crosshairLeft {
-  left: calc(25% + -.45rem);
-  bottom: calc(50% + -.55rem);
+  left: calc(25% + -0.45rem);
+  bottom: calc(50% + -0.55rem);
 }
 
 .crosshairRight {
-  left: calc(75% + -.45rem);
-  bottom: calc(50% + -.55rem);
+  left: calc(75% + -0.45rem);
+  bottom: calc(50% + -0.55rem);
 }
 
-:global([data-theme="dark"]) {
+:global([data-theme='dark']) {
   .logoShowcase {
-    .horizontalLine, .verticalLine {
+    .horizontalLine,
+    .verticalLine {
       background: var(--grid-line-dark);
     }
   }
 }
 
-:global([data-theme="light"]) {
+:global([data-theme='light']) {
   .logoShowcase {
-    .horizontalLine, .verticalLine {
+    .horizontalLine,
+    .verticalLine {
       background: var(--grid-line-light);
     }
   }

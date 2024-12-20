@@ -4,7 +4,7 @@ import type { Props } from './types.js'
 
 import classes from './index.module.scss'
 
-const LabelOnly: React.FC<Props> = props => {
+const LabelOnly: React.FC<Props> = (props) => {
   const { className, htmlFor, label, required } = props
 
   return (
@@ -15,7 +15,7 @@ const LabelOnly: React.FC<Props> = props => {
   )
 }
 
-const Label: React.FC<Props> = props => {
+const Label: React.FC<Props> = (props) => {
   const { actionsClassName, actionsSlot, label, margin } = props
 
   if (label) {

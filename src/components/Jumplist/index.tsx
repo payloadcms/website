@@ -69,11 +69,13 @@ export const JumplistNode: React.FC<NodeProps> = ({ id, type, children }) => {
       const el = ref.current
 
       const observer = new IntersectionObserver(
-        entries => {
-          entries.forEach(entry => {
+        (entries) => {
+          entries.forEach((entry) => {
             dispatch({ id, active: entry.isIntersecting })
 
-            if (entry.isIntersecting) {setLastActive(id)}
+            if (entry.isIntersecting) {
+              setLastActive(id)
+            }
           })
         },
         {

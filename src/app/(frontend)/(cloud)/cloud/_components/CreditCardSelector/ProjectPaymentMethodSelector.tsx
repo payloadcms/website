@@ -18,7 +18,7 @@ export const ProjectPaymentMethodSelector: React.FC<{
   initialPaymentMethods?: null | PaymentMethod[]
   project: ProjectWithSubscription
   team: TeamWithCustomer
-}> = props => {
+}> = (props) => {
   const { initialPaymentMethods, project, team } = props
 
   const onPaymentMethodChange = useCallback(

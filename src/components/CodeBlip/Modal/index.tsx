@@ -21,10 +21,12 @@ const Modal: React.FC = ({}) => {
     if (isOpen) {
       animate(dialogRef.current, { opacity: 1 }, { duration: 0.35, ease: easing })
 
-      if (containerRef.current)
-        {animate(containerRef.current, { x: 0 }, { duration: 0.35, ease: easing })}
-      if (closeRef.current)
-        {animate(closeRef.current, { transform: 'scale(1)' }, { duration: 0.15, ease: easing })}
+      if (containerRef.current) {
+        animate(containerRef.current, { x: 0 }, { duration: 0.35, ease: easing })
+      }
+      if (closeRef.current) {
+        animate(closeRef.current, { transform: 'scale(1)' }, { duration: 0.15, ease: easing })
+      }
 
       closeRef.current?.focus()
     }
@@ -34,8 +36,12 @@ const Modal: React.FC = ({}) => {
   const handleClose = () => {
     animate(dialogRef.current, { opacity: 0 }, { duration: 0.15, ease: easing }).then(closeModal)
 
-    if (containerRef.current) {animate(containerRef.current, { x: 20 })}
-    if (closeRef.current) {animate(closeRef.current, { transform: 'scale(0)' })}
+    if (containerRef.current) {
+      animate(containerRef.current, { x: 20 })
+    }
+    if (closeRef.current) {
+      animate(closeRef.current, { transform: 'scale(0)' })
+    }
   }
 
   return (

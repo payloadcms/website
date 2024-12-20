@@ -65,10 +65,10 @@ export const TeamSubscriptionsPage = (props: {
               {Array.isArray(subscriptions?.data) && subscriptions?.data?.length > 0 && (
                 <React.Fragment>
                   <ul className={classes.list}>
-                    {subscriptions?.data?.map(subscription => {
+                    {subscriptions?.data?.map((subscription) => {
                       const { id: subscriptionID, project, status, trial_end } = subscription
                       const [item] = subscription.items.data
-                      const plan = plans?.find(p => p.stripeProductID === item.price.product)
+                      const plan = plans?.find((p) => p.stripeProductID === item.price.product)
 
                       const trialEndDate = new Date(trial_end * 1000)
 

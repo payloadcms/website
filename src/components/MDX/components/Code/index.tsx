@@ -14,7 +14,9 @@ const CodeMarkdown: (props) => null | React.JSX.Element = ({ children }) => {
     childrenToRender = String(children.props.children)
   }
 
-  if (childrenToRender === null) {return null}
+  if (childrenToRender === null) {
+    return null
+  }
 
   return (
     <Code disableMinHeight parentClassName={classes.code}>

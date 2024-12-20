@@ -213,18 +213,18 @@
       font-weight: 400;
     }
 
-    .DocSearch-Hit[aria-selected=true] {
+    .DocSearch-Hit[aria-selected='true'] {
       & path {
-        color: var(--color-base-0)!important;
+        color: var(--color-base-0) !important;
       }
       .DocSearch-Hit-content-wrapper {
         font-weight: 400;
 
         & span {
-          color: var(--color-base-0)!important;
+          color: var(--color-base-0) !important;
         }
         & mark {
-          color: var(--docsearch-highlight-color)!important;
+          color: var(--docsearch-highlight-color) !important;
         }
       }
     }
@@ -289,7 +289,8 @@
       text-decoration: none;
 
       svg {
-        path, rect {
+        path,
+        rect {
           fill: currentColor;
         }
       }
@@ -310,7 +311,7 @@
     --docsearch-modal-width: 600px;
     --docsearch-modal-shadow: none;
     --docsearch-hit-shadow: none;
-    --docsearch-footer-shadow: inset 0 1px 0 0rgb(28 27 30 / 80%),0 -4px 8px 0 rgba(0,0,0,0.2);
+    --docsearch-footer-shadow: inset 0 1px 0 0rgb (28 27 30 / 80%), 0 -4px 8px 0 rgba(0, 0, 0, 0.2);
     --docsearch-spacing: 0px;
     --search-border-color: var(--grid-line-dark);
     --algolia-logo-color: var(--color-base-400);

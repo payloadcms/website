@@ -26,7 +26,7 @@ export const CloneOrDeployProgress: React.FC<
         type: 'clone'
       }
   )
-> = props => {
+> = (props) => {
   const { id, type } = props
 
   const { fields } = useForm()
@@ -46,7 +46,7 @@ export const CloneOrDeployProgress: React.FC<
       ref.current.scrollIntoView({ behavior: 'smooth' })
 
       interval = setInterval(() => {
-        setProgress(progress => progress + 1)
+        setProgress((progress) => progress + 1)
       }, 1000)
     }
 

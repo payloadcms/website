@@ -1,4 +1,4 @@
-@use "@scss/common" as *;
+@use '@scss/common' as *;
 
 .table {
   margin-bottom: 1rem;
@@ -72,7 +72,7 @@
   }
 }
 
-[data-theme=light] {
+[data-theme='light'] {
   .table {
     tbody {
       tr {

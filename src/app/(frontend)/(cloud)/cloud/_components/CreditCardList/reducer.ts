@@ -22,7 +22,7 @@ export const cardReducer = (state: PaymentMethod[], action: Action): PaymentMeth
     case 'ADD_CARD':
       return [action.payload, ...(state || [])]
     case 'DELETE_CARD':
-      return state.filter(card => card.id !== action.payload)
+      return state.filter((card) => card.id !== action.payload)
     case 'RESET_CARDS':
       return action.payload
     default:

@@ -20,7 +20,9 @@ export const fetchProject = async (args: {
 }): Promise<Project> => {
   const { projectSlug, teamID } = args || {}
   const token = (await cookies()).get(payloadCloudToken)?.value ?? null
-  if (!token) {throw new Error('No token provided')}
+  if (!token) {
+    throw new Error('No token provided')
+  }
 
   const doc: Project = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql`, {
     body: JSON.stringify({
@@ -37,9 +39,11 @@ export const fetchProject = async (args: {
     method: 'POST',
     next: { tags: [`project_${projectSlug}`] },
   })
-    ?.then(res => res.json())
-    ?.then(res => {
-      if (res.errors) {throw new Error(res?.errors?.[0]?.message ?? 'Error fetching doc')}
+    ?.then((res) => res.json())
+    ?.then((res) => {
+      if (res.errors) {
+        throw new Error(res?.errors?.[0]?.message ?? 'Error fetching doc')
+      }
       return res?.data?.Projects?.docs?.[0]
     })
 
@@ -88,7 +92,9 @@ export const fetchProjectWithSubscription = async (args: {
 > => {
   const { environmentSlug, projectSlug, teamSlug } = args || {}
   const token = (await cookies()).get(payloadCloudToken)?.value ?? null
-  if (!token) {throw new Error('No token provided')}
+  if (!token) {
+    throw new Error('No token provided')
+  }
 
   const projectWithSubscription = await fetch(
     `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${projectSlug}/with-subscription`,
@@ -104,14 +110,19 @@ export const fetchProjectWithSubscription = async (args: {
       method: 'POST',
     },
   )
-    ?.then(res => res.json())
-    ?.then(res => {
-      if (res.errors) {throw new Error(res?.errors?.[0]?.message ?? 'Error fetching doc')}
+    ?.then((res) => res.json())
+    ?.then((res) => {
+      if (res.errors) {
+        throw new Error(res?.errors?.[0]?.message ?? 'Error fetching doc')
+      }
       return res
     })
 
   if (environmentSlug) {
-    return mergeProjectEnvironment({ environmentSlug, project: projectWithSubscription }) as ProjectWithSubscriptionWithTeamAndCustomer
+    return mergeProjectEnvironment({
+      environmentSlug,
+      project: projectWithSubscription,
+    }) as ProjectWithSubscriptionWithTeamAndCustomer
   }
 
   return projectWithSubscription

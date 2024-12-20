@@ -12,7 +12,7 @@ import classes from './index.module.scss'
 
 const { breakpoints } = cssVariables
 
-export const Image: React.FC<Props> = props => {
+export const Image: React.FC<Props> = (props) => {
   const {
     alt: altFromProps,
     fill,
@@ -69,7 +69,7 @@ export const Image: React.FC<Props> = props => {
         alt={alt || ''}
         className={`${baseClasses} ${classes.themeLight}`}
         fill={fill}
-        height={!fill ? height ?? undefined : undefined}
+        height={!fill ? (height ?? undefined) : undefined}
         onClick={onClick}
         onLoad={() => {
           setIsLoading(false)
@@ -81,7 +81,7 @@ export const Image: React.FC<Props> = props => {
         quality={90}
         sizes={sizes}
         src={src || ''}
-        width={!fill ? width ?? undefined : undefined}
+        width={!fill ? (width ?? undefined) : undefined}
       />
       {hasDarkModeFallback &&
         typeof resource.darkModeFallback === 'object' &&
@@ -90,7 +90,7 @@ export const Image: React.FC<Props> = props => {
             alt={alt || ''}
             className={`${baseClasses} ${classes.themeDark}`}
             fill={fill}
-            height={!fill ? height ?? undefined : undefined}
+            height={!fill ? (height ?? undefined) : undefined}
             onClick={onClick}
             onLoad={() => {
               setIsLoading(false)
@@ -102,7 +102,7 @@ export const Image: React.FC<Props> = props => {
             quality={90}
             sizes={sizes}
             src={resource.darkModeFallback.url || ''}
-            width={!fill ? width ?? undefined : undefined}
+            width={!fill ? (width ?? undefined) : undefined}
           />
         )}
     </React.Fragment>

@@ -4,7 +4,7 @@ import type { IconProps } from '../types'
 
 import classes from '../index.module.scss'
 
-export const LoaderIcon: React.FC<IconProps> = props => {
+export const LoaderIcon: React.FC<IconProps> = (props) => {
   const { className, size } = props
 
   return (

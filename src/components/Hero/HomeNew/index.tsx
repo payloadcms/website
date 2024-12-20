@@ -35,7 +35,7 @@ export const HomeNewHero: React.FC<
   secondaryButtons,
   secondaryHeading,
 }) => {
-  const filteredLogos = logoShowcase?.filter(logo => typeof logo !== 'string')
+  const filteredLogos = logoShowcase?.filter((logo) => typeof logo !== 'string')
 
   return (
     <ChangeHeaderTheme theme="dark">

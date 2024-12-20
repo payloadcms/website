@@ -40,7 +40,7 @@ export const useFormField = <T extends Value>(options): FormField<T> => {
 
   const validFromContext = field && typeof field.valid === 'boolean' ? field.valid : true
   const apiError = Array.isArray(apiErrors)
-    ? apiErrors?.find(error => error.field === path)
+    ? apiErrors?.find((error) => error.field === path)
     : undefined
 
   const validFromAPI = apiError === undefined
@@ -79,7 +79,7 @@ export const useFormField = <T extends Value>(options): FormField<T> => {
 
   // NOTE: 'internalValue' is NOT debounced
   const setValue = useCallback<SetValue>(
-    val => {
+    (val) => {
       if (!modified) {
         setIsModified(true)
       }

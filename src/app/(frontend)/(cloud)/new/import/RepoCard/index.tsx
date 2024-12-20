@@ -14,7 +14,7 @@ export const RepoCard: React.FC<{
   onMouseEnter?: () => void
   onMouseLeave?: () => void
   repo: Repo
-}> = props => {
+}> = (props) => {
   const { isLoading, onClick, onMouseEnter, onMouseLeave, repo } = props
   const { name, description } = repo || {}
 

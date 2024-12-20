@@ -4,11 +4,13 @@ import type { BlocksProp } from '@components/RenderBlocks/index.js'
  * Get the key of the fields from the block
  */
 export function getFieldsKeyFromBlock(block: BlocksProp): string {
-  if (!block) {return ''}
+  if (!block) {
+    return ''
+  }
 
   const keys = Object.keys(block)
 
-  const key = keys.find(value => {
+  const key = keys.find((value) => {
     return value.endsWith('Fields')
   })
 

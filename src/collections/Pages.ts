@@ -47,7 +47,7 @@ export const Pages: CollectionConfig = {
     livePreview: {
       url: ({ data }) => formatPreviewURL('pages', data),
     },
-    preview: doc => formatPreviewURL('pages', doc),
+    preview: (doc) => formatPreviewURL('pages', doc),
     useAsTitle: 'fullTitle',
   },
   defaultPopulate: {

@@ -33,7 +33,9 @@ export const useSubscription = (args: {
       return
     }
 
-    if (isRequesting.current) {return}
+    if (isRequesting.current) {
+      return
+    }
 
     isRequesting.current = true
 
@@ -72,14 +74,15 @@ export const useSubscription = (args: {
 
     makeRetrieval()
 
-     
     return () => {
       clearTimeout(timer)
     }
   }, [delay, stripeSubscriptionID, team?.id])
 
   useEffect(() => {
-    if (initialValue) {return}
+    if (initialValue) {
+      return
+    }
     getSubscriptions()
   }, [getSubscriptions, initialValue])
 
@@ -96,7 +99,9 @@ export const useSubscription = (args: {
         return
       }
 
-      if (isRequesting.current) {return}
+      if (isRequesting.current) {
+        return
+      }
 
       isRequesting.current = true
 
@@ -139,7 +144,6 @@ export const useSubscription = (args: {
 
       makeUpdate()
 
-       
       return () => {
         clearTimeout(timer)
       }

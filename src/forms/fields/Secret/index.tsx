@@ -18,7 +18,7 @@ type SecretProps = {
   readOnly?: boolean
 } & FieldProps<string>
 
-export const Secret: React.FC<SecretProps> = props => {
+export const Secret: React.FC<SecretProps> = (props) => {
   const {
     className,
     description,
@@ -78,7 +78,9 @@ export const Secret: React.FC<SecretProps> = props => {
   }, [loadValue, onChange])
 
   const toggleVisibility = React.useCallback(async () => {
-    if (!isValueLoaded) {await loadExternalValue()}
+    if (!isValueLoaded) {
+      await loadExternalValue()
+    }
 
     setIsHidden(!isHidden)
   }, [isHidden, isValueLoaded, loadExternalValue])
@@ -98,7 +100,7 @@ export const Secret: React.FC<SecretProps> = props => {
         className={classes.input}
         id={path}
         name={path}
-        onChange={e => {
+        onChange={(e) => {
           onChange(e.target.value)
         }}
         placeholder={placeholder}

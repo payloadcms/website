@@ -70,12 +70,12 @@
     font-weight: 500;
   }
 
-  &[data-state="active"] {
+  &[data-state='active'] {
     border-bottom-color: var(--theme-text);
     color: var(--theme-text);
   }
 
-  &:hover:not([data-state="active"]) {
+  &:hover:not([data-state='active']) {
     cursor: pointer;
     border-bottom-color: var(--theme-elevation-250);
     color: var(--theme-text);

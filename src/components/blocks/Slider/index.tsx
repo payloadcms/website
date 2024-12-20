@@ -1,4 +1,4 @@
-import type { PaddingProps } from '@components/BlockWrapper/index.js';
+import type { PaddingProps } from '@components/BlockWrapper/index.js'
 import type { Page } from '@root/payload-types.js'
 
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
@@ -32,7 +32,9 @@ export const SliderBlock: React.FC<Props> = ({ hideBackground, padding, sliderFi
 
   const slides = quoteSlides
 
-  if (!slides || slides.length === 0) {return null}
+  if (!slides || slides.length === 0) {
+    return null
+  }
 
   const isFirst = currentSlideIndex === 0
   const isLast = currentSlideIndex + 2 === slides.length
@@ -112,7 +114,7 @@ export const SliderBlock: React.FC<Props> = ({ hideBackground, padding, sliderFi
   )
 }
 
-export const Slider: React.FC<Props> = props => {
+export const Slider: React.FC<Props> = (props) => {
   const { gutterH } = useComputedCSSValues()
 
   return (

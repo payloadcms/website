@@ -1,4 +1,4 @@
-import type { PaddingProps } from '@components/BlockWrapper/index.js';
+import type { PaddingProps } from '@components/BlockWrapper/index.js'
 import type { ReusableContent } from '@root/payload-types.js'
 
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
@@ -26,7 +26,9 @@ export const MediaBlock: React.FC<{ disableGutter?: boolean; marginAdjustment?: 
 }) => {
   const { caption, media, position, settings } = mediaBlockFields
 
-  if (typeof media === 'string') {return null}
+  if (typeof media === 'string') {
+    return null
+  }
 
   return (
     <BlockWrapper hideBackground={hideBackground} padding={padding} settings={settings}>

@@ -4,7 +4,7 @@ interface BigThreeProps {
   className?: string
 }
 
-const BigThree: React.FC<BigThreeProps> = props => {
+const BigThree: React.FC<BigThreeProps> = (props) => {
   const { className } = props
 
   return (

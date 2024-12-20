@@ -13,7 +13,7 @@ import React from 'react'
 
 import classes from './index.module.scss'
 
-export const CaseStudy: React.FC<CaseStudyT> = props => {
+export const CaseStudy: React.FC<CaseStudyT> = (props) => {
   const { featuredImage, industry, introContent, layout, title, url, useCase } = props
 
   return (

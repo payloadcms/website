@@ -14,7 +14,9 @@ export const GoogleAnalytics: React.FC = () => {
   const { cookieConsent } = usePrivacy()
 
   React.useEffect(() => {
-    if (!gaMeasurementID || !window?.location?.href) {return}
+    if (!gaMeasurementID || !window?.location?.href) {
+      return
+    }
 
     analyticsEvent('page_view', {
       page_location: window.location.href,
@@ -23,7 +25,9 @@ export const GoogleAnalytics: React.FC = () => {
     })
   }, [pathname])
 
-  if (!cookieConsent || !gaMeasurementID) {return null}
+  if (!cookieConsent || !gaMeasurementID) {
+    return null
+  }
 
   return (
     <React.Fragment>

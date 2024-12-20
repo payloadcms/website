@@ -1,7 +1,7 @@
 // cannot use ts here, for nodejs sitemap and redirects module
 // this means we have to send through the 'currentCategory' which is a url param not accessible within node
 
-export const formatPermalink = reference => {
+export const formatPermalink = (reference) => {
   let permalink = ''
 
   const { relationTo, value } = reference

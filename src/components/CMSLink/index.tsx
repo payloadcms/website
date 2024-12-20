@@ -3,7 +3,7 @@ import type { CaseStudy, Page, Post } from '@root/payload-types.js'
 import Link from 'next/link'
 import React from 'react'
 // eslint-disable-next-line import/no-cycle
-import type { ButtonProps } from '../Button/index.js';
+import type { ButtonProps } from '../Button/index.js'
 
 import { Button } from '../Button/index.js'
 
@@ -118,7 +118,7 @@ export const CMSLink: React.FC<CMSLinkType> = ({
   }
 
   if (!appearance) {
-    const hrefIsLocal = ['tel:', 'mailto:', '/'].some(prefix => href.startsWith(prefix))
+    const hrefIsLocal = ['tel:', 'mailto:', '/'].some((prefix) => href.startsWith(prefix))
 
     if (!hrefIsLocal && href !== '#') {
       try {

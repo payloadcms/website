@@ -1,6 +1,6 @@
 'use client'
 
-import type { ProjectsRes } from '@cloud/_api/fetchProjects.js';
+import type { ProjectsRes } from '@cloud/_api/fetchProjects.js'
 import type { TeamWithCustomer } from '@cloud/_api/fetchTeam.js'
 import type { Template } from '@root/payload-cloud-types.js'
 
@@ -41,7 +41,9 @@ export const TeamPage: React.FC<{
   useEffect(() => {
     // keep a timer reference so that we can cancel the old request
     // this is if the old request takes longer than the debounce time
-    if (requestRef.current) {clearTimeout(requestRef.current)}
+    if (requestRef.current) {
+      clearTimeout(requestRef.current)
+    }
 
     // only perform searches after the user has engaged with the search field or pagination
     // the only stable way of doing this is to explicitly set the `enableSearch` flag on these event handlers
@@ -50,7 +52,9 @@ export const TeamPage: React.FC<{
 
       // if the search changed, reset the page back to 1
       const searchChanged = searchRef.current !== debouncedSearch
-      if (searchChanged) {searchRef.current = debouncedSearch}
+      if (searchChanged) {
+        searchRef.current = debouncedSearch
+      }
 
       const doFetch = async () => {
         // give the illusion of loading, so that fast network connections appear to flash
@@ -70,7 +74,7 @@ export const TeamPage: React.FC<{
 
             // the request was too fast, so we'll add a delay to make it appear as if it took longer
             if (diff < delay) {
-              await new Promise(resolve => setTimeout(resolve, delay - diff))
+              await new Promise((resolve) => setTimeout(resolve, delay - diff))
             }
 
             setResult(projectsRes)
@@ -146,7 +150,7 @@ export const TeamPage: React.FC<{
         <Pagination
           className={classes.pagination}
           page={result?.page}
-          setPage={page => {
+          setPage={(page) => {
             setPage(page)
             setEnableSearch(true)
           }}

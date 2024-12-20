@@ -17,7 +17,7 @@ type SocialIconProps = {
   size?: 'large' | 'regular' | 'small'
 } & ComponentPropsWithRef<typeof Link>
 
-export const SocialIcon: React.FC<SocialIconProps> = props => {
+export const SocialIcon: React.FC<SocialIconProps> = (props) => {
   const { className, platform, size = 'regular' } = props
   return (
     <Link {...props} className={[classes.icon, classes[size], className].join(' ')}>

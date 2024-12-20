@@ -1,6 +1,6 @@
 'use client'
 
-import type { ButtonProps } from '@components/Button/index.js';
+import type { ButtonProps } from '@components/Button/index.js'
 
 import { Button } from '@components/Button/index.js'
 import React, { forwardRef } from 'react'

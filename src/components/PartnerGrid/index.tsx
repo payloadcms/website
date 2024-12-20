@@ -13,7 +13,7 @@ export const PartnerGrid = (props: PartnerGridProps) => {
   const { featured, partners } = props
   return (
     <div className={classes.PartnerGridWrap}>
-      {partners.map(partner => {
+      {partners.map((partner) => {
         return (
           typeof partner !== 'string' && (
             <PartnerCard {...partner} key={partner.id + featured ? '_featured' : ''} />

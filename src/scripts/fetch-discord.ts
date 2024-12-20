@@ -42,7 +42,7 @@ export async function fetchDiscordThreads(payload: Payload): Promise<void> {
     unanswered: '1043188477002526750',
   }
 
-  client.once(Events.ClientReady, async c => {
+  client.once(Events.ClientReady, async (c) => {
     console.log(`Ready! Logged in as ${c.user.tag}`)
 
     // Get the community help channel
@@ -71,7 +71,7 @@ export async function fetchDiscordThreads(payload: Payload): Promise<void> {
     // Combines active threads with archived threads
     const threads = activeThreads.concat(archiveThreads)
 
-    const allThreads = threads.map(async info => {
+    const allThreads = threads.map(async (info) => {
       return info
     })
 
@@ -81,7 +81,7 @@ export async function fetchDiscordThreads(payload: Payload): Promise<void> {
 
     progress.start(allThreads.length, 0)
 
-    const formattedThreads = await mapAsync(allThreads, async t => {
+    const formattedThreads = await mapAsync(allThreads, async (t) => {
       const info: AnyThreadChannel = await t
 
       progress.increment()
@@ -101,14 +101,15 @@ export async function fetchDiscordThreads(payload: Payload): Promise<void> {
       if (info.messageCount && info.messageCount > 100) {
         let lastMessage = messages.last()?.id
 
-         
         while (true) {
           const moreMessages = await info.messages.fetch({
             before: lastMessage,
             limit: 100,
           })
 
-          if (!moreMessages.last()) {break}
+          if (!moreMessages.last()) {
+            break
+          }
           messages = messages.concat(moreMessages)
           lastMessage = moreMessages.last()?.id
         }
@@ -116,7 +117,7 @@ export async function fetchDiscordThreads(payload: Payload): Promise<void> {
 
       const [intro, ...combinedResponses] = messages
         .filter(
-          message =>
+          (message) =>
             !message.author.bot ||
             (message.author.bot && message.content && message.position === 0),
         )
@@ -157,7 +158,7 @@ export async function fetchDiscordThreads(payload: Payload): Promise<void> {
           fileAttachments: intro.attachments,
         },
         messageCount: combinedResponses ? combinedResponses?.length : info.messageCount,
-        messages: combinedResponses.map(m => {
+        messages: combinedResponses.map((m) => {
           const { attachments, author, cleanContent, createdTimestamp } = m
           return {
             authorAvatar: author.avatar,

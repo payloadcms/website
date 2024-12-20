@@ -2,7 +2,7 @@ import React from 'react'
 
 export const ClockIcon: React.FC<{
   className?: string
-}> = props => {
+}> = (props) => {
   const { className } = props
   return (
     <svg

@@ -19,7 +19,7 @@ export const RepoExists: React.FC<{
   disabled?: boolean
   initialValue?: Project['repositoryFullName']
   onChange?: (value: string) => void
-}> = props => {
+}> = (props) => {
   const { disabled, initialValue = 'main', onChange } = props
   const [value, setValue] = React.useState(initialValue)
   const debouncedValue = useDebounce(value, 200)
@@ -84,17 +84,29 @@ export const RepoExists: React.FC<{
   }, [debouncedValue, onChange])
 
   let description = 'Locate your repository'
-  if (!debouncedValue) {description = 'Please enter a repository name'}
-  if (error) {description = error}
-  if (debouncedValue && repoExists === false)
-    {description = `Repository '${debouncedValue}' was not found. Please choose another.`}
-  if (debouncedValue && repoExists) {description = `Repository '${debouncedValue}' was found`}
+  if (!debouncedValue) {
+    description = 'Please enter a repository name'
+  }
+  if (error) {
+    description = error
+  }
+  if (debouncedValue && repoExists === false) {
+    description = `Repository '${debouncedValue}' was not found. Please choose another.`
+  }
+  if (debouncedValue && repoExists) {
+    description = `Repository '${debouncedValue}' was found`
+  }
 
   let icon: React.ReactNode = null
-  if (isLoading) {icon = <Spinner />}
-  if (repoExists) {icon = <CheckIcon bold className={classes.check} size="medium" />}
-  if (error || repoExists === false)
-    {icon = <CloseIcon bold className={classes.error} size="medium" />}
+  if (isLoading) {
+    icon = <Spinner />
+  }
+  if (repoExists) {
+    icon = <CheckIcon bold className={classes.check} size="medium" />
+  }
+  if (error || repoExists === false) {
+    icon = <CloseIcon bold className={classes.error} size="medium" />
+  }
 
   return (
     <div className={classes.uniqueRepoName}>
@@ -108,7 +120,7 @@ export const RepoExists: React.FC<{
         placeholder="scope/repo"
         required
         showError={Boolean(!value || error || repoExists === false)}
-        validate={value => {
+        validate={(value) => {
           const newValid = Boolean(!value || error || repoExists !== false)
           return newValid
         }}

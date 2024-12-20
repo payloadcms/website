@@ -5,7 +5,7 @@
   align-items: center;
   margin-top: 4rem;
 
-  &>*:not(:last-child) {
+  & > *:not(:last-child) {
     margin-right: 0.25rem;
   }
 
@@ -85,10 +85,9 @@
       opacity: 0.08;
     }
 
-
     @include data-theme-selector('dark') {
       background-image: url('/images/scanline-light.png');
-      opacity: 0.10;
+      opacity: 0.1;
     }
   }
 }

@@ -40,7 +40,7 @@ export const AddDomain: React.FC<{
       }
 
       const domainExists = projectDomains?.find(
-        projectDomain => projectDomain.domain === newDomain.domain,
+        (projectDomain) => projectDomain.domain === newDomain.domain,
       )
 
       // TODO - toast messages

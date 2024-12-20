@@ -7,7 +7,7 @@ import { CloseIcon } from '@root/icons/CloseIcon/index.js'
 import useDebounce from '@root/utilities/use-debounce.js'
 import React, { useEffect, useRef, useState } from 'react'
 
-import type { ValidatedDomainResult } from './reducer.js';
+import type { ValidatedDomainResult } from './reducer.js'
 
 import classes from './index.module.scss'
 import { validatedDomainReducer } from './reducer.js'
@@ -124,9 +124,15 @@ export const UniqueDomain: React.FC<{
   }
 
   let icon: React.ReactNode = null
-  if (isLoading) {icon = <Spinner />}
-  if (domainIsValid) {icon = <CheckIcon bold className={classes.check} size="medium" />}
-  if (error || !domainIsValid) {icon = <CloseIcon bold className={classes.error} size="medium" />}
+  if (isLoading) {
+    icon = <Spinner />
+  }
+  if (domainIsValid) {
+    icon = <CheckIcon bold className={classes.check} size="medium" />
+  }
+  if (error || !domainIsValid) {
+    icon = <CloseIcon bold className={classes.error} size="medium" />
+  }
 
   // two fields are rendered here, the first is controlled, user-facing and not debounced
   // the other is a hidden field that has been validated

@@ -4,7 +4,7 @@ import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
 
 import { Logout } from './page_client.js'
 
-export default props => {
+export default (props) => {
   return <Logout {...props} />
 }
 

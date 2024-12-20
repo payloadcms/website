@@ -52,6 +52,7 @@ The locally running app must run on `local.payloadcms.com:3000` because of http-
 The documentation for this site is stored in the [Payload repo](https://github.com/payloadcms/payload) as Markdown files. These are fetched at build time and rendered as pages on the site.
 
 You can also specify a `beta` version and `legacy` version to render different versions of the docs:
+
 - Set the environment variable `NEXT_PUBLIC_ENABLE_BETA_DOCS` to `true` to enable the beta docs.
 - Specify a branch, commit, or tag with `NEXT_PUBLIC_BETA_DOCS_REF`. The default for the beta docs is `beta`.
 - Set the environment variable `NEXT_PUBLIC_ENABLE_LEGACY_DOCS` to `true` to enable the legacy docs.

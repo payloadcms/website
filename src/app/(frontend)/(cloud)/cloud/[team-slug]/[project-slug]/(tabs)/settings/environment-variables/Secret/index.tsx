@@ -49,7 +49,9 @@ export const Secret: React.FC<{
   }, [projectID])
 
   let icon: React.ReactNode = null
-  if (isLoading) {icon = <Spinner />}
+  if (isLoading) {
+    icon = <Spinner />
+  }
 
   return (
     <Accordion
@@ -61,7 +63,9 @@ export const Secret: React.FC<{
       onToggle={async () => {
         if (!fetchedSecret) {
           const secretValue = await fetchSecret()
-          if (secretValue) {setFetchedSecret(secretValue)}
+          if (secretValue) {
+            setFetchedSecret(secretValue)
+          }
         }
       }}
       toggleIcon="eye"

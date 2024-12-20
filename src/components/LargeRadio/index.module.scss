@@ -1,146 +1,146 @@
 @use '@scss/common' as *;
 
 .largeRadio {
-    display: flex;
-    width: 100%;
-    align-items: center;
-    padding: 1rem 1rem;
-    border: 1px solid var(--theme-elevation-200);
-    background-color: var(--theme-elevation-50);
-    text-align: left;
-    font-size: inherit;
-    line-height: inherit;
-    text-transform: none;
-    letter-spacing: normal;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  padding: 1rem 1rem;
+  border: 1px solid var(--theme-elevation-200);
+  background-color: var(--theme-elevation-50);
+  text-align: left;
+  font-size: inherit;
+  line-height: inherit;
+  text-transform: none;
+  letter-spacing: normal;
+
+  &:hover {
+    border-color: var(--theme-success-300);
+  }
+
+  @include mid-break {
+    padding: 0.67rem;
 
     &:hover {
-        border-color: var(--theme-success-300);
+      border-color: var(--theme-elevation-200);
     }
-
-    @include mid-break {
-        padding: 0.67rem;
-
-        &:hover {
-            border-color: var(--theme-elevation-200);
-        }
-    }
+  }
 }
 
 .disabled {
-    color: var(--theme-elevation-300);
+  color: var(--theme-elevation-300);
 
-    &:hover {
-        border-color: var(--theme-elevation-200);
-    }
+  &:hover {
+    border-color: var(--theme-elevation-200);
+  }
 }
 
 .checked {
+  border-color: var(--theme-success-500);
+
+  &:hover {
     border-color: var(--theme-success-500);
+  }
 
-    &:hover {
-        border-color: var(--theme-success-500);
+  &:local() {
+    .checkmark {
+      border-color: var(--theme-success-500);
     }
-
-    &:local() {
-        .checkmark {
-            border-color: var(--theme-success-500);
-        }
-    }
+  }
 }
 
 .checkmark {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: var(--base);
-    height: var(--base);
-    border-radius: 100%;
-    border: 1px solid var(--theme-elevation-200);
-    margin-right: 1rem;
-    flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--base);
+  height: var(--base);
+  border-radius: 100%;
+  border: 1px solid var(--theme-elevation-200);
+  margin-right: 1rem;
+  flex-shrink: 0;
 
-    @include mid-break {
-        margin-right: 0.67rem;
-    }
+  @include mid-break {
+    margin-right: 0.67rem;
+  }
 }
 
 .radio {
-    display: none;
+  display: none;
 }
 
 .content {
-    flex-grow: 1;
-    display: flex;
-    align-items: center;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
 }
 
 .name {
-    line-height: 1;
-    flex-grow: 1;
-    margin: 0;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    gap: 0.5rem;
+  line-height: 1;
+  flex-grow: 1;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 0.5rem;
 
-    @include small-break {
-        display: flex;
-        flex-direction: column;
-        gap: 0px;
-    }
+  @include small-break {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+  }
 }
 
 .pill {
-    display: inline-flex;
-    top: 4px;
-    position: relative;
-    flex-shrink: 0;
-    white-space: nowrap;
+  display: inline-flex;
+  top: 4px;
+  position: relative;
+  flex-shrink: 0;
+  white-space: nowrap;
 
-    @include small-break {
-        top: 0px;
-    }
+  @include small-break {
+    top: 0px;
+  }
 }
 
 .price {
-    @include label;
-    & {
-        color: var(--theme-success-500);
-        margin: 0;
-        text-align: right;
-    }
+  @include label;
+  & {
+    color: var(--theme-success-500);
+    margin: 0;
+    text-align: right;
+  }
 }
 
-:global([data-theme="light"]) {
-    .largeRadio {
-        border-color: var(--theme-elevation-200);
+:global([data-theme='light']) {
+  .largeRadio {
+    border-color: var(--theme-elevation-200);
 
-        &:hover {
-            border-color: var(--theme-success-600);
-        }
+    &:hover {
+      border-color: var(--theme-success-600);
     }
+  }
 
-    .checked {
-        border-color: var(--theme-success-600);
+  .checked {
+    border-color: var(--theme-success-600);
 
-        &:local() {
-            .checkmark {
-                border-color: var(--theme-success-700);
-            }
-        }
+    &:local() {
+      .checkmark {
+        border-color: var(--theme-success-700);
+      }
     }
+  }
 
-    .disabled {
-        &:hover {
-            border-color: var(--theme-elevation-200);
-        }
+  .disabled {
+    &:hover {
+      border-color: var(--theme-elevation-200);
     }
+  }
 
-    .checkmark {
-        border-color: var(--theme-elevation-200);
-    }
+  .checkmark {
+    border-color: var(--theme-elevation-200);
+  }
 
-    .price {
-        color: var(--theme-success-700);
-    }
+  .price {
+    color: var(--theme-success-700);
+  }
 }

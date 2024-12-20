@@ -7,7 +7,7 @@ import type { ContentMediaCardProps } from '../types.js'
 
 import classes from './index.module.scss'
 
-export const ContentMediaCard: React.FC<ContentMediaCardProps> = props => {
+export const ContentMediaCard: React.FC<ContentMediaCardProps> = (props) => {
   const { authors, className, href, media, publishedOn, title } = props
 
   const author = authors?.[0]

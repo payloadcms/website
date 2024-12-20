@@ -71,7 +71,9 @@ export const usePaymentMethods = (args: {
         return
       }
 
-      if (isRequesting.current) {return}
+      if (isRequesting.current) {
+        return
+      }
 
       isRequesting.current = true
 
@@ -96,7 +98,6 @@ export const usePaymentMethods = (args: {
 
       isRequesting.current = false
 
-       
       return () => {
         clearTimeout(timer)
       }
@@ -105,7 +106,9 @@ export const usePaymentMethods = (args: {
   )
 
   useEffect(() => {
-    if (initialValue) {return}
+    if (initialValue) {
+      return
+    }
     getPaymentMethods()
   }, [getPaymentMethods, initialValue])
 
@@ -116,7 +119,9 @@ export const usePaymentMethods = (args: {
         return
       }
 
-      if (isDeleting.current) {return}
+      if (isDeleting.current) {
+        return
+      }
 
       isDeleting.current = true
       setError(undefined)
@@ -132,17 +137,19 @@ export const usePaymentMethods = (args: {
             },
             method: 'DELETE',
           },
-        )?.then(res => {
+        )?.then((res) => {
           const json = res.json()
           // @ts-expect-error
-          if (!res.ok) {throw new Error(json?.message)}
+          if (!res.ok) {
+            throw new Error(json?.message)
+          }
           return json
         })
 
         // if this was the default payment method, we need to update the customer
         // only if the customer has another payment method on file
         if (defaultPaymentMethod === paymentMethodID) {
-          const withoutDeleted = result?.filter(pm => pm.id !== paymentMethodID)
+          const withoutDeleted = result?.filter((pm) => pm.id !== paymentMethodID)
 
           const updatedCustomer = await updateCustomer(team, {
             invoice_settings: {
@@ -181,7 +188,7 @@ export const usePaymentMethods = (args: {
   )
 
   const saveNewPaymentMethod: SaveNewPaymentMethod = useCallback(
-    async paymentMethodID => {
+    async (paymentMethodID) => {
       if (isRequesting.current) {
         return null
       }
@@ -221,7 +228,9 @@ export const usePaymentMethods = (args: {
 
         const newPaymentMethod = await fetchPaymentMethod({ paymentMethodID: pmID, team })
 
-        if (!newPaymentMethod) {throw new Error('Could not retrieve new payment method')}
+        if (!newPaymentMethod) {
+          throw new Error('Could not retrieve new payment method')
+        }
 
         dispatchResult({
           type: 'ADD_CARD',

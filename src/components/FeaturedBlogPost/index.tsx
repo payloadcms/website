@@ -9,7 +9,7 @@ import * as React from 'react'
 
 import classes from './index.module.scss'
 
-export const FeaturedBlogPost: React.FC<Partial<Post>> = props => {
+export const FeaturedBlogPost: React.FC<Partial<Post>> = (props) => {
   const { slug, authors, image: media, meta, publishedOn, title, ...rest } = props
 
   const href = `/blog/${slug}`

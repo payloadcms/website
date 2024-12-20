@@ -1,5 +1,5 @@
 'use client'
-import type { CMSLinkType } from '@components/CMSLink/index.js';
+import type { CMSLinkType } from '@components/CMSLink/index.js'
 import type { Page } from '@root/payload-types.js'
 
 import { Breadcrumbs } from '@components/Breadcrumbs/index.js'
@@ -57,16 +57,18 @@ const BreadcrumbsBar: React.FC<Props> = ({
   const enableBreadcrumbsBar = linksFromProps ?? hero?.enableBreadcrumbsBar
 
   useEffect(() => {
-    if (hero?.theme) {setThemeState(hero.theme)}
-    else if (themeFromContext) {setThemeState(themeFromContext)}
-     
+    if (hero?.theme) {
+      setThemeState(hero.theme)
+    } else if (themeFromContext) {
+      setThemeState(themeFromContext)
+    }
   }, [themeFromContext, hero])
 
   const breadcrumbs = useMemo(() => {
     return breadcrumbsProps ?? []
   }, [breadcrumbsProps])
 
-  const useTheme = hasBackground() ? 'dark' : themeState ?? 'dark'
+  const useTheme = hasBackground() ? 'dark' : (themeState ?? 'dark')
 
   return (
     <ChangeHeaderTheme theme={useTheme}>

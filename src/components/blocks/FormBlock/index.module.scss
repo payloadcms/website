@@ -1,4 +1,4 @@
-@use "@scss/common" as *;
+@use '@scss/common' as *;
 
 .formBlock {
   position: relative;
@@ -96,10 +96,19 @@
   }
 }
 
-.leftGradientOverlay, .rightGradientOverlay {
+.leftGradientOverlay,
+.rightGradientOverlay {
   border-radius: 100vw;
-  border: 1px solid #FFF;
-  background: radial-gradient(50% 50% at 50% 50%, #0A0A0A 34.5%, rgba(10, 10, 10, 0.00) 100%), conic-gradient(from 180deg at 50% 50%, #007FAE 0deg, #000 90deg, #F4AC4F 180deg, #000 270deg, #007FAE 360deg);
+  border: 1px solid #fff;
+  background: radial-gradient(50% 50% at 50% 50%, #0a0a0a 34.5%, rgba(10, 10, 10, 0) 100%),
+    conic-gradient(
+      from 180deg at 50% 50%,
+      #007fae 0deg,
+      #000 90deg,
+      #f4ac4f 180deg,
+      #000 270deg,
+      #007fae 360deg
+    );
   filter: blur(240px);
   position: absolute;
   width: 100vw;
@@ -147,7 +156,7 @@
   position: relative;
 
   @include mid-break {
-    margin-bottom: 2rem
+    margin-bottom: 2rem;
   }
 }
 

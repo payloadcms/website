@@ -29,7 +29,7 @@ type CreditCardListType = {
 
 const modalSlug = 'confirm-delete-payment-method'
 
-const CardList: React.FC<CreditCardListType> = props => {
+const CardList: React.FC<CreditCardListType> = (props) => {
   const { initialPaymentMethods, team } = props
   const scrollRef = useRef<HTMLDivElement>(null)
   const newCardID = useRef<string>(`new-card-${uuid()}`)
@@ -193,7 +193,7 @@ const CardList: React.FC<CreditCardListType> = props => {
   )
 }
 
-export const CreditCardList: React.FC<CreditCardListType> = props => {
+export const CreditCardList: React.FC<CreditCardListType> = (props) => {
   return (
     <Elements stripe={Stripe}>
       <CardList {...props} />
