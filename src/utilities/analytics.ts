@@ -9,9 +9,9 @@ export function analyticsEvent(event: string, value?: unknown): void {
   }
 
   if (pixelID) {
-    import('react-facebook-pixel')
-      .then(x => x.default)
-      .then(ReactPixel => {
+    void import('react-facebook-pixel')
+      .then((x) => x.default)
+      .then((ReactPixel) => {
         if (event === 'page_view') {
           ReactPixel.pageView()
         } else {

@@ -1,9 +1,6 @@
 {
-  "arrowParens": "avoid",
-  "printWidth": 100,
-  "parser": "typescript",
-  "semi": false,
   "singleQuote": true,
-  "tabWidth": 2,
-  "trailingComma": "all"
+  "trailingComma": "all",
+  "printWidth": 100,
+  "semi": false
 }
