@@ -12,6 +12,7 @@
     "fetchDocs:local:v3": "node scripts/fetch-docs.mjs --v v3 --source local --ref v3 --output ./src/docs/docs-v3.json",
     "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev",
     "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
+    "generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types",
     "nodocs:build": "next build",
     "build": "pnpm payload migrate && pnpm fetchDocs:github && cross-env NODE_OPTIONS=--no-deprecation next build",
     "build:skipDocs": "cross-env NODE_OPTIONS=--no-deprecation next build",
