@@ -14,7 +14,7 @@
     "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
     "generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types",
     "nodocs:build": "next build",
-    "build": "pnpm payload migrate && pnpm fetchDocs:github && cross-env NODE_OPTIONS=--no-deprecation next build",
+    "build": "pnpm payload migrate && cross-env NODE_OPTIONS=--no-deprecation next build",
     "build:skipDocs": "cross-env NODE_OPTIONS=--no-deprecation next build",
     "postbuild": "next-sitemap --config ./next-sitemap.config.cjs",
     "analyze": "ANALYZE=true next build",

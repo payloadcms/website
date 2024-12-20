@@ -1,4 +1,4 @@
-import type { TopicGroup } from '@root/app/(frontend)/(pages)/docs/api'
+import type { TopicGroup } from '@root/app/(frontend)/(pages)/docs/types'
 
 import { BackgroundGrid } from '@components/BackgroundGrid'
 import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
@@ -16,7 +16,6 @@ import { fetchRelatedThreads } from '@data'
 import { ArrowIcon } from '@icons/ArrowIcon/index.js'
 import { unstable_cache } from 'next/cache'
 import Link from 'next/link'
-import { notFound } from 'next/navigation'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import React, { Suspense } from 'react'
 import remarkGfm from 'remark-gfm'

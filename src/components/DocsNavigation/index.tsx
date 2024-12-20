@@ -8,7 +8,7 @@ import { CloseIcon } from '@root/icons/CloseIcon/index.js'
 import Link from 'next/link'
 import React, { Fragment, useEffect, useRef, useState } from 'react'
 
-import type { TopicGroup } from '../../app/(frontend)/(pages)/docs/api'
+import type { TopicGroup } from '../../app/(frontend)/(pages)/docs/types'
 
 import classes from './index.module.scss'
 

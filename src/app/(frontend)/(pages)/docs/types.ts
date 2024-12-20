@@ -1,40 +1,37 @@
-export interface Heading {
-  anchor: string
-  id: string
-  level: number
-  text: string
+export type GithubAPIResponse = {
+  _links: {
+    git: string
+    html: string
+    self: string
+  }
+  content: string
+  download_url: string
+  encoding: string
+  git_url: string
+  html_url: string
+  name: string
+  path: string
+  sha: string
+  size: number
+  type: string
+  url: string
 }
+export type Heading = { anchor: string; id: string; level: number; text: string }
 
-export interface Doc {
-  content: any // eslint-disable-line
+export type ParsedDoc = {
+  content: string
   desc: string
   headings: Heading[]
   keywords: string
   label: string
   order: number
-  title: string
-}
-
-export interface NextDoc {
-  label: string
-  slug: string
-  title: string
-  topic: string
-}
-
-export interface DocPath {
-  doc: string
-  topic: string
-}
-
-export interface DocMeta {
-  label: string
-  order: number
   slug: string
   title: string
 }
 
-export interface Topic {
-  docs: DocMeta[]
-  slug: string
+export type Topic = { docs: ParsedDoc[]; slug: string }
+
+export type TopicGroup = {
+  groupLabel: string
+  topics: Topic[]
 }

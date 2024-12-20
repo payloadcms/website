@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import React from 'react'
 
-import { fetchDocs } from '../../../api'
+import { fetchDocs } from '../../../fetchDocs'
 
 export type TopicsOrder = { topics: string[] }[]
 
@@ -20,7 +20,7 @@ export default async function DocsPage({
     redirect(`/docs/${topic}/${doc}`)
   }
 
-  const topics = fetchDocs('v3')
+  const topics = await fetchDocs({ ref: 'main', version: 'v3' })
 
   return (
     <RenderDocs params={await params} topics={topics} version="beta">
@@ -39,21 +39,21 @@ export async function generateMetadata({
   params: Promise<{ doc: string; topic: string }>
 }) {
   const { doc: docSlug, topic: topicSlug } = await params
-  const topics = fetchDocs('v3')
+  const topics = await fetchDocs({ ref: 'main', version: 'v3' })
 
   const groupIndex = topics.findIndex(({ topics: tGroup }) =>
-    tGroup.some(topic => topic?.slug?.toLowerCase() === topicSlug),
+    tGroup.some((topic) => topic?.slug?.toLowerCase() === topicSlug),
   )
 
   const indexInGroup = topics[groupIndex]?.topics?.findIndex(
-    topic => topic?.slug?.toLowerCase() === topicSlug,
+    (topic) => topic?.slug?.toLowerCase() === topicSlug,
   )
 
   const topicGroup = topics?.[groupIndex]
 
   const topic = topicGroup?.topics?.[indexInGroup]
 
-  const docIndex = topic?.docs.findIndex(doc => doc.slug.replace('.mdx', '') === docSlug)
+  const docIndex = topic?.docs.findIndex((doc) => doc.slug.replace('.mdx', '') === docSlug)
 
   const currentDoc = topic?.docs?.[docIndex]
 
@@ -73,20 +73,21 @@ export async function generateMetadata({
   }
 }
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
   if (
     process.env.NEXT_PUBLIC_SKIP_BUILD_DOCS ||
     process.env.NEXT_PUBLIC_ENABLE_BETA_DOCS !== 'true'
-  )
-    {return []}
+  ) {
+    return []
+  }
 
-  const topics = fetchDocs('v3')
+  const topics = await fetchDocs({ ref: 'main', version: 'v3' })
 
   const result: { doc: string; topic: string }[] = []
 
   topics.forEach(({ topics: tGroup }) => {
-    tGroup.forEach(topic => {
-      topic?.docs.forEach(doc => {
+    tGroup.forEach((topic) => {
+      topic?.docs.forEach((doc) => {
         result.push({
           doc: doc.slug.replace('.mdx', ''),
           topic: topic.slug.toLowerCase(),
