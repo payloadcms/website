@@ -2,7 +2,7 @@
 import { hasText } from '@payloadcms/richtext-lexical/shared'
 import React from 'react'
 
-import RichText from '..'
+import { RichText } from '..'
 import classes from './index.module.scss'
 
 export const UploadBlockImage: (props: {

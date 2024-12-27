@@ -5,7 +5,7 @@ import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
 import { BlockWrapper } from '@components/BlockWrapper/index.js'
 import { CMSLink } from '@components/CMSLink/index.js'
 import { Gutter } from '@components/Gutter/index.js'
-import RichText from '@components/RichText/index.js'
+import { RichText } from '@components/RichText/index.js'
 import {
   Slide,
   SliderNav,

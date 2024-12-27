@@ -10,7 +10,7 @@ import { Gutter } from '@components/Gutter'
 import { JumplistProvider } from '@components/Jumplist'
 import { PayloadRedirects } from '@components/PayloadRedirects'
 import { RelatedHelpList } from '@components/RelatedHelpList/index.js'
-import RichText, { jsxConverters } from '@components/RichText'
+import { RichTextWithTOC } from '@components/RichText'
 import { TableOfContents } from '@components/TableOfContents/index.js'
 import { VersionSelector } from '@components/VersionSelector/index.js'
 import { fetchRelatedThreads } from '@data'
@@ -134,7 +134,7 @@ export const RenderDocs = async ({
               {children}
               <h1 className={classes.title}>{currentDoc.title}</h1>
               <div className={classes.mdx}>
-                <RichText content={currentDoc.content} />
+                <RichTextWithTOC content={currentDoc.content} />
               </div>
             </Suspense>
             {next && (
