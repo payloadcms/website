@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-exports */
 import { revalidateRedirects } from '@hooks/revalidateRedirects'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
@@ -5,7 +6,12 @@ import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
 import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs'
 import { redirectsPlugin } from '@payloadcms/plugin-redirects'
 import { seoPlugin } from '@payloadcms/plugin-seo'
-import { BlocksFeature, lexicalEditor, UploadFeature } from '@payloadcms/richtext-lexical'
+import {
+  BlocksFeature,
+  EXPERIMENTAL_TableFeature,
+  lexicalEditor,
+  UploadFeature,
+} from '@payloadcms/richtext-lexical'
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import link from '@root/fields/link'
 import { LabelFeature } from '@root/fields/richText/features/label/server'
@@ -19,6 +25,8 @@ import { fileURLToPath } from 'url'
 import { CaseStudies } from './collections/CaseStudies'
 import { CommunityHelp } from './collections/CommunityHelp'
 import { Docs } from './collections/Docs'
+import { BannerBlock } from './collections/Docs/blocks/banner'
+import { CodeBlock } from './collections/Docs/blocks/code'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Budgets, Industries, Regions, Specialties } from './collections/PartnerFilters'
@@ -31,7 +39,7 @@ import { GetStarted } from './globals/GetStarted'
 import { MainMenu } from './globals/MainMenu'
 import { PartnerProgram } from './globals/PartnerProgram'
 import redeployWebsite from './scripts/redeployWebsite'
-import syncDocs from './scripts/syncDocs'
+import { syncDocs } from './scripts/syncDocs'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -80,6 +88,7 @@ export default buildConfig({
   editor: lexicalEditor({
     features: ({ defaultFeatures }) => [
       ...defaultFeatures,
+      EXPERIMENTAL_TableFeature(),
       UploadFeature({
         collections: {
           media: {
@@ -211,40 +220,8 @@ export default buildConfig({
             ],
             interfaceName: 'TemplateCardsBlock',
           },
-          {
-            slug: 'banner',
-            fields: [
-              {
-                name: 'type',
-                type: 'select',
-                defaultValue: 'default',
-                options: [
-                  {
-                    label: 'Default',
-                    value: 'default',
-                  },
-                  {
-                    label: 'Success',
-                    value: 'success',
-                  },
-                  {
-                    label: 'Warning',
-                    value: 'warning',
-                  },
-                  {
-                    label: 'Error',
-                    value: 'error',
-                  },
-                ],
-              },
-              {
-                name: 'content',
-                type: 'richText',
-                editor: lexicalEditor(),
-              },
-            ],
-            interfaceName: 'BannerBlock',
-          },
+          BannerBlock,
+          CodeBlock,
         ],
       }),
     ],

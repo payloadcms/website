@@ -1,0 +1,18 @@
+@use '@scss/common' as *;
+
+.imageWrap {
+  margin: 2.5rem 0;
+
+  .caption {
+    font-style: italic;
+    padding: 0.75rem 0 0;
+  }
+
+  @include large-break {
+    margin: 2rem 0;
+  }
+
+  @include small-break {
+    margin: 1.5rem 0;
+  }
+}

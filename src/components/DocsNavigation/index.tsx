@@ -8,27 +8,27 @@ import { CloseIcon } from '@root/icons/CloseIcon/index.js'
 import Link from 'next/link'
 import React, { Fragment, useEffect, useRef, useState } from 'react'
 
-import type { TopicGroup } from '../../app/(frontend)/(pages)/docs/types'
+import type { TopicGroupForNav } from '../../collections/Docs/types'
 
 import classes from './index.module.scss'
 
 const openTopicsLocalStorageKey = 'docs-open-topics'
 
 export const DocsNavigation = ({
+  currentDoc,
   currentTopic,
   docIndex,
   groupIndex,
   indexInGroup,
-  params,
   topics,
   version,
 }: {
+  currentDoc: string
   currentTopic: string
   docIndex: number
   groupIndex: number
   indexInGroup: number
-  params: { doc: string; topic: string }
-  topics: TopicGroup[]
+  topics: TopicGroupForNav[]
   version?: 'beta' | 'current' | 'v2'
 }) => {
   const [currentTopicIsOpen, setCurrentTopicIsOpen] = useState(true)
@@ -49,16 +49,16 @@ export const DocsNavigation = ({
 
   useEffect(() => {
     setNavOpen(false)
-  }, [params.topic, params.doc])
+  }, [currentTopic, currentDoc])
 
   useEffect(() => {
     const preference = window.localStorage.getItem(openTopicsLocalStorageKey)
     if (preference) {
       setOpenTopicPreferences(JSON.parse(preference))
     } else {
-      setOpenTopicPreferences([params.topic])
+      setOpenTopicPreferences([currentTopic])
     }
-  }, [params.topic])
+  }, [currentTopic])
 
   useEffect(() => {
     if (openTopicPreferences && !init) {
@@ -68,7 +68,7 @@ export const DocsNavigation = ({
 
   useEffect(() => {
     resetDefaultIndicator()
-  }, [params.topic, params.doc])
+  }, [currentTopic, currentDoc])
 
   useEffect(() => {
     if (init) {
@@ -88,7 +88,7 @@ export const DocsNavigation = ({
   }
 
   const handleMenuItemClick = (topicSlug: string) => {
-    const isCurrentTopic = params.topic === topicSlug
+    const isCurrentTopic = currentTopic === topicSlug
     if (isCurrentTopic) {
       if (openTopicPreferences?.includes(topicSlug) && currentTopicIsOpen) {
         const newState = [...openTopicPreferences]
@@ -124,8 +124,8 @@ export const DocsNavigation = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [resetIndicator])
 
-  const isActiveTopic = (topic: string) => topic === params.topic
-  const isActiveDoc = (topic: string, doc: string) => topic === params.topic && doc === params.doc
+  const isActiveTopic = (topic: string) => topic === currentTopic
+  const isActiveDoc = (topic: string, doc: string) => topic === currentTopic && doc === currentDoc
 
   return (
     openTopicPreferences && (
@@ -167,7 +167,7 @@ export const DocsNavigation = ({
                             topicRefs.current[`${groupIndex}-${index}`] = ref
                           }}
                         >
-                          {topic.slug.replace('-', ' ')}
+                          {topic.label.replace('-', ' ')}
                           <ChevronIcon aria-hidden className={classes.chevron} size="small" />
                         </Accordion.Trigger>
                         <Accordion.Content asChild>
@@ -213,12 +213,12 @@ export const DocsNavigation = ({
               </Fragment>
             ))}
           </Accordion.Root>
-          {(indicatorTop || defaultIndicatorPosition) && (
+          {indicatorTop || defaultIndicatorPosition ? (
             <div
               className={classes.indicator}
               style={{ top: indicatorTop || defaultIndicatorPosition }}
             />
-          )}
+          ) : null}
           <div aria-hidden className={classes.navOverlay} />
           <Portal.Root className={classes.mobileNav}>
             <button

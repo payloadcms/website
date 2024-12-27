@@ -7,7 +7,7 @@ type Props = {
   title: string
 }
 
-const YouTube: (props) => React.JSX.Element = ({ id, title }) => (
+const YouTube: (props: Props) => React.JSX.Element = ({ id, title }) => (
   <div className={classes.wrap}>
     <div className={classes.innerWrap}>
       <iframe

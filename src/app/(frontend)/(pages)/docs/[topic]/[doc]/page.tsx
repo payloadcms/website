@@ -1,40 +1,76 @@
+/* eslint-disable no-restricted-exports */
 import { RenderDocs } from '@components/RenderDocs'
+import config from '@payload-config'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
+import { notFound } from 'next/navigation'
+import { getPayload } from 'payload'
 import React from 'react'
 
-import { fetchDocs } from '../../fetchDocs'
+import { fetchTopicsForSidebar } from '../../fetchTopicsForSidebar'
+
 export const dynamic = 'force-static'
 
 type Params = { doc: string; topic: string }
 
 export default async function DocsPage({ params }: { params: Promise<Params> }) {
-  const topics = await fetchDocs()
+  const { doc: docSlug, topic: topicSlug } = await params
 
-  return <RenderDocs params={await params} topics={topics} />
+  const payload = await getPayload({ config })
+  const curDoc = await payload.find({
+    collection: 'docs',
+    where: {
+      slug: {
+        equals: docSlug,
+      },
+      topic: {
+        equals: topicSlug,
+      },
+      version: {
+        equals: 'v3',
+      },
+    },
+  })
+
+  const topicGroups = await fetchTopicsForSidebar({ payload, version: 'v3' })
+
+  if (!curDoc?.docs?.length) {
+    notFound()
+  }
+
+  const doc = curDoc.docs[0]
+
+  return (
+    <RenderDocs
+      currentDoc={doc}
+      docSlug={docSlug}
+      topicGroups={topicGroups}
+      topicSlug={topicSlug}
+    />
+  )
 }
 
 export async function generateMetadata({ params }: { params: Promise<Params> }) {
   const { doc: docSlug, topic: topicSlug } = await params
-  const topics = await fetchDocs()
+  const payload = await getPayload({ config })
+  const docs = await payload.find({
+    collection: 'docs',
+    where: {
+      slug: {
+        equals: docSlug,
+      },
+      topic: {
+        equals: topicSlug,
+      },
+      version: {
+        equals: 'v3',
+      },
+    },
+  })
 
-  const groupIndex = topics.findIndex(({ topics: tGroup }) =>
-    tGroup.some((topic) => topic?.slug?.toLowerCase() === topicSlug),
-  )
-
-  const indexInGroup = topics[groupIndex]?.topics?.findIndex(
-    (topic) => topic?.slug?.toLowerCase() === topicSlug,
-  )
-
-  const topicGroup = topics?.[groupIndex]
-
-  const topic = topicGroup?.topics?.[indexInGroup]
-
-  const docIndex = topic?.docs.findIndex((doc) => doc.slug.replace('.mdx', '') === docSlug)
-
-  const currentDoc = topic?.docs?.[docIndex]
+  const currentDoc = docs?.docs?.[0]
 
   return {
-    description: currentDoc?.desc || `Payload ${topicSlug} Documentation`,
+    description: currentDoc?.description || `Payload ${topicSlug} Documentation`,
     openGraph: mergeOpenGraph({
       images: [
         {
@@ -53,18 +89,22 @@ export async function generateStaticParams(): Promise<Params[]> {
     return []
   }
 
-  const topics = await fetchDocs()
+  const payload = await getPayload({ config })
+  const docs = await payload.find({
+    collection: 'docs',
+    where: {
+      version: {
+        equals: 'v3',
+      },
+    },
+  })
 
   const result: Params[] = []
 
-  topics.forEach(({ topics: tGroup }) => {
-    tGroup.forEach((topic) => {
-      topic?.docs.forEach((doc) => {
-        result.push({
-          doc: doc.slug.replace('.mdx', ''),
-          topic: topic.slug.toLowerCase(),
-        })
-      })
+  docs?.docs?.forEach((doc) => {
+    result.push({
+      doc: doc.slug.replace('.mdx', ''),
+      topic: doc.topic.toLowerCase(),
     })
   })
 

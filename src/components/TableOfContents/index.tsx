@@ -1,6 +1,6 @@
 'use client'
 
-import type { Heading } from '@root/app/(frontend)/(pages)/docs/types.js'
+import type { Heading } from '@root/collections/Docs/types.js'
 
 import React, { useEffect, useRef, useState } from 'react'
 
@@ -25,7 +25,9 @@ export const TableOfContents: React.FC<Props> = ({ className, headings }) => {
     } else {
       setIndicatorTop(undefined)
     }
-    resetIndicator && setResetIndicator(false)
+    if (resetIndicator) {
+      setResetIndicator(false)
+    }
   }, [activeHeadingId, headings, resetIndicator])
 
   return headings?.length > 0 ? (
@@ -36,15 +38,15 @@ export const TableOfContents: React.FC<Props> = ({ className, headings }) => {
       <h6 className={classes.tocTitle}>On this page</h6>
       <Jumplist
         className={classes.toc}
-        list={headings.map(({ id, anchor, level, text }) => ({
-          id,
+        list={headings.map(({ anchor, level, text }) => ({
+          id: anchor,
           anchor,
           Component: ({ active }) => {
             if (active) {
-              setActiveHeadingId(id)
+              setActiveHeadingId(anchor)
             }
             const handleMouseEnter = () => {
-              const offsetTop = listItemRefs.current[id]?.offsetTop || 0
+              const offsetTop = listItemRefs.current[anchor]?.offsetTop || 0
               setIndicatorTop(offsetTop)
             }
             return (
@@ -52,10 +54,10 @@ export const TableOfContents: React.FC<Props> = ({ className, headings }) => {
                 className={[classes[`heading-${level}`], active && classes.active]
                   .filter(Boolean)
                   .join(' ')}
-                key={id}
+                key={anchor}
                 onMouseEnter={handleMouseEnter}
                 ref={(ref) => {
-                  listItemRefs.current[id] = ref
+                  listItemRefs.current[anchor] = ref
                 }}
               >
                 {text}

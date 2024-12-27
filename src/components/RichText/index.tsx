@@ -1,3 +1,5 @@
+'use client'
+
 import type { Reference } from '@components/CMSLink'
 import type { DefaultNodeTypes, SerializedBlockNode } from '@payloadcms/richtext-lexical'
 import type { SerializedLexicalNode } from '@payloadcms/richtext-lexical/lexical'
@@ -6,14 +8,19 @@ import type { SerializedLargeBodyNode } from '@root/fields/richText/features/lar
 import type {
   BannerBlock,
   BrBlock,
+  CodeBlock,
   CommandLineBlock,
+  LightDarkImageBlock,
   SpotlightBlock,
   TemplateCardsBlock,
+  UploadBlock,
   VideoBlock,
+  YoutubeBlock,
 } from '@types'
 
 import { Banner } from '@components/Banner'
 import { CMSLink } from '@components/CMSLink'
+import Code from '@components/Code/index.js'
 import { CommandLine } from '@components/CommandLine'
 import { Label } from '@components/Label'
 import { LargeBody } from '@components/LargeBody'
@@ -21,6 +28,7 @@ import RichTextUpload from '@components/RichText/Upload'
 import { Video } from '@components/RichText/Video'
 import SpotlightAnimation from '@components/SpotlightAnimation'
 import { TemplateCards } from '@components/TemplateCardsBlock'
+import YouTube from '@components/YouTube/index.js'
 import {
   type JSXConvertersFunction,
   RichText as SerializedRichText,
@@ -29,7 +37,10 @@ import React from 'react'
 
 import type { AllowedElements } from '../SpotlightAnimation/types.js'
 
-import classes from './index.module.scss'
+import './index.scss'
+import LightDarkImage from './LightDarkImage/index.js'
+import { CustomTableJSXConverters } from './Table/index.js'
+import { UploadBlockImage } from './UploadBlock/index.js'
 
 type Props = {
   className?: string
@@ -39,24 +50,48 @@ type Props = {
 export type NodeTypes =
   | DefaultNodeTypes
   | SerializedBlockNode<
-      BannerBlock | BrBlock | CommandLineBlock | SpotlightBlock | TemplateCardsBlock | VideoBlock
+      | BannerBlock
+      | BrBlock
+      | CodeBlock
+      | CommandLineBlock
+      | LightDarkImageBlock
+      | SpotlightBlock
+      | TemplateCardsBlock
+      | UploadBlock
+      | VideoBlock
+      | YoutubeBlock
     >
   | SerializedLabelNode
   | SerializedLargeBodyNode
 
-const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) => ({
+export const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) => ({
   ...defaultConverters,
+  ...CustomTableJSXConverters,
   blocks: {
     banner: ({ node }) => {
-      return <Banner {...node.fields} />
+      return <Banner content={node.fields.content} type={node.fields.type} />
     },
     br: () => <br />,
+    code: ({ node }) => {
+      const codeString: string = node.fields.code ?? ''
+      return <Code children={codeString?.trim()} disableMinHeight />
+    },
     commandLine: ({ node }) => {
       const { command } = node.fields
       if (command) {
         return <CommandLine command={command} lexical />
       }
       return null
+    },
+    lightDarkImage: ({ node }) => {
+      return (
+        <LightDarkImage
+          alt={node.fields.alt ?? ''}
+          caption={node.fields.caption ?? ''}
+          srcDark={node.fields.srcDark}
+          srcLight={node.fields.srcLight}
+        />
+      )
     },
     spotlight: ({ node, nodesToJSX }) => {
       const { element, richText } = node.fields
@@ -78,6 +113,15 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
       }
       return <TemplateCards templates={templates} />
     },
+    upload: ({ node }) => {
+      return (
+        <UploadBlockImage
+          alt={node.fields.alt ?? undefined}
+          caption={node.fields.caption ?? undefined}
+          src={node.fields.src}
+        />
+      )
+    },
     video: ({ node }) => {
       const { url } = node.fields
 
@@ -89,6 +133,9 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
       }
 
       return null
+    },
+    youtube: ({ node }) => {
+      return <YouTube id={node.fields.id} title={node.fields.title ?? ''} />
     },
   },
   label: ({ node, nodesToJSX }) => {
@@ -122,7 +169,7 @@ export const RichText: React.FC<Props> = ({ className, content }) => {
 
   return (
     <SerializedRichText
-      className={[classes.richText, className].filter(Boolean).join(' ')}
+      className={['payload-richtext', className].filter(Boolean).join(' ')}
       converters={jsxConverters}
       data={content}
     />
