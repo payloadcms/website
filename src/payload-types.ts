@@ -5123,6 +5123,21 @@ export interface CommunityHelp {
  */
 export interface Doc {
   id: string;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   title: string;
   description?: string | null;
   keywords?: string | null;
@@ -5135,12 +5150,16 @@ export interface Doc {
     | number
     | boolean
     | null;
-  content?: string | null;
   path?: string | null;
-  topic?: string | null;
-  slug?: string | null;
+  topic: string;
+  /**
+   * The topic group is displayed on the sidebar, but is not part of the URL
+   */
+  topicGroup: string;
+  slug: string;
   label?: string | null;
   order?: number | null;
+  version: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -6378,16 +6397,18 @@ export interface CommunityHelpSelect<T extends boolean = true> {
  * via the `definition` "docs_select".
  */
 export interface DocsSelect<T extends boolean = true> {
+  content?: T;
   title?: T;
   description?: T;
   keywords?: T;
   headings?: T;
-  content?: T;
   path?: T;
   topic?: T;
+  topicGroup?: T;
   slug?: T;
   label?: T;
   order?: T;
+  version?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -13690,7 +13711,7 @@ export interface TemplateCardsBlock {
  * via the `definition` "BannerBlock".
  */
 export interface BannerBlock {
-  type?: ('default' | 'success' | 'warning' | 'error') | null;
+  type?: ('alert' | 'default' | 'error' | 'info' | 'success' | 'warning') | null;
   content?: {
     root: {
       type: string;
@@ -13709,6 +13730,87 @@ export interface BannerBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'banner';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CodeBlock".
+ */
+export interface CodeBlock {
+  language?:
+    | (
+        | 'bash'
+        | 'css'
+        | 'dockerfile'
+        | 'env'
+        | 'graphql'
+        | 'html'
+        | 'js'
+        | 'json'
+        | 'jsx'
+        | 'plaintext'
+        | 'scss'
+        | 'sh'
+        | 'text'
+        | 'ts'
+        | 'tsx'
+        | 'vue'
+        | 'yaml'
+        | 'yml'
+      )
+    | null;
+  code?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'code';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "YoutubeBlock".
+ */
+export interface YoutubeBlock {
+  id?: string | null;
+  title?: string | null;
+  blockName?: string | null;
+  blockType: 'youtube';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LightDarkImageBlock".
+ */
+export interface LightDarkImageBlock {
+  srcLight: string;
+  srcDark: string;
+  alt?: string | null;
+  caption?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'lightDarkImage';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "UploadBlock".
+ */
+export interface UploadBlock {
+  src: string;
+  alt?: string | null;
+  caption?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'upload';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

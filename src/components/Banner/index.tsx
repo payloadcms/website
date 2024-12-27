@@ -15,7 +15,7 @@ export type Props = {
   icon?: 'checkmark'
   margin?: boolean
   marginAdjustment?: any
-  type?: Extract<ReusableContent['layout'][0], { blockType: 'banner' }>['bannerFields']['type']
+  type?: BannerBlock['type']
 }
 
 const Icons = {

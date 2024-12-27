@@ -1,138 +1,133 @@
-import type { PayloadHandler } from 'payload'
+import type { TopicGroup } from '@root/collections/Docs/types'
+import type { PayloadHandler, PayloadRequest, RequiredDataFromCollectionSlug } from 'payload'
 
-import matter from 'gray-matter'
+import { sanitizeServerEditorConfig } from '@payloadcms/richtext-lexical'
+import { contentLexicalEditorFeatures } from '@root/collections/Docs'
+import { mdxToLexical } from '@root/collections/Docs/mdxToLexical'
 
-import type { Doc } from '../payload-types'
+import { fetchDocs } from './fetchDocs.js'
 
-import sanitizeSlug from '../utilities/sanitizeSlug'
+const importTopicGroups: (args: {
+  req: PayloadRequest
+  topicGroups: TopicGroup[]
+  version: string
+}) => Promise<{
+  createdOrUpdatedDocs: string[]
+}> = async ({ req, topicGroups, version }) => {
+  const editorConfig = await sanitizeServerEditorConfig(
+    {
+      features: contentLexicalEditorFeatures,
+    },
+    req.payload.config,
+  )
 
-const decodeBase64 = (
-  string: { [Symbol.toPrimitive](hint: 'string'): string } | WithImplicitCoercion<string>,
-) => {
-  const buff = Buffer.from(string, 'base64')
-  return buff.toString('utf8')
+  const createdOrUpdatedDocs: string[] = []
+
+  for (const topicGroup of topicGroups) {
+    for (const topic of topicGroup.topics) {
+      for (const doc of topic.docs) {
+        const mdx = doc.content
+
+        const { editorState } = mdxToLexical({
+          editorConfig,
+          mdx,
+        })
+
+        const newData: RequiredDataFromCollectionSlug<'docs'> = {
+          slug: doc.slug,
+          content: editorState as any,
+          description: doc.desc,
+          headings: doc.headings,
+          keywords: doc.keywords,
+          label: doc.label,
+          order: doc.order,
+          path: `${topic.slug}/${doc.slug}`,
+          title: doc.title,
+          topic: topic.slug,
+          topicGroup: topicGroup.groupLabel,
+          version,
+        }
+
+        const existingDocs = await req.payload.find({
+          collection: 'docs',
+          where: {
+            slug: { equals: doc.slug },
+            topic: { equals: topic.slug },
+            version: { equals: version },
+          },
+        })
+
+        try {
+          if (existingDocs.totalDocs === 1) {
+            const { id } = await req.payload.update({
+              id: existingDocs.docs[0].id,
+              collection: 'docs',
+              data: newData,
+              depth: 0,
+              select: {},
+            })
+            createdOrUpdatedDocs.push(id)
+          } else {
+            const { id } = await req.payload.create({
+              collection: 'docs',
+              data: newData,
+              depth: 0,
+              select: {},
+            })
+            createdOrUpdatedDocs.push(id)
+          }
+        } catch (err) {
+          console.error('Error importing doc', err)
+          req.payload.logger.error({
+            err,
+            msg: 'Error importing doc',
+            path: newData?.path,
+          })
+          throw err
+        }
+      }
+    }
+  }
+
+  return { createdOrUpdatedDocs }
 }
 
-const githubAPI = 'https://api.github.com/repos/payloadcms/payload'
-
-const headers = {
-  Accept: 'application/vnd.github.v3+json.html',
-  Authorization: `token ${process.env.GITHUB_ACCESS_TOKEN}`,
-}
-
-function getHeadings(source: string) {
-  const headingLines = source.split('\n').filter((line: string) => {
-    return line.match(/^#{1,3}\s.+/gm)
-  })
-
-  return headingLines.map((raw: string) => {
-    const text = raw.replace(/^#{2,}\s/, '')
-    const level = raw.slice(0, 3) === '###' ? 3 : 2
-    return { id: sanitizeSlug(text), level, text }
-  })
-}
-
-const syncDocs: PayloadHandler = async (req) => {
+export const syncDocs: PayloadHandler = async (req) => {
   const { payload } = req
-  let topics
 
   try {
     if (!process.env.GITHUB_ACCESS_TOKEN) {
       return new Response('No GitHub access token found', { status: 400 })
     }
+    try {
+      const allV3Docs = await fetchDocs({ ref: 'main', version: 'v3' })
+      const allV2Docs = await fetchDocs({ ref: '2.x', version: 'v2' })
 
-    const fetchDoc = async (topicSlug: string, docFilename: string): Promise<Doc> => {
-      const json: any = await fetch(`${githubAPI}/contents/docs/${topicSlug}/${docFilename}`, {
-        headers,
-      }).then((response) => response.json())
+      const createdOrUpdatedDocs: string[] = []
+      createdOrUpdatedDocs.push(
+        ...(await importTopicGroups({ req, topicGroups: allV3Docs, version: 'v3' }))
+          .createdOrUpdatedDocs,
+        ...(await importTopicGroups({ req, topicGroups: allV2Docs, version: 'v2' }))
+          .createdOrUpdatedDocs,
+      )
 
-      const parsedDoc = matter(decodeBase64(json.content))
-
-      const slug = docFilename.replace('.mdx', '')
-
-      const doc: Doc = {
-        id: '',
-        slug,
-        content: parsedDoc.content,
-        createdAt: '',
-        description: parsedDoc.data.desc || '',
-        headings: getHeadings(parsedDoc.content),
-        keywords: parsedDoc.data.keywords || '',
-        label: parsedDoc.data.label,
-        order: parsedDoc.data.order,
-        path: `${topicSlug}/${slug}`,
-        title: parsedDoc.data.title,
-        topic: topicSlug,
-        updatedAt: '',
-      }
-
-      return doc
-    }
-
-    const processDoc = async (doc: Doc) => {
-      const existingDocs = await payload.find({
+      await payload.delete({
         collection: 'docs',
+        depth: 0,
         where: {
-          slug: { equals: doc.slug },
-          topic: { equals: doc.topic },
+          id: {
+            not_in: createdOrUpdatedDocs,
+          },
         },
       })
-      if (existingDocs.totalDocs === 1) {
-        await payload.update({
-          collection: 'docs',
-          data: doc as any,
-          where: {
-            id: { equals: existingDocs.docs[0].id },
-          },
-        })
-      } else if (existingDocs.totalDocs === 0) {
-        await payload.create({
-          collection: 'docs',
-          data: doc,
-        })
-      } else if (existingDocs.totalDocs > 1) {
-        payload.logger.error(
-          `Found ${existingDocs.totalDocs} documents with identical topic and slug: ${doc.topic} ${doc.slug}`,
-        )
-      }
+    } catch (err) {
+      console.error('Error syncing docs', err)
+      throw new Error(err)
     }
-
-    const processAllDocs = async (finalDocs: Doc[][]) => {
-      for (const docs of finalDocs) {
-        await Promise.all(docs.map(processDoc))
-      }
-    }
-
-    const getTopics: any = await fetch(`${githubAPI}/contents/docs`, {
-      headers,
-    }).then((response) => response.json())
-
-    topics = getTopics.map(({ name }) => name)
-
-    const allDocs = await Promise.all(
-      topics.map(async (unsanitizedTopicSlug) => {
-        const topicSlug = unsanitizedTopicSlug.toLowerCase()
-
-        const docs: any = await fetch(`${githubAPI}/contents/docs/${topicSlug}`, {
-          headers,
-        }).then((response) => response.json())
-
-        const docFilenames = docs.map(({ name }) => name)
-
-        const parsedDocs = await Promise.all(
-          docFilenames.map((docFilename) => fetchDoc(topicSlug, docFilename)),
-        )
-
-        return parsedDocs
-      }),
-    )
-
-    await processAllDocs(allDocs)
 
     return new Response(JSON.stringify({ success: true }), { status: 200 })
   } catch (err: unknown) {
+    console.error('Error syncing docs', err)
     return new Response(JSON.stringify({ message: err, success: false }), { status: 400 })
   }
 }
-
-export default syncDocs

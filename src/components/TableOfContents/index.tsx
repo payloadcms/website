@@ -1,6 +1,7 @@
 'use client'
 
-import type { Heading } from '@root/app/(frontend)/(pages)/docs/types.js'
+import type { ListItem } from '@components/Jumplist/types.js'
+import type { Heading } from '@root/collections/Docs/types.js'
 
 import React, { useEffect, useRef, useState } from 'react'
 
@@ -25,8 +26,47 @@ export const TableOfContents: React.FC<Props> = ({ className, headings }) => {
     } else {
       setIndicatorTop(undefined)
     }
-    resetIndicator && setResetIndicator(false)
+    if (resetIndicator) {
+      setResetIndicator(false)
+    }
   }, [activeHeadingId, headings, resetIndicator])
+
+  const [list, setList] = useState<ListItem[]>([])
+
+  useEffect(() => {
+    setList(
+      headings.map(({ anchor, level, text }) => ({
+        id: anchor,
+        anchor,
+        Component: ({ active }) => {
+          useEffect(() => {
+            if (active) {
+              setActiveHeadingId(anchor)
+            }
+          }, [active])
+
+          const handleMouseEnter = () => {
+            const offsetTop = listItemRefs.current[anchor]?.offsetTop || 0
+            setIndicatorTop(offsetTop)
+          }
+          return (
+            <div
+              className={[classes[`heading-${level}`], active && classes.active]
+                .filter(Boolean)
+                .join(' ')}
+              key={anchor}
+              onMouseEnter={handleMouseEnter}
+              ref={(ref) => {
+                listItemRefs.current[anchor] = ref
+              }}
+            >
+              {text}
+            </div>
+          )
+        },
+      })),
+    )
+  }, [headings])
 
   return headings?.length > 0 ? (
     <div
@@ -34,36 +74,7 @@ export const TableOfContents: React.FC<Props> = ({ className, headings }) => {
       onMouseLeave={() => setResetIndicator(true)}
     >
       <h6 className={classes.tocTitle}>On this page</h6>
-      <Jumplist
-        className={classes.toc}
-        list={headings.map(({ id, anchor, level, text }) => ({
-          id,
-          anchor,
-          Component: ({ active }) => {
-            if (active) {
-              setActiveHeadingId(id)
-            }
-            const handleMouseEnter = () => {
-              const offsetTop = listItemRefs.current[id]?.offsetTop || 0
-              setIndicatorTop(offsetTop)
-            }
-            return (
-              <div
-                className={[classes[`heading-${level}`], active && classes.active]
-                  .filter(Boolean)
-                  .join(' ')}
-                key={id}
-                onMouseEnter={handleMouseEnter}
-                ref={(ref) => {
-                  listItemRefs.current[id] = ref
-                }}
-              >
-                {text}
-              </div>
-            )
-          },
-        }))}
-      />
+      <Jumplist className={classes.toc} list={list} />
       {indicatorTop !== undefined && (
         <div className={classes.indicator} style={{ top: indicatorTop }} />
       )}

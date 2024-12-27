@@ -128,6 +128,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
       } catch (e) {
         setUser(null)
+        if (process.env.NEXT_PUBLIC_OMIT_CLOUD_ERRORS === 'true') {
+          return
+        }
         throw new Error(`${CLOUD_CONNECTION_ERROR}: ${e.message}`)
       }
     }

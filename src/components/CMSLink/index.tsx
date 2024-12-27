@@ -129,7 +129,7 @@ export const CMSLink: React.FC<CMSLinkType> = ({
       } catch (e) {
         // Do not throw error if URL is invalid
         // This will prevent the page from building
-        console.log(`Failed to format url: ${href}`, e) // eslint-disable-line no-console
+        //console.log(`Failed to format url: ${href}`, e) // eslint-disable-line no-console
       }
     }
 
