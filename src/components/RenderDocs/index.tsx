@@ -34,7 +34,7 @@ export const RenderDocs = async ({
   docSlug: string
   topicGroups: TopicGroupForNav[]
   topicSlug: string
-  version?: 'beta' | 'current' | 'v2'
+  version?: 'beta' | 'current' | 'dynamic' | 'v2'
 }) => {
   const groupIndex = topicGroups.findIndex(({ topics: tGroup }) =>
     tGroup.some((topic) => topic?.slug?.toLowerCase() === topicSlug.toLowerCase()),

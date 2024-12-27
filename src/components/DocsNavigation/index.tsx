@@ -29,7 +29,7 @@ export const DocsNavigation = ({
   groupIndex: number
   indexInGroup: number
   topics: TopicGroupForNav[]
-  version?: 'beta' | 'current' | 'v2'
+  version?: 'beta' | 'current' | 'dynamic' | 'v2'
 }) => {
   const [currentTopicIsOpen, setCurrentTopicIsOpen] = useState(true)
   const [openTopicPreferences, setOpenTopicPreferences] = useState<string[]>()

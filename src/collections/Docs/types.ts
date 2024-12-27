@@ -31,7 +31,7 @@ export type ParsedDoc = {
 
 export type ParsedDocForNav = Pick<ParsedDoc, 'label' | 'order' | 'slug' | 'title'>
 
-export type Topic = { docs: ParsedDoc[]; slug: string }
+export type Topic = { docs: ParsedDoc[]; label: string; slug: string }
 
 export type TopicForNav = { docs: ParsedDocForNav[]; label: string; slug: string }
 

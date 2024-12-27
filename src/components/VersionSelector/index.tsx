@@ -6,7 +6,7 @@ import React from 'react'
 import classes from './index.module.scss'
 
 export const VersionSelector: React.FC<{
-  initialVersion: 'beta' | 'current' | 'v2'
+  initialVersion: 'beta' | 'current' | 'dynamic' | 'v2'
 }> = ({ initialVersion }) => {
   const router = useRouter()
 

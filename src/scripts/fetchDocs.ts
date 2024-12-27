@@ -174,6 +174,7 @@ export async function fetchDocs(args?: {
               return {
                 slug: topicSlug,
                 docs: parsedDocs.sort((a, b) => a.order - b.order),
+                label: key,
               } as Topic
             }),
           ),
