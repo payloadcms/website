@@ -84,6 +84,11 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
   }
 }
 
+// We'll prerender only the params from `generateStaticParams` at build time.
+// If a request comes in for a path that hasn't been generated,
+// Next.js will server-render the page on-demand.
+export const dynamicParams = true
+
 export async function generateStaticParams(): Promise<Params[]> {
   if (process.env.NEXT_PUBLIC_SKIP_BUILD_DOCS) {
     return []

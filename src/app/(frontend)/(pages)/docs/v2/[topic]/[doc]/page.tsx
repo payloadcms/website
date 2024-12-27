@@ -13,6 +13,8 @@ export type TopicsOrder = { topics: string[] }[]
 
 type Params = { doc: string; topic: string }
 
+export const dynamic = 'force-static'
+
 export default async function DocsPage({ params }: { params: Promise<Params> }) {
   const { doc: docSlug, topic: topicSlug } = await params
 
@@ -99,6 +101,11 @@ export async function generateMetadata({
     title: `${currentDoc?.title ? `${currentDoc.title} | ` : ''}Documentation | Payload`,
   }
 }
+
+// We'll prerender only the params from `generateStaticParams` at build time.
+// If a request comes in for a path that hasn't been generated,
+// Next.js will server-render the page on-demand.
+export const dynamicParams = true
 
 export async function generateStaticParams(): Promise<Params[]> {
   if (

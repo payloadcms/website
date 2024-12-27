@@ -7,6 +7,7 @@ import {
   type FeatureProviderServer,
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
+import { revalidatePath } from 'next/cache'
 
 import { isAdmin } from '../../access/isAdmin'
 import { BannerBlock } from './blocks/banner'
@@ -144,4 +145,16 @@ export const Docs: CollectionConfig = {
       ],
     },
   ],
+  hooks: {
+    afterChange: [
+      ({ doc }) => {
+        if (doc?.version === 'v2') {
+          revalidatePath('/(frontend)/(pages)/docs/v2/[topic]/[doc]', 'page')
+        } else {
+          // Revalidate all doc paths, to ensure that the sidebar is up-to-date for all docs
+          revalidatePath('/(frontend)/(pages)/docs/[topic]/[doc]', 'page')
+        }
+      },
+    ],
+  },
 }
