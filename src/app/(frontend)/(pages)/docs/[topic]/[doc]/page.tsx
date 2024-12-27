@@ -18,6 +18,7 @@ export default async function DocsPage({ params }: { params: Promise<Params> }) 
   const payload = await getPayload({ config })
   const curDoc = await payload.find({
     collection: 'docs',
+    pagination: false,
     where: {
       slug: {
         equals: docSlug,
@@ -54,6 +55,12 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
   const payload = await getPayload({ config })
   const docs = await payload.find({
     collection: 'docs',
+    depth: 0,
+    pagination: false,
+    select: {
+      description: true,
+      title: true,
+    },
     where: {
       slug: {
         equals: docSlug,
@@ -97,6 +104,13 @@ export async function generateStaticParams(): Promise<Params[]> {
   const payload = await getPayload({ config })
   const docs = await payload.find({
     collection: 'docs',
+    depth: 0,
+    limit: 10000,
+    pagination: false,
+    select: {
+      slug: true,
+      topic: true,
+    },
     where: {
       version: {
         equals: 'v3',
@@ -106,12 +120,12 @@ export async function generateStaticParams(): Promise<Params[]> {
 
   const result: Params[] = []
 
-  docs?.docs?.forEach((doc) => {
+  for (const doc of docs.docs) {
     result.push({
       doc: doc.slug.replace('.mdx', ''),
       topic: doc.topic.toLowerCase(),
     })
-  })
+  }
 
   return result
 }

@@ -13,6 +13,7 @@ export const fetchTopicsForSidebar = async ({
   const result = await payload.find({
     collection: 'docs',
     depth: 0,
+    limit: 10000,
     pagination: false,
     select: {
       slug: true,
