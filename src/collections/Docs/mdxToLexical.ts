@@ -85,15 +85,25 @@ export function mdxToLexical({
     }),
   })
 
-  headlessEditor.update(
-    () => {
-      $convertFromMarkdownString(mdx, [
-        UploadBlockMarkdownTransformer,
-        ...editorConfig.features.markdownTransformers,
-      ])
-    },
-    { discrete: true },
-  )
+  try {
+    headlessEditor.update(
+      () => {
+        try {
+          $convertFromMarkdownString(mdx, [
+            UploadBlockMarkdownTransformer,
+            ...editorConfig.features.markdownTransformers,
+          ])
+        } catch (e) {
+          console.error('Error parsing markdown', mdx)
+          throw e
+        }
+      },
+      { discrete: true },
+    )
+  } catch (e) {
+    console.error('Error parsing markdown', mdx)
+    throw e
+  }
 
   return {
     editorState: headlessEditor

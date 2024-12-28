@@ -11,6 +11,7 @@ import type {
   CodeBlock,
   CommandLineBlock,
   LightDarkImageBlock,
+  RestExamplesBlock,
   SpotlightBlock,
   TemplateCardsBlock,
   UploadBlock,
@@ -44,6 +45,7 @@ import type { AllowedElements } from '../SpotlightAnimation/types.js'
 import { type AddHeading, type Heading, type IContext, RichTextContext } from './context.js'
 import { Heading as HeadingComponent } from './Heading'
 import LightDarkImage from './LightDarkImage/index.js'
+import { RestExamples } from './RestExamples'
 import { CustomTableJSXConverters } from './Table/index.js'
 import { UploadBlockImage } from './UploadBlock/index.js'
 
@@ -60,6 +62,7 @@ export type NodeTypes =
       | CodeBlock
       | CommandLineBlock
       | LightDarkImageBlock
+      | RestExamplesBlock
       | SpotlightBlock
       | TemplateCardsBlock
       | UploadBlock
@@ -100,6 +103,9 @@ export const jsxConverters: (args: { toc?: boolean }) => JSXConvertersFunction<N
               srcLight={node.fields.srcLight}
             />
           )
+        },
+        restExamples: ({ node }) => {
+          return <RestExamples data={node.fields.data} />
         },
         spotlight: ({ node, nodesToJSX }) => {
           const { element, richText } = node.fields

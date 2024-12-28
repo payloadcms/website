@@ -13,6 +13,7 @@ import { isAdmin } from '../../access/isAdmin'
 import { BannerBlock } from './blocks/banner'
 import { CodeBlock } from './blocks/code'
 import { LightDarkImageBlock } from './blocks/lightDarkImage'
+import { RestExamplesBlock } from './blocks/restExamples'
 import { UploadBlock } from './blocks/upload'
 import { YoutubeBlock } from './blocks/youtube'
 
@@ -21,7 +22,14 @@ export const contentLexicalEditorFeatures: FeatureProviderServer[] = [
   ...defaultEditorFeatures.filter((feature) => feature.key !== 'upload'),
   EXPERIMENTAL_TableFeature(),
   BlocksFeature({
-    blocks: [CodeBlock, BannerBlock, YoutubeBlock, LightDarkImageBlock, UploadBlock],
+    blocks: [
+      CodeBlock,
+      BannerBlock,
+      YoutubeBlock,
+      LightDarkImageBlock,
+      UploadBlock,
+      RestExamplesBlock,
+    ],
   }),
 ]
 
