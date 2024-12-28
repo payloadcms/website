@@ -14,6 +14,7 @@ import { BannerBlock } from './blocks/banner'
 import { CodeBlock } from './blocks/code'
 import { LightDarkImageBlock } from './blocks/lightDarkImage'
 import { RestExamplesBlock } from './blocks/restExamples'
+import { TableWithDrawersBlock } from './blocks/tableWithDrawers'
 import { UploadBlock } from './blocks/upload'
 import { YoutubeBlock } from './blocks/youtube'
 
@@ -29,6 +30,7 @@ export const contentLexicalEditorFeatures: FeatureProviderServer[] = [
       LightDarkImageBlock,
       UploadBlock,
       RestExamplesBlock,
+      TableWithDrawersBlock,
     ],
   }),
 ]

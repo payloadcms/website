@@ -13,6 +13,7 @@ import type {
   LightDarkImageBlock,
   RestExamplesBlock,
   SpotlightBlock,
+  TableWithDrawersBlock,
   TemplateCardsBlock,
   UploadBlock,
   VideoBlock,
@@ -30,14 +31,14 @@ import { Video } from '@components/RichText/Video'
 import SpotlightAnimation from '@components/SpotlightAnimation'
 import { TemplateCards } from '@components/TemplateCardsBlock'
 import YouTube from '@components/YouTube/index.js'
+
+import './index.scss'
+
 import {
   type JSXConverters,
   type JSXConvertersFunction,
   RichText as SerializedRichText,
 } from '@payloadcms/richtext-lexical/react'
-
-import './index.scss'
-
 import React, { useCallback, useState } from 'react'
 
 import type { AllowedElements } from '../SpotlightAnimation/types.js'
@@ -47,6 +48,7 @@ import { Heading as HeadingComponent } from './Heading'
 import LightDarkImage from './LightDarkImage/index.js'
 import { RestExamples } from './RestExamples'
 import { CustomTableJSXConverters } from './Table/index.js'
+import { TableWithDrawers } from './TableWithDrawers'
 import { UploadBlockImage } from './UploadBlock/index.js'
 
 type Props = {
@@ -64,6 +66,7 @@ export type NodeTypes =
       | LightDarkImageBlock
       | RestExamplesBlock
       | SpotlightBlock
+      | TableWithDrawersBlock
       | TemplateCardsBlock
       | UploadBlock
       | VideoBlock
@@ -121,6 +124,9 @@ export const jsxConverters: (args: { toc?: boolean }) => JSXConvertersFunction<N
               {Children}
             </SpotlightAnimation>
           )
+        },
+        tableWithDrawers: ({ node }) => {
+          return <TableWithDrawers columns={node.fields.columns} rows={node.fields.rows} />
         },
         templateCards: ({ node }) => {
           const { templates } = node.fields

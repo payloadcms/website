@@ -13868,6 +13868,25 @@ export interface RestExamplesBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TableWithDrawersBlock".
+ */
+export interface TableWithDrawersBlock {
+  columns?: string[] | null;
+  rows?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'tableWithDrawers';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "auth".
  */
 export interface Auth {
