@@ -126,7 +126,9 @@ export const jsxConverters: (args: { toc?: boolean }) => JSXConvertersFunction<N
           )
         },
         tableWithDrawers: ({ node }) => {
-          return <TableWithDrawers columns={node.fields.columns} rows={node.fields.rows} />
+          return (
+            <TableWithDrawers columns={node.fields.columns as any} rows={node.fields.rows as any} />
+          )
         },
         templateCards: ({ node }) => {
           const { templates } = node.fields
