@@ -112,10 +112,6 @@ const nextConfig = withBundleAnalyzer({
         '@types': path.resolve(dirname, './payload-types.ts'),
         '@graphics': path.resolve(dirname, './src/graphics'),
         '@graphql': path.resolve(dirname, './src/graphql'),
-        // IMPORTANT: the next lines are for development only
-        // keep them commented out unless actively developing local react modules
-        // modify their paths according to your local directory
-        // "payload-admin-bar": path.join(dirname, "../payload-admin-bar"),
       },
     }
     return configCopy
