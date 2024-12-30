@@ -1,6 +1,8 @@
 import type { Block } from 'payload'
 
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { BlocksFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
+
+import { CodeBlock } from '../code'
 
 export const RestExamplesBlock: Block = {
   slug: 'restExamples',
@@ -45,7 +47,12 @@ export const RestExamplesBlock: Block = {
               name: 'drawerContent',
               type: 'richText',
               editor: lexicalEditor({
-                features: ({ defaultFeatures }) => defaultFeatures,
+                features: ({ defaultFeatures }) => [
+                  ...defaultFeatures,
+                  BlocksFeature({
+                    blocks: [CodeBlock],
+                  }),
+                ],
               }),
             },
           ],
