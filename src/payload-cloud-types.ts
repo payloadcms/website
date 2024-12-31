@@ -75,6 +75,7 @@ export interface Project {
   runScript?: string
   rootDirectory?: string
   dockerfilePath?: string
+  autoDeploy?: boolean
   overrides?:
     | {
         [k: string]: unknown
@@ -182,6 +183,7 @@ export interface Project {
     runScript?: string
     rootDirectory?: string
     dockerfilePath?: string
+    autoDeploy?: boolean
     overrides?:
       | {
           [k: string]: unknown

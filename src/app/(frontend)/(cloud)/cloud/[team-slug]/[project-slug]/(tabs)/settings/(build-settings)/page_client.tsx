@@ -150,7 +150,11 @@ export const ProjectBuildSettingsPage: React.FC<{
           initialValue={project?.deploymentBranch}
           repositoryFullName={project?.repositoryFullName}
         />
-        <Checkbox initialValue={true} label="Auto deploy on push" path="autoDeploy" />
+        <Checkbox
+          initialValue={project?.autoDeploy === false ? false : true}
+          label="Auto deploy on push"
+          path="autoDeploy"
+        />
         <Text
           description="Example: A Dockerfile in a src directory would require `src/Dockerfile`"
           initialValue={project?.dockerfilePath}
