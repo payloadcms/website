@@ -17,6 +17,11 @@
     white-space: pre-wrap;
   }
 
+  .lexical-table-container {
+    overflow: auto;
+    margin-bottom: 2rem;
+  }
+
   .lexical-table {
     margin-bottom: 1rem;
     overflow: auto;
@@ -24,6 +29,10 @@
     width: 100%;
     border-spacing: 0px;
     border-collapse: collapse;
+
+    p {
+      margin: 0;
+    }
 
     tbody tr:first-child {
       color: var(--theme-elevation-500);
