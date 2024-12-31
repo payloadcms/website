@@ -18,6 +18,14 @@ export const codeConverter: BlockJSX = {
     return '```' + (fields.language || '') + (fields.code ? '\n' + fields.code : '') + '\n' + '```'
   },
   import: ({ children, closeMatch, openMatch, props }) => {
+    // Removed first and last \n from children if present
+    if (children.startsWith('\n')) {
+      children = children.slice(1)
+    }
+    if (children.endsWith('\n')) {
+      children = children.slice(0, -1)
+    }
+
     const languageMatch = (openMatch ? openMatch[1] : '') ?? ''
     const language = (openMatch ? openMatch[1] : 'plaintext') ?? 'plaintext'
 
