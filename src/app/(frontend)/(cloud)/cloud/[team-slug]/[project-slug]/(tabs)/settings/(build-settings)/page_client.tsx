@@ -5,6 +5,7 @@ import type { Project, Team } from '@root/payload-cloud-types.js'
 import { BranchSelector } from '@cloud/_components/BranchSelector/index.js'
 import { UniqueProjectSlug } from '@cloud/_components/UniqueSlug/index.js'
 import { MaxWidth } from '@components/MaxWidth/index.js'
+import { Checkbox } from '@forms/fields/Checkbox/index.js'
 import { Text } from '@forms/fields/Text/index.js'
 import Form from '@forms/Form/index.js'
 import Submit from '@forms/Submit/index.js'
@@ -86,7 +87,7 @@ export const ProjectBuildSettingsPage: React.FC<{
         throw e
       }
     },
-    [project, router],
+    [project, router, environmentSlug],
   )
 
   return (
@@ -149,6 +150,7 @@ export const ProjectBuildSettingsPage: React.FC<{
           initialValue={project?.deploymentBranch}
           repositoryFullName={project?.repositoryFullName}
         />
+        <Checkbox initialValue={true} label="Auto deploy on push" path="autoDeploy" />
         <Text
           description="Example: A Dockerfile in a src directory would require `src/Dockerfile`"
           initialValue={project?.dockerfilePath}
