@@ -88,7 +88,9 @@ export const jsxConverters: (args: { toc?: boolean }) => JSXConvertersFunction<N
         br: () => <br />,
         code: ({ node }) => {
           const codeString: string = node.fields.code ?? ''
-          return <Code children={codeString?.trim()} disableMinHeight />
+          return (
+            <Code children={codeString?.trim()} disableMinHeight parentClassName={'lexical-code'} />
+          )
         },
         commandLine: ({ node }) => {
           const { command } = node.fields
