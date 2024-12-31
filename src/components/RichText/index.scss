@@ -3,12 +3,14 @@
 .payload-richtext {
   @include color-links;
 
-  :first-child {
-    margin-top: 0;
-  }
+  &:not(.docs-richtext) {
+    :first-child {
+      margin-top: 0;
+    }
 
-  :last-child {
-    margin-bottom: 0;
+    :last-child {
+      margin-bottom: 0;
+    }
   }
 
   span {

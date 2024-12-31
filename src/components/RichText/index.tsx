@@ -220,7 +220,7 @@ export const RichTextWithTOC: React.FC<Props> = ({ className, content }) => {
   return (
     <RichTextContext.Provider value={context}>
       <SerializedRichText
-        className={['payload-richtext', className].filter(Boolean).join(' ')}
+        className={['payload-richtext', 'docs-richtext', className].filter(Boolean).join(' ')}
         converters={jsxConverters({ toc: true })}
         data={content}
       />
