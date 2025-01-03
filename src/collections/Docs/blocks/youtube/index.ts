@@ -1,7 +1,7 @@
 import type { Block } from 'payload'
 
 export const YoutubeBlock: Block = {
-  slug: 'youtube',
+  slug: 'YouTube',
   fields: [
     {
       name: 'id',

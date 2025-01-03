@@ -31,6 +31,8 @@ import { MetaTitleComponent as MetaTitleComponent_a8a977ebc872c5d5ea7ee689724c08
 import { MetaDescriptionComponent as MetaDescriptionComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { MetaImageComponent as MetaImageComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { PreviewComponent as PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
+import { SaveButtonClient as SaveButtonClient_259d8f559cb11a4167281a913f510f62 } from '@root/collections/Docs/SaveButton'
+import { BranchButton as BranchButton_a056620e50cdeec34262a2e060477165 } from '@root/collections/Docs/BranchButton'
 import { BlogMarkdownField as BlogMarkdownField_a0e4da4b38919785352cf36efa721675 } from '@root/blocks/BlogMarkdown/Field'
 import { default as default_7855b44454994335ecfbd19f80d2bb90 } from '@root/globals/CustomRowLabelNavItems'
 import { default as default_7b4b356d4f495796f5ea32368107862c } from '@root/globals/CustomRowLabelTabs'
@@ -70,6 +72,8 @@ export const importMap = {
   "@payloadcms/plugin-seo/client#MetaDescriptionComponent": MetaDescriptionComponent_a8a977ebc872c5d5ea7ee689724c0860,
   "@payloadcms/plugin-seo/client#MetaImageComponent": MetaImageComponent_a8a977ebc872c5d5ea7ee689724c0860,
   "@payloadcms/plugin-seo/client#PreviewComponent": PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860,
+  "@root/collections/Docs/SaveButton#SaveButtonClient": SaveButtonClient_259d8f559cb11a4167281a913f510f62,
+  "@root/collections/Docs/BranchButton#BranchButton": BranchButton_a056620e50cdeec34262a2e060477165,
   "@root/blocks/BlogMarkdown/Field#BlogMarkdownField": BlogMarkdownField_a0e4da4b38919785352cf36efa721675,
   "@root/globals/CustomRowLabelNavItems#default": default_7855b44454994335ecfbd19f80d2bb90,
   "@root/globals/CustomRowLabelTabs#default": default_7b4b356d4f495796f5ea32368107862c,

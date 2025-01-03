@@ -3,7 +3,7 @@ import type { Block } from 'payload'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 
 export const UploadBlock: Block = {
-  slug: 'upload',
+  slug: 'Upload',
   fields: [
     {
       name: 'src',

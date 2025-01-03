@@ -1,7 +1,7 @@
 import type { Block } from 'payload'
 
 export const LightDarkImageBlock: Block = {
-  slug: 'lightDarkImage',
+  slug: 'LightDarkImage',
   fields: [
     {
       name: 'srcLight',

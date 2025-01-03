@@ -7,12 +7,12 @@ import { mdxToLexical } from '@root/collections/Docs/mdxToLexical'
 
 import { fetchDocs } from './fetchDocs.js'
 
-const importTopicGroups: (args: {
+export const topicGroupsToDocsData: (args: {
   req: PayloadRequest
   topicGroups: TopicGroup[]
   version: string
 }) => Promise<{
-  createdOrUpdatedDocs: string[]
+  docsData: RequiredDataFromCollectionSlug<'docs'>[]
 }> = async ({ req, topicGroups, version }) => {
   const editorConfig = await sanitizeServerEditorConfig(
     {
@@ -21,7 +21,7 @@ const importTopicGroups: (args: {
     req.payload.config,
   )
 
-  const createdOrUpdatedDocs: string[] = []
+  const docsData: RequiredDataFromCollectionSlug<'docs'>[] = []
 
   for (const topicGroup of topicGroups) {
     for (const topic of topicGroup.topics) {
@@ -47,45 +47,62 @@ const importTopicGroups: (args: {
           topicGroup: topicGroup.groupLabel,
           version,
         }
-
-        const existingDocs = await req.payload.find({
-          collection: 'docs',
-          where: {
-            slug: { equals: doc.slug },
-            topic: { equals: topic.slug },
-            version: { equals: version },
-          },
-        })
-
-        try {
-          if (existingDocs.totalDocs === 1) {
-            const { id } = await req.payload.update({
-              id: existingDocs.docs[0].id,
-              collection: 'docs',
-              data: newData,
-              depth: 0,
-              select: {},
-            })
-            createdOrUpdatedDocs.push(id)
-          } else {
-            const { id } = await req.payload.create({
-              collection: 'docs',
-              data: newData,
-              depth: 0,
-              select: {},
-            })
-            createdOrUpdatedDocs.push(id)
-          }
-        } catch (err) {
-          console.error('Error importing doc', err)
-          req.payload.logger.error({
-            err,
-            msg: 'Error importing doc',
-            path: newData?.path,
-          })
-          throw err
-        }
+        docsData.push(newData)
       }
+    }
+  }
+
+  return { docsData }
+}
+
+const importTopicGroups: (args: {
+  req: PayloadRequest
+  topicGroups: TopicGroup[]
+  version: string
+}) => Promise<{
+  createdOrUpdatedDocs: string[]
+}> = async ({ req, topicGroups, version }) => {
+  const createdOrUpdatedDocs: string[] = []
+
+  const { docsData } = await topicGroupsToDocsData({ req, topicGroups, version })
+
+  for (const docData of docsData) {
+    const existingDocs = await req.payload.find({
+      collection: 'docs',
+      where: {
+        slug: { equals: docData.slug },
+        topic: { equals: docData.topic },
+        version: { equals: version },
+      },
+    })
+
+    try {
+      if (existingDocs.totalDocs === 1) {
+        const { id } = await req.payload.update({
+          id: existingDocs.docs[0].id,
+          collection: 'docs',
+          data: docData,
+          depth: 0,
+          select: {},
+        })
+        createdOrUpdatedDocs.push(id)
+      } else {
+        const { id } = await req.payload.create({
+          collection: 'docs',
+          data: docData,
+          depth: 0,
+          select: {},
+        })
+        createdOrUpdatedDocs.push(id)
+      }
+    } catch (err) {
+      console.error('Error importing doc', err)
+      req.payload.logger.error({
+        err,
+        msg: 'Error importing doc',
+        path: docData?.path,
+      })
+      throw err
     }
   }
 

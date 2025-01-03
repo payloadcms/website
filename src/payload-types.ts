@@ -13729,7 +13729,7 @@ export interface BannerBlock {
   } | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'banner';
+  blockType: 'Banner';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -13761,7 +13761,7 @@ export interface CodeBlock {
   code?: string | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'code';
+  blockType: 'Code';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -13771,7 +13771,7 @@ export interface YoutubeBlock {
   id?: string | null;
   title?: string | null;
   blockName?: string | null;
-  blockType: 'youtube';
+  blockType: 'YouTube';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -13784,7 +13784,7 @@ export interface LightDarkImageBlock {
   caption?: string | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'lightDarkImage';
+  blockType: 'LightDarkImage';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -13810,7 +13810,7 @@ export interface UploadBlock {
   } | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'upload';
+  blockType: 'Upload';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -13864,7 +13864,7 @@ export interface RestExamplesBlock {
     | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'restExamples';
+  blockType: 'RestExamples';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -13883,7 +13883,7 @@ export interface TableWithDrawersBlock {
     | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'tableWithDrawers';
+  blockType: 'TableWithDrawers';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
