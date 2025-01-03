@@ -1,12 +1,12 @@
 import { PayloadHandler } from 'payload'
-import populateDiscord from './fetchDiscord'
+import fetchDiscord from './fetchDiscord'
 import fetchGitHub from './fetchGitHub'
 import syncToAlgolia from './syncToAlgolia'
 
 const syncCommunityHelp: PayloadHandler = async req => {
   const { payload } = req
 
-  await populateDiscord(payload)
+  await fetchDiscord(payload)
   await fetchGitHub(payload)
   await syncToAlgolia(payload)
 
