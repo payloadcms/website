@@ -1,17 +1,14 @@
 import type { Payload } from 'payload'
-
 import sanitizeSlug from '../utilities/sanitizeSlug'
 
-// eslint-disable-next-line
-require('dotenv').config()
-
+const { GITHUB_ACCESS_TOKEN, NEXT_PUBLIC_CMS_URL } = process.env
 const headers = {
-  Authorization: `Bearer ${process.env.GITHUB_ACCESS_TOKEN}`,
+  Authorization: `Bearer ${GITHUB_ACCESS_TOKEN}`,
+  'Content-Type': 'application/json',
 }
 
-export async function fetchGithubDiscussions(payload: Payload): Promise<void> {
-  if (!process.env.GITHUB_ACCESS_TOKEN) {
-    /* eslint-disable no-console */
+async function fetchGitHub(payload: Payload): Promise<void> {
+  if (!GITHUB_ACCESS_TOKEN) {
     console.log('No GitHub access token found - skipping discussions retrieval')
     process.exit(0)
   }
@@ -110,8 +107,7 @@ export async function fetchGithubDiscussions(payload: Payload): Promise<void> {
 
   const initialReq: any = await fetch('https://api.github.com/graphql', {
     body: JSON.stringify({
-      // @ts-expect-error
-      query: createQuery(),
+      query: createQuery(null, false),
     }),
     headers,
     method: 'POST',
@@ -218,28 +214,25 @@ export async function fetchGithubDiscussions(payload: Payload): Promise<void> {
   })
 
   const filteredDiscussions = formattedDiscussions.filter((discussion) => discussion !== null)
-
+  const existingDiscussionIDs = await fetch(
+    `${NEXT_PUBLIC_CMS_URL}/api/community-help?depth=0&where[communityHelpType][equals]=github&limit=10000`,
+  )
+    .then((res) => res.json())
+    .then((data) =>
+      data.docs.map((thread) => {
+        thread.githubID
+      }),
+    )
   await Promise.all(
     filteredDiscussions.map(async (discussion) => {
       if (discussion) {
-        // Check if discussion exists, if it does update existing discussion else add discussion to collection
-        const existingDiscussion = await payload.find({
-          collection: 'community-help',
-          depth: 0,
-          limit: 1,
-          where: { githubID: { equals: discussion.id } },
-        })
-
-        const discussionExists = // @ts-expect-error
-          existingDiscussion.docs[0]?.communityHelpJSON?.id === discussion?.id
-
-        if (discussionExists) {
+        if (existingDiscussionIDs.includes(discussion.id)) {
           await payload.update({
-            id: existingDiscussion.docs[0]?.id,
             collection: 'community-help',
             data: {
               communityHelpJSON: discussion,
             },
+            where: { githubID: { equals: discussion.id } },
             depth: 0,
           })
         } else {
@@ -258,3 +251,5 @@ export async function fetchGithubDiscussions(payload: Payload): Promise<void> {
     }),
   )
 }
+
+export default fetchGitHub

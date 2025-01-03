@@ -40,6 +40,7 @@ import { MainMenu } from './globals/MainMenu'
 import { PartnerProgram } from './globals/PartnerProgram'
 import redeployWebsite from './scripts/redeployWebsite'
 import { syncDocs } from './scripts/syncDocs'
+import syncCommunityHelp from './scripts/syncCommunityHelp'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -59,7 +60,7 @@ export default buildConfig({
       password: 'test',
     },
     components: {
-      afterNavLinks: ['@root/components/SyncDocsButton', '@root/components/RedeployButton'],
+      afterNavLinks: ['@root/components/AfterNavActions'],
     },
     importMap: {
       baseDir: dirname,
@@ -80,7 +81,11 @@ export default buildConfig({
     Regions,
     Budgets,
   ],
-  cors: [process.env.PAYLOAD_PUBLIC_APP_URL || '', 'https://payloadcms.com'].filter(Boolean),
+  cors: [
+    process.env.PAYLOAD_PUBLIC_APP_URL || '',
+    'https://payloadcms.com',
+    'https://discord.com/api',
+  ].filter(Boolean),
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),
@@ -233,6 +238,11 @@ export default buildConfig({
   }),
   endpoints: [
     {
+      handler: syncCommunityHelp,
+      method: 'get',
+      path: '/sync/community-help',
+    },
+    {
       handler: syncDocs,
       method: 'get',
       path: '/sync/docs',
@@ -301,7 +311,7 @@ export default buildConfig({
                     pageName: 'pageName' in body ? body?.pageName : '',
                     pageUri: 'pageUri' in body ? body?.pageUri : '',
                   },
-                  fields: submissionData.map((key) => ({
+                  fields: submissionData.map(key => ({
                     name: key.field,
                     value: key.value,
                   })),
@@ -338,7 +348,7 @@ export default buildConfig({
     nestedDocsPlugin({
       collections: ['pages'],
       generateLabel: (_, doc) => doc.title as string,
-      generateURL: (docs) => docs.reduce((url, doc) => `${url}/${doc.slug as string}`, ''),
+      generateURL: docs => docs.reduce((url, doc) => `${url}/${doc.slug as string}`, ''),
     }),
     redirectsPlugin({
       collections: ['case-studies', 'pages', 'posts'],
