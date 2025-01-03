@@ -1,7 +1,11 @@
-import { toHTML } from 'discord-markdown'
-import sanitizeSlug from '../utilities/sanitizeSlug'
+// @ts-ignore
+// eslint-disable-next-line
+import * as discordMDX from 'discord-markdown'
+const { toHTML } = discordMDX
 import cliProgress from 'cli-progress'
 import { Payload } from 'payload'
+
+import sanitizeSlug from '../utilities/sanitizeSlug'
 
 const { DISCORD_SCRAPE_CHANNEL_ID, DISCORD_TOKEN, DISCORD_GUILD_ID, NEXT_PUBLIC_CMS_URL } =
   process.env
