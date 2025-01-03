@@ -1,12 +1,18 @@
+import type { Doc } from '@root/payload-types'
 import type { CollectionConfig } from 'payload'
 
 import {
   BlocksFeature,
   defaultEditorFeatures,
+  type DefaultTypedEditorState,
   EXPERIMENTAL_TableFeature,
   type FeatureProviderServer,
   lexicalEditor,
+  sanitizeServerEditorConfig,
+  type SerializedBlockNode,
 } from '@payloadcms/richtext-lexical'
+import { fetchDocs } from '@root/scripts/fetchDocs'
+import { topicGroupsToDocsData } from '@root/scripts/syncDocs'
 import { revalidatePath } from 'next/cache'
 
 import { isAdmin } from '../../access/isAdmin'
@@ -17,6 +23,7 @@ import { RestExamplesBlock } from './blocks/restExamples'
 import { TableWithDrawersBlock } from './blocks/tableWithDrawers'
 import { UploadBlock } from './blocks/upload'
 import { YoutubeBlock } from './blocks/youtube'
+import { lexicalToMDX } from './mdxToLexical'
 
 export const contentLexicalEditorFeatures: FeatureProviderServer[] = [
   // Default features without upload
@@ -41,9 +48,28 @@ export const Docs: CollectionConfig = {
     create: isAdmin,
     delete: isAdmin,
     read: () => true,
-    update: isAdmin,
+    update: ({ id, data, isReadingStaticFile, req }) => {
+      const queryParams = req.query
+      return (
+        isAdmin({ id, data, isReadingStaticFile, req }) &&
+        !!queryParams.branch &&
+        queryParams.branch !== 'main'
+      )
+    },
   },
   admin: {
+    components: {
+      edit: {
+        SaveButton: '@root/collections/Docs/SaveButton#SaveButtonClient',
+      },
+      views: {
+        edit: {
+          default: {
+            actions: ['@root/collections/Docs/BranchButton#BranchButton'],
+          },
+        },
+      },
+    },
     defaultColumns: ['path', 'topic', 'slug', 'title'],
     useAsTitle: 'path',
   },
@@ -157,13 +183,98 @@ export const Docs: CollectionConfig = {
   ],
   hooks: {
     afterChange: [
-      ({ doc }) => {
+      async ({ doc, req }) => {
+        const shouldCommit = req.query.commit === 'true'
+
+        const _doc: Doc = doc as Doc
+
+        if (shouldCommit) {
+          const editorConfig = await sanitizeServerEditorConfig(
+            {
+              features: contentLexicalEditorFeatures,
+            },
+            req.payload.config,
+          )
+
+          const markdownFile = lexicalToMDX({
+            editorConfig,
+            editorState: _doc.content as DefaultTypedEditorState<SerializedBlockNode>,
+            frontMatterData: {
+              description: _doc.description ?? '',
+              keywords: _doc.keywords?.length
+                ? _doc.keywords.split(',').map((keyword) => keyword.trim())
+                : [],
+              label: _doc.label ?? '',
+              order: _doc.order ?? 0,
+              title: _doc.title ?? '',
+            },
+          })
+
+          if (process.env.GITHUB_ACCESS_TOKEN?.length && process.env.COMMIT_DOCS_API_URL?.length) {
+            const fileContent = Buffer.from(markdownFile).toString('base64') // Convert content to Base64
+
+            let branch: string = req.query.branch as string
+
+            if (!branch) {
+              branch = doc?.version === 'v2' ? '2.x' : 'main'
+            }
+
+            const response = await fetch(process.env.COMMIT_DOCS_API_URL, {
+              body: JSON.stringify({
+                branch,
+                content: fileContent,
+                path: doc.path,
+              }),
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              method: 'POST',
+            })
+          }
+        }
+
         if (doc?.version === 'v2') {
           revalidatePath('/(frontend)/(pages)/docs/v2/[topic]/[doc]', 'page')
         } else {
           // Revalidate all doc paths, to ensure that the sidebar is up-to-date for all docs
           revalidatePath('/(frontend)/(pages)/docs/[topic]/[doc]', 'page')
         }
+      },
+    ],
+    afterRead: [
+      async ({ doc, findMany, req }) => {
+        if (findMany) {
+          return doc
+        }
+        const queryParams = req.query
+
+        if (!req.query.branch) {
+          return doc // No special branch - no need to request special data
+        }
+
+        if (req.query.commit === 'true') {
+          return doc // Save operation - no need to request special data
+        }
+
+        let branch: string = queryParams.branch as string
+        const version: string = doc?.version === 'v2' ? 'v2' : 'v3'
+
+        if (!branch) {
+          branch = version === 'v2' ? '2.x' : 'main'
+        }
+
+        const topicGroups = await fetchDocs({ ref: branch, version })
+
+        const { docsData } = await topicGroupsToDocsData({ req, topicGroups, version })
+
+        const curDoc = docsData.find(
+          (searchDoc) =>
+            searchDoc.slug === doc.slug &&
+            searchDoc.topic === doc.topic &&
+            searchDoc.version === doc.version,
+        )
+
+        return curDoc
       },
     ],
   },

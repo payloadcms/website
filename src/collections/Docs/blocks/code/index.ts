@@ -4,7 +4,7 @@ import { languages } from '../shared.js'
 import { codeConverter } from './converter.js'
 
 export const CodeBlock: Block = {
-  slug: 'code',
+  slug: 'Code',
   admin: {
     jsx: '@root/collections/Docs/blocks/code/converterClient#codeConverterClient',
   },

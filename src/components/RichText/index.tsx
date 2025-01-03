@@ -82,11 +82,11 @@ export const jsxConverters: (args: { toc?: boolean }) => JSXConvertersFunction<N
       ...defaultConverters,
       ...CustomTableJSXConverters,
       blocks: {
-        banner: ({ node }) => {
+        Banner: ({ node }) => {
           return <Banner content={node.fields.content} type={node.fields.type} />
         },
         br: () => <br />,
-        code: ({ node }) => {
+        Code: ({ node }) => {
           const codeString: string = node.fields.code ?? ''
           return (
             <Code children={codeString?.trim()} disableMinHeight parentClassName={'lexical-code'} />
@@ -99,7 +99,7 @@ export const jsxConverters: (args: { toc?: boolean }) => JSXConvertersFunction<N
           }
           return null
         },
-        lightDarkImage: ({ node }) => {
+        LightDarkImage: ({ node }) => {
           return (
             <LightDarkImage
               alt={node.fields.alt ?? ''}
@@ -109,7 +109,7 @@ export const jsxConverters: (args: { toc?: boolean }) => JSXConvertersFunction<N
             />
           )
         },
-        restExamples: ({ node }) => {
+        RestExamples: ({ node }) => {
           return <RestExamples data={node.fields.data} />
         },
         spotlight: ({ node, nodesToJSX }) => {
@@ -127,9 +127,12 @@ export const jsxConverters: (args: { toc?: boolean }) => JSXConvertersFunction<N
             </SpotlightAnimation>
           )
         },
-        tableWithDrawers: ({ node }) => {
+        TableWithDrawers: ({ node }) => {
           return (
-            <TableWithDrawers columns={node.fields.columns as any} rows={node.fields.rows as any} />
+            <TableWithDrawers
+              columns={node.fields.columns as unknown as any}
+              rows={node.fields.rows as unknown as any}
+            />
           )
         },
         templateCards: ({ node }) => {
@@ -139,7 +142,7 @@ export const jsxConverters: (args: { toc?: boolean }) => JSXConvertersFunction<N
           }
           return <TemplateCards templates={templates} />
         },
-        upload: ({ node }) => {
+        Upload: ({ node }) => {
           return (
             <UploadBlockImage
               alt={node.fields.alt ?? undefined}
@@ -160,7 +163,7 @@ export const jsxConverters: (args: { toc?: boolean }) => JSXConvertersFunction<N
 
           return null
         },
-        youtube: ({ node }) => {
+        YouTube: ({ node }) => {
           return <YouTube id={node.fields.id} title={node.fields.title ?? ''} />
         },
       },

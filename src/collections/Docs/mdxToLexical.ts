@@ -4,6 +4,7 @@ import {
   $isServerBlockNode,
   type DefaultTypedEditorState,
   getEnabledNodes,
+  objectToFrontmatter,
   type SanitizedServerEditorConfig,
   type SerializedBlockNode,
   ServerBlockNode,
@@ -14,6 +15,7 @@ import {
   type ElementTransformer,
 } from '@payloadcms/richtext-lexical/lexical/markdown'
 import { hasText } from '@payloadcms/richtext-lexical/shared'
+import { deepCopyObjectSimple } from 'payload'
 
 export const UploadBlockMarkdownTransformer: ElementTransformer = {
   type: 'element',
@@ -25,7 +27,7 @@ export const UploadBlockMarkdownTransformer: ElementTransformer = {
 
     const fields = node.getFields()
 
-    if (fields.blockType !== 'upload') {
+    if (fields.blockType !== 'Upload') {
       return null
     }
 
@@ -56,7 +58,7 @@ export const UploadBlockMarkdownTransformer: ElementTransformer = {
     const uploadBlockNode = $createServerBlockNode({
       alt: altText,
       blockName: '',
-      blockType: 'upload',
+      blockType: 'Upload',
       caption: caption?.length
         ? mdxToLexical({ editorConfig: cachedServerEditorConfig as any, mdx: caption }).editorState
         : undefined,
@@ -112,12 +114,22 @@ export function mdxToLexical({
   }
 }
 
+export type FrontMatterData = {
+  description?: string
+  keywords?: string[]
+  label?: string
+  order?: number
+  title?: string
+}
+
 export const lexicalToMDX = ({
   editorConfig,
   editorState,
+  frontMatterData,
 }: {
   editorConfig: SanitizedServerEditorConfig
   editorState: DefaultTypedEditorState<SerializedBlockNode>
+  frontMatterData?: FrontMatterData
 }): string => {
   cachedServerEditorConfig = editorConfig
   const headlessEditor = createHeadlessEditor({
@@ -142,6 +154,18 @@ export const lexicalToMDX = ({
       ...editorConfig.features.markdownTransformers,
     ])
   })
+
+  if (!frontMatterData) {
+    return markdown
+  }
+
+  const frontmatterData: FrontMatterData = deepCopyObjectSimple(frontMatterData)
+
+  const frontmatterString = objectToFrontmatter(frontmatterData)
+
+  if (frontmatterString?.length) {
+    markdown = frontmatterString + '\n' + markdown
+  }
 
   return markdown
 }
