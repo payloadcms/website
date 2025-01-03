@@ -1,22 +1,12 @@
 import algoliasearch from 'algoliasearch'
-import cron from 'node-cron'
-import payload from 'payload'
 
-import { fetchDiscordThreads } from '../../scripts/fetch-discord'
-import { fetchGithubDiscussions } from '../../scripts/fetch-github'
-
-const appID = process.env.ALGOLIA_CH_ID || ''
-const apiKey = process.env.ALGOLIA_API_KEY || ''
-const indexName = process.env.ALGOLIA_CH_INDEX_NAME || ''
+const appID = process.env.NEXT_PUBLIC_ALGOLIA_CH_ID || ''
+const apiKey = process.env.NEXT_PRIVATE_ALGOLIA_API_KEY || ''
+const indexName = process.env.NEXT_PUBLIC_ALGOLIA_CH_INDEX_NAME || ''
 
 const client = algoliasearch(appID, apiKey)
 
 const index = client.initIndex(indexName)
-
-const cronOptions: cron.ScheduleOptions = {
-  scheduled: false,
-  timezone: 'America/Detroit',
-}
 
 interface DiscordDoc {
   author: string
@@ -43,15 +33,14 @@ interface GithubDoc {
   slug: string
   upvotes: number
 }
-export const syncToAlgolia = async (): Promise<void> => {
-  // eslint-disable-next-line no-console
-  console.log('RUNNING')
-  await fetchDiscordThreads(payload)
-  await fetchGithubDiscussions(payload)
+export const syncToAlgolia = async (payload): Promise<void> => {
+  if (!appID || !apiKey || !indexName) {
+    throw new Error('Algolia environment variables are not set')
+  }
 
   const { docs } = await payload.find({
     collection: 'community-help',
-    limit: 3000,
+    limit: 30000,
   })
 
   const discordDocs: DiscordDoc[] = []
@@ -118,5 +107,4 @@ export const syncToAlgolia = async (): Promise<void> => {
   await index.saveObjects(records).wait()
 }
 
-const schedule = '0 1 * * *' // 1am
-export const syncToAlgoliaCron = cron.schedule(schedule, syncToAlgolia, cronOptions)
+export default syncToAlgolia
