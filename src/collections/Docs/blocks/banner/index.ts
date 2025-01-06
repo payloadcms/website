@@ -5,7 +5,7 @@ import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { bannerTypes } from '../shared'
 
 export const BannerBlock: Block = {
-  slug: 'banner',
+  slug: 'Banner',
   fields: [
     {
       name: 'type',

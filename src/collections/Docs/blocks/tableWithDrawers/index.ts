@@ -3,7 +3,7 @@ import type { Block } from 'payload'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 
 export const TableWithDrawersBlock: Block = {
-  slug: 'tableWithDrawers',
+  slug: 'TableWithDrawers',
   fields: [
     {
       name: 'columns',
