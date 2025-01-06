@@ -1,5 +1,5 @@
 // @ts-ignore
-// eslint-disable-next-line
+
 import * as discordMDX from 'discord-markdown'
 const { toHTML } = discordMDX
 import cliProgress from 'cli-progress'
@@ -7,7 +7,7 @@ import { Payload } from 'payload'
 
 import sanitizeSlug from '../utilities/sanitizeSlug'
 
-const { DISCORD_SCRAPE_CHANNEL_ID, DISCORD_TOKEN, DISCORD_GUILD_ID, NEXT_PUBLIC_CMS_URL } =
+const { DISCORD_GUILD_ID, DISCORD_SCRAPE_CHANNEL_ID, DISCORD_TOKEN, NEXT_PUBLIC_CMS_URL } =
   process.env
 const DISCORD_API_BASE = 'https://discord.com/api/v10'
 const answeredTag = '1034538089546264577'
@@ -16,105 +16,103 @@ const headers = {
 }
 
 type Thread = {
-  id: string
-  guild_id: string
-  name: string
   applied_tags: string[]
+  guild_id: string
+  id: string
   message_count: number
+  name: string
   thread_metadata: {
-    archived: boolean
     archive_timestamp: string
+    archived: boolean
   }
 }
 
 type Message = {
+  attachments: any[]
   author: {
-    id: string
-    bot: boolean
     avatar: string
+    bot: boolean
+    id: string
     username: string
   }
-  content: string
-  attachments: any[]
-  timestamp: string
-  position: number
   bot: boolean
+  content: string
+  position: number
+  timestamp: string
+}
+
+function segmentArray(array, segmentSize) {
+  const result: any[] = []
+  for (let i = 0; i < array.length; i += segmentSize) {
+    result.push(array.slice(i, i + segmentSize))
+  }
+  return result
 }
 
 async function fetchFromDiscord(
   endpoint: string,
-  fetchType: 'threads' | 'messages',
+  fetchType: 'messages' | 'threads',
 ): Promise<any[]> {
   const baseURL = `${DISCORD_API_BASE}${endpoint}`
-  let allResults: any[] = []
-  let hasMore = true
-  let before: string | undefined
-  let params: Record<string, string> = fetchType === 'messages' ? { limit: '100' } : {}
+  const allResults: any[] = []
+  const params: Record<string, string> = fetchType === 'messages' ? { limit: '100' } : {}
 
-  while (hasMore) {
+  while (true) {
     const url = new URL(baseURL)
-    if (before) params.before = before
     Object.entries(params).forEach(([key, value]) => url.searchParams.append(key, value))
+
     const response = await fetch(url, { headers })
     if (!response.ok) {
-      throw new Error(`Failed to fetch ${endpoint}: ${response.status} ${response.statusText}`)
+      throw new Error(`Failed to fetch ${endpoint}: ${response.statusText}`)
     }
 
     const data = await response.json()
-
     if (fetchType === 'threads') {
-      allResults = [...allResults, ...(data.threads || [])]
-      hasMore = data.has_more || false
-      before =
-        hasMore && data.threads?.length
-          ? data.threads[data.threads.length - 1].thread_metadata?.archive_timestamp
-          : undefined
-      console.log(before ? `Fetching ${fetchType} before ${before}` : `Fetching ${fetchType}`)
-    } else if (fetchType === 'messages') {
-      allResults = [...allResults, ...data]
-      hasMore = data.length === 100
-      before = hasMore && data.length >= 100 ? data[data.length - 1]?.id : undefined
-    }
-
-    if (!hasMore || !before) {
-      console.log(` ${fetchType} fetched:`, allResults.length)
-      break
+      allResults.push(...(data.threads || []))
+      if (!data.has_more) {
+        break
+      }
+      params.before = data.threads[data.threads.length - 1].thread_metadata.archive_timestamp
+    } else {
+      allResults.push(...data)
+      if (data.length < 100) {
+        break
+      }
+      params.before = data[data.length - 1]?.id
     }
   }
 
   return allResults
 }
 
-function processMessages(messages: Message[]) {
-  return messages
-    .filter(
-      (message) =>
-        !message.author.bot || (message.author.bot && message.content && message.position === 0),
-    )
-    .reverse()
-    .reduce((acc: Message[], message: Message) => {
-      const prevMessage = acc[acc?.length - 1]
-      if (prevMessage && prevMessage.author.id === message.author.id) {
-        prevMessage.content += `\n \n ${message.content}`
-        prevMessage.attachments = prevMessage.attachments.concat(message.attachments)
-      } else {
-        acc.push(message)
-      }
-      return acc
-    }, [])
+function processMessages(messages) {
+  const mergedMessages = new Map()
+
+  messages.reverse().forEach((message) => {
+    const key = message.author.id
+    if (mergedMessages.has(key)) {
+      const prevMessage = mergedMessages.get(key)
+      prevMessage.content += `\n\n${message.content}`
+      prevMessage.attachments = prevMessage.attachments.concat(message.attachments)
+    } else {
+      mergedMessages.set(key, message)
+    }
+  })
+
+  return Array.from(mergedMessages.values())
 }
 
-function createSanitizedThread(thread: Thread, messages: Message[]) {
+function createSanitizedThread(thread, messages) {
   const [intro, ...combinedResponses] = processMessages(messages)
 
   return {
     slug: sanitizeSlug(thread.name),
     info: {
       id: thread.id,
-      guildId: thread.guild_id,
       name: thread.name,
       archived: thread.thread_metadata.archived,
       createdAt: thread.thread_metadata.archive_timestamp,
+      guildId: thread.guild_id,
     },
     intro: intro
       ? {
@@ -125,8 +123,7 @@ function createSanitizedThread(thread: Thread, messages: Message[]) {
         }
       : {},
     messageCount: combinedResponses.length,
-    ogMessageCount: thread.message_count,
-    messages: combinedResponses.map(({ author, content, attachments, timestamp }) => ({
+    messages: combinedResponses.map(({ attachments, author, content, timestamp }) => ({
       authorAvatar: author.avatar,
       authorID: author.id,
       authorName: author.username,
@@ -134,10 +131,11 @@ function createSanitizedThread(thread: Thread, messages: Message[]) {
       createdAt: new Date(timestamp),
       fileAttachments: attachments,
     })),
+    ogMessageCount: thread.message_count,
   }
 }
 
-async function fetchDiscord(payload: Payload) {
+async function fetchDiscord(payload) {
   if (!DISCORD_TOKEN || !DISCORD_GUILD_ID || !DISCORD_SCRAPE_CHANNEL_ID) {
     const missingEnvVars = ['DISCORD_TOKEN', 'DISCORD_GUILD_ID', 'DISCORD_SCRAPE_CHANNEL_ID']
       .filter((envVar) => !process.env[envVar])
@@ -147,9 +145,9 @@ async function fetchDiscord(payload: Payload) {
 
   const bar = new cliProgress.SingleBar(
     {
-      format: 'Populating Threads | {bar} | {percentage}% | {value}/{total}',
       barCompleteChar: '=',
       barIncompleteChar: '-',
+      format: 'Populating Threads | {bar} | {percentage}% | {value}/{total}',
       hideCursor: true,
     },
     cliProgress.Presets.shades_classic,
@@ -166,75 +164,71 @@ async function fetchDiscord(payload: Payload) {
     'threads',
   )
 
-  const allThreads = [...activeThreadsData, ...archivedThreadsData] as Thread[]
+  const allThreads = [...activeThreadsData, ...archivedThreadsData].filter(
+    (thread) => thread.applied_tags?.includes(answeredTag) && thread.message_count > 1,
+  )
 
   const existingThreadIDs = await fetch(
     `${NEXT_PUBLIC_CMS_URL}/api/community-help?depth=0&where[communityHelpType][equals]=discord&limit=10000`,
   )
     .then((res) => res.json())
     .then((data) =>
-      data.docs.map((thread) => {
-        return {
-          id: thread.discordID,
-          messageCount: thread.ogMessageCount ? thread.ogMessageCount : 0,
-        }
-      }),
+      data.docs.map((thread) => ({
+        id: thread.discordID,
+        messageCount: thread.ogMessageCount || 0,
+      })),
     )
 
   const filteredThreads = allThreads.filter((thread) => {
-    const isValid = thread.applied_tags?.includes(answeredTag) && thread.message_count > 1
-    const existingThread = existingThreadIDs.find(
-      (existingThread) => existingThread.id === thread.id,
-    )
-    if (!isValid || (existingThread && existingThread.messageCount === thread.message_count))
-      return false
-    return true
+    const existingThread = existingThreadIDs.find((existing) => existing.id === thread.id)
+    return !existingThread || existingThread.messageCount !== thread.message_count
   })
 
   bar.start(filteredThreads.length, 0)
 
-  const populatedThreads = [] as any[]
-  for (let i = 0; i < filteredThreads.length; i++) {
-    const thread = filteredThreads[i]
-    const messages = await fetchFromDiscord(`/channels/${thread.id}/messages`, 'messages')
-    const sanitizedThread = createSanitizedThread(thread, messages)
-    populatedThreads.push(sanitizedThread)
+  const threadSegments = segmentArray(filteredThreads, 10)
+  const populatedThreads: any[] = []
 
-    bar.update(i + 1)
+  for (const segment of threadSegments) {
+    const threadPromises = segment.map(async (thread) => {
+      const messages = await fetchFromDiscord(`/channels/${thread.id}/messages`, 'messages')
+      return createSanitizedThread(thread, messages)
+    })
+
+    const sanitizedThreads = await Promise.all(threadPromises)
+    populatedThreads.push(...sanitizedThreads)
+    bar.update(populatedThreads.length)
   }
+
   bar.stop()
 
-  for (const thread of populatedThreads) {
-    try {
-      const threadExists = existingThreadIDs.some((existing) => existing.id === thread.info.id)
-      if (threadExists) {
-        await payload.update({
-          collection: 'community-help',
-          data: {
-            slug: thread?.slug,
-            communityHelpJSON: thread,
-            title: thread?.info?.name,
-          },
-          where: { discordID: { equals: thread.info.id } },
-          depth: 0,
-        })
-      } else {
-        await payload.create({
-          collection: 'community-help',
-          data: {
-            slug: thread?.slug,
-            communityHelpJSON: thread,
-            communityHelpType: 'discord',
-            discordID: thread.info.id,
-            title: thread.info.name,
-          },
-        })
-      }
-    } catch (error) {
-      console.error(`Error processing thread ${thread.info.id}:`, error)
+  const batchUpdatePromises = populatedThreads.map(async (thread) => {
+    const threadExists = existingThreadIDs.some((existing) => existing.id === thread.info.id)
+    const payloadData = {
+      slug: thread.slug,
+      communityHelpJSON: thread,
+      communityHelpType: 'discord',
+      discordID: thread.info.id,
+      title: thread.info.name,
     }
-  }
 
+    if (threadExists) {
+      return payload.update({
+        collection: 'community-help',
+        data: payloadData,
+        depth: 0,
+        where: { discordID: { equals: thread.info.id } },
+      })
+    } else {
+      return payload.create({
+        collection: 'community-help',
+        data: payloadData,
+      })
+    }
+  })
+
+  await Promise.all(batchUpdatePromises)
   console.timeEnd('Populating Discord')
 }
+
 export default fetchDiscord
