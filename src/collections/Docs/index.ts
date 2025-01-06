@@ -182,11 +182,47 @@ export const Docs: CollectionConfig = {
     },
   ],
   hooks: {
-    afterChange: [
-      async ({ doc, req }) => {
+    afterRead: [
+      async ({ doc, findMany, req }) => {
+        if (findMany) {
+          return doc
+        }
+        const queryParams = req.query
+
+        if (!req.query.branch || req.query.branch === 'main' || req.query.branch === '2.x') {
+          return doc // No special branch - no need to request special data
+        }
+
+        if (req.query.commit === 'true') {
+          return doc // Save operation - no need to request special data
+        }
+
+        let branch: string = queryParams.branch as string
+        const version: string = doc?.version === 'v2' ? 'v2' : 'v3'
+
+        if (!branch) {
+          branch = version === 'v2' ? '2.x' : 'main'
+        }
+
+        const topicGroups = await fetchDocs({ ref: branch, version })
+
+        const { docsData } = await topicGroupsToDocsData({ req, topicGroups, version })
+
+        const curDoc = docsData.find(
+          (searchDoc) =>
+            searchDoc.slug === doc.slug &&
+            searchDoc.topic === doc.topic &&
+            searchDoc.version === doc.version,
+        )
+
+        return curDoc
+      },
+    ],
+    beforeChange: [
+      async ({ data, originalDoc, req }) => {
         const shouldCommit = req.query.commit === 'true'
 
-        const _doc: Doc = doc as Doc
+        const _doc: Doc = data as Doc
 
         if (shouldCommit) {
           const editorConfig = await sanitizeServerEditorConfig(
@@ -216,14 +252,14 @@ export const Docs: CollectionConfig = {
             let branch: string = req.query.branch as string
 
             if (!branch) {
-              branch = doc?.version === 'v2' ? '2.x' : 'main'
+              branch = _doc?.version === 'v2' ? '2.x' : 'main'
             }
 
             const response = await fetch(process.env.COMMIT_DOCS_API_URL, {
               body: JSON.stringify({
                 branch,
                 content: fileContent,
-                path: doc.path,
+                path: _doc.path,
               }),
               headers: {
                 Authorization: 'API-Key ' + process.env.COMMIT_DOCS_API_KEY,
@@ -235,51 +271,19 @@ export const Docs: CollectionConfig = {
             if (!response.ok) {
               throw new Error(`Failed to commit docs: ${response.statusText}`)
             }
+
+            if (branch !== '2.x' && branch !== 'main') {
+              return originalDoc
+            }
           }
         }
 
-        if (doc?.version === 'v2') {
+        if (_doc?.version === 'v2') {
           revalidatePath('/(frontend)/(pages)/docs/v2/[topic]/[doc]', 'page')
         } else {
           // Revalidate all doc paths, to ensure that the sidebar is up-to-date for all docs
           revalidatePath('/(frontend)/(pages)/docs/[topic]/[doc]', 'page')
         }
-      },
-    ],
-    afterRead: [
-      async ({ doc, findMany, req }) => {
-        if (findMany) {
-          return doc
-        }
-        const queryParams = req.query
-
-        if (!req.query.branch) {
-          return doc // No special branch - no need to request special data
-        }
-
-        if (req.query.commit === 'true') {
-          return doc // Save operation - no need to request special data
-        }
-
-        let branch: string = queryParams.branch as string
-        const version: string = doc?.version === 'v2' ? 'v2' : 'v3'
-
-        if (!branch) {
-          branch = version === 'v2' ? '2.x' : 'main'
-        }
-
-        const topicGroups = await fetchDocs({ ref: branch, version })
-
-        const { docsData } = await topicGroupsToDocsData({ req, topicGroups, version })
-
-        const curDoc = docsData.find(
-          (searchDoc) =>
-            searchDoc.slug === doc.slug &&
-            searchDoc.topic === doc.topic &&
-            searchDoc.version === doc.version,
-        )
-
-        return curDoc
       },
     ],
   },

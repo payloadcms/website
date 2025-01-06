@@ -26,9 +26,8 @@ export const BranchButtonClient: React.FC<{ branch: null | string; branchNames: 
         const newBranch = selectedOption?.value as string
         setSelectedBranch(newBranch)
 
-        const params = new URLSearchParams(searchParams)
-        params.set('branch', newBranch)
-        router.push(`?${params.toString()}`)
+        const newUrl = `${window.location.pathname}?branch=${newBranch}`
+        window.location.href = newUrl
       }}
       options={branchNames.map((branchName) => ({
         label: branchName,
