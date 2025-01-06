@@ -210,7 +210,7 @@ export const Docs: CollectionConfig = {
             },
           })
 
-          if (process.env.GITHUB_ACCESS_TOKEN?.length && process.env.COMMIT_DOCS_API_URL?.length) {
+          if (process.env.COMMIT_DOCS_API_URL?.length) {
             const fileContent = Buffer.from(markdownFile).toString('base64') // Convert content to Base64
 
             let branch: string = req.query.branch as string
@@ -226,10 +226,15 @@ export const Docs: CollectionConfig = {
                 path: doc.path,
               }),
               headers: {
+                Authorization: 'API-Key ' + process.env.COMMIT_DOCS_API_KEY,
                 'Content-Type': 'application/json',
               },
               method: 'POST',
             })
+
+            if (!response.ok) {
+              throw new Error(`Failed to commit docs: ${response.statusText}`)
+            }
           }
         }
 
