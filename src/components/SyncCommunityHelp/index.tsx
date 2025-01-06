@@ -2,6 +2,7 @@
 
 import { toast, useConfig } from '@payloadcms/ui'
 import React, { useState } from 'react'
+
 import './index.scss'
 
 const baseClass = 'sync-ch-button'
@@ -16,7 +17,7 @@ const SyncCommunityHelp: React.FC = () => {
 
   const syncCommunityHelp = async () => {
     setIsSyncing(true)
-    const res = await fetch(`${api}/sync/community-help`)
+    const res = await fetch(`${api}/sync-ch`)
     if (res.ok) {
       toast.success('Community help threads synced successfully')
       setIsSyncing(false)

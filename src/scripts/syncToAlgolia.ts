@@ -1,4 +1,5 @@
 import algoliasearch from 'algoliasearch'
+import payload from 'payload'
 
 const appID = process.env.NEXT_PUBLIC_ALGOLIA_CH_ID || ''
 const apiKey = process.env.NEXT_PRIVATE_ALGOLIA_API_KEY || ''
@@ -33,7 +34,7 @@ interface GithubDoc {
   slug: string
   upvotes: number
 }
-export const syncToAlgolia = async (payload): Promise<void> => {
+export const syncToAlgolia = async (): Promise<void> => {
   if (!appID || !apiKey || !indexName) {
     throw new Error('Algolia environment variables are not set')
   }
@@ -47,10 +48,10 @@ export const syncToAlgolia = async (payload): Promise<void> => {
   const githubDocs: GithubDoc[] = []
 
   docs.forEach((doc) => {
-    const { communityHelpJSON, discordID, githubID, helpful } = doc
+    const { communityHelpJSON, discordID, githubID, helpful } = doc as any
 
     if (discordID) {
-      const { slug, info, intro, messageCount, messages } = communityHelpJSON as any
+      const { slug, info, intro, messageCount, messages } = communityHelpJSON
       discordDocs.push({
         name: info.name,
         slug,
@@ -71,7 +72,7 @@ export const syncToAlgolia = async (payload): Promise<void> => {
 
     if (githubID) {
       const { id, slug, author, body, comments, commentTotal, createdAt, title, upvotes } =
-        communityHelpJSON as any
+        communityHelpJSON
 
       githubDocs.push({
         name: title,

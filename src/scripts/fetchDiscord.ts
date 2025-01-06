@@ -1,9 +1,9 @@
 // @ts-ignore
-
 import * as discordMDX from 'discord-markdown'
 const { toHTML } = discordMDX
+import { qs } from '@root/utilities/qs'
 import cliProgress from 'cli-progress'
-import { Payload } from 'payload'
+import { cookies } from 'next/headers'
 
 import sanitizeSlug from '../utilities/sanitizeSlug'
 
@@ -42,7 +42,7 @@ type Message = {
 }
 
 function segmentArray(array, segmentSize) {
-  const result: any[] = []
+  const result: Array<(typeof array)[0]> = []
   for (let i = 0; i < array.length; i += segmentSize) {
     result.push(array.slice(i, i + segmentSize))
   }
@@ -54,7 +54,7 @@ async function fetchFromDiscord(
   fetchType: 'messages' | 'threads',
 ): Promise<any[]> {
   const baseURL = `${DISCORD_API_BASE}${endpoint}`
-  const allResults: any[] = []
+  const allResults: Message[] | Thread[] = []
   const params: Record<string, string> = fetchType === 'messages' ? { limit: '100' } : {}
 
   while (true) {
@@ -85,10 +85,10 @@ async function fetchFromDiscord(
   return allResults
 }
 
-function processMessages(messages) {
+function processMessages(messages: Message[]) {
   const mergedMessages = new Map()
 
-  messages.reverse().forEach((message) => {
+  messages.reverse().forEach((message: Message) => {
     const key = message.author.id
     if (mergedMessages.has(key)) {
       const prevMessage = mergedMessages.get(key)
@@ -101,8 +101,7 @@ function processMessages(messages) {
 
   return Array.from(mergedMessages.values())
 }
-
-function createSanitizedThread(thread, messages) {
+function createSanitizedThread(thread: Thread, messages: Message[]) {
   const [intro, ...combinedResponses] = processMessages(messages)
 
   return {
@@ -135,7 +134,7 @@ function createSanitizedThread(thread, messages) {
   }
 }
 
-async function fetchDiscord(payload) {
+async function fetchDiscord() {
   if (!DISCORD_TOKEN || !DISCORD_GUILD_ID || !DISCORD_SCRAPE_CHANNEL_ID) {
     const missingEnvVars = ['DISCORD_TOKEN', 'DISCORD_GUILD_ID', 'DISCORD_SCRAPE_CHANNEL_ID']
       .filter((envVar) => !process.env[envVar])
@@ -166,10 +165,10 @@ async function fetchDiscord(payload) {
 
   const allThreads = [...activeThreadsData, ...archivedThreadsData].filter(
     (thread) => thread.applied_tags?.includes(answeredTag) && thread.message_count > 1,
-  )
+  ) as Thread[]
 
   const existingThreadIDs = await fetch(
-    `${NEXT_PUBLIC_CMS_URL}/api/community-help?depth=0&where[communityHelpType][equals]=discord&limit=10000`,
+    `${NEXT_PUBLIC_CMS_URL}/api/community-help?depth=0&where[communityHelpType][equals]=discord&limit=0`,
   )
     .then((res) => res.json())
     .then((data) =>
@@ -202,32 +201,43 @@ async function fetchDiscord(payload) {
 
   bar.stop()
 
-  const batchUpdatePromises = populatedThreads.map(async (thread) => {
+  const cookieStore = await cookies()
+  const token = cookieStore.get('payload-token')
+
+  if (!token) {
+    throw new Error('You are unauthorized, please log in.')
+  }
+
+  const populateAll = populatedThreads.map(async (thread) => {
     const threadExists = existingThreadIDs.some((existing) => existing.id === thread.info.id)
-    const payloadData = {
+    const body = JSON.stringify({
       slug: thread.slug,
       communityHelpJSON: thread,
       communityHelpType: 'discord',
       discordID: thread.info.id,
       title: thread.info.name,
-    }
+    })
 
-    if (threadExists) {
-      return payload.update({
-        collection: 'community-help',
-        data: payloadData,
-        depth: 0,
-        where: { discordID: { equals: thread.info.id } },
-      })
-    } else {
-      return payload.create({
-        collection: 'community-help',
-        data: payloadData,
-      })
-    }
+    const endpoint = threadExists
+      ? `${NEXT_PUBLIC_CMS_URL}/api/community-help?${qs.stringify({
+          depth: 0,
+          where: { discordID: { equals: thread.info.id } },
+        })}`
+      : `${NEXT_PUBLIC_CMS_URL}/api/community-help`
+
+    const method = threadExists ? 'PATCH' : 'POST'
+
+    await fetch(endpoint, {
+      body,
+      headers: {
+        Authorization: `JWT ${token.value}`,
+        'Content-Type': 'application/json',
+      },
+      method,
+    })
   })
 
-  await Promise.all(batchUpdatePromises)
+  await Promise.all(populateAll)
   console.timeEnd('Populating Discord')
 }
 

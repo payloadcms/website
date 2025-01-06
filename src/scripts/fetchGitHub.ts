@@ -1,4 +1,6 @@
-import type { Payload } from 'payload'
+import { qs } from '@root/utilities/qs'
+import { cookies } from 'next/headers'
+
 import sanitizeSlug from '../utilities/sanitizeSlug'
 
 const { GITHUB_ACCESS_TOKEN, NEXT_PUBLIC_CMS_URL } = process.env
@@ -7,7 +9,7 @@ const headers = {
   'Content-Type': 'application/json',
 }
 
-async function fetchGitHub(payload: Payload): Promise<void> {
+async function fetchGitHub(): Promise<void> {
   if (!GITHUB_ACCESS_TOKEN) {
     console.log('No GitHub access token found - skipping discussions retrieval')
     process.exit(0)
@@ -213,43 +215,54 @@ async function fetchGitHub(payload: Payload): Promise<void> {
     return null
   })
 
+  const cookieStore = await cookies()
+  const token = cookieStore.get('payload-token')
+
+  if (!token) {
+    throw new Error('You are unauthorized, please log in.')
+  }
+
   const filteredDiscussions = formattedDiscussions.filter((discussion) => discussion !== null)
   const existingDiscussionIDs = await fetch(
-    `${NEXT_PUBLIC_CMS_URL}/api/community-help?depth=0&where[communityHelpType][equals]=github&limit=10000`,
+    `${NEXT_PUBLIC_CMS_URL}/api/community-help?depth=0&where[communityHelpType][equals]=github&limit=0`,
   )
     .then((res) => res.json())
-    .then((data) =>
-      data.docs.map((thread) => {
-        thread.githubID
-      }),
-    )
-  await Promise.all(
-    filteredDiscussions.map(async (discussion) => {
-      if (discussion) {
-        if (existingDiscussionIDs.includes(discussion.id)) {
-          await payload.update({
-            collection: 'community-help',
-            data: {
-              communityHelpJSON: discussion,
-            },
-            where: { githubID: { equals: discussion.id } },
-            depth: 0,
-          })
-        } else {
-          await payload.create({
-            collection: 'community-help',
-            data: {
-              slug: discussion?.slug,
-              communityHelpJSON: discussion,
-              communityHelpType: 'github',
-              githubID: discussion?.id,
-              title: discussion?.title,
-            },
-          })
-        }
-      }
-    }),
-  )
+    .then((data) => data.docs.map((thread) => thread.githubID))
+
+  const populateAll = filteredDiscussions.map(async (discussion) => {
+    if (!discussion) {
+      return
+    }
+
+    const discussionExists = existingDiscussionIDs.includes(discussion.id)
+    const body = JSON.stringify({
+      slug: discussion.slug,
+      communityHelpJSON: discussion,
+      communityHelpType: 'github',
+      githubID: discussion.id,
+      title: discussion.title,
+    })
+
+    const endpoint = discussionExists
+      ? `${NEXT_PUBLIC_CMS_URL}/api/community-help?${qs.stringify({
+          depth: 0,
+          where: { githubID: { equals: discussion.id } },
+        })}`
+      : `${NEXT_PUBLIC_CMS_URL}/api/community-help`
+
+    const method = discussionExists ? 'PATCH' : 'POST'
+
+    await fetch(endpoint, {
+      body,
+      headers: {
+        Authorization: `JWT ${token.value}`,
+        'Content-Type': 'application/json',
+      },
+      method,
+    })
+  })
+
+  await Promise.all(populateAll)
 }
 
 export default fetchGitHub
