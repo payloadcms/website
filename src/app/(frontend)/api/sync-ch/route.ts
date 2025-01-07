@@ -4,7 +4,7 @@ import fetchDiscord from '../../../../scripts/fetchDiscord'
 import fetchGitHub from '../../../../scripts/fetchGitHub'
 import syncToAlgolia from '../../../../scripts/syncToAlgolia'
 
-export const maxDuration = 900 // 15 mins
+export const maxDuration = 300 // 5 mins (max on vercel pro plan)
 export const dynamic = 'force-dynamic'
 
 export async function GET(): Promise<NextResponse> {
