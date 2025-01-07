@@ -75,7 +75,8 @@ export const Docs: CollectionConfig = {
     },
     defaultColumns: ['path', 'topic', 'slug', 'title'],
     livePreview: {
-      url: ({ collectionConfig, data, locale }) => `http://localhost:3000/docs/${data.path}`,
+      url: ({ collectionConfig, data, locale }) =>
+        `${process.env.NEXT_PUBLIC_CMS_URL}/docs/${data.path}`,
     },
     useAsTitle: 'path',
   },
