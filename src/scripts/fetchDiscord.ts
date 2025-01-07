@@ -61,7 +61,25 @@ async function fetchFromDiscord(
     const url = new URL(baseURL)
     Object.entries(params).forEach(([key, value]) => url.searchParams.append(key, value))
 
-    const response = await fetch(url, { headers })
+    let response
+    let retryCount = 0
+    const maxRetries = 5
+    while (true) {
+      response = await fetch(url, { headers })
+
+      if (response.status === 429) {
+        const retryAfter = response.headers.get('Retry-After')
+        console.warn(`Rate limited. Retrying after ${retryAfter} seconds.`)
+        await new Promise((resolve) => setTimeout(resolve, (retryAfter || 1) * 1000))
+      } else if (!response.ok && retryCount < maxRetries) {
+        console.warn(`Request failed with status ${response.status}. Retrying...`)
+        retryCount++
+        await new Promise((resolve) => setTimeout(resolve, retryCount * 1000))
+      } else {
+        break
+      }
+    }
+
     if (!response.ok) {
       throw new Error(`Failed to fetch ${endpoint}: ${response.statusText}`)
     }
@@ -237,7 +255,8 @@ async function fetchDiscord() {
         method,
       })
     } catch (error) {
-      throw new Error(`Failed to populate thread ${thread.info.id}`)
+      throw new Error(`Failed to populate thread ${thread.info.id}, 
+        ${error}`)
     }
   })
 
