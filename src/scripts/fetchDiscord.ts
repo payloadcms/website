@@ -227,14 +227,18 @@ async function fetchDiscord() {
 
     const method = threadExists ? 'PATCH' : 'POST'
 
-    await fetch(endpoint, {
-      body,
-      headers: {
-        Authorization: `JWT ${token.value}`,
-        'Content-Type': 'application/json',
-      },
-      method,
-    })
+    try {
+      await fetch(endpoint, {
+        body,
+        headers: {
+          Authorization: `JWT ${token.value}`,
+          'Content-Type': 'application/json',
+        },
+        method,
+      })
+    } catch (error) {
+      throw new Error(`Failed to populate thread ${thread.info.id}`)
+    }
   })
 
   await Promise.all(populateAll)
