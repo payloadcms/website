@@ -161,7 +161,7 @@ async function fetchDocs() {
                 return {
                   slug: docFilename.replace('.mdx', ''),
                   content: docMatter.content,
-                  desc: docMatter.data.desc || '',
+                  desc: docMatter.data.desc || docMatter.data.description || '',
                   headings: await getHeadings(docMatter.content),
                   keywords: docMatter.data.keywords || '',
                   label: docMatter.data.label,

@@ -160,7 +160,7 @@ export async function fetchDocs(args?: {
                     return {
                       slug: docFilename.replace('.mdx', ''),
                       content: docMatter.content,
-                      desc: docMatter.data.desc || '',
+                      desc: docMatter.data.desc || docMatter.data.description || '',
                       headings: getHeadings(docMatter.content),
                       keywords: docMatter.data.keywords || '',
                       label: docMatter.data.label,
