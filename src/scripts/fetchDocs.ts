@@ -186,3 +186,53 @@ export async function fetchDocs(args?: {
 
   return topics
 }
+
+export async function fetchSingleDoc(args: {
+  docFilename: string
+  ref?: typeof ref
+  source?: typeof source
+  topicGroupLabel: string
+  topicSlug: string
+  version?: typeof version
+}): Promise<null | TopicGroup> {
+  ref = args?.ref ?? 'main'
+  source = args?.source ?? 'github'
+  version = args?.version ?? 'v3'
+
+  const topicGroupDefinition = topicOrder[version].find(
+    (group) => group.groupLabel === args.topicGroupLabel,
+  )
+
+  const topicGroup: TopicGroup = {
+    groupLabel: topicGroupDefinition?.groupLabel as string,
+    topics: [
+      {
+        slug: args.topicSlug,
+        // get label from  topicGroupDefinition
+        docs: [],
+        label: topicGroupDefinition?.topics.find(
+          (topic) => topic.toLowerCase() === args.topicSlug,
+        ) as string,
+      },
+    ],
+  }
+
+  const docMatter = await getDocMatter({ docFilename: args.docFilename, topicSlug: args.topicSlug })
+
+  if (!docMatter) {
+    return null
+  }
+
+  topicGroup.topics[0].docs.push({
+    slug: args.docFilename.replace('.mdx', ''),
+    content: docMatter.content,
+    desc: docMatter.data.desc || docMatter.data.description || '',
+    headings: getHeadings(docMatter.content),
+    keywords: docMatter.data.keywords || '',
+    label: docMatter.data.label,
+    order: docMatter.data.order,
+    title: docMatter.data.title,
+  })
+
+  return topicGroup
+}
