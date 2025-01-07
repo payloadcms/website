@@ -10,6 +10,7 @@ import type {
   BrBlock,
   CodeBlock,
   CommandLineBlock,
+  Doc,
   LightDarkImageBlock,
   RestExamplesBlock,
   SpotlightBlock,
@@ -34,6 +35,7 @@ import YouTube from '@components/YouTube/index.js'
 
 import './index.scss'
 
+import { useLivePreview } from '@payloadcms/live-preview-react'
 import {
   type JSXConverters,
   type JSXConvertersFunction,
@@ -199,8 +201,18 @@ export const jsxConverters: (args: { toc?: boolean }) => JSXConvertersFunction<N
     return converters
   }
 
-export const RichTextWithTOC: React.FC<Props> = ({ className, content }) => {
+export const RichTextWithTOC: React.FC<Props> = ({ className, content: _content }) => {
   const [toc, setTOC] = useState<Map<string, Heading>>(new Map())
+
+  const {
+    data: { content },
+  } = useLivePreview<Doc>({
+    depth: 2,
+    initialData: {
+      content: _content,
+    } as Doc,
+    serverURL: process.env.NEXT_PUBLIC_CMS_URL as string,
+  })
 
   const addHeading: AddHeading = useCallback(
     (anchor, heading, type) => {

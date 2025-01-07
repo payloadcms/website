@@ -67,10 +67,16 @@ export const Docs: CollectionConfig = {
           default: {
             actions: ['@root/collections/Docs/BranchButton#BranchButton'],
           },
+          livePreview: {
+            actions: ['@root/collections/Docs/BranchButton#BranchButton'],
+          },
         },
       },
     },
     defaultColumns: ['path', 'topic', 'slug', 'title'],
+    livePreview: {
+      url: ({ collectionConfig, data, locale }) => `http://localhost:3000/docs/${data.path}`,
+    },
     useAsTitle: 'path',
   },
   fields: [
