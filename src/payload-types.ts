@@ -5160,6 +5160,7 @@ export interface Doc {
   label?: string | null;
   order?: number | null;
   version: string;
+  mdx?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -6409,6 +6410,7 @@ export interface DocsSelect<T extends boolean = true> {
   label?: T;
   order?: T;
   version?: T;
+  mdx?: T;
   updatedAt?: T;
   createdAt?: T;
 }
