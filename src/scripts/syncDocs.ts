@@ -40,6 +40,7 @@ export const topicGroupsToDocsData: (args: {
           headings: doc.headings,
           keywords: doc.keywords,
           label: doc.label,
+          mdx,
           order: doc.order,
           path: `${topic.slug}/${doc.slug}`,
           title: doc.title,

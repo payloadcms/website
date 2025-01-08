@@ -187,6 +187,14 @@ export const Docs: CollectionConfig = {
         },
       ],
     },
+    {
+      name: 'mdx',
+      type: 'textarea',
+      admin: {
+        hidden: true,
+      },
+      maxLength: Number.MAX_SAFE_INTEGER,
+    },
   ],
   hooks: {
     afterRead: [
