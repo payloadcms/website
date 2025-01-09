@@ -118,7 +118,16 @@ const nextConfig = withBundleAnalyzer({
   },
   redirects,
   async headers() {
-    const headers = []
+    const headers = [
+      {
+        key: 'X-Frame-Options',
+        value: 'SAMEORIGIN',
+      },
+      {
+        key: 'Content-Security-Policy',
+        value: "object-src 'none';base-uri 'self';form-action 'self';",
+      },
+    ]
 
     if (!process.env.NEXT_PUBLIC_IS_LIVE) {
       headers.push({
