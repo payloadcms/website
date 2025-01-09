@@ -39,7 +39,7 @@ import { GetStarted } from './globals/GetStarted'
 import { MainMenu } from './globals/MainMenu'
 import { PartnerProgram } from './globals/PartnerProgram'
 import redeployWebsite from './scripts/redeployWebsite'
-import { syncDocs } from './scripts/syncDocs'
+import { refreshMdxToLexical, syncDocs } from './scripts/syncDocs'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -245,6 +245,11 @@ export default buildConfig({
       handler: redeployWebsite,
       method: 'post',
       path: '/redeploy/website',
+    },
+    {
+      handler: refreshMdxToLexical,
+      method: 'get',
+      path: '/refresh/mdx-to-lexical',
     },
   ],
   globals: [Footer, MainMenu, GetStarted, PartnerProgram],

@@ -149,3 +149,43 @@ export const syncDocs: PayloadHandler = async (req) => {
     return new Response(JSON.stringify({ message: err, success: false }), { status: 400 })
   }
 }
+
+export const refreshMdxToLexical: PayloadHandler = async (req) => {
+  const { payload } = req
+  try {
+    const existingDocs = await payload.find({
+      collection: 'docs',
+      limit: 1000000,
+      where: {},
+    })
+    await Promise.all(
+      existingDocs.docs.map(async (doc) => {
+        const editorConfig = await sanitizeServerEditorConfig(
+          {
+            features: contentLexicalEditorFeatures,
+          },
+          req.payload.config,
+        )
+
+        const { editorState } = mdxToLexical({
+          editorConfig,
+          mdx: doc.mdx ?? '',
+        })
+
+        await payload.update({
+          id: doc.id,
+          collection: 'docs',
+          data: {
+            content: editorState as any,
+          },
+          depth: 0,
+          select: {},
+        })
+      }),
+    )
+
+    return new Response(JSON.stringify({ success: true }), { status: 200 })
+  } catch (err: unknown) {
+    return new Response(JSON.stringify({ message: err, success: false }), { status: 400 })
+  }
+}

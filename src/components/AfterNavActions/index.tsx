@@ -1,12 +1,13 @@
 'use client'
 
-import React from 'react'
-
-import SyncDocsButton from '@components/SyncDocsButton'
-import SyncCommunityHelp from '@components/SyncCommunityHelp'
 import RedeployButton from '@components/RedeployButton'
+import RefreshMdxToLexicalButton from '@components/RefreshMdxToLexicalButton'
+import SyncCommunityHelp from '@components/SyncCommunityHelp'
+import SyncDocsButton from '@components/SyncDocsButton'
 
 import './index.scss'
+
+import React from 'react'
 
 const baseClass = 'after-nav-actions'
 
@@ -15,6 +16,7 @@ const AfterNavActions: React.FC = () => {
     <div className={baseClass}>
       <span className={`${baseClass}__group-title`}>Admin Actions</span>
       <SyncDocsButton />
+      <RefreshMdxToLexicalButton />
       <SyncCommunityHelp />
       <RedeployButton />
     </div>
