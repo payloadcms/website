@@ -16,20 +16,33 @@ const SyncCommunityHelp: React.FC = () => {
   } = useConfig()
 
   const syncCommunityHelp = async () => {
-    setIsSyncing(true)
-    const res = await fetch(`${api}/sync-ch`)
-    if (res.ok) {
+    try {
+      setIsSyncing(true)
+
+      const res = await fetch(`${api}/sync-ch`)
+
+      if (!res.ok) {
+        let errorMessage = 'Failed to sync community help'
+        try {
+          const data = await res.json()
+          errorMessage += `: ${data?.message || 'Unknown error'}`
+        } catch (error) {
+          errorMessage += ': Unable to parse error response.'
+        }
+        toast.error(errorMessage)
+        return
+      }
+
       toast.success('Community help threads synced successfully')
-      setIsSyncing(false)
-    } else {
-      const data = await res.json()
-      toast.error(`Failed to sync community help: ${data.message}`)
-      setIsSyncing(false)
+    } catch (error) {
+      console.error('Sync failed:', error)
+      toast.error('An error occurred while syncing community help. Please try again.')
     }
+    setIsSyncing(false)
   }
 
   return (
-    <button className={baseClass} disabled={isSyncing} onClick={syncCommunityHelp}>
+    <button className={baseClass} disabled={isSyncing} onClick={syncCommunityHelp} type="button">
       {isSyncing ? 'Syncing...' : 'Sync Community Help'}
     </button>
   )
