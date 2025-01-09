@@ -120,7 +120,7 @@ const nextConfig = withBundleAnalyzer({
   async headers() {
     const headers = [
       {
-        source: '/:path*',
+        source: '/(.*)',
         headers: [
           {
             key: 'X-Frame-Options',
@@ -136,7 +136,7 @@ const nextConfig = withBundleAnalyzer({
 
     if (!process.env.NEXT_PUBLIC_IS_LIVE) {
       headers.push({
-        source: '/:path*',
+        source: '/(.*)',
         headers: [
           {
             key: 'X-Robots-Tag',
