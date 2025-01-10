@@ -139,7 +139,7 @@ export const BranchSelector: React.FC<{
     <Fragment>
       {result?.branches?.length > 0 ? (
         <Select
-          initialValue={result?.defaultBranch}
+          initialValue={initialValue ?? result?.defaultBranch}
           label="Branch to deploy"
           onMenuScrollToBottom={onMenuScrollToBottom}
           options={result?.branches?.map((branch) => ({
