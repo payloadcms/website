@@ -11,6 +11,7 @@ import * as React from 'react'
 import { toast } from 'sonner'
 
 import classes from './index.module.scss'
+import { useRouter } from 'next/navigation'
 
 const generateUUID = () => {
   return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
@@ -27,6 +28,8 @@ export const AddDomain: React.FC<{
 
   const projectID = project?.id
   const projectDomains = project?.domains
+
+  const router = useRouter()
 
   const saveDomain = React.useCallback<OnSubmit>(
     async ({ data }) => {
@@ -64,7 +67,7 @@ export const AddDomain: React.FC<{
           )
 
           if (req.status === 200) {
-            // reloadProject()
+            router.refresh()
             setFieldKey(generateUUID())
             toast.success('Domain added successfully.')
           }

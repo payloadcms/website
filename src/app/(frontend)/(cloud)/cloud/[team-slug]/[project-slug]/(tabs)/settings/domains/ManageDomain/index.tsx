@@ -7,6 +7,7 @@ import { ModalWindow } from '@components/ModalWindow/index.js'
 import { useModal } from '@faceless-ui/modal'
 import { ExternalLinkIcon } from '@root/icons/ExternalLinkIcon/index.js'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import * as React from 'react'
 
 import classes from './index.module.scss'
@@ -23,11 +24,11 @@ type Props = {
 export const ManageDomain: React.FC<Props> = ({ domain, environmentSlug, project, team }) => {
   const { id, domain: domainURL, recordContent, recordName, recordType } = domain
   const modalSlug = `delete-domain-${id}`
+  const router = useRouter()
 
   const { closeModal, openModal } = useModal()
   const projectID = project?.id
-  const projectDomains = project?.domains
-  const cnameRecord = project?.defaultDomain
+  const [projectDomains, setProjectDomains] = React.useState(project?.domains || [])
 
   const patchDomains = React.useCallback(
     async (domains: Props['domain'][]) => {
@@ -46,20 +47,19 @@ export const ManageDomain: React.FC<Props> = ({ domain, environmentSlug, project
           },
         )
 
-        // TODO: alert user based on status code & message
-
         if (req.status === 200) {
           const res = await req.json()
-          // reloadProject()
+          router.refresh()
+          setProjectDomains(domains)
           return res
         }
       } catch (e) {
-        console.error(e) // eslint-disable-line no-console
+        console.error(e)
       }
 
       return null
     },
-    [projectID],
+    [projectID, environmentSlug],
   )
 
   const deleteDomain = React.useCallback(async () => {
