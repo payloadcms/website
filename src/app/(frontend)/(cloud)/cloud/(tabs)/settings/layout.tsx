@@ -1,14 +1,12 @@
 'use client'
 
-import * as React from 'react'
 import { cloudSlug } from '@cloud/slug.js'
-import Link from 'next/link'
-
-import { usePathname } from 'next/navigation'
-
 import { EdgeScroll } from '@components/EdgeScroll/index.js'
 import { Gutter } from '@components/Gutter/index.js'
 import { usePathnameSegments } from '@root/utilities/use-pathname-segments.js'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import * as React from 'react'
 
 import classes from './layout.module.scss'
 
@@ -41,7 +39,6 @@ export default ({ children }: ProjectSettingsLayoutType) => {
 
               return (
                 <p
-                  key={route.label}
                   className={[
                     classes.sidebarNavItem,
                     isActive && classes.active,
@@ -49,6 +46,7 @@ export default ({ children }: ProjectSettingsLayoutType) => {
                   ]
                     .filter(Boolean)
                     .join(' ')}
+                  key={route.label}
                 >
                   <Link href={route.url}>{route.label}</Link>
                 </p>

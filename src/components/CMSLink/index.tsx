@@ -1,56 +1,59 @@
-import React from 'react'
-import Link from 'next/link'
+import type { CaseStudy, Page, Post } from '@root/payload-types.js'
 
-import { CaseStudy, Page, Post } from '@root/payload-types.js'
+import Link from 'next/link'
+import React from 'react'
 // eslint-disable-next-line import/no-cycle
-import { Button, ButtonProps } from '../Button/index.js'
+import type { ButtonProps } from '../Button/index.js'
+
+import { Button } from '../Button/index.js'
 
 const relationSlugs = {
   case_studies: 'case-studies',
 }
 
 type PageReference = {
-  value: string | Page
   relationTo: 'pages'
+  value: Page | string
 }
 
 type PostsReference = {
-  value: string | Post
   relationTo: 'posts'
+  value: Post | string
 }
 
 type CaseStudyReference = {
-  value: string | CaseStudy
   relationTo: (typeof relationSlugs)['case_studies']
+  value: CaseStudy | string
 }
 
-export type LinkType = 'reference' | 'custom' | null
-export type Reference = PageReference | PostsReference | CaseStudyReference | null
+export type LinkType = 'custom' | 'reference' | null
+export type Reference = CaseStudyReference | null | PageReference | PostsReference
 
 export type CMSLinkType = {
-  type?: LinkType | null
-  newTab?: boolean | null
-  reference?: Reference | null
-  url?: string | null
-  label?: string | null
   appearance?: 'default' | 'primary' | 'secondary' | 'text' | null
+  buttonProps?: ButtonProps
   children?: React.ReactNode
-  fullWidth?: boolean
-  mobileFullWidth?: boolean
   className?: string
+  customId?: null | string
+  fullWidth?: boolean
+  label?: null | string
+  mobileFullWidth?: boolean
+  newTab?: boolean | null
   onClick?: (event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => void
   onMouseEnter?: () => void
   onMouseLeave?: () => void
-  buttonProps?: ButtonProps
+  reference?: null | Reference
+  type?: LinkType | null
+  url?: null | string
 }
 
 type GenerateSlugType = {
+  reference?: null | Reference
   type?: LinkType | null
-  url?: string | null
-  reference?: Reference | null
+  url?: null | string
 }
 const generateHref = (args: GenerateSlugType): string => {
-  const { reference, url, type } = args
+  const { type, reference, url } = args
 
   if ((type === 'custom' || type === undefined) && url) {
     return url
@@ -82,26 +85,28 @@ const generateHref = (args: GenerateSlugType): string => {
 
 export const CMSLink: React.FC<CMSLinkType> = ({
   type,
-  url,
-  newTab,
-  reference,
-  label,
   appearance,
+  buttonProps: buttonPropsFromProps,
   children,
   className,
+  customId,
+  fullWidth = false,
+  label,
+  mobileFullWidth = false,
+  newTab,
   onClick,
   onMouseEnter,
   onMouseLeave,
-  fullWidth = false,
-  mobileFullWidth = false,
-  buttonProps: buttonPropsFromProps,
+  reference,
+  url,
 }) => {
-  let href = generateHref({ type, url, reference })
+  let href = generateHref({ type, reference, url })
 
   if (!href) {
     return (
       <span
         className={className}
+        id={customId ?? ''}
         onClick={onClick}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
@@ -113,7 +118,7 @@ export const CMSLink: React.FC<CMSLinkType> = ({
   }
 
   if (!appearance) {
-    const hrefIsLocal = ['tel:', 'mailto:', '/'].some(prefix => href.startsWith(prefix))
+    const hrefIsLocal = ['tel:', 'mailto:', '/'].some((prefix) => href.startsWith(prefix))
 
     if (!hrefIsLocal && href !== '#') {
       try {
@@ -124,11 +129,11 @@ export const CMSLink: React.FC<CMSLinkType> = ({
       } catch (e) {
         // Do not throw error if URL is invalid
         // This will prevent the page from building
-        console.log(`Failed to format url: ${href}`, e) // eslint-disable-line no-console
+        //console.log(`Failed to format url: ${href}`, e) // eslint-disable-line no-console
       }
     }
 
-    const newTabProps = newTab ? { target: '_blank', rel: 'noopener noreferrer' } : {}
+    const newTabProps = newTab ? { rel: 'noopener noreferrer', target: '_blank' } : {}
 
     if (href.indexOf('/') === 0) {
       return (
@@ -136,6 +141,7 @@ export const CMSLink: React.FC<CMSLinkType> = ({
           href={href}
           {...newTabProps}
           className={className}
+          id={customId ?? ''}
           onClick={onClick}
           onMouseEnter={onMouseEnter}
           onMouseLeave={onMouseLeave}
@@ -152,9 +158,10 @@ export const CMSLink: React.FC<CMSLinkType> = ({
         href={href}
         {...newTabProps}
         className={className}
+        id={customId ?? ''}
+        onClick={onClick}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
-        onClick={onClick}
       >
         {label && label}
         {children && children}
@@ -164,20 +171,20 @@ export const CMSLink: React.FC<CMSLinkType> = ({
 
   const buttonProps: ButtonProps = {
     ...buttonPropsFromProps,
-    newTab,
-    href,
     appearance,
+    fullWidth,
+    href,
     label,
+    mobileFullWidth,
+    newTab,
     onClick,
     onMouseEnter,
     onMouseLeave,
-    fullWidth,
-    mobileFullWidth,
   }
 
   if (appearance === 'default') {
     buttonProps.icon = 'arrow'
   }
 
-  return <Button {...buttonProps} className={className} el="link" />
+  return <Button {...buttonProps} className={className} el="link" id={customId ?? ''} />
 }

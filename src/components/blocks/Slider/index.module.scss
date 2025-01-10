@@ -1,16 +1,9 @@
 @use '@scss/common' as *;
 
-.leadingHeader {
-  margin-bottom: 2rem;
-  max-width: 1200px;
-
-  @include extra-large-break {
-    max-width: 900px;
-  }
-}
-
 .slider {
   position: relative;
+  display: flex;
+  flex-direction: column;
   --pixel-extension-top: 2.5rem;
   --pixel-extension-bottom: 5rem;
   --pixel-extension-total: calc(var(--pixel-extension-top) + var(--pixel-extension-bottom));
@@ -21,13 +14,18 @@
   }
 }
 
+.introContent {
+  margin-bottom: 4rem;
+  row-gap: 2rem;
+}
+
 .withPixelBackground {
   margin-top: calc(var(--pixel-extension-top) + var(--block-spacing));
-  margin-bottom: calc(var(--pixel-extension-bottom)  + var(--block-spacing));
+  margin-bottom: calc(var(--pixel-extension-bottom) + var(--block-spacing));
 }
 
 .sliderNav {
-  margin-left: 4.5rem;
+  margin-left: 3.5rem;
   margin-top: 2rem;
 
   @include mid-break {
@@ -60,7 +58,11 @@
 }
 
 .sliderTrack {
+  scroll-padding-left: var(--gutter-h);
+  padding-inline: var(--gutter-h);
   scrollbar-width: none;
+  background: var(--theme-bg);
+
   &::-webkit-scrollbar-track {
     display: none;
   }
@@ -72,22 +74,16 @@
 
 .trackWrap {
   position: relative;
-  margin-left: calc(var(--gutter-h));
-  margin-right: calc(var(--gutter-h));
-  background: white;
-
-  @include data-theme-selector('light') {
-    background: var(--color-base-0);
-  }
-
-  @include data-theme-selector('dark') {
-    background: var(--color-base-1000);
-  }
 }
 
 .slide {
   position: relative;
   box-sizing: border-box;
+  border-right: 1px solid var(--theme-border-color);
+
+  &:first-of-type {
+    border-left: 1px solid var(--theme-border-color);
+  }
 }
 
 .pixelContainer {
@@ -110,18 +106,9 @@
 
 .quoteSlide {
   box-sizing: border-box;
-  max-width: calc(var(--column) * 12);
+  max-width: calc(var(--column) * 8);
 
   @include mid-break {
     max-width: 100%;
-  }
-}
-
-.fakeSlide {
-  width: calc(25% - 1px);
-  flex-shrink: 0;
-
-  @include mid-break {
-    display: none;
   }
 }

@@ -7,10 +7,10 @@ export const TrashIcon: React.FC<Props> = ({ className }) => {
   return (
     <svg
       className={className}
-      width="24"
+      fill="none"
       height="24"
       viewBox="0 0 24 24"
-      fill="none"
+      width="24"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path

@@ -3,10 +3,10 @@
 @use './vars.scss' as *;
 @use './queries.scss' as *;
 @use './type.scss' as *;
-@import "./colors.scss";
-@import './docsearch.scss';
-@import "./theme.scss";
-@import './toasts.scss';
+@use './colors.scss';
+@use './docsearch.scss';
+@use './theme.scss';
+@use './toasts.scss';
 
 :root {
   font-size: 20px;
@@ -83,7 +83,6 @@
   @include mid-break {
     --column: calc((100vw - (var(--gutter-h) * 2)) / 8);
   }
-
 }
 
 /////////////////////////////
@@ -104,12 +103,12 @@ html {
     scroll-behavior: smooth;
   }
 
-  &[data-theme=dark],
-  &[data-theme=light] {
+  &[data-theme='dark'],
+  &[data-theme='light'] {
     opacity: initial;
   }
 
-  &[data-theme=dark] {
+  &[data-theme='dark'] {
     background: var(--color-base-1000);
     color-scheme: dark;
   }
@@ -206,7 +205,6 @@ a {
   }
 
   @include mid-break {
-
     &:focus,
     &:active {
       opacity: 1;
@@ -215,7 +213,6 @@ a {
 }
 
 time {
-  @include label;
   & {
     margin: 0;
   }
@@ -243,16 +240,19 @@ em {
 code {
   @include code;
   & {
-    border-radius: 3px;
-    padding: 0 5px 2px;
+    border-radius: 4px;
+    padding: 2px 4px;
   }
 
   @include data-theme-selector('light') {
-    background: var(--theme-elevation-100);
+    background: var(--theme-elevation-50);
+    border: 1px solid var(--theme-elevation-200);
+    box-shadow: 0px 1px 2px -1px var(--theme-elevation-250);
   }
 
   @include data-theme-selector('dark') {
-    background: var(--theme-elevation-200);
+    background: var(--theme-elevation-150);
+    border: 1px solid var(--theme-elevation-200);
   }
 }
 
@@ -274,7 +274,7 @@ dialog {
   width: 20px;
   height: 20px;
   vertical-align: middle;
-  margin: 0!important;
+  margin: 0 !important;
 }
 
 .payload__modal-item {
@@ -305,9 +305,11 @@ dialog {
   background-image: url('/images/scanline-dark.png');
   background-repeat: repeat;
   opacity: 0.08;
-  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  transition:
+    transform 0.3s ease-in-out,
+    opacity 0.3s ease-in-out;
 
-  [data-theme="dark"]  & {
+  [data-theme='dark'] & {
     background-image: url('/images/scanline-light.png');
   }
 }

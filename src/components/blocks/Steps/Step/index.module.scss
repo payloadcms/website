@@ -1,72 +1,41 @@
 @use '@scss/common' as *;
 
-.step {
-  --step-indicator-pos: 2rem;
-  position: relative;
-  padding-bottom: var(--block-spacing);
+.stepContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
 
-  &:before {
-    content: ' ';
-    display: block;
-    position: absolute;
-    top: 2rem;
-    left: calc(var(--gutter-h) - var(--step-indicator-pos) - 5px);
-    bottom: 1rem;
-    transition: transform 1500ms ease-out;
-    transform-origin: center top;
-    transform: scaleY(0);
-    background: currentColor;
-    width: 1px;
-  }
-
-  @include large-break {
-    --step-indicator-pos: 1rem;
-  }
-
-  @include mid-break {
-    --step-indicator-pos: 0.5rem;
-  }
-
-  &:last-child {
-    padding-bottom: 0;
-
-    .label {
-      &:before {
-        background: var(--color-success-500);
-      }
-    }
-
-    &:before {
-      content: none;
-    }
+.inView {
+  .content,
+  .media {
+    transform: translateY(0);
+    opacity: 1;
   }
 }
 
-.animate {
-  &:before {
-    transform: scaleY(1);
-  }
+.pill {
+  display: inline-block;
+  @include label;
 }
 
-.label {
-  position: relative;
+.content {
+  width: calc(var(--column) * 8);
+  text-align: center;
+  transform: translateY(3rem);
+  transition:
+    transform 1s cubic-bezier(0.4, 0, 0, 1),
+    opacity 1s cubic-bezier(0.4, 0, 0, 1);
+  opacity: 0;
+}
 
-  &:before {
-    content: ' ';
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    right: calc(100% + var(--step-indicator-pos));
-    width: 0.5rem;
-    height: 0.5rem;
-    background: currentColor;
-    border-radius: 100%;
-  }
-
-  @include mid-break {
-    &:before {
-      width: 0.25rem;
-      height: 0.25rem;
-    }
-  }
+.media {
+  margin-top: 2rem;
+  transform: translateY(6rem);
+  transition:
+    transform 1s cubic-bezier(0.4, 0, 0, 1),
+    opacity 1s cubic-bezier(0.4, 0, 0, 1);
+  opacity: 0;
 }

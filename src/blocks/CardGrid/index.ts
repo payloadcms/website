@@ -22,8 +22,8 @@ export const CardGrid: Block = {
         }),
         {
           name: 'revealDescription',
-          label: 'Reveal descriptions on hover?',
           type: 'checkbox',
+          label: 'Reveal descriptions on hover?',
         },
         {
           name: 'cards',
@@ -43,8 +43,8 @@ export const CardGrid: Block = {
               type: 'checkbox',
             },
             link({
-              disableLabel: true,
               appearances: false,
+              disableLabel: true,
               overrides: {
                 admin: {
                   condition: (_, { enableLink }) => enableLink,

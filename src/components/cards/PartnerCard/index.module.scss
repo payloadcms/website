@@ -16,7 +16,7 @@
     width: 0px;
     height: 2px;
     background-color: var(--theme-text);
-    transition: width .3s ease;
+    transition: width 0.3s ease;
   }
 
   &:hover {
@@ -60,7 +60,7 @@
       height: 100%;
       width: auto;
       object-fit: cover;
-      transition: transform .3s ease;
+      transition: transform 0.3s ease;
     }
   }
 }
@@ -71,7 +71,7 @@
   flex-direction: column;
   flex-grow: 1;
   padding: 1.5rem;
-  gap: .25rem;
+  gap: 0.25rem;
   border-top: 1px solid var(--theme-border-color);
   & > * {
     margin: 0;
@@ -87,7 +87,7 @@
 
 .scanlines {
   opacity: 0;
-  transition: opacity .3s ease;
+  transition: opacity 0.3s ease;
 }
 
 .arrow {
@@ -96,6 +96,6 @@
   right: 1.75rem;
   opacity: 0;
   transition-property: top, right, opacity;
-  transition-duration: .3s;
+  transition-duration: 0.3s;
   transition-timing-function: ease;
 }

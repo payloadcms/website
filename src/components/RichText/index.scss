@@ -1,0 +1,97 @@
+@use '@scss/common' as *;
+
+.payload-richtext {
+  @include color-links;
+
+  &:not(.docs-richtext) {
+    :first-child {
+      margin-top: 0;
+    }
+
+    :last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .lexical-code {
+    margin-bottom: 2rem;
+    border-radius: 2px;
+  }
+
+  span {
+    white-space: pre-wrap;
+  }
+
+  .lexical-table-container {
+    overflow: auto;
+    margin-bottom: 2rem;
+  }
+
+  .lexical-table {
+    margin-bottom: 1rem;
+    overflow: auto;
+    max-width: 100%;
+    width: 100%;
+    border-spacing: 0px;
+    border-collapse: collapse;
+
+    p {
+      margin: 0;
+    }
+
+    tbody tr:first-child {
+      color: var(--theme-elevation-500);
+
+      th {
+        @include small;
+        & {
+          font-weight: normal;
+          text-align: left;
+        }
+      }
+    }
+
+    th,
+    td {
+      padding: 0.75rem;
+      min-width: 150px;
+      vertical-align: top;
+      max-width: 1000px;
+      margin: auto;
+
+      &:first-child {
+        padding-left: 1.5rem;
+      }
+
+      &:last-child {
+        padding-right: 1.5rem;
+      }
+
+      @include mid-break {
+        &:first-child {
+          padding-left: 1rem;
+        }
+
+        &:last-child {
+          padding-right: 1rem;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        &:nth-child(even) {
+          position: relative;
+          background: var(--theme-elevation-100);
+        }
+      }
+    }
+
+    @include mid-break {
+      th,
+      td {
+        padding: 1rem 0.5rem;
+      }
+    }
+  }
+}

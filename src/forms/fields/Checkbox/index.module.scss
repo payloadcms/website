@@ -1,5 +1,5 @@
-@use "@scss/common" as *;
-@use "../shared.scss";
+@use '@scss/common' as *;
+@use '../shared.scss';
 
 .checkbox {
   position: relative;
@@ -85,7 +85,7 @@
   }
 }
 
-:global([data-theme="light"]) {
+:global([data-theme='light']) {
   .input {
     background: var(--theme-elevation-50);
   }

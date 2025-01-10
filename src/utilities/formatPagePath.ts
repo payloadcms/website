@@ -11,17 +11,17 @@ export const formatPagePath = (
 
   if (collection) {
     switch (collection) {
-      case 'pages':
-        prefix = ''
-        break
-      case 'posts':
-        prefix = '/blog'
-        break
       case 'case-studies':
         prefix = '/case-studies'
         break
+      case 'pages':
+        prefix = ''
+        break
       case 'partners':
         prefix = '/partners'
+        break
+      case 'posts':
+        prefix = '/blog'
         break
       default:
         prefix = `/${collection}`

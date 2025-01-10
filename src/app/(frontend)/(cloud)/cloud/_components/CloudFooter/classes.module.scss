@@ -39,7 +39,7 @@
   @include small-break {
     gap: 1rem;
     padding: 1rem 0;
-    font-size: .75rem;
+    font-size: 0.75rem;
   }
 }
 
@@ -60,7 +60,6 @@
       position: relative;
       padding-right: 1.25rem;
     }
-
   }
   &::before {
     content: '';

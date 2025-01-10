@@ -1,24 +1,24 @@
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 
 import classes from './layout.module.scss'
 
 export const metadata: Metadata = {
+  robots: {
+    follow: true,
+    googleBot: {
+      follow: false,
+      index: false,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
+      noimageindex: true,
+    },
+    index: false,
+    nocache: true,
+  },
   title: {
     absolute: 'Styleguide',
     template: '%s | Styleguide',
-  },
-  robots: {
-    index: false,
-    follow: true,
-    nocache: true,
-    googleBot: {
-      index: false,
-      follow: false,
-      noimageindex: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
   },
 }
 

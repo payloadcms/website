@@ -1,8 +1,8 @@
 export interface IconProps {
-  color?: string
-  size?: 'small' | 'medium' | 'large' | 'full'
   bold?: boolean
   className?: string
+  color?: string
   rotation?: number
+  size?: 'full' | 'large' | 'medium' | 'small'
   style?: React.CSSProperties
 }

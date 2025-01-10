@@ -2,9 +2,9 @@ import * as React from 'react'
 
 import classes from './index.module.scss'
 
-export const Width: React.FC<{ width?: number | null; children: React.ReactNode }> = ({
-  width,
+export const Width: React.FC<{ children: React.ReactNode; width?: null | number }> = ({
   children,
+  width,
 }) => {
   return (
     <div className={classes.width} style={{ width: width ? `${width}%` : undefined }}>

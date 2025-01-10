@@ -1,12 +1,13 @@
-import React, { Fragment } from 'react'
+import type { Metadata } from 'next'
+
+import { SectionHeader } from '@cloud/[team-slug]/[project-slug]/(tabs)/settings/_layoutComponents/SectionHeader/index.js'
 import { fetchMe } from '@cloud/_api/fetchMe.js'
 import { fetchPlans } from '@cloud/_api/fetchPlans.js'
 import { fetchSubscriptions } from '@cloud/_api/fetchSubscriptions.js'
 import { fetchTeamWithCustomer } from '@cloud/_api/fetchTeam.js'
-import { SectionHeader } from '@cloud/[team-slug]/[project-slug]/(tabs)/settings/_layoutComponents/SectionHeader/index.js'
-import { Metadata } from 'next'
-
 import { Message } from '@components/Message/index.js'
+import React, { Fragment } from 'react'
+
 import { TeamSubscriptionsPage } from './page_client.js'
 
 export default async ({
@@ -30,7 +31,7 @@ export default async ({
       {!hasCustomerID && (
         <Message error="This team does not have a billing account. Please contact support to resolve this issue." />
       )}
-      <TeamSubscriptionsPage team={team} plans={plans} subscriptions={subscriptions} user={user} />
+      <TeamSubscriptionsPage plans={plans} subscriptions={subscriptions} team={team} user={user} />
     </Fragment>
   )
 }
@@ -44,10 +45,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { 'team-slug': teamSlug } = await params
   return {
-    title: `${teamSlug} - Team Subscriptions`,
     openGraph: {
       title: `${teamSlug} - Team Subscriptions`,
       url: `/cloud/${teamSlug}/subscriptions`,
     },
+    title: `${teamSlug} - Team Subscriptions`,
   }
 }

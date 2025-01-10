@@ -1,10 +1,10 @@
-@use "@scss/common" as *;
+@use '@scss/common' as *;
 
-$curve: cubic-bezier(.165, 0.84, 0.44, 1);
+$curve: cubic-bezier(0.165, 0.84, 0.44, 1);
 
 .wrapper {
-    position: relative;
-    height: 100%;
+  position: relative;
+  height: 100%;
 }
 
 .introWrapper {
@@ -25,7 +25,6 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
 .cards {
   position: relative;
 }
-
 
 .card {
   height: 100%;
@@ -57,7 +56,7 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
   }
 
   &::before {
-    content:'';
+    content: '';
     position: absolute;
     left: 0;
     bottom: -1px;
@@ -67,8 +66,8 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
     transition: width 350ms $curve;
   }
 
-
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     text-decoration: none;
     &::before {
       width: 100%;
@@ -174,7 +173,7 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
   grid-template-rows: 1fr;
 
   &::before {
-    content:'';
+    content: '';
     position: absolute;
     left: 0;
     top: 0;

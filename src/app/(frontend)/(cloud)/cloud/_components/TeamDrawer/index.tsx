@@ -1,11 +1,12 @@
 'use client'
 
-import React, { useCallback, useEffect, useId, useMemo, useState } from 'react'
-import { useModal } from '@faceless-ui/modal'
-
 import { Drawer, DrawerToggler } from '@components/Drawer/index.js'
+import { useModal } from '@faceless-ui/modal'
+import React, { useCallback, useEffect, useId, useMemo, useState } from 'react'
+
+import type { TeamDrawerProps, TeamDrawerTogglerProps, UseTeamDrawer } from './types.js'
+
 import { TeamDrawerContent } from './DrawerContent.js'
-import { TeamDrawerProps, TeamDrawerTogglerProps, UseTeamDrawer } from './types.js'
 
 const formatTeamDrawerSlug = ({
   uuid,
@@ -16,18 +17,18 @@ const formatTeamDrawerSlug = ({
 export const TeamDrawerToggler: React.FC<TeamDrawerTogglerProps> = ({
   children,
   className,
-  drawerSlug,
   disabled,
+  drawerSlug,
   ...rest
 }) => {
   return (
-    <DrawerToggler slug={drawerSlug || ''} className={className} disabled={disabled} {...rest}>
+    <DrawerToggler className={className} disabled={disabled} slug={drawerSlug || ''} {...rest}>
       {children}
     </DrawerToggler>
   )
 }
 
-export const TeamDrawer: React.FC<TeamDrawerProps> = props => {
+export const TeamDrawer: React.FC<TeamDrawerProps> = (props) => {
   const { drawerSlug } = props
 
   return (
@@ -39,7 +40,7 @@ export const TeamDrawer: React.FC<TeamDrawerProps> = props => {
 
 export const useTeamDrawer: UseTeamDrawer = ({ team } = {}) => {
   const uuid = useId()
-  const { modalState, toggleModal, closeModal, openModal } = useModal()
+  const { closeModal, modalState, openModal, toggleModal } = useModal()
   const [isOpen, setIsOpen] = useState(false)
   const drawerSlug = formatTeamDrawerSlug({
     uuid,
@@ -62,11 +63,11 @@ export const useTeamDrawer: UseTeamDrawer = ({ team } = {}) => {
   }, [drawerSlug, openModal])
 
   const MemoizedDrawer = useMemo(() => {
-    return props => (
+    return (props) => (
       <TeamDrawer
         {...props}
-        drawerSlug={drawerSlug}
         closeDrawer={closeDrawer}
+        drawerSlug={drawerSlug}
         key={drawerSlug}
         team={team}
       />
@@ -74,16 +75,16 @@ export const useTeamDrawer: UseTeamDrawer = ({ team } = {}) => {
   }, [drawerSlug, closeDrawer, team])
 
   const MemoizedDrawerToggler = useMemo(() => {
-    return props => <TeamDrawerToggler {...props} drawerSlug={drawerSlug} />
+    return (props) => <TeamDrawerToggler {...props} drawerSlug={drawerSlug} />
   }, [drawerSlug])
 
   const MemoizedDrawerState = useMemo(
     () => ({
+      closeDrawer,
       drawerSlug,
       isDrawerOpen: isOpen,
-      toggleDrawer,
-      closeDrawer,
       openDrawer,
+      toggleDrawer,
     }),
     [drawerSlug, isOpen, toggleDrawer, closeDrawer, openDrawer],
   )

@@ -1,33 +1,33 @@
-import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react'
-import { TeamWithCustomer } from '@cloud/_api/fetchTeam.js'
-import { CreditCardElement } from '@cloud/_components/CreditCardElement/index.js'
-import { type PaymentMethod } from '@stripe/stripe-js'
-import { v4 as uuid } from 'uuid'
+import type { TeamWithCustomer } from '@cloud/_api/fetchTeam.js'
 
+import { CreditCardElement } from '@cloud/_components/CreditCardElement/index.js'
 import { CircleIconButton } from '@components/CircleIconButton/index.js'
 import { LargeRadio } from '@components/LargeRadio/index.js'
 import { Pill } from '@components/Pill/index.js'
-import { usePaymentMethods } from '../CreditCardList/usePaymentMethods.js'
+import { type PaymentMethod } from '@stripe/stripe-js'
+import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react'
+import { v4 as uuid } from 'uuid'
 
+import { usePaymentMethods } from '../CreditCardList/usePaymentMethods.js'
 import classes from './index.module.scss'
 
 type CreditCardSelectorType = {
-  team: TeamWithCustomer
-  initialValue?: string
-  onChange?: (method?: string) => void // eslint-disable-line no-unused-vars
   enableInlineSave?: boolean
+  initialPaymentMethods?: null | PaymentMethod[]
+  initialValue?: string
+  onChange?: (method?: string) => void
   onPaymentMethodChange?: (paymentMethod: string) => Promise<void>
-  initialPaymentMethods?: PaymentMethod[] | null
+  team: TeamWithCustomer
 }
 
-export const CreditCardSelector: React.FC<CreditCardSelectorType> = props => {
+export const CreditCardSelector: React.FC<CreditCardSelectorType> = (props) => {
   const {
-    onChange,
-    initialValue,
-    initialPaymentMethods,
-    team,
     enableInlineSave = true,
+    initialPaymentMethods,
+    initialValue,
+    onChange,
     onPaymentMethodChange,
+    team,
   } = props
 
   const customer = team?.stripeCustomer
@@ -42,19 +42,19 @@ export const CreditCardSelector: React.FC<CreditCardSelectorType> = props => {
   const hasInitialized = useRef(false)
 
   const {
-    result: paymentMethods,
+    defaultPaymentMethod,
     error,
     isLoading,
+    result: paymentMethods,
     saveNewPaymentMethod,
-    defaultPaymentMethod,
   } = usePaymentMethods({
-    team,
     initialValue: initialPaymentMethods,
+    team,
   })
 
   const initializeState = useCallback(() => {
     if (paymentMethods) {
-      if (!initialValue || !paymentMethods?.find(method => method?.id === initialValue)) {
+      if (!initialValue || !paymentMethods?.find((method) => method?.id === initialValue)) {
         // setShowNewCard(true)
         // to preselect the first card, do this instead:
         const firstCard = paymentMethods?.[0]?.id
@@ -114,22 +114,18 @@ export const CreditCardSelector: React.FC<CreditCardSelectorType> = props => {
 
   return (
     <div className={classes.creditCardSelector}>
-      <div ref={scrollRef} className={classes.scrollRef} />
+      <div className={classes.scrollRef} ref={scrollRef} />
       <div className={classes.formState}>{error && <p className={classes.error}>{error}</p>}</div>
       <div className={classes.cards}>
-        {paymentMethods?.map(paymentMethod => {
+        {paymentMethods?.map((paymentMethod) => {
           const isDefault = defaultPaymentMethod === paymentMethod.id
           const isChecked = internalState === paymentMethod.id
 
           return (
             <div key={paymentMethod.id}>
               <LargeRadio
-                value={paymentMethod.id}
                 checked={isChecked}
-                onChange={(incomingValue: string) => {
-                  setShowNewCard(false)
-                  handleChange(incomingValue)
-                }}
+                id={paymentMethod.id}
                 label={
                   <div className={classes.cardBrand}>
                     {`${paymentMethod?.card?.brand} ending in ${paymentMethod?.card?.last4}`}
@@ -141,7 +137,11 @@ export const CreditCardSelector: React.FC<CreditCardSelectorType> = props => {
                   </div>
                 }
                 name="card"
-                id={paymentMethod.id}
+                onChange={(incomingValue: string) => {
+                  setShowNewCard(false)
+                  handleChange(incomingValue)
+                }}
+                value={paymentMethod.id}
               />
               {defaultPaymentMethod && internalState !== defaultPaymentMethod && isChecked && (
                 <p className={classes.notice}>
@@ -153,8 +153,8 @@ export const CreditCardSelector: React.FC<CreditCardSelectorType> = props => {
         })}
         {showNewCard && (
           <LargeRadio
-            value={newCardID.current}
             checked={internalState === newCardID.current}
+            id={newCardID.current}
             label={
               <CreditCardElement
                 onChange={() => {
@@ -163,14 +163,14 @@ export const CreditCardSelector: React.FC<CreditCardSelectorType> = props => {
               />
             }
             name="card"
-            id={newCardID.current}
+            value={newCardID.current}
           />
         )}
       </div>
       {((showNewCard && enableInlineSave) || (paymentMethods && paymentMethods?.length > 0)) && (
         <div className={classes.controls}>
           {showNewCard && enableInlineSave && (
-            <button type="button" className={classes.saveNewCard} onClick={handleSaveNewCard}>
+            <button className={classes.saveNewCard} onClick={handleSaveNewCard} type="button">
               {isLoading === 'saving' ? 'Saving...' : 'Save new card'}
             </button>
           )}
@@ -179,22 +179,22 @@ export const CreditCardSelector: React.FC<CreditCardSelectorType> = props => {
             <Fragment>
               {!showNewCard && (
                 <CircleIconButton
+                  icon="add"
+                  label="Add new card"
                   onClick={() => {
                     setShowNewCard(true)
                     handleChange(newCardID.current)
                   }}
-                  label="Add new card"
-                  icon="add"
                 />
               )}
               {showNewCard && (
                 <button
-                  type="button"
                   className={classes.cancelNewCard}
                   onClick={() => {
                     setShowNewCard(false)
                     initializeState()
                   }}
+                  type="button"
                 >
                   Cancel new card
                 </button>

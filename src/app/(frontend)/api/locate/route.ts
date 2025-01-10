@@ -83,12 +83,12 @@ const gdprCountryCodes = [
  * Returns the status of GDPR requirement and defaults to true when unknown
  * @param countryCode
  */
-const locate = (countryCode: string | null = null): boolean =>
+const locate = (countryCode: null | string = null): boolean =>
   countryCode ? gdprCountryCodes.indexOf(countryCode) > -1 : true
 
 export async function GET(req: Request): Promise<NextResponse> {
   const country =
     typeof req.headers['x-vercel-ip-country'] === 'string' ? req.headers['x-vercel-ip-country'] : ''
 
-  return NextResponse.json({ isGDPR: locate(country), country })
+  return NextResponse.json({ country, isGDPR: locate(country) })
 }

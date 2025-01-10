@@ -1,5 +1,3 @@
-
-
 .radioCards {
   display: flex;
   flex-direction: column;
@@ -87,7 +85,7 @@
   }
 }
 
-:global([data-theme="light"]) {
+:global([data-theme='light']) {
   .radioCard {
     background-color: var(--theme-elevation-50);
   }

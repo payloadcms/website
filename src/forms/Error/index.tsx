@@ -1,11 +1,11 @@
 import React from 'react'
 
-import { Props } from './types.js'
+import type { Props } from './types.js'
 
 import classes from './index.module.scss'
 
-const Error: React.FC<Props> = props => {
-  const { showError, message, className } = props
+const Error: React.FC<Props> = (props) => {
+  const { className, message, showError } = props
 
   if (showError) {
     return <p className={[classes.error, className].filter(Boolean).join(' ')}>{message}</p>

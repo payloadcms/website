@@ -1,32 +1,37 @@
-import { isAdmin, isAdminFieldLevel } from '../access/isAdmin'
+import type { CollectionConfig } from 'payload'
 
-import { CollectionConfig } from 'payload'
+import { revalidatePath } from 'next/cache'
+
+import { isAdmin, isAdminFieldLevel } from '../access/isAdmin'
 import { slugField } from '../fields/slug'
 import { formatPreviewURL } from '../utilities/formatPreviewURL'
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
-import { revalidatePath } from 'next/cache'
 
 export const Partners: CollectionConfig = {
   slug: 'partners',
-  labels: {
-    singular: 'Partner',
-    plural: 'Partners',
-  },
-  versions: {
-    drafts: true,
+  access: {
+    create: isAdmin,
+    delete: isAdmin,
+    read: () => true,
+    update: isAdmin,
   },
   admin: {
-    useAsTitle: 'name',
+    group: 'Partner Program',
     livePreview: {
       url: ({ data }) => formatPreviewURL('partners', data),
     },
-    preview: doc => formatPreviewURL('partners', doc),
+    preview: (doc) => formatPreviewURL('partners', doc),
+    useAsTitle: 'name',
   },
-  access: {
-    create: isAdmin,
-    read: () => true,
-    update: isAdmin,
-    delete: isAdmin,
+  defaultPopulate: {
+    name: true,
+    slug: true,
+    budgets: true,
+    content: {
+      bannerImage: true,
+    },
+    industries: true,
+    regions: true,
+    specialties: true,
   },
   fields: [
     {
@@ -56,6 +61,11 @@ export const Partners: CollectionConfig = {
     {
       name: 'agency_status',
       type: 'select',
+      admin: {
+        description: 'Set to inactive to hide this partner from the directory.',
+        position: 'sidebar',
+      },
+      defaultValue: 'active',
       options: [
         {
           label: 'Active',
@@ -66,92 +76,77 @@ export const Partners: CollectionConfig = {
           value: 'inactive',
         },
       ],
-      defaultValue: 'active',
-      admin: {
-        position: 'sidebar',
-        description: 'Set to inactive to hide this partner from the directory.',
-      },
     },
     {
       name: 'hubspotID',
       type: 'text',
-      label: 'HubSpot ID',
-      admin: {
-        position: 'sidebar',
-      },
       access: {
         read: isAdminFieldLevel,
       },
+      admin: {
+        position: 'sidebar',
+      },
+      label: 'HubSpot ID',
     },
     {
       name: 'logo',
       type: 'upload',
-      relationTo: 'media',
       admin: {
         position: 'sidebar',
       },
+      relationTo: 'media',
       required: true,
     },
     {
       name: 'featured',
       type: 'checkbox',
-      label: 'Featured',
       admin: {
-        position: 'sidebar',
-        readOnly: true,
         description:
           'This field is managed by the Featured Partners field in the Partner Program collection',
+        position: 'sidebar',
+        readOnly: true,
       },
+      label: 'Featured',
     },
     {
       name: 'topContributor',
       type: 'checkbox',
-      label: 'Top Contributor?',
       admin: {
         position: 'sidebar',
       },
+      label: 'Top Contributor?',
     },
     {
       type: 'tabs',
       tabs: [
         {
-          label: 'Content',
           name: 'content',
           fields: [
             {
               name: 'bannerImage',
               type: 'upload',
-              relationTo: 'media',
               admin: {
                 description: '1600 x 800px recommended',
               },
+              relationTo: 'media',
               required: true,
             },
             {
               name: 'overview',
-              label: 'Overview',
               type: 'richText',
-              editor: lexicalEditor({
-                features: ({ rootFeatures }) => rootFeatures,
-              }),
+              label: 'Overview',
               required: true,
             },
             {
               name: 'services',
-              label: 'Services',
               type: 'richText',
-              editor: lexicalEditor({
-                features: ({ rootFeatures }) => rootFeatures,
-              }),
+              label: 'Services',
               required: true,
             },
             {
               name: 'idealProject',
-              label: 'Ideal Project',
               type: 'richText',
-              editor: lexicalEditor({
-                features: ({ rootFeatures }) => rootFeatures,
-              }),
+              label: 'Ideal Project',
               required: true,
             },
             {
@@ -161,7 +156,6 @@ export const Partners: CollectionConfig = {
             },
             {
               name: 'contributions',
-              label: 'Contributions',
               type: 'array',
               admin: {
                 description:
@@ -173,8 +167,10 @@ export const Partners: CollectionConfig = {
                   fields: [
                     {
                       name: 'type',
-                      required: true,
                       type: 'select',
+                      admin: {
+                        width: '50%',
+                      },
                       options: [
                         {
                           label: 'Discussion',
@@ -189,37 +185,34 @@ export const Partners: CollectionConfig = {
                           value: 'issue',
                         },
                       ],
-                      admin: {
-                        width: '50%',
-                      },
+                      required: true,
                     },
                     {
                       name: 'repo',
                       type: 'text',
-                      required: true,
-                      defaultValue: 'payload',
                       admin: {
                         width: '25%',
                         // description: ({ path, value }) => `github.com/payloadcms/${value || ''}`,
                       },
+                      defaultValue: 'payload',
+                      required: true,
                     },
                     {
                       name: 'number',
                       type: 'number',
-                      required: true,
                       admin: {
                         width: '25%',
                       },
+                      required: true,
                     },
                   ],
                 },
               ],
+              label: 'Contributions',
             },
             {
               name: 'projects',
-              label: 'Projects built with Payload',
               type: 'array',
-              maxRows: 4,
               fields: [
                 {
                   name: 'year',
@@ -237,11 +230,13 @@ export const Partners: CollectionConfig = {
                   required: true,
                 },
               ],
+              label: 'Projects built with Payload',
+              maxRows: 4,
             },
           ],
+          label: 'Content',
         },
         {
-          label: 'Details',
           fields: [
             {
               name: 'city',
@@ -251,35 +246,34 @@ export const Partners: CollectionConfig = {
             {
               name: 'regions',
               type: 'relationship',
-              relationTo: 'regions',
               hasMany: true,
+              relationTo: 'regions',
               required: true,
             },
             {
               name: 'specialties',
               type: 'relationship',
-              relationTo: 'specialties',
               hasMany: true,
+              relationTo: 'specialties',
               required: true,
             },
             {
               name: 'budgets',
               type: 'relationship',
-              relationTo: 'budgets',
               hasMany: true,
+              relationTo: 'budgets',
               required: true,
             },
             {
               name: 'industries',
               type: 'relationship',
-              relationTo: 'industries',
               hasMany: true,
+              relationTo: 'industries',
               required: true,
             },
             {
               name: 'social',
               type: 'array',
-              label: 'Social Media Links',
               fields: [
                 {
                   type: 'row',
@@ -287,11 +281,10 @@ export const Partners: CollectionConfig = {
                     {
                       name: 'platform',
                       type: 'select',
-                      label: 'Platform',
-                      required: true,
                       admin: {
                         width: '50%',
                       },
+                      label: 'Platform',
                       options: [
                         {
                           label: 'LinkedIn',
@@ -318,21 +311,24 @@ export const Partners: CollectionConfig = {
                           value: 'github',
                         },
                       ],
+                      required: true,
                     },
                     {
                       name: 'url',
                       type: 'text',
-                      label: 'URL',
-                      required: true,
                       admin: {
                         width: '50%',
                       },
+                      label: 'URL',
+                      required: true,
                     },
                   ],
                 },
               ],
+              label: 'Social Media Links',
             },
           ],
+          label: 'Details',
         },
       ],
     },
@@ -345,5 +341,12 @@ export const Partners: CollectionConfig = {
         console.log(`Revalidated: /partners/${doc.slug}`)
       },
     ],
+  },
+  labels: {
+    plural: 'Partners',
+    singular: 'Partner',
+  },
+  versions: {
+    drafts: true,
   },
 }

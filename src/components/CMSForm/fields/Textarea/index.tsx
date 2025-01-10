@@ -1,40 +1,40 @@
 'use client'
 
-import React, { useEffect, useRef } from 'react'
-import Error from '@forms/Error/index.js'
-import { FieldProps } from '@forms/fields/types.js'
-import { useField } from '@forms/fields/useField/index.js'
+import type { FieldProps } from '@forms/fields/types.js'
 
 import Label from '@components/CMSForm/Label/index.js'
 import { CopyToClipboard } from '@components/CopyToClipboard/index.js'
+import Error from '@forms/Error/index.js'
+import { useField } from '@forms/fields/useField/index.js'
+import React, { useEffect, useRef } from 'react'
 
 import classes from './index.module.scss'
 
 export const Textarea: React.FC<
-  FieldProps<string> & {
-    rows?: number
+  {
     copy?: boolean
     elementAttributes?: React.InputHTMLAttributes<HTMLTextAreaElement>
-  }
-> = props => {
+    rows?: number
+  } & FieldProps<string>
+> = (props) => {
   const {
-    path,
-    required = false,
-    validate,
-    label,
-    placeholder,
-    onChange: onChangeFromProps,
-    rows = 3,
-    initialValue,
     className,
     copy,
+    disabled,
     elementAttributes = {
+      autoCapitalize: 'none',
       autoComplete: 'off',
       autoCorrect: 'off',
-      autoCapitalize: 'none',
     },
+    initialValue,
+    label,
+    onChange: onChangeFromProps,
+    path,
+    placeholder,
+    required = false,
+    rows = 3,
     showError: showErrorFromProps,
-    disabled,
+    validate,
   } = props
   const inputRef = useRef<HTMLTextAreaElement>(null)
   const [isFocused, setIsFocused] = React.useState(false)
@@ -59,12 +59,12 @@ export const Textarea: React.FC<
     [required],
   )
 
-  const { onChange, value, showError, errorMessage } = useField<string>({
+  const { errorMessage, onChange, showError, value } = useField<string>({
     initialValue,
     onChange: onChangeFromProps,
     path,
-    validate: validate || defaultValidateFunction,
     required,
+    validate: validate || defaultValidateFunction,
   })
 
   useEffect(() => {
@@ -93,33 +93,33 @@ export const Textarea: React.FC<
     >
       <div className={[classes.errorAndLabel].filter(Boolean).join(' ')}>
         <Label
+          actionsSlot={copy && <CopyToClipboard value={value} />}
+          className={[classes.textareaLabel].filter(Boolean).join(' ')}
           htmlFor={path}
           label={label}
           required={required}
-          actionsSlot={copy && <CopyToClipboard value={value} />}
-          className={[classes.textareaLabel].filter(Boolean).join(' ')}
         />
         <Error
           className={classes.errorLabel}
-          showError={Boolean((showError || showErrorFromProps) && errorMessage)}
           message={errorMessage}
+          showError={Boolean((showError || showErrorFromProps) && errorMessage)}
         />
       </div>
       <textarea
         {...elementAttributes}
-        ref={inputRef}
-        rows={rows}
         className={[classes.textarea].filter(Boolean).join(' ')}
-        value={value || ''}
-        onChange={e => {
-          onChange(e.target.value)
-        }}
-        placeholder={placeholder}
+        disabled={disabled}
         id={path}
         name={path}
-        onFocus={handleFocus}
         onBlur={handleBlur}
-        disabled={disabled}
+        onChange={(e) => {
+          onChange(e.target.value)
+        }}
+        onFocus={handleFocus}
+        placeholder={placeholder}
+        ref={inputRef}
+        rows={rows}
+        value={value || ''}
       />
     </div>
   )

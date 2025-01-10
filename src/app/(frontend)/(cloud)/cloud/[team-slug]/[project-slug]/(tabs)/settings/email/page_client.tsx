@@ -1,27 +1,28 @@
 'use client'
 
-import * as React from 'react'
+import type { Plan, Project, Team } from '@root/payload-cloud-types.js'
+
 import { cloudSlug } from '@cloud/slug.js'
+import { Accordion } from '@components/Accordion/index.js'
+import { Banner } from '@components/Banner/index.js'
+import Code from '@components/Code/index.js'
+import { HR } from '@components/HR/index.js'
+import { MaxWidth } from '@components/MaxWidth/index.js'
 import { CollapsibleGroup } from '@faceless-ui/collapsibles'
 import { Secret } from '@forms/fields/Secret/index.js'
 import { Text } from '@forms/fields/Text/index.js'
+import * as React from 'react'
 
-import { Banner } from '@components/Banner/index.js'
-import Code from '@components/Code/index.js'
-import { Accordion } from '@components/Accordion/index.js'
-import { HR } from '@components/HR/index.js'
-import { MaxWidth } from '@components/MaxWidth/index.js'
-import { Plan, Project, Team } from '@root/payload-cloud-types.js'
 import { NoData } from '../_layoutComponents/NoData/index.js'
 import { SectionHeader } from '../_layoutComponents/SectionHeader/index.js'
 import { AddEmailDomain } from './AddEmailDomain/index.js'
 import { ManageEmailDomain } from './ManageEmailDomain/index.js'
 
 export const ProjectEmailPage: React.FC<{
+  environmentSlug: string
   project: Project
   team: Team
-  environmentSlug: string
-}> = ({ project, team, environmentSlug }) => {
+}> = ({ environmentSlug, project, team }) => {
   const teamSlug = team?.slug
   const projectPlan = (project?.plan as Plan)?.slug
 
@@ -38,7 +39,7 @@ export const ProjectEmailPage: React.FC<{
           'Content-Type': 'application/json',
         },
       },
-    ).then(res => res.json())
+    ).then((res) => res.json())
 
     return value
   }, [project?.id])
@@ -61,14 +62,14 @@ export const ProjectEmailPage: React.FC<{
       {project?.resendDomainID ? (
         <Secret label="Resend API Key" loadSecret={loadEmailAPIKey} readOnly />
       ) : (
-        <Text label="Resend API Key" disabled placeholder="Resend API key not found" />
+        <Text disabled label="Resend API Key" placeholder="Resend API key not found" />
       )}
       <p></p>
       <p>
         To use Resend’s email delivery in your Payload Cloud project, add the Payload Cloud plugin
         to your project:
       </p>
-      <Code disableMinHeight showLineNumbers={false}>{`yarn add @payloadcms/plugin-cloud`}</Code>
+      <Code disableMinHeight showLineNumbers={false}>{`pnpm add @payloadcms/payload-cloud`}</Code>
       <p></p>
       <p>
         <code>payload.config.js</code>:
@@ -76,7 +77,7 @@ export const ProjectEmailPage: React.FC<{
       <Code
         disableMinHeight
         showLineNumbers={false}
-      >{`import { payloadCloud } from '@payloadcms/plugin-cloud'
+      >{`import { payloadCloud } from '@payloadcms/payload-cloud'
 import { buildConfig } from 'payload/config'
 
 export default buildConfig({
@@ -96,9 +97,9 @@ export default buildConfig({
         </Banner>
       ) : (
         <React.Fragment>
-          <CollapsibleGroup transTime={250} transCurve="ease">
-            <Accordion openOnInit label="Add New Email Domain">
-              <AddEmailDomain project={project} environmentSlug={environmentSlug} />
+          <CollapsibleGroup transCurve="ease" transTime={250}>
+            <Accordion label="Add New Email Domain" openOnInit>
+              <AddEmailDomain environmentSlug={environmentSlug} project={project} />
             </Accordion>
           </CollapsibleGroup>
 
@@ -106,15 +107,15 @@ export default buildConfig({
             <React.Fragment>
               <HR />
               <SectionHeader title="Manage Email Domains" />
-              <CollapsibleGroup transTime={250} transCurve="ease" allowMultiple>
+              <CollapsibleGroup allowMultiple transCurve="ease" transTime={250}>
                 <div>
-                  {project.customEmailDomains.map(emailDomain => (
+                  {project.customEmailDomains.map((emailDomain) => (
                     <ManageEmailDomain
-                      key={emailDomain.id}
                       emailDomain={emailDomain}
+                      environmentSlug={environmentSlug}
+                      key={emailDomain.id}
                       project={project}
                       team={team}
-                      environmentSlug={environmentSlug}
                     />
                   ))}
                 </div>

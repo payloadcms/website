@@ -1,4 +1,4 @@
-@use "@scss/common" as *;
+@use '@scss/common' as *;
 
 .drawer {
   display: flex;
@@ -44,7 +44,7 @@
   padding: calc(var(--header-height) + 4rem) var(--gutter-h) 4rem 4rem;
 
   @include mid-break {
-    padding:  calc(var(--header-height) + 5rem) 1.5rem 1.5rem 1.5rem;
+    padding: calc(var(--header-height) + 5rem) 1.5rem 1.5rem 1.5rem;
   }
 }
 
@@ -139,36 +139,42 @@
 
 .size-m {
   .contentChildren {
-    padding: 3rem;
+    padding: 4rem;
   }
 
   .close {
-    width: calc(var(--gutter-h)*2);
+    width: 20vw;
   }
 }
 
 .size-s {
   .contentChildren {
-    padding: 2rem;
+    padding: 4rem;
   }
 
   .close {
-    width: calc(var(--gutter-h)*3);
+    width: 40vw;
   }
 
   @include mid-break {
     .contentChildren {
-      padding: 1rem;
+      padding: 3rem;
     }
 
     .header {
       margin-bottom: 1rem;
     }
+
+    .close {
+      width: 20vw;
+    }
   }
 }
 
 @include small-break {
-  .size-l, .size-m, .size-s {
+  .size-l,
+  .size-m,
+  .size-s {
     .close {
       width: var(--gutter-h);
     }

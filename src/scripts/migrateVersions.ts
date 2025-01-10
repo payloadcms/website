@@ -5,7 +5,7 @@ import payload from 'payload'
 // eslint-disable-next-line
 require('dotenv').config()
 
-const { PAYLOAD_SECRET, MONGODB_URI } = process.env
+const { MONGODB_URI, PAYLOAD_SECRET } = process.env
 
 // This function ensures that there is at least one corresponding version for any document
 // within each of your draft-enabled collections.
@@ -15,9 +15,9 @@ const ensureAtLeastOneVersion = async (): Promise<void> => {
   // IMPORTANT: make sure your ENV variables are filled properly here
   // as the below variable names are just for reference.
   await payload.init({
-    secret: PAYLOAD_SECRET,
-    mongoURL: MONGODB_URI,
     local: true,
+    mongoURL: MONGODB_URI,
+    secret: PAYLOAD_SECRET,
   })
 
   // For each collection
@@ -27,8 +27,8 @@ const ensureAtLeastOneVersion = async (): Promise<void> => {
       if (versions?.drafts) {
         const { docs } = await payload.find({
           collection: slug,
-          limit: 0,
           depth: 0,
+          limit: 0,
           locale: 'all',
         })
 
@@ -53,11 +53,11 @@ const ensureAtLeastOneVersion = async (): Promise<void> => {
             if (versionDocs.length === 0) {
               try {
                 await VersionsModel.create({
-                  parent: doc.id,
-                  version: doc,
                   autosave: Boolean(versions?.drafts?.autosave),
-                  updatedAt: doc.updatedAt,
                   createdAt: doc.createdAt,
+                  parent: doc.id,
+                  updatedAt: doc.updatedAt,
+                  version: doc,
                 })
               } catch (e: unknown) {
                 payload.logger.error(

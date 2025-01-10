@@ -1,32 +1,32 @@
 'use client'
 
-import React from 'react'
-import { toast } from 'sonner'
-import { useModal } from '@faceless-ui/modal'
-import { Text } from '@forms/fields/Text/index.js'
-import Form from '@forms/Form/index.js'
-import Submit from '@forms/Submit/index.js'
-import { useRouter } from 'next/navigation'
+import type { Project } from '@root/payload-cloud-types.js'
 
 import { Button } from '@components/Button/index.js'
 import { Heading } from '@components/Heading/index.js'
 import { ModalWindow } from '@components/ModalWindow/index.js'
-import { Project } from '@root/payload-cloud-types.js'
+import { useModal } from '@faceless-ui/modal'
+import { Text } from '@forms/fields/Text/index.js'
+import Form from '@forms/Form/index.js'
+import Submit from '@forms/Submit/index.js'
 import { qs } from '@root/utilities/qs.js'
+import { useRouter } from 'next/navigation'
+import React from 'react'
+import { toast } from 'sonner'
 
 import classes from './index.module.scss'
 
 export const deletePlanModalSlug = 'delete-project'
 
 export type DeletePlanModalProps = {
-  confirmSlug: string
   canManageProject: boolean
-  project: Project
+  confirmSlug: string
   environmentSlug?: string
+  project: Project
 }
 
-export const DeletePlanModal: React.FC<DeletePlanModalProps> = props => {
-  const { confirmSlug, canManageProject, project, environmentSlug } = props
+export const DeletePlanModal: React.FC<DeletePlanModalProps> = (props) => {
+  const { canManageProject, confirmSlug, environmentSlug, project } = props
   const { closeModal } = useModal()
   const [isDisabled, setIsDisabled] = React.useState(true)
   const router = useRouter()
@@ -44,8 +44,8 @@ export const DeletePlanModal: React.FC<DeletePlanModalProps> = props => {
             query ? `?${query}` : ''
           }`,
           {
-            method: 'DELETE',
             credentials: 'include',
+            method: 'DELETE',
           },
         )
 
@@ -63,7 +63,7 @@ export const DeletePlanModal: React.FC<DeletePlanModalProps> = props => {
     <ModalWindow slug={deletePlanModalSlug}>
       <Form onSubmit={deleteProject}>
         <div className={classes.modalContent}>
-          <Heading marginTop={false} as="h4">
+          <Heading as="h4" marginTop={false}>
             Are you sure you want to delete this project?
           </Heading>
           <p>
@@ -73,19 +73,19 @@ export const DeletePlanModal: React.FC<DeletePlanModalProps> = props => {
           </p>
           <Text
             label={`Confirm by typing: ${confirmSlug}`}
-            path="confirmSlug"
-            onChange={value => {
+            onChange={(value) => {
               setIsDisabled(value.toLowerCase() !== confirmSlug.toLowerCase())
             }}
+            path="confirmSlug"
             required
           />
           <div className={classes.modalActions}>
             <Button
-              label="Cancel"
               appearance="secondary"
+              label="Cancel"
               onClick={() => closeModal(deletePlanModalSlug)}
             />
-            <Submit label="Confirm" appearance="danger" disabled={isDisabled} />
+            <Submit appearance="danger" disabled={isDisabled} label="Confirm" />
           </div>
         </div>
       </Form>

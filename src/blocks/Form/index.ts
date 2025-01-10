@@ -5,13 +5,6 @@ import richText from '../../fields/richText'
 
 export const Form: Block = {
   slug: 'form',
-  labels: {
-    singular: 'Form Block',
-    plural: 'Form Blocks',
-  },
-  graphQL: {
-    singularName: 'FormBlock',
-  },
   fields: [
     blockFields({
       name: 'formFields',
@@ -26,4 +19,11 @@ export const Form: Block = {
       ],
     }),
   ],
+  graphQL: {
+    singularName: 'FormBlock',
+  },
+  labels: {
+    plural: 'Form Blocks',
+    singular: 'Form Block',
+  },
 }

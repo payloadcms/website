@@ -1,21 +1,23 @@
 import type { Customer, TeamWithCustomer } from './fetchTeam.js'
 
 export const updateCustomer = async (
-  team: TeamWithCustomer | null | undefined,
+  team: null | TeamWithCustomer | undefined,
   customer: Partial<Customer>,
 ): Promise<Customer> => {
   const sub = await fetch(
     `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/teams/${team?.id}/customer`,
     {
-      method: 'PATCH',
+      body: JSON.stringify(customer),
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(customer),
+      method: 'PATCH',
     },
-  )?.then(res => {
-    if (!res.ok) throw new Error(`Failed to update customer`)
+  )?.then((res) => {
+    if (!res.ok) {
+      throw new Error(`Failed to update customer`)
+    }
     return res.json()
   })
 

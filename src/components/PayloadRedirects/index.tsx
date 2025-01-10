@@ -16,7 +16,7 @@ export const PayloadRedirects: React.FC<Props> = async ({ disableNotFound, url }
 
   const redirects = await getCachedRedirects()()
 
-  const redirectItem = redirects.find(redirect => redirect.from === slug)
+  const redirectItem = redirects.find((redirect) => redirect.from === slug)
 
   if (redirectItem) {
     if (redirectItem.to?.url) {
@@ -29,27 +29,29 @@ export const PayloadRedirects: React.FC<Props> = async ({ disableNotFound, url }
       const collection = redirectItem.to?.reference?.relationTo
       const id = redirectItem.to?.reference?.value
 
-      const document = (await getCachedDocument(collection, id)()) as CaseStudy | Page | Post
-      redirectUrl = `/${
+      const document = await getCachedDocument(collection, id)()
+      redirectUrl =
         redirectItem.to?.reference?.relationTo === 'posts'
-          ? 'blog/'
+          ? '/blog/'
           : redirectItem.to?.reference?.relationTo === 'case-studies'
-          ? 'case-studies/'
-          : ''
-      }${document.slug}`
+            ? '/case-studies/'
+            : `${'breadcrumbs' in document && document.breadcrumbs?.at(-1)?.url}`
     } else {
-      redirectUrl = `/${
+      redirectUrl =
         redirectItem.to?.reference?.relationTo === 'posts'
-          ? 'blog/'
+          ? `/blog/${redirectItem.to?.reference?.value?.slug}`
           : redirectItem.to?.reference?.relationTo === 'case-studies'
-          ? 'case-studies/'
-          : ''
-      }${redirectItem.to?.reference?.value?.slug}`
+            ? `/case-studies/${redirectItem.to?.reference?.value?.slug}`
+            : `${redirectItem.to?.reference?.value?.breadcrumbs?.at(-1)?.url}`
     }
 
-    if (redirectUrl) redirect(redirectUrl)
+    if (redirectUrl) {
+      redirect(redirectUrl)
+    }
   }
 
-  if (disableNotFound) return null
+  if (disableNotFound) {
+    return null
+  }
   return notFound()
 }

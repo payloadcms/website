@@ -32,7 +32,7 @@ export const DashboardBreadcrumbs = () => {
   }
 
   // remove segments with parantheses
-  segments = segments.filter(segment => !segment.includes('('))
+  segments = segments.filter((segment) => !segment.includes('('))
 
   // create relative urls for each segment
   const urls = segments.map((segment, index) => {
@@ -46,14 +46,14 @@ export const DashboardBreadcrumbs = () => {
   }
 
   // capitalize segments unless they are project or team slugs
-  segments = segments.map(segment => {
+  segments = segments.map((segment) => {
     if (segment === teamSlug || segment === projectSlug) {
       return segment
     }
 
     return segment
       .split('-')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(' ')
   })
 
@@ -77,7 +77,9 @@ export const DashboardBreadcrumbs = () => {
         )}
         {segments.map((segment, index) => {
           // removes env segment from breadcrumbs
-          if (segment.toLowerCase() === 'env') return
+          if (segment.toLowerCase() === 'env') {
+            return
+          }
           return (
             <React.Fragment key={segment}>
               <span className={classes.slash}>{' / '}</span>

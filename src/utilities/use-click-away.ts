@@ -15,7 +15,9 @@ export const useClickAway = (
       const { current: el } = ref
       const targetElement = event.target
       if (targetElement) {
-        if (el && !el.contains(targetElement as Node)) savedCallback.current(event)
+        if (el && !el.contains(targetElement as Node)) {
+          savedCallback.current(event)
+        }
       }
     },
     [ref],

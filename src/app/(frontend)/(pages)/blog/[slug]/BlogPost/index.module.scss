@@ -97,7 +97,7 @@
 }
 
 .excerpt {
-  margin: 2rem 0;
+  margin: 3rem 0 1rem;
 
   @include mid-break {
     margin: 1rem 0;
@@ -130,7 +130,8 @@
   }
 }
 
-.mobileAuthor, .mobileImage {
+.mobileAuthor,
+.mobileImage {
   display: none;
 
   @include mid-break {

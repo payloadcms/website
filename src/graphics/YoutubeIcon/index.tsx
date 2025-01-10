@@ -2,13 +2,13 @@ import * as React from 'react'
 
 export const YoutubeIcon: React.FC = () => {
   return (
-    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg fill="none" height="32" viewBox="0 0 32 32" width="32" xmlns="http://www.w3.org/2000/svg">
       <path d="M13.625 19.1064V12.8848L19.959 15.9902L13.625 19.1064Z" fill="white" />
       <path
-        fillRule="evenodd"
         clipRule="evenodd"
         d="M16 32C24.8359 32 32 24.8369 32 16C32 7.16309 24.8359 0 16 0C7.16406 0 0 7.16309 0 16C0 24.8369 7.16406 32 16 32ZM22.0293 9.14355C19.1758 8.95215 12.8203 8.95312 9.9707 9.14355C6.88672 9.34961 6.52344 11.1807 6.5 16C6.52344 20.8105 6.88281 22.6494 9.9707 22.8564C12.8223 23.0469 19.1758 23.0479 22.0293 22.8564C25.1133 22.6504 25.4766 20.8193 25.5 16C25.4766 11.1895 25.1172 9.35059 22.0293 9.14355Z"
         fill="white"
+        fillRule="evenodd"
       />
     </svg>
   )

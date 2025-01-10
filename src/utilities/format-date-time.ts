@@ -29,38 +29,38 @@ export const monthNamesAbbr = [
 ]
 
 const formatOptions: { [key: string]: Intl.DateTimeFormatOptions } = {
-  longDateStamp: {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  },
-  shortDateStamp: {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  },
   dateAndTime: {
-    year: undefined,
-    month: 'long',
     day: 'numeric',
     hour: 'numeric',
-    timeZoneName: 'short',
+    month: 'long',
     timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    timeZoneName: 'short',
+    year: undefined,
   },
   dateAndTimeWithMinutes: {
-    year: undefined,
-    month: 'long',
     day: 'numeric',
     hour: 'numeric',
     minute: 'numeric',
-    timeZoneName: 'short',
+    month: 'long',
     timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    timeZoneName: 'short',
+    year: undefined,
+  },
+  longDateStamp: {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  },
+  shortDateStamp: {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
   },
 }
 
 interface Args {
-  date: string | Date
-  format?: 'longDateStamp' | 'shortDateStamp' | 'dateAndTime' | 'dateAndTimeWithMinutes'
+  date: Date | string
+  format?: 'dateAndTime' | 'dateAndTimeWithMinutes' | 'longDateStamp' | 'shortDateStamp'
   timeZone?: string
 }
 export function formatDate(args: Args): string {

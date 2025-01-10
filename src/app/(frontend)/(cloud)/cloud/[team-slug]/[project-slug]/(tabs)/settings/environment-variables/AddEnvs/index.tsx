@@ -1,31 +1,31 @@
 'use client'
 
-import * as React from 'react'
-import { toast } from 'sonner'
+import type { OnSubmit } from '@forms/types.js'
+import type { Project } from '@root/payload-cloud-types.js'
+
 import { revalidateCache } from '@cloud/_actions/revalidateCache.js'
-import { AddArrayRow, ArrayRow } from '@forms/fields/Array/index.js'
 import { ArrayProvider, useArray } from '@forms/fields/Array/context.js'
+import { AddArrayRow, ArrayRow } from '@forms/fields/Array/index.js'
 import { Text } from '@forms/fields/Text/index.js'
 import Form from '@forms/Form/index.js'
 import Submit from '@forms/Submit/index.js'
-import { OnSubmit } from '@forms/types.js'
-
-import { Project } from '@root/payload-cloud-types.js'
-import { validateKey, validateValue } from '../validations.js'
 import { qs } from '@root/utilities/qs.js'
+import * as React from 'react'
+import { toast } from 'sonner'
 
+import { validateKey, validateValue } from '../validations.js'
 import classes from './index.module.scss'
 
 type AddEnvsProps = {
-  projectID: Project['id']
-  envs: Project['environmentVariables']
   environmentSlug?: string
+  envs: Project['environmentVariables']
+  projectID: Project['id']
 }
 
-export const AddEnvsComponent: React.FC<AddEnvsProps> = props => {
-  const { envs, projectID, environmentSlug } = props
+export const AddEnvsComponent: React.FC<AddEnvsProps> = (props) => {
+  const { environmentSlug, envs, projectID } = props
 
-  const { uuids, clearRows } = useArray()
+  const { clearRows, uuids } = useArray()
 
   const existingEnvKeys = (envs || []).map(({ key }) => key || '')
 
@@ -53,12 +53,12 @@ export const AddEnvsComponent: React.FC<AddEnvsProps> = props => {
               query ? `?${query}` : ''
             }`,
             {
-              method: 'POST',
+              body: JSON.stringify({ envs: sanitizedEnvs }),
               credentials: 'include',
               headers: {
                 'Content-Type': 'application/json',
               },
-              body: JSON.stringify({ envs: sanitizedEnvs }),
+              method: 'POST',
             },
           )
 
@@ -92,26 +92,26 @@ export const AddEnvsComponent: React.FC<AddEnvsProps> = props => {
     <Form className={classes.formContent} onSubmit={handleSubmit}>
       {uuids.map((uuid, index) => {
         return (
-          <ArrayRow key={uuid} index={index} allowRemove>
+          <ArrayRow allowRemove index={index} key={uuid}>
             <Text
-              required
-              label="Key"
               className={classes.newEnvInput}
+              label="Key"
               path={`newEnvs.${index}.key`}
+              required
               validate={(key: string) => validateKey(key, existingEnvKeys)}
             />
 
             <Text
-              required
-              label="Value"
               className={classes.newEnvInput}
+              label="Value"
               path={`newEnvs.${index}.value`}
+              required
               validate={validateValue}
             />
           </ArrayRow>
         )
       })}
-      <AddArrayRow singularLabel="Environment Variable" pluralLabel="Environment Variables" />
+      <AddArrayRow pluralLabel="Environment Variables" singularLabel="Environment Variable" />
       <div className={classes.actionFooter}>
         <Submit icon={false} label="Save" />
       </div>
@@ -119,7 +119,7 @@ export const AddEnvsComponent: React.FC<AddEnvsProps> = props => {
   )
 }
 
-export const AddEnvs: React.FC<AddEnvsProps> = props => {
+export const AddEnvs: React.FC<AddEnvsProps> = (props) => {
   return (
     <ArrayProvider>
       <AddEnvsComponent {...props} />

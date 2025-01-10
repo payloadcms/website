@@ -1,16 +1,15 @@
 'use client'
-import React from 'react'
-import Image from 'next/image'
-
 import { CommentsIcon } from '@root/graphics/CommentsIcon/index.js'
 import { TwitterIconAlt } from '@root/graphics/TwitterIconAlt/index.js'
 import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'
 import getRelativeDate from '@root/utilities/get-relative-date.js'
 import { getTeamTwitter } from '@root/utilities/get-team-twitter.js'
+import Image from 'next/image'
+import React from 'react'
 
 import classes from './index.module.scss'
 
-const Timestamp: React.FC<{ date: string | number }> = ({ date }) => {
+const Timestamp: React.FC<{ date: number | string }> = ({ date }) => {
   const pastDate = typeof date === 'string' ? new Date(date) : new Date(date)
   const timestamp = getRelativeDate(pastDate)
 
@@ -20,11 +19,11 @@ const Timestamp: React.FC<{ date: string | number }> = ({ date }) => {
 export type Props = {
   author?: string
   className?: string
-  date?: string | number
+  date?: number | string
   image?: string
+  isAnswer?: boolean
   messageCount?: number
   upvotes?: number
-  isAnswer?: boolean
 }
 
 const AuthorTag: React.FC<Props> = ({
@@ -32,9 +31,9 @@ const AuthorTag: React.FC<Props> = ({
   className,
   date,
   image,
+  isAnswer,
   messageCount,
   upvotes,
-  isAnswer,
 }) => {
   const teamMember = getTeamTwitter(author)
 
@@ -49,10 +48,10 @@ const AuthorTag: React.FC<Props> = ({
                 href={`https://twitter.com/${teamMember}`}
                 target="_blank"
               >
-                <Image src={image} width={45} height={45} alt="discord user avatar" />
+                <Image alt="discord user avatar" height={45} src={image} width={45} />
               </a>
             ) : (
-              <Image src={image} width={45} height={45} alt="default discord avatar" />
+              <Image alt="default discord avatar" height={45} src={image} width={45} />
             )}
           </div>
         )}
@@ -86,7 +85,7 @@ const AuthorTag: React.FC<Props> = ({
       <div className={classes.commentMetaStats}>
         {upvotes !== undefined && upvotes > 0 && (
           <span>
-            <ArrowIcon rotation={-45} className={classes.arrowIcon} /> {upvotes}
+            <ArrowIcon className={classes.arrowIcon} rotation={-45} /> {upvotes}
           </span>
         )}
 

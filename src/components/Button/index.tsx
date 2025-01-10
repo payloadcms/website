@@ -1,49 +1,48 @@
 'use client'
 
-import React, { forwardRef, HTMLAttributes, useEffect, useState } from 'react'
-import Link from 'next/link'
+import type { Page } from '@root/payload-types.js'
+import type { HTMLAttributes } from 'react'
 
+import { CopyIcon } from '@icons/CopyIcon/index.js'
 import { GitHubIcon } from '@root/graphics/GitHub/index.js'
 import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'
 import { LoaderIcon } from '@root/icons/LoaderIcon/index.js'
 import { PlusIcon } from '@root/icons/PlusIcon/index.js'
 import { SearchIcon } from '@root/icons/SearchIcon/index.js'
-import { Page } from '@root/payload-types.js'
+import Link from 'next/link'
+import React, { forwardRef, useEffect, useState } from 'react'
 // eslint-disable-next-line import/no-cycle
-import { LinkType, Reference } from '../CMSLink/index.js'
+import type { LinkType, Reference } from '../CMSLink/index.js'
 
 import classes from './index.module.scss'
 
-export type ButtonProps = HTMLAttributes<HTMLButtonElement> & {
+export type ButtonProps = {
   appearance?:
+    | 'danger'
     | 'default'
-    | 'text'
     | 'primary'
     | 'secondary'
-    | 'danger'
     | 'success'
+    | 'text'
     | 'warning'
     | null
-  el?: 'button' | 'link' | 'a' | 'div'
-  href?: string | null
-  newTab?: boolean | null
-  label?: string | null
-  labelStyle?: 'mono' | 'regular'
-  labelClassName?: string
-  icon?: false | 'arrow' | 'search' | 'github' | 'plus' | 'loading'
-  iconSize?: 'large' | 'medium' | 'small' | undefined
-  fullWidth?: boolean
-  mobileFullWidth?: boolean
-  type?: LinkType
-  reference?: Reference
-  htmlButtonType?: 'button' | 'submit'
-  size?: 'pill' | 'default' | 'large'
+  arrowClassName?: string
+  customId?: null | string
   disabled?: boolean
-  url?: string | null
+  el?: 'a' | 'button' | 'div' | 'link'
+  /**
+   * Forces a background on the default button appearance
+   */
+  forceBackground?: boolean
+  fullWidth?: boolean
   /**
    * Hides all borders
    */
   hideBorders?: boolean
+  /**
+   * Hides the bottom border except for the last of type
+   */
+  hideBottomBorderExceptLast?: boolean
   /**
    * Hides the horizontal borders of the button, useful for buttons in grids
    */
@@ -52,34 +51,39 @@ export type ButtonProps = HTMLAttributes<HTMLButtonElement> & {
    * Hides the horizontal borders of the button
    */
   hideVerticalBorders?: boolean
-  /**
-   * Hides the bottom border except for the last of type
-   */
-  hideBottomBorderExceptLast?: boolean
-  /**
-   * Forces a background on the default button appearance
-   */
-  forceBackground?: boolean
-  arrowClassName?: string
+  href?: null | string
+  htmlButtonType?: 'button' | 'submit'
+  icon?: 'arrow' | 'copy' | 'github' | 'loading' | 'plus' | 'search' | false
   iconRotation?: number
+  iconSize?: 'large' | 'medium' | 'small' | undefined
   isCMSFormSubmitButton?: boolean
-}
+  label?: null | string
+  labelClassName?: string
+  labelStyle?: 'mono' | 'regular'
+  mobileFullWidth?: boolean
+  newTab?: boolean | null
+  reference?: Reference
+  size?: 'default' | 'large' | 'pill'
+  type?: LinkType
+  url?: null | string
+} & HTMLAttributes<HTMLButtonElement>
 
 const icons = {
   arrow: ArrowIcon,
-  search: SearchIcon,
+  copy: CopyIcon,
   github: GitHubIcon,
-  plus: PlusIcon,
   loading: LoaderIcon,
+  plus: PlusIcon,
+  search: SearchIcon,
 }
 
 type GenerateSlugType = {
-  type?: LinkType
-  url?: string | null
   reference?: Reference
+  type?: LinkType
+  url?: null | string
 }
 const generateHref = (args: GenerateSlugType): string => {
-  const { reference, url, type } = args
+  const { type, reference, url } = args
 
   if ((type === 'custom' || type === undefined) && url) {
     return url
@@ -109,25 +113,25 @@ const generateHref = (args: GenerateSlugType): string => {
   return ''
 }
 
-const ButtonContent: React.FC<ButtonProps> = props => {
+const ButtonContent: React.FC<ButtonProps> = (props) => {
   const {
-    icon,
-    label,
-    labelStyle = 'mono',
-    labelClassName,
     appearance,
+    arrowClassName,
+    icon,
     iconRotation,
     iconSize,
     isCMSFormSubmitButton,
+    label,
+    labelClassName,
+    labelStyle = 'mono',
     size,
-    arrowClassName,
   } = props
 
   const Icon = icon ? icons[icon] : null
 
   const iconProps = {
-    size: iconSize,
     rotation: icon === 'arrow' ? iconRotation : undefined,
+    size: iconSize,
   }
 
   if (appearance === 'default') {
@@ -241,28 +245,29 @@ const elements: {
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
   const {
-    el = 'button',
+    id,
     type,
-    reference,
-    newTab,
     appearance = 'default',
+    arrowClassName,
     className: classNameFromProps,
-    onClick,
-    fullWidth,
-    mobileFullWidth,
-    htmlButtonType = 'button',
-    size = 'default',
     disabled,
-    href: hrefFromProps,
-    url,
+    el = 'button',
+    forceBackground,
+    fullWidth,
     hideBorders,
+    hideBottomBorderExceptLast,
     hideHorizontalBorders,
     hideVerticalBorders,
-    hideBottomBorderExceptLast,
-    labelClassName,
-    forceBackground,
-    arrowClassName,
+    href: hrefFromProps,
+    htmlButtonType = 'button',
     isCMSFormSubmitButton,
+    labelClassName,
+    mobileFullWidth,
+    newTab,
+    onClick,
+    reference,
+    size = 'default',
+    url,
   } = props
 
   const href = hrefFromProps || generateHref({ type, reference, url })
@@ -272,10 +277,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
   const [isAnimatingIn, setIsAnimatingIn] = useState(false)
   const [isAnimatingOut, setIsAnimatingOut] = useState(false)
 
-  let animationDuration = 550
+  const animationDuration = 550
 
   useEffect(() => {
-    let outTimer, inTimer
+    let inTimer, outTimer
 
     if (isHovered) {
       setIsAnimating(true)
@@ -304,7 +309,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
     }
   }, [isHovered, animationDuration])
 
-  const newTabProps = newTab ? { target: '_blank', rel: 'noopener noreferrer' } : {}
+  const newTabProps = newTab ? { rel: 'noopener noreferrer', target: '_blank' } : {}
 
   const className = [
     classNameFromProps,
@@ -328,10 +333,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
 
   if (el === 'link') {
     return (
-      <Link href={href} prefetch={false} legacyBehavior passHref>
+      <Link href={href} legacyBehavior passHref prefetch={false}>
         <a
           className={className}
           {...newTabProps}
+          id={id}
           onMouseEnter={() => {
             setIsHovered(true)
           }}
@@ -350,11 +356,13 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
   if (Element) {
     return (
       <Element
+        className={className}
         ref={ref}
         type={htmlButtonType}
-        className={className}
         {...newTabProps}
+        disabled={disabled}
         href={href || null}
+        id={id}
         onClick={onClick}
         onMouseEnter={() => {
           setIsHovered(true)
@@ -362,7 +370,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
         onMouseLeave={() => {
           setIsHovered(false)
         }}
-        disabled={disabled}
       >
         <ButtonContent appearance={appearance} {...props} />
       </Element>

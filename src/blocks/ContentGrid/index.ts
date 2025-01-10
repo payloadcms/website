@@ -1,7 +1,5 @@
 import type { Block } from 'payload'
 
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
-
 import { blockFields } from '../../fields/blockFields'
 import linkGroup from '../../fields/linkGroup'
 import richText from '../../fields/richText'
@@ -47,9 +45,6 @@ export const ContentGrid: Block = {
             {
               name: 'content',
               type: 'richText',
-              editor: lexicalEditor({
-                features: ({ rootFeatures }) => rootFeatures,
-              }),
               required: true,
             },
           ],

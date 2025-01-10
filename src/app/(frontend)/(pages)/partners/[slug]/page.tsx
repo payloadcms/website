@@ -11,15 +11,21 @@ import { RichText } from '@components/RichText'
 import { SocialIcon } from '@components/SocialIcon'
 import { fetchPartner, fetchPartnerProgram } from '@data'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
+import { unstable_cache } from 'next/cache'
+import { draftMode } from 'next/headers.js'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import React from 'react'
 
 import classes from './index.module.scss'
 
+const getPartner = (slug, draft) =>
+  draft ? fetchPartner(slug) : unstable_cache(fetchPartner, [`partner-${slug}`])(slug)
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { isEnabled: draft } = await draftMode()
   const { slug } = await params
-  const partner = await fetchPartner(slug)
+  const partner = await getPartner(slug, draft)
 
   if (!partner) {
     return notFound()
@@ -32,9 +38,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 }
 
 export default async function PartnerPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { isEnabled: draft } = await draftMode()
   const { slug } = await params
-  const partner = await fetchPartner(slug)
-  const partnerProgram = await fetchPartnerProgram()
+  const partner = await getPartner(slug, draft)
+  const getPartnerProgram = unstable_cache(fetchPartnerProgram, ['partnerProgram'])
+  const partnerProgram = await getPartnerProgram()
 
   if (!partner) {
     return notFound()
@@ -134,14 +142,14 @@ export default async function PartnerPage({ params }: { params: Promise<{ slug: 
               </div>
             </div>
           )}
-          {typeof contactForm !== 'string' && (
+          {contactForm && typeof contactForm !== 'string' && (
             <div className={classes.contactForm} id="contact">
               <h3>Contact {partner.name}</h3>
               <div className={classes.form}>
                 <CMSForm
                   form={{
                     ...contactForm,
-                    fields: contactForm.fields?.map(field => {
+                    fields: contactForm.fields?.map((field) => {
                       if (field.blockType === 'text' && field.name === 'toName') {
                         return {
                           ...field,
@@ -170,7 +178,7 @@ export default async function PartnerPage({ params }: { params: Promise<{ slug: 
   )
 }
 
-const PartnerDetails = partner => {
+const PartnerDetails = (partner) => {
   const { budgets, city, featured, industries, regions, social, specialties, topContributor } =
     partner
 
@@ -193,7 +201,7 @@ const PartnerDetails = partner => {
         <h6>Region{regions.length === 1 ? '' : 's'}</h6>
         <ul>
           {regions?.map(
-            region => typeof region !== 'string' && <li key={region.id}>{region.name}</li>,
+            (region) => typeof region !== 'string' && <li key={region.id}>{region.name}</li>,
           )}
         </ul>
       </div>
@@ -201,7 +209,8 @@ const PartnerDetails = partner => {
         <h6>Industr{industries.length === 1 ? 'y' : 'ies'}</h6>
         <ul>
           {industries?.map(
-            industry => typeof industry !== 'string' && <li key={industry.id}>{industry.name}</li>,
+            (industry) =>
+              typeof industry !== 'string' && <li key={industry.id}>{industry.name}</li>,
           )}
         </ul>
       </div>
@@ -209,7 +218,7 @@ const PartnerDetails = partner => {
         <h6>Specialt{specialties.length === 1 ? 'y' : 'ies'}</h6>
         <ul>
           {specialties?.map(
-            specialty =>
+            (specialty) =>
               typeof specialty !== 'string' && <li key={specialty.id}>{specialty.name}</li>,
           )}
         </ul>
@@ -225,7 +234,7 @@ const PartnerDetails = partner => {
           <h6>Social</h6>
           <ul className={classes.socialIcons}>
             {social?.map(
-              social =>
+              (social) =>
                 typeof social !== 'string' && (
                   <SocialIcon href={social.url} key={social.id} platform={social.platform} />
                 ),

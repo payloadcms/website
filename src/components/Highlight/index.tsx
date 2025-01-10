@@ -14,7 +14,7 @@ export const Highlight: React.FC<{
   inlineIcon?: React.ReactElement
   reverseIcon?: boolean
   text?: string
-}> = props => {
+}> = (props) => {
   const {
     appearance = 'success',
     bold,

@@ -1,7 +1,6 @@
 'use client'
 
-import React, { useId } from 'react'
-import Link from 'next/link'
+import type { Theme } from '@root/providers/Theme/types.js'
 
 import { Gutter } from '@components/Gutter/index.js'
 import { ThemeAutoIcon } from '@root/graphics/ThemeAutoIcon/index.js'
@@ -12,7 +11,8 @@ import { useAuth } from '@root/providers/Auth/index.js'
 import { useHeaderObserver } from '@root/providers/HeaderIntersectionObserver/index.js'
 import { useThemePreference } from '@root/providers/Theme/index.js'
 import { getImplicitPreference, themeLocalStorageKey } from '@root/providers/Theme/shared.js'
-import { Theme } from '@root/providers/Theme/types.js'
+import Link from 'next/link'
+import React, { useId } from 'react'
 
 import classes from './classes.module.scss'
 
@@ -24,12 +24,14 @@ export const CloudFooter = () => {
   const { setTheme } = useThemePreference()
   const { setHeaderTheme } = useHeaderObserver()
 
-  const onThemeChange = (themeToSet: Theme & 'auto') => {
+  const onThemeChange = (themeToSet: 'auto' & Theme) => {
     if (themeToSet === 'auto') {
       const implicitPreference = getImplicitPreference() ?? 'light'
       setHeaderTheme(implicitPreference)
       setTheme(implicitPreference)
-      if (selectRef.current) selectRef.current.value = 'auto'
+      if (selectRef.current) {
+        selectRef.current.value = 'auto'
+      }
     } else {
       setTheme(themeToSet)
       setHeaderTheme(themeToSet)
@@ -59,7 +61,7 @@ export const CloudFooter = () => {
 
           <select
             id={themeId}
-            onChange={e => onThemeChange(e.target.value as Theme & 'auto')}
+            onChange={(e) => onThemeChange(e.target.value as 'auto' & Theme)}
             ref={selectRef}
           >
             <option value="auto">Auto</option>

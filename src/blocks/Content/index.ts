@@ -11,15 +11,15 @@ export const Content: Block = {
       fields: [
         {
           name: 'useLeadingHeader',
-          label: 'Use Leading Header',
           type: 'checkbox',
+          label: 'Use Leading Header',
         },
         richText({
           name: 'leadingHeader',
-          label: 'Leading Header',
           admin: {
             condition: (_, siblingData) => siblingData.useLeadingHeader,
           },
+          label: 'Leading Header',
         }),
         {
           name: 'layout',
@@ -55,7 +55,7 @@ export const Content: Block = {
           name: 'columnTwo',
           admin: {
             condition: (_, siblingData) =>
-              ['twoColumns', 'twoThirdsOneThird', 'halfAndHalf', 'threeColumns'].includes(
+              ['halfAndHalf', 'threeColumns', 'twoColumns', 'twoThirdsOneThird'].includes(
                 siblingData.layout,
               ),
           },

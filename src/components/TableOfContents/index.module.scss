@@ -1,4 +1,4 @@
-@use "@scss/common" as *;
+@use '@scss/common' as *;
 
 .wrap {
   position: relative;
@@ -12,7 +12,6 @@
   a {
     text-decoration: none;
   }
-
 }
 
 .tocTitle {
@@ -28,7 +27,7 @@
   @include small;
 
   &:hover {
-    transform: translate3d(.25rem, 0, 0);
+    transform: translate3d(0.25rem, 0, 0);
   }
 }
 
@@ -40,7 +39,6 @@
   composes: heading;
   padding-left: 0.75rem;
 }
-
 
 .indicator {
   position: absolute;

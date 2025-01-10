@@ -8,8 +8,8 @@ type Props = {
   dataTheme?: string
   disableMobile?: boolean
   leftGutter?: boolean
-  rightGutter?: boolean
   ref?: React.MutableRefObject<any>
+  rightGutter?: boolean
 }
 export const Gutter: React.FC<Props> = ({
   children,
@@ -17,8 +17,8 @@ export const Gutter: React.FC<Props> = ({
   dataTheme,
   disableMobile,
   leftGutter = true,
-  rightGutter = true,
   ref: refFromProps,
+  rightGutter = true,
 }) => {
   return (
     <div

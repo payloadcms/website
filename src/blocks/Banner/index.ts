@@ -1,8 +1,6 @@
-// import { slateEditor } from '@payloadcms/richtext-slate'
 import type { Block } from 'payload'
 
 import { blockFields } from '../../fields/blockFields'
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
 
 export const Banner: Block = {
   slug: 'banner',
@@ -16,6 +14,9 @@ export const Banner: Block = {
             {
               name: 'type',
               type: 'select',
+              admin: {
+                width: '50%',
+              },
               defaultValue: 'default',
               options: [
                 {
@@ -35,18 +36,15 @@ export const Banner: Block = {
                   value: 'error',
                 },
               ],
-              admin: {
-                width: '50%',
-              },
             },
             {
               name: 'addCheckmark',
               type: 'checkbox',
               admin: {
-                width: '50%',
                 style: {
                   alignSelf: 'center',
                 },
+                width: '50%',
               },
             },
           ],
@@ -55,9 +53,6 @@ export const Banner: Block = {
           name: 'content',
           type: 'richText',
           required: true,
-          editor: lexicalEditor({
-            features: ({ rootFeatures }) => rootFeatures,
-          }),
         },
       ],
     }),

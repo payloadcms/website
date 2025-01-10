@@ -1,13 +1,14 @@
-import React from 'react'
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 
 import { Gutter } from '@components/Gutter/index.js'
 import { RichText } from '@components/RichText/index.js'
+import React from 'react'
+
 import { StyleguidePageContent } from '../PageContent/index.js'
 
 const Highlight: React.FC = () => {
   return (
-    <StyleguidePageContent title="Highlight" darkModePadding darkModeMargins>
+    <StyleguidePageContent darkModeMargins darkModePadding title="Highlight">
       <Gutter>
         <RichText
           content={[

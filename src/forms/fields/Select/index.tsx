@@ -3,11 +3,11 @@
 import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
 import ReactSelect from 'react-select'
 
+import type { FieldProps } from '../types.js'
+
 import Error from '../../Error/index.js'
 import Label from '../../Label/index.js'
 import { useFormField } from '../../useFormField/index.js'
-import { FieldProps } from '../types.js'
-
 import classes from './index.module.scss'
 
 type Option = {
@@ -15,38 +15,36 @@ type Option = {
   value: any
 }
 
-type SelectProps = FieldProps<string | string[]> & {
-  options: Option[]
-  isMulti?: boolean
-  isClearable?: boolean
-  isSearchable?: boolean
+type SelectProps = {
   components?: {
     [key: string]: React.FC<any>
   }
-  selectProps?: any
-  value?: string | string[]
+  isClearable?: boolean
+  isMulti?: boolean
+  isSearchable?: boolean
   onMenuScrollToBottom?: () => void
-}
+  options: Option[]
+  value?: string | string[]
+} & FieldProps<string | string[]>
 
-export const Select: React.FC<SelectProps> = props => {
+export const Select: React.FC<SelectProps> = (props) => {
   const {
+    className,
+    components,
+    description,
+    disabled,
+    initialValue: initialValueFromProps, // allow external control
+    isClearable,
+    isMulti,
+    isSearchable = true,
+    label,
+    onChange,
+    onMenuScrollToBottom,
+    options,
     path,
     required,
     validate,
-    label,
-    options,
-    onChange,
-    className,
-    initialValue: initialValueFromProps, // allow external control
-    isMulti,
-    isClearable,
-    components,
-    selectProps,
     value: valueFromProps, // allow external control
-    description,
-    disabled,
-    onMenuScrollToBottom,
-    isSearchable = true,
   } = props
 
   const id = useId()
@@ -67,11 +65,11 @@ export const Select: React.FC<SelectProps> = props => {
       }
 
       const isValid = Array.isArray(fieldValue)
-        ? fieldValue.every(v =>
-            options.find(item => item.value === (typeof v === 'string' ? v : v?.value)),
-          ) // eslint-disable-line function-paren-newline
+        ? fieldValue.every((v) =>
+            options.find((item) => item.value === (typeof v === 'string' ? v : v?.value)),
+          )
         : options.find(
-            item =>
+            (item) =>
               item.value === (typeof fieldValue === 'string' ? fieldValue : fieldValue?.value),
           )
 
@@ -85,31 +83,31 @@ export const Select: React.FC<SelectProps> = props => {
   )
 
   const fieldFromContext = useFormField<string | string[]>({
+    initialValue: initialValueFromProps,
     path,
     validate: validate || defaultValidateFunction,
-    initialValue: initialValueFromProps,
   })
 
-  const { value: valueFromContext, showError, setValue, errorMessage } = fieldFromContext
+  const { errorMessage, setValue, showError, value: valueFromContext } = fieldFromContext
 
   const [internalState, setInternalState] = useState<Option | Option[] | undefined>(() => {
     const initialValue = valueFromContext || initialValueFromProps
 
     if (initialValue && Array.isArray(initialValue)) {
       const matchedOption =
-        options?.filter(item => {
+        options?.filter((item) => {
           // `item.value` could be string or array, i.e. `isMulti`
           if (Array.isArray(item.value)) {
-            return item.value.find(x => initialValue.find(y => y === x))
+            return item.value.find((x) => initialValue.find((y) => y === x))
           }
 
-          return initialValue.find(x => x === item.value)
+          return initialValue.find((x) => x === item.value)
         }) || []
 
       return matchedOption
     }
 
-    return options?.find(item => item.value === initialValue) || undefined
+    return options?.find((item) => item.value === initialValue) || undefined
   })
 
   const setFormattedValue = useCallback(
@@ -123,8 +121,8 @@ export const Select: React.FC<SelectProps> = props => {
 
       if (incomingSelection && internalState) {
         if (Array.isArray(incomingSelection) && Array.isArray(internalState)) {
-          const internalValues = internalState.map(item => item.value)
-          differences = incomingSelection.filter(x => internalValues.includes(x))
+          const internalValues = internalState.map((item) => item.value)
+          differences = incomingSelection.filter((x) => internalValues.includes(x))
           isDifferent = differences.length > 0
         }
 
@@ -146,11 +144,12 @@ export const Select: React.FC<SelectProps> = props => {
         let newValue: Option | Option[] | undefined = undefined
 
         if (Array.isArray(incomingSelection)) {
-          newValue = options?.filter(item => incomingSelection.find(x => x === item.value)) || []
+          newValue =
+            options?.filter((item) => incomingSelection.find((x) => x === item.value)) || []
         }
 
         if (typeof incomingSelection === 'string') {
-          newValue = options?.find(item => item.value === incomingSelection) || undefined
+          newValue = options?.find((item) => item.value === incomingSelection) || undefined
         }
 
         setInternalState(newValue)
@@ -175,7 +174,7 @@ export const Select: React.FC<SelectProps> = props => {
       let selectedOption
 
       if (Array.isArray(incomingSelection)) {
-        selectedOption = incomingSelection.map(item => item.value)
+        selectedOption = incomingSelection.map((item) => item.value)
       } else {
         selectedOption = incomingSelection.value
       }
@@ -203,24 +202,23 @@ export const Select: React.FC<SelectProps> = props => {
         .filter(Boolean)
         .join(' ')}
     >
-      <Error showError={showError} message={errorMessage} />
+      <Error message={errorMessage} showError={showError} />
       <Label htmlFor={path} label={label} required={required} />
       <ReactSelect
-        ref={ref}
-        isMulti={isMulti}
-        isClearable={isClearable}
-        instanceId={'test'}
-        onChange={handleChange}
-        options={options}
-        value={internalState}
         className={classes.reactSelect}
         classNamePrefix="rs"
         components={components}
-        selectProps={selectProps}
+        instanceId={'test'}
+        isClearable={isClearable}
         isDisabled={disabled}
-        onMenuScrollToBottom={onMenuScrollToBottom}
-        noOptionsMessage={() => 'No options'}
+        isMulti={isMulti}
         isSearchable={isSearchable}
+        noOptionsMessage={() => 'No options'}
+        onChange={handleChange}
+        onMenuScrollToBottom={onMenuScrollToBottom}
+        options={options}
+        ref={ref}
+        value={internalState}
       />
       {description && <div className={classes.description}>{description}</div>}
     </div>

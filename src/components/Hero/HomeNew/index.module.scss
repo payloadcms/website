@@ -1,0 +1,256 @@
+@use '@scss/common.scss' as *;
+
+@keyframes spin {
+  0% {
+    left: calc(0% - 1rem);
+    transform: rotate(0deg);
+  }
+
+  25% {
+    left: calc(0% - 1rem);
+    transform: rotate(180deg);
+  }
+
+  50% {
+    left: calc(-100% + 1rem);
+    transform: rotate(180deg);
+  }
+  75% {
+    left: calc(-100% + 1rem);
+    transform: rotate(360deg);
+  }
+  100% {
+    left: calc(0% - 1rem);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.heroWrapper {
+  z-index: 1;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  overflow-x: hidden;
+}
+
+.heroContentWrapper {
+  min-height: 75vh;
+  align-items: center;
+
+  @include mid-break {
+    min-height: 50vh;
+  }
+}
+
+.heroContent {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+}
+
+.heroText {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+  & > h1,
+  & > h2 {
+    width: 150%;
+    text-wrap: balance;
+
+    @include mid-break {
+      width: 100%;
+    }
+  }
+
+  & > * {
+    margin: 0;
+  }
+}
+
+.announcementLink {
+  display: block;
+  width: fit-content;
+  position: relative;
+  padding: 1px;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  transition: box-shadow 0.2s ease-out;
+  box-shadow: 0 0.25rem 1rem -0.75rem var(--theme-success-250);
+  animation: fade-in-up 1s ease-out forwards;
+  opacity: 0;
+  transform: translateY(1rem);
+  animation-delay: 1s;
+  z-index: 1;
+
+  @include mid-break {
+    margin-bottom: 0;
+  }
+
+  &::before {
+    content: '';
+    display: block;
+    width: 200%;
+    height: auto;
+    aspect-ratio: 1;
+    position: absolute;
+    margin: 0;
+    background-image: conic-gradient(
+      var(--theme-success-150),
+      var(--theme-success-150) 70%,
+      var(--theme-success-250) 80%,
+      var(--theme-elevation-750)
+    );
+    animation: spin 10s linear infinite;
+    transform-origin: center;
+    z-index: -1;
+    translate: 0 calc(-50% + 1rem);
+    opacity: 0.5;
+    transition: opacity 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+
+  &:hover {
+    box-shadow: 0 0.25rem 1rem var(--theme-success-100);
+
+    &::before {
+      opacity: 1;
+    }
+  }
+
+  a {
+    @include small;
+    & {
+      font-size: 16px;
+      border-bottom: none;
+      display: inline-flex;
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      position: relative;
+      color: var(--theme-elevation-750);
+      padding: 0.375rem 0.75rem;
+      background-color: var(--theme-success-50);
+      border-radius: calc(0.5rem - 1px);
+      z-index: 1;
+    }
+
+    &:hover {
+      color: var(--theme-elevation-1000);
+    }
+
+    &::after {
+      content: url('/images/link-arrow.svg');
+      margin-left: 0.5rem;
+    }
+
+    &:hover,
+    &:focus {
+      opacity: 1;
+    }
+  }
+}
+
+.primaryButtons {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  @include mid-break {
+    max-width: 100%;
+    margin-bottom: 2rem;
+    flex-direction: row;
+    & > * {
+      flex: 1;
+      width: 100%;
+      align-self: stretch;
+
+      & > button {
+        height: 100%;
+      }
+    }
+  }
+
+  @include small-break {
+    flex-direction: column;
+    & > * {
+      flex: 1;
+      width: 100%;
+      align-self: stretch;
+
+      & > button {
+        height: 100%;
+      }
+    }
+  }
+}
+
+.secondaryContentWrapper {
+  align-items: center;
+  row-gap: 2rem;
+}
+
+.secondaryContent {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+}
+
+.backgroundGradient {
+  position: fixed;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+}
+
+div.logoShowcaseWrapper {
+  margin-top: 4rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+  align-items: center;
+
+  & h6 {
+    width: calc(var(--column) * 8);
+    line-height: 2;
+    text-align: center;
+    text-wrap: balance;
+  }
+}
+
+.command {
+  border-top: 1px solid var(--theme-border-color);
+  border-bottom: 1px solid var(--theme-border-color);
+
+  &:first-child {
+    border-bottom: none;
+
+    @include mid-break {
+      border-bottom: 1px solid var(--theme-border-color);
+    }
+
+    @include small-break {
+      border-bottom: none;
+    }
+  }
+}

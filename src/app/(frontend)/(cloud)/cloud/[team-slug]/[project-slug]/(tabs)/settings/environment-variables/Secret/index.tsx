@@ -1,11 +1,11 @@
 'use client'
 
-import * as React from 'react'
-import { Text } from '@forms/fields/Text/index.js'
+import type { Project } from '@root/payload-cloud-types.js'
 
 import { Accordion } from '@components/Accordion/index.js'
 import { Spinner } from '@components/Spinner/index.js'
-import { Project } from '@root/payload-cloud-types.js'
+import { Text } from '@forms/fields/Text/index.js'
+import * as React from 'react'
 
 export const Secret: React.FC<{
   project: Project
@@ -14,7 +14,7 @@ export const Secret: React.FC<{
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
   const projectID = project?.id
 
-  const fetchSecret = React.useCallback(async (): Promise<string | null> => {
+  const fetchSecret = React.useCallback(async (): Promise<null | string> => {
     let timer: NodeJS.Timeout
 
     timer = setTimeout(() => {
@@ -49,24 +49,28 @@ export const Secret: React.FC<{
   }, [projectID])
 
   let icon: React.ReactNode = null
-  if (isLoading) icon = <Spinner />
+  if (isLoading) {
+    icon = <Spinner />
+  }
 
   return (
     <Accordion
-      onToggle={async () => {
-        if (!fetchedSecret) {
-          const secretValue = await fetchSecret()
-          if (secretValue) setFetchedSecret(secretValue)
-        }
-      }}
       label={
         <>
           <div>••••••••••••</div>
         </>
       }
+      onToggle={async () => {
+        if (!fetchedSecret) {
+          const secretValue = await fetchSecret()
+          if (secretValue) {
+            setFetchedSecret(secretValue)
+          }
+        }
+      }}
       toggleIcon="eye"
     >
-      <Text value={fetchedSecret} disabled icon={icon} />
+      <Text disabled icon={icon} value={fetchedSecret} />
     </Accordion>
   )
 }

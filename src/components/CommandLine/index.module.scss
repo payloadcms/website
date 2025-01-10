@@ -1,0 +1,73 @@
+@use '@scss/common' as *;
+
+.commandLineButton {
+  width: 100%;
+  max-width: calc(var(--column) * 4);
+  @include code;
+  @include small-break {
+    max-width: calc(var(--column) * 8);
+  }
+}
+
+.commandText {
+  width: 100%;
+}
+
+.icon {
+  margin-right: -0.25rem;
+}
+
+.lexicalCommandLineWrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.lexicalCommandLine {
+  width: 100%;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.5rem 0.5rem 1rem;
+  border-radius: 0.25rem;
+  border: 1px solid var(--theme-elevation-250);
+  background-color: var(--theme-elevation-50);
+  @include code;
+}
+
+.commandText {
+  width: 100%;
+
+  &::before {
+    content: '$';
+    color: var(--theme-text);
+    margin-right: 0.5rem;
+  }
+}
+
+.copyButton {
+  @include btnReset;
+  & {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--theme-text);
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+    transition: background 0.1s ease;
+
+    & > svg {
+      width: 1.2rem;
+      height: 1.2rem;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1;
+    }
+
+    &:hover {
+      background: var(--theme-elevation-150);
+
+      cursor: pointer;
+    }
+  }
+}

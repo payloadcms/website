@@ -5,8 +5,8 @@ import { revalidatePath } from 'next/cache'
 
 import { isAdmin } from '../access/isAdmin'
 import { publishedOnly } from '../access/publishedOnly'
-import { CallToAction } from '../blocks/CallToAction'
 import { Callout } from '../blocks/Callout'
+import { CallToAction } from '../blocks/CallToAction'
 import { CardGrid } from '../blocks/CardGrid'
 import { CaseStudiesHighlight } from '../blocks/CaseStudiesHighlight'
 import { CaseStudyCards } from '../blocks/CaseStudyCards'
@@ -46,8 +46,14 @@ export const CaseStudies: CollectionConfig = {
     livePreview: {
       url: ({ data }) => formatPreviewURL('case-studies', data),
     },
-    preview: doc => formatPreviewURL('case-studies', doc),
+    preview: (doc) => formatPreviewURL('case-studies', doc),
     useAsTitle: 'title',
+  },
+  defaultPopulate: {
+    slug: true,
+    featuredImage: true,
+    title: true,
+    url: true,
   },
   fields: [
     {

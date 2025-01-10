@@ -21,7 +21,7 @@
   border-bottom: 1px solid var(--color-warning-500);
 }
 
-:global([data-theme="light"]) {
+:global([data-theme='light']) {
   .noAccess {
     color: var(--color-warning-850);
     background-color: var(--theme-warning-450);

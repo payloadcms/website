@@ -26,22 +26,24 @@
 
 .contentWrapper {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  row-gap: 1rem;
 }
 
 .links {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-
 .buttonIcon {
-    margin-left: 1rem;
-    flex-shrink: 0;
-    top: 4px;
-    position: relative;
+  margin-left: 1rem;
+  flex-shrink: 0;
+  top: 4px;
+  position: relative;
 }
 
 .content {
@@ -81,8 +83,8 @@
   z-index: 5;
   color: var(--theme-elevation-1000);
   opacity: 0.5;
-  top: -.5rem;
-  left: -.5rem;
+  top: -0.5rem;
+  left: -0.5rem;
   display: none;
 
   @include mid-break {
@@ -97,8 +99,8 @@
   z-index: 5;
   color: var(--theme-elevation-1000);
   opacity: 0.5;
-  bottom: -.5rem;
-  right: -.5rem;
+  bottom: -0.5rem;
+  right: -0.5rem;
   display: none;
 
   @include mid-break {
@@ -129,14 +131,25 @@
     .bannerImage img {
       transform: scale(1.03);
     }
+
+    .bannerGradient {
+      video {
+        filter: blur(64px);
+      }
+    }
   }
 }
 
 .bannerContent {
-  padding: 3rem;
+  padding: 3rem 6rem 3rem 3rem;
+  z-index: 1;
 
   p {
     opacity: 0.8;
+  }
+
+  @include mid-break {
+    padding: 2rem;
   }
 }
 
@@ -146,12 +159,12 @@
   font-weight: 500;
   align-items: center;
   justify-content: flex-start;
-  gap: .5rem;
-  transition: gap .3s cubic-bezier(.165, .84, .44, 1);
+  gap: 0.5rem;
+  transition: gap 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
 
   svg {
-    width: .75rem;
-    height: .75rem;
+    width: 0.75rem;
+    height: 0.75rem;
 
     path {
       stroke: var(--theme-text);
@@ -166,7 +179,7 @@
     height: auto;
     position: absolute;
     bottom: 0;
-    transition: transform .5s cubic-bezier(.165, .84, .44, 1);
+    transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
     transform-origin: bottom center;
     z-index: 1;
 
@@ -176,7 +189,22 @@
   }
 }
 
+.bannerGradient {
+  position: absolute;
+  padding: 1px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+
+  & video {
+    filter: blur(32px);
+    transition: filter 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+}
+
 .bannerScanline {
   opacity: 0;
-  transition: opacity .3s cubic-bezier(.165, .84, .44, 1);
+  transition: opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
 }

@@ -1,19 +1,20 @@
 import { Button } from '@components/Button/index.js'
 import { Heading } from '@components/Heading/index.js'
 import { Message } from '@components/Message/index.js'
+import { useModal } from '@faceless-ui/modal'
+import { Text } from '@forms/fields/Text/index.js'
 import Form from '@forms/Form/index.js'
 import Submit from '@forms/Submit/index.js'
-import { Text } from '@forms/fields/Text/index.js'
-import { toast, useModal } from '@payloadcms/ui'
 import { useAuth } from '@root/providers/Auth/index.js'
 import { useRouter } from 'next/navigation'
 import React from 'react'
+import { toast } from 'sonner'
 
 import classes from './page.module.scss'
 
 export const DeletionConfirmationForm: React.FC<{
   modalSlug: string
-}> = props => {
+}> = (props) => {
   const { modalSlug } = props
   const { closeModal } = useModal()
   const [hasEmail, setHasEmail] = React.useState(false)
@@ -76,7 +77,7 @@ export const DeletionConfirmationForm: React.FC<{
       <Text
         className={classes.emailInput}
         label="Email"
-        onChange={value => {
+        onChange={(value) => {
           setHasEmail(Boolean(value))
         }}
         path="modalEmail"
@@ -84,7 +85,7 @@ export const DeletionConfirmationForm: React.FC<{
       />
       <Text
         label="Password"
-        onChange={value => {
+        onChange={(value) => {
           setHasPW(Boolean(value))
         }}
         path="modalPassword"

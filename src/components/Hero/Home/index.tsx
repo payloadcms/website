@@ -1,6 +1,7 @@
 'use client'
 
-import React, { useEffect, useRef, useState } from 'react'
+import type { BlocksProp } from '@components/RenderBlocks/index.js'
+import type { Page } from '@root/payload-types.js'
 
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
 import { BlockWrapper } from '@components/BlockWrapper/index.js'
@@ -10,30 +11,29 @@ import { Gutter } from '@components/Gutter/index.js'
 import { LogoShowcase } from '@components/Hero/Home/LogoShowcase/index.js'
 import { useGetHeroPadding } from '@components/Hero/useGetHeroPadding.js'
 import { Media } from '@components/Media/index.js'
-import { BlocksProp } from '@components/RenderBlocks/index.js'
 import { RichText } from '@components/RichText/index.js'
-import { Page } from '@root/payload-types.js'
+import React, { useEffect, useRef, useState } from 'react'
 
 import classes from './index.module.scss'
 
 export const HomeHero: React.FC<
-  Page['hero'] & {
+  {
     firstContentBlock?: BlocksProp
-  }
+  } & Page['hero']
 > = ({
-  enableAnnouncement,
   announcementLink,
-  richText,
   description,
-  primaryButtons,
-  secondaryHeading,
-  secondaryDescription,
-  secondaryButtons,
-  media,
-  secondaryMedia,
+  enableAnnouncement,
   featureVideo,
-  logos,
   firstContentBlock,
+  logos,
+  media,
+  primaryButtons,
+  richText,
+  secondaryButtons,
+  secondaryDescription,
+  secondaryHeading,
+  secondaryMedia,
 }) => {
   const laptopMediaRef = useRef<HTMLDivElement | null>(null)
   const mobileLaptopMediaRef = useRef<HTMLDivElement | null>(null)
@@ -153,23 +153,23 @@ export const HomeHero: React.FC<
 
   return (
     <ChangeHeaderTheme theme="dark">
-      <BlockWrapper setPadding={false} settings={{ theme: 'dark' }} padding={padding}>
+      <BlockWrapper padding={padding} setPadding={false} settings={{ theme: 'dark' }}>
         <div className={classes.bgFull}>
           <Media
-            className={classes.desktopBg}
-            src="/images/hero-shapes.jpg"
             alt=""
-            width={1920}
+            className={classes.desktopBg}
             height={1644}
             priority
+            src="/images/hero-shapes.jpg"
+            width={1920}
           />
           <Media
-            className={classes.mobileBg}
-            src="/images/mobile-hero-shapes.jpg"
             alt=""
-            width={390}
+            className={classes.mobileBg}
             height={800}
             priority
+            src="/images/mobile-hero-shapes.jpg"
+            width={390}
           />
         </div>
         <div className={classes.homeHero}>
@@ -177,18 +177,17 @@ export const HomeHero: React.FC<
             <div className={classes.imagesContainerWrapper}>
               {typeof media === 'object' && media !== null && (
                 <Media
+                  className={classes.laptopMedia}
+                  height={1971}
+                  priority
                   ref={laptopMediaRef}
                   resource={media}
-                  className={classes.laptopMedia}
-                  priority
                   width={2560}
-                  height={1971}
                 />
               )}
               {typeof secondaryMedia === 'object' && secondaryMedia !== null && (
                 <div className={classes.pedestalMaskedImage}>
                   <BackgroundGrid
-                    zIndex={1}
                     gridLineStyles={{
                       0: {
                         background: 'var(--grid-line-dark)',
@@ -206,19 +205,20 @@ export const HomeHero: React.FC<
                         background: 'var(--grid-line-dark)',
                       },
                     }}
+                    zIndex={1}
                   />
                   <Media
-                    resource={secondaryMedia}
                     className={classes.pedestalImage}
-                    priority
-                    width={2560}
                     height={1199}
+                    priority
+                    resource={secondaryMedia}
+                    width={2560}
                   />
                 </div>
               )}
               {typeof featureVideo === 'object' && featureVideo !== null && (
                 <div className={classes.featureVideoMask} style={{ height: laptopMediaHeight }}>
-                  <Media resource={featureVideo} className={classes.featureVideo} priority />
+                  <Media className={classes.featureVideo} priority resource={featureVideo} />
                 </div>
               )}
             </div>
@@ -226,7 +226,7 @@ export const HomeHero: React.FC<
           <div className={classes.contentWrapper} style={contentWrapperHeight}>
             <Gutter className={classes.content}>
               <div className={classes.primaryContentWrap} data-theme="dark">
-                <BackgroundGrid zIndex={0} gridLineStyles={gridLineStyles} />
+                <BackgroundGrid gridLineStyles={gridLineStyles} zIndex={0} />
                 <div className={[classes.primaryContent, 'grid'].filter(Boolean).join(' ')}>
                   <div className={['cols-8 start-1'].filter(Boolean).join(' ')}>
                     {enableAnnouncement && (
@@ -244,11 +244,11 @@ export const HomeHero: React.FC<
                               <CMSLink
                                 {...link}
                                 appearance="default"
-                                fullWidth
                                 buttonProps={{
-                                  icon: 'arrow',
                                   hideHorizontalBorders: true,
+                                  icon: 'arrow',
                                 }}
+                                fullWidth
                               />
                             </li>
                           )
@@ -262,9 +262,9 @@ export const HomeHero: React.FC<
                     >
                       {typeof media === 'object' && media !== null && (
                         <Media
+                          className={classes.laptopMedia}
                           ref={mobileLaptopMediaRef}
                           resource={media}
-                          className={classes.laptopMedia}
                         />
                       )}
                       {typeof secondaryMedia === 'object' && secondaryMedia !== null && (
@@ -290,7 +290,7 @@ export const HomeHero: React.FC<
                             }}
                             zIndex={1}
                           />
-                          <Media resource={secondaryMedia} className={classes.pedestalImage} />
+                          <Media className={classes.pedestalImage} resource={secondaryMedia} />
                         </div>
                       )}
                       {typeof featureVideo === 'object' && featureVideo !== null && (
@@ -299,9 +299,9 @@ export const HomeHero: React.FC<
                           style={{ height: mobileMediaWrapperHeight }}
                         >
                           <Media
-                            resource={featureVideo}
                             className={classes.featureVideo}
                             priority
+                            resource={featureVideo}
                           />
                         </div>
                       )}
@@ -310,8 +310,8 @@ export const HomeHero: React.FC<
                 </div>
               </div>
               <div
-                data-theme="dark"
                 className={[classes.secondaryContentWrap, 'grid'].filter(Boolean).join(' ')}
+                data-theme="dark"
               >
                 <BackgroundGrid className={classes.mobileSecondaryBackgroundGrid} zIndex={1} />
                 <div className={classes.mobileSecondaryBackground} />
@@ -334,11 +334,11 @@ export const HomeHero: React.FC<
                             <CMSLink
                               {...link}
                               appearance="default"
-                              fullWidth
                               buttonProps={{
-                                icon: 'arrow',
                                 hideHorizontalBorders: true,
+                                icon: 'arrow',
                               }}
+                              fullWidth
                             />
                           </li>
                         )

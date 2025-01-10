@@ -1,6 +1,8 @@
+import type { SearchClient } from 'algoliasearch/lite.js'
+
+import algoliasearch from 'algoliasearch/lite.js'
 import React, { useState } from 'react'
 import { Configure, InstantSearch } from 'react-instantsearch'
-import algoliasearch, { SearchClient } from 'algoliasearch/lite.js'
 
 import { getInitialState } from './getInitialState.js'
 
@@ -9,12 +11,14 @@ const appID = process.env.NEXT_PUBLIC_ALGOLIA_CH_ID
 const apiKey = process.env.NEXT_PUBLIC_ALGOLIA_PUBLIC_KEY
 const indexName = process.env.NEXT_PUBLIC_ALGOLIA_CH_INDEX_NAME
 // @ts-ignore
-if (appID && apiKey) searchClient = algoliasearch(appID, apiKey)
+if (appID && apiKey) {
+  searchClient = algoliasearch(appID, apiKey)
+}
 export const algoliaPerPage = 20
 
 export const AlgoliaProvider: React.FC<{
   children?: React.ReactNode
-}> = props => {
+}> = (props) => {
   const { children } = props
 
   const [initialURLState] = useState(() => getInitialState())
@@ -22,23 +26,23 @@ export const AlgoliaProvider: React.FC<{
   if (indexName) {
     return (
       <InstantSearch
-        searchClient={searchClient}
         indexName={indexName}
         initialUiState={{
           [indexName]: {
             configure: {
-              hitsPerPage: algoliaPerPage,
-              facetingAfterDistinct: true,
               facetFilters: [['helpful:true']],
+              facetingAfterDistinct: true,
+              hitsPerPage: algoliaPerPage,
               ...initialURLState,
             },
           },
         }}
+        searchClient={searchClient}
       >
         <Configure
-          hitsPerPage={algoliaPerPage}
-          facetingAfterDistinct
           facetFilters={['helpful:true']}
+          facetingAfterDistinct
+          hitsPerPage={algoliaPerPage}
         />
         {children && children}
       </InstantSearch>

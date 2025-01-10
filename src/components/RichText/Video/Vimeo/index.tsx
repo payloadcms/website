@@ -7,12 +7,12 @@ export const VimeoPlayer: React.FC<{
 }> = ({ videoID }) => {
   return (
     <iframe
-      title="Vimeo player"
-      className={classes.iframe}
-      src={`https://player.vimeo.com/video/${videoID}}`}
-      frameBorder="0"
-      allowFullScreen
       allow="autoplay; fullscreen; picture-in-picture"
+      allowFullScreen
+      className={classes.iframe}
+      frameBorder="0"
+      src={`https://player.vimeo.com/video/${videoID}}`}
+      title="Vimeo player"
     />
   )
 }

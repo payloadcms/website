@@ -1,10 +1,10 @@
 @use '@scss/common' as *;
 
 .description {
-    @include small;
-    & {
-        margin-top: 0.5rem;
-        color: var(--theme-elevation-400);
-        margin-bottom: 0;
-    }
+  @include small;
+  & {
+    margin-top: 0.5rem;
+    color: var(--theme-elevation-400);
+    margin-bottom: 0;
+  }
 }

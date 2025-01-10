@@ -1,4 +1,4 @@
-@use "@scss/common" as *;
+@use '@scss/common' as *;
 
 .highlightWrapper {
   text-decoration: none;
@@ -20,7 +20,7 @@
   &::before {
     pointer-events: none;
     will-change: width; // animating 'height' ftl, transform: translate3d requires overflow: hidden but there is no good way to achieve horizontal padding without visible overflow
-    content: "";
+    content: '';
     position: absolute;
     width: calc(100% + 0.33em);
     height: 0;
@@ -31,7 +31,6 @@
     transition: height cubic-bezier(0.4, 0, 0.2, 1) 500ms;
     transition-delay: 250ms;
   }
-
 }
 
 .danger {

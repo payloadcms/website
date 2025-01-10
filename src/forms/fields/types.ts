@@ -1,19 +1,19 @@
 import type { Validate } from '../types.js'
 
 export interface FieldProps<T> {
-  path?: string
-  name?: string
-  required?: boolean
-  validate?: Validate
-  label?: string | React.ReactNode
-  placeholder?: string
-  onChange?: (value: T) => void // eslint-disable-line no-unused-vars
-  initialValue?: T
   className?: string
-  disabled?: boolean
   description?: string
-  showError?: boolean
-  icon?: React.ReactNode
+  disabled?: boolean
   fullWidth?: boolean
+  icon?: React.ReactNode
+  initialValue?: T
+  label?: React.ReactNode | string
+  name?: string
+  onChange?: (value: T) => void
   onClick?: () => void
+  path?: string
+  placeholder?: string
+  required?: boolean
+  showError?: boolean
+  validate?: Validate
 }

@@ -1,25 +1,27 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { Text } from '@forms/fields/Text/index.js'
+import type { Project, Team } from '@root/payload-cloud-types.js'
 
 import { Spinner } from '@components/Spinner/index.js'
+import { Text } from '@forms/fields/Text/index.js'
 import { CheckIcon } from '@root/icons/CheckIcon/index.js'
 import { CloseIcon } from '@root/icons/CloseIcon/index.js'
-import { Project, Team } from '@root/payload-cloud-types.js'
 import useDebounce from '@root/utilities/use-debounce.js'
-import { validatedDomainReducer, ValidatedDomainResult } from './reducer.js'
+import React, { useEffect, useRef, useState } from 'react'
+
+import type { ValidatedDomainResult } from './reducer.js'
 
 import classes from './index.module.scss'
+import { validatedDomainReducer } from './reducer.js'
 
 // checks Payload to ensure that the given domain is unique and ensures only the validated domain is used
 // displays a success message if the domain is available, warns the user if the domain is taken
 // `initialValue` includes the `.payloadcms.app` suffix, so we need to strip that off
 export const UniqueDomain: React.FC<{
-  initialValue: Project['defaultDomain']
-  team: Team
-  path?: 'defaultDomain'
-  label?: string
   id: string | undefined
-}> = ({ initialValue, label = 'Default domain', id, path = 'defaultDomain', team }) => {
+  initialValue: Project['defaultDomain']
+  label?: string
+  path?: 'defaultDomain'
+  team: Team
+}> = ({ id, initialValue, label = 'Default domain', path = 'defaultDomain', team }) => {
   const initialSubdomain = useRef<string | undefined>(initialValue?.replace('.payloadcms.app', ''))
 
   const [value, setValue] = React.useState<string | undefined>(initialSubdomain.current)
@@ -28,7 +30,7 @@ export const UniqueDomain: React.FC<{
   const debouncedValue = useDebounce(value, 100)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const isRequesting = React.useRef(false)
-  const [error, setError] = React.useState<string | null>(null)
+  const [error, setError] = React.useState<null | string>(null)
 
   const [validatedDomain, dispatchValidatedDomain] = React.useReducer(validatedDomainReducer, {
     domain: '',
@@ -54,14 +56,14 @@ export const UniqueDomain: React.FC<{
           const validityReq = await fetch(
             `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/validate-subdomain`,
             {
-              method: 'POST',
+              body: JSON.stringify({
+                id,
+                subdomain: debouncedValue,
+              }),
               headers: {
                 'Content-Type': 'application/json',
               },
-              body: JSON.stringify({
-                subdomain: debouncedValue,
-                id,
-              }),
+              method: 'POST',
             },
           )
 
@@ -122,9 +124,15 @@ export const UniqueDomain: React.FC<{
   }
 
   let icon: React.ReactNode = null
-  if (isLoading) icon = <Spinner />
-  if (domainIsValid) icon = <CheckIcon className={classes.check} size="medium" bold />
-  if (error || !domainIsValid) icon = <CloseIcon className={classes.error} size="medium" bold />
+  if (isLoading) {
+    icon = <Spinner />
+  }
+  if (domainIsValid) {
+    icon = <CheckIcon bold className={classes.check} size="medium" />
+  }
+  if (error || !domainIsValid) {
+    icon = <CloseIcon bold className={classes.error} size="medium" />
+  }
 
   // two fields are rendered here, the first is controlled, user-facing and not debounced
   // the other is a hidden field that has been validated
@@ -133,15 +141,15 @@ export const UniqueDomain: React.FC<{
     <div className={classes.uniqueDomain}>
       <Text
         className={classes.input}
-        label={label}
-        initialValue={initialSubdomain.current}
-        onChange={setValue}
-        showError={Boolean(error || !domainIsValid)}
         icon={icon}
-        suffix=".payloadcms.app"
+        initialValue={initialSubdomain.current}
+        label={label}
+        onChange={setValue}
         required
+        showError={Boolean(error || !domainIsValid)}
+        suffix=".payloadcms.app"
       />
-      <Text path={path} value={theValidatedDomain} required type="hidden" />
+      <Text path={path} required type="hidden" value={theValidatedDomain} />
       <div
         className={[
           classes.description,

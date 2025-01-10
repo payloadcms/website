@@ -1,4 +1,4 @@
-import { cloudSlug } from "@cloud/slug"
+import { cloudSlug } from '@cloud/slug'
 
 type Args = {
   environmentSlug?: string
@@ -7,7 +7,12 @@ type Args = {
   teamSlug: string
 }
 
-export function generateRoutePath({ environmentSlug, projectSlug, suffix, teamSlug }: Args): string {
+export function generateRoutePath({
+  environmentSlug,
+  projectSlug,
+  suffix,
+  teamSlug,
+}: Args): string {
   return `/${cloudSlug}/${teamSlug}/${projectSlug}${
     environmentSlug ? `/env/${environmentSlug}` : ''
   }${suffix ? `/${suffix}` : ''}`

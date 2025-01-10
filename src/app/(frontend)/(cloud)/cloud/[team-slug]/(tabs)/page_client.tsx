@@ -1,17 +1,18 @@
 'use client'
 
-import React, { useEffect } from 'react'
-import { fetchProjectsClient, ProjectsRes } from '@cloud/_api/fetchProjects.js'
-import { TeamWithCustomer } from '@cloud/_api/fetchTeam.js'
-import { ProjectCard } from '@cloud/_components/ProjectCard/index.js'
-import { Text } from '@forms/fields/Text/index.js'
-import Link from 'next/link'
+import type { ProjectsRes } from '@cloud/_api/fetchProjects.js'
+import type { TeamWithCustomer } from '@cloud/_api/fetchTeam.js'
+import type { Template } from '@root/payload-cloud-types.js'
 
+import { fetchProjectsClient } from '@cloud/_api/fetchProjects.js'
+import { ProjectCard } from '@cloud/_components/ProjectCard/index.js'
 import { Gutter } from '@components/Gutter/index.js'
-import { Pagination } from '@components/Pagination/index.js'
 import { NewProjectBlock } from '@components/NewProject/index.js'
-import { Template } from '@root/payload-cloud-types.js'
+import { Pagination } from '@components/Pagination/index.js'
+import { Text } from '@forms/fields/Text/index.js'
 import useDebounce from '@root/utilities/use-debounce.js'
+import Link from 'next/link'
+import React, { useEffect } from 'react'
 
 import classes from './page.module.scss'
 
@@ -19,10 +20,10 @@ const delay = 500
 const debounce = 350
 
 export const TeamPage: React.FC<{
-  team: TeamWithCustomer
   initialState: ProjectsRes
+  team: TeamWithCustomer
   templates?: Template[]
-}> = ({ team, initialState, templates }) => {
+}> = ({ initialState, team, templates }) => {
   const [result, setResult] = React.useState<ProjectsRes>(initialState)
   const [page, setPage] = React.useState<number>(initialState?.page || 1)
   const [search, setSearch] = React.useState<string>('')
@@ -40,7 +41,9 @@ export const TeamPage: React.FC<{
   useEffect(() => {
     // keep a timer reference so that we can cancel the old request
     // this is if the old request takes longer than the debounce time
-    if (requestRef.current) clearTimeout(requestRef.current)
+    if (requestRef.current) {
+      clearTimeout(requestRef.current)
+    }
 
     // only perform searches after the user has engaged with the search field or pagination
     // the only stable way of doing this is to explicitly set the `enableSearch` flag on these event handlers
@@ -49,7 +52,9 @@ export const TeamPage: React.FC<{
 
       // if the search changed, reset the page back to 1
       const searchChanged = searchRef.current !== debouncedSearch
-      if (searchChanged) searchRef.current = debouncedSearch
+      if (searchChanged) {
+        searchRef.current = debouncedSearch
+      }
 
       const doFetch = async () => {
         // give the illusion of loading, so that fast network connections appear to flash
@@ -59,9 +64,9 @@ export const TeamPage: React.FC<{
         try {
           requestRef.current = setTimeout(async () => {
             const projectsRes = await fetchProjectsClient({
-              teamIDs: [team.id],
               page: searchChanged ? 1 : page,
               search: debouncedSearch,
+              teamIDs: [team.id],
             })
 
             const end = Date.now()
@@ -69,7 +74,7 @@ export const TeamPage: React.FC<{
 
             // the request was too fast, so we'll add a delay to make it appear as if it took longer
             if (diff < delay) {
-              await new Promise(resolve => setTimeout(resolve, delay - diff))
+              await new Promise((resolve) => setTimeout(resolve, delay - diff))
             }
 
             setResult(projectsRes)
@@ -90,8 +95,8 @@ export const TeamPage: React.FC<{
   if (renderNewProjectBlock) {
     return (
       <NewProjectBlock
-        heading={`Team '${team?.name}' has no projects yet`}
         cardLeader="New"
+        heading={`Team '${team?.name}' has no projects yet`}
         largeHeading={false}
         teamSlug={team?.slug}
         templates={templates}
@@ -104,14 +109,14 @@ export const TeamPage: React.FC<{
       {error && <p className={classes.error}>{error}</p>}
       <div className={['grid', classes.controls].join(' ')}>
         <Text
-          placeholder="Search projects"
+          className={['cols-14', classes.search].join(' ')}
+          fullWidth={false}
           initialValue={search}
           onChange={(value: string) => {
             setSearch(value)
             setEnableSearch(true)
           }}
-          className={['cols-14', classes.search].join(' ')}
-          fullWidth={false}
+          placeholder="Search projects"
         />
         <div className="cols-2">
           <Link
@@ -131,11 +136,11 @@ export const TeamPage: React.FC<{
           <div className={['grid', classes.projects].join(' ')}>
             {cardArray?.map((project, index) => (
               <ProjectCard
-                project={project}
                 className={['cols-4'].join(' ')}
                 isLoading={isLoading}
-                showTeamName={false}
                 key={project.name + index}
+                project={project}
+                showTeamName={false}
               />
             ))}
           </div>
@@ -145,11 +150,11 @@ export const TeamPage: React.FC<{
         <Pagination
           className={classes.pagination}
           page={result?.page}
-          totalPages={result?.totalPages}
-          setPage={page => {
+          setPage={(page) => {
             setPage(page)
             setEnableSearch(true)
           }}
+          totalPages={result?.totalPages}
         />
       )}
     </Gutter>

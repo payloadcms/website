@@ -1,8 +1,8 @@
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 
 import { HoverHighlightsPage } from './client_page.js'
 
-export default props => {
+export default (props) => {
   return <HoverHighlightsPage {...props} />
 }
 

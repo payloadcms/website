@@ -1,73 +1,74 @@
 @use '@scss/common' as *;
 
 .error {
-    color: var(--theme-error-500);
+  color: var(--theme-error-500);
 }
 
 .tabs {
-    margin-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 
 .controls {
-    margin-bottom: calc(var(--base) * 2);
-    position: relative;
+  margin-bottom: calc(var(--base) * 2);
+  position: relative;
 
-    input {
-        border-right-width: 0px;
+  input {
+    border-right-width: 0px;
 
-        &:focus, &:hover {
-            border-right-width: 1px;
-        }
+    &:focus,
+    &:hover {
+      border-right-width: 1px;
     }
+  }
 
-    & > * {
-        width: 100%;
-     }
+  & > * {
+    width: 100%;
+  }
 
-    @include mid-break {
-        margin-bottom: 1rem;
-        padding: 1.5rem 0;
-        flex-wrap: wrap;
-    }
+  @include mid-break {
+    margin-bottom: 1rem;
+    padding: 1.5rem 0;
+    flex-wrap: wrap;
+  }
 }
 
 .search input {
-    @include mid-break {
-        border-right: 1px solid var(--theme-border-color);
-        border-bottom-width: 0;
-    }
+  @include mid-break {
+    border-right: 1px solid var(--theme-border-color);
+    border-bottom-width: 0;
+  }
 }
 
 .createButton {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--base);
-    padding: var(--base) calc(var(--base) * 1.5);
-    line-height: 1;
-    background-color: var(--theme-elevation-100);
-    text-decoration: none;
-    border: 1px solid var(--theme-border-color);
-    border-left-width: 0px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--base);
+  padding: var(--base) calc(var(--base) * 1.5);
+  line-height: 1;
+  background-color: var(--theme-elevation-100);
+  text-decoration: none;
+  border: 1px solid var(--theme-border-color);
+  border-left-width: 0px;
 
-    &:hover {
-        background-color: var(--theme-elevation-300);
-    }
+  &:hover {
+    background-color: var(--theme-elevation-300);
+  }
 }
 
 .projects {
-    border-top: 1px solid var(--theme-border-color);
-    border-left: 1px solid var(--theme-border-color);
+  border-top: 1px solid var(--theme-border-color);
+  border-left: 1px solid var(--theme-border-color);
 }
 
 .pagination {
-    margin-top: 2rem;
+  margin-top: 2rem;
 }
 
-:global([data-theme="light"]) {
-    .controlsBG {
-        background-color: var(--theme-elevation-50);
-    }
+:global([data-theme='light']) {
+  .controlsBG {
+    background-color: var(--theme-elevation-50);
+  }
 }

@@ -1,6 +1,7 @@
 'use client'
 
-import React from 'react'
+import type { BlocksProp } from '@components/RenderBlocks/index.js'
+import type { Page } from '@root/payload-types.js'
 
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
 import { BlockWrapper } from '@components/BlockWrapper/index.js'
@@ -8,23 +9,22 @@ import { Breadcrumbs } from '@components/Breadcrumbs/index.js'
 import { CMSLink } from '@components/CMSLink/index.js'
 import { Gutter } from '@components/Gutter/index.js'
 import { useGetHeroPadding } from '@components/Hero/useGetHeroPadding.js'
-import { BlocksProp } from '@components/RenderBlocks/index.js'
+import { Media } from '@components/Media'
 import { RichText } from '@components/RichText/index.js'
-import { Page } from '@root/payload-types.js'
+import React from 'react'
 
 import classes from './index.module.scss'
-import { Media } from '@components/Media'
 
 export const CenteredContent: React.FC<
-  Pick<Page['hero'], 'richText' | 'links' | 'theme' | 'media' | 'enableMedia'> & {
+  {
     breadcrumbs?: Page['breadcrumbs']
     firstContentBlock?: BlocksProp
-  }
-> = ({ richText, links, media, enableMedia, breadcrumbs, theme, firstContentBlock }) => {
+  } & Pick<Page['hero'], 'enableMedia' | 'links' | 'media' | 'richText' | 'theme'>
+> = ({ breadcrumbs, enableMedia, firstContentBlock, links, media, richText, theme }) => {
   const padding = useGetHeroPadding(theme, firstContentBlock)
 
   return (
-    <BlockWrapper settings={{ theme }} padding={padding}>
+    <BlockWrapper padding={padding} settings={{ theme }}>
       <BackgroundGrid zIndex={0} />
       <Gutter>
         <div className={[classes.container, 'grid'].filter(Boolean).join(' ')}>
@@ -45,8 +45,8 @@ export const CenteredContent: React.FC<
                       key={i}
                       {...link}
                       buttonProps={{
-                        hideHorizontalBorders: true,
                         hideBottomBorderExceptLast: true,
+                        hideHorizontalBorders: true,
                       }}
                     />
                   )

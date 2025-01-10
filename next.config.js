@@ -88,9 +88,9 @@ const nextConfig = withBundleAnalyzer({
     ].filter(Boolean),
   },
   sassOptions: {
-    silenceDeprecations: ['legacy-js-api'], // https://github.com/vercel/next.js/issues/71638
+    silenceDeprecations: ['legacy-js-api', 'import'], // https://github.com/vercel/next.js/issues/71638
   },
-  webpack: config => {
+  webpack: (config) => {
     const configCopy = { ...config }
     configCopy.resolve = {
       ...config.resolve,
@@ -112,27 +112,37 @@ const nextConfig = withBundleAnalyzer({
         '@types': path.resolve(dirname, './payload-types.ts'),
         '@graphics': path.resolve(dirname, './src/graphics'),
         '@graphql': path.resolve(dirname, './src/graphql'),
-        // IMPORTANT: the next lines are for development only
-        // keep them commented out unless actively developing local react modules
-        // modify their paths according to your local directory
-        // "payload-admin-bar": path.join(dirname, "../payload-admin-bar"),
       },
     }
     return configCopy
   },
   redirects,
   async headers() {
-    const headers = []
+    const headers = [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'X-Frame-Options',
+            value: 'SAMEORIGIN',
+          },
+          {
+            key: 'Content-Security-Policy',
+            value: "object-src 'none';base-uri 'self';form-action 'self';",
+          },
+        ],
+      },
+    ]
 
     if (!process.env.NEXT_PUBLIC_IS_LIVE) {
       headers.push({
+        source: '/(.*)',
         headers: [
           {
             key: 'X-Robots-Tag',
             value: 'noindex',
           },
         ],
-        source: '/:path*',
       })
     }
     return headers

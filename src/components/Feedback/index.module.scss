@@ -1,0 +1,47 @@
+@use '@scss/common' as *;
+
+.feedbackWrapper {
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  color: var(--theme-elevation-750);
+  @include small;
+}
+
+.drawerButton {
+  @include btnReset;
+  @include small;
+  & {
+    display: inline;
+    width: auto;
+    cursor: pointer;
+    color: var(--theme-elevation-750);
+
+    &:hover {
+      color: var(--theme-text);
+    }
+  }
+}
+
+.gitHubLink {
+  @include small;
+  & {
+    display: inline;
+    width: auto;
+    cursor: pointer;
+    color: var(--theme-elevation-750);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--theme-text);
+    }
+  }
+}
+
+.arrow {
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-left: 0.5rem;
+}

@@ -1,0 +1,68 @@
+@use '@scss/common' as *;
+
+.templateCardWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.templateCard {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  color: var(--theme-text);
+  border: 1px solid var(--theme-border-color) !important;
+  border-radius: 0.25rem;
+  background-color: var(--theme-bg);
+  transition: all 0.1s ease;
+
+  &:hover {
+    border: 1px solid var(--theme-elevation-400);
+    background-color: var(--theme-elevation-50);
+
+    .arrow {
+      opacity: 1;
+      transform: translate(0.125rem, -0.125rem);
+    }
+  }
+}
+
+.imageContainer {
+  display: block;
+  width: 16rem;
+  height: 9rem;
+  position: relative;
+  flex: 0 0 16rem;
+
+  img {
+    height: auto;
+    object-fit: cover;
+    object-position: top left;
+  }
+}
+
+.templateCardContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  padding: 2rem 1.5rem;
+  width: auto;
+  height: 100%;
+  color: inherit;
+
+  > * {
+    color: var(--theme-text);
+    margin: 0;
+  }
+}
+
+.arrow {
+  width: 0.5rem;
+  height: 0.5rem;
+  opacity: 0;
+  transform: none;
+  transition: all 0.3s ease;
+  margin-left: 0.5rem;
+}

@@ -32,7 +32,6 @@
   }
 }
 
-
 .container {
   border-top: 1px solid var(--grid-line-light);
   border-bottom: 1px solid var(--grid-line-light);
@@ -48,7 +47,6 @@
     border-color: var(--grid-line-dark);
   }
 
-
   @include mid-break {
     display: none;
   }
@@ -56,7 +54,7 @@
 
 .links {
   display: flex;
-   gap: 1.85rem;
+  gap: 1.85rem;
 }
 
 .link {
@@ -97,7 +95,8 @@
     justify-content: space-between;
     padding: 0.5rem 0 0.5rem;
 
-    &::marker, &::-webkit-details-marker {
+    &::marker,
+    &::-webkit-details-marker {
       display: none;
       appearance: none;
     }

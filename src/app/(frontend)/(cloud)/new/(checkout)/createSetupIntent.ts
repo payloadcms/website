@@ -1,10 +1,10 @@
 import type { Team } from '@root/payload-cloud-types.js'
 
 export interface PayloadStripeSetupIntent {
-  setup_intent: string
   client_secret?: string
-
   error?: string
+
+  setup_intent: string
 }
 
 export const createSetupIntent = async (args: {
@@ -14,13 +14,13 @@ export const createSetupIntent = async (args: {
 
   try {
     const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/create-setup-intent`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
       body: JSON.stringify({
         team: team?.id,
       }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
     })
 
     const res: PayloadStripeSetupIntent = await req.json()

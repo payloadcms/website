@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import classes from './index.module.scss'
 
@@ -9,7 +9,9 @@ const Table: (props: { children }) => React.JSX.Element = ({ children }) => {
   const blockRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (blockRef.current?.offsetWidth === undefined) return
+    if (blockRef.current?.offsetWidth === undefined) {
+      return
+    }
     setBlockPadding(Math.round(blockRef.current?.offsetWidth / 10) - 2)
   }, [blockRef.current?.offsetWidth])
 

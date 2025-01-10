@@ -1,17 +1,16 @@
 'use client'
 
-import React, { useEffect, useRef, useState } from 'react'
-
 import { Button } from '@components/Button/index.js'
 import { Gutter } from '@components/Gutter/index.js'
 import { useAuth } from '@root/providers/Auth/index.js'
+import React, { useEffect, useRef, useState } from 'react'
 
 import classes from './page.module.scss'
 
 const threshold = 1000
 
 export const Logout: React.FC = () => {
-  const { user, logout } = useAuth()
+  const { logout, user } = useAuth()
   const [isLoggingOut, setLoggingOut] = useState(false)
   const [hasLoggedOut, setLoggedOut] = useState(false)
   const isRequesting = useRef(false)
@@ -33,7 +32,9 @@ export const Logout: React.FC = () => {
           const delay = threshold - time
 
           // give the illusion of a delay, so that the content doesn't blink on fast networks
-          if (delay > 0) await new Promise(resolve => setTimeout(resolve, delay))
+          if (delay > 0) {
+            await new Promise((resolve) => setTimeout(resolve, delay))
+          }
 
           setLoggingOut(false)
           setLoggedOut(true)
@@ -54,8 +55,8 @@ export const Logout: React.FC = () => {
         <h3>You have been logged out.</h3>
         <p>What would you like to do next?</p>
         <div className={classes.controls}>
-          <Button label="Log back in" href="/login" appearance="primary" el="link" />
-          <Button label="Go home" href="/" appearance="secondary" el="link" />
+          <Button appearance="primary" el="link" href="/login" label="Log back in" />
+          <Button appearance="secondary" el="link" href="/" label="Go home" />
         </div>
       </Gutter>
     )
@@ -66,8 +67,8 @@ export const Logout: React.FC = () => {
       <Gutter>
         <h3>You are already logged out.</h3>
         <div className={classes.controls}>
-          <Button label="Log back in" href="/login" appearance="primary" el="link" />
-          <Button label="Go home" href="/" appearance="secondary" el="link" />
+          <Button appearance="primary" el="link" href="/login" label="Log back in" />
+          <Button appearance="secondary" el="link" href="/" label="Go home" />
         </div>
       </Gutter>
     )

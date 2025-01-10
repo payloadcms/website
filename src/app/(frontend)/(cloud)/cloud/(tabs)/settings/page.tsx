@@ -1,7 +1,8 @@
-import { fetchMe } from '@cloud/_api/fetchMe.js'
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 
+import { fetchMe } from '@cloud/_api/fetchMe.js'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
+
 import { SettingsPage } from './page_client.js'
 
 export default async () => {
@@ -10,9 +11,9 @@ export default async () => {
 }
 
 export const metadata: Metadata = {
-  title: 'My Account',
   openGraph: mergeOpenGraph({
     title: 'My Account',
     url: `/cloud/settings`,
   }),
+  title: 'My Account',
 }

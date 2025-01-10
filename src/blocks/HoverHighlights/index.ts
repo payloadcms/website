@@ -6,10 +6,6 @@ import richText from '../../fields/richText'
 
 export const HoverHighlights: Block = {
   slug: 'hoverHighlights',
-  labels: {
-    singular: 'Hover Highlights Block',
-    plural: 'Hover Highlights Blocks',
-  },
   fields: [
     blockFields({
       name: 'hoverHighlightsFields',
@@ -28,9 +24,8 @@ export const HoverHighlights: Block = {
               required: true,
             },
             {
-              type: 'group',
               name: 'media',
-              label: 'Media',
+              type: 'group',
               admin: {
                 hideGutter: true,
               },
@@ -41,10 +36,10 @@ export const HoverHighlights: Block = {
                     {
                       name: 'top',
                       type: 'upload',
-                      relationTo: 'media',
                       admin: {
                         width: '50%',
                       },
+                      relationTo: 'media',
                     },
                   ],
                 },
@@ -54,14 +49,15 @@ export const HoverHighlights: Block = {
                     {
                       name: 'bottom',
                       type: 'upload',
-                      relationTo: 'media',
                       admin: {
                         width: '50%',
                       },
+                      relationTo: 'media',
                     },
                   ],
                 },
               ],
+              label: 'Media',
             },
             link({
               appearances: false,
@@ -79,4 +75,8 @@ export const HoverHighlights: Block = {
       ],
     }),
   ],
+  labels: {
+    plural: 'Hover Highlights Blocks',
+    singular: 'Hover Highlights Block',
+  },
 }

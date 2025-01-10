@@ -1,5 +1,5 @@
-import * as React from 'react'
 import { useResize } from '@utilities/use-resize.js'
+import * as React from 'react'
 
 interface IComputedCSSValues {
   gutterH: number

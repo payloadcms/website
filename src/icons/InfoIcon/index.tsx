@@ -1,20 +1,20 @@
 import React from 'react'
 
-import { IconProps } from '../types.js'
+import type { IconProps } from '../types.js'
 
 import classes from '../index.module.scss'
 
-export const InfoIcon: React.FC<IconProps> = props => {
-  const { size, className } = props
+export const InfoIcon: React.FC<IconProps> = (props) => {
+  const { className, size } = props
 
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="48"
+      className={[className, classes.icon, size && classes[size]].filter(Boolean).join(' ')}
+      fill="none"
       height="48"
       viewBox="0 0 48 48"
-      fill="none"
-      className={[className, classes.icon, size && classes[size]].filter(Boolean).join(' ')}
+      width="48"
+      xmlns="http://www.w3.org/2000/svg"
     >
       <path
         d="M47 23.8535C47 36.4694 36.7083 46.707 24 46.707C11.2917 46.707 1 36.4694 1 23.8535C1 11.2376 11.2917 1 24 1C36.7083 1 47 11.2376 47 23.8535Z"

@@ -1,27 +1,29 @@
 import React from 'react'
 
 type WebSocketHookArgs = {
-  url: string
-  onMessage: (message: MessageEvent) => void
-  onError?: (error: Event) => void
-  onOpen?: () => void
   onClose?: () => void
+  onError?: (error: Event) => void
+  onMessage: (message: MessageEvent) => void
+  onOpen?: () => void
   retryOnClose?: boolean
+  url: string
 }
 
 export const useWebSocket = ({
-  url,
-  onOpen,
-  onMessage,
-  onError,
   onClose,
+  onError,
+  onMessage,
+  onOpen,
   retryOnClose,
+  url,
 }: WebSocketHookArgs): void => {
-  const socketRef = React.useRef<WebSocket | null>(null)
+  const socketRef = React.useRef<null | WebSocket>(null)
 
   const setupWebSocket = React.useCallback(
-    newURL => {
-      if (!newURL) return null
+    (newURL) => {
+      if (!newURL) {
+        return null
+      }
 
       const webSocket = new WebSocket(newURL)
 
@@ -31,11 +33,11 @@ export const useWebSocket = ({
         }
       }
 
-      webSocket.onmessage = event => {
+      webSocket.onmessage = (event) => {
         onMessage(event)
       }
 
-      webSocket.onerror = error => {
+      webSocket.onerror = (error) => {
         if (onError) {
           onError(error)
         }

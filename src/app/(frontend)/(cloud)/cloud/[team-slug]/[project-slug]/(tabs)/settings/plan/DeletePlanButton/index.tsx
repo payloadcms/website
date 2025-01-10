@@ -1,9 +1,9 @@
 'use client'
 
-import React from 'react'
-import { useModal } from '@faceless-ui/modal'
-
 import { Button } from '@components/Button/index.js'
+import { useModal } from '@faceless-ui/modal'
+import React from 'react'
+
 import { deletePlanModalSlug } from '../DeletePlanModal/index.js'
 
 export const DeletePlanButton: React.FC = () => {

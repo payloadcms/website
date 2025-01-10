@@ -12,11 +12,11 @@ import { toast } from 'sonner'
 import { confirmCardSetup } from '../../../new/(checkout)/confirmCardSetup.js'
 import { cardReducer } from './reducer.js'
 
-type SaveNewPaymentMethod = (paymentMethodID: string) => Promise<SetupIntent | null | undefined>
+type SaveNewPaymentMethod = (paymentMethodID: string) => Promise<null | SetupIntent | undefined>
 
 export const usePaymentMethods = (args: {
   delay?: number
-  initialValue?: PaymentMethod[] | null | undefined
+  initialValue?: null | PaymentMethod[] | undefined
   team?: TeamWithCustomer
 }): {
   defaultPaymentMethod: string | undefined
@@ -24,7 +24,7 @@ export const usePaymentMethods = (args: {
   error?: string
   getPaymentMethods: () => void
   isLoading: 'deleting' | 'loading' | 'saving' | false | null
-  result: PaymentMethod[] | null | undefined
+  result: null | PaymentMethod[] | undefined
   saveNewPaymentMethod: SaveNewPaymentMethod
   setDefaultPaymentMethod: React.Dispatch<React.SetStateAction<string | undefined>>
 } => {
@@ -71,7 +71,9 @@ export const usePaymentMethods = (args: {
         return
       }
 
-      if (isRequesting.current) return
+      if (isRequesting.current) {
+        return
+      }
 
       isRequesting.current = true
 
@@ -80,7 +82,7 @@ export const usePaymentMethods = (args: {
 
         const paymentMethods = await fetchPaymentMethodsClient({ team })
 
-        setTimeout(() => {
+        timer = setTimeout(() => {
           dispatchResult({ type: 'RESET_CARDS', payload: paymentMethods || [] })
           setError('')
           setIsLoading(false)
@@ -96,7 +98,6 @@ export const usePaymentMethods = (args: {
 
       isRequesting.current = false
 
-      // eslint-disable-next-line consistent-return
       return () => {
         clearTimeout(timer)
       }
@@ -105,20 +106,22 @@ export const usePaymentMethods = (args: {
   )
 
   useEffect(() => {
-    if (initialValue) return
+    if (initialValue) {
+      return
+    }
     getPaymentMethods()
   }, [getPaymentMethods, initialValue])
 
   const deletePaymentMethod = useCallback(
     async (paymentMethodID: string) => {
-      let timer: NodeJS.Timeout
-
       if (!paymentMethodID) {
         setError('No payment method')
         return
       }
 
-      if (isDeleting.current) return
+      if (isDeleting.current) {
+        return
+      }
 
       isDeleting.current = true
       setError(undefined)
@@ -134,17 +137,19 @@ export const usePaymentMethods = (args: {
             },
             method: 'DELETE',
           },
-        )?.then(res => {
+        )?.then((res) => {
           const json = res.json()
-          // @ts-expect-error
-          if (!res.ok) throw new Error(json?.message)
+          if (!res.ok) {
+            // @ts-expect-error
+            throw new Error(json?.message)
+          }
           return json
         })
 
         // if this was the default payment method, we need to update the customer
         // only if the customer has another payment method on file
         if (defaultPaymentMethod === paymentMethodID) {
-          const withoutDeleted = result?.filter(pm => pm.id !== paymentMethodID)
+          const withoutDeleted = result?.filter((pm) => pm.id !== paymentMethodID)
 
           const updatedCustomer = await updateCustomer(team, {
             invoice_settings: {
@@ -178,17 +183,12 @@ export const usePaymentMethods = (args: {
       }
 
       isDeleting.current = false
-
-      // eslint-disable-next-line consistent-return
-      return () => {
-        clearTimeout(timer)
-      }
     },
     [team, result, defaultPaymentMethod],
   )
 
   const saveNewPaymentMethod: SaveNewPaymentMethod = useCallback(
-    async paymentMethodID => {
+    async (paymentMethodID) => {
       if (isRequesting.current) {
         return null
       }
@@ -228,7 +228,9 @@ export const usePaymentMethods = (args: {
 
         const newPaymentMethod = await fetchPaymentMethod({ paymentMethodID: pmID, team })
 
-        if (!newPaymentMethod) throw new Error('Could not retrieve new payment method')
+        if (!newPaymentMethod) {
+          throw new Error('Could not retrieve new payment method')
+        }
 
         dispatchResult({
           type: 'ADD_CARD',

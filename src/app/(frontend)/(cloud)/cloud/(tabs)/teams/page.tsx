@@ -1,13 +1,13 @@
-import React from 'react'
+import type { Metadata } from 'next'
+
 import { LinkGrid } from '@blocks/LinkGrid/index.js'
 import { fetchMe } from '@cloud/_api/fetchMe.js'
 import { fetchTeams } from '@cloud/_api/fetchTeam.js'
 import { TeamDrawer, TeamDrawerToggler } from '@cloud/_components/TeamDrawer/index.js'
 import { cloudSlug } from '@cloud/slug.js'
-import { Metadata } from 'next'
-
 import { Gutter } from '@components/Gutter/index.js'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
+import React from 'react'
 
 import classes from './page.module.scss'
 
@@ -54,13 +54,15 @@ export default async () => {
             linkGridFields={{
               links:
                 teams?.map((team, index) => {
-                  if (!team || typeof team === 'string') return null as any
+                  if (!team || typeof team === 'string') {
+                    return null as any
+                  }
 
                   return {
                     link: {
                       type: 'custom',
-                      url: `/${cloudSlug}/${team.slug}`,
                       label: team.name,
+                      url: `/${cloudSlug}/${team.slug}`,
                     },
                   }
                 }) || [],
@@ -74,9 +76,9 @@ export default async () => {
 }
 
 export const metadata: Metadata = {
-  title: `My Teams`,
   openGraph: mergeOpenGraph({
     title: `My Teams`,
     url: `/cloud/teams`,
   }),
+  title: `My Teams`,
 }

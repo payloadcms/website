@@ -172,9 +172,15 @@ export const UniqueSlug: React.FC<{
   }
 
   let icon: React.ReactNode = null
-  if (isLoading) icon = <Spinner />
-  if (slugIsValid) icon = <CheckIcon bold className={classes.check} size="medium" />
-  if (slugIsFetched && isError) icon = <CloseIcon bold className={classes.error} size="medium" />
+  if (isLoading) {
+    icon = <Spinner />
+  }
+  if (slugIsValid) {
+    icon = <CheckIcon bold className={classes.check} size="medium" />
+  }
+  if (slugIsFetched && isError) {
+    icon = <CloseIcon bold className={classes.error} size="medium" />
+  }
 
   // two fields are rendered here, the first is controlled, user-facing and not debounced
   // the other is a hidden field that has been validated
@@ -186,7 +192,7 @@ export const UniqueSlug: React.FC<{
         icon={icon}
         initialValue={initialValue}
         label={label}
-        onChange={newSlug => {
+        onChange={(newSlug) => {
           currentSlug.current = newSlug
           dispatchState({ type: 'SET_SLUG', payload: newSlug })
           dispatchState({ type: 'SET_USER_INTERACTED' })
@@ -224,7 +230,7 @@ export const UniqueTeamSlug: React.FC<{
   path?: 'createTeamFromSlug' | 'slug'
   readOnly?: boolean
   teamID?: string
-}> = props => {
+}> = (props) => {
   const { initialValue, path = 'slug', readOnly, teamID } = props
   return (
     <UniqueSlug

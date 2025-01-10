@@ -1,4 +1,11 @@
-import * as React from 'react'
+import type { PaddingProps } from '@components/BlockWrapper/index.js'
+import type { Page } from '@root/payload-types.js'
+
+import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
+import { BlockWrapper } from '@components/BlockWrapper/index.js'
+import { CMSLink } from '@components/CMSLink/index.js'
+import { Gutter } from '@components/Gutter/index.js'
+import { RichText } from '@components/RichText/index.js'
 import {
   Slide,
   SliderNav,
@@ -7,82 +14,80 @@ import {
   SliderTrack,
   useSlider,
 } from '@faceless-ui/slider'
-
-import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
-import { BlockWrapper, PaddingProps } from '@components/BlockWrapper/index.js'
-import { Gutter } from '@components/Gutter/index.js'
-import { Page } from '@root/payload-types.js'
 import { ArrowIcon } from '@icons/ArrowIcon/index.js'
 import { useComputedCSSValues } from '@providers/ComputedCSSValues/index.js'
-import { QuoteCard } from './QuoteCard/index.js'
+import * as React from 'react'
 
 import classes from './index.module.scss'
+import { QuoteCard } from './QuoteCard/index.js'
 
-type Props = Extract<Page['layout'][0], { blockType: 'slider' }> & {
-  padding?: PaddingProps
+type Props = {
   hideBackground?: boolean
-}
+  padding?: PaddingProps
+} & Extract<Page['layout'][0], { blockType: 'slider' }>
 
-export const SliderBlock: React.FC<Props> = ({ sliderFields, padding, hideBackground }) => {
-  const { settings } = sliderFields
+export const SliderBlock: React.FC<Props> = ({ hideBackground, padding, sliderFields }) => {
+  const { introContent, links, quoteSlides, settings } = sliderFields
   const { currentSlideIndex } = useSlider()
 
-  const slides = sliderFields.quoteSlides
+  const slides = quoteSlides
 
-  if (!slides || slides.length === 0) return null
+  if (!slides || slides.length === 0) {
+    return null
+  }
 
   const isFirst = currentSlideIndex === 0
-  const isLast = currentSlideIndex + 1 === slides.length
+  const isLast = currentSlideIndex + 2 === slides.length
 
   return (
     <BlockWrapper
-      settings={settings}
-      padding={padding}
-      hideBackground={hideBackground}
       className={[classes.slider].filter(Boolean).join(' ')}
+      hideBackground={hideBackground}
+      padding={padding}
+      settings={settings}
     >
       <BackgroundGrid zIndex={0} />
 
+      {introContent && introContent.root.children.length > 0 && (
+        <Gutter className={['grid', classes.introContent].filter(Boolean).join(' ')}>
+          <div className="cols-12 cols-m-8">
+            <RichText content={introContent} />
+          </div>
+          {links && (
+            <div className="cols-4 start-13 cols-m-8 start-m-1">
+              {links.map(({ id, link }) => {
+                return (
+                  <CMSLink
+                    {...link}
+                    buttonProps={{
+                      hideBottomBorderExceptLast: true,
+                      hideHorizontalBorders: true,
+                    }}
+                    fullWidth
+                    key={id}
+                  />
+                )
+              })}
+            </div>
+          )}
+        </Gutter>
+      )}
+
       <div className={classes.trackWrap}>
-        <BackgroundGrid
-          zIndex={5}
-          ignoreGutter
-          gridLineStyles={{
-            1: {
-              display: 'none',
-            },
-            2: {
-              display: 'none',
-            },
-            3: {
-              display: 'none',
-            },
-          }}
-        />
         <SliderTrack className={classes.sliderTrack}>
           {slides.map((slide, index) => {
-            const isActive = currentSlideIndex === index
+            const isActive =
+              currentSlideIndex === index ? true : currentSlideIndex === index - 1 ? true : false
             return (
               <Slide
-                key={index}
-                index={index}
                 className={[classes.slide, classes.quoteSlide].filter(Boolean).join(' ')}
+                index={index}
+                key={index}
               >
-                <BackgroundGrid
-                  zIndex={1}
-                  ignoreGutter
-                  gridLineStyles={{
-                    0: { display: 'none' },
-                    1: { display: 'none' },
-                    2: { display: 'none' },
-                    3: { display: 'none' },
-                  }}
-                />
                 <QuoteCard isActive={isActive} {...slide} />
               </Slide>
             )
           })}
-          <div className={classes.fakeSlide} />
         </SliderTrack>
         <div className={classes.progressBarBackground} />
       </div>
@@ -90,17 +95,17 @@ export const SliderBlock: React.FC<Props> = ({ sliderFields, padding, hideBackgr
       <Gutter>
         <SliderNav
           className={classes.sliderNav}
+          nextButtonProps={{
+            children: <ArrowIcon rotation={45} />,
+            className: [classes.navButton, isLast && classes.disabled].filter(Boolean).join(' '),
+            disabled: isLast,
+          }}
           prevButtonProps={{
+            children: <ArrowIcon rotation={225} />,
             className: [classes.navButton, classes.prevButton, isFirst && classes.disabled]
               .filter(Boolean)
               .join(' '),
-            children: <ArrowIcon rotation={225} />,
             disabled: isFirst,
-          }}
-          nextButtonProps={{
-            className: [classes.navButton, isLast && classes.disabled].filter(Boolean).join(' '),
-            children: <ArrowIcon rotation={45} />,
-            disabled: isLast,
           }}
         />
       </Gutter>
@@ -109,11 +114,11 @@ export const SliderBlock: React.FC<Props> = ({ sliderFields, padding, hideBackgr
   )
 }
 
-export const Slider: React.FC<Props> = props => {
+export const Slider: React.FC<Props> = (props) => {
   const { gutterH } = useComputedCSSValues()
 
   return (
-    <SliderProvider scrollSnap={true} slideOnSelect={true} slidesToShow={1} scrollOffset={gutterH}>
+    <SliderProvider scrollOffset={gutterH} scrollSnap={true} slideOnSelect={true} slidesToShow={1}>
       <SliderBlock {...props} />
     </SliderProvider>
   )

@@ -1,23 +1,21 @@
 import type { Team } from '@root/payload-cloud-types.js'
+
 import { payloadCloudToken } from './token.js'
 
 // TODO: type this using the Stripe module
 export interface Invoice {
-  id: string
-  status: string
-
   created: number
-  total: number
   hosted_invoice_url: string
+
+  id: string
   lines: {
-    url: string
     data: [
       {
-        id: string
         description: string
+        id: string
         period: {
-          start: number
           end: number
+          start: number
         }
         plan: {
           id: string
@@ -27,7 +25,10 @@ export interface Invoice {
         }
       },
     ]
+    url: string
   }
+  status: string
+  total: number
 }
 
 export interface InvoicesResult {
@@ -35,52 +36,58 @@ export interface InvoicesResult {
   has_more: boolean
 }
 
-export const fetchInvoices = async (team?: Team | string): Promise<InvoicesResult> => {
+export const fetchInvoices = async (team?: string | Team): Promise<InvoicesResult> => {
   const teamID = typeof team === 'string' ? team : team?.id
-  if (!teamID) throw new Error('No team ID provided')
+  if (!teamID) {
+    throw new Error('No team ID provided')
+  }
 
   const { cookies } = await import('next/headers')
   const token = (await cookies()).get(payloadCloudToken)?.value ?? null
-  if (!token) throw new Error('No token provided')
+  if (!token) {
+    throw new Error('No token provided')
+  }
 
   const res: InvoicesResult = await fetch(
     `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/teams/${teamID}/invoices`,
     {
-      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         ...(token ? { Authorization: `JWT ${token}` } : {}),
       },
+      method: 'POST',
     },
-  )?.then(r => r.json())
+  )?.then((r) => r.json())
 
   return res
 }
 
 export const fetchInvoicesClient = async ({
-  team,
   starting_after,
+  team,
 }: {
-  team?: Team | string | null
   starting_after?: string
+  team?: null | string | Team
 }): Promise<InvoicesResult> => {
   const teamID = typeof team === 'string' ? team : team?.id
 
-  if (!teamID) throw new Error('No team ID provided')
+  if (!teamID) {
+    throw new Error('No team ID provided')
+  }
 
   const res: InvoicesResult = await fetch(
     `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/teams/${teamID}/invoices`,
     {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
       body: JSON.stringify({
         starting_after,
       }),
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
     },
-  ).then(r => r.json())
+  ).then((r) => r.json())
 
   return res
 }

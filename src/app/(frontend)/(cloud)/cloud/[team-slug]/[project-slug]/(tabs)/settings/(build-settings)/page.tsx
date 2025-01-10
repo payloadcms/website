@@ -1,33 +1,34 @@
-import { fetchProjectAndRedirect } from '@cloud/_api/fetchProject.js'
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
-import { ProjectBuildSettingsPage } from './page_client.js'
-import { generateRoutePath } from '@root/utilities/generate-route-path.js'
+import { fetchProjectAndRedirect } from '@cloud/_api/fetchProject.js'
 import { PRODUCTION_ENVIRONMENT_SLUG } from '@root/constants.js'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
+import { generateRoutePath } from '@root/utilities/generate-route-path.js'
+
+import { ProjectBuildSettingsPage } from './page_client.js'
 
 export default async ({
   params,
 }: {
   params: Promise<{
-    'team-slug': string
-    'project-slug': string
     'environment-slug': string
+    'project-slug': string
+    'team-slug': string
   }>
 }) => {
   const {
-    'team-slug': teamSlug,
-    'project-slug': projectSlug,
     'environment-slug': environmentSlug = PRODUCTION_ENVIRONMENT_SLUG,
+    'project-slug': projectSlug,
+    'team-slug': teamSlug,
   } = await params
-  const { team, project } = await fetchProjectAndRedirect({
-    teamSlug,
-    projectSlug,
+  const { project, team } = await fetchProjectAndRedirect({
     environmentSlug,
+    projectSlug,
+    teamSlug,
   })
 
   return (
-    <ProjectBuildSettingsPage project={project} team={team} environmentSlug={environmentSlug} />
+    <ProjectBuildSettingsPage environmentSlug={environmentSlug} project={project} team={team} />
   )
 }
 
@@ -35,26 +36,26 @@ export async function generateMetadata({
   params,
 }: {
   params: Promise<{
-    'team-slug': string
-    'project-slug': string
     'environment-slug': string
+    'project-slug': string
+    'team-slug': string
   }>
 }): Promise<Metadata> {
   const {
-    'team-slug': teamSlug,
-    'project-slug': projectSlug,
     'environment-slug': environmentSlug = PRODUCTION_ENVIRONMENT_SLUG,
+    'project-slug': projectSlug,
+    'team-slug': teamSlug,
   } = await params
   return {
-    title: 'Build Settings',
     openGraph: mergeOpenGraph({
       title: 'Build Settings',
       url: generateRoutePath({
-        teamSlug,
-        projectSlug,
         environmentSlug,
+        projectSlug,
         suffix: 'settings/build-settings',
+        teamSlug,
       }),
     }),
+    title: 'Build Settings',
   }
 }

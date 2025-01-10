@@ -3,13 +3,13 @@ import { cookies, draftMode } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 export async function GET(
-  req: Request & {
+  req: {
     cookies: {
       get: (name: string) => {
         value: string
       }
     }
-  },
+  } & Request,
 ): Promise<Response> {
   const cookieStore = await cookies()
   const token = cookieStore.get(payloadToken)

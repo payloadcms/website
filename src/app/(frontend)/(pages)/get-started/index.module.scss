@@ -1,0 +1,105 @@
+@use '@scss/common' as *;
+
+.wrap {
+  border-top: 1px solid var(--theme-border-color);
+  border-bottom: 1px solid var(--theme-border-color);
+  position: relative;
+  margin-top: var(--page-padding-top);
+}
+
+.mainContent {
+  padding: 3rem var(--column) var(--column);
+  background-color: var(--theme-bg);
+  margin-inline: 1px;
+
+  @include mid-break {
+    padding: 3rem 1.5rem;
+    background: none;
+    margin: none;
+    border-bottom: 1px solid var(--theme-border-color);
+  }
+}
+
+.heading {
+  @include h2;
+  & {
+    margin: 0;
+  }
+}
+
+.tabsList {
+  display: flex;
+  justify-content: flex-start;
+  margin: 2rem calc(var(--column) * -1);
+  padding: 0 var(--column);
+  width: calc(100% + var(--column) * 2);
+  border-bottom: 1px solid var(--theme-border-color);
+  gap: 1rem;
+
+  @include mid-break {
+    margin: 1rem -1rem;
+    padding: 0 1rem;
+    position: sticky;
+    top: var(--page-padding-top);
+    z-index: 1;
+    background-color: var(--theme-bg);
+  }
+}
+
+.tabsTrigger {
+  appearance: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: transparent;
+  font-weight: 500;
+  padding: 1rem 0;
+  border-bottom: 2px solid transparent;
+  position: relative;
+  color: var(--theme-elevation-500);
+  transition-property: color, border-bottom-color;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out;
+
+  @include h5;
+
+  & {
+    margin: 0;
+    font-family: var(--font-body);
+    font-weight: 500;
+  }
+
+  &[data-state='active'] {
+    border-bottom-color: var(--theme-text);
+    color: var(--theme-text);
+  }
+
+  &:hover:not([data-state='active']) {
+    cursor: pointer;
+    border-bottom-color: var(--theme-elevation-250);
+    color: var(--theme-text);
+
+    &::after {
+      opacity: 1;
+    }
+  }
+}
+
+.sidebar {
+  position: relative;
+  padding-bottom: 3rem;
+  & > * {
+    position: sticky;
+    top: var(--page-padding-top);
+  }
+}
+
+.sidebarContent {
+  padding: 3rem 1.5rem 2rem;
+}
+
+.sidebarLinks {
+  list-style: none;
+  padding-left: 0;
+}

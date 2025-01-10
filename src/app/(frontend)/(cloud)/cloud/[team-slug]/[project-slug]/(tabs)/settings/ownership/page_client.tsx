@@ -20,22 +20,25 @@ export const ProjectOwnershipPage: React.FC<{
 
   const isCurrentTeamOwner = checkTeamRoles(user, currentTeam, ['owner'])
 
-  const teamOptions = user?.teams?.reduce((acc, userTeam) => {
-    if (
-      userTeam.team &&
-      userTeam.team !== 'string' &&
-      isExpandedDoc<Team>(userTeam.team) &&
-      userTeam?.roles?.length
-    ) {
-      acc.push({
-        slug: userTeam.team.slug,
-        label: `"${userTeam.team.name}" owns this project`,
-        value: userTeam.team.id,
-      })
-    }
+  const teamOptions = user?.teams?.reduce(
+    (acc, userTeam) => {
+      if (
+        userTeam.team &&
+        userTeam.team !== 'string' &&
+        isExpandedDoc<Team>(userTeam.team) &&
+        userTeam?.roles?.length
+      ) {
+        acc.push({
+          slug: userTeam.team.slug,
+          label: `"${userTeam.team.name}" owns this project`,
+          value: userTeam.team.id,
+        })
+      }
 
-    return acc
-  }, [] as { label: string; slug?: string; value: string }[])
+      return acc
+    },
+    [] as { label: string; slug?: string; value: string }[],
+  )
 
   return (
     <MaxWidth>

@@ -9,13 +9,13 @@ import classes from './index.module.scss'
 // }
 
 export const Message: React.FC<{
+  className?: string
+  error?: React.ReactNode
+  margin?: boolean
   message?: React.ReactNode
   success?: React.ReactNode
-  error?: React.ReactNode
   warning?: React.ReactNode
-  className?: string
-  margin?: boolean
-}> = ({ error, success, warning, message, className, margin }) => {
+}> = ({ className, error, margin, message, success, warning }) => {
   // const type = error ? 'error' : success ? 'success' : 'warning'
   // const Icon = icons[type]
 

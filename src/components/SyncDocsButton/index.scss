@@ -1,16 +1,16 @@
-@import '~@payloadcms/ui/scss';
+@use '~@payloadcms/ui/scss';
 
 .sync-docs-button {
-	@extend %btn-reset;
-	padding-top: base(0.75);
-	cursor: pointer;
+  @extend %btn-reset;
+  padding-top: base(0.75);
+  cursor: pointer;
 
-	&:hover {
-		text-decoration: underline;
-	}
+  &:hover {
+    text-decoration: underline;
+  }
 
-	&:disabled {
-		cursor: not-allowed;
-		opacity: 0.5;
-	}
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
 }

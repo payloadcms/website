@@ -4,9 +4,9 @@ import classes from './index.module.scss'
 
 export const Pill: React.FC<{
   className?: string
+  color?: 'blue' | 'default' | 'error' | 'success' | 'warning'
   text: string
-  color?: 'default' | 'success' | 'error' | 'warning' | 'blue'
-}> = ({ className, text, color }) => {
+}> = ({ className, color, text }) => {
   return (
     <div
       className={[classes.pill, className, color && classes[`color--${color}`]]

@@ -1,43 +1,44 @@
 'use client'
 
-import React, { Fragment, useCallback, useReducer } from 'react'
-import { fetchInstalls, Install } from '@cloud/_api/fetchInstalls.js'
-import { RepoResults } from '@cloud/_api/fetchRepos.js'
+import type { Install } from '@cloud/_api/fetchInstalls.js'
+import type { RepoResults } from '@cloud/_api/fetchRepos.js'
+import type { Team } from '@root/payload-cloud-types.js'
+
+import { fetchInstalls } from '@cloud/_api/fetchInstalls.js'
 import { InstallationButton } from '@cloud/_components/InstallationButton/index.js'
 import { InstallationSelector } from '@cloud/_components/InstallationSelector/index.js'
 import { useTeamDrawer } from '@cloud/_components/TeamDrawer/index.js'
 import { cloudSlug } from '@cloud/slug.js'
+import { Gutter } from '@components/Gutter/index.js'
+import { Pagination } from '@components/Pagination/index.js'
 import RadioGroup from '@forms/fields/RadioGroup/index.js'
 import Form from '@forms/Form/index.js'
 import FormProcessing from '@forms/FormProcessing/index.js'
 import FormSubmissionError from '@forms/FormSubmissionError/index.js'
 import { useRouter, useSearchParams } from 'next/navigation'
+import React, { Fragment, useCallback, useReducer } from 'react'
 
-import { Gutter } from '@components/Gutter/index.js'
-import { Pagination } from '@components/Pagination/index.js'
-import { Team } from '@root/payload-cloud-types.js'
 import { createDraftProject } from '../createDraftProject.js'
+import classes from './page.module.scss'
 import { RepoCard } from './RepoCard/index.js'
 import { useGetRepos } from './useGetRepos.js'
-
-import classes from './page.module.scss'
 
 const perPage = 30
 
 export const ImportProject: React.FC<{
   installs: Install[]
   repos?: RepoResults
-  uuid: string
   user: any
-}> = props => {
-  const { installs: initialInstalls, repos: initialRepos, uuid, user } = props
+  uuid: string
+}> = (props) => {
+  const { installs: initialInstalls, repos: initialRepos, user, uuid } = props
   const searchParams = useSearchParams()
   const teamParam = searchParams?.get('team')
   const router = useRouter()
   const submitButtonRef = React.useRef<HTMLButtonElement | null>(null)
   const formRef = React.useRef<HTMLFormElement | null>(null)
   const [hoverIndex, setHoverIndex] = React.useState<number | undefined>(undefined)
-  const [repoReloadTicker, reloadRepos] = useReducer(count => count + 1, 0)
+  const [repoReloadTicker, reloadRepos] = useReducer((count) => count + 1, 0)
 
   const [installs, setInstalls] = React.useState<Install[]>(initialInstalls || [])
 
@@ -53,19 +54,19 @@ export const ImportProject: React.FC<{
 
   const {
     loading: loadingRepos,
-    results,
     page,
+    results,
     setPage,
   } = useGetRepos({
-    selectedInstall,
-    repos: initialRepos?.repositories,
-    reloadTicker: repoReloadTicker,
     perPage,
+    reloadTicker: repoReloadTicker,
+    repos: initialRepos?.repositories,
+    selectedInstall,
   })
 
   const matchedTeam = user?.teams?.find(
     ({ team }) => typeof team !== 'string' && team?.slug === teamParam,
-  )?.team as Team //eslint-disable-line function-paren-newline
+  )?.team as Team
 
   const onDraftProjectCreate = useCallback(
     ({ slug: draftProjectSlug, team }) =>
@@ -80,7 +81,7 @@ export const ImportProject: React.FC<{
   const handleSubmit = useCallback(
     async ({ unflattenedData }) => {
       const foundRepo = results?.repositories?.find(
-        repo => repo.name === unflattenedData.repositoryName,
+        (repo) => repo.name === unflattenedData.repositoryName,
       )
 
       if (!foundRepo) {
@@ -88,10 +89,10 @@ export const ImportProject: React.FC<{
       }
 
       await createDraftProject({
-        repo: foundRepo,
-        teamID: matchedTeam?.id,
         installID: selectedInstall?.id,
         onSubmit: onDraftProjectCreate,
+        repo: foundRepo,
+        teamID: matchedTeam?.id,
         user,
       })
     },
@@ -116,7 +117,7 @@ export const ImportProject: React.FC<{
     : results?.repositories || []
 
   return (
-    <Form ref={formRef} onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} ref={formRef}>
       <Gutter>
         <div className={[classes.formState, 'cols-16'].join(' ')}>
           {noTeams && (
@@ -173,32 +174,26 @@ export const ImportProject: React.FC<{
                   className={[classes.repos, loadingRepos && classes.loading]
                     .filter(Boolean)
                     .join(' ')}
-                  initialValue=""
-                  path="repositoryName"
-                  layout="vertical"
                   hidden
-                  required
+                  initialValue=""
+                  layout="vertical"
                   onChange={onRepoChange}
                   options={cardArray?.map((repo, index) => {
                     const isHovered = hoverIndex === index
 
                     return {
-                      value: repo?.name,
                       label: (
                         <RepoCard
-                          key={index}
-                          repo={repo}
                           isHovered={isHovered}
                           isLoading={loadingRepos}
-                          onMouseEnter={() => setHoverIndex(index)}
-                          onMouseLeave={() => setHoverIndex(undefined)}
-                          onClick={async repo => {
+                          key={index}
+                          onClick={async (repo) => {
                             try {
                               await createDraftProject({
-                                repo,
-                                teamID: matchedTeam?.id,
                                 installID: selectedInstall?.id,
                                 onSubmit: onDraftProjectCreate,
+                                repo,
+                                teamID: matchedTeam?.id,
                                 user,
                               })
                             } catch (error) {
@@ -206,10 +201,16 @@ export const ImportProject: React.FC<{
                               console.error(error) // eslint-disable-line no-console
                             }
                           }}
+                          onMouseEnter={() => setHoverIndex(index)}
+                          onMouseLeave={() => setHoverIndex(undefined)}
+                          repo={repo}
                         />
                       ),
+                      value: repo?.name,
                     }
                   })}
+                  path="repositoryName"
+                  required
                 />
               ) : (
                 <div className={classes.noRepos}>
@@ -227,22 +228,22 @@ export const ImportProject: React.FC<{
             </Fragment>
           )}
         </div>
-        {installs?.length > 0 && results?.total_count / perPage > 1 && (
+        {installs?.length > 0 && initialRepos && initialRepos?.total_count > perPage && (
           <Pagination
+            className={classes.pagination}
             page={page}
             setPage={setPage}
-            totalPages={Math.ceil(results?.total_count / perPage)}
-            className={classes.pagination}
+            totalPages={Math.ceil(initialRepos?.total_count / perPage)}
           />
         )}
       </Gutter>
       <TeamDrawer />
       <button
+        className={classes.submit}
         ref={submitButtonRef}
         // this button is hidden and programmatically clicked when a repo is selected
         // see the `onChange` handler on the `RadioGroup` above
         type="submit"
-        className={classes.submit}
       />
     </Form>
   )

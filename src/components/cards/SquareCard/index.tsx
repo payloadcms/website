@@ -1,14 +1,14 @@
-import React from 'react'
-import { ArrowIcon } from '@icons/ArrowIcon/index.js'
-
 import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
 import { CMSLink } from '@components/CMSLink/index.js'
-import { SquareCardProps } from '../types.js'
+import { ArrowIcon } from '@icons/ArrowIcon/index.js'
+import React from 'react'
+
+import type { SquareCardProps } from '../types.js'
 
 import classes from './index.module.scss'
 
-export const SquareCard: React.FC<SquareCardProps> = props => {
-  const { title, className, leader, description, revealDescription, enableLink } = props
+export const SquareCard: React.FC<SquareCardProps> = (props) => {
+  const { className, description, enableLink, leader, revealDescription, title } = props
   const link = props.link || {}
   const hasLink = enableLink
 

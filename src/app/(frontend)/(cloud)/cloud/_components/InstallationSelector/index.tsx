@@ -1,30 +1,31 @@
-import React, { Fragment, useEffect, useRef, useState } from 'react'
-import { Install } from '@cloud/_api/fetchInstalls.js'
-import { Select } from '@forms/fields/Select/index.js'
-import Label from '@forms/Label/index.js'
+import type { Install } from '@cloud/_api/fetchInstalls.js'
 
 import { LoadingShimmer } from '@components/LoadingShimmer/index.js'
+import { Select } from '@forms/fields/Select/index.js'
+import Label from '@forms/Label/index.js'
 import { usePopupWindow } from '@root/utilities/use-popup-window.js'
+import React, { Fragment, useEffect, useRef, useState } from 'react'
+
+import type { InstallationSelectorProps } from './types.js'
+
 import { MenuList } from './components/MenuList/index.js'
 import { Option } from './components/Option/index.js'
 import { SingleValue } from './components/SingleValue/index.js'
-import { InstallationSelectorProps } from './types.js'
-
 import classes from './index.module.scss'
 
-export const InstallationSelector: React.FC<InstallationSelectorProps> = props => {
+export const InstallationSelector: React.FC<InstallationSelectorProps> = (props) => {
   const {
-    onChange,
-    value: valueFromProps,
-    installs,
-    onInstall,
-    error,
-    loading,
+    className,
     description,
     disabled,
+    error,
     hideLabel,
-    className,
+    installs,
+    loading,
+    onChange,
+    onInstall,
     uuid,
+    value: valueFromProps,
   } = props
 
   // this will be validated after the redirect back
@@ -37,7 +38,7 @@ export const InstallationSelector: React.FC<InstallationSelectorProps> = props =
       if (valueFromProps !== undefined) {
         const idFromProps =
           typeof valueFromProps === 'string' ? parseInt(valueFromProps, 10) : valueFromProps
-        return installs.find(install => install.id === idFromProps)
+        return installs.find((install) => install.id === idFromProps)
       } else {
         return installs[0]
       }
@@ -45,19 +46,21 @@ export const InstallationSelector: React.FC<InstallationSelectorProps> = props =
   })
 
   const { openPopupWindow } = usePopupWindow({
-    href,
     eventType: 'github',
-    onMessage: async (searchParams: { state: string; installation_id: string }) => {
+    href,
+    onMessage: async (searchParams: { installation_id: string; state: string }) => {
       if (searchParams.state === uuid) {
         selectAfterLoad.current = parseInt(searchParams.installation_id, 10)
-        if (typeof onInstall === 'function') onInstall()
+        if (typeof onInstall === 'function') {
+          onInstall()
+        }
       }
     },
   })
 
   useEffect(() => {
     if (selectAfterLoad.current) {
-      const newSelection = installs?.find(install => install.id === selectAfterLoad.current)
+      const newSelection = installs?.find((install) => install.id === selectAfterLoad.current)
       setSelection(newSelection)
       selectAfterLoad.current = undefined
     }
@@ -68,19 +71,28 @@ export const InstallationSelector: React.FC<InstallationSelectorProps> = props =
       {error && <p>{error}</p>}
       {loading && (
         <Fragment>
-          {!hideLabel && <Label label="GitHub Scope" htmlFor="github-installation" />}
+          {!hideLabel && <Label htmlFor="github-installation" label="GitHub Scope" />}
           <LoadingShimmer />
         </Fragment>
       )}
       {!loading && (
         <Select
-          label={!hideLabel ? 'GitHub Scope' : undefined}
-          value={(selection?.account as { login: string })?.login}
+          components={{
+            MenuList: (menuListProps) => (
+              <MenuList {...menuListProps} href={href} openPopupWindow={openPopupWindow} />
+            ),
+            Option,
+            SingleValue,
+          }}
+          disabled={disabled}
           initialValue={(installs?.[0]?.account as { login: string })?.login}
-          onChange={option => {
-            if (Array.isArray(option)) return
+          label={!hideLabel ? 'GitHub Scope' : undefined}
+          onChange={(option) => {
+            if (Array.isArray(option)) {
+              return
+            }
             const newSelection = installs?.find(
-              install => (install?.account as { login: string })?.login === option,
+              (install) => (install?.account as { login: string })?.login === option,
             )
             setSelection(newSelection)
             if (typeof onChange === 'function') {
@@ -90,7 +102,7 @@ export const InstallationSelector: React.FC<InstallationSelectorProps> = props =
           options={[
             ...(installs && installs.length > 0
               ? [
-                  ...installs.map(install => ({
+                  ...installs.map((install) => ({
                     label: (install?.account as { login: string })?.login || 'Untitled',
                     value: (install?.account as { login: string })?.login || '',
                   })),
@@ -102,16 +114,7 @@ export const InstallationSelector: React.FC<InstallationSelectorProps> = props =
                   },
                 ]),
           ]}
-          selectProps={{
-            openPopupWindow,
-            href,
-          }}
-          components={{
-            MenuList,
-            Option,
-            SingleValue,
-          }}
-          disabled={disabled}
+          value={(selection?.account as { login: string })?.login}
         />
       )}
       {description && <p className={classes.description}>{description}</p>}

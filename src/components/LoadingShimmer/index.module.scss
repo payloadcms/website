@@ -1,35 +1,35 @@
 @use '@scss/common' as *;
 
 @keyframes shimmer {
-    0% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0.75;
-    }
-    100% {
-        opacity: 1;
-    }
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.75;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .loading {
-    & > *:not(:last-child) {
-        margin-bottom: 1rem;
-    }
+  & > *:not(:last-child) {
+    margin-bottom: 1rem;
+  }
 }
 
 .shimmer {
-    width: 100%;
-    height: 2.5rem; // same as input height `formInput`
-    background-color: var(--theme-elevation-50);
-    border-radius: 1px;
-    opacity: 1;
-    will-change: opacity;
-    animation: shimmer 1s infinite;
+  width: 100%;
+  height: 2.5rem; // same as input height `formInput`
+  background-color: var(--theme-elevation-50);
+  border-radius: 1px;
+  opacity: 1;
+  will-change: opacity;
+  animation: shimmer 1s infinite;
 }
 
 :global([data-theme='dark']) {
-    .shimmer {
-        background-color: var(--theme-elevation-150);
-    }
+  .shimmer {
+    background-color: var(--theme-elevation-150);
+  }
 }

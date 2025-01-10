@@ -1,23 +1,23 @@
-import * as React from 'react'
-import Link from 'next/link'
+import type { MainMenu } from '@root/payload-types.js'
 
 import { Avatar } from '@components/Avatar/index.js'
 import { Gutter } from '@components/Gutter/index.js'
 import { RichText } from '@components/RichText/index.js'
 import { GitHubIcon } from '@root/graphics/GitHub/index.js'
 import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'
-import { MainMenu } from '@root/payload-types.js'
 import { useAuth } from '@root/providers/Auth/index.js'
 import { useHeaderObserver } from '@root/providers/HeaderIntersectionObserver/index.js'
 import { useStarCount } from '@root/utilities/use-star-count.js'
+import Link from 'next/link'
+import * as React from 'react'
+
 import { FullLogo } from '../../../graphics/FullLogo/index.js'
 import { CMSLink } from '../../CMSLink/index.js'
 import { DocSearch } from '../Docsearch/index.js'
-
 import classes from './index.module.scss'
 
-type DesktopNavType = Pick<MainMenu, 'tabs'> & { hideBackground?: boolean }
-export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) => {
+type DesktopNavType = { hideBackground?: boolean } & Pick<MainMenu, 'menuCta' | 'tabs'>
+export const DesktopNav: React.FC<DesktopNavType> = ({ hideBackground, menuCta, tabs }) => {
   const { user } = useAuth()
   const [activeTab, setActiveTab] = React.useState<number | undefined>()
   const [activeDropdown, setActiveDropdown] = React.useState<boolean | undefined>(false)
@@ -49,8 +49,26 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) =
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hideBackground])
+  const hoverTimeout = React.useRef<null | number>(null)
 
-  const handleHoverEnter = index => {
+  const handleMouseEnter = (args) => {
+    if (!activeDropdown) {
+      hoverTimeout.current = window.setTimeout(() => {
+        handleHoverEnter(args)
+      }, 200)
+    } else {
+      handleHoverEnter(args)
+    }
+  }
+
+  const handleMouseLeave = () => {
+    if (hoverTimeout.current) {
+      clearTimeout(hoverTimeout.current)
+      hoverTimeout.current = null
+    }
+  }
+
+  const handleHoverEnter = (index) => {
     setActiveTab(index)
     setActiveDropdown(true)
 
@@ -60,8 +78,8 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) =
 
     if (hoveredMenuItem) {
       setUnderlineStyles({
-        width: `${hoveredMenuItem.clientWidth}px`,
         left: hoveredMenuItem.offsetLeft,
+        width: `${hoveredMenuItem.clientWidth}px`,
       })
     }
 
@@ -95,8 +113,8 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) =
       >
         <div className={[classes.grid, 'grid'].join(' ')}>
           <div className={[classes.logo, 'cols-4'].join(' ')}>
-            <Link href="/" className={classes.logo} prefetch={false} aria-label="Full Payload Logo">
-              <FullLogo />
+            <Link aria-label="Full Payload Logo" className={classes.logo} href="/" prefetch={false}>
+              <FullLogo className="w-auto h-[30px]" />
             </Link>
           </div>
           <div className={[classes.content, 'cols-8'].join(' ')}>
@@ -104,10 +122,14 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) =
               {(tabs || []).map((tab, tabIndex) => {
                 const { enableDirectLink = false, enableDropdown = false } = tab
                 return (
-                  <div key={tabIndex} onMouseEnter={() => handleHoverEnter(tabIndex)}>
+                  <div
+                    key={tabIndex}
+                    onMouseEnter={() => handleMouseEnter(tabIndex)}
+                    onMouseLeave={() => handleMouseLeave()}
+                  >
                     <button
                       className={classes.tab}
-                      ref={ref => {
+                      ref={(ref) => {
                         menuItemRefs[tabIndex] = ref
                       }}
                     >
@@ -130,10 +152,10 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) =
                         ]
                           .filter(Boolean)
                           .join(' ')}
-                        ref={ref => {
+                        onClick={resetHoverStyles}
+                        ref={(ref) => {
                           dropdownMenuRefs[tabIndex] = ref
                         }}
-                        onClick={resetHoverStyles}
                       >
                         <div className={[classes.description, 'cols-4'].join(' ')}>
                           {tab.description}
@@ -156,7 +178,7 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) =
                             const isActive = activeDropdownItem === index
                             let columnSpan = 12 / (tab.navItems?.length || 1)
                             const containsFeatured = tab.navItems?.some(
-                              navItem => navItem.style === 'featured',
+                              (navItem) => navItem.style === 'featured',
                             )
                             const showUnderline = isActive && item.style === 'default'
 
@@ -170,8 +192,8 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) =
                                   classes.dropdownItem,
                                   showUnderline && classes.showUnderline,
                                 ].join(' ')}
-                                onMouseEnter={() => setActiveDropdownItem(index)}
                                 key={index}
+                                onMouseEnter={() => setActiveDropdownItem(index)}
                               >
                                 {item.style === 'default' && item.defaultLink && (
                                   <CMSLink
@@ -237,9 +259,9 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) =
                 )
               })}
               <div
+                aria-hidden="true"
                 className={classes.underline}
                 style={{ ...underlineStyles, opacity: activeDropdown || activeTab ? 1 : 0 }}
-                aria-hidden="true"
               >
                 <div className={classes.underlineFill} />
               </div>
@@ -249,29 +271,27 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) =
             <div
               className={[classes.secondaryNavItems, user !== undefined && classes.show].join(' ')}
             >
-              <Link href="/new" prefetch={false}>
-                New project
-              </Link>
+              <a
+                aria-label="Payload's GitHub"
+                className={classes.github}
+                href="https://github.com/payloadcms/payload"
+                rel="noreferrer"
+                target="_blank"
+              >
+                <GitHubIcon />
+                {starCount}
+              </a>
               {user ? (
                 <Avatar className={classes.avatar} />
               ) : (
-                <Link prefetch={false} href="/login">
-                  Login
-                </Link>
+                <>
+                  <Link href="/login" prefetch={false}>
+                    Login
+                  </Link>
+                  {menuCta && menuCta.label && <CMSLink {...menuCta} className={classes.button} />}
+                </>
               )}
-              <div className={classes.icons}>
-                <a
-                  className={classes.github}
-                  href="https://github.com/payloadcms/payload"
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="Payload's GitHub"
-                >
-                  <GitHubIcon />
-                  {starCount}
-                </a>
-                <DocSearch />
-              </div>
+              <DocSearch />
             </div>
           </div>
         </div>

@@ -1,27 +1,29 @@
 'use client'
 
-import React, { forwardRef } from 'react'
+import type { ButtonProps } from '@components/Button/index.js'
+
+import { Button } from '@components/Button/index.js'
 import { useFormProcessing } from '@forms/Form/context.js'
+import React, { forwardRef } from 'react'
 
-import { Button, ButtonProps } from '@components/Button/index.js'
-
-type SubmitProps = ButtonProps & {
-  label?: string | null
-  processing?: boolean
+type SubmitProps = {
   iconSize?: 'large' | 'medium' | 'small' | undefined
-}
+  label?: null | string
+  processing?: boolean
+} & ButtonProps
 
 const Submit = forwardRef<HTMLButtonElement, SubmitProps>((props, ref) => {
   const {
-    label,
-    processing: processingFromProps,
-    className,
+    id,
     appearance = 'default',
-    size = 'default',
-    icon = 'arrow',
+    className,
     disabled,
+    icon = 'arrow',
     iconRotation,
     iconSize,
+    label,
+    processing: processingFromProps,
+    size = 'default',
   } = props
 
   const processing = useFormProcessing()
@@ -29,19 +31,20 @@ const Submit = forwardRef<HTMLButtonElement, SubmitProps>((props, ref) => {
 
   return (
     <Button
-      ref={ref}
-      htmlButtonType="submit"
       appearance={appearance}
-      size={size}
-      icon={icon && !isProcessing ? icon : undefined}
-      iconRotation={iconRotation}
-      label={isProcessing ? 'Processing...' : label || 'Submit'}
       className={className}
       disabled={isProcessing || disabled}
       fullWidth
       hideHorizontalBorders
-      isCMSFormSubmitButton
+      htmlButtonType="submit"
+      icon={icon && !isProcessing ? icon : undefined}
+      iconRotation={iconRotation}
       iconSize={iconSize}
+      id={id}
+      isCMSFormSubmitButton
+      label={isProcessing ? 'Processing...' : label || 'Submit'}
+      ref={ref}
+      size={size}
     />
   )
 })

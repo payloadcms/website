@@ -1,21 +1,22 @@
-import React, { Fragment, useCallback, useEffect, useReducer, useRef, useState } from 'react'
+import type { Endpoints } from '@octokit/types'
+import type { Project } from '@root/payload-cloud-types.js'
+
+import { LoadingShimmer } from '@components/LoadingShimmer/index.js'
 import { Select } from '@forms/fields/Select/index.js'
 import { Text } from '@forms/fields/Text/index.js'
 import Label from '@forms/Label/index.js'
-import type { Endpoints } from '@octokit/types'
+import React, { Fragment, useCallback, useEffect, useReducer, useRef, useState } from 'react'
 
-import { LoadingShimmer } from '@components/LoadingShimmer/index.js'
-import { Project } from '@root/payload-cloud-types.js'
 import { branchReducer } from './reducer.js'
 
 type GitHubListBranchesResponse = Endpoints['GET /repos/{owner}/{repo}/branches']['response']
 type GitHubFullRepoResponse = Endpoints['GET /repos/{owner}/{repo}']['response']
 
 export const BranchSelector: React.FC<{
-  repositoryFullName: Project['repositoryFullName']
   initialValue?: string
-}> = props => {
-  const { repositoryFullName, initialValue = 'main' } = props
+  repositoryFullName: Project['repositoryFullName']
+}> = (props) => {
+  const { initialValue = 'main', repositoryFullName } = props
 
   const [page, dispatchPage] = useReducer((state: number, action: 'INCREMENT') => {
     switch (action) {
@@ -51,14 +52,14 @@ export const BranchSelector: React.FC<{
         const branchesReq = await fetch(
           `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/github`,
           {
-            method: 'POST',
+            body: JSON.stringify({
+              route: `GET /repos/${owner}/${repo}/branches?page=${page}`,
+            }),
             credentials: 'include',
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-              route: `GET /repos/${owner}/${repo}/branches?page=${page}`,
-            }),
+            method: 'POST',
           },
         )
 
@@ -70,14 +71,14 @@ export const BranchSelector: React.FC<{
             const fullRepo = await fetch(
               `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/github`,
               {
-                method: 'POST',
+                body: JSON.stringify({
+                  route: `GET /repos/${owner}/${repo}`,
+                }),
                 credentials: 'include',
                 headers: {
                   'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                  route: `GET /repos/${owner}/${repo}`,
-                }),
+                method: 'POST',
               },
             )
             const fullRepoRes: GitHubFullRepoResponse = await fullRepo.json()
@@ -87,8 +88,8 @@ export const BranchSelector: React.FC<{
           dispatchResult({
             type: 'ADD',
             payload: {
+              branches: branchesRes.data.map((branch) => branch.name),
               defaultBranch,
-              branches: branchesRes.data.map(branch => branch.name),
             },
           })
         }
@@ -138,22 +139,22 @@ export const BranchSelector: React.FC<{
     <Fragment>
       {result?.branches?.length > 0 ? (
         <Select
+          initialValue={result?.defaultBranch}
           label="Branch to deploy"
-          path="deploymentBranch"
-          options={result?.branches?.map(branch => ({
+          onMenuScrollToBottom={onMenuScrollToBottom}
+          options={result?.branches?.map((branch) => ({
             label: branch,
             value: branch,
           }))}
+          path="deploymentBranch"
           required
-          initialValue={result?.defaultBranch}
-          onMenuScrollToBottom={onMenuScrollToBottom}
         />
       ) : (
         <Text
+          initialValue={initialValue}
           label="Branch to deploy"
           path="deploymentBranch"
           placeholder="main"
-          initialValue={initialValue}
           required
         />
       )}

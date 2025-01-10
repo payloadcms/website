@@ -1,11 +1,12 @@
 'use client'
 
-import { useCallback, useEffect, useRef, useState } from 'react'
 import useDebounce from '@utilities/use-debounce.js'
+import { useCallback, useEffect, useRef, useState } from 'react'
+
+import type { FieldWithPath, Value } from '../types.js'
+import type { FormField, SetValue } from './types.js'
 
 import { useForm, useFormModified, useFormProcessing, useFormSubmitted } from '../Form/context.js'
-import { FieldWithPath, Value } from '../types.js'
-import { FormField, SetValue } from './types.js'
 
 // this hook:
 // 1. reports that the form has been modified
@@ -13,7 +14,7 @@ import { FormField, SetValue } from './types.js'
 // 3. runs field-level validation
 // 4. returns form state and field-level errors
 export const useFormField = <T extends Value>(options): FormField<T> => {
-  const { path, validate, initialValue: initialValueFromProps, required } = options
+  const { initialValue: initialValueFromProps, path, required, validate } = options
 
   const formContext = useForm()
   const submitted = useFormSubmitted()
@@ -21,7 +22,7 @@ export const useFormField = <T extends Value>(options): FormField<T> => {
   const modified = useFormModified()
   const wasSubmittedRef = useRef(false)
 
-  const { dispatchFields, getField, setIsModified, apiErrors } = formContext
+  const { apiErrors, dispatchFields, getField, setIsModified } = formContext
 
   // Get field by path
   const field = getField(path)
@@ -39,7 +40,7 @@ export const useFormField = <T extends Value>(options): FormField<T> => {
 
   const validFromContext = field && typeof field.valid === 'boolean' ? field.valid : true
   const apiError = Array.isArray(apiErrors)
-    ? apiErrors?.find(error => error.field === path)
+    ? apiErrors?.find((error) => error.field === path)
     : undefined
 
   const validFromAPI = apiError === undefined
@@ -55,8 +56,8 @@ export const useFormField = <T extends Value>(options): FormField<T> => {
 
       const fieldToDispatch: FieldWithPath = {
         path,
-        value: valueToSend,
         valid: true,
+        value: valueToSend,
       }
 
       const validationResult = typeof validate === 'function' ? await validate(valueToSend) : true
@@ -78,7 +79,7 @@ export const useFormField = <T extends Value>(options): FormField<T> => {
 
   // NOTE: 'internalValue' is NOT debounced
   const setValue = useCallback<SetValue>(
-    val => {
+    (val) => {
       if (!modified) {
         setIsModified(true)
       }
@@ -122,12 +123,12 @@ export const useFormField = <T extends Value>(options): FormField<T> => {
 
   return {
     ...options,
-    showError,
-    errorMessage: field?.errorMessage || apiError?.message,
-    value: internalValue,
     debouncedValue: field?.value,
-    formSubmitted: submitted,
+    errorMessage: field?.errorMessage || apiError?.message,
     formProcessing: processing,
+    formSubmitted: submitted,
     setValue,
+    showError,
+    value: internalValue,
   }
 }

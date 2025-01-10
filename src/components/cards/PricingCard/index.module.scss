@@ -33,7 +33,7 @@
   @include h6;
   & {
     text-transform: uppercase;
-    color: #51BFF6;
+    color: #51bff6;
     margin-top: 0;
     margin-bottom: 1rem;
     display: block;
@@ -41,7 +41,6 @@
 }
 
 .content {
-
 }
 
 .title,
@@ -52,25 +51,24 @@
     margin: 0;
     margin-bottom: 1rem;
   }
-
 }
 
 .description {
-    @include body;
-    & {
-      margin-bottom: 0;
-      opacity: 0.75;
-    }
+  @include body;
+  & {
+    margin-bottom: 0;
+    opacity: 0.75;
+  }
 }
 
 .arrow {
-    & {
-      position: absolute;
-      opacity: 1;
-      margin: 2rem;
-      top: 0;
-      right: 0;
-      width: 1rem;
-      height: 1rem;
-    }
+  & {
+    position: absolute;
+    opacity: 1;
+    margin: 2rem;
+    top: 0;
+    right: 0;
+    width: 1rem;
+    height: 1rem;
+  }
 }

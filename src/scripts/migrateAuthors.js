@@ -27,9 +27,9 @@ const migrateStatus = async () => {
   })
 
   await Promise.all(
-    docs.docs.map(async doc => {
+    docs.docs.map(async (doc) => {
       const newAuthors = [
-        ...(doc?.authors?.map(author => {
+        ...(doc?.authors?.map((author) => {
           return author && typeof author === 'object' ? author.id : author
         }) || []),
         doc.author && typeof doc.author === 'object' ? doc.author.id : doc.author,

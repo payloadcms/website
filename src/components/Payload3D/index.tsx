@@ -1,11 +1,13 @@
 'use client'
-import React, { CSSProperties, useEffect, useRef, useState } from 'react'
+import type { CSSProperties } from 'react'
+
+import React, { useEffect, useRef, useState } from 'react'
 
 import classes from './index.module.scss'
 
 interface Payload3DProps {}
 
-const Payload3D: React.FC<Payload3DProps> = props => {
+const Payload3D: React.FC<Payload3DProps> = (props) => {
   const containerRef = useRef<HTMLDivElement>(null)
   const defaultStyles = {
     '--mouse-x': 0,
@@ -17,7 +19,7 @@ const Payload3D: React.FC<Payload3DProps> = props => {
     let intersectionObserver: IntersectionObserver
     let scheduledAnimationFrame = false
 
-    const updateMousePosition = e => {
+    const updateMousePosition = (e) => {
       if (containerRef.current) {
         const boundingRect = containerRef.current.getBoundingClientRect()
         const x = e.clientX - boundingRect.left
@@ -33,7 +35,7 @@ const Payload3D: React.FC<Payload3DProps> = props => {
       scheduledAnimationFrame = false
     }
 
-    const handleMouseMovement = e => {
+    const handleMouseMovement = (e) => {
       if (scheduledAnimationFrame) {
         return
       }
@@ -46,8 +48,8 @@ const Payload3D: React.FC<Payload3DProps> = props => {
 
     if (containerRef.current) {
       intersectionObserver = new IntersectionObserver(
-        entries => {
-          entries.forEach(entry => {
+        (entries) => {
+          entries.forEach((entry) => {
             if (entry.isIntersecting) {
               window.addEventListener('mousemove', handleMouseMovement)
             } else {
@@ -64,14 +66,15 @@ const Payload3D: React.FC<Payload3DProps> = props => {
     }
 
     return () => {
-      if (intersectionObserver) intersectionObserver.disconnect()
+      if (intersectionObserver) {
+        intersectionObserver.disconnect()
+      }
       window.removeEventListener('mousemove', handleMouseMovement)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [containerRef])
 
   return (
-    <div ref={containerRef} className={classes.container} data-theme="dark">
+    <div className={classes.container} data-theme="dark" ref={containerRef}>
       <div className={classes.mask}>
         <div className={classes.noise} />
         <div className={classes.gradient} style={gradientStyles} />

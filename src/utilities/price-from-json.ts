@@ -16,8 +16,8 @@ export const priceFromJSON = (priceJSON = '{}', showFree = true): string => {
     }
 
     price = (priceValue !== 0 ? priceValue / 100 : 0).toLocaleString('en-US', {
-      style: 'currency',
       currency: 'USD', // TODO: use `parsed.currency`
+      style: 'currency',
     })
 
     if (priceType === 'recurring') {

@@ -1,11 +1,9 @@
 'use client'
 
-import React from 'react'
-import Link from 'next/link'
-
-import { usePathname } from 'next/navigation'
-
 import { EdgeScroll } from '@components/EdgeScroll/index.js'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import React from 'react'
 
 import classes from './layout.module.scss'
 
@@ -14,7 +12,7 @@ export const Sidebar: React.FC<{
     label: string
     url?: string
   }[]
-}> = props => {
+}> = (props) => {
   const { routes } = props
   const pathname = usePathname()
 
@@ -22,12 +20,11 @@ export const Sidebar: React.FC<{
     <div className={classes.sidebarNav}>
       <EdgeScroll mobileOnly>
         {routes.map((route, index) => {
-          const { url, label } = route
+          const { label, url } = route
           const isActive = pathname === url
 
           return (
             <p
-              key={route.label}
               className={[
                 classes.sidebarNavItem,
                 isActive && classes.active,
@@ -35,6 +32,7 @@ export const Sidebar: React.FC<{
               ]
                 .filter(Boolean)
                 .join(' ')}
+              key={route.label}
             >
               <Link href={url || ''}>{label}</Link>
             </p>

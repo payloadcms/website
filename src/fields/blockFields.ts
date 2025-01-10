@@ -8,11 +8,12 @@ interface Args {
   overrides?: Partial<GroupField>
 }
 
-export const themeField: Field = {
+export const themeField: (width?: number) => Field = (width) => ({
   name: 'theme',
   type: 'select',
   admin: {
     description: 'Leave blank for system default',
+    width: width ? `${width}%` : '50%',
   },
   options: [
     {
@@ -22,6 +23,32 @@ export const themeField: Field = {
     {
       label: 'Dark',
       value: 'dark',
+    },
+  ],
+})
+
+export const backgroundField: Field = {
+  name: 'background',
+  type: 'select',
+  admin: {
+    width: '50%',
+  },
+  options: [
+    {
+      label: 'Solid',
+      value: 'solid',
+    },
+    {
+      label: 'Transparent',
+      value: 'transparent',
+    },
+    {
+      label: 'Gradient Up',
+      value: 'gradientUp',
+    },
+    {
+      label: 'Gradient Down',
+      value: 'gradientDown',
     },
   ],
 }
@@ -47,8 +74,14 @@ export const blockFields = ({ name, fields, overrides }: Args): Field =>
               type: 'group',
               admin: {
                 hideGutter: true,
+                initCollapsed: true,
               },
-              fields: [themeField],
+              fields: [
+                {
+                  type: 'row',
+                  fields: [themeField(), backgroundField],
+                },
+              ],
               label: false,
             },
           ],

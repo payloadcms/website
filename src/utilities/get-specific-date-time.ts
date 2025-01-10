@@ -1,7 +1,9 @@
 export const getSpecificDateTime = (timestamp: Date): string => {
   const now = new Date()
   let date = now
-  if (timestamp) date = new Date(timestamp)
+  if (timestamp) {
+    date = new Date(timestamp)
+  }
   const months = date.getMonth()
   const days = date.getDate()
   const hours = date.getHours()

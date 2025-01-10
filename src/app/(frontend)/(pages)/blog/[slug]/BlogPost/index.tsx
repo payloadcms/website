@@ -1,33 +1,51 @@
 'use client'
 
-import React from 'react'
-import { formatDate } from '@utilities/format-date-time.js'
+import type { Post } from '@root/payload-types.js'
 
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
 import { Breadcrumbs } from '@components/Breadcrumbs/index.js'
 import { DiscordGitCTA } from '@components/DiscordGitCTA/index.js'
-import { Post } from '@root/payload-types.js'
-import { useResize } from '@root/utilities/use-resize.js'
 import { Gutter } from '@components/Gutter/index.js'
 import { Media } from '@components/Media/index.js'
 import { RenderBlocks } from '@components/RenderBlocks/index.js'
 import { RichText } from '@components/RichText/index.js'
-import { AuthorsList } from '../AuthorsList/index.js'
+import { Video } from '@components/RichText/Video/index.js'
+import { useResize } from '@root/utilities/use-resize.js'
+import { formatDate } from '@utilities/format-date-time.js'
+import React from 'react'
 
+import { AuthorsList } from '../AuthorsList/index.js'
 import classes from './index.module.scss'
-export const BlogPost: React.FC<Post> = props => {
-  const { title, publishedOn, image, excerpt, content, relatedPosts } = props
+export const BlogPost: React.FC<Post> = (props) => {
+  const { content, excerpt, image, publishedOn, relatedPosts, title, useVideo, videoUrl } = props
   const [docPadding, setDocPadding] = React.useState(0)
   const docRef = React.useRef<HTMLDivElement>(null)
   const docSize = useResize(docRef)
 
   React.useEffect(() => {
-    if (docRef.current?.offsetWidth === undefined) return
+    if (docRef.current?.offsetWidth === undefined) {
+      return
+    }
     setDocPadding(Math.round(docRef.current?.offsetWidth / 16) - 2)
   }, [docRef.current?.offsetWidth, docSize])
 
+  let videoToUse: {
+    id: string
+    platform: 'vimeo' | 'youtube'
+  } | null = null
+
+  if (videoUrl && (videoUrl.includes('vimeo') || videoUrl.includes('youtube'))) {
+    const platform = videoUrl.includes('vimeo') ? 'vimeo' : 'youtube'
+    const id = platform === 'vimeo' ? videoUrl.split('/').pop() : videoUrl.split('v=').pop()
+
+    videoToUse = {
+      id: id || '',
+      platform,
+    }
+  }
+
   return (
-    <div id="blog" className={classes.blog}>
+    <div className={classes.blog} id="blog">
       <BackgroundGrid wideGrid />
       <Gutter>
         <div className={[classes.grid, 'grid'].filter(Boolean).join(' ')} ref={docRef}>
@@ -59,12 +77,12 @@ export const BlogPost: React.FC<Post> = props => {
               <div>
                 <Breadcrumbs
                   className={classes.breadcrumbs}
+                  ellipsis={false}
                   items={[
                     {
                       label: 'Blog Post',
                     },
                   ]}
-                  ellipsis={false}
                 />
                 <h1 className={classes.title}>{title}</h1>
               </div>
@@ -85,27 +103,31 @@ export const BlogPost: React.FC<Post> = props => {
                 className={classes.heroImageWrap}
                 style={{ marginLeft: -(docPadding + 1), marginRight: docPadding * -4 - 6 }}
               >
-                <Media className={classes.heroImage} resource={image} priority />
+                {useVideo ? (
+                  <Video {...videoToUse} />
+                ) : (
+                  <Media className={classes.heroImage} priority resource={image} />
+                )}
               </div>
             )}
             {typeof image !== 'string' && (
               <div className={classes.mobileImage}>
-                <Media className={classes.heroImage} resource={image} priority />
+                <Media className={classes.heroImage} priority resource={image} />
               </div>
             )}
-            <RichText content={excerpt} className={classes.excerpt} />
+            <RichText className={classes.excerpt} content={excerpt} />
             <div className={classes.blocks}>
               <RenderBlocks
                 blocks={[
                   ...(content || []),
                   {
-                    blockType: 'relatedPosts',
                     blockName: 'Related Posts',
+                    blockType: 'relatedPosts',
                     relatedPosts: relatedPosts || [],
                   },
                 ]}
-                disableGutter
                 disableGrid
+                disableGutter
               />
             </div>
           </div>

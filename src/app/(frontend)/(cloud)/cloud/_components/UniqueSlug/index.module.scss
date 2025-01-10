@@ -1,4 +1,4 @@
-@use "@scss/common" as *;
+@use '@scss/common' as *;
 
 .uniqueSlug {
   display: flex;
@@ -6,7 +6,7 @@
 }
 
 .error {
-  color: var(--theme-error-500)
+  color: var(--theme-error-500);
 }
 
 .success {

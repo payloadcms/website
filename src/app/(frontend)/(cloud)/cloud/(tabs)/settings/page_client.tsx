@@ -1,32 +1,32 @@
 'use client'
 
-import React, { Fragment, useCallback } from 'react'
-import { revalidateCache } from '@cloud/_actions/revalidateCache.js'
+import type { OnSubmit } from '@forms/types.js'
+import type { User } from '@root/payload-cloud-types.js'
+
 import { SectionHeader } from '@cloud/[team-slug]/[project-slug]/(tabs)/settings/_layoutComponents/SectionHeader/index.js'
+import { revalidateCache } from '@cloud/_actions/revalidateCache.js'
+import { Button } from '@components/Button/index.js'
+import { Heading } from '@components/Heading/index.js'
+import { HR } from '@components/HR/index.js'
+import { ModalWindow } from '@components/ModalWindow/index.js'
 import { useModal } from '@faceless-ui/modal'
 import { Text } from '@forms/fields/Text/index.js'
 import Form from '@forms/Form/index.js'
 import FormProcessing from '@forms/FormProcessing/index.js'
 import FormSubmissionError from '@forms/FormSubmissionError/index.js'
 import Submit from '@forms/Submit/index.js'
-import { OnSubmit } from '@forms/types.js'
-
-import { Button } from '@components/Button/index.js'
-import { Heading } from '@components/Heading/index.js'
-import { ModalWindow } from '@components/ModalWindow/index.js'
-import { HR } from '@components/HR/index.js'
-import { User } from '@root/payload-cloud-types.js'
 import { useAuth } from '@root/providers/Auth/index.js'
-import { DeletionConfirmationForm } from './DeletionConfirmationForm/index.js'
-
-import classes from './page.module.scss'
+import React, { Fragment, useCallback } from 'react'
 import { toast } from 'sonner'
+
+import { DeletionConfirmationForm } from './DeletionConfirmationForm/index.js'
+import classes from './page.module.scss'
 
 const modalSlug = 'delete-account'
 
 export const SettingsPage: React.FC<{
   user: User
-}> = props => {
+}> = (props) => {
   const { user } = props
 
   const { updateUser } = useAuth()
@@ -44,14 +44,14 @@ export const SettingsPage: React.FC<{
           type: 'UPDATE',
           payload: [
             {
-              path: 'passwordConfirm',
               errorMessage: 'Passwords do not match',
+              path: 'passwordConfirm',
               valid: false,
               value: data.passwordConfirm,
             },
             {
-              path: 'password',
               errorMessage: 'Passwords do not match',
+              path: 'password',
               valid: false,
               value: data.password,
             },
@@ -93,10 +93,10 @@ export const SettingsPage: React.FC<{
             {'To change your password, '}
             <button
               className={classes.viewButton}
-              type="button"
               onClick={() => {
                 setFormToShow('password')
               }}
+              type="button"
             >
               click here
             </button>
@@ -108,10 +108,10 @@ export const SettingsPage: React.FC<{
             {'Change your password below, or '}
             <button
               className={classes.viewButton}
-              type="button"
               onClick={() => {
                 setFormToShow('account')
               }}
+              type="button"
             >
               cancel
             </button>
@@ -124,27 +124,27 @@ export const SettingsPage: React.FC<{
         <FormProcessing message="Updating profile, one moment" />
         {formToShow === 'account' && (
           <>
-            <Text path="name" label="Your Full Name" initialValue={user?.name} />
-            <Text path="email" label="Email" required initialValue={user?.email} />
+            <Text initialValue={user?.name} label="Your Full Name" path="name" />
+            <Text initialValue={user?.email} label="Email" path="email" required />
           </>
         )}
         {formToShow === 'password' && (
           <>
-            <Text type="password" path="password" label="Password" required initialValue="" />
+            <Text initialValue="" label="Password" path="password" required type="password" />
             <Text
-              type="password"
-              path="passwordConfirm"
-              label="Password Confirm"
-              required
               initialValue=""
+              label="Password Confirm"
+              path="passwordConfirm"
+              required
+              type="password"
             />
           </>
         )}
         <div className={classes.buttonWrap}>
           {formToShow === 'password' && (
             <Button
-              label="Cancel"
               appearance="secondary"
+              label="Cancel"
               onClick={() => {
                 setFormToShow('account')
               }}
@@ -155,22 +155,22 @@ export const SettingsPage: React.FC<{
       </Form>
       <HR />
       <Text
-        value={user?.id}
-        label="User ID"
-        disabled
         description="This is your user's ID within Payload"
+        disabled
+        label="User ID"
+        value={user?.id}
       />
       <HR />
-      <Heading element="h2" as="h4" marginTop={false} marginBottom={false}>
+      <Heading as="h4" element="h2" marginBottom={false} marginTop={false}>
         Delete account
       </Heading>
       <p className={classes.description}>
         Deleting your account is permanent and cannot be undone.
       </p>
       <Button
+        appearance="danger"
         className={classes.deleteAccount}
         label="Delete account"
-        appearance="danger"
         onClick={() => {
           openModal(modalSlug)
         }}

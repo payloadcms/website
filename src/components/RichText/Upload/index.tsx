@@ -1,28 +1,29 @@
-import React from 'react'
-import { Media as MediaType } from '@types'
+import type { CMSLinkType } from '@components/CMSLink/index.js'
+import type { SerializedUploadNode } from '@payloadcms/richtext-lexical'
+import type { Media as MediaType } from '@types'
 
-import { CMSLink, CMSLinkType } from '@components/CMSLink/index.js'
+import { CMSLink } from '@components/CMSLink/index.js'
 import { Media } from '@components/Media/index.js'
-import { SerializedUploadNode } from '@payloadcms/richtext-lexical'
+import React from 'react'
 
 export type RichTextUploadNodeType = {
   fields: {
-    link?: CMSLinkType
     enableLink?: boolean
+    link?: CMSLinkType
   }
-  value?: MediaType
   relationTo: string
+  value?: MediaType
 }
 
 export type Props = {
-  node: SerializedUploadNode
   className?: string
+  node: SerializedUploadNode
 }
 
-export const RichTextUpload: React.FC<Props> = props => {
+export const RichTextUpload: React.FC<Props> = (props) => {
   const {
-    node: { fields, value },
     className,
+    node: { fields, value },
   } = props
 
   let Wrap: React.ComponentType<CMSLinkType> | string = 'div'
@@ -39,7 +40,7 @@ export const RichTextUpload: React.FC<Props> = props => {
   }
 
   return (
-    <div style={styles} className={className}>
+    <div className={className} style={styles}>
       <Wrap {...wrapProps}>
         <Media resource={value as MediaType} />
       </Wrap>

@@ -20,7 +20,7 @@ export const appearanceOptions = {
 export type LinkAppearances = 'default' | 'primary' | 'secondary'
 
 type LinkType = (options?: {
-  appearances?: LinkAppearances[] | false
+  appearances?: false | LinkAppearances[]
   disableLabel?: boolean
   overrides?: Partial<GroupField>
 }) => Field
@@ -63,7 +63,7 @@ const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = 
               style: {
                 alignSelf: 'flex-end',
               },
-              width: '50%',
+              width: '25%',
             },
             label: 'Open in new tab',
           },
@@ -104,15 +104,32 @@ const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = 
           name: 'label',
           type: 'text',
           admin: {
-            width: '50%',
+            width: '25%',
           },
           label: 'Label',
           required: true,
         },
+        {
+          name: 'customId',
+          type: 'text',
+          admin: {
+            width: '25%',
+          },
+        },
       ],
     })
   } else {
-    linkResult.fields = [...linkResult.fields, ...linkTypes]
+    linkResult.fields = [
+      ...linkResult.fields,
+      ...linkTypes,
+      {
+        name: 'customId',
+        type: 'text',
+        admin: {
+          width: '25%',
+        },
+      },
+    ]
   }
 
   if (appearances !== false) {
@@ -123,7 +140,7 @@ const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = 
     ]
 
     if (appearances) {
-      appearanceOptionsToUse = appearances.map(appearance => appearanceOptions[appearance])
+      appearanceOptionsToUse = appearances.map((appearance) => appearanceOptions[appearance])
     }
 
     linkResult.fields.push({

@@ -1,7 +1,5 @@
 import type { Field } from 'payload'
 
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
-
 import { themeField } from './blockFields'
 import link from './link'
 import linkGroup from './linkGroup'
@@ -38,6 +36,10 @@ export const hero: Field = {
           value: 'home',
         },
         {
+          label: 'Home New',
+          value: 'homeNew',
+        },
+        {
           label: 'Livestream',
           value: 'livestream',
         },
@@ -59,7 +61,7 @@ export const hero: Field = {
         condition: (_, { type } = {}) => type === 'gradient',
       },
     },
-    themeField,
+    themeField(100),
     {
       type: 'collapsible',
       fields: [
@@ -89,7 +91,7 @@ export const hero: Field = {
       name: 'enableAnnouncement',
       type: 'checkbox',
       admin: {
-        condition: (_, { type }) => type === 'home',
+        condition: (_, { type }) => ['home', 'homeNew'].includes(type),
       },
       label: 'Enable Announcement?',
     },
@@ -108,27 +110,27 @@ export const hero: Field = {
       admin: {
         condition: (_, { type } = {}) => type !== 'livestream',
       },
-      editor: lexicalEditor({
-        features: ({ rootFeatures }) => rootFeatures,
-      }),
     },
     {
       name: 'description',
       type: 'richText',
       admin: {
         condition: (_, { type } = {}) =>
-          type !== 'livestream' && type !== 'centeredContent' && type !== 'three',
+          type !== 'livestream' &&
+          type !== 'centeredContent' &&
+          type !== 'three' &&
+          type !== 'homeNew',
       },
-      editor: lexicalEditor({
-        features: ({ rootFeatures }) => rootFeatures,
-      }),
     },
     linkGroup({
+      additions: {
+        npmCta: true,
+      },
       appearances: false,
       overrides: {
         name: 'primaryButtons',
         admin: {
-          condition: (_, { type }) => type === 'home',
+          condition: (_, { type }) => ['home', 'homeNew'].includes(type),
         },
         label: 'Primary Buttons',
       },
@@ -137,11 +139,8 @@ export const hero: Field = {
       name: 'secondaryHeading',
       type: 'richText',
       admin: {
-        condition: (_, { type }) => type === 'home',
+        condition: (_, { type }) => ['home'].includes(type),
       },
-      editor: lexicalEditor({
-        features: ({ rootFeatures }) => rootFeatures,
-      }),
     },
     {
       name: 'secondaryDescription',
@@ -149,9 +148,6 @@ export const hero: Field = {
       admin: {
         condition: (_, { type }) => type === 'home',
       },
-      editor: lexicalEditor({
-        features: ({ rootFeatures }) => rootFeatures,
-      }),
     },
     linkGroup({
       overrides: {
@@ -242,7 +238,7 @@ export const hero: Field = {
       overrides: {
         name: 'secondaryButtons',
         admin: {
-          condition: (_, { type }) => type === 'home',
+          condition: (_, { type }) => ['home'].includes(type),
         },
         label: 'Secondary Buttons',
       },
@@ -251,7 +247,7 @@ export const hero: Field = {
       name: 'images',
       type: 'array',
       admin: {
-        condition: (_, { type } = {}) => ['gradient'].includes(type),
+        condition: (_, { type } = {}) => ['gradient', 'homeNew', 'three'].includes(type),
       },
       fields: [
         {
@@ -294,7 +290,7 @@ export const hero: Field = {
       name: 'featureVideo',
       type: 'upload',
       admin: {
-        condition: (_, { type }) => type === 'home',
+        condition: (_, { type }) => ['home'].includes(type),
       },
       relationTo: 'media',
       required: true,
@@ -322,6 +318,23 @@ export const hero: Field = {
           required: true,
         },
       ],
+    },
+    {
+      name: 'logoShowcaseLabel',
+      type: 'richText',
+      admin: {
+        condition: (_, { type }) => type === 'homeNew',
+      },
+    },
+    {
+      name: 'logoShowcase',
+      type: 'upload',
+      admin: {
+        condition: (_, { type }) => type === 'homeNew',
+      },
+      hasMany: true,
+      minRows: 7,
+      relationTo: 'media',
     },
   ],
   label: false,

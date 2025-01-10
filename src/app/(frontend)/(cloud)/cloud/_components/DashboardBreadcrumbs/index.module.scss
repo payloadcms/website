@@ -37,7 +37,7 @@
     top: var(--header-height);
     left: 0;
     height: auto;
-    padding: .75rem var(--gutter-h);
+    padding: 0.75rem var(--gutter-h);
     background: var(--theme-bg);
     border-bottom: 1px solid var(--theme-border-color);
     overflow-x: auto;
@@ -55,6 +55,11 @@ a.logo {
   display: flex;
   flex-shrink: 0;
 
+  svg {
+    height: 1.25rem;
+    width: auto;
+  }
+
   @include small-break {
     display: none;
   }
@@ -69,7 +74,7 @@ a.logo {
 }
 
 .slash {
-  margin: 0 .5rem;
+  margin: 0 0.5rem;
   display: block;
   color: var(--theme-elevation-250);
   pointer-events: none;

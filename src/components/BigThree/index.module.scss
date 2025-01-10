@@ -1,6 +1,5 @@
 @use '@scss/common' as *;
 
-
 @keyframes fadeInAndUp {
   0% {
     opacity: 0;
@@ -9,7 +8,6 @@
 
   20% {
     opacity: 0;
-
   }
 
   100% {
@@ -25,7 +23,7 @@
 .three {
   opacity: 0;
   transform: translateY(40%);
-  animation: fadeInAndUp 2s cubic-bezier(.4,0,0,1) forwards .25s;
+  animation: fadeInAndUp 2s cubic-bezier(0.4, 0, 0, 1) forwards 0.25s;
   fill: white;
 
   @include mid-break {

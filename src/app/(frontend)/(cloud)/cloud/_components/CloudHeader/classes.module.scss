@@ -11,12 +11,16 @@
   top: 0;
   width: 100%;
   height: var(--header-height);
-  padding: var(--base )  var(--gutter-h);
+  padding: var(--base) var(--gutter-h);
 
   .logo {
     display: none;
     @include small-break {
       display: block;
+    }
+    & {
+      width: auto;
+      height: 30px;
     }
   }
 
@@ -44,7 +48,7 @@
           white-space: nowrap;
 
           &:hover {
-            opacity: .75;
+            opacity: 0.75;
           }
         }
       }

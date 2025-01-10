@@ -1,4 +1,4 @@
-import React from 'react'
+import type React from 'react'
 // import { Metadata } from 'next'
 
 // import { Hero } from '@components/Hero/index.js'

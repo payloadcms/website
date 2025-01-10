@@ -1,21 +1,21 @@
-import React from 'react'
-import { ProjectWithSubscription } from '@cloud/_api/fetchProject.js'
-import { TeamWithCustomer } from '@cloud/_api/fetchTeam.js'
+import type { ProjectWithSubscription } from '@cloud/_api/fetchProject.js'
+import type { TeamWithCustomer } from '@cloud/_api/fetchTeam.js'
+
 import { hasBadSubscription } from '@cloud/_utilities/hasBadSubscription.js'
 import { projectHasPaymentMethod } from '@cloud/_utilities/projectHasPaymentMethod.js'
 import { teamHasDefaultPaymentMethod } from '@cloud/_utilities/teamHasDefaultPaymentMethod.js'
-
 import { Gutter } from '@components/Gutter/index.js'
+import React from 'react'
+
 import { BadSubscriptionMessage } from './BadSubscription.js'
+import classes from './index.module.scss'
 import { MissingPaymentMethodMessage } from './MissingPaymentMethod.js'
 import { TrialMessage } from './TrialMessage.js'
 
-import classes from './index.module.scss'
-
 export const ProjectBillingMessages: React.FC<{
-  team: TeamWithCustomer
   project: ProjectWithSubscription
-}> = ({ team, project }) => {
+  team: TeamWithCustomer
+}> = ({ project, team }) => {
   const isTrialing = Boolean(
     project?.stripeSubscriptionStatus === 'trialing' && project?.stripeSubscription?.trial_end,
   )
@@ -36,7 +36,7 @@ export const ProjectBillingMessages: React.FC<{
   if (hasBadSubscriptionStatus) {
     return (
       <Gutter className={classes.billingMessages}>
-        <BadSubscriptionMessage team={team} project={project} />
+        <BadSubscriptionMessage project={project} team={team} />
       </Gutter>
     )
   }
@@ -44,7 +44,7 @@ export const ProjectBillingMessages: React.FC<{
   if (isTrialing) {
     return (
       <Gutter className={classes.billingMessages}>
-        <TrialMessage team={team} project={project} />
+        <TrialMessage project={project} team={team} />
       </Gutter>
     )
   }
@@ -52,7 +52,7 @@ export const ProjectBillingMessages: React.FC<{
   if (hasPaymentError) {
     return (
       <Gutter className={classes.billingMessages}>
-        <MissingPaymentMethodMessage team={team} project={project} />
+        <MissingPaymentMethodMessage project={project} team={team} />
       </Gutter>
     )
   }

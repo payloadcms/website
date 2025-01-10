@@ -1,55 +1,55 @@
 'use client'
 
-import React, { Fragment, useEffect } from 'react'
-import Error from '@forms/Error/index.js'
-import { FieldProps } from '@forms/fields/types.js'
-import { useField } from '@forms/fields/useField/index.js'
+import type { FieldProps } from '@forms/fields/types.js'
 
 import Label from '@components/CMSForm/Label/index.js'
 import { CopyToClipboard } from '@components/CopyToClipboard/index.js'
 import { Tooltip } from '@components/Tooltip/index.js'
+import Error from '@forms/Error/index.js'
+import { useField } from '@forms/fields/useField/index.js'
 import { EyeIcon } from '@root/icons/EyeIcon/index.js'
+import React, { Fragment, useEffect } from 'react'
 
 import classes from './index.module.scss'
 
 export const Text: React.FC<
-  FieldProps<string> & {
-    type?: 'text' | 'password' | 'hidden'
+  {
     copy?: boolean
-    elementAttributes?: React.InputHTMLAttributes<HTMLInputElement>
-    value?: string
-    defaultValue?: string
     customOnChange?: (e: any) => void
-    suffix?: React.ReactNode
+    defaultValue?: string
+    elementAttributes?: React.InputHTMLAttributes<HTMLInputElement>
     readOnly?: boolean
-  }
-> = props => {
+    suffix?: React.ReactNode
+    type?: 'hidden' | 'password' | 'text'
+    value?: string
+  } & FieldProps<string>
+> = (props) => {
   const {
-    path,
-    required = false,
-    validate,
-    label,
-    placeholder,
     type = 'text',
-    onChange: onChangeFromProps,
-    customOnChange,
-    initialValue,
     className,
     copy = false,
+    customOnChange,
+    defaultValue,
+    description,
     disabled,
-    readOnly,
     elementAttributes = {
+      autoCapitalize: 'none',
       autoComplete: 'off',
       autoCorrect: 'off',
-      autoCapitalize: 'none',
     },
-    description,
-    value: valueFromProps,
-    defaultValue,
-    showError: showErrorFromProps,
-    icon,
     fullWidth = true,
+    icon,
+    initialValue,
+    label,
+    onChange: onChangeFromProps,
+    path,
+    placeholder,
+    readOnly,
+    required = false,
+    showError: showErrorFromProps,
     suffix,
+    validate,
+    value: valueFromProps,
   } = props
 
   const prevValueFromProps = React.useRef(valueFromProps)
@@ -78,16 +78,16 @@ export const Text: React.FC<
   )
 
   const {
-    onChange,
-    value: valueFromContext,
-    showError,
     errorMessage,
+    onChange,
+    showError,
+    value: valueFromContext,
   } = useField<string>({
     initialValue,
     onChange: onChangeFromProps,
     path,
-    validate: validate || defaultValidateFunction,
     required,
+    validate: validate || defaultValidateFunction,
   })
 
   const value = valueFromProps || valueFromContext
@@ -123,53 +123,53 @@ export const Text: React.FC<
             actionsClassName={[!copy && type !== 'password' && classes.actionsLabel]
               .filter(Boolean)
               .join(' ')}
-            className={[classes.textLabel].filter(Boolean).join(' ')}
-            htmlFor={path}
-            label={label}
-            required={required}
-            margin={false}
             actionsSlot={
               <Fragment>
                 {copy && <CopyToClipboard value={value} />}
                 {type === 'password' && (
                   <Tooltip
-                    text={isHidden ? 'show' : 'hide'}
-                    onClick={() => setIsHidden(h => !h)}
                     className={classes.tooltipButton}
+                    onClick={() => setIsHidden((h) => !h)}
+                    text={isHidden ? 'show' : 'hide'}
                   >
                     <EyeIcon closed={isHidden} size="large" />
                   </Tooltip>
                 )}
               </Fragment>
             }
+            className={[classes.textLabel].filter(Boolean).join(' ')}
+            htmlFor={path}
+            label={label}
+            margin={false}
+            required={required}
           />
           <Error
             className={classes.error}
-            showError={Boolean((showError || showErrorFromProps) && errorMessage)}
             message={errorMessage}
+            showError={Boolean((showError || showErrorFromProps) && errorMessage)}
           />
         </div>
       )}
       <input
         {...elementAttributes}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-        disabled={disabled}
         className={[classes.input].filter(Boolean).join(' ')}
         defaultValue={defaultValue}
-        value={value || ''}
+        disabled={disabled}
+        id={path}
+        name={path}
+        onBlur={handleBlur}
         onChange={
           customOnChange
             ? customOnChange
-            : e => {
+            : (e) => {
                 onChange(e.target.value)
               }
         }
+        onFocus={handleFocus}
         placeholder={placeholder}
-        type={type === 'password' && !isHidden ? 'text' : type}
-        id={path}
-        name={path}
         readOnly={readOnly}
+        type={type === 'password' && !isHidden ? 'text' : type}
+        value={value || ''}
       />
       {(icon || suffix) && (
         <div className={classes.iconWrapper}>

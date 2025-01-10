@@ -1,13 +1,17 @@
-import React from 'react'
-import { Metadata } from 'next'
-import { draftMode } from 'next/headers'
-import { notFound } from 'next/navigation'
+import type { Metadata } from 'next'
 
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
-import { fetchBlogPost, fetchPosts } from '@data'
-import { BlogPost } from './BlogPost/index.js'
-import { RefreshRouteOnSave } from '@components/RefreshRouterOnSave/index.js'
 import { PayloadRedirects } from '@components/PayloadRedirects/index.js'
+import { RefreshRouteOnSave } from '@components/RefreshRouterOnSave/index.js'
+import { fetchBlogPost, fetchPosts } from '@data'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
+import { unstable_cache } from 'next/cache'
+import { draftMode } from 'next/headers.js'
+import React from 'react'
+
+import { BlogPost } from './BlogPost/index.js'
+
+const getPost = (slug, draft?) =>
+  draft ? fetchBlogPost(slug) : unstable_cache(fetchBlogPost, ['blogPost', `post-${slug}`])(slug)
 
 const Post = async ({
   params,
@@ -16,13 +20,12 @@ const Post = async ({
     slug: any
   }>
 }) => {
+  const { isEnabled: draft } = await draftMode()
   const { slug } = await params
 
+  const blogPost = await getPost(slug, draft)
+
   const url = `/blog/${slug}`
-
-  const { isEnabled: isDraftMode } = await draftMode()
-
-  const blogPost = await fetchBlogPost(slug)
 
   if (!blogPost) {
     return <PayloadRedirects url={url} />
@@ -40,7 +43,8 @@ const Post = async ({
 export default Post
 
 export async function generateStaticParams() {
-  const posts = await fetchPosts()
+  const getPosts = unstable_cache(fetchPosts, ['blogPosts'])
+  const posts = await getPosts()
 
   return posts.map(({ slug }) => ({
     slug,
@@ -54,22 +58,20 @@ export async function generateMetadata({
     slug: any
   }>
 }): Promise<Metadata> {
+  const { isEnabled: draft } = await draftMode()
   const { slug } = await params
-  const page = await fetchBlogPost(slug)
+  const post = await getPost(slug, draft)
 
   const ogImage =
-    typeof page?.meta?.image === 'object' &&
-    page?.meta?.image !== null &&
-    'url' in page?.meta?.image &&
-    `${process.env.NEXT_PUBLIC_CMS_URL}${page.meta.image.url}`
+    typeof post?.meta?.image === 'object' &&
+    post?.meta?.image !== null &&
+    'url' in post?.meta?.image &&
+    `${process.env.NEXT_PUBLIC_CMS_URL}${post.meta.image.url}`
 
   return {
-    title: page?.meta?.title,
-    description: page?.meta?.description,
+    description: post?.meta?.description,
     openGraph: mergeOpenGraph({
-      title: page?.meta?.title ?? undefined,
-      url: `/blog/${slug}`,
-      description: page?.meta?.description ?? undefined,
+      description: post?.meta?.description ?? undefined,
       images: ogImage
         ? [
             {
@@ -77,6 +79,9 @@ export async function generateMetadata({
             },
           ]
         : undefined,
+      title: post?.meta?.title ?? undefined,
+      url: `/blog/${slug}`,
     }),
+    title: post?.meta?.title,
   }
 }

@@ -1,0 +1,129 @@
+@use '@scss/common' as *;
+
+.logoGrid {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  border: 1px solid var(--theme-border-color);
+  border-left-width: 0;
+
+  @include mid-break {
+    border: none;
+  }
+}
+
+.logoItem {
+  position: relative;
+
+  --block-size: calc(var(--column) * 2);
+
+  .scanline {
+    opacity: 0;
+    transition: opacity 1s ease;
+  }
+
+  img {
+    transition:
+      filter 1s ease,
+      opacity 1s ease;
+  }
+
+  width: var(--block-size);
+  height: var(--block-size);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img,
+  svg {
+    width: calc(var(--column) * 1.2);
+    height: calc(var(--column) * 1.2);
+    object-fit: contain;
+  }
+
+  &:nth-child(odd) {
+    border-left: 1px solid var(--theme-border-color);
+  }
+
+  @include mid-break {
+    border-bottom: 1px solid var(--theme-border-color);
+
+    &:first-child {
+      margin-left: var(--block-size);
+
+      &::after {
+        content: '';
+        position: absolute;
+        display: block;
+        width: var(--block-size);
+        height: var(--block-size);
+        border-bottom: 1px solid var(--theme-border-color);
+        top: -2px;
+        left: calc(var(--column) * -2);
+      }
+    }
+
+    &:nth-child(1),
+    &:nth-child(2),
+    &:nth-child(3) {
+      border-top: 1px solid var(--theme-border-color);
+    }
+
+    &:nth-child(6) {
+      &::after {
+        content: '';
+        position: absolute;
+        display: block;
+        width: var(--block-size);
+        height: var(--block-size);
+        border-left: 1px solid var(--theme-border-color);
+        top: -2px;
+        left: var(--block-size);
+      }
+    }
+  }
+
+  @include small-break {
+    &:nth-child(1),
+    &:nth-child(5) {
+      border-right: 1px solid var(--theme-border-color);
+    }
+  }
+}
+
+.active {
+  img {
+    filter: blur(16px);
+    opacity: 0;
+  }
+
+  .scanline {
+    opacity: 1;
+  }
+}
+
+.crosshairTop {
+  position: absolute;
+  left: calc((var(--column) * 2) - 0.5rem);
+  top: -0.5rem;
+  &::after {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 1px;
+    height: calc(var(--column) * 4);
+    background-color: red;
+    left: 0;
+    top: 50%;
+  }
+}
+
+.crosshairBottom {
+  position: absolute;
+  right: calc((var(--column) * 2) - 0.5rem);
+  bottom: -0.5rem;
+}

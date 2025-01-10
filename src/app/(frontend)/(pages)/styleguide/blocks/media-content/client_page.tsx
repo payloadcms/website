@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import type React from 'react'
 // import { MediaContent, MediaContentProps } from '@blocks/MediaContent/index.js'
 
 // import { StyleguidePageContent } from '../../PageContent/index.js'

@@ -1,9 +1,11 @@
 export const extractDescription = (string: string): string => {
-  if (!string) return ''
+  if (!string) {
+    return ''
+  }
 
-  let cleanedString = string.replace(/<\/?[^>]+(>|$)/g, '')
+  let cleanedString = string.replace(/<[^>]+(>|$)/g, '')
 
-  cleanedString = cleanedString.replace(/[^a-zA-Z0-9 ]/g, '')
+  cleanedString = cleanedString.replace(/[^a-z0-9 ]/gi, '')
 
   const wordsArray = cleanedString.split(' ')
 

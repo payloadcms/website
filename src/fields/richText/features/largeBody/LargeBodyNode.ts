@@ -1,17 +1,22 @@
-import type { DOMExportOutput, LexicalEditor, ParagraphNode, Spread } from 'lexical'
+import type {
+  DOMExportOutput,
+  EditorConfig,
+  LexicalEditor,
+  LexicalNode,
+  NodeKey,
+  ParagraphNode,
+  RangeSelection,
+  SerializedElementNode,
+  Spread,
+} from '@payloadcms/richtext-lexical/lexical'
 
-import { addClassNamesToElement } from '@lexical/utils'
 import {
   $applyNodeReplacement,
   $createParagraphNode,
-  type EditorConfig,
   ElementNode,
-  type LexicalNode,
-  type NodeKey,
-  type RangeSelection,
-  type SerializedElementNode,
   isHTMLElement,
-} from 'lexical'
+} from '@payloadcms/richtext-lexical/lexical'
+import { addClassNamesToElement } from '@payloadcms/richtext-lexical/lexical/utils'
 
 export type SerializedLargeBodyNode = Spread<
   {
@@ -58,7 +63,7 @@ export class LargeBodyNode extends ElementNode {
   collapseAtStart(): true {
     const paragraph = $createParagraphNode()
     const children = this.getChildren()
-    children.forEach(child => paragraph.append(child))
+    children.forEach((child) => paragraph.append(child))
     this.replace(paragraph)
     return true
   }
@@ -73,7 +78,9 @@ export class LargeBodyNode extends ElementNode {
     const { element } = super.exportDOM(editor)
 
     if (element && isHTMLElement(element)) {
-      if (this.isEmpty()) element.append(document.createElement('br'))
+      if (this.isEmpty()) {
+        element.append(document.createElement('br'))
+      }
 
       const formatType = this.getFormatType()
       element.style.textAlign = formatType

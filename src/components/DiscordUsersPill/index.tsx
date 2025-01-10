@@ -1,8 +1,7 @@
 'use client'
 
-import React from 'react'
-
 import { isNumber } from '@root/utilities/isNumber.js'
+import React from 'react'
 
 import classes from './index.module.scss'
 

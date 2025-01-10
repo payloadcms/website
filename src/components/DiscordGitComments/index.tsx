@@ -1,22 +1,22 @@
-import React from 'react'
-import * as cheerio from 'cheerio'
+import type { Messages } from '@root/app/(frontend)/(pages)/community-help/(posts)/discord/[slug]/client_page.js'
+import type {
+  Answer,
+  Comment,
+} from '@root/app/(frontend)/(pages)/community-help/(posts)/github/[slug]/client_page.js'
 
 import AuthorTag from '@components/AuthorTag/index.js'
 import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
 import { DiscordGitBody } from '@components/DiscordGitBody/index.js'
 import { FileAttachments } from '@components/FileAttachment/index.js'
-import { Messages } from '@root/app/(frontend)/(pages)/community-help/(posts)/discord/[slug]/client_page.js'
-import {
-  Answer,
-  Comment,
-} from '@root/app/(frontend)/(pages)/community-help/(posts)/github/[slug]/client_page.js'
+import * as cheerio from 'cheerio'
+import React from 'react'
 
 import classes from './index.module.scss'
 
 export type CommentProps = {
   answer?: Answer
   comments?: Comment[] | Messages[]
-  platform?: 'GitHub' | 'Discord'
+  platform?: 'Discord' | 'GitHub'
 }
 
 export const DiscordGitComments: React.FC<CommentProps> = ({ answer, comments, platform }) => {
@@ -35,10 +35,10 @@ export const DiscordGitComments: React.FC<CommentProps> = ({ answer, comments, p
           </div>
           <div className={classes.answerBody}>
             <AuthorTag
-              className={classes.answerAuthor}
               author={answer.author.name}
-              image={answer.author.avatar}
+              className={classes.answerAuthor}
               date={answer.createdAt}
+              image={answer.author.avatar}
               isAnswer
             />
             <DiscordGitBody body={answer?.body} platform={platform} />
@@ -58,11 +58,11 @@ export const DiscordGitComments: React.FC<CommentProps> = ({ answer, comments, p
       {answerReplies &&
         answer?.replies?.map((reply, replyIndex) => {
           return (
-            <li key={replyIndex} className={classes.reply}>
+            <li className={classes.reply} key={replyIndex}>
               <AuthorTag
                 author={reply.author.name}
-                image={reply.author.avatar}
                 date={reply.createdAt}
+                image={reply.author.avatar}
               />
               <DiscordGitBody body={reply.body} platform={platform} />
             </li>
@@ -72,7 +72,9 @@ export const DiscordGitComments: React.FC<CommentProps> = ({ answer, comments, p
       {comments &&
         comments.map((comment, index) => {
           const totalReplies = comment?.replies ? comment?.replies?.length : false
-          if (answer && comment?.body === answer?.body) return null
+          if (answer && comment?.body === answer?.body) {
+            return null
+          }
 
           let body = ''
 
@@ -101,7 +103,7 @@ export const DiscordGitComments: React.FC<CommentProps> = ({ answer, comments, p
             comment.fileAttachments.length > 0
 
           return (
-            <li key={index} className={classes.commentWrap}>
+            <li className={classes.commentWrap} key={index}>
               <div
                 className={[classes.comment, totalReplies && classes.hasReplies]
                   .filter(Boolean)
@@ -109,8 +111,8 @@ export const DiscordGitComments: React.FC<CommentProps> = ({ answer, comments, p
               >
                 <AuthorTag
                   author={comment.author?.name || comment.authorName}
-                  image={comment.author?.avatar || avatarImg}
                   date={comment?.createdAt || comment.createdAtDate}
+                  image={comment.author?.avatar || avatarImg}
                 />
                 <DiscordGitBody body={body} platform={platform} />
 
@@ -126,11 +128,11 @@ export const DiscordGitComments: React.FC<CommentProps> = ({ answer, comments, p
               {totalReplies &&
                 comment.replies.map((reply, replyIndex) => {
                   return (
-                    <div key={replyIndex} className={classes.reply}>
+                    <div className={classes.reply} key={replyIndex}>
                       <AuthorTag
                         author={reply.author.name}
-                        image={reply.author.avatar}
                         date={reply.createdAt}
+                        image={reply.author.avatar}
                       />
                       <DiscordGitBody body={reply.body} platform={platform} />
                     </div>

@@ -1,19 +1,19 @@
 'use client'
+import type { CodeBlip } from '@components/Code/types.js'
+
 import React, { createContext, useContext, useState } from 'react'
 
-import { CodeBlip } from '@components/Code/types.js'
-
 type CodeBlipContextType = {
-  isOpen: boolean
-  openModal: (blip: CodeBlip) => void
   closeModal: () => void
   data?: CodeBlip
+  isOpen: boolean
+  openModal: (blip: CodeBlip) => void
 }
 
 export const Context = createContext<CodeBlipContextType>({
+  closeModal: () => {},
   isOpen: false,
   openModal: () => {},
-  closeModal: () => {},
 })
 
 export const Provider: React.FC<any> = ({ children }) => {
@@ -30,12 +30,12 @@ export const Provider: React.FC<any> = ({ children }) => {
   }
 
   return (
-    <Context.Provider value={{ data, isOpen, openModal, closeModal }}>{children}</Context.Provider>
+    <Context.Provider value={{ closeModal, data, isOpen, openModal }}>{children}</Context.Provider>
   )
 }
 
 export const useCodeBlip = () => {
-  const { data, isOpen, openModal, closeModal } = useContext(Context)
+  const { closeModal, data, isOpen, openModal } = useContext(Context)
 
-  return { data, isOpen, openModal, closeModal }
+  return { closeModal, data, isOpen, openModal }
 }

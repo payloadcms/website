@@ -1,27 +1,28 @@
 'use client'
 
-import * as React from 'react'
-import { toast } from 'sonner'
+import type { TeamWithCustomer } from '@cloud/_api/fetchTeam.js'
+import type { Member } from '@cloud/_components/TeamMembers/index.js'
+import type { OnSubmit } from '@forms/types.js'
+import type { Team } from '@root/payload-cloud-types.js'
+
+import { SectionHeader } from '@cloud/[team-slug]/[project-slug]/(tabs)/settings/_layoutComponents/SectionHeader/index.js'
 import { revalidateCache } from '@cloud/_actions/revalidateCache.js'
-import { TeamWithCustomer } from '@cloud/_api/fetchTeam.js'
 import { InviteTeammates } from '@cloud/_components/InviteTeammates/index.js'
 import { TeamInvitations } from '@cloud/_components/TeamInvitations/index.js'
-import { Member, TeamMembers } from '@cloud/_components/TeamMembers/index.js'
-import { SectionHeader } from '@cloud/[team-slug]/[project-slug]/(tabs)/settings/_layoutComponents/SectionHeader/index.js'
+import { TeamMembers } from '@cloud/_components/TeamMembers/index.js'
+import { HR } from '@components/HR/index.js'
+import { ModalWindow } from '@components/ModalWindow/index.js'
 import { useModal } from '@faceless-ui/modal'
 import Form from '@forms/Form/index.js'
 import FormProcessing from '@forms/FormProcessing/index.js'
 import FormSubmissionError from '@forms/FormSubmissionError/index.js'
 import Submit from '@forms/Submit/index.js'
-import { OnSubmit } from '@forms/types.js'
-
-import { ModalWindow } from '@components/ModalWindow/index.js'
-import { HR } from '@components/HR/index.js'
-import { Team } from '@root/payload-cloud-types.js'
 import { useAuth } from '@root/providers/Auth/index.js'
-import { UpdateRolesConfirmationForm } from './UpdateRolesConfirmationForm/index.js'
+import * as React from 'react'
+import { toast } from 'sonner'
 
 import classes from './page.module.scss'
+import { UpdateRolesConfirmationForm } from './UpdateRolesConfirmationForm/index.js'
 
 export const TeamMembersPage: React.FC<{
   team: TeamWithCustomer
@@ -32,21 +33,21 @@ export const TeamMembersPage: React.FC<{
 
   const { openModal } = useModal()
 
-  const [originalRoles, setOriginalRoles] = React.useState<('owner' | 'admin' | 'user')[][]>([])
-  const [selectedMemberIndex, setSelectedMemberIndex] = React.useState<number | null>(null)
+  const [originalRoles, setOriginalRoles] = React.useState<('admin' | 'owner' | 'user')[][]>([])
+  const [selectedMemberIndex, setSelectedMemberIndex] = React.useState<null | number>(null)
   const [selectedNewRoles, setSelectedNewRoles] = React.useState<
-    ('owner' | 'admin' | 'user')[] | null
+    ('admin' | 'owner' | 'user')[] | null
   >(null)
   const [selectedMember, setSelectedMember] = React.useState<Member | null>(null)
 
-  const [roles, setRoles] = React.useState<('owner' | 'admin' | 'user')[][]>(
-    (team?.members ?? []).map(member => member.roles ?? []),
-  ) // eslint-disable-line
+  const [roles, setRoles] = React.useState<('admin' | 'owner' | 'user')[][]>(
+    (team?.members ?? []).map((member) => member.roles ?? []),
+  )
 
   const [error, setError] = React.useState<{
+    data: { field: string; message: string }[]
     message: string
     name: string
-    data: { message: string; field: string }[]
   }>()
 
   // Determines if the current user is either a global admin or a team owner.
@@ -63,7 +64,7 @@ export const TeamMembersPage: React.FC<{
   // Triggers when a user tries to update roles of a team member.
   const handleUpdateRoles = async (
     index: number,
-    newRoles: ('owner' | 'admin' | 'user')[],
+    newRoles: ('admin' | 'owner' | 'user')[],
     member: Member,
   ) => {
     if (!isOwnerOrGlobalAdmin) {
@@ -89,7 +90,7 @@ export const TeamMembersPage: React.FC<{
   }
 
   const handleSubmit: OnSubmit = React.useCallback(
-    async ({ unflattenedData, dispatchFields }): Promise<void> => {
+    async ({ dispatchFields, unflattenedData }): Promise<void> => {
       setTimeout(() => {
         window.scrollTo(0, 0)
       }, 0)
@@ -103,29 +104,29 @@ export const TeamMembersPage: React.FC<{
 
       const updatedTeam: Partial<Team> = {
         ...(unflattenedData || {}),
-        sendEmailInvitationsTo: unflattenedData?.sendEmailInvitationsTo?.map(invite => ({
+        sendEmailInvitationsTo: unflattenedData?.sendEmailInvitationsTo?.map((invite) => ({
           email: invite?.email,
           roles: invite?.roles,
         })),
       }
 
       const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/teams/${team?.id}`, {
-        method: 'PATCH',
+        body: JSON.stringify(updatedTeam),
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(updatedTeam),
+        method: 'PATCH',
       })
 
       const response: {
         doc: Team
-        message: string
         errors: {
+          data: { field: string; message: string }[]
           message: string
           name: string
-          data: { message: string; field: string }[]
         }[]
+        message: string
       } = await req.json()
 
       if (!req.ok) {
@@ -142,10 +143,10 @@ export const TeamMembersPage: React.FC<{
         ...response.doc,
         invitations: [
           ...(team?.invitations || []),
-          ...(response.doc?.sendEmailInvitationsTo?.map(invite => ({
+          ...(response.doc?.sendEmailInvitationsTo?.map((invite) => ({
             email: invite?.email,
-            roles: invite?.roles,
             invitedOn: new Date().toISOString(),
+            roles: invite?.roles,
           })) || []),
         ],
       })
@@ -177,15 +178,15 @@ export const TeamMembersPage: React.FC<{
   return (
     <React.Fragment>
       <SectionHeader title="Team Members" />
-      <Form onSubmit={handleSubmit} className={classes.form} errors={error?.data}>
+      <Form className={classes.form} errors={error?.data} onSubmit={handleSubmit}>
         <FormSubmissionError />
         <FormProcessing message="Updating team, one moment..." />
         <TeamMembers
-          team={team}
+          isOwnerOrGlobalAdmin={isOwnerOrGlobalAdmin}
           onUpdateRoles={handleUpdateRoles}
           renderHeader={false}
-          isOwnerOrGlobalAdmin={isOwnerOrGlobalAdmin}
           roles={roles}
+          team={team}
         />
         <HR margin="small" />
         {team?.invitations && team?.invitations?.length > 0 && (
@@ -196,24 +197,24 @@ export const TeamMembersPage: React.FC<{
         )}
         <InviteTeammates clearCount={clearCount} />
         <HR margin="small" />
-        <Submit label="Save" className={classes.submit} />
+        <Submit className={classes.submit} label="Save" />
       </Form>
       <ModalWindow className={classes.modal} slug="updateRoles">
         {selectedMember && (
           <UpdateRolesConfirmationForm
-            modalSlug="updateRoles"
-            user={user!}
-            team={team}
             memberIndex={selectedMemberIndex}
+            modalSlug="updateRoles"
             newRoles={selectedNewRoles}
-            selectedMember={selectedMember}
-            setRoles={setRoles}
-            onRolesUpdated={newRoles => {
+            onRolesUpdated={(newRoles) => {
               const newRolesArray = [...roles]
               newRolesArray[selectedMemberIndex!] = newRoles
               setRoles(newRolesArray)
             }}
             originalRoles={originalRoles}
+            selectedMember={selectedMember}
+            setRoles={setRoles}
+            team={team}
+            user={user!}
           />
         )}
       </ModalWindow>

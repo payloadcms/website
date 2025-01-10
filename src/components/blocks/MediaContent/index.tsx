@@ -1,22 +1,23 @@
-import * as React from 'react'
+import type { PaddingProps } from '@components/BlockWrapper/index.js'
+import type { Page } from '@root/payload-types.js'
 
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
-import { BlockWrapper, PaddingProps } from '@components/BlockWrapper/index.js'
+import { BlockWrapper } from '@components/BlockWrapper/index.js'
 import { Button } from '@components/Button/index.js'
 import { Gutter } from '@components/Gutter/index.js'
 import { Media } from '@components/Media/index.js'
 import MediaParallax from '@components/MediaParallax/index.js'
 import { RichText } from '@components/RichText/index.js'
-import { Page } from '@root/payload-types.js'
+import * as React from 'react'
 
 import classes from './index.module.scss'
 
-export type MediaContentProps = Extract<Page['layout'][0], { blockType: 'mediaContent' }> & {
-  padding: PaddingProps
+export type MediaContentProps = {
   hideBackground?: boolean
-}
+  padding: PaddingProps
+} & Extract<Page['layout'][0], { blockType: 'mediaContent' }>
 export const MediaContentBlock: React.FC<MediaContentProps> = ({ mediaContentFields, padding }) => {
-  const { link, images, richText, alignment, enableLink, mediaWidth, settings } = mediaContentFields
+  const { alignment, enableLink, images, link, mediaWidth, richText, settings } = mediaContentFields
 
   return (
     <Gutter>
@@ -46,10 +47,10 @@ export const MediaContentBlock: React.FC<MediaContentProps> = ({ mediaContentFie
                   <Button
                     {...link}
                     appearance={'default'}
-                    labelStyle="mono"
+                    el="link"
                     hideHorizontalBorders
                     icon="arrow"
-                    el="link"
+                    labelStyle="mono"
                   />
                 </div>
               )}
@@ -65,10 +66,10 @@ export const MediaContentBlock: React.FC<MediaContentProps> = ({ mediaContentFie
                   <Button
                     {...link}
                     appearance={'default'}
-                    hideHorizontalBorders
-                    labelStyle="mono"
-                    icon="arrow"
                     el="link"
+                    hideHorizontalBorders
+                    icon="arrow"
+                    labelStyle="mono"
                   />
                 </div>
               )}
@@ -91,11 +92,11 @@ export const MediaContentBlock: React.FC<MediaContentProps> = ({ mediaContentFie
   )
 }
 
-export const MediaContent: React.FC<MediaContentProps> = props => {
+export const MediaContent: React.FC<MediaContentProps> = (props) => {
   const { settings } = props.mediaContentFields
 
   return (
-    <BlockWrapper padding={props.padding} settings={settings} hideBackground={props.hideBackground}>
+    <BlockWrapper hideBackground={props.hideBackground} padding={props.padding} settings={settings}>
       <BackgroundGrid zIndex={0} />
       <MediaContentBlock {...props} />
       <div className={classes.background} />

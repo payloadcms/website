@@ -1,4 +1,3 @@
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import type { Field } from 'payload'
 
 const livestreamFields: Field = {
@@ -41,9 +40,6 @@ const livestreamFields: Field = {
     {
       name: 'richText',
       type: 'richText',
-      editor: lexicalEditor({
-        features: ({ rootFeatures }) => rootFeatures,
-      }),
     },
     {
       name: 'guests',

@@ -1,16 +1,16 @@
 export interface ValidatedDomainResult {
-  isUnique?: boolean
   domain: string
+  isUnique?: boolean
 }
 
 type ValidatedDomainAction =
   | {
-      type: 'SET_UNIQUE'
       payload: boolean
+      type: 'SET_UNIQUE'
     }
   | {
-      type: 'RESET'
       payload: ValidatedDomainResult
+      type: 'RESET'
     }
 
 export const validatedDomainReducer = (
@@ -18,13 +18,13 @@ export const validatedDomainReducer = (
   action: ValidatedDomainAction,
 ): ValidatedDomainResult => {
   switch (action.type) {
+    case 'RESET':
+      return action.payload
     case 'SET_UNIQUE':
       return {
         ...state,
         isUnique: action.payload,
       }
-    case 'RESET':
-      return action.payload
     default:
       return state
   }

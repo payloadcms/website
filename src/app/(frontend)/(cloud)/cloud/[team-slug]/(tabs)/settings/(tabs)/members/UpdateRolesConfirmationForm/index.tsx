@@ -1,38 +1,38 @@
-import React from 'react'
-import { toast } from 'sonner'
+import type { Member } from '@cloud/_components/TeamMembers/index.js'
+import type { Team, User } from '@root/payload-cloud-types.js'
+
 import { revalidateCache } from '@cloud/_actions/revalidateCache.js'
-import { Member } from '@cloud/_components/TeamMembers/index.js'
+import { Button } from '@components/Button/index.js'
+import { Heading } from '@components/Heading/index.js'
 import { useModal } from '@faceless-ui/modal'
 import Form from '@forms/Form/index.js'
 import Submit from '@forms/Submit/index.js'
-
-import { Button } from '@components/Button/index.js'
-import { Heading } from '@components/Heading/index.js'
-import { Team, User } from '@root/payload-cloud-types.js'
+import React from 'react'
+import { toast } from 'sonner'
 
 import classes from './page.module.scss'
 
 interface UpdateRolesConfirmationFormProps {
+  memberIndex: null | number
   modalSlug: string
-  user: User
-  team: Team
-  memberIndex: number | null
-  newRoles: ('owner' | 'admin' | 'user')[] | null
+  newRoles: ('admin' | 'owner' | 'user')[] | null
+  onRolesUpdated: (newRoles: ('admin' | 'owner' | 'user')[]) => void
+  originalRoles: ('admin' | 'owner' | 'user')[][]
   selectedMember: Member
   setRoles: any
-  onRolesUpdated: (newRoles: ('owner' | 'admin' | 'user')[]) => void
-  originalRoles: ('owner' | 'admin' | 'user')[][]
+  team: Team
+  user: User
 }
 
 export const UpdateRolesConfirmationForm: React.FC<UpdateRolesConfirmationFormProps> = ({
-  modalSlug,
-  team,
   memberIndex,
+  modalSlug,
   newRoles,
-  selectedMember,
-  setRoles,
   onRolesUpdated,
   originalRoles,
+  selectedMember,
+  setRoles,
+  team,
 }) => {
   const { closeModal } = useModal()
 
@@ -67,15 +67,15 @@ export const UpdateRolesConfirmationForm: React.FC<UpdateRolesConfirmationFormPr
     const req = await fetch(
       `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/${userID}/change-team-roles`,
       {
-        method: 'PATCH',
+        body: JSON.stringify({
+          roles: newRoles,
+          teamID: team.id,
+        }),
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          teamID: team.id,
-          roles: newRoles,
-        }),
+        method: 'PATCH',
       },
     )
 
@@ -105,7 +105,7 @@ export const UpdateRolesConfirmationForm: React.FC<UpdateRolesConfirmationFormPr
 
   return (
     <Form onSubmit={confirmUpdateRoles}>
-      <Heading marginTop={false} as="h4">
+      <Heading as="h4" marginTop={false}>
         Are you sure you want to update the member roles of <b>{userName ? userName : userEmail}</b>
         ?
       </Heading>
@@ -118,8 +118,8 @@ export const UpdateRolesConfirmationForm: React.FC<UpdateRolesConfirmationFormPr
         </p>
       )}
       <div className={classes.modalActions}>
-        <Button label="Cancel" appearance="secondary" onClick={handleCancel} />
-        <Submit label="Confirm" appearance="primary" />
+        <Button appearance="secondary" label="Cancel" onClick={handleCancel} />
+        <Submit appearance="primary" label="Confirm" />
       </div>
     </Form>
   )

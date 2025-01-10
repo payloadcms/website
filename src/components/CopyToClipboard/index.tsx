@@ -1,20 +1,19 @@
 'use client'
-import React, { useState, useRef, useCallback } from 'react'
-
 import { Tooltip } from '@components/Tooltip/index.js'
 import { CopyIcon } from '@root/icons/CopyIcon/index.js'
+import React, { useCallback, useRef, useState } from 'react'
 
 import classes from './index.module.scss'
 
 type CopyToClipboardProps = {
-  value: (() => Promise<string | null>) | string | null
   className?: string
   hoverText?: string
+  value: (() => Promise<null | string>) | null | string
 }
 export const CopyToClipboard: React.FC<CopyToClipboardProps> = ({
-  value,
   className,
   hoverText,
+  value,
 }) => {
   const [copied, setCopied] = useState(false)
   const [showTooltip, setShowTooltip] = useState(false)
@@ -23,7 +22,9 @@ export const CopyToClipboard: React.FC<CopyToClipboardProps> = ({
   const copy = useCallback(async () => {
     if (ref && ref.current && value) {
       const copyValue = typeof value === 'string' ? value : await value()
-      if (!copyValue) return
+      if (!copyValue) {
+        return
+      }
 
       ref.current.value = copyValue
       ref.current.select()
@@ -44,14 +45,14 @@ export const CopyToClipboard: React.FC<CopyToClipboardProps> = ({
 
   return (
     <Tooltip
-      onClick={copy}
-      text={copied ? 'Copied!' : hoverText || 'Copy'}
-      setIsVisible={setShowTooltip}
-      isVisible={showTooltip || copied}
       className={className}
+      isVisible={showTooltip || copied}
+      onClick={copy}
+      setIsVisible={setShowTooltip}
+      text={copied ? 'Copied!' : hoverText || 'Copy'}
     >
       <CopyIcon size="large" />
-      <textarea className={classes.copyTextarea} tabIndex={-1} readOnly ref={ref} />
+      <textarea className={classes.copyTextarea} readOnly ref={ref} tabIndex={-1} />
     </Tooltip>
   )
 }

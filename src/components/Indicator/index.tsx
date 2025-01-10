@@ -1,19 +1,18 @@
 import * as React from 'react'
 
 import { Spinner } from '../Spinner/index.js'
-
 import classes from './index.module.scss'
 
 export type IndicatorProps = {
-  status?: 'UNKNOWN' | 'PENDING' | 'RUNNING' | 'ERROR' | 'SUCCESS' | 'SUSPENDED'
-  spinner?: boolean
   className?: string
+  spinner?: boolean
+  status?: 'ERROR' | 'PENDING' | 'RUNNING' | 'SUCCESS' | 'SUSPENDED' | 'UNKNOWN'
 }
 
 export const Indicator: React.FC<IndicatorProps> = ({
-  status = 'UNKNOWN',
-  spinner = false,
   className,
+  spinner = false,
+  status = 'UNKNOWN',
 }) => {
   return (
     <div

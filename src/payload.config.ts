@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-exports */
 import { revalidateRedirects } from '@hooks/revalidateRedirects'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
@@ -5,11 +6,17 @@ import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
 import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs'
 import { redirectsPlugin } from '@payloadcms/plugin-redirects'
 import { seoPlugin } from '@payloadcms/plugin-seo'
-import { BlocksFeature, UploadFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
+import {
+  BlocksFeature,
+  EXPERIMENTAL_TableFeature,
+  lexicalEditor,
+  UploadFeature,
+} from '@payloadcms/richtext-lexical'
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import link from '@root/fields/link'
 import { LabelFeature } from '@root/fields/richText/features/label/server'
 import { LargeBodyFeature } from '@root/fields/richText/features/largeBody/server'
+import { revalidateTag } from 'next/cache'
 import nodemailerSendgrid from 'nodemailer-sendgrid'
 import path from 'path'
 import { buildConfig } from 'payload'
@@ -18,6 +25,8 @@ import { fileURLToPath } from 'url'
 import { CaseStudies } from './collections/CaseStudies'
 import { CommunityHelp } from './collections/CommunityHelp'
 import { Docs } from './collections/Docs'
+import { BannerBlock } from './collections/Docs/blocks/banner'
+import { CodeBlock } from './collections/Docs/blocks/code'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Budgets, Industries, Regions, Specialties } from './collections/PartnerFilters'
@@ -26,10 +35,11 @@ import { Posts } from './collections/Posts'
 import { ReusableContent } from './collections/ReusableContent'
 import { Users } from './collections/Users'
 import { Footer } from './globals/Footer'
+import { GetStarted } from './globals/GetStarted'
 import { MainMenu } from './globals/MainMenu'
 import { PartnerProgram } from './globals/PartnerProgram'
 import redeployWebsite from './scripts/redeployWebsite'
-import syncDocs from './scripts/syncDocs'
+import { refreshMdxToLexical, syncDocs } from './scripts/syncDocs'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -49,7 +59,7 @@ export default buildConfig({
       password: 'test',
     },
     components: {
-      afterNavLinks: ['@root/components/SyncDocsButton', '@root/components/RedeployButton'],
+      afterNavLinks: ['@root/components/AfterNavActions'],
     },
     importMap: {
       baseDir: dirname,
@@ -61,16 +71,20 @@ export default buildConfig({
     Docs,
     Media,
     Pages,
-    Industries,
-    Specialties,
-    Regions,
-    Budgets,
     Posts,
     ReusableContent,
     Users,
     Partners,
+    Industries,
+    Specialties,
+    Regions,
+    Budgets,
   ],
-  cors: [process.env.PAYLOAD_PUBLIC_APP_URL || '', 'https://payloadcms.com'].filter(Boolean),
+  cors: [
+    process.env.PAYLOAD_PUBLIC_APP_URL || '',
+    'https://payloadcms.com',
+    'https://discord.com/api',
+  ].filter(Boolean),
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),
@@ -78,6 +92,7 @@ export default buildConfig({
   editor: lexicalEditor({
     features: ({ defaultFeatures }) => [
       ...defaultFeatures,
+      EXPERIMENTAL_TableFeature(),
       UploadFeature({
         collections: {
           media: {
@@ -132,9 +147,7 @@ export default buildConfig({
               {
                 name: 'richText',
                 type: 'richText',
-                editor: lexicalEditor({
-                  features: ({ rootFeatures }) => [...rootFeatures],
-                }),
+                editor: lexicalEditor(),
               },
             ],
             interfaceName: 'SpotlightBlock',
@@ -160,6 +173,59 @@ export default buildConfig({
 
             interfaceName: 'BrBlock',
           },
+          {
+            slug: 'commandLine',
+            fields: [
+              {
+                name: 'command',
+                type: 'text',
+              },
+            ],
+            interfaceName: 'CommandLineBlock',
+          },
+          {
+            slug: 'templateCards',
+            fields: [
+              {
+                name: 'templates',
+                type: 'array',
+                fields: [
+                  {
+                    name: 'name',
+                    type: 'text',
+                    required: true,
+                  },
+                  {
+                    name: 'description',
+                    type: 'textarea',
+                    required: true,
+                  },
+                  {
+                    name: 'image',
+                    type: 'text',
+                    required: true,
+                  },
+                  {
+                    name: 'slug',
+                    type: 'text',
+                    required: true,
+                  },
+                  {
+                    name: 'order',
+                    type: 'number',
+                    required: true,
+                  },
+                ],
+                labels: {
+                  plural: 'Templates',
+                  singular: 'Template',
+                },
+              },
+            ],
+            interfaceName: 'TemplateCardsBlock',
+          },
+          BannerBlock,
+          CodeBlock,
         ],
       }),
     ],
@@ -180,8 +246,13 @@ export default buildConfig({
       method: 'post',
       path: '/redeploy/website',
     },
+    {
+      handler: refreshMdxToLexical,
+      method: 'get',
+      path: '/refresh/mdx-to-lexical',
+    },
   ],
-  globals: [Footer, MainMenu, PartnerProgram],
+  globals: [Footer, MainMenu, GetStarted, PartnerProgram],
   graphQL: {
     disablePlaygroundInProduction: false,
   },
@@ -196,24 +267,50 @@ export default buildConfig({
             admin: {
               position: 'sidebar',
             },
+            label: 'HubSpot Form ID',
+          },
+          {
+            name: 'customID',
+            type: 'text',
+            admin: {
+              description: 'Attached to submission button to track clicks',
+              position: 'sidebar',
+            },
+            label: 'Custom ID',
           },
         ],
+        hooks: {
+          afterChange: [
+            ({ doc }) => {
+              revalidateTag(`form-${doc.title}`)
+              console.log(`Revalidated form: ${doc.title}`)
+            },
+          ],
+        },
       },
       formSubmissionOverrides: {
         hooks: {
           afterChange: [
-            ({ doc, req }) => {
+            async ({ doc, req }) => {
+              req.payload.logger.info('IP of form submission')
+              req.payload.logger.info({
+                allHeaders: req?.headers,
+                forwardedFor: req?.headers?.['x-forwarded-for'],
+                realIP: req?.headers?.['x-real-ip'],
+              })
+
+              const body = req.json ? await req.json() : {}
+
               const sendSubmissionToHubSpot = async (): Promise<void> => {
                 const { form, submissionData } = doc
                 const portalID = process.env.NEXT_PRIVATE_HUBSPOT_PORTAL_KEY
                 const data = {
                   context: {
-                    ...(req.body &&
-                      'hubspotCookie' in req.body && { hutk: req.body?.hubspotCookie }),
-                    pageName: req.body && 'pageName' in req.body ? req.body?.pageName : '',
-                    pageUri: req.body && 'pageUri' in req.body ? req.body?.pageUri : '',
+                    ...('hubspotCookie' in body && { hutk: body?.hubspotCookie }),
+                    pageName: 'pageName' in body ? body?.pageName : '',
+                    pageUri: 'pageUri' in body ? body?.pageUri : '',
                   },
-                  fields: submissionData.map(key => ({
+                  fields: submissionData.map((key) => ({
                     name: key.field,
                     value: key.value,
                   })),
@@ -236,7 +333,7 @@ export default buildConfig({
                   })
                 }
               }
-              void sendSubmissionToHubSpot()
+              await sendSubmissionToHubSpot()
             },
           ],
         },
@@ -244,12 +341,13 @@ export default buildConfig({
     }),
     seoPlugin({
       collections: ['case-studies', 'pages', 'posts'],
+      globals: ['get-started'],
       uploadsCollection: 'media',
     }),
     nestedDocsPlugin({
       collections: ['pages'],
       generateLabel: (_, doc) => doc.title as string,
-      generateURL: docs => docs.reduce((url, doc) => `${url}/${doc.slug as string}`, ''),
+      generateURL: (docs) => docs.reduce((url, doc) => `${url}/${doc.slug as string}`, ''),
     }),
     redirectsPlugin({
       collections: ['case-studies', 'pages', 'posts'],

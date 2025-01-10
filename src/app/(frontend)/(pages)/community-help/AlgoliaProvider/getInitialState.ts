@@ -1,6 +1,5 @@
-import * as qs from 'qs-esm'
-
 import canUseDOM from '@root/utilities/can-use-dom.js'
+import * as qs from 'qs-esm'
 
 export const convertObjectStringsToArrays = (
   object: Record<string, any>,
@@ -10,9 +9,6 @@ export const convertObjectStringsToArrays = (
     let copy = JSON.parse(JSON.stringify(object))
 
     switch (typeof object) {
-      case 'string':
-        copy = object
-        break
       case 'object':
         if (object instanceof Array) {
           const length = object.length
@@ -29,6 +25,9 @@ export const convertObjectStringsToArrays = (
             }
           }
         }
+        break
+      case 'string':
+        copy = object
         break
       default:
         copy = object

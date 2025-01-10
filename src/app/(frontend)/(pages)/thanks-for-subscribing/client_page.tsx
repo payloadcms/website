@@ -14,7 +14,7 @@ export const ThanksForSubscribingPage = () => {
             Thank you for subscribing. You will now receive regular Payload updates to your email.
           </LargeBody>
           <br />
-          <Button href="/" el="link" label="Back Home" appearance="secondary" />
+          <Button appearance="secondary" el="link" href="/" label="Back Home" />
         </div>
       </div>
     </Gutter>

@@ -1,25 +1,25 @@
 'use client'
 
+import { isNumber } from '@root/utilities/isNumber.js'
 import React from 'react'
 
-import { isNumber } from '@root/utilities/isNumber.js'
+import type { FieldProps } from '../types.js'
+
 import Error from '../../Error/index.js'
 import Label from '../../Label/index.js'
-import { FieldProps } from '../types.js'
 import { useField } from '../useField/index.js'
-
 import classes from './index.module.scss'
 
-export const NumberInput: React.FC<FieldProps<number>> = props => {
+export const NumberInput: React.FC<FieldProps<number>> = (props) => {
   const {
-    path,
-    required = false,
-    validate,
-    label,
-    placeholder,
-    onChange: onChangeFromProps,
     className,
     initialValue,
+    label,
+    onChange: onChangeFromProps,
+    path,
+    placeholder,
+    required = false,
+    validate,
   } = props
 
   const defaultValidateFunction = React.useCallback(
@@ -38,28 +38,28 @@ export const NumberInput: React.FC<FieldProps<number>> = props => {
     [required],
   )
 
-  const { onChange, value, showError, errorMessage } = useField<number>({
+  const { errorMessage, onChange, showError, value } = useField<number>({
     initialValue,
     onChange: onChangeFromProps,
     path,
-    validate: validate || defaultValidateFunction,
     required,
+    validate: validate || defaultValidateFunction,
   })
 
   return (
     <div className={[classes.wrap, className].filter(Boolean).join(' ')}>
-      <Error showError={showError} message={errorMessage} />
+      <Error message={errorMessage} showError={showError} />
       <Label htmlFor={path} label={label} required={required} />
       <input
         className={classes.input}
-        value={value || ''}
-        onChange={e => {
+        id={path}
+        name={path}
+        onChange={(e) => {
           onChange(Number(e.target.value))
         }}
         placeholder={placeholder}
         type="number"
-        id={path}
-        name={path}
+        value={value || ''}
       />
     </div>
   )

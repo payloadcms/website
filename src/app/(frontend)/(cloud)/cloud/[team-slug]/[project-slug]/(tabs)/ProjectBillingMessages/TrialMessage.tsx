@@ -1,15 +1,14 @@
 'use client'
 
-import React, { Fragment } from 'react'
-import { ProjectWithSubscription } from '@cloud/_api/fetchProject.js'
-import { TeamWithCustomer } from '@cloud/_api/fetchTeam.js'
+import type { ProjectWithSubscription } from '@cloud/_api/fetchProject.js'
+import type { TeamWithCustomer } from '@cloud/_api/fetchTeam.js'
+
 import { projectHasPaymentMethod } from '@cloud/_utilities/projectHasPaymentMethod.js'
 import { teamHasDefaultPaymentMethod } from '@cloud/_utilities/teamHasDefaultPaymentMethod.js'
-import Link from 'next/link'
-
-import { usePathname } from 'next/navigation'
-
 import { Message } from '@components/Message/index.js'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import React, { Fragment } from 'react'
 
 export const TrialMessage: React.FC<{
   project: ProjectWithSubscription
@@ -35,7 +34,9 @@ export const TrialMessage: React.FC<{
   // ensure that new projects don't show a warning message so that users do not think they made a mistake
   // we still need to display a message to the user, but not a warning message
   let severity = 'message'
-  if (hasPaymentError) severity = daysLeft < 3 ? 'error' : daysLeft < 7 ? 'warning' : 'message'
+  if (hasPaymentError) {
+    severity = daysLeft < 3 ? 'error' : daysLeft < 7 ? 'warning' : 'message'
+  }
 
   return (
     <Message

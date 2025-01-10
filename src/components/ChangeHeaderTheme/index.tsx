@@ -1,7 +1,7 @@
-import * as React from 'react'
+import type { Theme } from '@root/providers/Theme/types.js'
 
 import { useHeaderObserver } from '@root/providers/HeaderIntersectionObserver/index.js'
-import { Theme } from '@root/providers/Theme/types.js'
+import * as React from 'react'
 
 import classes from './index.module.scss'
 
@@ -25,7 +25,7 @@ export const ChangeHeaderTheme: React.FC<ThemeHeaderProps> = ({ children, theme 
       {children && children}
 
       <div className={[classes.observerContainer].filter(Boolean).join(' ')}>
-        <div ref={observableRef} className={classes.stickyObserver} data-theme={theme} />
+        <div className={classes.stickyObserver} data-theme={theme} ref={observableRef} />
       </div>
     </div>
   )

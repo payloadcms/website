@@ -1,7 +1,7 @@
-@use "@scss/common" as *;
+@use '@scss/common' as *;
 
 .pricingBlock {
-    position: relative;
+  position: relative;
 }
 
 .gutter {
@@ -41,8 +41,8 @@
 
 .crosshairTopLeft {
   position: absolute;
-  top: -.5rem;
-  left: -.5rem;
+  top: -0.5rem;
+  left: -0.5rem;
   width: 1rem;
   height: auto;
   opacity: 0.15;
@@ -50,8 +50,8 @@
 
 .crosshairTopRight {
   position: absolute;
-  top: -.5rem;
-  right: -.5rem;
+  top: -0.5rem;
+  right: -0.5rem;
   width: 1rem;
   height: auto;
   opacity: 0.15;
@@ -62,7 +62,7 @@
 }
 
 .disclaimer {
-    padding-bottom: 1rem;
+  padding-bottom: 1rem;
 }
 
 .createPayloadApp {
@@ -179,7 +179,6 @@
   @include body;
   font-weight: 500;
   cursor: pointer;
-
 
   @include mid-break {
     margin: 0;

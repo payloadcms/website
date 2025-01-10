@@ -55,7 +55,6 @@
   background: var(--theme-elevation-50);
   animation: pulse 1s infinite;
   border-radius: 0.25rem;
-
 }
 
 @keyframes pulse {
@@ -178,7 +177,7 @@
   padding: 3rem var(--column);
   text-decoration: none;
   border-top: 1px solid var(--theme-border-color);
-  transition: all .3s ease-in;
+  transition: all 0.3s ease-in;
   margin: 0 calc(var(--column) * -1);
 
   .nextLabel svg {
@@ -200,7 +199,8 @@
     margin: 0;
   }
 
-  &:focus, &:hover {
+  &:focus,
+  &:hover {
     text-decoration: none;
     transition: all var(--trans-default) linear;
     background-color: var(--theme-elevation-50);
@@ -211,7 +211,7 @@
 
     .nextLabel svg {
       transition: all var(--trans-default) linear;
-      transform: translate3D(2px,-2px,0);
+      transform: translate3D(2px, -2px, 0);
     }
   }
 

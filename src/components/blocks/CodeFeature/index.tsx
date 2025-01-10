@@ -1,10 +1,11 @@
 'use client'
 
-import React, { useEffect, useId, useRef, useState } from 'react'
+import type { PaddingProps } from '@components/BlockWrapper/index.js'
+import type { Page } from '@root/payload-types.js'
 
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
 import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
-import { BlockWrapper, PaddingProps } from '@components/BlockWrapper/index.js'
+import { BlockWrapper } from '@components/BlockWrapper/index.js'
 import { CMSLink } from '@components/CMSLink/index.js'
 import Code from '@components/Code/index.js'
 import CodeBlip from '@components/CodeBlip/index.js'
@@ -12,28 +13,28 @@ import { Gutter } from '@components/Gutter/index.js'
 import { RichText } from '@components/RichText/index.js'
 import SplitAnimate from '@components/SplitAnimate/index.js'
 import { CrosshairIcon } from '@root/icons/CrosshairIcon/index.js'
-import { Page } from '@root/payload-types.js'
+import React, { useEffect, useId, useRef, useState } from 'react'
 
 import classes from './index.module.scss'
 
-type Props = Extract<Page['layout'][0], { blockType: 'codeFeature' }> & {
+type Props = {
   className?: string
-  padding: PaddingProps
   hideBackground?: boolean
-}
+  padding: PaddingProps
+} & Extract<Page['layout'][0], { blockType: 'codeFeature' }>
 
 export const CodeFeatureComponent: React.FC<Props> = ({
-  codeFeatureFields,
   className,
-  padding,
+  codeFeatureFields,
   hideBackground,
+  padding,
 }) => {
   const [activeIndex, setActiveIndex] = useState(0)
-  const [indicatorStyle, setIndicatorStyle] = useState({ width: '0', left: '0' })
+  const [indicatorStyle, setIndicatorStyle] = useState({ left: '0', width: '0' })
   const [tabWrapperWidth, setTabWrapperWidth] = useState(0)
   const tabWrapperRef = useRef<HTMLDivElement>(null)
   const activeTabRef = useRef<HTMLButtonElement>(null)
-  const { alignment, heading, richText, codeTabs, links, settings } = codeFeatureFields
+  const { alignment, codeTabs, heading, links, richText, settings } = codeFeatureFields
   const hasLinks = Boolean(links?.length && links.length > 0)
   const id = useId()
   const { data, isOpen } = CodeBlip.useCodeBlip()
@@ -43,11 +44,11 @@ export const CodeFeatureComponent: React.FC<Props> = ({
 
   useEffect(() => {
     let observer
-    let ref = tabWrapperRef.current
+    const ref = tabWrapperRef.current
 
     if (ref) {
-      observer = new ResizeObserver(entries => {
-        entries.forEach(entry => {
+      observer = new ResizeObserver((entries) => {
+        entries.forEach((entry) => {
           const {
             contentBoxSize,
             contentRect, // for Safari iOS compatibility, will be deprecated eventually (see https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserverEntry/contentRect)
@@ -85,8 +86,8 @@ export const CodeFeatureComponent: React.FC<Props> = ({
   useEffect(() => {
     if (activeTabRef.current) {
       setIndicatorStyle({
-        width: `${activeTabRef.current.clientWidth}px`,
         left: `${activeTabRef.current.offsetLeft}px`,
+        width: `${activeTabRef.current.clientWidth}px`,
       })
     }
   }, [activeIndex, tabWrapperWidth])
@@ -111,13 +112,13 @@ export const CodeFeatureComponent: React.FC<Props> = ({
 
   return (
     <BlockWrapper
-      settings={settings}
-      padding={padding}
-      hideBackground={hideBackground}
       className={[classes.wrapper, className].filter(Boolean).join(' ')}
+      hideBackground={hideBackground}
       id={id}
+      padding={padding}
+      settings={settings}
     >
-      <BackgroundGrid zIndex={0} className={classes.backgroundGrid} />
+      <BackgroundGrid className={classes.backgroundGrid} zIndex={0} />
       <Gutter>
         {alignment === 'codeContent' ? (
           <div
@@ -155,18 +156,18 @@ export const CodeFeatureComponent: React.FC<Props> = ({
                 </h2>
               )}
               <div>
-                <RichText content={richText} className={classes.richText} />
+                <RichText className={classes.richText} content={richText} />
                 <div className={classes.links}>
                   {links?.map((link, index) => {
                     return (
                       <CMSLink
-                        key={index}
                         appearance={'default'}
                         buttonProps={{
                           appearance: 'default',
-                          hideHorizontalBorders: true,
                           hideBottomBorderExceptLast: true,
+                          hideHorizontalBorders: true,
                         }}
+                        key={index}
                         {...link.link}
                       />
                     )
@@ -175,10 +176,10 @@ export const CodeFeatureComponent: React.FC<Props> = ({
               </div>
             </div>
             <div
-              ref={tabsWrapperRef}
               className={[classes.tabsWrapper, 'cols-10 start-1 cols-m-8 start-m-1']
                 .filter(Boolean)
                 .join(' ')}
+              ref={tabsWrapperRef}
             >
               <BackgroundScanline
                 className={[classes.scanlineMobile, ''].filter(Boolean).join(' ')}
@@ -199,14 +200,14 @@ export const CodeFeatureComponent: React.FC<Props> = ({
                     const isActive = activeIndex === index
                     return (
                       <button
-                        key={index}
+                        aria-controls={`codefeature${id}-code-${index}`}
+                        aria-pressed={activeIndex === index}
                         className={[classes.tab, activeIndex === index && classes.isActive]
                           .filter(Boolean)
                           .join(' ')}
-                        onClick={() => setActiveIndex(index)}
-                        aria-pressed={activeIndex === index}
                         id={`codefeature${id}-tab-${index}`}
-                        aria-controls={`codefeature${id}-code-${index}`}
+                        key={index}
+                        onClick={() => setActiveIndex(index)}
                         {...(isActive ? { ref: activeTabRef } : {})}
                       >
                         {code?.label}
@@ -218,13 +219,14 @@ export const CodeFeatureComponent: React.FC<Props> = ({
                     {codeTabs?.[0]?.label}
                   </div>
                 )}
-                <div className={classes.tabIndicator} style={indicatorStyle} aria-hidden={true} />
+                <div aria-hidden={true} className={classes.tabIndicator} style={indicatorStyle} />
               </div>
               <div className={classes.codeBlockWrapper} {...(isOpen ? { inert: true } : {})}>
                 {codeTabs?.map((code, index) => {
                   return (
                     <div
-                      key={index}
+                      aria-describedby={`codefeature${id}-tab-${index}`}
+                      aria-hidden={activeIndex !== index}
                       className={[
                         classes.codeBlock,
                         activeIndex === index && classes.isActive,
@@ -232,17 +234,16 @@ export const CodeFeatureComponent: React.FC<Props> = ({
                       ]
                         .filter(Boolean)
                         .join(' ')}
-                      aria-hidden={activeIndex !== index}
-                      aria-describedby={`codefeature${id}-tab-${index}`}
                       id={`codefeature${id}-code-${index}`}
                       // types have not been updated yet for the inert attribute
                       // @ts-expect-error
                       inert={activeIndex !== index ? '' : undefined}
+                      key={index}
                     >
                       <Code
-                        parentClassName={classes.parentCodeWrapper}
                         className={classes.code}
                         codeBlips={code.codeBlips}
+                        parentClassName={classes.parentCodeWrapper}
                       >{`${code.code}
                   `}</Code>
                     </div>
@@ -268,18 +269,18 @@ export const CodeFeatureComponent: React.FC<Props> = ({
                 </h2>
               )}
               <div>
-                <RichText content={richText} className={classes.richText} />
+                <RichText className={classes.richText} content={richText} />
                 <div className={classes.links}>
                   {links?.map((link, index) => {
                     return (
                       <CMSLink
-                        key={index}
                         appearance={'default'}
                         buttonProps={{
                           appearance: 'default',
-                          hideHorizontalBorders: true,
                           hideBottomBorderExceptLast: true,
+                          hideHorizontalBorders: true,
                         }}
+                        key={index}
                         {...link.link}
                       />
                     )
@@ -303,10 +304,10 @@ export const CodeFeatureComponent: React.FC<Props> = ({
               <CrosshairIcon className={[classes.crosshairBottomRight].filter(Boolean).join(' ')} />
             </div>
             <div
-              ref={tabsWrapperRef}
               className={[classes.tabsWrapper, 'cols-10 start-7 cols-m-8 start-m-1']
                 .filter(Boolean)
                 .join(' ')}
+              ref={tabsWrapperRef}
             >
               <BackgroundScanline
                 className={[classes.scanlineMobile, ''].filter(Boolean).join(' ')}
@@ -327,14 +328,14 @@ export const CodeFeatureComponent: React.FC<Props> = ({
                     const isActive = activeIndex === index
                     return (
                       <button
-                        key={index}
+                        aria-controls={`codefeature${id}-code-${index}`}
+                        aria-pressed={activeIndex === index}
                         className={[classes.tab, activeIndex === index && classes.isActive]
                           .filter(Boolean)
                           .join(' ')}
-                        onClick={() => setActiveIndex(index)}
-                        aria-pressed={activeIndex === index}
                         id={`codefeature${id}-tab-${index}`}
-                        aria-controls={`codefeature${id}-code-${index}`}
+                        key={index}
+                        onClick={() => setActiveIndex(index)}
                         {...(isActive ? { ref: activeTabRef } : {})}
                       >
                         {code?.label}
@@ -346,13 +347,14 @@ export const CodeFeatureComponent: React.FC<Props> = ({
                     {codeTabs?.[0]?.label}
                   </div>
                 )}
-                <div className={classes.tabIndicator} style={indicatorStyle} aria-hidden={true} />
+                <div aria-hidden={true} className={classes.tabIndicator} style={indicatorStyle} />
               </div>
               <div className={classes.codeBlockWrapper} {...(isOpen ? { inert: true } : {})}>
                 {codeTabs?.map((code, index) => {
                   return (
                     <div
-                      key={index}
+                      aria-describedby={`codefeature${id}-tab-${index}`}
+                      aria-hidden={activeIndex !== index}
                       className={[
                         classes.codeBlock,
                         activeIndex === index && classes.isActive,
@@ -360,17 +362,16 @@ export const CodeFeatureComponent: React.FC<Props> = ({
                       ]
                         .filter(Boolean)
                         .join(' ')}
-                      aria-hidden={activeIndex !== index}
-                      aria-describedby={`codefeature${id}-tab-${index}`}
                       id={`codefeature${id}-code-${index}`}
                       // types have not been updated yet for the inert attribute
                       // @ts-expect-error
                       inert={activeIndex !== index ? '' : undefined}
+                      key={index}
                     >
                       <Code
-                        parentClassName={classes.parentCodeWrapper}
                         className={classes.code}
                         codeBlips={code.codeBlips}
+                        parentClassName={classes.parentCodeWrapper}
                       >{`${code.code}
                   `}</Code>
                     </div>
@@ -385,7 +386,7 @@ export const CodeFeatureComponent: React.FC<Props> = ({
   )
 }
 
-export const CodeFeature: React.FC<Props> = props => (
+export const CodeFeature: React.FC<Props> = (props) => (
   <CodeBlip.Provider>
     <CodeFeatureComponent {...props} />
   </CodeBlip.Provider>

@@ -7,7 +7,7 @@
   cursor: pointer;
   border-radius: 3px;
 
-  &:hover svg ,
+  &:hover svg,
   &:focus-visible svg {
     opacity: 0.75;
   }
@@ -18,7 +18,7 @@
 
   .tip {
     opacity: 0;
-    transition: opacity 0.15s cubic-bezier(.165, 0.84, 0.44, 1);
+    transition: opacity 0.15s cubic-bezier(0.165, 0.84, 0.44, 1);
     pointer-events: none;
   }
 

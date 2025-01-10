@@ -1,4 +1,4 @@
-@use "@scss/common" as *;
+@use '@scss/common' as *;
 
 .wrap {
   overflow: auto;
@@ -29,7 +29,8 @@
         }
       }
 
-      th, td {
+      th,
+      td {
         padding: 0.75rem;
         min-width: 150px;
         vertical-align: top;
@@ -65,7 +66,8 @@
       }
 
       @include mid-break {
-        th, td {
+        th,
+        td {
           padding: 1rem 0.5rem;
         }
       }

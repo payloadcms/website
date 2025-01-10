@@ -8,10 +8,10 @@ export const CommentsIcon: React.FC<Props> = ({ className }) => {
   return (
     <svg
       className={className}
-      width="23"
+      fill="none"
       height="20"
       viewBox="0 0 23 20"
-      fill="none"
+      width="23"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path

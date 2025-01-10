@@ -10,7 +10,7 @@
 
 .card {
   position: relative;
-  padding-top:  4rem;
+  padding-top: 4rem;
 
   &.isFirst {
     margin-top: -12rem;
@@ -39,7 +39,7 @@
     padding-bottom: 4rem;
 
     @include mid-break {
-      padding-bottom:  0;
+      padding-bottom: 0;
     }
   }
 }
@@ -66,8 +66,9 @@
   visibility: hidden;
   position: relative;
   will-change: opacity, visibility;
-  transition: opacity 0.35s ease-in-out, visibility 0.35s ease-in-out;
-
+  transition:
+    opacity 0.35s ease-in-out,
+    visibility 0.35s ease-in-out;
 
   &.isVisible {
     pointer-events: all;
@@ -79,17 +80,16 @@
 
 .quoteIcon {
   position: absolute;
-  width:  10rem;
+  width: 10rem;
   height: auto;
   color: var(--theme-bg);
   left: -2.4rem;
   top: -5.6rem;
 
-
   @include large-break {
     left: -1.8rem;
     top: -4.5rem;
-    width:  8rem;
+    width: 8rem;
   }
 
   @include mid-break {
@@ -139,15 +139,15 @@
   row-gap: 12rem;
 
   padding-top: 16rem;
-  padding-bottom:  10rem;
+  padding-bottom: 10rem;
 
   margin-bottom: -80vh;
 
   @include mid-break {
     margin-bottom: 0;
     row-gap: 4rem;
-    padding-top:  1rem;
-    padding-bottom:  0;
+    padding-top: 1rem;
+    padding-bottom: 0;
   }
 }
 
@@ -172,7 +172,7 @@
 .caseStudyButton {
   width: 100%;
 
-   @include small-break {
+  @include small-break {
     width: calc(100% - 1px);
   }
 }
@@ -197,7 +197,7 @@
   }
 }
 
-.navWrapper{
+.navWrapper {
   position: sticky;
   height: 80vh;
   bottom: 0;
@@ -234,7 +234,6 @@
 .progressIndicator {
   grid-column: 1 / -1;
   position: relative;
-
 
   &::before {
     content: '';
@@ -294,7 +293,6 @@
       padding: 0.5rem 0;
       opacity: 0.6;
     }
-
 
     &.isActive {
       & .navButtonLabel {
