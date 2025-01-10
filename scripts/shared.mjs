@@ -13,7 +13,7 @@ export const topicOrder = {
       topics: [
         'Admin',
         'Authentication',
-        'Rich-Text',
+        'Text-Editor',
         'Live-Preview',
         'Versions',
         'Upload',
