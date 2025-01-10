@@ -10,6 +10,7 @@ import { ExternalLinkIcon } from '@root/icons/ExternalLinkIcon/index.js'
 import { Project, Team } from '@root/payload-cloud-types.js'
 
 import classes from './index.module.scss'
+import { useRouter } from 'next/navigation'
 
 const domainValueFieldPath = 'domain'
 
@@ -23,6 +24,7 @@ type Props = {
 export const ManageDomain: React.FC<Props> = ({ domain, project, team, environmentSlug }) => {
   const { id, domain: domainURL, recordType, recordName, recordContent } = domain
   const modalSlug = `delete-domain-${id}`
+  const router = useRouter()
 
   const { openModal, closeModal } = useModal()
   const projectID = project?.id
@@ -47,6 +49,7 @@ export const ManageDomain: React.FC<Props> = ({ domain, project, team, environme
 
         if (req.status === 200) {
           const res = await req.json()
+          router.refresh()
           setProjectDomains(domains)
           return res
         }
