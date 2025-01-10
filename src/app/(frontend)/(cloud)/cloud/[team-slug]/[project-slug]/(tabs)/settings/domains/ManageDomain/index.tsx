@@ -2,6 +2,7 @@ import type { Project, Team } from '@root/payload-cloud-types.js'
 
 import { Accordion } from '@components/Accordion/index.js'
 import { Button } from '@components/Button/index.js'
+import { CopyToClipboard } from '@components/CopyToClipboard'
 import { Heading } from '@components/Heading/index.js'
 import { ModalWindow } from '@components/ModalWindow/index.js'
 import { useModal } from '@faceless-ui/modal'
@@ -87,22 +88,34 @@ export const ManageDomain: React.FC<Props> = ({ domain, environmentSlug, project
       >
         <div className={classes.domainContent}>
           <p>Add the following record to your DNS provider:</p>
-          <table className={classes.record}>
-            <thead>
-              <tr>
-                <th>Type</th>
-                <th>Name</th>
-                <th>Content</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{recordType}</td>
-                <td>{recordName}</td>
-                <td>{recordContent}</td>
-              </tr>
-            </tbody>
-          </table>
+          <div className={classes.tableContainer}>
+            <table className={classes.record}>
+              <thead>
+                <tr>
+                  <th>Type</th>
+                  <th>Name</th>
+                  <th>Content</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{recordType}</td>
+                  <td>
+                    <span>
+                      {recordName}
+                      {recordName && <CopyToClipboard value={recordName} />}
+                    </span>
+                  </td>
+                  <td>
+                    <span>
+                      {recordContent}
+                      {recordContent && <CopyToClipboard value={recordContent} />}
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
           <div className={classes.domainActions}>
             <div className={classes.rightActions}>
               <Button appearance="danger" label="Delete" onClick={() => openModal(modalSlug)} />

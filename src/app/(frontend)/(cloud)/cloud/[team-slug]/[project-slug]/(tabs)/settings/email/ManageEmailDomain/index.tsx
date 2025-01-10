@@ -11,6 +11,7 @@ import { Secret } from '@forms/fields/Secret/index.js'
 import { ExternalLinkIcon } from '@root/icons/ExternalLinkIcon/index.js'
 import { qs } from '@root/utilities/qs.js'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import * as React from 'react'
 import { toast } from 'sonner'
@@ -42,6 +43,7 @@ export const ManageEmailDomain: React.FC<Props> = ({
   const projectID = project?.id
   const projectEmailDomains = project?.customEmailDomains
   const hasInitialized = useRef(false)
+  const router = useRouter()
 
   const getDomainVerificationStatus = useCallback(
     async (domainId: string) => {
@@ -119,7 +121,7 @@ export const ManageEmailDomain: React.FC<Props> = ({
 
         if (req.status === 200) {
           const res = await req.json()
-          // reloadProject()
+          router.refresh()
           return res
         }
       } catch (e) {
@@ -154,7 +156,7 @@ export const ManageEmailDomain: React.FC<Props> = ({
 
         if (req.status === 200) {
           const res = await req.json()
-          // reloadProject()
+          router.refresh()
           toast.success(res.message)
         }
       } catch (e) {

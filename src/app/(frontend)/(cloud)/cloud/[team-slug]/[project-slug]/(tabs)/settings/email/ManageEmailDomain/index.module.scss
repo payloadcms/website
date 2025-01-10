@@ -42,15 +42,15 @@
 
 .records {
   display: block;
-  background: var(--theme-elevation-50);
+  background: var(--theme-elevation-100);
   padding: 1rem;
   overflow: auto;
 
   th {
-    @include h6;
+    @include small;
     & {
       font-weight: normal;
-      font-family: var(--font-geist-mono);
+      color: var(--theme-elevation-600);
       text-align: left;
       padding: 0.25rem 0.5rem;
     }
@@ -65,12 +65,13 @@
     span {
       display: inline-block;
       vertical-align: middle;
+      margin-right: 2rem;
     }
 
     button {
       display: inline-block;
       vertical-align: middle;
-      margin-right: 0.25rem;
+      margin-right: 1rem;
 
       span {
         width: 0;
@@ -87,10 +88,7 @@
   }
 
   .recordName {
-    width: 11em;
-
     & > span {
-      width: 9em;
       overflow: hidden;
       text-overflow: ellipsis;
       word-break: keep-all;

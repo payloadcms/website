@@ -35,8 +35,14 @@
   color: var(--theme-text);
 }
 
+.tableContainer {
+  position: relative;
+  overflow: scroll;
+}
+
 .record {
-  width: 100%;
+  min-width: 100%;
+  overflow: scroll;
   background: var(--theme-elevation-100);
   padding: 1rem;
 
@@ -44,13 +50,14 @@
   td {
     padding-right: 0.5rem;
     vertical-align: top;
+    min-width: 100px;
   }
 
   th {
-    @include label;
+    @include small;
     & {
       font-weight: normal;
-      font-family: var(--font-geist-mono);
+      color: var(--theme-elevation-600);
       text-align: left;
       padding: 0.25rem 0.5rem;
     }
@@ -61,6 +68,13 @@
     padding: 0 0.5rem;
     white-space: nowrap;
     color: var(--theme-text);
+
+    & span {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-right: 2rem;
+    }
   }
 }
 
