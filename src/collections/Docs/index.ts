@@ -22,6 +22,7 @@ import { LightDarkImageBlock } from './blocks/lightDarkImage'
 import { RestExamplesBlock } from './blocks/restExamples'
 import { TableWithDrawersBlock } from './blocks/tableWithDrawers'
 import { UploadBlock } from './blocks/upload'
+import { VideoDrawerBlock } from './blocks/VideoDrawer'
 import { YoutubeBlock } from './blocks/youtube'
 import { lexicalToMDX } from './mdxToLexical'
 
@@ -38,6 +39,7 @@ export const contentLexicalEditorFeatures: FeatureProviderServer[] = [
       UploadBlock,
       RestExamplesBlock,
       TableWithDrawersBlock,
+      VideoDrawerBlock,
     ],
   }),
 ]

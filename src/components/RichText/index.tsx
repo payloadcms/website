@@ -18,6 +18,7 @@ import type {
   TemplateCardsBlock,
   UploadBlock,
   VideoBlock,
+  VideoDrawerBlock,
   YoutubeBlock,
 } from '@types'
 
@@ -52,6 +53,7 @@ import { RestExamples } from './RestExamples'
 import { CustomTableJSXConverters } from './Table/index.js'
 import { TableWithDrawers } from './TableWithDrawers'
 import { UploadBlockImage } from './UploadBlock/index.js'
+import { VideoDrawer } from './VideoDrawer'
 
 type Props = {
   className?: string
@@ -72,6 +74,7 @@ export type NodeTypes =
       | TemplateCardsBlock
       | UploadBlock
       | VideoBlock
+      | VideoDrawerBlock
       | YoutubeBlock
     >
   | SerializedLabelNode
@@ -164,6 +167,15 @@ export const jsxConverters: (args: { toc?: boolean }) => JSXConvertersFunction<N
           }
 
           return null
+        },
+        VideoDrawer: ({ node }) => {
+          return (
+            <VideoDrawer
+              drawerTitle={node.fields.drawerTitle}
+              id={node.fields.id}
+              label={node.fields.label}
+            />
+          )
         },
         YouTube: ({ node }) => {
           return <YouTube id={node.fields.id} title={node.fields.title ?? ''} />

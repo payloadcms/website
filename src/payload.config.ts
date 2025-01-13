@@ -27,6 +27,7 @@ import { CommunityHelp } from './collections/CommunityHelp'
 import { Docs } from './collections/Docs'
 import { BannerBlock } from './collections/Docs/blocks/banner'
 import { CodeBlock } from './collections/Docs/blocks/code'
+import { VideoDrawerBlock } from './collections/Docs/blocks/VideoDrawer'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Budgets, Industries, Regions, Specialties } from './collections/PartnerFilters'
@@ -173,6 +174,7 @@ export default buildConfig({
 
             interfaceName: 'BrBlock',
           },
+          VideoDrawerBlock,
           {
             slug: 'commandLine',
             fields: [

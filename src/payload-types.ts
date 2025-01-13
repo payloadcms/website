@@ -13681,6 +13681,17 @@ export interface BrBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "VideoDrawerBlock".
+ */
+export interface VideoDrawerBlock {
+  id: string | null;
+  label: string;
+  drawerTitle: string;
+  blockName?: string | null;
+  blockType: 'VideoDrawer';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "CommandLineBlock".
  */
 export interface CommandLineBlock {
