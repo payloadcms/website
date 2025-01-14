@@ -24,13 +24,21 @@ const flattenChildren: (value: { props: { children: any } } | string) => string 
   return value.props.children
 }
 
-export const formatAnchor: (children: string | string[]) => string = (children) => {
+export const formatAnchor: (children: string | string[]) => {
+  label: string
+  tag?: string | undefined
+} = (children) => {
   if (Array.isArray(children)) {
-    return children.map(flattenChildren).join('')
+    return {
+      label: children.map(flattenChildren).join(''),
+    }
   }
 
   if (typeof children === 'string' && children.includes('#')) {
-    return children.split('#')[1]
+    return {
+      label: children.split('#')[0],
+      tag: children.split('#')[1],
+    }
   }
-  return flattenChildren(children)
+  return { label: flattenChildren(children) }
 }

@@ -12,8 +12,10 @@ export const Heading: React.FC<any> = ({ node, nodesToJSX }) => {
 
   const childrenText = node.children?.[0]?.text as string
 
-  const anchor = slugify(formatAnchor(childrenText))
+  const { label, tag } = formatAnchor(childrenText)
   const { addHeading } = useRichText()
+
+  const anchor = slugify(tag ?? label)
 
   useEffect(() => {
     addHeading(anchor, childrenText, 'secondary')
@@ -21,7 +23,7 @@ export const Heading: React.FC<any> = ({ node, nodesToJSX }) => {
 
   return (
     <JumplistNode id={anchor} type={node.tag.toLowerCase()}>
-      {children}
+      {children.length > 1 ? children : label}
     </JumplistNode>
   )
 }
