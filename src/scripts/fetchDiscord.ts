@@ -108,6 +108,14 @@ function processMessages(messages: Message[]) {
 
   messages.reverse().forEach((message: Message) => {
     const key = message.author.id
+    const isBot =
+      message.author.bot ||
+      message.author.username === 'Payload-Bot' ||
+      message.author.username.includes('Bot')
+
+    if (isBot) {
+      return
+    }
     if (mergedMessages.has(key)) {
       const prevMessage = mergedMessages.get(key)
       prevMessage.content += `\n\n${message.content}`
@@ -140,21 +148,14 @@ function createSanitizedThread(thread: Thread, messages: Message[]) {
         }
       : {},
     messageCount: combinedResponses.length,
-    messages: combinedResponses.map(({ attachments, author, content, timestamp }) => {
-      if (author.username === 'Payload-Bot') {
-        // Skip Payload bot messages
-        return
-      } else {
-        return {
-          authorAvatar: author.avatar,
-          authorID: author.id,
-          authorName: author.username,
-          content: toHTML(content),
-          createdAt: new Date(timestamp),
-          fileAttachments: attachments,
-        }
-      }
-    }),
+    messages: combinedResponses.map(({ attachments, author, content, timestamp }) => ({
+      authorAvatar: author.avatar,
+      authorID: author.id,
+      authorName: author.username,
+      content: toHTML(content),
+      createdAt: new Date(timestamp),
+      fileAttachments: attachments,
+    })),
     ogMessageCount: thread.message_count,
   }
 }
@@ -199,7 +200,7 @@ async function fetchDiscord() {
     .then((data) =>
       data.docs.map((thread) => ({
         id: thread.discordID,
-        messageCount: thread.ogMessageCount || 0,
+        messageCount: 0,
       })),
     )
 
