@@ -84,13 +84,15 @@ async function fetchFromDiscord(
       throw new Error(`Failed to fetch ${endpoint}: ${response.statusText}`)
     }
 
-    const data = await response.json()
+    const rawData = await response.json()
+    const data = rawData.filter((item) => item && item.author && item.content)
+
     if (fetchType === 'threads') {
       allResults.push(...(data.threads || []))
       if (!data.has_more) {
         break
       }
-      params.before = data.threads[data.threads.length - 1].thread_metadata.archive_timestamp
+      params.before = data.threads[data.threads.length - 1]?.thread_metadata?.archive_timestamp
     } else {
       allResults.push(...data)
       if (data.length < 100) {
@@ -104,29 +106,40 @@ async function fetchFromDiscord(
 }
 
 function processMessages(messages: Message[]) {
-  const mergedMessages = new Map()
+  const mergedMessages: Message[] = []
 
-  messages.reverse().forEach((message: Message) => {
-    const key = message.author.id
+  for (let i = 0; i < messages.length; i++) {
+    const currentMessage = messages[i]
+
+    if (!currentMessage || !currentMessage.author || !currentMessage.content) {
+      console.warn('Skipping message due to missing author or content:', currentMessage)
+      continue
+    }
+
     const isBot =
-      message.author.bot ||
-      message.author.username === 'Payload-Bot' ||
-      message.author.username.includes('Bot')
+      currentMessage.author.bot ||
+      currentMessage.author.username === 'Payload-Bot' ||
+      currentMessage.author.username.includes('Bot')
 
     if (isBot) {
-      return
+      continue
     }
-    if (mergedMessages.has(key)) {
-      const prevMessage = mergedMessages.get(key)
-      prevMessage.content += `\n\n${message.content}`
-      prevMessage.attachments = prevMessage.attachments.concat(message.attachments)
-    } else {
-      mergedMessages.set(key, message)
-    }
-  })
 
-  return Array.from(mergedMessages.values())
+    if (
+      mergedMessages.length > 0 &&
+      mergedMessages[mergedMessages.length - 1].author.id === currentMessage.author.id
+    ) {
+      const prevMessage = mergedMessages[mergedMessages.length - 1]
+      prevMessage.content += `\n\n${currentMessage.content}`
+      prevMessage.attachments = prevMessage.attachments.concat(currentMessage.attachments)
+    } else {
+      mergedMessages.push({ ...currentMessage })
+    }
+  }
+
+  return mergedMessages
 }
+
 function createSanitizedThread(thread: Thread, messages: Message[]) {
   const [intro, ...combinedResponses] = processMessages(messages)
 
@@ -200,7 +213,7 @@ async function fetchDiscord() {
     .then((data) =>
       data.docs.map((thread) => ({
         id: thread.discordID,
-        messageCount: 0,
+        messageCount: thread.communityHelpJSON.messageCount || 0,
       })),
     )
 
