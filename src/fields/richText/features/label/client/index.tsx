@@ -27,11 +27,13 @@ export const LabelFeatureClient = createClientFeature({
             key: 'label',
             keywords: ['label'],
             label: 'Label',
-            onSelect: () => {
-              const selection = $getSelection()
-              if ($isRangeSelection(selection)) {
-                $setBlocksType(selection, () => $createLabelNode())
-              }
+            onSelect: ({ editor }) => {
+              editor.update(() => {
+                const selection = $getSelection()
+                if ($isRangeSelection(selection)) {
+                  $setBlocksType(selection, () => $createLabelNode())
+                }
+              })
             },
           },
         ],

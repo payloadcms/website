@@ -27,11 +27,13 @@ export const LargeBodyFeatureClient = createClientFeature({
             key: 'largeBody',
             keywords: ['largeBody', 'body', 'lb'],
             label: 'Large Body',
-            onSelect: () => {
-              const selection = $getSelection()
-              if ($isRangeSelection(selection)) {
-                $setBlocksType(selection, () => $createLargeBodyNode())
-              }
+            onSelect: ({ editor }) => {
+              editor.update(() => {
+                const selection = $getSelection()
+                if ($isRangeSelection(selection)) {
+                  $setBlocksType(selection, () => $createLargeBodyNode())
+                }
+              })
             },
           },
         ],
