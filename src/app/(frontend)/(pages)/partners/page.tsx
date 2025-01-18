@@ -35,6 +35,31 @@ export default async function Partners() {
 
   const getPartners = draft ? fetchPartners : unstable_cache(fetchPartners, ['partners'])
   const partners = await getPartners()
+
+  // Check if partners exists
+  if (!partners || partners.length === 0) {
+    return (
+      <BlockWrapper settings={{}}>
+        <BreadcrumbsBar
+          breadcrumbs={[
+            {
+              label: 'Agency Partners',
+            },
+          ]}
+          links={[
+            {
+              label: 'Become a Partner',
+              url: '/partners',
+            },
+          ]}
+        />
+        <Gutter className={[classes.hero, 'grid'].join(' ')}>
+          <p>No partners available at the moment.</p>
+        </Gutter>
+      </BlockWrapper>
+    )
+  }
+
   const partnerList = partners.map((partner) => {
     return {
       ...partner,
