@@ -1,6 +1,6 @@
 import type { Plan } from '@root/payload-cloud-types.js'
 
-import { PricingCard } from '@components/cards/PricingCard/index.js'
+import { PricingCard } from '@components/Cards/PricingCard/index.js'
 import { Drawer, DrawerToggler } from '@components/Drawer/index.js'
 import { useModal } from '@faceless-ui/modal'
 import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'

@@ -1,6 +1,6 @@
 import type { Partner } from '@root/payload-types'
 
-import { PartnerCard } from '@components/cards/PartnerCard'
+import { PartnerCard } from '@components/Cards/PartnerCard'
 
 import classes from './index.module.scss'
 

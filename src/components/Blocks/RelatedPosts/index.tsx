@@ -1,6 +1,6 @@
 import type { Post } from '@root/payload-types.js'
 
-import { ContentMediaCard } from '@components/cards/ContentMediaCard/index.js'
+import { ContentMediaCard } from '@components/Cards/ContentMediaCard/index.js'
 import { Gutter } from '@components/Gutter/index.js'
 
 import classes from './index.module.scss'
