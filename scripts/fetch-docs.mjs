@@ -185,6 +185,12 @@ async function fetchDocs() {
   const data = JSON.stringify(topics.filter(Boolean), null, 2)
   const docsFilename = path.resolve(__dirname, outputDirectory)
 
+  const dir = path.dirname(docsFilename)
+  
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true })
+  }
+
   fs.writeFile(docsFilename, data, (err) => {
     if (err) {
       console.error(err)
