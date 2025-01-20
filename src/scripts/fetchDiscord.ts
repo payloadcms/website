@@ -211,7 +211,7 @@ async function fetchDiscord() {
     .then((data) =>
       data.docs.map((thread) => ({
         id: thread.discordID,
-        messageCount: thread.communityHelpJSON.messageCount || 0,
+        messageCount: 0,
       })),
     )
 
