@@ -84,8 +84,7 @@ async function fetchFromDiscord(
       throw new Error(`Failed to fetch ${endpoint}: ${response.statusText}`)
     }
 
-    const rawData = await response.json()
-    const data = rawData.filter((item) => item && item.author && item.content)
+    const data = await response.json()
 
     if (fetchType === 'threads') {
       allResults.push(...(data.threads || []))
@@ -111,8 +110,8 @@ function processMessages(messages: Message[]) {
   for (let i = 0; i < messages.length; i++) {
     const currentMessage = messages[i]
 
-    if (!currentMessage || !currentMessage.author || !currentMessage.content) {
-      console.warn('Skipping message due to missing author or content:', currentMessage)
+    if (!currentMessage.author || (!currentMessage.attachments && !currentMessage.content)) {
+      // Skip messages without content or author
       continue
     }
 

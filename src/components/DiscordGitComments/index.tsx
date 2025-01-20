@@ -71,6 +71,10 @@ export const DiscordGitComments: React.FC<CommentProps> = ({ answer, comments, p
 
       {comments &&
         comments.map((comment, index) => {
+          if (!comment) {
+            return null
+          }
+
           const totalReplies = comment?.replies ? comment?.replies?.length : false
           if (answer && comment?.body === answer?.body) {
             return null
