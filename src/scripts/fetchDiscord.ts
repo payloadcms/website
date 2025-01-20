@@ -85,7 +85,6 @@ async function fetchFromDiscord(
     }
 
     const data = await response.json()
-
     if (fetchType === 'threads') {
       allResults.push(...(data.threads || []))
       if (!data.has_more) {
@@ -101,7 +100,7 @@ async function fetchFromDiscord(
     }
   }
 
-  return allResults
+  return allResults.reverse()
 }
 
 function processMessages(messages: Message[]) {
