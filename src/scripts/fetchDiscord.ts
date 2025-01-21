@@ -252,6 +252,7 @@ async function fetchDiscord() {
       communityHelpJSON: thread,
       communityHelpType: 'discord',
       discordID: thread.info.id,
+      threadCreatedAt: thread.info.createdAt,
       title: thread.info.name,
     })
 

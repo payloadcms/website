@@ -240,6 +240,7 @@ async function fetchGitHub(): Promise<void> {
       communityHelpJSON: discussion,
       communityHelpType: 'github',
       githubID: discussion.id,
+      threadCreatedAt: discussion.createdAt,
       title: discussion.title,
     })
 

@@ -122,6 +122,13 @@ export const CommunityHelp: CollectionConfig = {
       index: true,
       relationTo: 'docs',
     },
+    {
+      name: 'threadCreatedAt',
+      type: 'date',
+      admin: {
+        position: 'sidebar',
+      },
+    },
   ],
   labels: {
     plural: 'Community Helps',

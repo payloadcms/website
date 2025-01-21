@@ -5114,6 +5114,7 @@ export interface CommunityHelp {
   slug?: string | null;
   helpful?: boolean | null;
   relatedDocs?: (string | Doc)[] | null;
+  threadCreatedAt?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -6390,6 +6391,7 @@ export interface CommunityHelpSelect<T extends boolean = true> {
   slug?: T;
   helpful?: T;
   relatedDocs?: T;
+  threadCreatedAt?: T;
   updatedAt?: T;
   createdAt?: T;
 }
