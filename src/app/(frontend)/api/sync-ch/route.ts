@@ -1,3 +1,4 @@
+import clearDuplicateThreads from '@root/scripts/clearDuplicateThreads'
 import { NextResponse } from 'next/server'
 
 import fetchDiscord from '../../../../scripts/fetchDiscord'
@@ -8,6 +9,7 @@ export const maxDuration = 300 // 5 mins (max on vercel pro plan)
 export const dynamic = 'force-dynamic'
 
 export async function GET(): Promise<NextResponse> {
+  await clearDuplicateThreads()
   await fetchDiscord()
   await fetchGitHub()
   await syncToAlgolia()

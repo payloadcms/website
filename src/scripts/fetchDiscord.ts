@@ -216,8 +216,10 @@ async function fetchDiscord() {
     )
 
   const filteredThreads = allThreads.filter((thread) => {
-    const existingThread = existingThreadIDs.find((existing) => existing.id === thread.id)
-    return !existingThread || existingThread.messageCount !== thread.message_count
+    const existingThread = existingThreadIDs.some((existing) => existing.id === thread.id)
+    return (
+      !existingThread || (existingThread && existingThread.messageCount !== thread.message_count)
+    )
   })
 
   bar.start(filteredThreads.length, 0)
