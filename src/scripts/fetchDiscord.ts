@@ -22,8 +22,8 @@ type Thread = {
   message_count: number
   name: string
   thread_metadata: {
-    archive_timestamp: string
     archived: boolean
+    create_timestamp: string
   }
 }
 
@@ -147,7 +147,7 @@ function createSanitizedThread(thread: Thread, messages: Message[]) {
       id: thread.id,
       name: thread.name,
       archived: thread.thread_metadata.archived,
-      createdAt: thread.thread_metadata.archive_timestamp,
+      createdAt: thread.thread_metadata.create_timestamp,
       guildId: thread.guild_id,
     },
     intro: intro
