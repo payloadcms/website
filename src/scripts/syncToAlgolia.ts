@@ -55,15 +55,17 @@ export const syncToAlgolia = async (): Promise<void> => {
   const githubDocs: GithubDoc[] = []
 
   docs.forEach((doc) => {
-    const { communityHelpJSON, discordID, githubID, helpful } = doc
+    const { communityHelpJSON, discordID, githubID, helpful, threadCreatedAt } = doc
 
     if (discordID) {
       const { slug, info, intro, messageCount, messages } = communityHelpJSON
+      const formattedDate = threadCreatedAt || info.createdAt
+
       discordDocs.push({
         name: info.name,
         slug,
         author: intro.authorName,
-        createdAt: info.createdAt,
+        createdAt: formattedDate,
         helpful: helpful ?? false,
         messageCount,
         messages: messages.map((message) => {

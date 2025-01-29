@@ -140,6 +140,9 @@ function processMessages(messages: Message[]) {
 
 function createSanitizedThread(thread: Thread, messages: Message[]) {
   const [intro, ...combinedResponses] = processMessages(messages)
+  const createdAtDate = intro
+    ? new Date(intro.timestamp).toISOString()
+    : new Date(thread.thread_metadata.create_timestamp).toISOString()
 
   return {
     slug: sanitizeSlug(thread.name),
@@ -147,7 +150,7 @@ function createSanitizedThread(thread: Thread, messages: Message[]) {
       id: thread.id,
       name: thread.name,
       archived: thread.thread_metadata.archived,
-      createdAt: thread.thread_metadata.create_timestamp,
+      createdAt: createdAtDate,
       guildId: thread.guild_id,
     },
     intro: intro
