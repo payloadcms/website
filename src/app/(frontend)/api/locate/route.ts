@@ -1,5 +1,3 @@
-import { NextResponse } from 'next/server'
-
 const gdprCountryCodes = [
   // -----[ EU 28 ]-----
   'AT', // Austria
@@ -86,9 +84,8 @@ const gdprCountryCodes = [
 const locate = (countryCode: null | string = null): boolean =>
   countryCode ? gdprCountryCodes.indexOf(countryCode) > -1 : true
 
-export async function GET(req: Request): Promise<NextResponse> {
-  const country =
-    typeof req.headers['x-vercel-ip-country'] === 'string' ? req.headers['x-vercel-ip-country'] : ''
-
-  return NextResponse.json({ country, isGDPR: locate(country) })
+export function GET(req: Request) {
+  const country = req.headers.get('x-vercel-ip-country')
+  const isGDPR = locate(country)
+  return new Response(JSON.stringify({ country, isGDPR }))
 }
