@@ -51,7 +51,7 @@ export const PrivacyBanner: React.FC = () => {
             className={classes.rejectButton}
             label="Dismiss"
             onClick={() => {
-              updateCookieConsent(false, true)
+              updateCookieConsent(false)
               handleCloseBanner()
             }}
           />
@@ -60,7 +60,7 @@ export const PrivacyBanner: React.FC = () => {
             className={classes.acceptButton}
             label="Accept"
             onClick={() => {
-              updateCookieConsent(true, false)
+              updateCookieConsent(true)
               handleCloseBanner()
             }}
           />
