@@ -24,7 +24,7 @@ export const CookieClientPage: React.FC = () => {
 
   const handleCookieConsentChange = (newValue: string) => {
     const newConsent = newValue === 'true'
-    updateCookieConsent(newConsent, !newConsent)
+    updateCookieConsent(newConsent)
     setTrackingCookies(newValue)
   }
 
