@@ -18,6 +18,7 @@
 
 .column {
   width: 1px;
+  background-color: var(--theme-border-color);
 
   &:nth-of-type(1) {
     grid-area: 1/1/1/1;
@@ -49,14 +50,6 @@
 
   &:nth-of-type(5) {
     grid-area: 1/17/1/17;
-  }
-
-  @include data-theme-selector('light') {
-    background: var(--grid-line-light);
-  }
-
-  @include data-theme-selector('dark') {
-    background: var(--grid-line-dark);
   }
 }
 
