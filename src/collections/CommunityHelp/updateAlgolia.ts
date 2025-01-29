@@ -17,7 +17,7 @@ export const updateAlgolia = async (id: string, helpful: boolean): Promise<void>
         objectID: id,
       },
       {
-        createIfNotExists: false,
+        createIfNotExists: true,
       },
     )
     .then(() => {
