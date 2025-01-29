@@ -1,9 +1,15 @@
 import algoliasearch from 'algoliasearch'
-import payload from 'payload'
 
-const appID = process.env.NEXT_PUBLIC_ALGOLIA_CH_ID || ''
-const apiKey = process.env.NEXT_PRIVATE_ALGOLIA_API_KEY || ''
-const indexName = process.env.NEXT_PUBLIC_ALGOLIA_CH_INDEX_NAME || ''
+const {
+  NEXT_PRIVATE_ALGOLIA_API_KEY,
+  NEXT_PUBLIC_ALGOLIA_CH_ID,
+  NEXT_PUBLIC_ALGOLIA_CH_INDEX_NAME,
+  NEXT_PUBLIC_CMS_URL,
+} = process.env
+
+const appID = NEXT_PUBLIC_ALGOLIA_CH_ID || ''
+const apiKey = NEXT_PRIVATE_ALGOLIA_API_KEY || ''
+const indexName = NEXT_PUBLIC_ALGOLIA_CH_INDEX_NAME || ''
 
 const client = algoliasearch(appID, apiKey)
 
@@ -39,16 +45,17 @@ export const syncToAlgolia = async (): Promise<void> => {
     throw new Error('Algolia environment variables are not set')
   }
 
-  const { docs } = await payload.find({
-    collection: 'community-help',
-    limit: 30000,
-  })
+  const communityHelpThreads = await fetch(
+    `${NEXT_PUBLIC_CMS_URL}/api/community-help?limit=0`,
+  ).then((res) => res.json())
+
+  const docs = communityHelpThreads?.docs
 
   const discordDocs: DiscordDoc[] = []
   const githubDocs: GithubDoc[] = []
 
   docs.forEach((doc) => {
-    const { communityHelpJSON, discordID, githubID, helpful } = doc as any
+    const { communityHelpJSON, discordID, githubID, helpful } = doc
 
     if (discordID) {
       const { slug, info, intro, messageCount, messages } = communityHelpJSON
@@ -60,9 +67,11 @@ export const syncToAlgolia = async (): Promise<void> => {
         helpful: helpful ?? false,
         messageCount,
         messages: messages.map((message) => {
-          return {
-            author: message.authorName,
-            content: message.content,
+          if (message) {
+            return {
+              author: message.authorName,
+              content: message.content,
+            }
           }
         }),
         objectID: info.id,
