@@ -21,7 +21,36 @@ export const Steps: React.FC<Props> = ({ stepsFields }) => {
             return <Step i={i} key={step.id} step={step} />
           })}
         </ul>
-        <BackgroundGrid />
+        <BackgroundGrid
+          gridLineStyles={{
+            0: {
+              background:
+                'linear-gradient(to bottom, var(--theme-border-color) 0px, transparent 20rem, transparent calc(100% - 20rem), var(--theme-border-color) 100%);',
+              backgroundColor: 'none',
+            },
+            1: {
+              background:
+                'linear-gradient(to bottom, var(--theme-border-color) 0px, transparent 10rem, transparent calc(100% - 10rem), var(--theme-border-color) 100%);',
+              backgroundColor: 'none',
+            },
+            2: {
+              background:
+                'linear-gradient(to bottom, var(--theme-border-color) 0px, transparent 5rem, transparent calc(100% - 5rem), var(--theme-border-color) 100%);',
+              backgroundColor: 'none',
+            },
+            3: {
+              background:
+                'linear-gradient(to bottom, var(--theme-border-color) 0px, transparent 10rem, transparent calc(100% - 10rem), var(--theme-border-color) 100%);',
+              backgroundColor: 'none',
+            },
+            4: {
+              background:
+                'linear-gradient(to bottom, var(--theme-border-color) 0px, transparent 20rem, transparent calc(100% - 20rem), var(--theme-border-color) 100%);',
+              backgroundColor: 'none',
+            },
+          }}
+          zIndex={0}
+        />
       </Gutter>
     </BlockWrapper>
   )
