@@ -59,7 +59,7 @@ export const syncToAlgolia = async (): Promise<void> => {
 
     if (discordID) {
       const { slug, info, intro, messageCount, messages } = communityHelpJSON
-      const formattedDate = threadCreatedAt || info.createdAt
+      const formattedDate = new Date(threadCreatedAt || info.createdAt).toISOString()
 
       discordDocs.push({
         name: info.name,
