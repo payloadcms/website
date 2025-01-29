@@ -26,8 +26,16 @@ export const QuoteCard: React.FC<Props> = ({
     return null
   }
 
+  const Component = enableLink ? CMSLink : 'div'
+
   return (
-    <div className={[classes.quoteCard, isActive && classes.isActive].filter(Boolean).join(' ')}>
+    <Component
+      className={[classes.quoteCard, isActive && classes.isActive, enableLink && classes.enableLink]
+        .filter(Boolean)
+        .join(' ')}
+      {...link}
+      label={null}
+    >
       <h3 className={classes.quote}>
         <span className={classes.closingQuote}>“</span>
         {quote}
@@ -42,14 +50,12 @@ export const QuoteCard: React.FC<Props> = ({
           <Media alt={author} className={classes.logo} resource={logo} />
         )}
         {enableLink && (
-          <CMSLink className={classes.arrowWrap} {...link} label={null}>
-            {link?.label && <span className={classes.linkLabel}>{link.label}</span>}
-            <div className={classes.arrow}>
-              <ArrowIcon />
-            </div>
-          </CMSLink>
+          <div className={classes.linkLabel}>
+            {link?.label}
+            <ArrowIcon />
+          </div>
         )}
       </div>
-    </div>
+    </Component>
   )
 }
