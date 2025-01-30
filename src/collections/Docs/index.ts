@@ -1,5 +1,5 @@
 import type { Doc } from '@root/payload-types'
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig, TextField } from 'payload'
 
 import {
   BlocksFeature,
@@ -8,6 +8,7 @@ import {
   EXPERIMENTAL_TableFeature,
   type FeatureProviderServer,
   lexicalEditor,
+  LinkFeature,
   sanitizeServerEditorConfig,
   type SerializedBlockNode,
 } from '@payloadcms/richtext-lexical'
@@ -28,7 +29,24 @@ import { lexicalToMDX } from './mdxToLexical'
 
 export const contentLexicalEditorFeatures: FeatureProviderServer[] = [
   // Default features without upload
-  ...defaultEditorFeatures.filter((feature) => feature.key !== 'upload'),
+  ...defaultEditorFeatures.filter((feature) => feature.key !== 'upload' && feature.key !== 'link'),
+  LinkFeature({
+    fields({ defaultFields }) {
+      return [
+        ...defaultFields.filter((field) => field.name !== 'url'),
+        {
+          // Own url field to disable URL encoding links starting with '../'
+          name: 'url',
+          type: 'text',
+          label: ({ t }) => t('fields:enterURL'),
+          required: true,
+          validate: (value: string, options) => {
+            return
+          },
+        } as TextField,
+      ]
+    },
+  }),
   EXPERIMENTAL_TableFeature(),
   BlocksFeature({
     blocks: [

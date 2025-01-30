@@ -10,6 +10,7 @@ import {
   BlocksFeature,
   EXPERIMENTAL_TableFeature,
   lexicalEditor,
+  LinkFeature,
   UploadFeature,
 } from '@payloadcms/richtext-lexical'
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
@@ -19,7 +20,7 @@ import { LargeBodyFeature } from '@root/fields/richText/features/largeBody/serve
 import { revalidateTag } from 'next/cache'
 import nodemailerSendgrid from 'nodemailer-sendgrid'
 import path from 'path'
-import { buildConfig } from 'payload'
+import { buildConfig, type TextField } from 'payload'
 import { fileURLToPath } from 'url'
 
 import { CaseStudies } from './collections/CaseStudies'
@@ -92,7 +93,24 @@ export default buildConfig({
   defaultDepth: 1,
   editor: lexicalEditor({
     features: ({ defaultFeatures }) => [
-      ...defaultFeatures,
+      ...defaultFeatures.filter((feature) => feature.key !== 'link'),
+      LinkFeature({
+        fields({ defaultFields }) {
+          return [
+            ...defaultFields.filter((field) => field.name !== 'url'),
+            {
+              // Own url field to disable URL encoding links starting with '../'
+              name: 'url',
+              type: 'text',
+              label: ({ t }) => t('fields:enterURL'),
+              required: true,
+              validate: (value: string, options) => {
+                return
+              },
+            } as TextField,
+          ]
+        },
+      }),
       EXPERIMENTAL_TableFeature(),
       UploadFeature({
         collections: {
