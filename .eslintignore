@@ -1,5 +1,0 @@
-/.next
-node_modules
-**/*.d.ts
-**/payload-types.ts
-**/payload-cloud-types.ts

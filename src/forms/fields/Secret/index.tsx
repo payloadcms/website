@@ -1,37 +1,37 @@
 'use client'
 
-import React, { Fragment } from 'react'
-import Label from '@forms/Label/index.js'
-
 import { CopyToClipboard } from '@components/CopyToClipboard/index.js'
 import { Tooltip } from '@components/Tooltip/index.js'
+import Label from '@forms/Label/index.js'
 import { EyeIcon } from '@root/icons/EyeIcon/index.js'
-import Error from '../../Error/index.js'
-import { FieldProps } from '../types.js'
-import { useField } from '../useField/index.js'
+import React, { Fragment } from 'react'
 
+import type { FieldProps } from '../types.js'
+
+import Error from '../../Error/index.js'
+import { useField } from '../useField/index.js'
 import classes from './index.module.scss'
 
-type SecretProps = FieldProps<string> & {
-  loadSecret: () => Promise<string>
+type SecretProps = {
   largeLabel?: boolean
+  loadSecret: () => Promise<string>
   readOnly?: boolean
-}
+} & FieldProps<string>
 
-export const Secret: React.FC<SecretProps> = props => {
+export const Secret: React.FC<SecretProps> = (props) => {
   const {
+    className,
+    description,
+    initialValue,
+    label,
+    largeLabel,
+    loadSecret: loadValue,
+    onChange: onChangeFromProps,
     path,
+    placeholder,
+    readOnly,
     required = false,
     validate,
-    label,
-    placeholder,
-    onChange: onChangeFromProps,
-    initialValue,
-    className,
-    loadSecret: loadValue,
-    description,
-    largeLabel,
-    readOnly,
   } = props
 
   const [isValueLoaded, setIsValueLoaded] = React.useState(false)
@@ -53,19 +53,19 @@ export const Secret: React.FC<SecretProps> = props => {
   )
 
   const {
-    onChange,
-    value = '',
-    showError,
     errorMessage,
+    onChange,
+    showError,
+    value = '',
   } = useField<string>({
     initialValue,
     onChange: onChangeFromProps,
     path,
-    validate: validate || defaultValidateFunction,
     required,
+    validate: validate || defaultValidateFunction,
   })
 
-  const loadExternalValue = React.useCallback(async (): Promise<string | null> => {
+  const loadExternalValue = React.useCallback(async (): Promise<null | string> => {
     try {
       const loadedValue = await loadValue()
       onChange(loadedValue)
@@ -78,7 +78,9 @@ export const Secret: React.FC<SecretProps> = props => {
   }, [loadValue, onChange])
 
   const toggleVisibility = React.useCallback(async () => {
-    if (!isValueLoaded) await loadExternalValue()
+    if (!isValueLoaded) {
+      await loadExternalValue()
+    }
 
     setIsHidden(!isHidden)
   }, [isHidden, isValueLoaded, loadExternalValue])
@@ -96,36 +98,36 @@ export const Secret: React.FC<SecretProps> = props => {
       {description && <p className={classes.description}>{description}</p>}
       <input
         className={classes.input}
-        onChange={e => {
+        id={path}
+        name={path}
+        onChange={(e) => {
           onChange(e.target.value)
         }}
         placeholder={placeholder}
-        id={path}
-        name={path}
+        readOnly={readOnly}
         required={required}
+        tabIndex={isHidden ? -1 : 0}
         type="text"
         value={isHidden ? '••••••••••••••••••••••••••••••' : value || ''}
-        tabIndex={isHidden ? -1 : 0}
-        readOnly={readOnly}
       />
-      <Error showError={showError} message={errorMessage} />
+      <Error message={errorMessage} showError={showError} />
       <Label
-        htmlFor={path}
-        label={label}
-        required={required}
-        className={largeLabel ? classes.largeLabel : ''}
         actionsSlot={
           <Fragment>
             <Tooltip
-              text={isHidden ? 'show' : 'hide'}
-              onClick={toggleVisibility}
               className={classes.tooltipButton}
+              onClick={toggleVisibility}
+              text={isHidden ? 'show' : 'hide'}
             >
               <EyeIcon closed={isHidden} size="large" />
             </Tooltip>
             <CopyToClipboard value={isValueLoaded ? value : loadExternalValue} />
           </Fragment>
         }
+        className={largeLabel ? classes.largeLabel : ''}
+        htmlFor={path}
+        label={label}
+        required={required}
       />
     </div>
   )

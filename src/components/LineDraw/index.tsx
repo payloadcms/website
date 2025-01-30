@@ -5,11 +5,11 @@ import React from 'react'
 import classes from './index.module.scss'
 
 export const LineDraw: React.FC<{
+  active?: boolean | null
+  align?: 'bottom' | 'top'
   className?: string
-  active?: Boolean | null
-  align?: 'top' | 'bottom'
-  disabled?: Boolean | null
-}> = ({ className, active: isHovered, align = 'top', disabled }) => {
+  disabled?: boolean | null
+}> = ({ active: isHovered, align = 'top', className, disabled }) => {
   return (
     <div
       className={[

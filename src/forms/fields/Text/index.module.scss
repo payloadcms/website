@@ -1,4 +1,4 @@
-@use "../shared.scss";
+@use '../shared.scss';
 @use '@scss/common' as *;
 
 .component {
@@ -67,7 +67,7 @@
   }
 }
 
-:global([data-theme="light"]) {
+:global([data-theme='light']) {
   .input {
     background: var(--theme-elevation-50);
 

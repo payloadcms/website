@@ -1,7 +1,6 @@
-@use "@scss/common" as *;
+@use '@scss/common' as *;
 
 .node {
-
   letter-spacing: 0;
 
   scroll-margin-top: calc(var(--header-height) + 1rem);
@@ -27,7 +26,7 @@
   left: -1.15rem;
 
   @include small-break {
-    transform: translate(-50%, -50%) scale(.65);
-    left: -.5rem;
+    transform: translate(-50%, -50%) scale(0.65);
+    left: -0.5rem;
   }
 }

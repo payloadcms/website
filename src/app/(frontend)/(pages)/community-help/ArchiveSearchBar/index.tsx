@@ -1,8 +1,7 @@
-import React from 'react'
-
 import { AlgoliaSearchBox } from '@root/adapters/AlgoliaSearchBox/index.js'
 import { SearchIconV2 } from '@root/graphics/SearchIconV2/index.js'
 import { CrosshairIcon } from '@root/icons/CrosshairIcon/index.js'
+import React from 'react'
 
 import classes from './index.module.scss'
 

@@ -125,6 +125,9 @@ export interface CaseStudy {
         | {
             calloutFields: {
               settings?: {
+                /**
+                 * Leave blank for system default
+                 */
                 theme?: ('light' | 'dark') | null;
                 background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
@@ -160,6 +163,9 @@ export interface CaseStudy {
         | {
             ctaFields: {
               settings?: {
+                /**
+                 * Leave blank for system default
+                 */
                 theme?: ('light' | 'dark') | null;
                 background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
@@ -239,6 +245,9 @@ export interface CaseStudy {
         | {
             cardGridFields: {
               settings?: {
+                /**
+                 * Leave blank for system default
+                 */
                 theme?: ('light' | 'dark') | null;
                 background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
@@ -257,6 +266,9 @@ export interface CaseStudy {
                 };
                 [k: string]: unknown;
               };
+              /**
+               * These links will be placed above the card grid as calls-to-action.
+               */
               links?:
                 | {
                     link: {
@@ -318,6 +330,9 @@ export interface CaseStudy {
         | {
             caseStudyCardFields?: {
               settings?: {
+                /**
+                 * Leave blank for system default
+                 */
                 theme?: ('light' | 'dark') | null;
                 background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
@@ -351,6 +366,9 @@ export interface CaseStudy {
         | {
             caseStudiesHighlightFields: {
               settings?: {
+                /**
+                 * Leave blank for system default
+                 */
                 theme?: ('light' | 'dark') | null;
                 background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
@@ -378,6 +396,9 @@ export interface CaseStudy {
         | {
             caseStudyParallaxFields?: {
               settings?: {
+                /**
+                 * Leave blank for system default
+                 */
                 theme?: ('light' | 'dark') | null;
                 background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
@@ -392,6 +413,9 @@ export interface CaseStudy {
                           id?: string | null;
                         }[]
                       | null;
+                    /**
+                     * A label for the navigation tab at the bottom of the parallax
+                     */
                     tabLabel: string;
                     caseStudy: string | CaseStudy;
                     id?: string | null;
@@ -405,10 +429,19 @@ export interface CaseStudy {
         | {
             codeFeatureFields: {
               settings?: {
+                /**
+                 * Leave blank for system default
+                 */
                 theme?: ('light' | 'dark') | null;
                 background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
+              /**
+               * Check this box to force this block to have a dark background.
+               */
               forceDarkBackground?: boolean | null;
+              /**
+               * Choose how to align the content for this block.
+               */
               alignment?: ('contentCode' | 'codeContent') | null;
               heading?: string | null;
               richText: {
@@ -510,6 +543,9 @@ export interface CaseStudy {
         | {
             contentFields: {
               settings?: {
+                /**
+                 * Leave blank for system default
+                 */
                 theme?: ('light' | 'dark') | null;
                 background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
@@ -583,6 +619,9 @@ export interface CaseStudy {
         | {
             contentGridFields?: {
               settings?: {
+                /**
+                 * Leave blank for system default
+                 */
                 theme?: ('light' | 'dark') | null;
                 background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
@@ -656,6 +695,9 @@ export interface CaseStudy {
         | {
             formFields: {
               settings?: {
+                /**
+                 * Leave blank for system default
+                 */
                 theme?: ('light' | 'dark') | null;
                 background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
@@ -683,6 +725,9 @@ export interface CaseStudy {
         | {
             hoverCardsFields: {
               settings?: {
+                /**
+                 * Leave blank for system default
+                 */
                 theme?: ('light' | 'dark') | null;
                 background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
@@ -736,6 +781,9 @@ export interface CaseStudy {
         | {
             hoverHighlightsFields: {
               settings?: {
+                /**
+                 * Leave blank for system default
+                 */
                 theme?: ('light' | 'dark') | null;
                 background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
@@ -798,6 +846,9 @@ export interface CaseStudy {
         | {
             linkGridFields?: {
               settings?: {
+                /**
+                 * Leave blank for system default
+                 */
                 theme?: ('light' | 'dark') | null;
                 background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
@@ -834,6 +885,9 @@ export interface CaseStudy {
         | {
             logoGridFields: {
               settings?: {
+                /**
+                 * Leave blank for system default
+                 */
                 theme?: ('light' | 'dark') | null;
                 background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
@@ -887,6 +941,9 @@ export interface CaseStudy {
         | {
             mediaBlockFields: {
               settings?: {
+                /**
+                 * Leave blank for system default
+                 */
                 theme?: ('light' | 'dark') | null;
                 background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
@@ -915,10 +972,19 @@ export interface CaseStudy {
         | {
             mediaContentFields: {
               settings?: {
+                /**
+                 * Leave blank for system default
+                 */
                 theme?: ('light' | 'dark') | null;
                 background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
+              /**
+               * Choose how to align the content for this block.
+               */
               alignment?: ('contentMedia' | 'mediaContent') | null;
+              /**
+               * Choose how wide the media should be.
+               */
               mediaWidth?: ('stretch' | 'fit') | null;
               richText: {
                 root: {
@@ -970,15 +1036,27 @@ export interface CaseStudy {
         | {
             mediaContentAccordionFields?: {
               settings?: {
+                /**
+                 * Leave blank for system default
+                 */
                 theme?: ('light' | 'dark') | null;
                 background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
+              /**
+               * Choose how to align the content for this block.
+               */
               alignment?: ('contentMedia' | 'mediaContent') | null;
               leader?: string | null;
               heading?: string | null;
               accordion?:
                 | {
+                    /**
+                     * Choose how to position the media itself.
+                     */
                     position?: ('normal' | 'inset' | 'wide') | null;
+                    /**
+                     * Select the background you want to sit behind the media.
+                     */
                     background?: ('none' | 'gradient' | 'scanlines') | null;
                     mediaLabel: string;
                     mediaDescription: {
@@ -1029,6 +1107,9 @@ export interface CaseStudy {
         | {
             pricingFields?: {
               settings?: {
+                /**
+                 * Leave blank for system default
+                 */
                 theme?: ('light' | 'dark') | null;
                 background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
@@ -1080,10 +1161,16 @@ export interface CaseStudy {
         | {
             reusableContentBlockFields: {
               settings?: {
+                /**
+                 * Leave blank for system default
+                 */
                 theme?: ('light' | 'dark') | null;
                 background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
               reusableContent: string | ReusableContent;
+              /**
+               * This is a custom ID that can be used to target this block with CSS or JavaScript.
+               */
               customId?: string | null;
             };
             id?: string | null;
@@ -1093,6 +1180,9 @@ export interface CaseStudy {
         | {
             sliderFields: {
               settings?: {
+                /**
+                 * Leave blank for system default
+                 */
                 theme?: ('light' | 'dark') | null;
                 background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
@@ -1132,6 +1222,9 @@ export interface CaseStudy {
                       url?: string | null;
                       label: string;
                       customId?: string | null;
+                      /**
+                       * Choose how the link should be rendered.
+                       */
                       appearance?: ('default' | 'primary' | 'secondary') | null;
                     };
                     id?: string | null;
@@ -1173,6 +1266,9 @@ export interface CaseStudy {
         | {
             statementFields: {
               settings?: {
+                /**
+                 * Leave blank for system default
+                 */
                 theme?: ('light' | 'dark') | null;
                 background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
@@ -1231,6 +1327,9 @@ export interface CaseStudy {
         | {
             stickyHighlightsFields?: {
               settings?: {
+                /**
+                 * Leave blank for system default
+                 */
                 theme?: ('light' | 'dark') | null;
                 background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
@@ -1334,6 +1433,9 @@ export interface CaseStudy {
   meta?: {
     title?: string | null;
     description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
     image?: (string | null) | Media;
   };
   updatedAt: string;
@@ -1347,6 +1449,9 @@ export interface CaseStudy {
 export interface Media {
   id: string;
   alt: string;
+  /**
+   * Choose an upload to render if the visitor is using dark mode.
+   */
   darkModeFallback?: (string | null) | Media;
   updatedAt: string;
   createdAt: string;
@@ -1381,6 +1486,9 @@ export interface Page {
       | 'gradient'
       | 'three';
     fullBackground?: boolean | null;
+    /**
+     * Leave blank for system default
+     */
     theme?: ('light' | 'dark') | null;
     enableBreadcrumbsBar?: boolean | null;
     breadcrumbsBarLinks?:
@@ -1567,6 +1675,9 @@ export interface Page {
             url?: string | null;
             label: string;
             customId?: string | null;
+            /**
+             * Choose how the link should be rendered.
+             */
             appearance?: ('default' | 'primary' | 'secondary') | null;
           };
           id?: string | null;
@@ -1599,6 +1710,9 @@ export interface Page {
                 url?: string | null;
                 label: string;
                 customId?: string | null;
+                /**
+                 * Choose how the link should be rendered.
+                 */
                 appearance?: ('default' | 'primary' | 'secondary') | null;
               };
               id?: string | null;
@@ -1676,6 +1790,9 @@ export interface Page {
     | {
         calloutFields: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
@@ -1711,6 +1828,9 @@ export interface Page {
     | {
         ctaFields: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
@@ -1790,6 +1910,9 @@ export interface Page {
     | {
         cardGridFields: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
@@ -1808,6 +1931,9 @@ export interface Page {
             };
             [k: string]: unknown;
           };
+          /**
+           * These links will be placed above the card grid as calls-to-action.
+           */
           links?:
             | {
                 link: {
@@ -1869,6 +1995,9 @@ export interface Page {
     | {
         caseStudyCardFields?: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
@@ -1902,6 +2031,9 @@ export interface Page {
     | {
         caseStudiesHighlightFields: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
@@ -1929,6 +2061,9 @@ export interface Page {
     | {
         caseStudyParallaxFields?: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
@@ -1943,6 +2078,9 @@ export interface Page {
                       id?: string | null;
                     }[]
                   | null;
+                /**
+                 * A label for the navigation tab at the bottom of the parallax
+                 */
                 tabLabel: string;
                 caseStudy: string | CaseStudy;
                 id?: string | null;
@@ -1956,10 +2094,19 @@ export interface Page {
     | {
         codeFeatureFields: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
+          /**
+           * Check this box to force this block to have a dark background.
+           */
           forceDarkBackground?: boolean | null;
+          /**
+           * Choose how to align the content for this block.
+           */
           alignment?: ('contentCode' | 'codeContent') | null;
           heading?: string | null;
           richText: {
@@ -2061,6 +2208,9 @@ export interface Page {
     | {
         contentFields: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
@@ -2134,6 +2284,9 @@ export interface Page {
     | {
         contentGridFields?: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
@@ -2207,6 +2360,9 @@ export interface Page {
     | {
         formFields: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
@@ -2234,6 +2390,9 @@ export interface Page {
     | {
         hoverCardsFields: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
@@ -2287,6 +2446,9 @@ export interface Page {
     | {
         hoverHighlightsFields: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
@@ -2349,6 +2511,9 @@ export interface Page {
     | {
         linkGridFields?: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
@@ -2385,6 +2550,9 @@ export interface Page {
     | {
         logoGridFields: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
@@ -2438,6 +2606,9 @@ export interface Page {
     | {
         mediaBlockFields: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
@@ -2466,10 +2637,19 @@ export interface Page {
     | {
         mediaContentFields: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
+          /**
+           * Choose how to align the content for this block.
+           */
           alignment?: ('contentMedia' | 'mediaContent') | null;
+          /**
+           * Choose how wide the media should be.
+           */
           mediaWidth?: ('stretch' | 'fit') | null;
           richText: {
             root: {
@@ -2521,15 +2701,27 @@ export interface Page {
     | {
         mediaContentAccordionFields?: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
+          /**
+           * Choose how to align the content for this block.
+           */
           alignment?: ('contentMedia' | 'mediaContent') | null;
           leader?: string | null;
           heading?: string | null;
           accordion?:
             | {
+                /**
+                 * Choose how to position the media itself.
+                 */
                 position?: ('normal' | 'inset' | 'wide') | null;
+                /**
+                 * Select the background you want to sit behind the media.
+                 */
                 background?: ('none' | 'gradient' | 'scanlines') | null;
                 mediaLabel: string;
                 mediaDescription: {
@@ -2580,6 +2772,9 @@ export interface Page {
     | {
         pricingFields?: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
@@ -2631,10 +2826,16 @@ export interface Page {
     | {
         reusableContentBlockFields: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           reusableContent: string | ReusableContent;
+          /**
+           * This is a custom ID that can be used to target this block with CSS or JavaScript.
+           */
           customId?: string | null;
         };
         id?: string | null;
@@ -2644,6 +2845,9 @@ export interface Page {
     | {
         sliderFields: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
@@ -2683,6 +2887,9 @@ export interface Page {
                   url?: string | null;
                   label: string;
                   customId?: string | null;
+                  /**
+                   * Choose how the link should be rendered.
+                   */
                   appearance?: ('default' | 'primary' | 'secondary') | null;
                 };
                 id?: string | null;
@@ -2724,6 +2931,9 @@ export interface Page {
     | {
         statementFields: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
@@ -2782,6 +2992,9 @@ export interface Page {
     | {
         stickyHighlightsFields?: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
@@ -2883,6 +3096,9 @@ export interface Page {
   meta?: {
     title?: string | null;
     description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
     image?: (string | null) | Media;
   };
   parent?: (string | null) | Page;
@@ -2927,6 +3143,9 @@ export interface Post {
     | {
         bannerFields: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
@@ -2955,6 +3174,9 @@ export interface Post {
     | {
         blogContentFields: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
@@ -2981,6 +3203,9 @@ export interface Post {
     | {
         codeFields: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
@@ -3037,6 +3262,9 @@ export interface Post {
     | {
         blogMarkdownFields: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
@@ -3049,6 +3277,9 @@ export interface Post {
     | {
         mediaBlockFields: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
@@ -3077,10 +3308,16 @@ export interface Post {
     | {
         reusableContentBlockFields: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           reusableContent: string | ReusableContent;
+          /**
+           * This is a custom ID that can be used to target this block with CSS or JavaScript.
+           */
           customId?: string | null;
         };
         id?: string | null;
@@ -3110,6 +3347,9 @@ export interface Post {
   meta?: {
     title?: string | null;
     description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
     image?: (string | null) | Media;
   };
   updatedAt: string;
@@ -3127,6 +3367,9 @@ export interface ReusableContent {
     | {
         bannerFields: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
@@ -3155,6 +3398,9 @@ export interface ReusableContent {
     | {
         blogContentFields: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
@@ -3181,6 +3427,9 @@ export interface ReusableContent {
     | {
         blogMarkdownFields: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
@@ -3193,6 +3442,9 @@ export interface ReusableContent {
     | {
         calloutFields: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
@@ -3228,6 +3480,9 @@ export interface ReusableContent {
     | {
         ctaFields: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
@@ -3307,6 +3562,9 @@ export interface ReusableContent {
     | {
         cardGridFields: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
@@ -3325,6 +3583,9 @@ export interface ReusableContent {
             };
             [k: string]: unknown;
           };
+          /**
+           * These links will be placed above the card grid as calls-to-action.
+           */
           links?:
             | {
                 link: {
@@ -3386,6 +3647,9 @@ export interface ReusableContent {
     | {
         caseStudyCardFields?: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
@@ -3419,6 +3683,9 @@ export interface ReusableContent {
     | {
         caseStudiesHighlightFields: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
@@ -3446,6 +3713,9 @@ export interface ReusableContent {
     | {
         caseStudyParallaxFields?: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
@@ -3460,6 +3730,9 @@ export interface ReusableContent {
                       id?: string | null;
                     }[]
                   | null;
+                /**
+                 * A label for the navigation tab at the bottom of the parallax
+                 */
                 tabLabel: string;
                 caseStudy: string | CaseStudy;
                 id?: string | null;
@@ -3473,6 +3746,9 @@ export interface ReusableContent {
     | {
         codeFields: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
@@ -3529,10 +3805,19 @@ export interface ReusableContent {
     | {
         codeFeatureFields: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
+          /**
+           * Check this box to force this block to have a dark background.
+           */
           forceDarkBackground?: boolean | null;
+          /**
+           * Choose how to align the content for this block.
+           */
           alignment?: ('contentCode' | 'codeContent') | null;
           heading?: string | null;
           richText: {
@@ -3634,6 +3919,9 @@ export interface ReusableContent {
     | {
         contentFields: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
@@ -3707,6 +3995,9 @@ export interface ReusableContent {
     | {
         contentGridFields?: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
@@ -3781,6 +4072,9 @@ export interface ReusableContent {
     | {
         formFields: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
@@ -3808,6 +4102,9 @@ export interface ReusableContent {
     | {
         hoverCardsFields: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
@@ -3861,6 +4158,9 @@ export interface ReusableContent {
     | {
         hoverHighlightsFields: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
@@ -3923,6 +4223,9 @@ export interface ReusableContent {
     | {
         linkGridFields?: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
@@ -3959,6 +4262,9 @@ export interface ReusableContent {
     | {
         logoGridFields: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
@@ -4012,6 +4318,9 @@ export interface ReusableContent {
     | {
         mediaBlockFields: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
@@ -4040,10 +4349,19 @@ export interface ReusableContent {
     | {
         mediaContentFields: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
+          /**
+           * Choose how to align the content for this block.
+           */
           alignment?: ('contentMedia' | 'mediaContent') | null;
+          /**
+           * Choose how wide the media should be.
+           */
           mediaWidth?: ('stretch' | 'fit') | null;
           richText: {
             root: {
@@ -4095,15 +4413,27 @@ export interface ReusableContent {
     | {
         mediaContentAccordionFields?: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
+          /**
+           * Choose how to align the content for this block.
+           */
           alignment?: ('contentMedia' | 'mediaContent') | null;
           leader?: string | null;
           heading?: string | null;
           accordion?:
             | {
+                /**
+                 * Choose how to position the media itself.
+                 */
                 position?: ('normal' | 'inset' | 'wide') | null;
+                /**
+                 * Select the background you want to sit behind the media.
+                 */
                 background?: ('none' | 'gradient' | 'scanlines') | null;
                 mediaLabel: string;
                 mediaDescription: {
@@ -4154,6 +4484,9 @@ export interface ReusableContent {
     | {
         pricingFields?: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
@@ -4205,6 +4538,9 @@ export interface ReusableContent {
     | {
         sliderFields: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
@@ -4244,6 +4580,9 @@ export interface ReusableContent {
                   url?: string | null;
                   label: string;
                   customId?: string | null;
+                  /**
+                   * Choose how the link should be rendered.
+                   */
                   appearance?: ('default' | 'primary' | 'secondary') | null;
                 };
                 id?: string | null;
@@ -4285,6 +4624,9 @@ export interface ReusableContent {
     | {
         statementFields: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
@@ -4343,6 +4685,9 @@ export interface ReusableContent {
     | {
         stickyHighlightsFields?: {
           settings?: {
+            /**
+             * Leave blank for system default
+             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
@@ -4622,6 +4967,9 @@ export interface Form {
       )[]
     | null;
   submitButtonLabel?: string | null;
+  /**
+   * Choose whether to display an on-page message or redirect to a different page after they submit the form.
+   */
   confirmationType?: ('message' | 'redirect') | null;
   confirmationMessage?: {
     root: {
@@ -4641,6 +4989,9 @@ export interface Form {
   redirect?: {
     url: string;
   };
+  /**
+   * Send custom emails when the form submits. Use comma separated lists to send the same email to multiple recipients. To reference a value from this form, wrap that field's name with double curly brackets, i.e. {{firstName}}. You can use a wildcard {{*}} to output all data and {{*:table}} to format it as an HTML table in the email.
+   */
   emails?:
     | {
         emailTo?: string | null;
@@ -4649,6 +5000,9 @@ export interface Form {
         replyTo?: string | null;
         emailFrom?: string | null;
         subject: string;
+        /**
+         * Enter the message that should be sent in this email.
+         */
         message?: {
           root: {
             type: string;
@@ -4668,6 +5022,9 @@ export interface Form {
       }[]
     | null;
   hubSpotFormID?: string | null;
+  /**
+   * Attached to submission button to track clicks
+   */
   customID?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -4679,6 +5036,9 @@ export interface Form {
 export interface StepsBlock {
   stepsFields: {
     settings?: {
+      /**
+       * Leave blank for system default
+       */
       theme?: ('light' | 'dark') | null;
       background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
     };
@@ -4714,6 +5074,9 @@ export interface User {
   id: string;
   firstName: string;
   lastName: string;
+  /**
+   * Example: `payloadcms`
+   */
   twitter?: string | null;
   photo?: (string | null) | Media;
   roles: ('admin' | 'public')[];
@@ -4751,6 +5114,7 @@ export interface CommunityHelp {
   slug?: string | null;
   helpful?: boolean | null;
   relatedDocs?: (string | Doc)[] | null;
+  threadCreatedAt?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -4760,6 +5124,21 @@ export interface CommunityHelp {
  */
 export interface Doc {
   id: string;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   title: string;
   description?: string | null;
   keywords?: string | null;
@@ -4772,12 +5151,17 @@ export interface Doc {
     | number
     | boolean
     | null;
-  content?: string | null;
   path?: string | null;
-  topic?: string | null;
-  slug?: string | null;
+  topic: string;
+  /**
+   * The topic group is displayed on the sidebar, but is not part of the URL
+   */
+  topicGroup: string;
+  slug: string;
   label?: string | null;
   order?: number | null;
+  version: string;
+  mdx?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -4791,12 +5175,21 @@ export interface Partner {
   website: string;
   email: string;
   slug: string;
+  /**
+   * Set to inactive to hide this partner from the directory.
+   */
   agency_status?: ('active' | 'inactive') | null;
   hubspotID?: string | null;
   logo: string | Media;
+  /**
+   * This field is managed by the Featured Partners field in the Partner Program collection
+   */
   featured?: boolean | null;
   topContributor?: boolean | null;
   content: {
+    /**
+     * 1600 x 800px recommended
+     */
     bannerImage: string | Media;
     overview: {
       root: {
@@ -4844,6 +5237,9 @@ export interface Partner {
       [k: string]: unknown;
     };
     caseStudy?: (string | null) | CaseStudy;
+    /**
+     * Contributions to Payload. Must be a valid GitHub issue, pull request, or discussion URL from a repo in the 'payloadcms' organization.
+     */
     contributions?:
       | {
           type: 'discussion' | 'pr' | 'issue';
@@ -4884,6 +5280,9 @@ export interface Partner {
 export interface Region {
   id: string;
   name: string;
+  /**
+   * Must contain only lowercase letters, numbers, hyphens, and underscores
+   */
   value: string;
   updatedAt: string;
   createdAt: string;
@@ -4895,6 +5294,9 @@ export interface Region {
 export interface Specialty {
   id: string;
   name: string;
+  /**
+   * Must contain only lowercase letters, numbers, hyphens, and underscores
+   */
   value: string;
   updatedAt: string;
   createdAt: string;
@@ -4906,6 +5308,9 @@ export interface Specialty {
 export interface Budget {
   id: string;
   name: string;
+  /**
+   * Must contain only lowercase letters, numbers, hyphens, and underscores
+   */
   value: string;
   updatedAt: string;
   createdAt: string;
@@ -4917,6 +5322,9 @@ export interface Budget {
 export interface Industry {
   id: string;
   name: string;
+  /**
+   * Must contain only lowercase letters, numbers, hyphens, and underscores
+   */
   value: string;
   updatedAt: string;
   createdAt: string;
@@ -5833,29 +6241,7 @@ export interface CaseStudiesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
-        steps?:
-          | T
-          | {
-              stepsFields?:
-                | T
-                | {
-                    settings?:
-                      | T
-                      | {
-                          theme?: T;
-                          background?: T;
-                        };
-                    steps?:
-                      | T
-                      | {
-                          content?: T;
-                          media?: T;
-                          id?: T;
-                        };
-                  };
-              id?: T;
-              blockName?: T;
-            };
+        steps?: T | StepsBlockSelect<T>;
         stickyHighlights?:
           | T
           | {
@@ -5911,38 +6297,7 @@ export interface CaseStudiesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
-        exampleTabs?:
-          | T
-          | {
-              content?: T;
-              tabs?:
-                | T
-                | {
-                    label?: T;
-                    content?: T;
-                    examples?:
-                      | T
-                      | {
-                          CodeExampleBlock?:
-                            | T
-                            | {
-                                code?: T;
-                                id?: T;
-                                blockName?: T;
-                              };
-                          MediaExampleBlock?:
-                            | T
-                            | {
-                                media?: T;
-                                id?: T;
-                                blockName?: T;
-                              };
-                        };
-                    id?: T;
-                  };
-              id?: T;
-              blockName?: T;
-            };
+        exampleTabs?: T | ExampleTabsBlockSelect<T>;
       };
   slug?: T;
   url?: T;
@@ -5959,6 +6314,71 @@ export interface CaseStudiesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "StepsBlock_select".
+ */
+export interface StepsBlockSelect<T extends boolean = true> {
+  stepsFields?:
+    | T
+    | {
+        settings?:
+          | T
+          | {
+              theme?: T;
+              background?: T;
+            };
+        steps?:
+          | T
+          | {
+              content?: T;
+              media?: T;
+              id?: T;
+            };
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ExampleTabsBlock_select".
+ */
+export interface ExampleTabsBlockSelect<T extends boolean = true> {
+  content?: T;
+  tabs?:
+    | T
+    | {
+        label?: T;
+        content?: T;
+        examples?:
+          | T
+          | {
+              CodeExampleBlock?: T | CodeExampleBlockSelect<T>;
+              MediaExampleBlock?: T | MediaExampleBlockSelect<T>;
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CodeExampleBlock_select".
+ */
+export interface CodeExampleBlockSelect<T extends boolean = true> {
+  code?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MediaExampleBlock_select".
+ */
+export interface MediaExampleBlockSelect<T extends boolean = true> {
+  media?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "community-help_select".
  */
 export interface CommunityHelpSelect<T extends boolean = true> {
@@ -5971,6 +6391,7 @@ export interface CommunityHelpSelect<T extends boolean = true> {
   slug?: T;
   helpful?: T;
   relatedDocs?: T;
+  threadCreatedAt?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -5979,16 +6400,19 @@ export interface CommunityHelpSelect<T extends boolean = true> {
  * via the `definition` "docs_select".
  */
 export interface DocsSelect<T extends boolean = true> {
+  content?: T;
   title?: T;
   description?: T;
   keywords?: T;
   headings?: T;
-  content?: T;
   path?: T;
   topic?: T;
+  topicGroup?: T;
   slug?: T;
   label?: T;
   order?: T;
+  version?: T;
+  mdx?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -6924,29 +7348,7 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
-        steps?:
-          | T
-          | {
-              stepsFields?:
-                | T
-                | {
-                    settings?:
-                      | T
-                      | {
-                          theme?: T;
-                          background?: T;
-                        };
-                    steps?:
-                      | T
-                      | {
-                          content?: T;
-                          media?: T;
-                          id?: T;
-                        };
-                  };
-              id?: T;
-              blockName?: T;
-            };
+        steps?: T | StepsBlockSelect<T>;
         stickyHighlights?:
           | T
           | {
@@ -7002,38 +7404,7 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
-        exampleTabs?:
-          | T
-          | {
-              content?: T;
-              tabs?:
-                | T
-                | {
-                    label?: T;
-                    content?: T;
-                    examples?:
-                      | T
-                      | {
-                          CodeExampleBlock?:
-                            | T
-                            | {
-                                code?: T;
-                                id?: T;
-                                blockName?: T;
-                              };
-                          MediaExampleBlock?:
-                            | T
-                            | {
-                                media?: T;
-                                id?: T;
-                                blockName?: T;
-                              };
-                        };
-                    id?: T;
-                  };
-              id?: T;
-              blockName?: T;
-            };
+        exampleTabs?: T | ExampleTabsBlockSelect<T>;
       };
   slug?: T;
   meta?:
@@ -7638,38 +8009,7 @@ export interface ReusableContentSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
-        exampleTabs?:
-          | T
-          | {
-              content?: T;
-              tabs?:
-                | T
-                | {
-                    label?: T;
-                    content?: T;
-                    examples?:
-                      | T
-                      | {
-                          CodeExampleBlock?:
-                            | T
-                            | {
-                                code?: T;
-                                id?: T;
-                                blockName?: T;
-                              };
-                          MediaExampleBlock?:
-                            | T
-                            | {
-                                media?: T;
-                                id?: T;
-                                blockName?: T;
-                              };
-                        };
-                    id?: T;
-                  };
-              id?: T;
-              blockName?: T;
-            };
+        exampleTabs?: T | ExampleTabsBlockSelect<T>;
         form?:
           | T
           | {
@@ -8068,29 +8408,7 @@ export interface ReusableContentSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
-        steps?:
-          | T
-          | {
-              stepsFields?:
-                | T
-                | {
-                    settings?:
-                      | T
-                      | {
-                          theme?: T;
-                          background?: T;
-                        };
-                    steps?:
-                      | T
-                      | {
-                          content?: T;
-                          media?: T;
-                          id?: T;
-                        };
-                  };
-              id?: T;
-              blockName?: T;
-            };
+        steps?: T | StepsBlockSelect<T>;
         stickyHighlights?:
           | T
           | {
@@ -8758,6 +9076,9 @@ export interface GetStarted {
   meta?: {
     title?: string | null;
     description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
     image?: (string | null) | Media;
   };
   updatedAt?: string | null;
@@ -8769,6 +9090,9 @@ export interface GetStarted {
  */
 export interface PartnerProgram {
   id: string;
+  /**
+   * Select the form that should be used for the contact form.
+   */
   contactForm: string | Form;
   hero?: {
     richText?: {
@@ -8847,6 +9171,9 @@ export interface PartnerProgram {
           | {
               calloutFields: {
                 settings?: {
+                  /**
+                   * Leave blank for system default
+                   */
                   theme?: ('light' | 'dark') | null;
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
@@ -8882,6 +9209,9 @@ export interface PartnerProgram {
           | {
               ctaFields: {
                 settings?: {
+                  /**
+                   * Leave blank for system default
+                   */
                   theme?: ('light' | 'dark') | null;
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
@@ -8961,6 +9291,9 @@ export interface PartnerProgram {
           | {
               cardGridFields: {
                 settings?: {
+                  /**
+                   * Leave blank for system default
+                   */
                   theme?: ('light' | 'dark') | null;
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
@@ -8979,6 +9312,9 @@ export interface PartnerProgram {
                   };
                   [k: string]: unknown;
                 };
+                /**
+                 * These links will be placed above the card grid as calls-to-action.
+                 */
                 links?:
                   | {
                       link: {
@@ -9040,6 +9376,9 @@ export interface PartnerProgram {
           | {
               caseStudyCardFields?: {
                 settings?: {
+                  /**
+                   * Leave blank for system default
+                   */
                   theme?: ('light' | 'dark') | null;
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
@@ -9073,6 +9412,9 @@ export interface PartnerProgram {
           | {
               caseStudiesHighlightFields: {
                 settings?: {
+                  /**
+                   * Leave blank for system default
+                   */
                   theme?: ('light' | 'dark') | null;
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
@@ -9100,6 +9442,9 @@ export interface PartnerProgram {
           | {
               caseStudyParallaxFields?: {
                 settings?: {
+                  /**
+                   * Leave blank for system default
+                   */
                   theme?: ('light' | 'dark') | null;
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
@@ -9114,6 +9459,9 @@ export interface PartnerProgram {
                             id?: string | null;
                           }[]
                         | null;
+                      /**
+                       * A label for the navigation tab at the bottom of the parallax
+                       */
                       tabLabel: string;
                       caseStudy: string | CaseStudy;
                       id?: string | null;
@@ -9127,10 +9475,19 @@ export interface PartnerProgram {
           | {
               codeFeatureFields: {
                 settings?: {
+                  /**
+                   * Leave blank for system default
+                   */
                   theme?: ('light' | 'dark') | null;
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
+                /**
+                 * Check this box to force this block to have a dark background.
+                 */
                 forceDarkBackground?: boolean | null;
+                /**
+                 * Choose how to align the content for this block.
+                 */
                 alignment?: ('contentCode' | 'codeContent') | null;
                 heading?: string | null;
                 richText: {
@@ -9232,6 +9589,9 @@ export interface PartnerProgram {
           | {
               contentFields: {
                 settings?: {
+                  /**
+                   * Leave blank for system default
+                   */
                   theme?: ('light' | 'dark') | null;
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
@@ -9305,6 +9665,9 @@ export interface PartnerProgram {
           | {
               contentGridFields?: {
                 settings?: {
+                  /**
+                   * Leave blank for system default
+                   */
                   theme?: ('light' | 'dark') | null;
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
@@ -9378,6 +9741,9 @@ export interface PartnerProgram {
           | {
               formFields: {
                 settings?: {
+                  /**
+                   * Leave blank for system default
+                   */
                   theme?: ('light' | 'dark') | null;
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
@@ -9405,6 +9771,9 @@ export interface PartnerProgram {
           | {
               hoverCardsFields: {
                 settings?: {
+                  /**
+                   * Leave blank for system default
+                   */
                   theme?: ('light' | 'dark') | null;
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
@@ -9458,6 +9827,9 @@ export interface PartnerProgram {
           | {
               hoverHighlightsFields: {
                 settings?: {
+                  /**
+                   * Leave blank for system default
+                   */
                   theme?: ('light' | 'dark') | null;
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
@@ -9520,6 +9892,9 @@ export interface PartnerProgram {
           | {
               linkGridFields?: {
                 settings?: {
+                  /**
+                   * Leave blank for system default
+                   */
                   theme?: ('light' | 'dark') | null;
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
@@ -9556,6 +9931,9 @@ export interface PartnerProgram {
           | {
               logoGridFields: {
                 settings?: {
+                  /**
+                   * Leave blank for system default
+                   */
                   theme?: ('light' | 'dark') | null;
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
@@ -9609,6 +9987,9 @@ export interface PartnerProgram {
           | {
               mediaBlockFields: {
                 settings?: {
+                  /**
+                   * Leave blank for system default
+                   */
                   theme?: ('light' | 'dark') | null;
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
@@ -9637,10 +10018,19 @@ export interface PartnerProgram {
           | {
               mediaContentFields: {
                 settings?: {
+                  /**
+                   * Leave blank for system default
+                   */
                   theme?: ('light' | 'dark') | null;
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
+                /**
+                 * Choose how to align the content for this block.
+                 */
                 alignment?: ('contentMedia' | 'mediaContent') | null;
+                /**
+                 * Choose how wide the media should be.
+                 */
                 mediaWidth?: ('stretch' | 'fit') | null;
                 richText: {
                   root: {
@@ -9692,15 +10082,27 @@ export interface PartnerProgram {
           | {
               mediaContentAccordionFields?: {
                 settings?: {
+                  /**
+                   * Leave blank for system default
+                   */
                   theme?: ('light' | 'dark') | null;
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
+                /**
+                 * Choose how to align the content for this block.
+                 */
                 alignment?: ('contentMedia' | 'mediaContent') | null;
                 leader?: string | null;
                 heading?: string | null;
                 accordion?:
                   | {
+                      /**
+                       * Choose how to position the media itself.
+                       */
                       position?: ('normal' | 'inset' | 'wide') | null;
+                      /**
+                       * Select the background you want to sit behind the media.
+                       */
                       background?: ('none' | 'gradient' | 'scanlines') | null;
                       mediaLabel: string;
                       mediaDescription: {
@@ -9751,6 +10153,9 @@ export interface PartnerProgram {
           | {
               pricingFields?: {
                 settings?: {
+                  /**
+                   * Leave blank for system default
+                   */
                   theme?: ('light' | 'dark') | null;
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
@@ -9802,10 +10207,16 @@ export interface PartnerProgram {
           | {
               reusableContentBlockFields: {
                 settings?: {
+                  /**
+                   * Leave blank for system default
+                   */
                   theme?: ('light' | 'dark') | null;
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 reusableContent: string | ReusableContent;
+                /**
+                 * This is a custom ID that can be used to target this block with CSS or JavaScript.
+                 */
                 customId?: string | null;
               };
               id?: string | null;
@@ -9815,6 +10226,9 @@ export interface PartnerProgram {
           | {
               sliderFields: {
                 settings?: {
+                  /**
+                   * Leave blank for system default
+                   */
                   theme?: ('light' | 'dark') | null;
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
@@ -9854,6 +10268,9 @@ export interface PartnerProgram {
                         url?: string | null;
                         label: string;
                         customId?: string | null;
+                        /**
+                         * Choose how the link should be rendered.
+                         */
                         appearance?: ('default' | 'primary' | 'secondary') | null;
                       };
                       id?: string | null;
@@ -9895,6 +10312,9 @@ export interface PartnerProgram {
           | {
               statementFields: {
                 settings?: {
+                  /**
+                   * Leave blank for system default
+                   */
                   theme?: ('light' | 'dark') | null;
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
@@ -9953,6 +10373,9 @@ export interface PartnerProgram {
           | {
               stickyHighlightsFields?: {
                 settings?: {
+                  /**
+                   * Leave blank for system default
+                   */
                   theme?: ('light' | 'dark') | null;
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
@@ -10056,6 +10479,9 @@ export interface PartnerProgram {
           | {
               calloutFields: {
                 settings?: {
+                  /**
+                   * Leave blank for system default
+                   */
                   theme?: ('light' | 'dark') | null;
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
@@ -10091,6 +10517,9 @@ export interface PartnerProgram {
           | {
               ctaFields: {
                 settings?: {
+                  /**
+                   * Leave blank for system default
+                   */
                   theme?: ('light' | 'dark') | null;
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
@@ -10170,6 +10599,9 @@ export interface PartnerProgram {
           | {
               cardGridFields: {
                 settings?: {
+                  /**
+                   * Leave blank for system default
+                   */
                   theme?: ('light' | 'dark') | null;
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
@@ -10188,6 +10620,9 @@ export interface PartnerProgram {
                   };
                   [k: string]: unknown;
                 };
+                /**
+                 * These links will be placed above the card grid as calls-to-action.
+                 */
                 links?:
                   | {
                       link: {
@@ -10249,6 +10684,9 @@ export interface PartnerProgram {
           | {
               caseStudyCardFields?: {
                 settings?: {
+                  /**
+                   * Leave blank for system default
+                   */
                   theme?: ('light' | 'dark') | null;
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
@@ -10282,6 +10720,9 @@ export interface PartnerProgram {
           | {
               caseStudiesHighlightFields: {
                 settings?: {
+                  /**
+                   * Leave blank for system default
+                   */
                   theme?: ('light' | 'dark') | null;
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
@@ -10309,6 +10750,9 @@ export interface PartnerProgram {
           | {
               caseStudyParallaxFields?: {
                 settings?: {
+                  /**
+                   * Leave blank for system default
+                   */
                   theme?: ('light' | 'dark') | null;
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
@@ -10323,6 +10767,9 @@ export interface PartnerProgram {
                             id?: string | null;
                           }[]
                         | null;
+                      /**
+                       * A label for the navigation tab at the bottom of the parallax
+                       */
                       tabLabel: string;
                       caseStudy: string | CaseStudy;
                       id?: string | null;
@@ -10336,10 +10783,19 @@ export interface PartnerProgram {
           | {
               codeFeatureFields: {
                 settings?: {
+                  /**
+                   * Leave blank for system default
+                   */
                   theme?: ('light' | 'dark') | null;
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
+                /**
+                 * Check this box to force this block to have a dark background.
+                 */
                 forceDarkBackground?: boolean | null;
+                /**
+                 * Choose how to align the content for this block.
+                 */
                 alignment?: ('contentCode' | 'codeContent') | null;
                 heading?: string | null;
                 richText: {
@@ -10441,6 +10897,9 @@ export interface PartnerProgram {
           | {
               contentFields: {
                 settings?: {
+                  /**
+                   * Leave blank for system default
+                   */
                   theme?: ('light' | 'dark') | null;
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
@@ -10514,6 +10973,9 @@ export interface PartnerProgram {
           | {
               contentGridFields?: {
                 settings?: {
+                  /**
+                   * Leave blank for system default
+                   */
                   theme?: ('light' | 'dark') | null;
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
@@ -10587,6 +11049,9 @@ export interface PartnerProgram {
           | {
               formFields: {
                 settings?: {
+                  /**
+                   * Leave blank for system default
+                   */
                   theme?: ('light' | 'dark') | null;
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
@@ -10614,6 +11079,9 @@ export interface PartnerProgram {
           | {
               hoverCardsFields: {
                 settings?: {
+                  /**
+                   * Leave blank for system default
+                   */
                   theme?: ('light' | 'dark') | null;
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
@@ -10667,6 +11135,9 @@ export interface PartnerProgram {
           | {
               hoverHighlightsFields: {
                 settings?: {
+                  /**
+                   * Leave blank for system default
+                   */
                   theme?: ('light' | 'dark') | null;
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
@@ -10729,6 +11200,9 @@ export interface PartnerProgram {
           | {
               linkGridFields?: {
                 settings?: {
+                  /**
+                   * Leave blank for system default
+                   */
                   theme?: ('light' | 'dark') | null;
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
@@ -10765,6 +11239,9 @@ export interface PartnerProgram {
           | {
               logoGridFields: {
                 settings?: {
+                  /**
+                   * Leave blank for system default
+                   */
                   theme?: ('light' | 'dark') | null;
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
@@ -10818,6 +11295,9 @@ export interface PartnerProgram {
           | {
               mediaBlockFields: {
                 settings?: {
+                  /**
+                   * Leave blank for system default
+                   */
                   theme?: ('light' | 'dark') | null;
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
@@ -10846,10 +11326,19 @@ export interface PartnerProgram {
           | {
               mediaContentFields: {
                 settings?: {
+                  /**
+                   * Leave blank for system default
+                   */
                   theme?: ('light' | 'dark') | null;
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
+                /**
+                 * Choose how to align the content for this block.
+                 */
                 alignment?: ('contentMedia' | 'mediaContent') | null;
+                /**
+                 * Choose how wide the media should be.
+                 */
                 mediaWidth?: ('stretch' | 'fit') | null;
                 richText: {
                   root: {
@@ -10901,15 +11390,27 @@ export interface PartnerProgram {
           | {
               mediaContentAccordionFields?: {
                 settings?: {
+                  /**
+                   * Leave blank for system default
+                   */
                   theme?: ('light' | 'dark') | null;
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
+                /**
+                 * Choose how to align the content for this block.
+                 */
                 alignment?: ('contentMedia' | 'mediaContent') | null;
                 leader?: string | null;
                 heading?: string | null;
                 accordion?:
                   | {
+                      /**
+                       * Choose how to position the media itself.
+                       */
                       position?: ('normal' | 'inset' | 'wide') | null;
+                      /**
+                       * Select the background you want to sit behind the media.
+                       */
                       background?: ('none' | 'gradient' | 'scanlines') | null;
                       mediaLabel: string;
                       mediaDescription: {
@@ -10960,6 +11461,9 @@ export interface PartnerProgram {
           | {
               pricingFields?: {
                 settings?: {
+                  /**
+                   * Leave blank for system default
+                   */
                   theme?: ('light' | 'dark') | null;
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
@@ -11011,10 +11515,16 @@ export interface PartnerProgram {
           | {
               reusableContentBlockFields: {
                 settings?: {
+                  /**
+                   * Leave blank for system default
+                   */
                   theme?: ('light' | 'dark') | null;
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 reusableContent: string | ReusableContent;
+                /**
+                 * This is a custom ID that can be used to target this block with CSS or JavaScript.
+                 */
                 customId?: string | null;
               };
               id?: string | null;
@@ -11024,6 +11534,9 @@ export interface PartnerProgram {
           | {
               sliderFields: {
                 settings?: {
+                  /**
+                   * Leave blank for system default
+                   */
                   theme?: ('light' | 'dark') | null;
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
@@ -11063,6 +11576,9 @@ export interface PartnerProgram {
                         url?: string | null;
                         label: string;
                         customId?: string | null;
+                        /**
+                         * Choose how the link should be rendered.
+                         */
                         appearance?: ('default' | 'primary' | 'secondary') | null;
                       };
                       id?: string | null;
@@ -11104,6 +11620,9 @@ export interface PartnerProgram {
           | {
               statementFields: {
                 settings?: {
+                  /**
+                   * Leave blank for system default
+                   */
                   theme?: ('light' | 'dark') | null;
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
@@ -11162,6 +11681,9 @@ export interface PartnerProgram {
           | {
               stickyHighlightsFields?: {
                 settings?: {
+                  /**
+                   * Leave blank for system default
+                   */
                   theme?: ('light' | 'dark') | null;
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
@@ -12248,29 +12770,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                     id?: T;
                     blockName?: T;
                   };
-              steps?:
-                | T
-                | {
-                    stepsFields?:
-                      | T
-                      | {
-                          settings?:
-                            | T
-                            | {
-                                theme?: T;
-                                background?: T;
-                              };
-                          steps?:
-                            | T
-                            | {
-                                content?: T;
-                                media?: T;
-                                id?: T;
-                              };
-                        };
-                    id?: T;
-                    blockName?: T;
-                  };
+              steps?: T | StepsBlockSelect<T>;
               stickyHighlights?:
                 | T
                 | {
@@ -12326,38 +12826,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                     id?: T;
                     blockName?: T;
                   };
-              exampleTabs?:
-                | T
-                | {
-                    content?: T;
-                    tabs?:
-                      | T
-                      | {
-                          label?: T;
-                          content?: T;
-                          examples?:
-                            | T
-                            | {
-                                CodeExampleBlock?:
-                                  | T
-                                  | {
-                                      code?: T;
-                                      id?: T;
-                                      blockName?: T;
-                                    };
-                                MediaExampleBlock?:
-                                  | T
-                                  | {
-                                      media?: T;
-                                      id?: T;
-                                      blockName?: T;
-                                    };
-                              };
-                          id?: T;
-                        };
-                    id?: T;
-                    blockName?: T;
-                  };
+              exampleTabs?: T | ExampleTabsBlockSelect<T>;
             };
         afterDirectory?:
           | T
@@ -13104,29 +13573,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                     id?: T;
                     blockName?: T;
                   };
-              steps?:
-                | T
-                | {
-                    stepsFields?:
-                      | T
-                      | {
-                          settings?:
-                            | T
-                            | {
-                                theme?: T;
-                                background?: T;
-                              };
-                          steps?:
-                            | T
-                            | {
-                                content?: T;
-                                media?: T;
-                                id?: T;
-                              };
-                        };
-                    id?: T;
-                    blockName?: T;
-                  };
+              steps?: T | StepsBlockSelect<T>;
               stickyHighlights?:
                 | T
                 | {
@@ -13182,38 +13629,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                     id?: T;
                     blockName?: T;
                   };
-              exampleTabs?:
-                | T
-                | {
-                    content?: T;
-                    tabs?:
-                      | T
-                      | {
-                          label?: T;
-                          content?: T;
-                          examples?:
-                            | T
-                            | {
-                                CodeExampleBlock?:
-                                  | T
-                                  | {
-                                      code?: T;
-                                      id?: T;
-                                      blockName?: T;
-                                    };
-                                MediaExampleBlock?:
-                                  | T
-                                  | {
-                                      media?: T;
-                                      id?: T;
-                                      blockName?: T;
-                                    };
-                              };
-                          id?: T;
-                        };
-                    id?: T;
-                    blockName?: T;
-                  };
+              exampleTabs?: T | ExampleTabsBlockSelect<T>;
             };
       };
   updatedAt?: T;
@@ -13267,6 +13683,17 @@ export interface BrBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "VideoDrawerBlock".
+ */
+export interface VideoDrawerBlock {
+  id: string | null;
+  label: string;
+  drawerTitle: string;
+  blockName?: string | null;
+  blockType: 'VideoDrawer';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "CommandLineBlock".
  */
 export interface CommandLineBlock {
@@ -13299,7 +13726,7 @@ export interface TemplateCardsBlock {
  * via the `definition` "BannerBlock".
  */
 export interface BannerBlock {
-  type?: ('default' | 'success' | 'warning' | 'error') | null;
+  type?: ('alert' | 'default' | 'error' | 'info' | 'success' | 'warning') | null;
   content?: {
     root: {
       type: string;
@@ -13317,7 +13744,161 @@ export interface BannerBlock {
   } | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'banner';
+  blockType: 'Banner';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CodeBlock".
+ */
+export interface CodeBlock {
+  language?:
+    | (
+        | 'bash'
+        | 'css'
+        | 'dockerfile'
+        | 'env'
+        | 'graphql'
+        | 'html'
+        | 'js'
+        | 'json'
+        | 'jsx'
+        | 'plaintext'
+        | 'scss'
+        | 'sh'
+        | 'text'
+        | 'ts'
+        | 'tsx'
+        | 'vue'
+        | 'yaml'
+        | 'yml'
+      )
+    | null;
+  code?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'Code';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "YoutubeBlock".
+ */
+export interface YoutubeBlock {
+  id?: string | null;
+  title?: string | null;
+  blockName?: string | null;
+  blockType: 'YouTube';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LightDarkImageBlock".
+ */
+export interface LightDarkImageBlock {
+  srcLight: string;
+  srcDark: string;
+  alt?: string | null;
+  caption?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'LightDarkImage';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "UploadBlock".
+ */
+export interface UploadBlock {
+  src: string;
+  alt?: string | null;
+  caption?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'Upload';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RestExamplesBlock".
+ */
+export interface RestExamplesBlock {
+  data?:
+    | {
+        operation?: string | null;
+        method?: string | null;
+        path?: string | null;
+        description?: string | null;
+        example?: {
+          slug?: string | null;
+          req?:
+            | {
+                [k: string]: unknown;
+              }
+            | unknown[]
+            | string
+            | number
+            | boolean
+            | null;
+          res?:
+            | {
+                [k: string]: unknown;
+              }
+            | unknown[]
+            | string
+            | number
+            | boolean
+            | null;
+          drawerContent?: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
+            [k: string]: unknown;
+          } | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'RestExamples';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TableWithDrawersBlock".
+ */
+export interface TableWithDrawersBlock {
+  columns?: string[] | null;
+  rows?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'TableWithDrawers';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

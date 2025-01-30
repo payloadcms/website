@@ -1,28 +1,30 @@
 'use client'
 
-import React, { CSSProperties, useState } from 'react'
+import type { PaddingProps } from '@components/BlockWrapper/index.js'
+import type { Page } from '@root/payload-types.js'
+import type { CSSProperties } from 'react'
 
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
 import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
-import { BlockWrapper, PaddingProps } from '@components/BlockWrapper/index.js'
+import { BlockWrapper } from '@components/BlockWrapper/index.js'
 import { SquareCard } from '@components/cards/SquareCard/index.js'
 import { CMSLink } from '@components/CMSLink/index.js'
 import { Gutter } from '@components/Gutter/index.js'
 import { RichText } from '@components/RichText/index.js'
-import { Page } from '@root/payload-types.js'
+import React, { useState } from 'react'
 
 import classes from './index.module.scss'
 
-export type CardGridProps = Extract<Page['layout'][0], { blockType: 'cardGrid' }> & {
-  padding: PaddingProps
+export type CardGridProps = {
   hideBackground?: boolean
-}
+  padding: PaddingProps
+} & Extract<Page['layout'][0], { blockType: 'cardGrid' }>
 
-export const CardGrid: React.FC<CardGridProps> = props => {
+export const CardGrid: React.FC<CardGridProps> = (props) => {
   const {
-    cardGridFields: { richText, cards, links, settings, revealDescription },
-    padding,
+    cardGridFields: { cards, links, revealDescription, richText, settings },
     hideBackground,
+    padding,
   } = props
 
   const [index, setIndex] = useState(0)
@@ -39,10 +41,10 @@ export const CardGrid: React.FC<CardGridProps> = props => {
 
   return (
     <BlockWrapper
-      settings={settings}
-      padding={{ ...padding, top: 'large' }}
-      hideBackground={hideBackground}
       className={[classes.cardGrid].filter(Boolean).join(' ')}
+      hideBackground={hideBackground}
+      padding={{ ...padding, top: 'large' }}
+      settings={settings}
     >
       <BackgroundGrid zIndex={1} />
       <Gutter>
@@ -62,14 +64,14 @@ export const CardGrid: React.FC<CardGridProps> = props => {
                     return (
                       <CMSLink
                         {...link}
-                        key={index}
                         appearance="default"
-                        fullWidth
                         buttonProps={{
-                          icon: 'arrow',
-                          hideHorizontalBorders: true,
                           hideBottomBorderExceptLast: true,
+                          hideHorizontalBorders: true,
+                          icon: 'arrow',
                         }}
+                        fullWidth
+                        key={index}
                       />
                     )
                   })}
@@ -82,30 +84,30 @@ export const CardGrid: React.FC<CardGridProps> = props => {
         {hasCards && (
           <div className={classes.cards}>
             <div className={classes.margins}>
-              <BackgroundScanline enableBorders={true} className={classes.marginLeft} />
-              <BackgroundScanline enableBorders={true} className={classes.marginRight} />
+              <BackgroundScanline className={classes.marginLeft} enableBorders={true} />
+              <BackgroundScanline className={classes.marginRight} enableBorders={true} />
             </div>
             <div
               className={['grid', classes.cardsWrapper].filter(Boolean).join(' ')}
               style={wrapperStyle}
             >
               {cards.map((card, index) => {
-                const { title, description, enableLink, link } = card
+                const { description, enableLink, link, title } = card
                 return (
                   <div
-                    key={index}
                     className={'cols-4 cols-s-8'}
+                    key={index}
                     onMouseEnter={() => setIndex(index + 1)}
                     onMouseLeave={() => setIndex(0)}
                   >
                     <SquareCard
-                      leader={(index + 1).toString().padStart(2, '0')}
                       className={classes.card}
-                      title={title}
                       description={description}
                       enableLink={enableLink}
+                      leader={(index + 1).toString().padStart(2, '0')}
                       link={link}
                       revealDescription={revealDescription}
+                      title={title}
                     />
                   </div>
                 )

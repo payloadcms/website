@@ -1,33 +1,33 @@
-import React from 'react'
-import { Repo } from '@cloud/_api/fetchRepos.js'
+import type { Repo } from '@cloud/_api/fetchRepos.js'
 
 import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
 import { LoadingShimmer } from '@components/LoadingShimmer/index.js'
 import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'
+import React from 'react'
 
 import classes from './index.module.scss'
 
 export const RepoCard: React.FC<{
-  repo: Repo
+  isHovered?: boolean
+  isLoading?: boolean
+  onClick?: (repo: Repo) => void
   onMouseEnter?: () => void
   onMouseLeave?: () => void
-  isLoading?: boolean
-  isHovered?: boolean
-  onClick?: (repo: Repo) => void
-}> = props => {
-  const { repo, onMouseEnter, onMouseLeave, isLoading, onClick } = props
+  repo: Repo
+}> = (props) => {
+  const { isLoading, onClick, onMouseEnter, onMouseLeave, repo } = props
   const { name, description } = repo || {}
 
   return (
     <button
       className={classes.repoCard}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
       onClick={() => {
         if (typeof onClick === 'function') {
           onClick(repo)
         }
       }}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
     >
       {!isLoading && (
         <>
@@ -39,7 +39,7 @@ export const RepoCard: React.FC<{
           <ArrowIcon className={classes.arrow} />
         </>
       )}
-      {isLoading && <LoadingShimmer heightPercent={100} className={classes.shimmer} />}
+      {isLoading && <LoadingShimmer className={classes.shimmer} heightPercent={100} />}
     </button>
   )
 }

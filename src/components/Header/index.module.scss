@@ -37,9 +37,9 @@
     transition: opacity 500ms ease-out;
   }
 
-
   @include mobile-header-break {
-    &:before, &:after {
+    &:before,
+    &:after {
       transition: opacity 200ms ease;
     }
   }
@@ -59,7 +59,8 @@
   z-index: calc(var(--z-nav) + 11);
   border-bottom: 1px solid var(--theme-border-color);
 
-  &:before, &:after {
+  &:before,
+  &:after {
     opacity: 1;
   }
 }

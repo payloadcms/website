@@ -1,25 +1,26 @@
-import { useCallback, useEffect, useRef } from 'react'
 import type { ReadonlyURLSearchParams } from 'next/navigation'
 
+import { useCallback, useEffect, useRef } from 'react'
+
 export interface PopupMessage {
-  type: string
   searchParams: {
+    [key: string]: ReadonlyURLSearchParams | string | undefined
     code: string
     installation_id: string
     state: string
-    [key: string]: string | ReadonlyURLSearchParams | undefined
   }
+  type: string
 }
 
 export const usePopupWindow = (props: {
-  href: string
   eventType?: string
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  href: string
+
   onMessage?: (searchParams: PopupMessage['searchParams']) => Promise<void>
 }): {
   openPopupWindow: (e: React.MouseEvent<HTMLAnchorElement>) => void
 } => {
-  const { href, onMessage, eventType } = props
+  const { eventType, href, onMessage } = props
   const isReceivingMessage = useRef(false)
 
   // NOTE: GitHub allows multiple redirect URIs to be set in the App Settings, one for each environment using this App
@@ -53,17 +54,17 @@ export const usePopupWindow = (props: {
   }, [onMessage, eventType])
 
   const openPopupWindow = useCallback(
-    e => {
+    (e) => {
       e.preventDefault()
 
       const features = {
-        popup: 'yes',
-        width: 800,
         height: 700,
-        top: 'auto',
         left: 'auto',
-        toolbar: 'no',
         menubar: 'no',
+        popup: 'yes',
+        toolbar: 'no',
+        top: 'auto',
+        width: 800,
       }
 
       const popupOptions = Object.entries(features)

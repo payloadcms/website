@@ -1,15 +1,15 @@
 @use '@scss/common' as *;
 
 .addAccountButton {
-    display: block;
-    background-color: transparent;
-    margin: 0;
-    padding:0;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    text-align: left;
-    line-height: inherit;
-    font-size: inherit;
-    padding: 0.5rem 1rem;
+  display: block;
+  background-color: transparent;
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  text-align: left;
+  line-height: inherit;
+  font-size: inherit;
+  padding: 0.5rem 1rem;
 }

@@ -5,19 +5,15 @@ import richText from '../../fields/richText'
 
 export const CaseStudyCards: Block = {
   slug: 'caseStudyCards',
-  labels: {
-    singular: 'Case Study Cards',
-    plural: 'Case Study Cards',
-  },
   fields: [
     blockFields({
       name: 'caseStudyCardFields',
       fields: [
         {
           name: 'pixels',
-          label: 'Show Pixel Background?',
           type: 'checkbox',
           defaultValue: true,
+          label: 'Show Pixel Background?',
         },
         {
           name: 'cards',
@@ -35,4 +31,8 @@ export const CaseStudyCards: Block = {
       ],
     }),
   ],
+  labels: {
+    plural: 'Case Study Cards',
+    singular: 'Case Study Cards',
+  },
 }

@@ -20,7 +20,7 @@ export const appearanceOptions = {
 export type LinkAppearances = 'default' | 'primary' | 'secondary'
 
 type LinkType = (options?: {
-  appearances?: LinkAppearances[] | false
+  appearances?: false | LinkAppearances[]
   disableLabel?: boolean
   overrides?: Partial<GroupField>
 }) => Field
@@ -140,7 +140,7 @@ const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = 
     ]
 
     if (appearances) {
-      appearanceOptionsToUse = appearances.map(appearance => appearanceOptions[appearance])
+      appearanceOptionsToUse = appearances.map((appearance) => appearanceOptions[appearance])
     }
 
     linkResult.fields.push({

@@ -1,14 +1,13 @@
+import useClickAway from '@root/utilities/use-click-away.js'
 import * as React from 'react'
 
-import useClickAway from '@root/utilities/use-click-away.js'
+import classes from './index.module.scss'
 import { MenuContent } from './MenuContent/index.js'
 
-import classes from './index.module.scss'
-
-type MenuProps = React.HTMLAttributes<HTMLButtonElement> & {
-  menu: React.ReactNode
+type MenuProps = {
   children?: React.ReactNode
-}
+  menu: React.ReactNode
+} & React.HTMLAttributes<HTMLButtonElement>
 
 export const DropdownMenu: React.FC<MenuProps> = ({ children, className, menu, onClick }) => {
   const [show, setShow] = React.useState(false)
@@ -19,11 +18,11 @@ export const DropdownMenu: React.FC<MenuProps> = ({ children, className, menu, o
   // that would cause invalid DOM nesting
   return (
     <div
-      ref={ref}
       className={[classes.dropdownMenu, className, show && classes.show].filter(Boolean).join(' ')}
+      onClick={() => setShow(!show)}
+      ref={ref}
       role="button"
       tabIndex={0}
-      onClick={() => setShow(!show)}
     >
       {children || (
         <div className={classes.threeDots}>

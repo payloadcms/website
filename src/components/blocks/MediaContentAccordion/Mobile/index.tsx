@@ -1,37 +1,34 @@
 'use client'
-import React, { createRef, Fragment, useEffect, useRef, useState } from 'react'
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleGroup,
-  CollapsibleToggler,
-} from '@faceless-ui/collapsibles'
-import Image from 'next/image'
+import type { Page } from '@root/payload-types.js'
 
 import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
 import { CMSLink } from '@components/CMSLink/index.js'
 import { Media } from '@components/Media/index.js'
 import { RichText } from '@components/RichText/index.js'
 import SplitAnimate from '@components/SplitAnimate/index.js'
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleGroup,
+  CollapsibleToggler,
+} from '@faceless-ui/collapsibles'
 import { ArrowRightIcon } from '@root/icons/ArrowRightIcon/index.js'
 import { ChevronDownIcon } from '@root/icons/ChevronDownIcon/index.js'
 import { CrosshairIcon } from '@root/icons/CrosshairIcon/index.js'
-import { Page } from '@root/payload-types.js'
+import Image from 'next/image'
+import React, { createRef, Fragment, useEffect, useRef, useState } from 'react'
 
 import classes from './index.module.scss'
 
-export type MediaContentAccordionProps = Extract<
-  Page['layout'][0],
-  { blockType: 'mediaContentAccordion' }
-> & {
+export type MediaContentAccordionProps = {
   className?: string
-}
+} & Extract<Page['layout'][0], { blockType: 'mediaContentAccordion' }>
 
 export const MobileMediaContentAccordion: React.FC<MediaContentAccordionProps> = ({
-  mediaContentAccordionFields,
   className,
+  mediaContentAccordionFields,
 }) => {
-  const { leader, heading, accordion } = mediaContentAccordionFields || {}
+  const { accordion, heading, leader } = mediaContentAccordionFields || {}
 
   const mediaRefs = useRef<Array<React.RefObject<HTMLDivElement>>>([])
   const [containerHeight, setContainerHeight] = useState(0)
@@ -57,7 +54,7 @@ export const MobileMediaContentAccordion: React.FC<MediaContentAccordionProps> =
 
     updateContainerHeight()
 
-    const resizeObserver = new ResizeObserver(entries => {
+    const resizeObserver = new ResizeObserver((entries) => {
       updateContainerHeight()
     })
 
@@ -95,9 +92,9 @@ export const MobileMediaContentAccordion: React.FC<MediaContentAccordionProps> =
                       <Image
                         alt=""
                         className={classes.gradientBg}
-                        width={1920}
                         height={946}
                         src={`/images/gradients/1.jpg`}
+                        width={1920}
                       />
                       <CrosshairIcon
                         className={[classes.crosshairTopOne].filter(Boolean).join(' ')}
@@ -141,9 +138,9 @@ export const MobileMediaContentAccordion: React.FC<MediaContentAccordionProps> =
           {hasAccordion &&
             accordion.map((item, index) => (
               <div
-                ref={mediaRefs.current[index]}
-                key={item.id || index}
                 className={classes.media}
+                key={item.id || index}
+                ref={mediaRefs.current[index]}
                 style={{ opacity: index === activeAccordion ? 1 : 0 }}
               >
                 {typeof item.media === 'object' && item.media !== null && (
@@ -154,17 +151,17 @@ export const MobileMediaContentAccordion: React.FC<MediaContentAccordionProps> =
         </div>
       </div>
       <div>
-        <CollapsibleGroup allowMultiple={false} transTime={500} transCurve="ease-in-out">
+        <CollapsibleGroup allowMultiple={false} transCurve="ease-in-out" transTime={500}>
           {hasAccordion &&
             accordion.map((item, index) => (
               <div
-                key={item.id || index}
                 className={[
                   classes.collapsibleWrapper,
                   activeAccordion === index ? classes.activeLeftBorder : '',
                 ]
                   .filter(Boolean)
                   .join(' ')}
+                key={item.id || index}
               >
                 <Collapsible
                   onToggle={() => toggleAccordion(index)}

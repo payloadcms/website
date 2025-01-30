@@ -1,7 +1,6 @@
 'use client'
 
-import React, { Fragment, useEffect, useRef, useState } from 'react'
-import { CSSTransition } from 'react-transition-group'
+import type { Page } from '@root/payload-types.js'
 
 import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
 import { CMSLink } from '@components/CMSLink/index.js'
@@ -11,7 +10,8 @@ import { Gutter } from '@components/Gutter/index.js'
 import { Media } from '@components/Media/index.js'
 import { RichText } from '@components/RichText/index.js'
 import { CrosshairIcon } from '@root/icons/CrosshairIcon/index.js'
-import { Page } from '@root/payload-types.js'
+import React, { Fragment, useEffect, useRef, useState } from 'react'
+import { CSSTransition } from 'react-transition-group'
 
 import classes from './index.module.scss'
 
@@ -19,21 +19,21 @@ export type StickyHighlightsProps = Extract<Page['layout'][0], { blockType: 'sti
 
 type Fields = Exclude<StickyHighlightsProps['stickyHighlightsFields'], undefined>
 
-type Props = Exclude<Fields['highlights'], undefined | null>[number] & {
-  yDirection?: 'up' | 'down'
+type Props = {
   midBreak: boolean
-}
+  yDirection?: 'down' | 'up'
+} & Exclude<Fields['highlights'], null | undefined>[number]
 
 export const StickyHighlightComponent: React.FC<Props> = ({
-  richText,
-  enableLink,
-  link,
   type,
   code,
-  media,
-  yDirection,
-  midBreak,
   codeBlips,
+  enableLink,
+  link,
+  media,
+  midBreak,
+  richText,
+  yDirection,
 }) => {
   const [visible, setVisible] = useState(false)
   const [centerCodeMedia, setCenterCodeMedia] = useState(false)
@@ -62,8 +62,8 @@ export const StickyHighlightComponent: React.FC<Props> = ({
 
       if (refCopy) {
         intersectionObserver = new IntersectionObserver(
-          entries => {
-            entries.forEach(entry => {
+          (entries) => {
+            entries.forEach((entry) => {
               setVisible(entry.isIntersecting)
             })
           },
@@ -77,8 +77,8 @@ export const StickyHighlightComponent: React.FC<Props> = ({
       }
 
       if (codeWrapRefCopy && codeMediaInnerRef?.current) {
-        resizeObserver = new ResizeObserver(entries => {
-          entries.forEach(entry => {
+        resizeObserver = new ResizeObserver((entries) => {
+          entries.forEach((entry) => {
             setCenterCodeMedia(
               // @ts-expect-error
               entry.contentRect.height > (codeMediaInnerRef?.current?.clientHeight || 0),
@@ -109,29 +109,29 @@ export const StickyHighlightComponent: React.FC<Props> = ({
 
   return (
     <div
-      ref={ref}
       className={[
         classes.stickyHighlight,
         classes[`scroll-direction--${init ? yDirection : 'down'}`],
       ].join(' ')}
+      ref={ref}
     >
       <div className={[classes.minHeight, 'grid'].filter(Boolean).join(' ')}>
         <div className={[classes.leftContentWrapper, 'cols-4 cols-m-8'].filter(Boolean).join(' ')}>
-          <RichText content={richText} className={classes.richText} />
+          <RichText className={classes.richText} content={richText} />
           {enableLink && (
             <CMSLink
               {...link}
               appearance="default"
-              fullWidth
               buttonProps={{
-                icon: 'arrow',
                 hideHorizontalBorders: true,
+                icon: 'arrow',
               }}
+              fullWidth
             />
           )}
         </div>
       </div>
-      <CSSTransition nodeRef={nodeRef} in={visible} timeout={750} classNames="animate">
+      <CSSTransition classNames="animate" in={visible} nodeRef={nodeRef} timeout={750}>
         <Gutter
           className={[classes.codeMediaPosition, 'grid'].filter(Boolean).join(' ')}
           ref={nodeRef}
@@ -165,10 +165,10 @@ export const StickyHighlightComponent: React.FC<Props> = ({
                     <div className={classes.codeWrapper}>
                       <CodeBlip.Modal />
                       <Code
-                        parentClassName={classes.code}
-                        codeBlips={codeBlips}
                         className={classes.innerCode}
+                        codeBlips={codeBlips}
                         disableMinHeight
+                        parentClassName={classes.code}
                       >{`${code}
                           `}</Code>
                     </div>
@@ -194,7 +194,7 @@ export const StickyHighlightComponent: React.FC<Props> = ({
   )
 }
 
-export const StickyHighlight: React.FC<Props> = React.memo(props => {
+export const StickyHighlight: React.FC<Props> = React.memo((props) => {
   return (
     <CodeBlip.Provider>
       <StickyHighlightComponent {...props} />

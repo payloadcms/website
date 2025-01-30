@@ -1,6 +1,6 @@
 @use '@scss/common.scss' as *;
 
-$curve: cubic-bezier(.165, 0.84, 0.44, 1);
+$curve: cubic-bezier(0.165, 0.84, 0.44, 1);
 
 .codeWrap {
   min-height: 24rem;
@@ -76,7 +76,6 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
     .style .token.string {
       color: var(--color-base-500);
     }
-
 
     .token.selector,
     .token-property,
@@ -181,4 +180,3 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
   display: block;
   position: relative;
 }
-

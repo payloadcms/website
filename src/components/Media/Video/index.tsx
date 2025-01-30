@@ -2,12 +2,12 @@
 
 import React, { useEffect, useRef } from 'react'
 
-import { Props } from '../types.js'
+import type { Props } from '../types.js'
 
 import classes from './index.module.scss'
 
-export const Video: React.FC<Props> = props => {
-  const { videoClassName, resource, onClick } = props
+export const Video: React.FC<Props> = (props) => {
+  const { onClick, resource, videoClassName } = props
 
   const videoRef = useRef<HTMLVideoElement>(null)
   // const [showFallback] = useState<boolean>()
@@ -25,13 +25,13 @@ export const Video: React.FC<Props> = props => {
   if (resource && typeof resource !== 'string') {
     return (
       <video
-        playsInline
         autoPlay
-        muted
-        loop
-        controls={false}
         className={[classes.video, videoClassName].filter(Boolean).join(' ')}
+        controls={false}
+        loop
+        muted
         onClick={onClick}
+        playsInline
         ref={videoRef}
       >
         <source src={resource.url || ''} />

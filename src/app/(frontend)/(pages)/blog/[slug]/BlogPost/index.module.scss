@@ -130,7 +130,8 @@
   }
 }
 
-.mobileAuthor, .mobileImage {
+.mobileAuthor,
+.mobileImage {
   display: none;
 
   @include mid-break {

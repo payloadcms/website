@@ -31,7 +31,11 @@
   align-items: center;
   gap: 0.5rem;
 
-  &:visited, &:active, &:focus, &:visited:hover, &:visited:focus {
+  &:visited,
+  &:active,
+  &:focus,
+  &:visited:hover,
+  &:visited:focus {
     color: inherit !important;
     border: none !important;
   }

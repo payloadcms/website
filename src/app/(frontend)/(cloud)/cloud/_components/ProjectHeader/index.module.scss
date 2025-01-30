@@ -3,7 +3,8 @@
   justify-content: space-between;
   align-items: center;
   margin: 1.8rem 0 1.2rem 0;
-  h3, p {
+  h3,
+  p {
     margin: 0;
   }
   &__environmentSelector {
@@ -13,7 +14,7 @@
     .projectHeader__environmentSelector__select {
       display: flex;
       gap: var(--base);
-      
+
       :global {
         label {
           font-size: initial;
@@ -26,7 +27,7 @@
           border-radius: 4px;
           background-color: var(--theme-elevation-100);
           border-color: var(--theme-elevation-150);
-          padding: .5rem;
+          padding: 0.5rem;
           .rs__indicators {
             position: relative;
             transform: unset;
@@ -38,7 +39,7 @@
           width: unset;
           right: 0;
           .rs__menu-list {
-            padding: .25rem;
+            padding: 0.25rem;
             border-radius: 4px;
           }
           .rs__option {

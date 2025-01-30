@@ -4,8 +4,8 @@ import { cloudSlug } from '@cloud/slug.js'
 import { Gutter } from '@components/Gutter/index.js'
 import * as React from 'react'
 
-import { TeamBillingMessages } from './TeamBillingMessages/index.js'
 import classes from './layout.module.scss'
+import { TeamBillingMessages } from './TeamBillingMessages/index.js'
 
 export default async ({
   children,

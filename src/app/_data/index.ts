@@ -36,7 +36,7 @@ export const fetchGlobals = async (): Promise<{ footer: Footer; mainMenu: MainMe
   }
 }
 
-export const fetchPage = async (incomingSlugSegments: string[]): Promise<Page | null> => {
+export const fetchPage = async (incomingSlugSegments: string[]): Promise<null | Page> => {
   const { isEnabled: draft } = await draftMode()
 
   const payload = await getPayload({ config })
@@ -71,7 +71,9 @@ export const fetchPage = async (incomingSlugSegments: string[]): Promise<Page | 
   const pagePath = `/${slugSegments.join('/')}`
 
   const page = data.docs.find(({ breadcrumbs }: Page) => {
-    if (!breadcrumbs) return false
+    if (!breadcrumbs) {
+      return false
+    }
     const { url } = breadcrumbs[breadcrumbs.length - 1]
     return url === pagePath
   })

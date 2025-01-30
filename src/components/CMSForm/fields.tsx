@@ -11,22 +11,22 @@ import { Textarea } from './fields/Textarea/index.js'
 
 export const fields = {
   checkbox: Checkbox,
-  country: props => {
+  country: (props) => {
     return (
       <Select components={{ DropdownIndicator: ChevronDownIcon }} selectType="country" {...props} />
     )
   },
-  email: props => {
+  email: (props) => {
     return <Text {...props} />
   },
-  message: props => {
+  message: (props) => {
     return <RichText className={classes.message} content={props.message} />
   },
   number: NumberInput,
-  select: props => {
+  select: (props) => {
     return <Select components={{ DropdownIndicator: ChevronDownIcon }} {...props} />
   },
-  state: props => {
+  state: (props) => {
     return (
       <Select components={{ DropdownIndicator: ChevronDownIcon }} selectType="state" {...props} />
     )

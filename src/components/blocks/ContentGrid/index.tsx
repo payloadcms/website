@@ -1,22 +1,23 @@
-import * as React from 'react'
+import type { PaddingProps } from '@components/BlockWrapper/index.js'
+import type { Page } from '@root/payload-types.js'
 
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
-import { BlockWrapper, PaddingProps } from '@components/BlockWrapper/index.js'
+import { BlockWrapper } from '@components/BlockWrapper/index.js'
 import { CMSLink } from '@components/CMSLink/index.js'
 import { Gutter } from '@components/Gutter/index.js'
 import { RichText } from '@components/RichText/index.js'
-import { Page } from '@root/payload-types.js'
+import * as React from 'react'
 
 import classes from './index.module.scss'
 
-export type ContentGridProps = Extract<Page['layout'][0], { blockType: 'contentGrid' }> & {
-  padding?: PaddingProps
+export type ContentGridProps = {
   hideBackground?: boolean
-}
+  padding?: PaddingProps
+} & Extract<Page['layout'][0], { blockType: 'contentGrid' }>
 
-type CellsProps = ContentGridProps['contentGridFields'] & {
+type CellsProps = {
   className?: string
-}
+} & ContentGridProps['contentGridFields']
 
 const Cells: React.FC<CellsProps> = ({ cells, className, showNumbers, style: styleFromProps }) => {
   const style = styleFromProps ?? 'gridBelow'
@@ -46,19 +47,19 @@ const Cells: React.FC<CellsProps> = ({ cells, className, showNumbers, style: sty
 
 export const ContentGrid: React.FC<ContentGridProps> = ({
   contentGridFields,
-  padding,
   hideBackground,
+  padding,
 }) => {
-  const { settings, style: styleFromProps, content, links } = contentGridFields || {}
+  const { content, links, settings, style: styleFromProps } = contentGridFields || {}
 
   const hasLinks = Array.isArray(links) && links.length > 0
   const style = styleFromProps ?? 'gridBelow'
 
   return (
     <BlockWrapper
-      settings={settings}
-      padding={{ ...padding, top: 'large' }}
       hideBackground={hideBackground}
+      padding={{ ...padding, top: 'large' }}
+      settings={settings}
     >
       <BackgroundGrid zIndex={0} />
       <Gutter className={[classes.wrapper, classes[style], 'grid'].filter(Boolean).join(' ')}>
@@ -93,14 +94,14 @@ export const ContentGrid: React.FC<ContentGridProps> = ({
                 return (
                   <CMSLink
                     {...link}
-                    key={index}
                     appearance="default"
-                    fullWidth
                     buttonProps={{
-                      icon: 'arrow',
-                      hideHorizontalBorders: true,
                       hideBottomBorderExceptLast: true,
+                      hideHorizontalBorders: true,
+                      icon: 'arrow',
                     }}
+                    fullWidth
+                    key={index}
                   />
                 )
               })}

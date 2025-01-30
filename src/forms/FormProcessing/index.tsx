@@ -1,14 +1,13 @@
-import React from 'react'
 import { useFormProcessing } from '@forms/Form/context.js'
-
 import useDebounce from '@root/utilities/use-debounce.js'
+import React from 'react'
 
 const FormProcessing: React.FC<{
   className?: string
-  message?: string
   delay?: number
-}> = props => {
-  const { className, message = 'Processing...', delay = 250 } = props
+  message?: string
+}> = (props) => {
+  const { className, delay = 250, message = 'Processing...' } = props
 
   const isProcessing = useFormProcessing()
   const debouncedIsProcessing = useDebounce(isProcessing, delay || 0)

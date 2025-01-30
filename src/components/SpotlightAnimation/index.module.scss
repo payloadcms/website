@@ -1,6 +1,6 @@
-@use "@scss/common" as *;
+@use '@scss/common' as *;
 
-$curve: cubic-bezier(.165, 0.84, 0.44, 1);
+$curve: cubic-bezier(0.165, 0.84, 0.44, 1);
 
 .wrapper {
   position: relative;
@@ -9,7 +9,7 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
 .container {
   display: inline-block;
   position: relative;
-  background: radial-gradient(circle at center, #DFEDF4 0%, #628699 20%, #628699 100%);
+  background: radial-gradient(circle at center, #dfedf4 0%, #628699 20%, #628699 100%);
   background-repeat: no-repeat;
   background-position: right;
   background-size: 200vw 200vh;
@@ -22,7 +22,7 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
   line-height: 1.1;
 
   @include data-theme-selector('dark') {
-    background: radial-gradient(circle at center, #DFEDF4 0%, #628699 20%, #628699 100%);
+    background: radial-gradient(circle at center, #dfedf4 0%, #628699 20%, #628699 100%);
     background-repeat: no-repeat;
     background-position: right;
     background-size: 200vw 200vh;
@@ -41,13 +41,14 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
     -webkit-text-fill-color: transparent;
   }
 
-
   &::selection {
     color: black;
     -webkit-text-fill-color: currentcolor;
   }
 
-  & em, strong, a {
+  & em,
+  strong,
+  a {
     color: var(--theme-text);
     background-clip: border-box;
     -webkit-background-clip: border-box;

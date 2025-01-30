@@ -112,7 +112,9 @@
   width: 100%;
   bottom: 0px;
   background: var(--color-base-200);
-  transition: width var(--trans-default) linear, left var(--trans-default) linear ;
+  transition:
+    width var(--trans-default) linear,
+    left var(--trans-default) linear;
 }
 
 .tab {
@@ -123,7 +125,8 @@
   color: var(--color-base-300);
   white-space: nowrap;
 
-  &.isActive, &:hover {
+  &.isActive,
+  &:hover {
     color: var(--color-base-50);
   }
 }
@@ -137,7 +140,10 @@
   }
 }
 
-.crosshairTopRight, .crosshairBottomRight, .crosshairTopLeft, .crosshairBottomLeft  {
+.crosshairTopRight,
+.crosshairBottomRight,
+.crosshairTopLeft,
+.crosshairBottomLeft {
   position: absolute;
   width: 1rem;
   height: auto;
@@ -146,26 +152,27 @@
 }
 
 .crosshairTopLeft {
-  top: -.5rem;
-  left: -.5rem;
+  top: -0.5rem;
+  left: -0.5rem;
 }
 
 .crosshairBottomLeft {
-  bottom: -.5rem;
-  left: -.5rem;
+  bottom: -0.5rem;
+  left: -0.5rem;
 }
 
 .crosshairTopRight {
-  top: -.5rem;
-  right: -.5rem;
+  top: -0.5rem;
+  right: -0.5rem;
 }
 
 .crosshairBottomRight {
-  bottom: -.5rem;
-  right: -.5rem;
+  bottom: -0.5rem;
+  right: -0.5rem;
 }
 
-.scanlineDesktopRight,  .scanlineDesktopLeft {
+.scanlineDesktopRight,
+.scanlineDesktopLeft {
   width: calc(100% + var(--gutter-h) * 1);
 }
 

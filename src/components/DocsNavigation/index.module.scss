@@ -7,7 +7,8 @@
   overflow: auto;
   flex-shrink: 0;
 
-  &::-webkit-scrollbar,  &::-webkit-scrollbar-thumb {
+  &::-webkit-scrollbar,
+  &::-webkit-scrollbar-thumb {
     background-color: transparent;
     width: 0;
   }
@@ -42,7 +43,7 @@
 }
 
 .nav {
-  padding: .5rem 1.25rem 1.5rem;
+  padding: 0.5rem 1.25rem 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 0;
@@ -122,7 +123,7 @@
 
   &[data-state='open'] > .chevron {
     transform: rotate(90deg);
-    opacity: .5;
+    opacity: 0.5;
   }
 
   &:hover {
@@ -140,7 +141,9 @@
   }
 }
 
-.doc a, .docs, .topic {
+.doc a,
+.docs,
+.topic {
   line-height: 20px;
 }
 

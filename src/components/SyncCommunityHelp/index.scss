@@ -1,0 +1,16 @@
+@use '~@payloadcms/ui/scss';
+
+.sync-ch-button {
+	@extend %btn-reset;
+	margin: 0.25rem 0;
+	cursor: pointer;
+
+	&:hover {
+		text-decoration: underline;
+	}
+
+	&:disabled {
+		cursor: not-allowed;
+		opacity: 0.5;
+	}
+}

@@ -1,28 +1,28 @@
 'use client'
 
-import * as React from 'react'
-import { toast } from 'sonner'
-import Form from '@forms/Form/index.js'
-import { usePathname, useRouter } from 'next/navigation'
+import type { Form as FormType } from '@root/payload-types.js'
 
 import { RichText } from '@components/RichText/index.js'
+import Form from '@forms/Form/index.js'
 import { CrosshairIcon } from '@root/icons/CrosshairIcon/index.js'
-import { Form as FormType } from '@root/payload-types.js'
 import { getCookie } from '@root/utilities/get-cookie.js'
+import { usePathname, useRouter } from 'next/navigation'
+import * as React from 'react'
+import { toast } from 'sonner'
+
 import { fields } from './fields.js'
+import classes from './index.module.scss'
 import Submit from './Submit/index.js'
 
-import classes from './index.module.scss'
-
-const buildInitialState = fields => {
+const buildInitialState = (fields) => {
   const state = {}
 
-  fields.forEach(field => {
+  fields.forEach((field) => {
     state[field.name] = {
-      value: field.defaultValue ?? undefined,
-      valid: !field.required || field.defaultValue !== undefined,
-      initialValue: field.defaultValue ?? undefined,
       errorMessage: 'This field is required.',
+      initialValue: field.defaultValue ?? undefined,
+      valid: !field.required || field.defaultValue !== undefined,
+      value: field.defaultValue ?? undefined,
     }
   })
 
@@ -32,18 +32,18 @@ const buildInitialState = fields => {
 const RenderForm = ({ form, hiddenFields }: { form: FormType; hiddenFields: string[] }) => {
   const {
     id: formID,
-    submitButtonLabel,
-    confirmationType,
-    redirect: formRedirect,
     confirmationMessage,
+    confirmationType,
     customID,
+    redirect: formRedirect,
+    submitButtonLabel,
   } = form
 
   const [isLoading, setIsLoading] = React.useState(false)
 
   const [hasSubmitted, setHasSubmitted] = React.useState<boolean>()
 
-  const [error, setError] = React.useState<{ status?: string; message: string } | undefined>()
+  const [error, setError] = React.useState<{ message: string; status?: string } | undefined>()
 
   const initialState = buildInitialState(form.fields)
 
@@ -69,18 +69,18 @@ const RenderForm = ({ form, hiddenFields }: { form: FormType; hiddenFields: stri
           const slugParts = pathname?.split('/')
           const pageName = slugParts?.at(-1) === '' ? 'Home' : slugParts?.at(-1)
           const req = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/form-submissions`, {
-            method: 'POST',
+            body: JSON.stringify({
+              form: formID,
+              hubspotCookie,
+              pageName,
+              pageUri,
+              submissionData: dataToSend,
+            }),
             credentials: 'include',
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-              form: formID,
-              submissionData: dataToSend,
-              hubspotCookie,
-              pageUri,
-              pageName,
-            }),
+            method: 'POST',
           })
 
           const res = await req.json()
@@ -99,7 +99,9 @@ const RenderForm = ({ form, hiddenFields }: { form: FormType; hiddenFields: stri
           if (confirmationType === 'redirect' && formRedirect) {
             const { url } = formRedirect
 
-            if (!url) return
+            if (!url) {
+              return
+            }
 
             const redirectUrl = new URL(url, process.env.NEXT_PUBLIC_SITE_URL)
 
@@ -132,17 +134,19 @@ const RenderForm = ({ form, hiddenFields }: { form: FormType; hiddenFields: stri
     [router, formID, formRedirect, confirmationType, pathname],
   )
 
-  if (!form?.id) return null
+  if (!form?.id) {
+    return null
+  }
 
   return (
     <div className={classes.cmsForm}>
       {!isLoading && hasSubmitted && confirmationType === 'message' && (
-        <RichText content={confirmationMessage} className={classes.confirmationMessage} />
+        <RichText className={classes.confirmationMessage} content={confirmationMessage} />
       )}
       {error && <div>{`${error.status || '500'}: ${error.message || ''}`}</div>}
       {!hasSubmitted && (
         <React.Fragment>
-          <Form onSubmit={onSubmit} initialState={initialState} formId={formID}>
+          <Form formId={formID} initialState={initialState} onSubmit={onSubmit}>
             <div className={classes.formFieldsWrap}>
               {form.fields?.map((field, index) => {
                 const Field: React.FC<any> = fields?.[field.blockType]
@@ -150,7 +154,6 @@ const RenderForm = ({ form, hiddenFields }: { form: FormType; hiddenFields: stri
                 if (Field) {
                   return (
                     <div
-                      key={index}
                       className={[
                         classes.fieldWrap,
                         field.blockType !== 'message' && hiddenFields.includes(field.name)
@@ -160,10 +163,11 @@ const RenderForm = ({ form, hiddenFields }: { form: FormType; hiddenFields: stri
                       ]
                         .filter(Boolean)
                         .join(' ')}
+                      key={index}
                     >
                       <Field
-                        path={'name' in field ? field.name : undefined}
                         form={form}
+                        path={'name' in field ? field.name : undefined}
                         {...field}
                         disabled={isLoading}
                       />
@@ -177,11 +181,11 @@ const RenderForm = ({ form, hiddenFields }: { form: FormType; hiddenFields: stri
             <Submit
               className={[classes.submitButton, classes.hideTopBorder].filter(Boolean).join(' ')}
               disabled={isLoading}
-              label={isLoading ? 'Submitting...' : submitButtonLabel}
-              iconRotation={45}
               icon={isLoading ? 'loading' : 'arrow'}
+              iconRotation={45}
               iconSize={isLoading ? 'large' : 'medium'}
               id={customID ?? formID}
+              label={isLoading ? 'Submitting...' : submitButtonLabel}
             />
           </Form>
         </React.Fragment>
@@ -191,12 +195,14 @@ const RenderForm = ({ form, hiddenFields }: { form: FormType; hiddenFields: stri
 }
 
 export const CMSForm: React.FC<{
-  form?: string | FormType | null
+  form?: FormType | null | string
   hiddenFields?: string[]
-}> = props => {
+}> = (props) => {
   const { form, hiddenFields } = props
 
-  if (!form || typeof form === 'string') return null
+  if (!form || typeof form === 'string') {
+    return null
+  }
 
   return <RenderForm form={form} hiddenFields={hiddenFields ?? []} />
 }

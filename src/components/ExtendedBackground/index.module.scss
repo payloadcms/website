@@ -16,7 +16,7 @@
   }
 
   &.withPixels {
-   padding-bottom: var(--pixel-padding);
+    padding-bottom: var(--pixel-padding);
   }
 }
 
@@ -44,7 +44,7 @@
   animation: 7s rotateColor infinite linear;
 }
 
-:global([data-theme="dark"]) {
+:global([data-theme='dark']) {
   .borderHighlight {
     background: conic-gradient(var(--theme-success-450), transparent, transparent);
   }
@@ -93,7 +93,7 @@
   height: 100%;
   opacity: 0.08;
 
-  [data-theme="dark"]  & {
+  [data-theme='dark'] & {
     background-image: url('/images/scanline-light.png');
   }
 }

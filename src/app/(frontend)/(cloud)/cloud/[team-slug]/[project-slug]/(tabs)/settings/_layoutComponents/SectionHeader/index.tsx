@@ -1,25 +1,24 @@
-import * as React from 'react'
-
 import { Button } from '@components/Button/index.js'
 import { Heading } from '@components/Heading/index.js'
+import * as React from 'react'
 
 import classes from './index.module.scss'
 
 type Props = {
-  title: string
-  link?: string
-  intro?: React.ReactNode
   className?: string
+  intro?: React.ReactNode
+  link?: string
+  title: string
 }
-export const SectionHeader: React.FC<Props> = ({ title, link, intro, className }) => {
+export const SectionHeader: React.FC<Props> = ({ className, intro, link, title }) => {
   return (
     <div className={[classes.sectionHeader, className].filter(Boolean).join(' ')}>
       <div className={classes.titleAndLink}>
-        <Heading element="h2" as="h3" margin={false}>
+        <Heading as="h3" element="h2" margin={false}>
           {title}
         </Heading>
 
-        {link && <Button label="Learn more" icon="arrow" el="link" href={link} />}
+        {link && <Button el="link" href={link} icon="arrow" label="Learn more" />}
       </div>
 
       {intro && <div className={classes.intro}>{intro}</div>}

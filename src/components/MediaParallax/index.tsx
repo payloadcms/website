@@ -1,25 +1,25 @@
-import React from 'react'
-import { motion, transform, useScroll } from 'framer-motion'
+import type { Props as MediaProps } from '@components/Media/types.js'
+import type { Media as MediaType } from '@root/payload-types.js'
 
 import { Media } from '@components/Media/index.js'
-import { Props as MediaProps } from '@components/Media/types.js'
-import { Media as MediaType } from '@root/payload-types.js'
+import { motion, transform, useScroll } from 'framer-motion'
+import React from 'react'
 
 import classes from './index.module.scss'
 
 type ParallaxProps = {
-  media: { image: string | MediaType }[]
   className?: string
+  media: { image: MediaType | string }[]
 } & {
   priority?: MediaProps['priority']
 }
 
-const MediaParallax: React.FC<ParallaxProps> = ({ media, className, ...mediaProps }) => {
+const MediaParallax: React.FC<ParallaxProps> = ({ className, media, ...mediaProps }) => {
   const containerRef = React.useRef<HTMLDivElement>(null)
   const [scrollValue, setScrollValue] = React.useState(0)
   const { scrollY, scrollYProgress } = useScroll({
-    target: containerRef,
     offset: ['end start', 'start end'],
+    target: containerRef,
   })
 
   React.useEffect(() => {
@@ -36,8 +36,8 @@ const MediaParallax: React.FC<ParallaxProps> = ({ media, className, ...mediaProp
 
   return (
     <motion.div
-      ref={containerRef}
       className={[classes.parallaxMedia, className].filter(Boolean).join(' ')}
+      ref={containerRef}
     >
       {media?.map((image, index) => {
         const MULTIPLIER = Math.min(1 + index / 5, 2)
@@ -45,9 +45,9 @@ const MediaParallax: React.FC<ParallaxProps> = ({ media, className, ...mediaProp
 
         return (
           <motion.div
-            key={index}
             className={classes.parallaxItem}
             initial={{ ...(index === 0 ? {} : { translateY: -50 * MULTIPLIER }) }}
+            key={index}
             style={{
               ...(index === 0
                 ? {}

@@ -1,7 +1,8 @@
-import { GlobalConfig } from 'payload'
-import { isAdmin } from '../access/isAdmin'
+import type { GlobalConfig } from 'payload'
 
-import linkGroup from '../fields/linkGroup'
+import { revalidatePath } from 'next/cache'
+
+import { isAdmin } from '../access/isAdmin'
 import { Callout } from '../blocks/Callout'
 import { CallToAction } from '../blocks/CallToAction'
 import { CardGrid } from '../blocks/CardGrid'
@@ -19,18 +20,17 @@ import { LinkGrid } from '../blocks/LinkGrid'
 import { LogoGrid } from '../blocks/LogoGrid'
 import { MediaBlock } from '../blocks/Media'
 import { MediaContent } from '../blocks/MediaContent'
+import { MediaContentAccordion } from '../blocks/MediaContentAccordion'
 import { Pricing } from '../blocks/Pricing'
 import { ReusableContent } from '../blocks/ReusableContent'
 import { Slider } from '../blocks/Slider'
+import { Statement } from '../blocks/Statement'
 import { Steps } from '../blocks/Steps'
 import { StickyHighlights } from '../blocks/StickyHighlights'
-import { Statement } from '../blocks/Statement'
-import { MediaContentAccordion } from '../blocks/MediaContentAccordion'
-import { revalidatePath } from 'next/cache'
+import linkGroup from '../fields/linkGroup'
 
 export const PartnerProgram: GlobalConfig = {
   slug: 'partner-program',
-  label: 'Partner Program Directory',
   access: {
     read: () => true,
     update: isAdmin,
@@ -42,11 +42,11 @@ export const PartnerProgram: GlobalConfig = {
     {
       name: 'contactForm',
       type: 'relationship',
-      relationTo: 'forms',
-      required: true,
       admin: {
         description: 'Select the form that should be used for the contact form.',
       },
+      relationTo: 'forms',
+      required: true,
     },
     {
       name: 'hero',
@@ -58,16 +58,16 @@ export const PartnerProgram: GlobalConfig = {
           label: 'Hero Text',
         },
         linkGroup({
+          appearances: false,
           overrides: {
             name: 'breadcrumbBarLinks',
           },
-          appearances: false,
         }),
         linkGroup({
+          appearances: false,
           overrides: {
             name: 'heroLinks',
           },
-          appearances: false,
         }),
       ],
     },
@@ -82,38 +82,34 @@ export const PartnerProgram: GlobalConfig = {
         {
           name: 'partners',
           type: 'relationship',
-          relationTo: 'partners',
           hasMany: true,
-          required: true,
-          minRows: 4,
-          maxRows: 4,
           hooks: {
             afterChange: [
-              async ({ value, previousValue, req }) => {
+              async ({ previousValue, req, value }) => {
                 if (value !== previousValue) {
                   const payload = await req.payload
                   await payload
                     .update({
                       collection: 'partners',
+                      data: {
+                        featured: false,
+                      },
                       where: {
                         featured: {
                           equals: true,
                         },
                       },
-                      data: {
-                        featured: false,
-                      },
                     })
                     .then(async () => {
                       await payload.update({
                         collection: 'partners',
+                        data: {
+                          featured: true,
+                        },
                         where: {
                           id: {
                             in: value,
                           },
-                        },
-                        data: {
-                          featured: true,
                         },
                       })
                     })
@@ -121,21 +117,19 @@ export const PartnerProgram: GlobalConfig = {
               },
             ],
           },
+          maxRows: 4,
+          minRows: 4,
+          relationTo: 'partners',
+          required: true,
         },
       ],
     },
     {
       name: 'contentBlocks',
       type: 'group',
-      label: false,
       fields: [
         {
           name: 'beforeDirectory',
-          label: 'Before Directory Blocks',
-          labels: {
-            singular: 'Block',
-            plural: 'Blocks',
-          },
           type: 'blocks',
           blocks: [
             Callout,
@@ -163,15 +157,15 @@ export const PartnerProgram: GlobalConfig = {
             StickyHighlights,
             ExampleTabs,
           ],
+          label: 'Before Directory Blocks',
+          labels: {
+            plural: 'Blocks',
+            singular: 'Block',
+          },
         },
         {
           name: 'afterDirectory',
           type: 'blocks',
-          label: 'After Directory Blocks',
-          labels: {
-            singular: 'Block',
-            plural: 'Blocks',
-          },
           blocks: [
             Callout,
             CallToAction,
@@ -198,11 +192,18 @@ export const PartnerProgram: GlobalConfig = {
             StickyHighlights,
             ExampleTabs,
           ],
+          label: 'After Directory Blocks',
+          labels: {
+            plural: 'Blocks',
+            singular: 'Block',
+          },
         },
       ],
+      label: false,
     },
   ],
   hooks: {
     afterChange: [() => revalidatePath('/parters', 'layout')],
   },
+  label: 'Partner Program Directory',
 }

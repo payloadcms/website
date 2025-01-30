@@ -1,18 +1,14 @@
 import React from 'react'
 
-import { IconProps } from '../types.js'
+import type { IconProps } from '../types.js'
 
 import classes from '../index.module.scss'
 
-export const SearchIcon: React.FC<IconProps> = props => {
-  const { color, rotation, size, className, bold } = props
+export const SearchIcon: React.FC<IconProps> = (props) => {
+  const { bold, className, color, rotation, size } = props
 
   return (
     <svg
-      width="100%"
-      height="100%"
-      viewBox="0 0 15 16"
-      xmlns="http://www.w3.org/2000/svg"
       className={[
         className,
         classes.icon,
@@ -22,12 +18,16 @@ export const SearchIcon: React.FC<IconProps> = props => {
       ]
         .filter(Boolean)
         .join(' ')}
+      height="100%"
       style={{
         transform: rotation ? `rotate(${rotation}deg)` : undefined,
       }}
+      viewBox="0 0 15 16"
+      width="100%"
+      xmlns="http://www.w3.org/2000/svg"
     >
-      <circle cx="6.20691" cy="6.96344" r="5" className={classes.stroke} />
-      <path d="M10.2069 10.9634L13.7069 14.4634" className={classes.stroke} />
+      <circle className={classes.stroke} cx="6.20691" cy="6.96344" r="5" />
+      <path className={classes.stroke} d="M10.2069 10.9634L13.7069 14.4634" />
     </svg>
   )
 }

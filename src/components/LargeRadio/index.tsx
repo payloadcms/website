@@ -1,22 +1,21 @@
-import React, { Fragment } from 'react'
-
 import { Pill } from '@components/Pill/index.js'
 import { CheckIcon } from '@root/icons/CheckIcon/index.js'
+import React, { Fragment } from 'react'
 
 import classes from './index.module.scss'
 
 export const LargeRadio: React.FC<{
-  id: string
-  value: any
   checked?: boolean
-  name?: string
   disabled?: boolean
-  onChange?: (value?: any) => void // eslint-disable-line no-unused-vars
-  price?: string
-  label: string | React.ReactNode
+  id: string
+  label: React.ReactNode | string
+  name?: string
+  onChange?: (value?: any) => void
   pillLabel?: string
-}> = props => {
-  const { checked, name, disabled, onChange, value, price, id, label, pillLabel } = props
+  price?: string
+  value: any
+}> = (props) => {
+  const { id, name, checked, disabled, label, onChange, pillLabel, price, value } = props
 
   return (
     <Fragment key={value}>
@@ -29,18 +28,18 @@ export const LargeRadio: React.FC<{
         <div className={classes.checkmark}>
           {checked && <CheckIcon size="medium" />}
           <input
-            type="checkbox"
-            name={name}
-            id={id}
             checked={checked}
-            value={id}
+            className={classes.radio}
+            disabled={disabled}
+            id={id}
+            name={name}
             onChange={() => {
               if (!disabled && typeof onChange === 'function') {
                 onChange(value)
               }
             }}
-            className={classes.radio}
-            disabled={disabled}
+            type="checkbox"
+            value={id}
           />
         </div>
         <div className={classes.content}>

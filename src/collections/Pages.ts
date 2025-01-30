@@ -4,8 +4,8 @@ import { revalidatePath } from 'next/cache'
 
 import { isAdmin } from '../access/isAdmin'
 import { publishedOnly } from '../access/publishedOnly'
-import { CallToAction } from '../blocks/CallToAction'
 import { Callout } from '../blocks/Callout'
+import { CallToAction } from '../blocks/CallToAction'
 import { CardGrid } from '../blocks/CardGrid'
 import { CaseStudiesHighlight } from '../blocks/CaseStudiesHighlight'
 import { CaseStudyCards } from '../blocks/CaseStudyCards'
@@ -47,7 +47,7 @@ export const Pages: CollectionConfig = {
     livePreview: {
       url: ({ data }) => formatPreviewURL('pages', data),
     },
-    preview: doc => formatPreviewURL('pages', doc),
+    preview: (doc) => formatPreviewURL('pages', doc),
     useAsTitle: 'fullTitle',
   },
   defaultPopulate: {

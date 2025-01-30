@@ -39,7 +39,7 @@
   }
 
   &:hover .arrow {
-    opacity: .5;
+    opacity: 0.5;
   }
 
   @include mid-break {
@@ -95,7 +95,7 @@
   z-index: 1;
 
   img {
-    transition-duration: .9s;
+    transition-duration: 0.9s;
   }
 
   @include mid-break {
@@ -138,7 +138,7 @@
   height: 100%;
 
   & > span {
-  @include large-body;
+    @include large-body;
   }
 
   @include small-break {
@@ -153,8 +153,8 @@
 }
 
 .highlightText {
-  opacity: .5;
-  transition: opacity .9s ease;
+  opacity: 0.5;
+  transition: opacity 0.9s ease;
 
   &:focus {
     text-decoration: none;
@@ -162,10 +162,12 @@
   }
 
   img {
-  opacity: 0;
-  transition: opacity .9s, transform .9s ease;
-  will-change: transition;
-  display: block;
+    opacity: 0;
+    transition:
+      opacity 0.9s,
+      transform 0.9s ease;
+    will-change: transition;
+    display: block;
   }
 }
 
@@ -188,14 +190,14 @@
     opacity: 1;
   }
 
-  .mediaTop img, .mediaBottom img {
-  opacity: 1;
-  transform: translateY(0);
+  .mediaTop img,
+  .mediaBottom img {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
 .afterActive {
-
   .mediaTop img {
     opacity: 0;
     transform: translateY(6rem);
@@ -205,7 +207,6 @@
     opacity: 0;
     transform: translateY(4rem);
   }
-
 }
 
 .button {

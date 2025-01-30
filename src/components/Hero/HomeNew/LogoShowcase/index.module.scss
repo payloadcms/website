@@ -1,4 +1,4 @@
-@use "@scss/common" as *;
+@use '@scss/common' as *;
 
 .logoGrid {
   display: flex;
@@ -27,7 +27,9 @@
   }
 
   img {
-    transition: filter 1s ease, opacity 1s ease;
+    transition:
+      filter 1s ease,
+      opacity 1s ease;
   }
 
   width: var(--block-size);
@@ -36,7 +38,8 @@
   justify-content: center;
   align-items: center;
 
-  img, svg {
+  img,
+  svg {
     width: calc(var(--column) * 1.2);
     height: calc(var(--column) * 1.2);
     object-fit: contain;
@@ -53,7 +56,7 @@
       margin-left: var(--block-size);
 
       &::after {
-        content: "";
+        content: '';
         position: absolute;
         display: block;
         width: var(--block-size);
@@ -64,13 +67,15 @@
       }
     }
 
-    &:nth-child(1), &:nth-child(2), &:nth-child(3) {
+    &:nth-child(1),
+    &:nth-child(2),
+    &:nth-child(3) {
       border-top: 1px solid var(--theme-border-color);
     }
 
     &:nth-child(6) {
       &::after {
-        content: "";
+        content: '';
         position: absolute;
         display: block;
         width: var(--block-size);
@@ -82,9 +87,9 @@
     }
   }
 
-
   @include small-break {
-    &:nth-child(1), &:nth-child(5) {
+    &:nth-child(1),
+    &:nth-child(5) {
       border-right: 1px solid var(--theme-border-color);
     }
   }
@@ -106,7 +111,7 @@
   left: calc((var(--column) * 2) - 0.5rem);
   top: -0.5rem;
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     display: block;
     width: 1px;

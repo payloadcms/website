@@ -7,7 +7,7 @@ import { updateAlgolia } from './updateAlgolia'
 export const CommunityHelp: CollectionConfig = {
   slug: 'community-help',
   access: {
-    create: () => false,
+    create: isAdmin,
     delete: isAdmin,
     read: () => true,
     update: isAdmin,
@@ -98,13 +98,15 @@ export const CommunityHelp: CollectionConfig = {
       },
       hooks: {
         afterChange: [
-          ({ previousValue, siblingData, value }) => {
+          async ({ previousValue, siblingData, value }) => {
             if (previousValue !== value) {
               const docID =
                 siblingData.communityHelpType === 'discord'
                   ? siblingData.discordID
                   : siblingData.githubID
-              if (docID) updateAlgolia(docID, value)
+              if (docID) {
+                await updateAlgolia(docID, value)
+              }
             }
           },
         ],
@@ -119,6 +121,13 @@ export const CommunityHelp: CollectionConfig = {
       hasMany: true,
       index: true,
       relationTo: 'docs',
+    },
+    {
+      name: 'threadCreatedAt',
+      type: 'date',
+      admin: {
+        position: 'sidebar',
+      },
     },
   ],
   labels: {

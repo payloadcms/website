@@ -6,31 +6,30 @@ import { VersionSelector } from '@root/components/VersionSelector/index.js'
 import { ChevronIcon } from '@root/icons/ChevronIcon/index.js'
 import { CloseIcon } from '@root/icons/CloseIcon/index.js'
 import Link from 'next/link'
-import React, { Fragment } from 'react'
-import { useEffect, useRef, useState } from 'react'
+import React, { Fragment, useEffect, useRef, useState } from 'react'
 
-import type { TopicGroup } from '../../app/(frontend)/(pages)/docs/api'
+import type { TopicGroupForNav } from '../../collections/Docs/types'
 
 import classes from './index.module.scss'
 
 const openTopicsLocalStorageKey = 'docs-open-topics'
 
 export const DocsNavigation = ({
+  currentDoc,
   currentTopic,
   docIndex,
   groupIndex,
   indexInGroup,
-  params,
   topics,
   version,
 }: {
+  currentDoc: string
   currentTopic: string
   docIndex: number
   groupIndex: number
   indexInGroup: number
-  params: { doc: string; topic: string }
-  topics: TopicGroup[]
-  version?: 'beta' | 'current' | 'v2'
+  topics: TopicGroupForNav[]
+  version?: 'beta' | 'current' | 'dynamic' | 'v2'
 }) => {
   const [currentTopicIsOpen, setCurrentTopicIsOpen] = useState(true)
   const [openTopicPreferences, setOpenTopicPreferences] = useState<string[]>()
@@ -50,16 +49,16 @@ export const DocsNavigation = ({
 
   useEffect(() => {
     setNavOpen(false)
-  }, [params.topic, params.doc])
+  }, [currentTopic, currentDoc])
 
   useEffect(() => {
     const preference = window.localStorage.getItem(openTopicsLocalStorageKey)
     if (preference) {
       setOpenTopicPreferences(JSON.parse(preference))
     } else {
-      setOpenTopicPreferences([params.topic])
+      setOpenTopicPreferences([currentTopic])
     }
-  }, [params.topic])
+  }, [currentTopic])
 
   useEffect(() => {
     if (openTopicPreferences && !init) {
@@ -69,7 +68,7 @@ export const DocsNavigation = ({
 
   useEffect(() => {
     resetDefaultIndicator()
-  }, [params.topic, params.doc])
+  }, [currentTopic, currentDoc])
 
   useEffect(() => {
     if (init) {
@@ -89,7 +88,7 @@ export const DocsNavigation = ({
   }
 
   const handleMenuItemClick = (topicSlug: string) => {
-    const isCurrentTopic = params.topic === topicSlug
+    const isCurrentTopic = currentTopic === topicSlug
     if (isCurrentTopic) {
       if (openTopicPreferences?.includes(topicSlug) && currentTopicIsOpen) {
         const newState = [...openTopicPreferences]
@@ -98,7 +97,7 @@ export const DocsNavigation = ({
         setOpenTopicPreferences(newState)
         window.localStorage.setItem(openTopicsLocalStorageKey, JSON.stringify(newState))
       }
-      setCurrentTopicIsOpen(state => !state)
+      setCurrentTopicIsOpen((state) => !state)
     } else {
       const newState = [...(openTopicPreferences || [])]
 
@@ -125,8 +124,8 @@ export const DocsNavigation = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [resetIndicator])
 
-  const isActiveTopic = (topic: string) => topic === params.topic
-  const isActiveDoc = (topic: string, doc: string) => topic === params.topic && doc === params.doc
+  const isActiveTopic = (topic: string) => topic === currentTopic
+  const isActiveDoc = (topic: string, doc: string) => topic === currentTopic && doc === currentDoc
 
   return (
     openTopicPreferences && (
@@ -143,7 +142,7 @@ export const DocsNavigation = ({
           )}
           <Accordion.Root
             defaultValue={[...openTopicPreferences, currentTopic]}
-            onValueChange={value =>
+            onValueChange={(value) =>
               window.localStorage.setItem(openTopicsLocalStorageKey, JSON.stringify(value))
             }
             type="multiple"
@@ -164,11 +163,11 @@ export const DocsNavigation = ({
                             .join(' ')}
                           onClick={() => handleMenuItemClick(topic.slug.toLowerCase())}
                           onMouseEnter={() => handleIndicator(`${groupIndex}-${index}`)}
-                          ref={ref => {
+                          ref={(ref) => {
                             topicRefs.current[`${groupIndex}-${index}`] = ref
                           }}
                         >
-                          {topic.slug.replace('-', ' ')}
+                          {topic.label.replace('-', ' ')}
                           <ChevronIcon aria-hidden className={classes.chevron} size="small" />
                         </Accordion.Trigger>
                         <Accordion.Content asChild>
@@ -195,7 +194,7 @@ export const DocsNavigation = ({
                                         .filter(Boolean)
                                         .join(' ')}
                                       onMouseEnter={() => handleIndicator(nestedIndex)}
-                                      ref={ref => {
+                                      ref={(ref) => {
                                         topicRefs.current[nestedIndex] = ref
                                       }}
                                     >
@@ -214,17 +213,17 @@ export const DocsNavigation = ({
               </Fragment>
             ))}
           </Accordion.Root>
-          {(indicatorTop || defaultIndicatorPosition) && (
+          {indicatorTop || defaultIndicatorPosition ? (
             <div
               className={classes.indicator}
               style={{ top: indicatorTop || defaultIndicatorPosition }}
             />
-          )}
+          ) : null}
           <div aria-hidden className={classes.navOverlay} />
           <Portal.Root className={classes.mobileNav}>
             <button
               className={classes.mobileNavButton}
-              onClick={() => setNavOpen(open => !open)}
+              onClick={() => setNavOpen((open) => !open)}
               type="button"
             >
               Documentation

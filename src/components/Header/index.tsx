@@ -1,19 +1,19 @@
 'use client'
 
-import * as React from 'react'
-import { useModal } from '@faceless-ui/modal'
-import { useScrollInfo } from '@faceless-ui/scroll-info'
-import { useSearchParams } from 'next/navigation'
+import type { MainMenu } from '@root/payload-types.js'
 
 import { UniversalTruth } from '@components/UniversalTruth/index.js'
-import { MainMenu } from '@root/payload-types.js'
+import { useModal } from '@faceless-ui/modal'
+import { useScrollInfo } from '@faceless-ui/scroll-info'
 import { useHeaderObserver } from '@root/providers/HeaderIntersectionObserver/index.js'
+import { useSearchParams } from 'next/navigation'
+import * as React from 'react'
+
 import { DesktopNav } from './DesktopNav/index.js'
+import classes from './index.module.scss'
 import { MobileNav, modalSlug as mobileNavModalSlug } from './MobileNav/index.js'
 
-import classes from './index.module.scss'
-
-export const Header: React.FC<MainMenu> = ({ tabs, menuCta }) => {
+export const Header: React.FC<MainMenu> = ({ menuCta, tabs }) => {
   const { isModalOpen } = useModal()
   const isMobileNavOpen = isModalOpen(mobileNavModalSlug)
   const { headerTheme } = useHeaderObserver()
@@ -40,8 +40,8 @@ export const Header: React.FC<MainMenu> = ({ tabs, menuCta }) => {
           .filter(Boolean)
           .join(' ')}
       >
-        <DesktopNav tabs={tabs} hideBackground={hideBackground} menuCta={menuCta} />
-        <MobileNav tabs={tabs} menuCta={menuCta} />
+        <DesktopNav hideBackground={hideBackground} menuCta={menuCta} tabs={tabs} />
+        <MobileNav menuCta={menuCta} tabs={tabs} />
         <React.Suspense>
           <UniversalTruth />
         </React.Suspense>

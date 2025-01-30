@@ -1,84 +1,84 @@
 @use '@scss/common' as *;
 
 .error {
-    color: var(--theme-error-500);
+  color: var(--theme-error-500);
 }
 
 .tabs {
-    margin-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 
 .controls {
-    margin-bottom: calc(var(--base) * 2);
-    position: relative;
-    padding: 2rem  0;
+  margin-bottom: calc(var(--base) * 2);
+  position: relative;
+  padding: 2rem 0;
 
-    @include mid-break {
+  @include mid-break {
+    margin-bottom: 1rem;
+    padding: 1.5rem 0;
+    flex-wrap: wrap;
+
+    & > * {
+      width: 100%;
+
+      &:not(:last-child) {
+        margin-right: 0;
         margin-bottom: 1rem;
-        padding: 1.5rem 0;
-        flex-wrap: wrap;
-
-        & > * {
-            width: 100%;
-
-            &:not(:last-child) {
-                margin-right: 0;
-                margin-bottom: 1rem;
-            }
-        }
+      }
     }
+  }
 }
 
 .search {
-    flex-grow: 1;
+  flex-grow: 1;
 }
 
 .createButton {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--base);
-    padding: var(--base) calc(var(--base) * 1.5);
-    line-height: 1;
-    background-color: var(--theme-elevation-100);
-    text-decoration: none;
-    border: 1px solid var(--theme-border-color);
-    border-left-width: 0px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--base);
+  padding: var(--base) calc(var(--base) * 1.5);
+  line-height: 1;
+  background-color: var(--theme-elevation-100);
+  text-decoration: none;
+  border: 1px solid var(--theme-border-color);
+  border-left-width: 0px;
 
-    &:hover {
-        background-color: var(--theme-elevation-300);
-    }
+  &:hover {
+    background-color: var(--theme-elevation-300);
+  }
 }
 
 .controlsBG {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: calc(100% + 4rem);
-    height: 100%;
-    left: -2rem;
-    right: -2rem;
-    background-color: var(--theme-elevation-50);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: calc(100% + 4rem);
+  height: 100%;
+  left: -2rem;
+  right: -2rem;
+  background-color: var(--theme-elevation-50);
 
-    @include mid-break {
-        width: calc(100% + calc(var(--gutter-h) * 2));
-        left: calc(var(--gutter-h) * -1);
-        right: calc(var(--gutter-h) * -1);
-    }
+  @include mid-break {
+    width: calc(100% + calc(var(--gutter-h) * 2));
+    left: calc(var(--gutter-h) * -1);
+    right: calc(var(--gutter-h) * -1);
+  }
 }
 
 .description {
-    position: relative;
-    margin: 0 0 2rem 0;
+  position: relative;
+  margin: 0 0 2rem 0;
 }
 
 .pagination {
-    margin-top: 2rem;
+  margin-top: 2rem;
 }
 
 .projects {
-    border-top: 1px solid var(--theme-border-color);
-    border-left: 1px solid var(--theme-border-color);
+  border-top: 1px solid var(--theme-border-color);
+  border-left: 1px solid var(--theme-border-color);
 }

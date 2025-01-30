@@ -1,12 +1,13 @@
-import React from 'react'
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 
 import { Gutter } from '@components/Gutter/index.js'
+import React from 'react'
+
 import { StyleguidePageContent } from '../PageContent/index.js'
 
 const Typography: React.FC = () => {
   return (
-    <StyleguidePageContent title="Typography" darkModePadding darkModeMargins>
+    <StyleguidePageContent darkModeMargins darkModePadding title="Typography">
       <Gutter>
         <h1>Typography</h1>
         <h1>H1: Lorem ipsum dolor sit amet officia deserunt.</h1>

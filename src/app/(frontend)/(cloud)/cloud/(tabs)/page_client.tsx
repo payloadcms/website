@@ -1,19 +1,21 @@
 'use client'
 
-import React, { useEffect } from 'react'
+import type { Team, Template, User } from '@root/payload-cloud-types.js'
+
 import { ProjectCard } from '@cloud/_components/ProjectCard/index.js'
 import { TeamSelector } from '@cloud/_components/TeamSelector/index.js'
-import { Text } from '@forms/fields/Text/index.js'
-import Link from 'next/link'
-
 import { Gutter } from '@components/Gutter/index.js'
+import { NewProjectBlock } from '@components/NewProject/index.js'
 import { Pagination } from '@components/Pagination/index.js'
-import { Team, Template, User } from '@root/payload-cloud-types.js'
+import { Text } from '@forms/fields/Text/index.js'
 import { useAuth } from '@root/providers/Auth/index.js'
 import useDebounce from '@root/utilities/use-debounce.js'
-import { NewProjectBlock } from '@components/NewProject/index.js'
-import { fetchProjectsClient, ProjectsRes } from '../_api/fetchProjects.js'
+import Link from 'next/link'
+import React, { useEffect } from 'react'
 
+import type { ProjectsRes } from '../_api/fetchProjects.js'
+
+import { fetchProjectsClient } from '../_api/fetchProjects.js'
 import classes from './page.module.scss'
 
 const delay = 500
@@ -21,12 +23,12 @@ const debounce = 350
 
 export const CloudPage: React.FC<{
   initialState: ProjectsRes
-  user: User
   templates: Template[]
+  user: User
 }> = ({ initialState, templates }) => {
   const { user } = useAuth()
-  const [selectedTeam, setSelectedTeam] = React.useState<string | 'none'>()
-  const prevSelectedTeam = React.useRef<string | 'none' | undefined>(selectedTeam)
+  const [selectedTeam, setSelectedTeam] = React.useState<'none' | string>()
+  const prevSelectedTeam = React.useRef<'none' | string | undefined>(selectedTeam)
 
   const [result, setResult] = React.useState<ProjectsRes>(initialState)
   const [page, setPage] = React.useState<number>(initialState?.page || 1)
@@ -48,7 +50,9 @@ export const CloudPage: React.FC<{
   useEffect(() => {
     // keep a timer reference so that we can cancel the old request
     // this is if the old request takes longer than the debounce time
-    if (requestRef.current) clearTimeout(requestRef.current)
+    if (requestRef.current) {
+      clearTimeout(requestRef.current)
+    }
 
     // only perform searches after the user has engaged with the search field or pagination
     // this will ensure this effect is accidentally run on initial load, etc
@@ -58,9 +62,13 @@ export const CloudPage: React.FC<{
 
       // reset the page back to 1 if the team or search has changed
       const searchChanged = prevSearch.current !== debouncedSearch
-      if (searchChanged) prevSearch.current = debouncedSearch
+      if (searchChanged) {
+        prevSearch.current = debouncedSearch
+      }
       const teamChanged = prevSelectedTeam.current !== selectedTeam
-      if (teamChanged) prevSelectedTeam.current = selectedTeam
+      if (teamChanged) {
+        prevSelectedTeam.current = selectedTeam
+      }
 
       const doFetch = async () => {
         // give the illusion of loading, so that fast network connections appear to flash
@@ -71,7 +79,7 @@ export const CloudPage: React.FC<{
         const userTeams =
           user?.teams?.map(({ team }) =>
             team && typeof team === 'object' && team !== null && 'id' in team ? team.id : team,
-          ) || [].filter(Boolean) // eslint-disable-line function-paren-newline
+          ) || [].filter(Boolean)
 
         // filter 'none' from the selected teams array
         // select all user teams if no team is selected
@@ -80,9 +88,9 @@ export const CloudPage: React.FC<{
         try {
           requestRef.current = setTimeout(async () => {
             const projectsRes = await fetchProjectsClient({
-              teamIDs: teams,
               page: searchChanged || teamChanged ? 1 : page,
               search: debouncedSearch,
+              teamIDs: teams,
             })
 
             const end = Date.now()
@@ -90,7 +98,7 @@ export const CloudPage: React.FC<{
 
             // the request was too fast, so we'll add a delay to make it appear as if it took longer
             if (diff < delay) {
-              await new Promise(resolve => setTimeout(resolve, delay - diff))
+              await new Promise((resolve) => setTimeout(resolve, delay - diff))
             }
 
             setRenderNewProjectBlock(!debouncedSearch && projectsRes?.totalDocs === 0)
@@ -114,15 +122,15 @@ export const CloudPage: React.FC<{
 
   const matchedTeam = user?.teams?.find(({ team }) =>
     typeof team === 'string' ? team === selectedTeam : team?.id === selectedTeam,
-  )?.team as Team //eslint-disable-line function-paren-newline
+  )?.team as Team
 
   if (initialState?.totalDocs === 0) {
     return (
       <NewProjectBlock
+        cardLeader="New"
         heading={
           selectedTeam ? `Team '${matchedTeam?.name}' has no projects` : `You have no projects`
         }
-        cardLeader="New"
         teamSlug={matchedTeam?.slug}
         templates={templates}
       />
@@ -134,23 +142,23 @@ export const CloudPage: React.FC<{
       {error && <p className={classes.error}>{error}</p>}
       <div className={['grid', classes.controls].join(' ')}>
         <Text
-          placeholder="Search projects"
+          className={['cols-8 cols-l-8 cols-m-8', classes.search].join(' ')}
           initialValue={search}
           onChange={(value: string) => {
             setSearch(value)
             setEnableSearch(true)
           }}
-          className={['cols-8 cols-l-8 cols-m-8', classes.search].join(' ')}
+          placeholder="Search projects"
         />
         <TeamSelector
-          onChange={incomingTeam => {
+          allowEmpty
+          className={['cols-6 cols-l-4 cols-m-6 cols-s-4', classes.teamSelector].join(' ')}
+          initialValue="none"
+          label={false}
+          onChange={(incomingTeam) => {
             setSelectedTeam(incomingTeam?.id)
             setEnableSearch(true)
           }}
-          className={['cols-6 cols-l-4 cols-m-6 cols-s-4', classes.teamSelector].join(' ')}
-          initialValue="none"
-          allowEmpty
-          label={false}
           user={user}
         />
         <div className="cols-2 cols-l-4 cols-m-2 cols-s-4">
@@ -164,10 +172,10 @@ export const CloudPage: React.FC<{
       </div>
       {renderNewProjectBlock && !isLoading && (
         <NewProjectBlock
+          cardLeader="New"
           heading={
             selectedTeam ? `Team '${matchedTeam?.name}' has no projects` : `You have no projects`
           }
-          cardLeader="New"
           largeHeading={false}
           teamSlug={matchedTeam?.slug}
           templates={templates}
@@ -183,10 +191,10 @@ export const CloudPage: React.FC<{
             <div className={['grid', classes.projects].join(' ')}>
               {cardArray?.map((project, index) => (
                 <ProjectCard
-                  key={project.id}
-                  project={project}
                   className={classes.projectCard}
                   isLoading={isLoading}
+                  key={project.id}
+                  project={project}
                 />
               ))}
             </div>
@@ -197,11 +205,11 @@ export const CloudPage: React.FC<{
         <Pagination
           className={classes.pagination}
           page={result?.page}
-          totalPages={result?.totalPages}
-          setPage={page => {
+          setPage={(page) => {
             setPage(page)
             setEnableSearch(true)
           }}
+          totalPages={result?.totalPages}
         />
       )}
     </Gutter>

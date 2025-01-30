@@ -1,6 +1,6 @@
 @use '@scss/common.scss' as *;
 
-$curve: cubic-bezier(.165, 0.84, 0.44, 1);
+$curve: cubic-bezier(0.165, 0.84, 0.44, 1);
 
 .lineDraw {
   position: relative;

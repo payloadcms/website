@@ -1,10 +1,9 @@
-import { components } from 'react-select'
-
 import { GithubIcon } from '@root/graphics/GithubIcon/index.js'
+import { components } from 'react-select'
 
 import classes from './index.module.scss'
 
-export const SingleValue: React.FC<any> = props => {
+export const SingleValue: React.FC<any> = (props) => {
   return (
     <components.SingleValue {...props}>
       <div className={classes.option}>

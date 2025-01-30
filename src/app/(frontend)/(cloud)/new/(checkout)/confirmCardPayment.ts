@@ -1,4 +1,3 @@
-import { CardElement as StripeCardElement } from '@stripe/react-stripe-js'
 import type {
   PaymentIntent,
   Stripe,
@@ -6,27 +5,35 @@ import type {
   StripeElements,
 } from '@stripe/stripe-js'
 
+import { CardElement as StripeCardElement } from '@stripe/react-stripe-js'
+
 import type { PayloadStripeSubscription } from './createSubscription.js'
 import type { CheckoutState } from './reducer.js'
 
 export const confirmCardPayment = async (args: {
-  subscription: PayloadStripeSubscription
-  elements: StripeElements | null
-  stripe: Stripe | null
   checkoutState: CheckoutState
-}): Promise<PaymentIntent | null> => {
-  const { subscription, elements, stripe, checkoutState } = args
+  elements: null | StripeElements
+  stripe: null | Stripe
+  subscription: PayloadStripeSubscription
+}): Promise<null | PaymentIntent> => {
+  const { checkoutState, elements, stripe, subscription } = args
 
-  if (!subscription) throw new Error('No subscription')
+  if (!subscription) {
+    throw new Error('No subscription')
+  }
 
-  if (!stripe || !elements) throw new Error('Stripe not loaded')
+  if (!stripe || !elements) {
+    throw new Error('Stripe not loaded')
+  }
 
-  if (!checkoutState) throw new Error('No checkout state')
+  if (!checkoutState) {
+    throw new Error('No checkout state')
+  }
 
-  const { paid, client_secret: clientSecret } = subscription
+  const { client_secret: clientSecret, paid } = subscription
   const { paymentMethod } = checkoutState
 
-  let paymentIntent: PaymentIntent | null = null
+  const paymentIntent: null | PaymentIntent = null
 
   if (!paid) {
     if (!clientSecret) {

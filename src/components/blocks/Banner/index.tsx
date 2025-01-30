@@ -1,21 +1,22 @@
-import React from 'react'
+import type { Props as BannerProps } from '@components/Banner/index.js'
+import type { ReusableContent } from '@root/payload-types.js'
 
-import { Banner, Props as BannerProps } from '@components/Banner/index.js'
+import { Banner } from '@components/Banner/index.js'
 import { Gutter } from '@components/Gutter/index.js'
-import { ReusableContent } from '@root/payload-types.js'
+import React from 'react'
 
 export type BannerBlockProps = Extract<ReusableContent['layout'][0], { blockType: 'banner' }>
 
 export const BannerBlock: React.FC<{
   bannerFields: BannerBlockProps['bannerFields']
-  marginAdjustment?: boolean
   disableGutter?: boolean
+  marginAdjustment?: boolean
 }> = ({ bannerFields, disableGutter, marginAdjustment }) => {
   const bannerProps: BannerProps = {
     type: bannerFields.type,
     content: bannerFields.content,
     icon: bannerFields.addCheckmark ? 'checkmark' : undefined,
-    marginAdjustment: marginAdjustment,
+    marginAdjustment,
   }
 
   return (

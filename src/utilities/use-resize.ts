@@ -1,16 +1,17 @@
 import type React from 'react'
+
 import { useEffect, useState } from 'react'
 
 interface Size {
-  width: number
   height: number
+  width: number
 }
 
 interface Resize {
   size?: Size
 }
 
-export const useResize = <T>(ref: React.MutableRefObject<T | null>): Resize => {
+export const useResize = <T>(ref: React.MutableRefObject<null | T>): Resize => {
   const [size, setSize] = useState<Size>()
 
   useEffect(() => {
@@ -19,8 +20,8 @@ export const useResize = <T>(ref: React.MutableRefObject<T | null>): Resize => {
     const { current: currentRef } = ref
 
     if (currentRef) {
-      observer = new ResizeObserver(entries => {
-        entries.forEach(entry => {
+      observer = new ResizeObserver((entries) => {
+        entries.forEach((entry) => {
           const {
             contentBoxSize,
             contentRect, // for Safari iOS compatibility, will be deprecated eventually (see https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserverEntry/contentRect)
@@ -33,20 +34,20 @@ export const useResize = <T>(ref: React.MutableRefObject<T | null>): Resize => {
             const newSize = Array.isArray(contentBoxSize) ? contentBoxSize[0] : contentBoxSize
 
             if (newSize) {
-              const { inlineSize, blockSize } = newSize
+              const { blockSize, inlineSize } = newSize
               newWidth = inlineSize
               newHeight = blockSize
             }
           } else if (contentRect) {
             // see note above for why this block is needed
-            const { width, height } = contentRect
+            const { height, width } = contentRect
             newWidth = width
             newHeight = height
           }
 
           setSize({
-            width: newWidth,
             height: newHeight,
+            width: newWidth,
           })
         })
       })

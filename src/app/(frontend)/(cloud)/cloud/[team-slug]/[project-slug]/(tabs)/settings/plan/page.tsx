@@ -1,39 +1,39 @@
+import type { Plan } from '@root/payload-cloud-types.js'
+import type { Metadata } from 'next'
+
 import { fetchMe } from '@cloud/_api/fetchMe.js'
 import { fetchProjectAndRedirect } from '@cloud/_api/fetchProject.js'
-import { Metadata } from 'next'
-
-import { canUserMangeProject } from '@root/access.js'
 import { MaxWidth } from '@components/MaxWidth/index.js'
-import { Plan } from '@root/payload-cloud-types.js'
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
-import { isExpandedDoc } from '@root/utilities/is-expanded-doc.js'
+import { canUserMangeProject } from '@root/access.js'
 import { PRODUCTION_ENVIRONMENT_SLUG } from '@root/constants.js'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
+import { generateRoutePath } from '@root/utilities/generate-route-path.js'
+import { isExpandedDoc } from '@root/utilities/is-expanded-doc.js'
+
 import { SectionHeader } from '../_layoutComponents/SectionHeader/index.js'
 import { DeletePlanButton } from './DeletePlanButton/index.js'
 import { DeletePlanModal } from './DeletePlanModal/index.js'
-
 import classes from './index.module.scss'
-import { generateRoutePath } from '@root/utilities/generate-route-path.js'
 
 export default async ({
   params,
 }: {
   params: Promise<{
-    'team-slug': string
-    'project-slug': string
     'environment-slug': string
+    'project-slug': string
+    'team-slug': string
   }>
 }) => {
   const {
-    'team-slug': teamSlug,
-    'project-slug': projectSlug,
     'environment-slug': environmentSlug = PRODUCTION_ENVIRONMENT_SLUG,
+    'project-slug': projectSlug,
+    'team-slug': teamSlug,
   } = await params
   const { user } = await fetchMe()
   const { project } = await fetchProjectAndRedirect({
-    teamSlug,
-    projectSlug,
     environmentSlug,
+    projectSlug,
+    teamSlug,
   })
   const canManageProject = canUserMangeProject({ project, user })
 
@@ -67,10 +67,10 @@ export default async ({
             <DeletePlanButton />
           </div>
           <DeletePlanModal
-            confirmSlug={project.slug}
             canManageProject={canManageProject}
-            project={project}
+            confirmSlug={project.slug}
             environmentSlug={environmentSlug}
+            project={project}
           />
         </div>
       )}
@@ -82,26 +82,26 @@ export async function generateMetadata({
   params,
 }: {
   params: Promise<{
-    'team-slug': string
-    'project-slug': string
     'environment-slug': string
+    'project-slug': string
+    'team-slug': string
   }>
 }): Promise<Metadata> {
   const {
-    'team-slug': teamSlug,
-    'project-slug': projectSlug,
     'environment-slug': environmentSlug = PRODUCTION_ENVIRONMENT_SLUG,
+    'project-slug': projectSlug,
+    'team-slug': teamSlug,
   } = await params
   return {
-    title: 'Plan',
     openGraph: mergeOpenGraph({
       title: 'Plan',
       url: generateRoutePath({
-        teamSlug,
-        projectSlug,
         environmentSlug,
+        projectSlug,
         suffix: 'settings/plan',
+        teamSlug,
       }),
     }),
+    title: 'Plan',
   }
 }

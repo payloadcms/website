@@ -1,13 +1,14 @@
-import React from 'react'
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 
 import { Gutter } from '@components/Gutter/index.js'
 import { ProjectCard } from '@root/app/(frontend)/(cloud)/cloud/_components/ProjectCard/index.js'
+import React from 'react'
+
 import { StyleguidePageContent } from '../PageContent/index.js'
 
 const Cards: React.FC = () => {
   return (
-    <StyleguidePageContent title="Cards" darkModePadding darkModeMargins>
+    <StyleguidePageContent darkModeMargins darkModePadding title="Cards">
       <Gutter>
         <p>Project Card</p>
         <div className={['grid'].filter(Boolean).join(' ')}>
@@ -15,9 +16,9 @@ const Cards: React.FC = () => {
             <ProjectCard
               project={{
                 name: 'Draft Project Title',
-                repositoryFullName: 'github.com/owner/repo',
-                deploymentBranch: 'main',
                 slug: 'draft-slug',
+                deploymentBranch: 'main',
+                repositoryFullName: 'github.com/owner/repo',
                 status: 'draft',
               }}
             />
@@ -26,9 +27,9 @@ const Cards: React.FC = () => {
             <ProjectCard
               project={{
                 name: 'Project Title',
-                repositoryFullName: 'github.com/owner/repo',
-                deploymentBranch: 'main',
                 slug: 'project-slug',
+                deploymentBranch: 'main',
+                repositoryFullName: 'github.com/owner/repo',
                 status: 'published',
               }}
             />
@@ -37,9 +38,9 @@ const Cards: React.FC = () => {
             <ProjectCard
               project={{
                 name: 'Trial Project Title',
-                repositoryFullName: 'github.com/owner/repo',
-                deploymentBranch: 'main',
                 slug: 'trail-slug',
+                deploymentBranch: 'main',
+                repositoryFullName: 'github.com/owner/repo',
                 stripeSubscriptionStatus: 'trialing',
               }}
             />
@@ -48,9 +49,9 @@ const Cards: React.FC = () => {
             <ProjectCard
               project={{
                 name: 'Pro Project Title',
-                repositoryFullName: 'github.com/owner/repo',
-                deploymentBranch: 'main',
                 slug: 'pro-slug',
+                deploymentBranch: 'main',
+                repositoryFullName: 'github.com/owner/repo',
                 // @ts-expect-error
                 plan: {
                   slug: 'pro',
@@ -62,9 +63,9 @@ const Cards: React.FC = () => {
             <ProjectCard
               project={{
                 name: 'Enterprise Project Title',
-                repositoryFullName: 'github.com/owner/repo',
-                deploymentBranch: 'main',
                 slug: 'enterprise-slug',
+                deploymentBranch: 'main',
+                repositoryFullName: 'github.com/owner/repo',
                 // @ts-expect-error
                 plan: {
                   slug: 'enterprise',
@@ -76,9 +77,9 @@ const Cards: React.FC = () => {
             <ProjectCard
               project={{
                 name: 'Past Due Project Title',
-                repositoryFullName: 'github.com/owner/repo',
-                deploymentBranch: 'main',
                 slug: 'past-due-slug',
+                deploymentBranch: 'main',
+                repositoryFullName: 'github.com/owner/repo',
                 stripeSubscriptionStatus: 'past_due',
               }}
             />
@@ -87,9 +88,9 @@ const Cards: React.FC = () => {
             <ProjectCard
               project={{
                 name: 'Unpaid Project Title',
-                repositoryFullName: 'github.com/owner/repo',
-                deploymentBranch: 'main',
                 slug: 'unpaid-slug',
+                deploymentBranch: 'main',
+                repositoryFullName: 'github.com/owner/repo',
                 stripeSubscriptionStatus: 'unpaid',
               }}
             />

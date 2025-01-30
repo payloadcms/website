@@ -1,21 +1,21 @@
-import * as React from 'react'
+import type { BannerBlock, ReusableContent } from '@root/payload-types.js'
 
 import { CheckIcon } from '@root/icons/CheckIcon/index.js'
-import { BannerBlock, ReusableContent } from '@root/payload-types.js'
-import { RichText } from '../RichText/index.js'
+import * as React from 'react'
 
+import { RichText } from '../RichText/index.js'
 import classes from './index.module.scss'
 
 export type Props = {
-  type?: Extract<ReusableContent['layout'][0], { blockType: 'banner' }>['bannerFields']['type']
-  content?:
-    | Extract<ReusableContent['layout'][0], { blockType: 'banner' }>['bannerFields']['content']
-    | BannerBlock['content']
-  children?: React.ReactNode
   checkmark?: boolean
+  children?: React.ReactNode
+  content?:
+    | BannerBlock['content']
+    | Extract<ReusableContent['layout'][0], { blockType: 'banner' }>['bannerFields']['content']
   icon?: 'checkmark'
   margin?: boolean
   marginAdjustment?: any
+  type?: BannerBlock['type']
 }
 
 const Icons = {
@@ -23,16 +23,18 @@ const Icons = {
 }
 
 export const Banner: React.FC<Props> = ({
-  content,
-  children,
-  icon,
   type = 'default',
   checkmark,
+  children,
+  content,
+  icon,
   margin = true,
   marginAdjustment = {},
 }) => {
   let Icon = icon && Icons[icon]
-  if (!Icon && checkmark) Icon = Icons.checkmark
+  if (!Icon && checkmark) {
+    Icon = Icons.checkmark
+  }
 
   return (
     <div

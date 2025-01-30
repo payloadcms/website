@@ -6,11 +6,11 @@ import { Button } from '@components/Button/index.js'
 import { useFormProcessing } from '@forms/Form/context.js'
 import React, { forwardRef } from 'react'
 
-type SubmitProps = ButtonProps & {
+type SubmitProps = {
   iconSize?: 'large' | 'medium' | 'small' | undefined
   label?: null | string
   processing?: boolean
-}
+} & ButtonProps
 
 const Submit = forwardRef<HTMLButtonElement, SubmitProps>((props, ref) => {
   const {

@@ -1,6 +1,6 @@
 @use '@scss/common' as *;
 
-$curve: cubic-bezier(.165, 0.84, 0.44, 1);
+$curve: cubic-bezier(0.165, 0.84, 0.44, 1);
 
 .quoteCard {
   text-decoration: none;
@@ -33,6 +33,14 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
 
   &.isActive {
     opacity: 1;
+  }
+
+  &.enableLink:hover {
+    cursor: pointer;
+
+    .linkLabel {
+      opacity: 1;
+    }
   }
 }
 
@@ -109,7 +117,11 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
 
   .linkLabel {
     @include body;
-    opacity: 0;
+    letter-spacing: 0;
+    opacity: 0.5;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     transition: opacity 350ms ease;
   }
 
@@ -118,12 +130,12 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
     justify-content: center;
     align-items: center;
     stroke-width: 2px;
-    transition: opacity 350ms ease;
+    transition: opacity 100ms ease;
     opacity: 0.5;
 
     svg {
-      width: .75rem;
-      height: .75rem;
+      width: 0.75rem;
+      height: 0.75rem;
 
       path {
         stroke: var(--theme-text);

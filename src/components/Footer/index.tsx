@@ -1,17 +1,17 @@
 'use client'
 
-import React, { useId } from 'react'
-import { Text } from '@forms/fields/Text/index.js'
-import FormComponent from '@forms/Form/index.js'
-import { validateEmail } from '@forms/validations.js'
-import { ArrowIcon } from '@icons/ArrowIcon/index.js'
-import { Footer as FooterType } from '@types'
-import { usePathname, useRouter } from 'next/navigation'
+import type { Theme } from '@root/providers/Theme/types.js'
+import type { Footer as FooterType } from '@types'
 
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
 import { CMSLink } from '@components/CMSLink/index.js'
 import { Gutter } from '@components/Gutter/index.js'
+import { NewsletterSignUp } from '@components/NewsletterSignUp'
 import Payload3D from '@components/Payload3D/index.js'
+import { Text } from '@forms/fields/Text/index.js'
+import FormComponent from '@forms/Form/index.js'
+import { validateEmail } from '@forms/validations.js'
+import { ArrowIcon } from '@icons/ArrowIcon/index.js'
 import { DiscordIcon } from '@root/graphics/DiscordIcon/index.js'
 import { FacebookIcon } from '@root/graphics/FacebookIcon/index.js'
 import { InstagramIcon } from '@root/graphics/InstagramIcon/index.js'
@@ -24,12 +24,12 @@ import { ChevronUpDownIcon } from '@root/icons/ChevronUpDownIcon/index.js'
 import { useHeaderObserver } from '@root/providers/HeaderIntersectionObserver/index.js'
 import { useThemePreference } from '@root/providers/Theme/index.js'
 import { getImplicitPreference, themeLocalStorageKey } from '@root/providers/Theme/shared.js'
-import { Theme } from '@root/providers/Theme/types.js'
+import { usePathname, useRouter } from 'next/navigation'
+import React, { useId } from 'react'
 
 import classes from './index.module.scss'
-import { NewsletterSignUp } from '@components/NewsletterSignUp'
 
-export const Footer: React.FC<FooterType> = props => {
+export const Footer: React.FC<FooterType> = (props) => {
   const { columns } = props
   const [products, developers, company] = columns ?? []
   const { setTheme } = useThemePreference()
@@ -37,12 +37,14 @@ export const Footer: React.FC<FooterType> = props => {
   const wrapperRef = React.useRef<HTMLElement>(null)
   const selectRef = React.useRef<HTMLSelectElement>(null)
 
-  const onThemeChange = (themeToSet: Theme & 'auto') => {
+  const onThemeChange = (themeToSet: 'auto' & Theme) => {
     if (themeToSet === 'auto') {
       const implicitPreference = getImplicitPreference() ?? 'light'
       setHeaderTheme(implicitPreference)
       setTheme(implicitPreference)
-      if (selectRef.current) selectRef.current.value = 'auto'
+      if (selectRef.current) {
+        selectRef.current.value = 'auto'
+      }
     } else {
       setTheme(themeToSet)
       setHeaderTheme(themeToSet)
@@ -72,17 +74,17 @@ export const Footer: React.FC<FooterType> = props => {
   ]
 
   const pathnameSegments = pathname.split('/').filter(Boolean)
-  const isCloudPage = pathnameSegments.some(segment => allowedSegments.includes(segment))
+  const isCloudPage = pathnameSegments.some((segment) => allowedSegments.includes(segment))
 
   const themeId = useId()
 
   return (
-    <footer ref={wrapperRef} className={classes.footer} data-theme="dark">
+    <footer className={classes.footer} data-theme="dark" ref={wrapperRef}>
       <BackgroundGrid
-        zIndex={2}
         className={[classes.background, isCloudPage ? classes.topBorder : '']
           .filter(Boolean)
           .join(' ')}
+        zIndex={2}
       />
       <Gutter className={classes.container}>
         <div className={[classes.grid, 'grid'].filter(Boolean).join(' ')}>
@@ -131,38 +133,38 @@ export const Footer: React.FC<FooterType> = props => {
 
             <div className={classes.socialLinks}>
               <a
-                href="https://twitter.com/payloadcms"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`${classes.socialIconLink} ${classes.twitterIcon}`}
                 aria-label="Payload's Twitter page"
+                className={`${classes.socialIconLink} ${classes.twitterIcon}`}
+                href="https://twitter.com/payloadcms"
+                rel="noopener noreferrer"
+                target="_blank"
               >
                 <TwitterIconAlt />
               </a>
               <a
-                href="https://discord.com/invite/r6sCXqVk3v"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={classes.socialIconLink}
                 aria-label="Payload's Discord"
+                className={classes.socialIconLink}
+                href="https://discord.com/invite/r6sCXqVk3v"
+                rel="noopener noreferrer"
+                target="_blank"
               >
                 <DiscordIcon />
               </a>
               <a
-                href="https://www.youtube.com/channel/UCyrx4Wpd4SBIpqUKlkb6N1Q"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={classes.socialIconLink}
                 aria-label="Payload's YouTube channel"
+                className={classes.socialIconLink}
+                href="https://www.youtube.com/channel/UCyrx4Wpd4SBIpqUKlkb6N1Q"
+                rel="noopener noreferrer"
+                target="_blank"
               >
                 <YoutubeIcon />
               </a>
               <a
-                href="https://www.instagram.com/payloadcms/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={classes.socialIconLink}
                 aria-label="Payload's Instagram page"
+                className={classes.socialIconLink}
+                href="https://www.instagram.com/payloadcms/"
+                rel="noopener noreferrer"
+                target="_blank"
               >
                 <InstagramIcon />
               </a>
@@ -182,7 +184,7 @@ export const Footer: React.FC<FooterType> = props => {
 
               <select
                 id={themeId}
-                onChange={e => onThemeChange(e.target.value as Theme & 'auto')}
+                onChange={(e) => onThemeChange(e.target.value as 'auto' & Theme)}
                 ref={selectRef}
               >
                 <option value="auto">Auto</option>

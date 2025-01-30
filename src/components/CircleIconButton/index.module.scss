@@ -21,7 +21,7 @@
     }
   }
 
-  &:focus-visible .iconWrapper{
+  &:focus-visible .iconWrapper {
     @include outline;
   }
 }

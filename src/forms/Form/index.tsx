@@ -1,16 +1,11 @@
 'use client'
 
-import React, {
-  ChangeEvent,
-  forwardRef,
-  useCallback,
-  useEffect,
-  useReducer,
-  useRef,
-  useState,
-} from 'react'
+import type { ChangeEvent } from 'react'
 
-import { Data, Field, IFormContext, InitialState, OnSubmit } from '../types.js'
+import React, { forwardRef, useCallback, useEffect, useReducer, useRef, useState } from 'react'
+
+import type { Data, Field, IFormContext, InitialState, OnSubmit } from '../types.js'
+
 import {
   FieldContext,
   FormContext,
@@ -25,29 +20,29 @@ import reducer from './reducer.js'
 const defaultInitialState = {}
 
 export type FormProps = {
-  onSubmit?: OnSubmit
-  children: React.ReactNode | ((context: IFormContext) => React.ReactNode)
-  initialState?: InitialState
-  method?: 'GET' | 'POST'
   action?: string
+  children: ((context: IFormContext) => React.ReactNode) | React.ReactNode
   className?: string
   errors?: {
     field: string
     message: string
   }[]
   formId?: string
+  initialState?: InitialState
+  method?: 'GET' | 'POST'
+  onSubmit?: OnSubmit
 }
 
 const Form = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
   const {
-    onSubmit,
-    children,
-    initialState = defaultInitialState,
-    method,
     action,
+    children,
     className,
     errors: errorsFromProps,
     formId,
+    initialState = defaultInitialState,
+    method,
+    onSubmit,
   } = props
 
   const [fields, dispatchFields] = useReducer(reducer, initialState)
@@ -85,8 +80,8 @@ const Form = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
         try {
           await onSubmit({
             data: reduceFieldsToValues(fields, false),
-            unflattenedData: reduceFieldsToValues(fields, true),
             dispatchFields: contextRef.current.dispatchFields,
+            unflattenedData: reduceFieldsToValues(fields, true),
           })
           setHasSubmitted(false)
           setIsModified(false)
@@ -141,13 +136,13 @@ const Form = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
 
   return (
     <form
-      method={method}
       action={action}
+      className={className}
+      id={formId}
+      method={method}
       noValidate
       onSubmit={contextRef.current.handleSubmit}
-      className={className}
       ref={ref}
-      id={formId}
     >
       <FormContext.Provider
         value={{

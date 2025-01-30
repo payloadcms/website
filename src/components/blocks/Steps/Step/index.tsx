@@ -3,7 +3,7 @@
 import type { StepsBlock } from '@root/payload-types.js'
 
 import { Media } from '@components/Media'
-import RichText from '@components/RichText'
+import { RichText } from '@components/RichText'
 import { useInView } from 'framer-motion'
 import React, { useRef } from 'react'
 

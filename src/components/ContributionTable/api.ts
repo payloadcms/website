@@ -5,12 +5,12 @@ const headers = {
 
 const contributionType = {
   discussion: 'discussion',
-  pr: 'pullRequest',
   issue: 'issue',
+  pr: 'pullRequest',
 }
 
 export const getContribution = async (
-  type: 'discussion' | 'pr' | 'issue',
+  type: 'discussion' | 'issue' | 'pr',
   number: number,
   repo: string,
 ): Promise<{ title: string; url: string }> => {
@@ -26,9 +26,9 @@ export const getContribution = async (
   `
 
   const res = await fetch('https://api.github.com/graphql', {
-    method: 'POST',
-    headers,
     body: JSON.stringify({ query }),
+    headers,
+    method: 'POST',
   })
   const { data } = await res.json()
   return {

@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import type { Post } from '@root/payload-types.js'
 
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
 import { BlockSpacing } from '@components/BlockSpacing/index.js'
@@ -8,7 +8,7 @@ import { BlockWrapper } from '@components/BlockWrapper/index.js'
 import { ContentMediaCard } from '@components/cards/ContentMediaCard/index.js'
 import { FeaturedBlogPost } from '@components/FeaturedBlogPost/index.js'
 import { Gutter } from '@components/Gutter/index.js'
-import { Post } from '@root/payload-types.js'
+import React from 'react'
 
 import classes from './index.module.scss'
 
@@ -16,7 +16,7 @@ export const RenderBlogArchive: React.FC<{ posts: Partial<Post>[] }> = ({ posts 
   const latestPost = posts[0]
   return (
     <React.Fragment>
-      <BlockWrapper settings={{}} padding={{ top: 'hero', bottom: 'large' }}>
+      <BlockWrapper padding={{ bottom: 'large', top: 'hero' }} settings={{}}>
         <BackgroundGrid zIndex={0} />
         <Gutter>
           <div className={[classes.hero].filter(Boolean).join(' ')}>
@@ -37,21 +37,21 @@ export const RenderBlogArchive: React.FC<{ posts: Partial<Post>[] }> = ({ posts 
 
           <FeaturedBlogPost {...latestPost} />
           <div className={[classes.cardGrid, 'grid'].filter(Boolean).join(' ')}>
-            {(posts || []).slice(1).map(blogPost => {
-              const { id, title, publishedOn, slug, image, authors } = blogPost
+            {(posts || []).slice(1).map((blogPost) => {
+              const { id, slug, authors, image, publishedOn, title } = blogPost
 
               if (!id || !title || !publishedOn || !slug || !image || !authors) {
                 return null
               }
 
               return (
-                <div key={id} className={['cols-8 cols-m-8'].filter(Boolean).join(' ')}>
+                <div className={['cols-8 cols-m-8'].filter(Boolean).join(' ')} key={id}>
                   <ContentMediaCard
-                    title={title}
-                    publishedOn={publishedOn}
+                    authors={authors}
                     href={`/blog/${slug}`}
                     media={image}
-                    authors={authors}
+                    publishedOn={publishedOn}
+                    title={title}
                   />
                 </div>
               )

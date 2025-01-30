@@ -1,7 +1,6 @@
 'use client'
 
-import * as React from 'react'
-import { toast } from 'sonner'
+import type { Deployment, Project } from '@root/payload-cloud-types.js'
 
 import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
 import { Gutter } from '@components/Gutter/index.js'
@@ -10,30 +9,31 @@ import { CommitIcon } from '@root/graphics/CommitIcon/index.js'
 import { GitHubIcon } from '@root/graphics/GitHub/index.js'
 import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'
 import { BranchIcon } from '@root/icons/BranchIcon/index.js'
-import { Deployment, Project } from '@root/payload-cloud-types.js'
 import { formatDate } from '@root/utilities/format-date-time.js'
 import { qs } from '@root/utilities/qs.js'
 import { useGetProjectDeployments } from '@root/utilities/use-cloud-api.js'
-import { DeploymentLogs } from '../DeploymentLogs/index.js'
+import * as React from 'react'
+import { toast } from 'sonner'
 
+import { DeploymentLogs } from '../DeploymentLogs/index.js'
 import classes from './index.module.scss'
 
 type FinalDeploymentStages = Extract<Deployment['deploymentStatus'], 'ACTIVE' | 'SUPERSEDED'>
 const finalDeploymentStages: FinalDeploymentStages[] = ['ACTIVE', 'SUPERSEDED']
 
 export const InfraOnline: React.FC<{
-  project: Project
   environmentSlug: string
-}> = props => {
-  const { project, environmentSlug } = props
+  project: Project
+}> = (props) => {
+  const { environmentSlug, project } = props
 
   const {
-    result: deployments,
-    reqStatus,
     reload: reloadDeployments,
+    reqStatus,
+    result: deployments,
   } = useGetProjectDeployments({
-    projectID: project?.id,
     environmentSlug,
+    projectID: project?.id,
   })
 
   const latestDeployment = deployments?.[0]
@@ -52,10 +52,10 @@ export const InfraOnline: React.FC<{
         query ? `?${query}` : ''
       }`,
       {
-        method: 'POST',
         credentials: 'include',
+        method: 'POST',
       },
-    ).then(res => {
+    ).then((res) => {
       setRedeployTriggered(false)
 
       if (res.status === 200) {
@@ -115,11 +115,11 @@ export const InfraOnline: React.FC<{
       const req = await fetch(
         `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/deployments?${query}&limit=1`,
         {
-          method: 'GET',
           credentials: 'include',
           headers: {
             'Content-Type': 'application/json',
           },
+          method: 'GET',
         },
       )
 
@@ -133,7 +133,7 @@ export const InfraOnline: React.FC<{
     if (latestDeployment?.deploymentStatus === 'ACTIVE') {
       setLiveDeployment(latestDeployment)
     } else {
-      const liveDeployment = deployments?.find(deployment => {
+      const liveDeployment = deployments?.find((deployment) => {
         return finalDeploymentStages.includes(deployment.deploymentStatus as FinalDeploymentStages)
       })
 
@@ -146,7 +146,7 @@ export const InfraOnline: React.FC<{
   }, [latestDeployment, deployments, project?.id])
 
   const projectDomains = [
-    ...(project?.domains || []).map(domain => domain.domain),
+    ...(project?.domains || []).map((domain) => domain.domain),
     project?.defaultDomain,
   ]
 
@@ -159,12 +159,12 @@ export const InfraOnline: React.FC<{
               <h6>Live Deployment</h6>
               {projectDomains.map((domain, index) => (
                 <a
-                  key={`${domain}-${index}`}
-                  title={domain}
                   className={[classes.domainLink].filter(Boolean).join(' ')}
                   href={`https://${domain}`}
-                  target="_blank"
+                  key={`${domain}-${index}`}
                   rel="noopener noreferrer"
+                  target="_blank"
+                  title={domain}
                 >
                   <span className={classes.ellipseText}>{domain}</span>
                   <ArrowIcon size={index === 0 ? 'medium' : 'small'} />
@@ -191,8 +191,8 @@ export const InfraOnline: React.FC<{
                 <a
                   className={classes.iconAndLabel}
                   href={`https://github.com/${project?.repositoryFullName}`}
-                  target="_blank"
                   rel="noopener noreferrer"
+                  target="_blank"
                   title={project?.repositoryFullName}
                 >
                   <GitHubIcon />
@@ -203,8 +203,8 @@ export const InfraOnline: React.FC<{
                 <a
                   className={classes.iconAndLabel}
                   href={`https://github.com/${project?.repositoryFullName}/tree/${project?.deploymentBranch}`}
-                  target="_blank"
                   rel="noopener noreferrer"
+                  target="_blank"
                   title={project?.deploymentBranch}
                 >
                   <BranchIcon />
@@ -215,8 +215,8 @@ export const InfraOnline: React.FC<{
                 <a
                   className={classes.iconAndLabel}
                   href={`https://github.com/${project?.repositoryFullName}/commit/${liveDeployment?.commitSha}`}
-                  target="_blank"
                   rel="noopener noreferrer"
+                  target="_blank"
                   title={liveDeployment?.commitMessage || 'No commit message'}
                 >
                   <CommitIcon />
@@ -242,25 +242,25 @@ export const InfraOnline: React.FC<{
                   liveDeployment === undefined
                     ? undefined
                     : finalDeploymentStages.includes(
-                        liveDeployment?.deploymentStatus as FinalDeploymentStages,
-                      )
-                    ? 'SUCCESS'
-                    : 'ERROR'
+                          liveDeployment?.deploymentStatus as FinalDeploymentStages,
+                        )
+                      ? 'SUCCESS'
+                      : 'ERROR'
                 }
               />
               <p className={classes.detail}>
                 {liveDeployment === undefined
                   ? 'No status'
                   : finalDeploymentStages.includes(
-                      liveDeployment?.deploymentStatus as FinalDeploymentStages,
-                    )
-                  ? 'Online'
-                  : 'Offline'}
+                        liveDeployment?.deploymentStatus as FinalDeploymentStages,
+                      )
+                    ? 'Online'
+                    : 'Offline'}
               </p>
               <button
-                onClick={triggerDeployment}
                 className={classes.reTriggerButton}
                 disabled={redeployTriggered}
+                onClick={triggerDeployment}
               >
                 {redeployTriggered ? 'Redeploying...' : 'Trigger Redeploy'}
               </button>
@@ -271,9 +271,9 @@ export const InfraOnline: React.FC<{
 
       {deployments?.length > 0 && (
         <DeploymentLogs
-          key={latestDeployment.id}
           deployment={latestDeployment}
           environmentSlug={environmentSlug}
+          key={latestDeployment.id}
         />
       )}
     </React.Fragment>
@@ -312,14 +312,14 @@ const DeploymentIndicator: React.FC<{ deployment: Deployment }> = ({ deployment 
       str
         ?.toLowerCase()
         .split('_')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
         .join(' ') || ''
     )
   }
 
   return (
     <>
-      <Indicator status={status} spinner={spinner} />
+      <Indicator spinner={spinner} status={status} />
       <p>{titleCase(deployment?.deploymentStatus)}</p>
     </>
   )

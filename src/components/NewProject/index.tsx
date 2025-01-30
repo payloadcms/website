@@ -1,29 +1,29 @@
-import React, { Fragment } from 'react'
-import Link from 'next/link'
+import type { Team, Template } from '@root/payload-cloud-types.js'
 
 import { Banner } from '@components/Banner/index.js'
 import { Gutter } from '@components/Gutter/index.js'
 import { Media } from '@components/Media/index.js'
 import { Pill } from '@components/Pill/index.js'
-import { Team, Template } from '@root/payload-cloud-types.js'
+import Link from 'next/link'
+import React, { Fragment } from 'react'
 
 import classes from './index.module.scss'
 
 export const NewProjectBlock: React.FC<{
   cardLeader?: string
   description?: React.ReactNode
+  heading?: string
+  largeHeading?: boolean
   teamSlug?: Team['slug']
   templates?: Template[]
-  largeHeading?: boolean
-  heading?: string
-}> = props => {
+}> = (props) => {
   const {
     cardLeader,
     description,
+    heading = 'New Project',
+    largeHeading,
     teamSlug,
     templates,
-    largeHeading,
-    heading = 'New Project',
   } = props
 
   const disableProjectCreation = false
@@ -47,8 +47,8 @@ export const NewProjectBlock: React.FC<{
                 <p className={classes.description}>
                   {'Create a project from a template, or '}
                   <Link
-                    href={`/new/import${teamSlug ? `?team=${teamSlug}` : ''}`}
                     className={classes.import}
+                    href={`/new/import${teamSlug ? `?team=${teamSlug}` : ''}`}
                     prefetch={false}
                   >
                     import an existing Git codebase
@@ -62,21 +62,21 @@ export const NewProjectBlock: React.FC<{
         <div className={['grid', classes.templatesWrapper].join(' ')}>
           {!disableProjectCreation &&
             templates?.map((template, index) => {
-              const { slug, name, description, image, adminOnly } = template
+              const { name, slug, adminOnly, description, image } = template
               return (
                 <Link
-                  href={`/new/clone/${template.slug}${teamSlug ? `?team=${teamSlug}` : ''}`}
                   className={['cols-8', classes.templateCard].filter(Boolean).join(' ')}
+                  href={`/new/clone/${template.slug}${teamSlug ? `?team=${teamSlug}` : ''}`}
                   key={slug}
                 >
                   {image && typeof image !== 'string' && (
                     <Media
+                      alt={image.alt}
                       className={classes.templateImage}
+                      height={image.height}
                       sizes="(max-width: 768px) 100vw, 20vw"
                       src={image.url}
                       width={image.width}
-                      height={image.height}
-                      alt={image.alt}
                     />
                   )}
                   <div className={classes.templateCardDetails}>

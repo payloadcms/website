@@ -1,10 +1,10 @@
 import type { Validate } from './types.js'
 
 const isValidEmail = new RegExp(
-  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-z\-0-9]+\.)+[a-z]{2,}))$/i,
 )
 
-export const validateEmail: Validate = value => {
+export const validateEmail: Validate = (value) => {
   const stringValue = value as string
 
   if (!isValidEmail.test(stringValue)) {
@@ -19,7 +19,7 @@ export const validateDomain: Validate = (domainValue: string) => {
     return 'Please enter a domain'
   }
 
-  const validDomainRegex = /(?=^.{4,253}$)(^((?!-)[a-zA-Z0-9-]{0,62}[a-zA-Z0-9]\.)+[a-zA-Z]{2,63}$)/ // source: https://www.regextester.com/103452
+  const validDomainRegex = /(?=^.{4,253}$)(^((?!-)[a-z0-9-]{0,62}[a-z0-9]\.)+[a-z]{2,63}$)/i // source: https://www.regextester.com/103452
   if (!domainValue.match(validDomainRegex)) {
     return `"${domainValue}" is not a fully qualified domain name.`
   }

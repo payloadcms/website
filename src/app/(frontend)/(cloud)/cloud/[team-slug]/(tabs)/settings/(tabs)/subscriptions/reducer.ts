@@ -1,21 +1,21 @@
 import type { SubscriptionsResult } from '@cloud/_api/fetchSubscriptions.js'
 
 export const subscriptionsReducer = (
-  state: SubscriptionsResult | null,
+  state: null | SubscriptionsResult,
   action: {
-    type: 'reset' | 'add'
     payload: SubscriptionsResult
+    type: 'add' | 'reset'
   },
-): SubscriptionsResult | null => {
+): null | SubscriptionsResult => {
   switch (action.type) {
-    case 'reset':
-      return action.payload
     case 'add':
       return {
         ...(state || {}),
         data: [...(state?.data || []), ...(action?.payload?.data || [])],
         has_more: action?.payload?.has_more || false,
       }
+    case 'reset':
+      return action.payload
     default:
       return state
   }

@@ -1,22 +1,21 @@
-import * as React from 'react'
-import Link from 'next/link'
-
 import { EdgeScroll } from '@components/EdgeScroll/index.js'
+import Link from 'next/link'
+import * as React from 'react'
 
 import classes from './index.module.scss'
 
 export type Breadcrumb = {
-  label?: string | null
-  url?: string | null
+  label?: null | string
+  url?: null | string
 }
 
 export type Props = {
-  items?: Array<Breadcrumb> | null
-  ellipsis?: boolean
   className?: string
+  ellipsis?: boolean
+  items?: Array<Breadcrumb> | null
 }
 
-export const Breadcrumbs: React.FC<Props> = ({ items, ellipsis = true, className }) => {
+export const Breadcrumbs: React.FC<Props> = ({ className, ellipsis = true, items }) => {
   return (
     <nav
       aria-label="Breadcrumbs navigation"
@@ -34,7 +33,7 @@ export const Breadcrumbs: React.FC<Props> = ({ items, ellipsis = true, className
                   .filter(Boolean)
                   .join(' ')}
               >
-                <Link href={item.url} prefetch={false} className={classes.labelContent}>
+                <Link className={classes.labelContent} href={item.url} prefetch={false}>
                   {item.label}
                 </Link>
               </div>

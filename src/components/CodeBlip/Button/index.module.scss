@@ -1,6 +1,6 @@
 @use '@scss/common.scss' as *;
 
-$curve: cubic-bezier(.165, 0.84, 0.44, 1);
+$curve: cubic-bezier(0.165, 0.84, 0.44, 1);
 
 :global(.group-active) {
   .button {
@@ -161,8 +161,6 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
   bottom: 0;
   z-index: 1;
 
-
-
   & .content {
     position: absolute;
     visibility: hidden;
@@ -183,4 +181,3 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
     }
   }
 }
-

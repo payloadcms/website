@@ -1,4 +1,4 @@
-@use '@scss/common' as  *;
+@use '@scss/common' as *;
 
 .wrapper {
   &.gridBelow {
@@ -42,5 +42,6 @@
 .cellRichText {
   p {
     opacity: 0.75;
+    margin: 1em 0;
   }
 }

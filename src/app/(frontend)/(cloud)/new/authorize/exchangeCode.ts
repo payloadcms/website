@@ -4,8 +4,8 @@ export const exchangeCode = async (code: string): Promise<boolean> => {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/exchange-code?code=${code}`,
         {
-          method: 'GET',
           credentials: 'include',
+          method: 'GET',
         },
       )
 

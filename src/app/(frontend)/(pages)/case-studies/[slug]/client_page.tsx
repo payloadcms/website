@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import type { CaseStudy as CaseStudyT } from '@root/payload-types.js'
 
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
 import { BlockWrapper } from '@components/BlockWrapper/index.js'
@@ -9,12 +9,12 @@ import BreadcrumbsBar from '@components/Hero/BreadcrumbsBar/index.js'
 import { Media } from '@components/Media/index.js'
 import { RenderBlocks } from '@components/RenderBlocks/index.js'
 import { RichText } from '@components/RichText/index.js'
-import type { CaseStudy as CaseStudyT } from '@root/payload-types.js'
+import React from 'react'
 
 import classes from './index.module.scss'
 
-export const CaseStudy: React.FC<CaseStudyT> = props => {
-  const { title, featuredImage, introContent, layout, url, industry, useCase } = props
+export const CaseStudy: React.FC<CaseStudyT> = (props) => {
+  const { featuredImage, industry, introContent, layout, title, url, useCase } = props
 
   return (
     <React.Fragment>
@@ -30,23 +30,23 @@ export const CaseStudy: React.FC<CaseStudyT> = props => {
         ]}
         links={[
           {
+            label: 'Visit Site',
             newTab: true,
             url: url ?? '',
-            label: 'Visit Site',
           },
           {
+            label: 'Book a demo',
             newTab: true,
             url: '/talk-to-us',
-            label: 'Book a demo',
           },
         ]}
       />
-      <BlockWrapper settings={{}} padding={{ top: 'small' }}>
+      <BlockWrapper padding={{ top: 'small' }} settings={{}}>
         <BackgroundGrid />
         <Gutter className={classes.hero}>
           <div className={['grid'].filter(Boolean).join(' ')}>
             <div className={['cols-10 cols-m-8'].filter(Boolean).join(' ')}>
-              <RichText content={introContent} className={classes.introContent} />
+              <RichText className={classes.introContent} content={introContent} />
             </div>
 
             {(industry || useCase) && (
@@ -77,7 +77,7 @@ export const CaseStudy: React.FC<CaseStudyT> = props => {
 
           {typeof featuredImage !== 'string' && (
             <div className={classes.featuredMediaWrap}>
-              <Media resource={featuredImage} priority />
+              <Media priority resource={featuredImage} />
             </div>
           )}
         </Gutter>

@@ -1,15 +1,15 @@
 import type { Install } from '@cloud/_api/fetchInstalls.js'
 
 export interface InstallationSelectorProps {
-  value?: Install['id']
-  onChange?: (value?: Install) => void // eslint-disable-line no-unused-vars
-  installs?: Install[]
-  onInstall?: () => void
-  loading?: boolean
-  error?: string
+  className?: string
   description?: string
   disabled?: boolean
+  error?: string
   hideLabel?: boolean
-  className?: string
+  installs?: Install[]
+  loading?: boolean
+  onChange?: (value?: Install) => void
+  onInstall?: () => void
   uuid: string
+  value?: Install['id']
 }

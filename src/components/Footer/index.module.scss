@@ -1,6 +1,6 @@
 @use '@scss/common' as *;
 
-$curve: cubic-bezier(.165, 0.84, 0.44, 1);
+$curve: cubic-bezier(0.165, 0.84, 0.44, 1);
 
 .footer {
   position: relative;
@@ -52,9 +52,8 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
   }
 
   &:hover {
-    color: var(--theme-elevation-800)
+    color: var(--theme-elevation-800);
   }
-
 
   @include mid-break {
     width: 100%;

@@ -17,7 +17,9 @@ export interface ProjectsRes {
 export const fetchProjects = async (teamIDs: string[]): Promise<ProjectsRes> => {
   const { cookies } = await import('next/headers')
   const token = (await cookies()).get(payloadCloudToken)?.value ?? null
-  if (!token) throw new Error('No token provided')
+  if (!token) {
+    throw new Error('No token provided')
+  }
 
   const res: ProjectsRes = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql`, {
     body: JSON.stringify({
@@ -35,9 +37,11 @@ export const fetchProjects = async (teamIDs: string[]): Promise<ProjectsRes> => 
     method: 'POST',
     next: { tags: ['projects'] },
   })
-    ?.then(r => r.json())
-    ?.then(data => {
-      if (data.errors) throw new Error(data?.errors?.[0]?.message ?? 'Error fetching doc')
+    ?.then((r) => r.json())
+    ?.then((data) => {
+      if (data.errors) {
+        throw new Error(data?.errors?.[0]?.message ?? 'Error fetching doc')
+      }
       return data?.data?.Projects
     })
 
@@ -71,8 +75,8 @@ export const fetchProjectsClient = async ({
     },
     method: 'POST',
   })
-    .then(r => r.json())
-    ?.then(data => data?.data?.Projects)
+    .then((r) => r.json())
+    ?.then((data) => data?.data?.Projects)
 
   return res
 }
@@ -80,7 +84,7 @@ export const fetchProjectsClient = async ({
 export const fetchProjectClient = async ({
   environmentSlug,
   projectSlug,
-  teamID
+  teamID,
 }: {
   environmentSlug?: string
   projectSlug?: string
@@ -99,11 +103,13 @@ export const fetchProjectClient = async ({
       'Content-Type': 'application/json',
     },
     method: 'POST',
-  }).then(res => res.json())
+  }).then((res) => res.json())
 
   const project = data?.Projects?.docs?.[0]
 
-  if (!project) throw new Error('Project not found')
+  if (!project) {
+    throw new Error('Project not found')
+  }
 
   if (environmentSlug) {
     return mergeProjectEnvironment({ environmentSlug, project })

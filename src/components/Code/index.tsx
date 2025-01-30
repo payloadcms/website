@@ -1,13 +1,13 @@
 'use client'
-/* eslint-disable no-param-reassign */
-import React, { useCallback } from 'react'
-import { Highlight } from 'prism-react-renderer'
-import { theme } from './theme.js'
 
 import CodeBlip from '@components/CodeBlip/index.js'
-import { Props } from './types.js'
+import { Highlight } from 'prism-react-renderer'
+import React, { useCallback } from 'react'
+
+import type { Props } from './types.js'
 
 import classes from './index.module.scss'
+import { theme } from './theme.js'
 
 let highlightStart = false
 const highlightClassName = 'highlight-line'
@@ -15,7 +15,7 @@ const highlightClassName = 'highlight-line'
 const highlightLine = (lineArray: { content: string }[], lineProps: { className: string }) => {
   let shouldExclude = false
 
-  lineArray.forEach(line => {
+  lineArray.forEach((line) => {
     const { content } = line
     const lineContent = content.replace(/\s/g, '')
 
@@ -46,21 +46,23 @@ const highlightLine = (lineArray: { content: string }[], lineProps: { className:
   return shouldExclude
 }
 
-const Code: React.FC<Props> = props => {
+const Code: React.FC<Props> = (props) => {
   const {
     children,
     className,
     codeBlips,
     disableMinHeight,
-    showLineNumbers = true,
     parentClassName,
+    showLineNumbers = true,
   } = props
   const classNames = [classes.code, 'code-block', className && className].filter(Boolean).join(' ')
 
   const getCodeBlip = useCallback(
     (rowNumber: number) => {
-      if (!codeBlips) return null
-      return codeBlips.find(blip => blip.row === rowNumber) ?? null
+      if (!codeBlips) {
+        return null
+      }
+      return codeBlips.find((blip) => blip.row === rowNumber) ?? null
     },
     [codeBlips],
   )
@@ -78,12 +80,12 @@ const Code: React.FC<Props> = props => {
         .join(' ')}
       data-theme={'dark'}
     >
-      <Highlight theme={theme} code={children} language="jsx">
-        {({ style, tokens, getLineProps, getTokenProps }) => (
+      <Highlight code={children} language="jsx" theme={theme}>
+        {({ getLineProps, getTokenProps, style, tokens }) => (
           <div className={classNames} style={style}>
             {tokens
               .map((line, i) => {
-                const lineProps = getLineProps({ line, key: i, className: classes.line })
+                const lineProps = getLineProps({ className: classes.line, key: i, line })
                 const shouldExclude = highlightLine(line, lineProps)
                 return {
                   line,
@@ -95,17 +97,19 @@ const Code: React.FC<Props> = props => {
               .map(({ line, lineProps }, i) => {
                 const rowNumber = i + 1
                 const codeBlip = getCodeBlip(rowNumber)
-                if (codeBlip) blipCounter = blipCounter + 1
+                if (codeBlip) {
+                  blipCounter = blipCounter + 1
+                }
                 return (
                   <div {...lineProps} key={i}>
                     <>
                       {showLineNumbers && <span className={classes.lineNumber}>{rowNumber}</span>}
                       <div className={classes.lineCodeWrapper}>
                         {line.map((token, index) => {
-                          const { key, ...rest } = getTokenProps({ token, key: index })
+                          const { key, ...rest } = getTokenProps({ key: index, token })
                           return <span key={key as any} {...rest} />
                         })}
-                        {codeBlip ? <CodeBlip.Button index={blipCounter} blip={codeBlip} /> : null}
+                        {codeBlip ? <CodeBlip.Button blip={codeBlip} index={blipCounter} /> : null}
                       </div>
                     </>
                   </div>

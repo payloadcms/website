@@ -1,35 +1,36 @@
+import type { Metadata } from 'next'
+
 import { fetchProjectAndRedirect } from '@cloud/_api/fetchProject.js'
-import { Metadata } from 'next'
+import { PRODUCTION_ENVIRONMENT_SLUG } from '@root/constants.js'
 
 import { InfraOffline } from './InfraOffline/index.js'
 import { InfraOnline } from './InfraOnline/index.js'
-import { PRODUCTION_ENVIRONMENT_SLUG } from '@root/constants.js'
 
 export default async ({
   params,
 }: {
   params: Promise<{
-    'team-slug': string
-    'project-slug': string
     'environment-slug': string
+    'project-slug': string
+    'team-slug': string
   }>
 }) => {
   const {
-    'team-slug': teamSlug,
-    'project-slug': projectSlug,
     'environment-slug': environmentSlug = PRODUCTION_ENVIRONMENT_SLUG,
+    'project-slug': projectSlug,
+    'team-slug': teamSlug,
   } = await params
-  const { team, project } = await fetchProjectAndRedirect({
-    teamSlug,
-    projectSlug,
+  const { project, team } = await fetchProjectAndRedirect({
     environmentSlug,
+    projectSlug,
+    teamSlug,
   })
 
   if (project?.infraStatus === 'done') {
-    return <InfraOnline project={project} environmentSlug={environmentSlug} />
+    return <InfraOnline environmentSlug={environmentSlug} project={project} />
   }
 
-  return <InfraOffline project={project} team={team} environmentSlug={environmentSlug} />
+  return <InfraOffline environmentSlug={environmentSlug} project={project} team={team} />
 }
 
 export const metadata: Metadata = {

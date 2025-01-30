@@ -1,11 +1,11 @@
 @use '@scss/common.scss' as *;
 
 .modal {
-    & > * {
-        width: 800px;
-        overflow-x: scroll;
-        max-height: 100vh;
-    }
+  & > * {
+    width: 800px;
+    overflow-x: scroll;
+    max-height: 100vh;
+  }
 }
 
 .modalActions {
@@ -16,18 +16,17 @@
   padding-top: 2rem;
   border-top: 1px solid var(--theme-border-color);
   margin-top: 2rem;
-
 }
 
 @include small-break {
-    .modalActions {
-        flex-wrap: wrap;
-    }
+  .modalActions {
+    flex-wrap: wrap;
+  }
 
-    .modal {
-        & > * {
-            padding: 2rem var(--gutter-h);
-            border: 0;
-        }
+  .modal {
+    & > * {
+      padding: 2rem var(--gutter-h);
+      border: 0;
     }
+  }
 }

@@ -1,12 +1,12 @@
-import React from 'react'
+import type { ReusableContent } from '@root/payload-types.js'
 
 import { Gutter } from '@components/Gutter/index.js'
 import { RichText } from '@components/RichText/index.js'
-import { ReusableContent } from '@root/payload-types.js'
+import React from 'react'
 
 type Props = Extract<ReusableContent['layout'][0], { blockType: 'blogContent' }>
 
-export const BlogContent: React.FC<Props & { disableGutter: boolean }> = ({
+export const BlogContent: React.FC<{ disableGutter: boolean } & Props> = ({
   blogContentFields,
   disableGutter,
 }) => {

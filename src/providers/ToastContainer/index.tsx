@@ -9,7 +9,6 @@ import { Warning } from './icons/Warning.js'
 
 export function ToastContainer() {
   return (
-    // @ts-expect-error
     <Toaster
       className="payload-toast-container"
       closeButton

@@ -19,7 +19,7 @@
     text-transform: uppercase;
     margin-top: 0;
     margin-bottom: 1rem;
-    color: #4D90B2;
+    color: #4d90b2;
   }
 }
 
@@ -40,7 +40,7 @@
   position: absolute;
   top: 0;
   left: 1px;
-  width:  calc(100% - 2px);
+  width: calc(100% - 2px);
   height: 100%;
   pointer-events: none;
   z-index: 1;
@@ -50,13 +50,16 @@
   position: absolute;
   top: 0;
   left: 1px;
-  width:  calc(100% - 2px);
+  width: calc(100% - 2px);
   height: 100%;
   pointer-events: none;
   background-color: transparent;
 }
 
-.crosshairTopOne, .crosshairTopTwo, .crosshairBottomOne, .crosshairBottomTwo {
+.crosshairTopOne,
+.crosshairTopTwo,
+.crosshairBottomOne,
+.crosshairBottomTwo {
   position: absolute;
   width: 1rem;
   height: auto;
@@ -66,26 +69,27 @@
 }
 
 .crosshairTopOne {
-  top: -.5rem;
-  left: -.5rem;
+  top: -0.5rem;
+  left: -0.5rem;
 }
 
 .crosshairTopTwo {
-  top: -.5rem;
-  right: -.5rem;
+  top: -0.5rem;
+  right: -0.5rem;
 }
 
 .crosshairBottomOne {
-  bottom: -.5rem;
-  left: -.5rem;
+  bottom: -0.5rem;
+  left: -0.5rem;
 }
 
 .crosshairBottomTwo {
-  bottom: -.5rem;
-  right: -.5rem;
+  bottom: -0.5rem;
+  right: -0.5rem;
 }
 
-.crosshairTopRight, .crosshairBottomRight {
+.crosshairTopRight,
+.crosshairBottomRight {
   position: absolute;
   width: 1rem;
   height: auto;
@@ -94,13 +98,13 @@
 }
 
 .crosshairTopRight {
-  top: -.5rem;
-  right: -.5rem;
+  top: -0.5rem;
+  right: -0.5rem;
 }
 
 .crosshairBottomRight {
-  bottom: -.5rem;
-  right: -.5rem;
+  bottom: -0.5rem;
+  right: -0.5rem;
 }
 
 .collapsibleWrapper {

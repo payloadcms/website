@@ -1,33 +1,32 @@
 'use client'
 
+import { ME_QUERY, USER } from '@data/me.js'
 import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
 
-import { ME_QUERY, USER } from '@data/me.js'
-import { User } from '../../payload-cloud-types.js'
+import type { User } from '../../payload-cloud-types.js'
 
-// eslint-disable-next-line no-unused-vars
 type ResetPassword = (args: {
   password: string
   passwordConfirm: string
   token: string
 }) => Promise<void>
 
-type ForgotPassword = (args: { email: string }) => Promise<void> // eslint-disable-line no-unused-vars
+type ForgotPassword = (args: { email: string }) => Promise<void>
 
-type Create = (args: { email: string; password: string; passwordConfirm: string }) => Promise<void> // eslint-disable-line no-unused-vars
+type Create = (args: { email: string; password: string; passwordConfirm: string }) => Promise<void>
 
-type Login = (args: { email: string; password: string }) => Promise<User> // eslint-disable-line no-unused-vars
+type Login = (args: { email: string; password: string }) => Promise<User>
 
 type Logout = () => Promise<void>
 
 type AuthContext = {
-  user?: User | null
-  updateUser: (user: Partial<User>) => void // eslint-disable-line no-unused-vars
-  setUser: (user: User | null) => void // eslint-disable-line no-unused-vars
-  logout: Logout
-  login: Login
-  resetPassword: ResetPassword
   forgotPassword: ForgotPassword
+  login: Login
+  logout: Logout
+  resetPassword: ResetPassword
+  setUser: (user: null | User) => void
+  updateUser: (user: Partial<User>) => void
+  user?: null | User
 }
 
 const Context = createContext({} as AuthContext)
@@ -35,17 +34,12 @@ const Context = createContext({} as AuthContext)
 const CLOUD_CONNECTION_ERROR = 'An error occurred while attempting to connect to Payload Cloud'
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<User | null | undefined>(undefined)
+  const [user, setUser] = useState<null | undefined | User>(undefined)
   const fetchedMe = useRef(false)
 
-  const login = useCallback<Login>(async args => {
+  const login = useCallback<Login>(async (args) => {
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql`, {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         body: JSON.stringify({
           query: `mutation {
               loginUser(email: "${args.email}", password: "${args.password}") {
@@ -56,12 +50,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
               }
             }`,
         }),
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
       })
 
       const { data, errors } = await res.json()
 
       if (res.ok) {
-        if (errors) throw new Error(errors[0].message)
+        if (errors) {
+          throw new Error(errors[0].message)
+        }
         setUser(data?.loginUser?.user)
         return data?.loginUser?.user
       }
@@ -75,16 +76,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const logout = useCallback<Logout>(async () => {
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql`, {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         body: JSON.stringify({
           query: `mutation {
             logoutUser
           }`,
         }),
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
       })
 
       if (res.ok) {
@@ -98,20 +99,22 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, [])
 
   useEffect(() => {
-    if (fetchedMe.current) return
+    if (fetchedMe.current) {
+      return
+    }
     fetchedMe.current = true
 
     const fetchMe = async () => {
       try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql`, {
-          method: 'POST',
+          body: JSON.stringify({
+            query: ME_QUERY,
+          }),
           credentials: 'include',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({
-            query: ME_QUERY,
-          }),
+          method: 'POST',
         })
 
         const { data, errors } = await res.json()
@@ -125,6 +128,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
       } catch (e) {
         setUser(null)
+        if (process.env.NEXT_PUBLIC_OMIT_CLOUD_ERRORS === 'true') {
+          return
+        }
         throw new Error(`${CLOUD_CONNECTION_ERROR}: ${e.message}`)
       }
     }
@@ -132,14 +138,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     fetchMe()
   }, [])
 
-  const forgotPassword = useCallback<ForgotPassword>(async args => {
+  const forgotPassword = useCallback<ForgotPassword>(async (args) => {
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql`, {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         body: JSON.stringify({
           query: `mutation {
               forgotPasswordUser(email: "${args.email}") {
@@ -150,12 +151,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
               }
             }`,
         }),
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
       })
 
       const { data, errors } = await res.json()
 
       if (res.ok) {
-        if (errors) throw new Error(errors[0].message)
+        if (errors) {
+          throw new Error(errors[0].message)
+        }
         setUser(data?.loginUser?.user)
       } else {
         throw new Error(
@@ -167,14 +175,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }, [])
 
-  const resetPassword = useCallback<ResetPassword>(async args => {
+  const resetPassword = useCallback<ResetPassword>(async (args) => {
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql`, {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         body: JSON.stringify({
           query: `mutation {
               resetPasswordUser(password: "${args.password}", token: "${args.token}") {
@@ -184,12 +187,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
               }
             }`,
         }),
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
       })
 
       const { data, errors } = await res.json()
 
       if (res.ok) {
-        if (errors) throw new Error(errors[0].message)
+        if (errors) {
+          throw new Error(errors[0].message)
+        }
         setUser(data?.resetPasswordUser?.user)
       } else {
         throw new Error(errors?.[0]?.message || 'Invalid login')
@@ -202,14 +212,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const updateUser = useCallback(
     async (incomingUser: Partial<User>) => {
       try {
-        if (!user || !incomingUser) throw new Error('No user found to update.')
+        if (!user || !incomingUser) {
+          throw new Error('No user found to update.')
+        }
 
         const res = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql`, {
-          method: 'POST',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-          },
           body: JSON.stringify({
             query: `mutation {
               updateUser(
@@ -225,12 +232,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
               }
             }`,
           }),
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          method: 'POST',
         })
 
         const { data, errors } = await res.json()
 
         if (res.ok) {
-          if (errors) throw new Error(errors[0].message)
+          if (errors) {
+            throw new Error(errors[0].message)
+          }
           setUser(data?.updateUser)
         } else {
           throw new Error(errors?.[0]?.message || 'An error occurred while updating your account.')
@@ -245,13 +259,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   return (
     <Context.Provider
       value={{
-        user,
-        setUser,
+        forgotPassword,
         login,
         logout,
         resetPassword,
-        forgotPassword,
+        setUser,
         updateUser,
+        user,
       }}
     >
       {children}
@@ -259,6 +273,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   )
 }
 
-type UseAuth<T = User> = () => AuthContext // eslint-disable-line no-unused-vars
+type UseAuth<T = User> = () => AuthContext
 
 export const useAuth: UseAuth = () => useContext(Context)

@@ -13,14 +13,16 @@ const reducer = (
   },
 ): InvoicesResult | null => {
   switch (action.type) {
-    case 'reset':
-      return action.payload || null
     case 'add':
-      if (!state) return action.payload || null
+      if (!state) {
+        return action.payload || null
+      }
       return {
         data: [...state.data, ...(action.payload?.data || [])],
         has_more: action.payload?.has_more || false,
       }
+    case 'reset':
+      return action.payload || null
     default:
       return state
   }
@@ -29,7 +31,7 @@ const reducer = (
 export const useInvoices = (args: {
   delay?: number
   initialInvoices?: InvoicesResult | null
-  team?: Team | null
+  team?: null | Team
 }): {
   error: string
   isLoading: 'loading' | false | null
@@ -46,9 +48,9 @@ export const useInvoices = (args: {
 
   const loadInvoices = useCallback(
     async (successMessage?: string, starting_after?: string) => {
-      let timer: NodeJS.Timeout
-
-      if (isRequesting.current) return
+      if (isRequesting.current) {
+        return
+      }
 
       isRequesting.current = true
 
@@ -79,11 +81,6 @@ export const useInvoices = (args: {
       }
 
       isRequesting.current = false
-
-      // eslint-disable-next-line consistent-return
-      return () => {
-        clearTimeout(timer)
-      }
     },
     [delay, team],
   )

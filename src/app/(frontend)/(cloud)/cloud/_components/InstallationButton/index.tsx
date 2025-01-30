@@ -1,21 +1,20 @@
-import React, { useState } from 'react'
-
 import { usePopupWindow } from '@root/utilities/use-popup-window.js'
+import React, { useState } from 'react'
 
 import classes from './index.module.scss'
 
 export const InstallationButton: React.FC<{
-  onInstall?: (installationId: number) => void // eslint-disable-line no-unused-vars
   label?: string
+  onInstall?: (installationId: number) => void
   uuid: string
-}> = ({ onInstall, label, uuid }) => {
+}> = ({ label, onInstall, uuid }) => {
   // this will be validated after the redirect back
   const [href] = useState(`https://github.com/apps/payload-cms/installations/new?state=${uuid}`)
 
   const { openPopupWindow } = usePopupWindow({
-    href,
     eventType: 'github',
-    onMessage: async (searchParams: { state: string; installation_id: string }) => {
+    href,
+    onMessage: async (searchParams: { installation_id: string; state: string }) => {
       if (searchParams.state === uuid && typeof onInstall === 'function') {
         onInstall(parseInt(searchParams.installation_id, 10))
       }

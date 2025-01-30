@@ -1,8 +1,8 @@
-import React from 'react'
-import Image from 'next/image'
+import type { Attachments } from '@root/app/(frontend)/(pages)/community-help/(posts)/discord/[slug]/client_page.js'
 
-import { Attachments } from '@root/app/(frontend)/(pages)/community-help/(posts)/discord/[slug]/client_page.js'
 import { DownloadIcon } from '@root/graphics/DownloadIcon/index.js'
+import Image from 'next/image'
+import React from 'react'
 
 import classes from './index.module.scss'
 
@@ -26,16 +26,16 @@ export const FileAttachments: React.FC<Props> = ({ attachments }) => {
           const fileIsImage =
             attachment.contentType && acceptedImageTypes.includes(attachment.contentType)
           return (
-            <div key={x} className={classes.attachmentWrap}>
+            <div className={classes.attachmentWrap} key={x}>
               {attachment.url && attachment.name && (
                 <a href={attachment.url} target="_blank">
                   {fileIsImage ? (
                     <Image
-                      src={attachment.url}
                       alt={attachment.name}
-                      width={attachment.width}
-                      height={attachment.height}
                       className={classes.image}
+                      height={attachment.height}
+                      src={attachment.url}
+                      width={attachment.width}
                     />
                   ) : (
                     <div className={classes.attachment}>

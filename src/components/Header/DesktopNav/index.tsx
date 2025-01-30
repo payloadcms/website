@@ -1,23 +1,23 @@
-import * as React from 'react'
-import Link from 'next/link'
+import type { MainMenu } from '@root/payload-types.js'
 
 import { Avatar } from '@components/Avatar/index.js'
 import { Gutter } from '@components/Gutter/index.js'
 import { RichText } from '@components/RichText/index.js'
 import { GitHubIcon } from '@root/graphics/GitHub/index.js'
 import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'
-import { MainMenu } from '@root/payload-types.js'
 import { useAuth } from '@root/providers/Auth/index.js'
 import { useHeaderObserver } from '@root/providers/HeaderIntersectionObserver/index.js'
 import { useStarCount } from '@root/utilities/use-star-count.js'
+import Link from 'next/link'
+import * as React from 'react'
+
 import { FullLogo } from '../../../graphics/FullLogo/index.js'
 import { CMSLink } from '../../CMSLink/index.js'
 import { DocSearch } from '../Docsearch/index.js'
-
 import classes from './index.module.scss'
 
-type DesktopNavType = Pick<MainMenu, 'tabs' | 'menuCta'> & { hideBackground?: boolean }
-export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground, menuCta }) => {
+type DesktopNavType = { hideBackground?: boolean } & Pick<MainMenu, 'menuCta' | 'tabs'>
+export const DesktopNav: React.FC<DesktopNavType> = ({ hideBackground, menuCta, tabs }) => {
   const { user } = useAuth()
   const [activeTab, setActiveTab] = React.useState<number | undefined>()
   const [activeDropdown, setActiveDropdown] = React.useState<boolean | undefined>(false)
@@ -49,9 +49,9 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground, men
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hideBackground])
-  const hoverTimeout = React.useRef<number | null>(null)
+  const hoverTimeout = React.useRef<null | number>(null)
 
-  const handleMouseEnter = args => {
+  const handleMouseEnter = (args) => {
     if (!activeDropdown) {
       hoverTimeout.current = window.setTimeout(() => {
         handleHoverEnter(args)
@@ -68,7 +68,7 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground, men
     }
   }
 
-  const handleHoverEnter = index => {
+  const handleHoverEnter = (index) => {
     setActiveTab(index)
     setActiveDropdown(true)
 
@@ -78,8 +78,8 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground, men
 
     if (hoveredMenuItem) {
       setUnderlineStyles({
-        width: `${hoveredMenuItem.clientWidth}px`,
         left: hoveredMenuItem.offsetLeft,
+        width: `${hoveredMenuItem.clientWidth}px`,
       })
     }
 
@@ -113,7 +113,7 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground, men
       >
         <div className={[classes.grid, 'grid'].join(' ')}>
           <div className={[classes.logo, 'cols-4'].join(' ')}>
-            <Link href="/" className={classes.logo} prefetch={false} aria-label="Full Payload Logo">
+            <Link aria-label="Full Payload Logo" className={classes.logo} href="/" prefetch={false}>
               <FullLogo className="w-auto h-[30px]" />
             </Link>
           </div>
@@ -129,7 +129,7 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground, men
                   >
                     <button
                       className={classes.tab}
-                      ref={ref => {
+                      ref={(ref) => {
                         menuItemRefs[tabIndex] = ref
                       }}
                     >
@@ -152,10 +152,10 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground, men
                         ]
                           .filter(Boolean)
                           .join(' ')}
-                        ref={ref => {
+                        onClick={resetHoverStyles}
+                        ref={(ref) => {
                           dropdownMenuRefs[tabIndex] = ref
                         }}
-                        onClick={resetHoverStyles}
                       >
                         <div className={[classes.description, 'cols-4'].join(' ')}>
                           {tab.description}
@@ -178,7 +178,7 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground, men
                             const isActive = activeDropdownItem === index
                             let columnSpan = 12 / (tab.navItems?.length || 1)
                             const containsFeatured = tab.navItems?.some(
-                              navItem => navItem.style === 'featured',
+                              (navItem) => navItem.style === 'featured',
                             )
                             const showUnderline = isActive && item.style === 'default'
 
@@ -192,8 +192,8 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground, men
                                   classes.dropdownItem,
                                   showUnderline && classes.showUnderline,
                                 ].join(' ')}
-                                onMouseEnter={() => setActiveDropdownItem(index)}
                                 key={index}
+                                onMouseEnter={() => setActiveDropdownItem(index)}
                               >
                                 {item.style === 'default' && item.defaultLink && (
                                   <CMSLink
@@ -259,9 +259,9 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground, men
                 )
               })}
               <div
+                aria-hidden="true"
                 className={classes.underline}
                 style={{ ...underlineStyles, opacity: activeDropdown || activeTab ? 1 : 0 }}
-                aria-hidden="true"
               >
                 <div className={classes.underlineFill} />
               </div>
@@ -272,11 +272,11 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground, men
               className={[classes.secondaryNavItems, user !== undefined && classes.show].join(' ')}
             >
               <a
+                aria-label="Payload's GitHub"
                 className={classes.github}
                 href="https://github.com/payloadcms/payload"
-                target="_blank"
                 rel="noreferrer"
-                aria-label="Payload's GitHub"
+                target="_blank"
               >
                 <GitHubIcon />
                 {starCount}
@@ -285,7 +285,7 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground, men
                 <Avatar className={classes.avatar} />
               ) : (
                 <>
-                  <Link prefetch={false} href="/login">
+                  <Link href="/login" prefetch={false}>
                     Login
                   </Link>
                   {menuCta && menuCta.label && <CMSLink {...menuCta} className={classes.button} />}

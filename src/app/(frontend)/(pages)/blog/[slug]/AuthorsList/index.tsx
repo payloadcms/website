@@ -1,15 +1,15 @@
-import { Fragment } from 'react'
-import Link from 'next/link'
+import type { Post } from '@root/payload-types.js'
 
 import { Label } from '@components/Label/index.js'
 import { Media } from '@components/Media/index.js'
-import { Post } from '@root/payload-types.js'
+import Link from 'next/link'
+import { Fragment } from 'react'
 
 import classes from './index.module.scss'
 
 const AuthorContent: React.FC<{
   author: Post['authors'][0]
-}> = props => {
+}> = (props) => {
   const { author } = props
 
   if (!author || typeof author === 'string') {
@@ -31,7 +31,7 @@ const AuthorContent: React.FC<{
 
 export const AuthorsList: React.FC<{
   authors: Post['authors']
-}> = props => {
+}> = (props) => {
   const { authors } = props
 
   if (!authors || authors?.length === 0) {

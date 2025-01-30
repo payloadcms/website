@@ -7,11 +7,11 @@ type CodeBlips = NonNullable<CodeFeatureBlock['codeFeatureFields']['codeTabs']>[
 export type CodeBlip = NonNullable<CodeBlips>[number]
 
 export interface Props {
-  className?: string
-  title?: string
   children: string
+  className?: string
   codeBlips?: CodeBlips
   disableMinHeight?: boolean
-  showLineNumbers?: boolean
   parentClassName?: string
+  showLineNumbers?: boolean
+  title?: string
 }

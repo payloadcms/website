@@ -1,37 +1,38 @@
-import React from 'react'
 import Link from 'next/link'
+import React from 'react'
 
 import classes from './index.module.scss'
 
 export type HeadingType = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 
 type Props = {
-  element?: HeadingType | 'p'
   as?: HeadingType
-  margin?: boolean
-  marginTop?: boolean
-  marginBottom?: boolean
   children?: React.ReactNode
-  id?: string
-  href?: string
   className?: string
+  element?: 'p' | HeadingType
+  href?: string
+  id?: string
+  margin?: boolean
+  marginBottom?: boolean
+  marginTop?: boolean
 }
 
-const HeadingElement: React.FC<Partial<Props>> = props => {
-  const { element: Element = 'h1', children, id, className = [], margin } = props
+const HeadingElement: React.FC<Partial<Props>> = (props) => {
+  const { id, children, className = [], element: Element = 'h1', margin } = props
 
   return (
     <Element
       className={[className, margin === false ? classes.noMargin : ''].filter(Boolean).join(' ')}
     >
-      <span id={id} className={classes.headingScrollTo} />
+      <span className={classes.headingScrollTo} id={id} />
       {children}
     </Element>
   )
 }
 
-export const Heading: React.FC<Props> = props => {
-  const { element: el = 'h1', as = el, margin, marginTop, marginBottom, className } = props
+export const Heading: React.FC<Props> = (props) => {
+  const { as: asFromProps, className, element: el = 'h1', margin, marginBottom, marginTop } = props
+  const as = asFromProps ?? el
 
   const classList = [
     className,
@@ -48,7 +49,7 @@ export const Heading: React.FC<Props> = props => {
   }
 
   return (
-    <Link href={props.href} className={classList} prefetch={false}>
+    <Link className={classList} href={props.href} prefetch={false}>
       <HeadingElement {...props} className={undefined} margin={false} />
     </Link>
   )

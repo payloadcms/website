@@ -1,29 +1,28 @@
+import type { Team } from '@root/payload-cloud-types.js'
 import type { HTMLAttributes } from 'react'
 import type React from 'react'
 
-import type { Team } from '@root/payload-cloud-types.js'
-
 export interface TeamDrawerProps {
   drawerSlug: string
-  team?: Team
-  onCreate?: (team: Team, closeDrawer: () => void) => void | Promise<void>
+  onCreate?: (team: Team, closeDrawer: () => void) => Promise<void> | void
   redirectOnCreate?: boolean
+  team?: Team
 }
 
-export type TeamDrawerTogglerProps = HTMLAttributes<HTMLButtonElement> & {
+export type TeamDrawerTogglerProps = {
   children?: React.ReactNode
   className?: string
-  drawerSlug: string
   disabled?: boolean
-}
+  drawerSlug: string
+} & HTMLAttributes<HTMLButtonElement>
 
 export type UseTeamDrawer = (args?: { team?: Team }) => [
   React.FC<Pick<TeamDrawerProps, 'onCreate'>>, // drawer
-  React.FC<Pick<TeamDrawerTogglerProps, 'disabled' | 'className' | 'children'>>, // toggler
+  React.FC<Pick<TeamDrawerTogglerProps, 'children' | 'className' | 'disabled'>>, // toggler
   {
     drawerSlug: string
     isDrawerOpen: boolean
-    toggleDrawer: () => void
     openDrawer: () => void
+    toggleDrawer: () => void
   },
 ]

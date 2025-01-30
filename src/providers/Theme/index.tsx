@@ -1,14 +1,16 @@
 'use client'
 
+import canUseDom from '@root/utilities/can-use-dom.js'
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react'
 
-import canUseDom from '@root/utilities/can-use-dom.js'
+import type { Theme, ThemePreferenceContextType } from './types.js'
+
 import { defaultTheme, getImplicitPreference, themeLocalStorageKey } from './shared.js'
-import { Theme, themeIsValid, ThemePreferenceContextType } from './types.js'
+import { themeIsValid } from './types.js'
 
 const initialContext: ThemePreferenceContextType = {
-  theme: undefined,
   setTheme: () => null,
+  theme: undefined,
 }
 
 const ThemePreferenceContext = createContext(initialContext)
@@ -18,12 +20,14 @@ export const ThemePreferenceProvider: React.FC<{ children?: React.ReactNode }> =
     canUseDom ? (document.documentElement.getAttribute('data-theme') as Theme) : undefined,
   )
 
-  const setTheme = useCallback((themeToSet: Theme | null) => {
+  const setTheme = useCallback((themeToSet: null | Theme) => {
     if (themeToSet === null) {
       window.localStorage.removeItem(themeLocalStorageKey)
       const implicitPreference = getImplicitPreference()
       document.documentElement.setAttribute('data-theme', implicitPreference || '')
-      if (implicitPreference) setThemeState(implicitPreference)
+      if (implicitPreference) {
+        setThemeState(implicitPreference)
+      }
     } else {
       setThemeState(themeToSet)
       window.localStorage.setItem(themeLocalStorageKey, themeToSet)
@@ -50,7 +54,7 @@ export const ThemePreferenceProvider: React.FC<{ children?: React.ReactNode }> =
   }, [])
 
   return (
-    <ThemePreferenceContext.Provider value={{ theme, setTheme }}>
+    <ThemePreferenceContext.Provider value={{ setTheme, theme }}>
       {children}
     </ThemePreferenceContext.Provider>
   )

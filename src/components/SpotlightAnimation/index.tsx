@@ -1,14 +1,14 @@
 'use client'
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import type { AllowedElements } from '@components/SpotlightAnimation/types.js'
 
-import { AllowedElements } from '@components/SpotlightAnimation/types.js'
 import { useResize } from '@root/utilities/use-resize.js'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 
 import classes from './index.module.scss'
 
 interface Props {
-  children: React.ReactNode
   as?: AllowedElements
+  children: React.ReactNode
   /**
    * Gets an array from rich text which it can loop through and get a string text
    * Required for SplitAnimate to work
@@ -16,8 +16,8 @@ interface Props {
   richTextChildren?: any[]
 }
 
-const SpotlightAnimation: React.FC<Props> = ({ children, richTextChildren, as = 'h2' }) => {
-  const containerRef = useRef<HTMLElement>(null)
+const SpotlightAnimation: React.FC<Props> = ({ as = 'h2', children, richTextChildren }) => {
+  const containerRef = useRef<HTMLHeadingElement>(null)
   const containerSize = useResize(containerRef)
 
   const [mousePosition, setMousePosition] = useState({
@@ -38,7 +38,7 @@ const SpotlightAnimation: React.FC<Props> = ({ children, richTextChildren, as = 
       })
     }
 
-    const handleWindowResize = e => {
+    const handleWindowResize = (e) => {
       if (scheduledAnimationFrame) {
         return
       }
@@ -49,7 +49,7 @@ const SpotlightAnimation: React.FC<Props> = ({ children, richTextChildren, as = 
       })
     }
 
-    const updateMousePosition = e => {
+    const updateMousePosition = (e) => {
       if (containerRef.current) {
         const boundingRect = containerRef.current.getBoundingClientRect()
 
@@ -61,7 +61,7 @@ const SpotlightAnimation: React.FC<Props> = ({ children, richTextChildren, as = 
       scheduledAnimationFrame = false
     }
 
-    const handleMouseMovement = e => {
+    const handleMouseMovement = (e) => {
       if (scheduledAnimationFrame) {
         return
       }
@@ -74,8 +74,8 @@ const SpotlightAnimation: React.FC<Props> = ({ children, richTextChildren, as = 
 
     if (containerRef.current) {
       intersectionObserver = new IntersectionObserver(
-        entries => {
-          entries.forEach(entry => {
+        (entries) => {
+          entries.forEach((entry) => {
             if (entry.isIntersecting) {
               window.addEventListener('mousemove', handleMouseMovement)
               window.addEventListener('resize', handleWindowResize)
@@ -94,7 +94,9 @@ const SpotlightAnimation: React.FC<Props> = ({ children, richTextChildren, as = 
     }
 
     return () => {
-      if (intersectionObserver) intersectionObserver.disconnect()
+      if (intersectionObserver) {
+        intersectionObserver.disconnect()
+      }
       window.removeEventListener('mousemove', handleMouseMovement)
       window.removeEventListener('resize', handleWindowResize)
     }
@@ -108,9 +110,9 @@ const SpotlightAnimation: React.FC<Props> = ({ children, richTextChildren, as = 
     <div className={[classes.wrapper].filter(Boolean).join(' ')}>
       {/* @ts-expect-error */}
       <Element
-        style={{ backgroundPosition: getBackgroundOrigin }}
         className={[classes.container].filter(Boolean).join(' ')}
         ref={containerRef}
+        style={{ backgroundPosition: getBackgroundOrigin }}
       >
         {children}
       </Element>

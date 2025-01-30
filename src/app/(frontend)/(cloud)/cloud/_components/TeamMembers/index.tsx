@@ -1,38 +1,38 @@
-import React, { Fragment } from 'react'
+import type { Team, User } from '@root/payload-cloud-types.js'
 
 import { Heading } from '@components/Heading/index.js'
-import { Team, User } from '@root/payload-cloud-types.js'
 import { formatDate } from '@root/utilities/format-date-time.js'
-import { TeamMemberRow } from './TeamMemberRow.js'
+import React, { Fragment } from 'react'
 
 import classes from './index.module.scss'
+import { TeamMemberRow } from './TeamMemberRow.js'
 
 export type Member = {
-  user?: string | User | undefined
-  roles?: ('owner' | 'admin' | 'user')[] | undefined
-  joinedOn?: string | undefined
   id?: string | undefined
+  joinedOn?: string | undefined
+  roles?: ('admin' | 'owner' | 'user')[] | undefined
+  user?: string | undefined | User
 }
 
 export const TeamMembers: React.FC<{
-  team: Team | null | undefined
   className?: string
-  renderHeader?: boolean
-  onUpdateRoles?: (index: number, newRoles: ('owner' | 'admin' | 'user')[], member: Member) => void
   isOwnerOrGlobalAdmin?: boolean
-  roles: ('owner' | 'admin' | 'user')[][]
-}> = ({ className, team, renderHeader, onUpdateRoles, isOwnerOrGlobalAdmin, roles }) => {
+  onUpdateRoles?: (index: number, newRoles: ('admin' | 'owner' | 'user')[], member: Member) => void
+  renderHeader?: boolean
+  roles: ('admin' | 'owner' | 'user')[][]
+  team: null | Team | undefined
+}> = ({ className, isOwnerOrGlobalAdmin, onUpdateRoles, renderHeader, roles, team }) => {
   // Responsible for handling role updates at the team level.
   // When rendering each TeamMemberRow, handleUpdateRoles is called with the index and member information.
   // This call returns a new function, which is then passed down to the TeamMemberRow component as the onUpdateRoles prop.
   const handleUpdateRoles =
-    (index: number, member: Member) => (newRoles: ('owner' | 'admin' | 'user')[]) => {
+    (index: number, member: Member) => (newRoles: ('admin' | 'owner' | 'user')[]) => {
       onUpdateRoles && onUpdateRoles(index, newRoles, member)
     }
   return (
     <div className={[classes.members, className].filter(Boolean).join(' ')}>
       {renderHeader && (
-        <Heading element="h6" marginTop={false} marginBottom={false}>
+        <Heading element="h6" marginBottom={false} marginTop={false}>
           Team members
         </Heading>
       )}
@@ -40,10 +40,6 @@ export const TeamMembers: React.FC<{
         // Rendering each team member in a row with their details.
         return (
           <TeamMemberRow
-            key={index}
-            leader={`Member ${(index + 1).toString()}`}
-            initialEmail={typeof member?.user === 'string' ? member?.user : member?.user?.email}
-            initialRoles={roles[index]}
             footer={
               <Fragment>
                 {`Joined On ${formatDate({
@@ -51,8 +47,12 @@ export const TeamMembers: React.FC<{
                 })}`}
               </Fragment>
             }
-            onUpdateRoles={handleUpdateRoles(index, member)}
+            initialEmail={typeof member?.user === 'string' ? member?.user : member?.user?.email}
+            initialRoles={roles[index]}
             isOwnerOrGlobalAdmin={isOwnerOrGlobalAdmin}
+            key={index}
+            leader={`Member ${(index + 1).toString()}`}
+            onUpdateRoles={handleUpdateRoles(index, member)}
           />
         )
       })}

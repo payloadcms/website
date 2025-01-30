@@ -1,10 +1,10 @@
-export type Theme = 'light' | 'dark'
+export type Theme = 'dark' | 'light'
 
 export interface ThemePreferenceContextType {
-  theme?: Theme | null
-  setTheme: (theme: Theme | null) => void // eslint-disable-line no-unused-vars
+  setTheme: (theme: null | Theme) => void
+  theme?: null | Theme
 }
 
-export function themeIsValid(string: string | null): string is Theme {
-  return string ? ['light', 'dark'].includes(string) : false
+export function themeIsValid(string: null | string): string is Theme {
+  return string ? ['dark', 'light'].includes(string) : false
 }

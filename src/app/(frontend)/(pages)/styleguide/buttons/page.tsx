@@ -1,13 +1,14 @@
-import React from 'react'
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 
-import { Gutter } from '@components/Gutter/index.js'
 import { Button } from '@components/Button/index.js'
+import { Gutter } from '@components/Gutter/index.js'
+import React from 'react'
+
 import { StyleguidePageContent } from '../PageContent/index.js'
 
 const Buttons: React.FC = () => {
   return (
-    <StyleguidePageContent title="Buttons" darkModePadding darkModeMargins>
+    <StyleguidePageContent darkModeMargins darkModePadding title="Buttons">
       <Gutter>
         <p>Default</p>
         <div>
@@ -16,12 +17,12 @@ const Buttons: React.FC = () => {
         <br />
         <p>Default with icon</p>
         <div>
-          <Button label="Learn more" icon="arrow" />
+          <Button icon="arrow" label="Learn more" />
         </div>
         <br />
         <p>Default with regular label</p>
         <div>
-          <Button label="Learn more" icon="arrow" labelStyle="regular" />
+          <Button icon="arrow" label="Learn more" labelStyle="regular" />
         </div>
         <br />
         <p>Default Pill</p>
@@ -46,7 +47,7 @@ const Buttons: React.FC = () => {
         <br />
         <p>Primary with icon</p>
         <div>
-          <Button appearance="primary" label="Create new project" icon="arrow" />
+          <Button appearance="primary" icon="arrow" label="Create new project" />
         </div>
         <br />
         <p>Secondary</p>
@@ -56,7 +57,7 @@ const Buttons: React.FC = () => {
         <br />
         <p>Secondary with icon</p>
         <div>
-          <Button appearance="secondary" label="Read the docs" icon="arrow" />
+          <Button appearance="secondary" icon="arrow" label="Read the docs" />
         </div>
         <br />
         <p>Danger with icon</p>

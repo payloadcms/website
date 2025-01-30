@@ -1,16 +1,18 @@
-import { Fragment } from 'react'
+import type { RepoResults } from '@cloud/_api/fetchRepos.js'
+import type { Metadata } from 'next'
+
 import { fetchGitHubToken } from '@cloud/_api/fetchGitHubToken.js'
 import { fetchInstalls } from '@cloud/_api/fetchInstalls.js'
 import { fetchMe } from '@cloud/_api/fetchMe.js'
-import { fetchRepos, Repo, RepoResults } from '@cloud/_api/fetchRepos.js'
-import { Metadata } from 'next'
-import { redirect } from 'next/navigation'
-
+import { fetchRepos, Repo } from '@cloud/_api/fetchRepos.js'
 import { Breadcrumbs } from '@components/Breadcrumbs/index.js'
 import { Gutter } from '@components/Gutter/index.js'
 import { Heading } from '@components/Heading/index.js'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
 import { uuid as generateUUID } from '@root/utilities/uuid.js'
+import { redirect } from 'next/navigation'
+import { Fragment } from 'react'
+
 import { ImportProject } from './page_client.js'
 
 const title = `Import a codebase`
@@ -49,15 +51,15 @@ export default async () => {
       <Gutter>
         <h2>{title}</h2>
       </Gutter>
-      <ImportProject installs={installs} repos={repos} uuid={uuid} user={user} />
+      <ImportProject installs={installs} repos={repos} user={user} uuid={uuid} />
     </Fragment>
   )
 }
 
 export const metadata: Metadata = {
-  title: 'Import Project | Payload Cloud',
   openGraph: mergeOpenGraph({
     title: 'Import Project | Payload Cloud',
     url: '/new/import',
   }),
+  title: 'Import Project | Payload Cloud',
 }

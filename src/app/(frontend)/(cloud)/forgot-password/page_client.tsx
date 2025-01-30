@@ -1,31 +1,30 @@
 'use client'
 
-import React, { useCallback } from 'react'
-import { Text } from '@forms/fields/Text/index.js'
-import Form from '@forms/Form/index.js'
-import FormProcessing from '@forms/FormProcessing/index.js'
-import FormSubmissionError from '@forms/FormSubmissionError/index.js'
-import Submit from '@forms/Submit/index.js'
-import { InitialState, OnSubmit } from '@forms/types.js'
-import Link from 'next/link'
-
-import { redirect } from 'next/navigation'
+import type { InitialState, OnSubmit } from '@forms/types.js'
 
 import { Gutter } from '@components/Gutter/index.js'
 import { Heading } from '@components/Heading/index.js'
 import { Highlight } from '@components/Highlight/index.js'
 import { RenderParams } from '@components/RenderParams/index.js'
+import { Text } from '@forms/fields/Text/index.js'
+import Form from '@forms/Form/index.js'
+import FormProcessing from '@forms/FormProcessing/index.js'
+import FormSubmissionError from '@forms/FormSubmissionError/index.js'
+import Submit from '@forms/Submit/index.js'
 import { useAuth } from '@root/providers/Auth/index.js'
 import canUseDom from '@root/utilities/can-use-dom.js'
+import Link from 'next/link'
+import { redirect } from 'next/navigation'
+import React, { useCallback } from 'react'
 
 import classes from './page.module.scss'
 
 const initialFormState: InitialState = {
   email: {
-    value: '',
-    valid: false,
-    initialValue: undefined,
     errorMessage: 'Please enter a valid email address',
+    initialValue: undefined,
+    valid: false,
+    value: '',
   },
 }
 
@@ -37,15 +36,15 @@ export const ForgotPassword: React.FC = () => {
     async ({ data, dispatchFields }) => {
       try {
         const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
           body: JSON.stringify({
             query: `mutation {
               forgotPasswordUser(email: "${data.email}")
             }`,
           }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          method: 'POST',
         })
 
         const res = await req.json()
@@ -64,7 +63,9 @@ export const ForgotPassword: React.FC = () => {
     [setSuccessfullySubmitted],
   )
 
-  if (user === undefined) return null
+  if (user === undefined) {
+    return null
+  }
 
   if (user) {
     redirect(
@@ -77,12 +78,12 @@ export const ForgotPassword: React.FC = () => {
   if (successfullySubmitted) {
     return (
       <Gutter>
-        <Heading marginTop={false} element="h2" as="h2">
+        <Heading as="h2" element="h2" marginTop={false}>
           <Highlight text="Success" />
         </Heading>
         <div className={['grid'].filter(Boolean).join(' ')}>
           <div className={['cols-6 cols-m-8'].filter(Boolean).join(' ')}>
-            <Heading marginTop={false} element="p" as="h4">
+            <Heading as="h4" element="p" marginTop={false}>
               We have sent you an email with a link to reset your password. Please check your inbox.
             </Heading>
             <div className={classes.links}>
@@ -103,7 +104,7 @@ export const ForgotPassword: React.FC = () => {
   return (
     <Gutter>
       <RenderParams />
-      <Heading marginTop={false} element="h1">
+      <Heading element="h1" marginTop={false}>
         Forgot password
       </Heading>
       <div className={['grid'].filter(Boolean).join(' ')}>
@@ -117,12 +118,12 @@ export const ForgotPassword: React.FC = () => {
               {'.'}
             </p>
           </div>
-          <Form onSubmit={handleSubmit} className={classes.form} initialState={initialFormState}>
+          <Form className={classes.form} initialState={initialFormState} onSubmit={handleSubmit}>
             <FormSubmissionError />
             <FormProcessing message="Sending recovery email, one moment..." />
-            <Text path="email" label="Email" required />
+            <Text label="Email" path="email" required />
             <div>
-              <Submit label="Recover" className={classes.submit} />
+              <Submit className={classes.submit} label="Recover" />
             </div>
           </Form>
         </div>

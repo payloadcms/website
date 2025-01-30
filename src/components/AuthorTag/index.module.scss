@@ -64,18 +64,18 @@
   width: 18px;
 
   & rect {
-    fill: var(--theme-elevation-100)
+    fill: var(--theme-elevation-100);
   }
 }
 
 .commentMeta {
   display: flex;
   gap: 1rem;
-  @include label;
+  @include h6;
 }
 
 .date {
-  @include label;
+  @include h6;
   & {
     font-size: 13px;
     color: var(--theme-elevation-500);
@@ -84,7 +84,7 @@
   }
 
   &::before {
-    content: "\2014";
+    content: '\2014';
     margin: 0 0.5rem;
   }
 }
@@ -95,7 +95,7 @@
   align-items: flex-end;
   margin-top: 0.5rem;
 
-  >span {
+  > span {
     font-family: var(--font-geist-mono);
     color: var(--theme-elevation-400);
     border: 1px solid var(--theme-elevation-200);
@@ -132,7 +132,7 @@
   }
 }
 
-:global([data-theme="light"]) {
+:global([data-theme='light']) {
   .isAnswer {
     background: transparent;
     color: var(--color-success-850);
@@ -175,9 +175,7 @@
   }
 }
 
-
-:global([data-theme="light"]) {
-
+:global([data-theme='light']) {
   .teamLink {
     & strong {
       color: var(--color-blue-600);

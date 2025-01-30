@@ -1,14 +1,15 @@
-import React from 'react'
-import { ArrowIcon } from '@icons/ArrowIcon/index.js'
-import { SearchIcon } from '@icons/SearchIcon/index.js'
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 
 import { Gutter } from '@components/Gutter/index.js'
+import { ArrowIcon } from '@icons/ArrowIcon/index.js'
+import { SearchIcon } from '@icons/SearchIcon/index.js'
+import React from 'react'
+
 import { StyleguidePageContent } from '../PageContent/index.js'
 
 const Highlight: React.FC = () => {
   return (
-    <StyleguidePageContent title="Icons" darkModePadding darkModeMargins>
+    <StyleguidePageContent darkModeMargins darkModePadding title="Icons">
       <Gutter>
         <p>Icons</p>
         <div>

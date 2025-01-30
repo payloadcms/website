@@ -1,4 +1,4 @@
-@use "@scss/common" as *;
+@use '@scss/common' as *;
 
 .cmsForm {
   position: relative;
@@ -30,13 +30,14 @@
     }
 
     :global {
-      div.rs__control  {
+      div.rs__control {
         border: none;
         background: none;
       }
     }
 
-    input, textarea {
+    input,
+    textarea {
       border: none;
       background: none;
 
@@ -51,9 +52,9 @@
       content: '';
       width: calc(100% - 2px);
       position: absolute;
-      height:100%;
+      height: 100%;
       left: 1px;
-      top:0;
+      top: 0;
       z-index: 0;
       background-color: var(--theme-bg);
     }

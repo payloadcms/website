@@ -1,0 +1,99 @@
+@use '@scss/common' as *;
+
+.table {
+  margin-bottom: 1rem;
+
+  & table {
+    width: 100%;
+  }
+
+  thead {
+    color: var(--theme-elevation-500);
+
+    th {
+      @include small;
+      & {
+        font-weight: normal;
+        text-align: left;
+      }
+    }
+  }
+
+  th {
+    padding: 1rem;
+  }
+
+  td {
+    padding: 0 1rem;
+  }
+
+  tbody {
+    tr {
+      position: relative;
+
+      &:nth-child(odd) {
+        background: var(--theme-elevation-100);
+
+        .cellBG {
+          position: absolute;
+          height: 100%;
+          left: 0;
+          right: 0;
+          background: var(--theme-elevation-100);
+          z-index: -1;
+        }
+      }
+    }
+  }
+
+  & label {
+    @include label;
+    & {
+      color: var(--theme-elevation-500);
+    }
+  }
+
+  @include mid-break {
+    th,
+    td {
+      padding: 0.5rem;
+      min-width: 40px;
+    }
+  }
+}
+
+.inDrawer {
+  tbody {
+    tr {
+      &:nth-child(odd) {
+        background: var(--theme-elevation-100);
+      }
+    }
+  }
+}
+
+[data-theme='light'] {
+  .table {
+    tbody {
+      tr {
+        &:nth-child(odd) {
+          background: var(--theme-elevation-100);
+
+          .cellBG {
+            background: var(--theme-elevation-100);
+          }
+        }
+      }
+    }
+  }
+
+  .inDrawer {
+    tbody {
+      tr {
+        &:nth-child(odd) {
+          background: var(--theme-elevation-100);
+        }
+      }
+    }
+  }
+}

@@ -1,66 +1,65 @@
 'use client'
 
-import React from 'react'
-import * as cheerio from 'cheerio'
-
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
 import { DiscordGitComments } from '@components/DiscordGitComments/index.js'
 import { DiscordGitCTA } from '@components/DiscordGitCTA/index.js'
 import { DiscordGitIntro } from '@components/DiscordGitIntro/index.js'
 import { Gutter } from '@components/Gutter/index.js'
 import OpenPost from '@components/OpenPost/index.js'
+import * as cheerio from 'cheerio'
+import React from 'react'
 
 import classes from './index.module.scss'
 
 export type Attachments = {
   attachment: string
-  name: string
-  size: number
-  url: string
-  proxyURL: string
-  height: number
-  width: number
   contentType:
-    | 'image/png'
-    | 'video/MP2T'
-    | 'text/plain'
     | 'application/json'
-    | 'video/quicktime'
     | 'image/jpeg'
+    | 'image/png'
+    | 'text/plain'
+    | 'video/MP2T'
+    | 'video/quicktime'
   description: string
   ephemeral: boolean
+  height: number
+  name: string
+  proxyURL: string
+  size: number
+  url: string
+  width: number
 }[]
 
 export type Messages = {
-  content: string
-  fileAttachments: Attachments
+  authorAvatar: string
   authorID: string
   authorName: string
-  authorAvatar: string
-  createdAtDate: string | number
+  content: string
+  createdAtDate: number | string
+  fileAttachments: Attachments
 }
 
 export type ThreadProps = {
-  id: string
-  title?: string
-  slug?: string
-  discordID?: string
-  githubID?: string
-  communityHelpType?: 'discord' | 'github'
   communityHelpJSON: {
     info: {
-      name: string
-      id: string
+      createdAt: number | string
       guildId: string
-      createdAt: string | number
+      id: string
+      name: string
     }
     intro: Messages
     messageCount: number
     messages: Messages[]
     slug: string
   }
+  communityHelpType?: 'discord' | 'github'
+  discordID?: string
+  githubID?: string
+  id: string
+  slug?: string
+  title?: string
 }
-export const DiscordThreadPage: React.FC<ThreadProps> = props => {
+export const DiscordThreadPage: React.FC<ThreadProps> = (props) => {
   const { communityHelpJSON } = props
 
   const { info, intro, messageCount, messages } = communityHelpJSON
@@ -91,18 +90,18 @@ export const DiscordThreadPage: React.FC<ThreadProps> = props => {
         <div className={['grid', classes.grid].join(' ')}>
           <div className={['start-1 cols-12 ', classes.post].join('')}>
             <DiscordGitIntro
-              postName={info.name}
-              author={author}
-              image={authorAvatarImg}
-              date={info.createdAt}
-              messageCount={messageCount}
-              content={wrappedOriginalMessage}
               attachments={intro.fileAttachments}
+              author={author}
+              content={wrappedOriginalMessage}
+              date={info.createdAt}
+              image={authorAvatarImg}
+              messageCount={messageCount}
               platform="Discord"
+              postName={info.name}
             />
             <DiscordGitComments comments={messages} platform="Discord" />
             <div className={classes.openPostWrap}>
-              <OpenPost url={postUrl} platform="Discord" />
+              <OpenPost platform="Discord" url={postUrl} />
             </div>
           </div>
           <div className={['start-13 cols-4', classes.ctaWrap].join(' ')}>

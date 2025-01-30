@@ -1,7 +1,9 @@
-import Image from 'next/image'
-import classes from './index.module.scss'
-import { Media as MediaType } from '@root/payload-types.js'
+import type { Media as MediaType } from '@root/payload-types.js'
+
 import { Media } from '@components/Media'
+import Image from 'next/image'
+
+import classes from './index.module.scss'
 
 type MediaStackProps = {
   media: {
@@ -13,10 +15,10 @@ export const MediaStack: React.FC<MediaStackProps> = ({ media }) => {
   return (
     <div className={classes.stack}>
       {typeof media[0].image !== 'string' && (
-        <Media resource={media[0].image} className={classes.mediaOne} />
+        <Media className={classes.mediaOne} resource={media[0].image} />
       )}
       {typeof media[1].image !== 'string' && (
-        <Media resource={media[1].image} className={classes.mediaTwo} />
+        <Media className={classes.mediaTwo} resource={media[1].image} />
       )}
     </div>
   )

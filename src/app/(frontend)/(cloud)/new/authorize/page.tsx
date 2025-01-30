@@ -1,9 +1,10 @@
+import type { Metadata } from 'next'
+
 import { fetchGitHubToken } from '@cloud/_api/fetchGitHubToken.js'
 import { fetchMe } from '@cloud/_api/fetchMe.js'
-import { Metadata } from 'next'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
 import { redirect } from 'next/navigation'
 
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
 import { AuthorizePage } from './page_client.js'
 
 export default async ({
@@ -34,9 +35,9 @@ export default async ({
 }
 
 export const metadata: Metadata = {
-  title: 'Authorize | Payload Cloud',
   openGraph: mergeOpenGraph({
     title: 'Authorize | Payload Cloud',
     url: '/new/authorize',
   }),
+  title: 'Authorize | Payload Cloud',
 }

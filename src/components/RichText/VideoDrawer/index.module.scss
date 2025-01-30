@@ -1,0 +1,72 @@
+@use '@scss/common' as *;
+.videoDrawerToggler {
+  @include btnReset;
+  width: 100%;
+  margin: 0.5rem 0 1.5rem 0;
+  background: var(--theme-elevation-150);
+  transition: all 200ms ease-in-out;
+  border-bottom: 2px solid var(--theme-elevation-700);
+  &:hover {
+    background: var(--theme-elevation-200);
+    cursor: pointer;
+    .playIcon {
+      transform: translate(-50%, -50%) scale(1.1);
+    }
+  }
+  .wrap {
+    display: flex;
+  }
+  .thumbnail {
+    position: relative;
+    flex-shrink: 0;
+    height: auto;
+    width: 6rem;
+  }
+  .playIcon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 200ms ease-in-out;
+  }
+  .arrow {
+    margin-left: 1rem;
+  }
+  .labelWrap {
+    width: 100%;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+  }
+  @include large-break {
+    .labelWrap {
+      padding: 1rem;
+    }
+  }
+  @include mid-break {
+    .thumbnail {
+      width: 4rem;
+    }
+  }
+  @include extra-small-break {
+    .labelWrap {
+      display: inline-block;
+    }
+    .arrow {
+      margin-left: 0.5rem;
+      width: 0.5rem;
+      height: 0.5rem;
+    }
+  }
+}
+html[data-theme='light'] {
+  .videoDrawerToggler {
+    background: var(--theme-elevation-100);
+    border-bottom: 2px solid var(--theme-elevation-400);
+    &:hover {
+      background: var(--theme-elevation-150);
+    }
+  }
+}

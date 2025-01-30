@@ -27,7 +27,7 @@
   }
 
   &:hover {
-    border-color: #3C3C3C;
+    border-color: #3c3c3c;
   }
 
   &.disabled {
@@ -99,10 +99,9 @@
       opacity: 0.08;
     }
 
-
     @include data-theme-selector('dark') {
       background-image: url('/images/scanline-light.png');
-      opacity: 0.10;
+      opacity: 0.1;
     }
   }
 }

@@ -5,14 +5,14 @@ type GitHubResponse = Endpoints['GET /user']['response']
 export const checkGitHubToken = async (): Promise<boolean> => {
   try {
     const reposReq = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/github`, {
-      method: 'POST',
+      body: JSON.stringify({
+        route: `GET /user`,
+      }),
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        route: `GET /user`,
-      }),
+      method: 'POST',
     })
 
     const res: GitHubResponse = await reposReq.json()

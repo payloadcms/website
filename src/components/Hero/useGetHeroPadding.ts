@@ -1,11 +1,11 @@
-import { useEffect, useMemo, useState } from 'react'
-
 import type { PaddingProps, Settings } from '@components/BlockWrapper/index.js'
 import type { BlocksProp } from '@components/RenderBlocks/index.js'
-import { getFieldsKeyFromBlock } from '@components/RenderBlocks/utilities.js'
 import type { Page } from '@root/payload-types.js'
-import { useThemePreference } from '@root/providers/Theme/index.js'
 import type { Theme } from '@root/providers/Theme/types.js'
+
+import { getFieldsKeyFromBlock } from '@components/RenderBlocks/utilities.js'
+import { useThemePreference } from '@root/providers/Theme/index.js'
+import { useEffect, useMemo, useState } from 'react'
 
 export const useGetHeroPadding = (
   theme: Page['hero']['theme'],
@@ -15,17 +15,21 @@ export const useGetHeroPadding = (
   const [themeState, setThemeState] = useState<Theme>()
 
   useEffect(() => {
-    if (themeFromContext) setThemeState(themeFromContext)
+    if (themeFromContext) {
+      setThemeState(themeFromContext)
+    }
   }, [themeFromContext])
 
   const padding = useMemo((): PaddingProps => {
-    let topPadding: PaddingProps['top'] = 'hero'
+    const topPadding: PaddingProps['top'] = 'hero'
     let bottomPadding: PaddingProps['bottom'] = 'large'
 
-    if (!block) return { top: topPadding, bottom: bottomPadding }
+    if (!block) {
+      return { bottom: bottomPadding, top: topPadding }
+    }
 
-    let blockKey = getFieldsKeyFromBlock(block)
-    let blockSettings: Settings = block[blockKey]?.settings
+    const blockKey = getFieldsKeyFromBlock(block)
+    const blockSettings: Settings = block[blockKey]?.settings
 
     if (theme) {
       // Compare with the block value otherwise compare with theme context
@@ -41,8 +45,8 @@ export const useGetHeroPadding = (
     }
 
     return {
-      top: topPadding,
       bottom: bottomPadding,
+      top: topPadding,
     }
   }, [themeState, theme, block])
 

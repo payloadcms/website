@@ -1,65 +1,83 @@
+import type { Heading, TopicGroupForNav } from '@root/collections/Docs/types'
+import type { Doc } from '@root/payload-types'
+
 import { BackgroundGrid } from '@components/BackgroundGrid'
 import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
 import { DiscordGitCTA } from '@components/DiscordGitCTA/index.js'
 import { DocsNavigation } from '@components/DocsNavigation'
+import { Feedback } from '@components/Feedback'
 import { Gutter } from '@components/Gutter'
 import { JumplistProvider } from '@components/Jumplist'
-import components from '@components/MDX/components/index.js'
+import { PayloadRedirects } from '@components/PayloadRedirects'
 import { RelatedHelpList } from '@components/RelatedHelpList/index.js'
+import { RichTextWithTOC } from '@components/RichText'
 import { TableOfContents } from '@components/TableOfContents/index.js'
 import { VersionSelector } from '@components/VersionSelector/index.js'
 import { fetchRelatedThreads } from '@data'
 import { ArrowIcon } from '@icons/ArrowIcon/index.js'
 import { unstable_cache } from 'next/cache'
 import Link from 'next/link'
-import { notFound } from 'next/navigation'
-import { MDXRemote } from 'next-mdx-remote/rsc'
-import React from 'react'
-import { Suspense } from 'react'
-import remarkGfm from 'remark-gfm'
+import React, { Suspense } from 'react'
 
 import classes from './index.module.scss'
-import { TopicGroup } from '@root/app/(frontend)/(pages)/docs/api'
-import { Feedback } from '@components/Feedback'
 
 export const RenderDocs = async ({
   children,
-  params,
-  topics: topicGroups,
+  currentDoc,
+  docSlug,
+  topicGroups,
+  topicSlug,
   version,
 }: {
   children?: React.ReactNode
-  params: { doc: string; topic: string }
-  topics: TopicGroup[]
-  version?: 'beta' | 'current' | 'v2'
+  currentDoc: Doc
+  docSlug: string
+  topicGroups: TopicGroupForNav[]
+  topicSlug: string
+  version?: 'beta' | 'current' | 'dynamic' | 'v2'
 }) => {
   const groupIndex = topicGroups.findIndex(({ topics: tGroup }) =>
-    tGroup.some(topic => topic?.slug?.toLowerCase() === params.topic),
+    tGroup.some((topic) => topic?.slug?.toLowerCase() === topicSlug.toLowerCase()),
   )
 
-  const topicIndex = topicGroups[groupIndex].topics.findIndex(
-    topic => topic?.slug?.toLowerCase() === params.topic,
+  const topicIndex = topicGroups[groupIndex]?.topics.findIndex(
+    (topic) => topic?.slug?.toLowerCase() === topicSlug.toLowerCase(),
   )
-
-  const topicGroup = topicGroups?.[groupIndex]
-
-  const topic = topicGroup?.topics?.[topicIndex]
-
-  const docIndex = topic?.docs.findIndex(doc => doc.slug.replace('.mdx', '') === params.doc)
-
-  const currentDoc = topic?.docs?.[docIndex]
-
-  const path = `${topic.slug.toLowerCase()}/${currentDoc.slug}`
 
   if (!currentDoc) {
-    return notFound()
+    return (
+      <PayloadRedirects
+        url={`/docs${version && version !== 'current' ? '/' + version : ''}/${topicSlug}/${
+          docSlug
+        }`}
+      />
+    )
   }
+
+  const topicGroup = topicGroups?.find(
+    ({ groupLabel, topics }) =>
+      topics.some((topic) => topic.slug === topicSlug) && groupLabel === currentDoc.topicGroup,
+  )
+
+  if (!topicGroup) {
+    throw new Error('Topic group not found')
+  }
+
+  const topic = topicGroup.topics.find((topic) => topic.slug === topicSlug)
+
+  if (!topic) {
+    throw new Error('Topic not found')
+  }
+
+  const docIndex = topic?.docs.findIndex((doc) => doc.slug === currentDoc.slug)
+
+  const path = `${topicSlug.toLowerCase()}/${currentDoc.slug}`
 
   const hideVersionSelector =
     process.env.NEXT_PUBLIC_ENABLE_BETA_DOCS !== 'true' &&
     process.env.NEXT_PUBLIC_ENABLE_LEGACY_DOCS !== 'true'
 
-  const getRelatedThreads = path => unstable_cache(fetchRelatedThreads, ['relatedThreads'])(path)
+  const getRelatedThreads = (path) => unstable_cache(fetchRelatedThreads, ['relatedThreads'])(path)
   const relatedThreads = await getRelatedThreads(path)
 
   const hasRelatedThreads =
@@ -102,13 +120,13 @@ export const RenderDocs = async ({
       <JumplistProvider>
         <div className="grid">
           <DocsNavigation
-            currentTopic={params.topic}
-            params={params}
-            topics={topicGroups}
-            version={version}
+            currentDoc={docSlug}
+            currentTopic={topicSlug}
+            docIndex={docIndex}
             groupIndex={groupIndex}
             indexInGroup={topicIndex}
-            docIndex={docIndex}
+            topics={topicGroups}
+            version={version}
           />
           <div aria-hidden className={classes.navOverlay} />
           <main className={['cols-8 start-5 cols-m-8 start-m-1', classes.content].join(' ')}>
@@ -116,15 +134,7 @@ export const RenderDocs = async ({
               {children}
               <h1 className={classes.title}>{currentDoc.title}</h1>
               <div className={classes.mdx}>
-                <MDXRemote
-                  components={components}
-                  options={{
-                    mdxOptions: {
-                      remarkPlugins: [remarkGfm],
-                    },
-                  }}
-                  source={currentDoc.content}
-                />
+                <RichTextWithTOC content={currentDoc.content} />
               </div>
             </Suspense>
             {next && (
@@ -151,7 +161,7 @@ export const RenderDocs = async ({
           <aside className={['cols-3 start-14', classes.aside].join(' ')}>
             <div className={classes.asideStickyContent}>
               {!hideVersionSelector && <VersionSelector initialVersion={version ?? 'current'} />}
-              <TableOfContents headings={currentDoc.headings} />
+              <TableOfContents headings={currentDoc.headings as Heading[]} />
               <div className={classes.discordGitWrap}>
                 <DiscordGitCTA appearance="minimal" />
               </div>

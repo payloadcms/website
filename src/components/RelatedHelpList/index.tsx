@@ -1,9 +1,9 @@
-import React from 'react'
-import Link from 'next/link'
+import type { CommunityHelp } from '@root/payload-types.js'
 
 import { DiscordIcon } from '@root/graphics/DiscordIcon/index.js'
 import { GithubIcon } from '@root/graphics/GithubIcon/index.js'
-import { CommunityHelp } from '@root/payload-types.js'
+import Link from 'next/link'
+import React from 'react'
 
 import classes from './index.module.scss'
 
@@ -24,7 +24,7 @@ export const RelatedHelpList: React.FC<Props> = ({ relatedThreads }) => {
       <ul className={classes.list}>
         {hasRelatedThreads &&
           relatedThreads.map((thread, i) => {
-            const { title, slug, communityHelpType } = thread
+            const { slug, communityHelpType, title } = thread
             return (
               <li key={i}>
                 {communityHelpType === 'discord' && <DiscordIcon className={classes.itemMarker} />}

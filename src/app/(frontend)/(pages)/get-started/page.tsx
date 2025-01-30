@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { BackgroundGrid } from '@components/BackgroundGrid'
 import { CMSLink } from '@components/CMSLink'
 import { Gutter } from '@components/Gutter'
-import RichText from '@components/RichText'
+import { RichText } from '@components/RichText'
 import { fetchGetStarted } from '@data'
 import * as Tabs from '@radix-ui/react-tabs'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
@@ -28,7 +28,7 @@ export default async function GetStartedPage() {
         {tabs && tabs.length > 0 && (
           <Tabs.Root className={classes.tabs} defaultValue={tabs[0].id ?? ''}>
             <Tabs.List className={classes.tabsList}>
-              {tabs.map(tab => {
+              {tabs.map((tab) => {
                 return (
                   tab &&
                   tab.id && (
@@ -39,7 +39,7 @@ export default async function GetStartedPage() {
                 )
               })}
             </Tabs.List>
-            {tabs.map(tab => {
+            {tabs.map((tab) => {
               return (
                 tab &&
                 tab.id && (

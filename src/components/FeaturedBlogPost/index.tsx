@@ -1,16 +1,16 @@
-import * as React from 'react'
-import { formatDate } from '@utilities/format-date-time.js'
-import Link from 'next/link'
+import type { Post } from '@root/payload-types.js'
 
 import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
 import { Media } from '@components/Media/index.js'
 import { CrosshairIcon } from '@root/icons/CrosshairIcon/index.js'
-import { Post } from '@root/payload-types.js'
+import { formatDate } from '@utilities/format-date-time.js'
+import Link from 'next/link'
+import * as React from 'react'
 
 import classes from './index.module.scss'
 
-export const FeaturedBlogPost: React.FC<Partial<Post>> = props => {
-  const { slug, title, authors, publishedOn, image: media, meta, ...rest } = props
+export const FeaturedBlogPost: React.FC<Partial<Post>> = (props) => {
+  const { slug, authors, image: media, meta, publishedOn, title, ...rest } = props
 
   const href = `/blog/${slug}`
 
@@ -21,7 +21,7 @@ export const FeaturedBlogPost: React.FC<Partial<Post>> = props => {
   const date = publishedOn && formatDate({ date: publishedOn })
 
   return (
-    <Link href={href} prefetch={false} className={classes.wrapper}>
+    <Link className={classes.wrapper} href={href} prefetch={false}>
       <BackgroundScanline className={[classes.scanline].filter(Boolean).join(' ')} />
       <CrosshairIcon
         className={[classes.crosshair, classes.crosshairTopLeft].filter(Boolean).join(' ')}
@@ -36,13 +36,13 @@ export const FeaturedBlogPost: React.FC<Partial<Post>> = props => {
         className={[classes.crosshair, classes.crosshairBottomRight].filter(Boolean).join(' ')}
       />
       <div className={classes.contentWrapper}>
-        {typeof media !== 'string' && <Media resource={media} className={classes.media} />}
+        {typeof media !== 'string' && <Media className={classes.media} resource={media} />}
         <div className={classes.content}>
           <h2 className={classes.title}>{title}</h2>
 
           <div className={classes.meta}>
             {date && (
-              <time dateTime={publishedOn} className={classes.date}>
+              <time className={classes.date} dateTime={publishedOn}>
                 {date}
               </time>
             )}

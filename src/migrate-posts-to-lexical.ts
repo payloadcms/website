@@ -1,39 +1,40 @@
-import { getPayload } from 'payload'
 import config from '@payload-config'
-import { Post } from './payload-types'
+import { getPayload } from 'payload'
+
+import type { Post } from './payload-types'
 
 const migratePostsToLexical = async () => {
   const payload = await getPayload({ config })
   const posts = await payload.find({
     collection: 'posts',
-    limit: 3,
     depth: 1,
+    limit: 3,
   })
 
-  const formatBlocks: (content: Post['content']) => Post['lexicalContent'] = content => {
-    let newData: any[] = []
+  const formatBlocks: (content: Post['content']) => Post['lexicalContent'] = (content) => {
+    const newData: any[] = []
     for (const [index, block] of content.entries()) {
       if (block.blockType === 'blogContent') {
         newData.push(...block.blogContentFields.richText.root.children)
       } else {
         newData.push({
-          format: '',
           type: 'block',
-          version: 2,
           fields: {
             blockName: '',
             ...block,
           },
+          format: '',
+          version: 2,
         })
       }
     }
     return {
       root: {
+        type: 'root',
         children: newData,
         direction: null,
         format: '',
         indent: 0,
-        type: 'root',
         version: 1,
       },
     }
@@ -44,8 +45,8 @@ const migratePostsToLexical = async () => {
 
     try {
       await payload.update({
-        collection: 'posts',
         id: post.id,
+        collection: 'posts',
         data: {
           lexicalContent: formatBlocks(post.content) as any,
         },

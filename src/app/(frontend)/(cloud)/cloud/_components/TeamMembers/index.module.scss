@@ -1,4 +1,4 @@
-@use "@scss/common" as *;
+@use '@scss/common' as *;
 
 .members {
   display: flex;
@@ -7,9 +7,9 @@
 }
 
 .success {
-  color: var(--theme-success-500)
+  color: var(--theme-success-500);
 }
 
 .error {
-  color: var(--theme-error-500)
+  color: var(--theme-error-500);
 }

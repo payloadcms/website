@@ -1,49 +1,49 @@
 'use client'
 
-import * as React from 'react'
-import { SubscriptionsResult } from '@cloud/_api/fetchSubscriptions.js'
-import { TeamWithCustomer } from '@cloud/_api/fetchTeam.js'
-import { useModal } from '@faceless-ui/modal'
-import Link from 'next/link'
+import type { SubscriptionsResult } from '@cloud/_api/fetchSubscriptions.js'
+import type { TeamWithCustomer } from '@cloud/_api/fetchTeam.js'
+import type { User } from '@root/payload-cloud-types.js'
+import type { useGetPlans } from '@root/utilities/use-cloud-api.js'
 
 import { Button } from '@components/Button/index.js'
 import { CircleIconButton } from '@components/CircleIconButton/index.js'
 import { Heading } from '@components/Heading/index.js'
 import { ModalWindow } from '@components/ModalWindow/index.js'
 import { Pill } from '@components/Pill/index.js'
-import { User } from '@root/payload-cloud-types.js'
+import { useModal } from '@faceless-ui/modal'
 import { checkTeamRoles } from '@root/utilities/check-team-roles.js'
 import { formatDate } from '@root/utilities/format-date-time.js'
 import { priceFromJSON } from '@root/utilities/price-from-json.js'
-import { useGetPlans } from '@root/utilities/use-cloud-api.js'
-import { useSubscriptions } from './useSubscriptions.js'
+import Link from 'next/link'
+import * as React from 'react'
 
 import classes from './page.module.scss'
+import { useSubscriptions } from './useSubscriptions.js'
 
 const modalSlug = 'cancel-subscription'
 
 export const TeamSubscriptionsPage = (props: {
   plans: ReturnType<typeof useGetPlans>['result']
-  team: TeamWithCustomer
   subscriptions: SubscriptionsResult
+  team: TeamWithCustomer
   user: User
 }) => {
-  const { plans, team, user, subscriptions: initialSubscriptions } = props
+  const { plans, subscriptions: initialSubscriptions, team, user } = props
   const { closeModal, openModal } = useModal()
-  const subscriptionToDelete = React.useRef<string | null>(null)
+  const subscriptionToDelete = React.useRef<null | string>(null)
 
   const isCurrentTeamOwner = checkTeamRoles(user, team, ['owner'])
   const hasCustomerID = team?.stripeCustomerID
 
   const {
-    result: subscriptions,
-    isLoading,
     cancelSubscription,
-    loadMoreSubscriptions,
     error: subscriptionsError,
+    isLoading,
+    loadMoreSubscriptions,
+    result: subscriptions,
   } = useSubscriptions({
-    team,
     initialSubscriptions,
+    team,
   })
 
   return (
@@ -65,15 +65,15 @@ export const TeamSubscriptionsPage = (props: {
               {Array.isArray(subscriptions?.data) && subscriptions?.data?.length > 0 && (
                 <React.Fragment>
                   <ul className={classes.list}>
-                    {subscriptions?.data?.map(subscription => {
+                    {subscriptions?.data?.map((subscription) => {
                       const { id: subscriptionID, project, status, trial_end } = subscription
                       const [item] = subscription.items.data
-                      const plan = plans?.find(p => p.stripeProductID === item.price.product)
+                      const plan = plans?.find((p) => p.stripeProductID === item.price.product)
 
                       const trialEndDate = new Date(trial_end * 1000)
 
                       return (
-                        <li key={subscriptionID} className={classes.subscription}>
+                        <li className={classes.subscription} key={subscriptionID}>
                           <div className={classes.subscriptionDetails}>
                             {plan?.name && (
                               <div className={classes.productName}>{`${plan?.name} Plan`}</div>
@@ -101,14 +101,14 @@ export const TeamSubscriptionsPage = (props: {
                                 />
                               </div>
                               <Button
-                                className={classes.subscriptionCancel}
                                 appearance="primary"
-                                size="pill"
+                                className={classes.subscriptionCancel}
+                                label="Cancel plan"
                                 onClick={() => {
                                   subscriptionToDelete.current = subscriptionID
                                   openModal(modalSlug)
                                 }}
-                                label="Cancel plan"
+                                size="pill"
                               />
                             </div>
                             <Heading element="h6" marginBottom={false} marginTop={false}>
@@ -143,7 +143,7 @@ export const TeamSubscriptionsPage = (props: {
       )}
       <ModalWindow slug={modalSlug}>
         <div className={classes.modalContent}>
-          <Heading marginTop={false} as="h4">
+          <Heading as="h4" marginTop={false}>
             Are you sure you want to cancel this subscription?
           </Heading>
           <p>
@@ -153,16 +153,16 @@ export const TeamSubscriptionsPage = (props: {
           </p>
           <div className={classes.modalActions}>
             <Button
-              label="Cancel"
               appearance="secondary"
+              label="Cancel"
               onClick={() => {
                 subscriptionToDelete.current = null
                 closeModal(modalSlug)
               }}
             />
             <Button
-              label="Delete"
               appearance="danger"
+              label="Delete"
               onClick={() => {
                 if (subscriptionToDelete.current) {
                   cancelSubscription(subscriptionToDelete.current)

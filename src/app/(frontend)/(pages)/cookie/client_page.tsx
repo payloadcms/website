@@ -1,17 +1,16 @@
 'use client'
 
-import React from 'react'
+import { Gutter } from '@components/Gutter/index.js'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import RadioGroup from '@forms/fields/RadioGroup/index.js'
 import FormComponent from '@forms/Form/index.js'
-
-import { Gutter } from '@components/Gutter/index.js'
 import { usePrivacy } from '@root/providers/Privacy/index.js'
+import React from 'react'
 
 import classes from './index.module.scss'
 
 export const CookieClientPage: React.FC = () => {
-  const [trackingCookies, setTrackingCookies] = React.useState<string | null>(null)
+  const [trackingCookies, setTrackingCookies] = React.useState<null | string>(null)
   const { cookieConsent, updateCookieConsent } = usePrivacy()
 
   React.useEffect(() => {
@@ -25,7 +24,7 @@ export const CookieClientPage: React.FC = () => {
 
   const handleCookieConsentChange = (newValue: string) => {
     const newConsent = newValue === 'true'
-    updateCookieConsent(newConsent, !newConsent)
+    updateCookieConsent(newConsent)
     setTrackingCookies(newValue)
   }
 
@@ -384,8 +383,9 @@ export const CookieClientPage: React.FC = () => {
             </p>
             <FormComponent>
               <RadioGroup
-                onChange={handleCookieConsentChange}
+                className={classes.radioGroup}
                 initialValue={trackingCookies as string}
+                onChange={handleCookieConsentChange}
                 options={[
                   {
                     label: 'Disabled',
@@ -396,7 +396,6 @@ export const CookieClientPage: React.FC = () => {
                     value: 'true',
                   },
                 ]}
-                className={classes.radioGroup}
               />
             </FormComponent>
           </div>

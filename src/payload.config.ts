@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-exports */
 import { revalidateRedirects } from '@hooks/revalidateRedirects'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
@@ -5,7 +6,12 @@ import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
 import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs'
 import { redirectsPlugin } from '@payloadcms/plugin-redirects'
 import { seoPlugin } from '@payloadcms/plugin-seo'
-import { BlocksFeature, UploadFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
+import {
+  BlocksFeature,
+  EXPERIMENTAL_TableFeature,
+  lexicalEditor,
+  UploadFeature,
+} from '@payloadcms/richtext-lexical'
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import link from '@root/fields/link'
 import { LabelFeature } from '@root/fields/richText/features/label/server'
@@ -19,6 +25,9 @@ import { fileURLToPath } from 'url'
 import { CaseStudies } from './collections/CaseStudies'
 import { CommunityHelp } from './collections/CommunityHelp'
 import { Docs } from './collections/Docs'
+import { BannerBlock } from './collections/Docs/blocks/banner'
+import { CodeBlock } from './collections/Docs/blocks/code'
+import { VideoDrawerBlock } from './collections/Docs/blocks/VideoDrawer'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Budgets, Industries, Regions, Specialties } from './collections/PartnerFilters'
@@ -31,7 +40,7 @@ import { GetStarted } from './globals/GetStarted'
 import { MainMenu } from './globals/MainMenu'
 import { PartnerProgram } from './globals/PartnerProgram'
 import redeployWebsite from './scripts/redeployWebsite'
-import syncDocs from './scripts/syncDocs'
+import { refreshMdxToLexical, syncDocs } from './scripts/syncDocs'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -51,7 +60,7 @@ export default buildConfig({
       password: 'test',
     },
     components: {
-      afterNavLinks: ['@root/components/SyncDocsButton', '@root/components/RedeployButton'],
+      afterNavLinks: ['@root/components/AfterNavActions'],
     },
     importMap: {
       baseDir: dirname,
@@ -72,7 +81,11 @@ export default buildConfig({
     Regions,
     Budgets,
   ],
-  cors: [process.env.PAYLOAD_PUBLIC_APP_URL || '', 'https://payloadcms.com'].filter(Boolean),
+  cors: [
+    process.env.PAYLOAD_PUBLIC_APP_URL || '',
+    'https://payloadcms.com',
+    'https://discord.com/api',
+  ].filter(Boolean),
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),
@@ -80,6 +93,7 @@ export default buildConfig({
   editor: lexicalEditor({
     features: ({ defaultFeatures }) => [
       ...defaultFeatures,
+      EXPERIMENTAL_TableFeature(),
       UploadFeature({
         collections: {
           media: {
@@ -160,6 +174,7 @@ export default buildConfig({
 
             interfaceName: 'BrBlock',
           },
+          VideoDrawerBlock,
           {
             slug: 'commandLine',
             fields: [
@@ -211,40 +226,8 @@ export default buildConfig({
             ],
             interfaceName: 'TemplateCardsBlock',
           },
-          {
-            slug: 'banner',
-            fields: [
-              {
-                name: 'type',
-                type: 'select',
-                defaultValue: 'default',
-                options: [
-                  {
-                    label: 'Default',
-                    value: 'default',
-                  },
-                  {
-                    label: 'Success',
-                    value: 'success',
-                  },
-                  {
-                    label: 'Warning',
-                    value: 'warning',
-                  },
-                  {
-                    label: 'Error',
-                    value: 'error',
-                  },
-                ],
-              },
-              {
-                name: 'content',
-                type: 'richText',
-                editor: lexicalEditor(),
-              },
-            ],
-            interfaceName: 'BannerBlock',
-          },
+          BannerBlock,
+          CodeBlock,
         ],
       }),
     ],
@@ -264,6 +247,11 @@ export default buildConfig({
       handler: redeployWebsite,
       method: 'post',
       path: '/redeploy/website',
+    },
+    {
+      handler: refreshMdxToLexical,
+      method: 'get',
+      path: '/refresh/mdx-to-lexical',
     },
   ],
   globals: [Footer, MainMenu, GetStarted, PartnerProgram],
@@ -324,7 +312,7 @@ export default buildConfig({
                     pageName: 'pageName' in body ? body?.pageName : '',
                     pageUri: 'pageUri' in body ? body?.pageUri : '',
                   },
-                  fields: submissionData.map(key => ({
+                  fields: submissionData.map((key) => ({
                     name: key.field,
                     value: key.value,
                   })),
@@ -361,7 +349,7 @@ export default buildConfig({
     nestedDocsPlugin({
       collections: ['pages'],
       generateLabel: (_, doc) => doc.title as string,
-      generateURL: docs => docs.reduce((url, doc) => `${url}/${doc.slug as string}`, ''),
+      generateURL: (docs) => docs.reduce((url, doc) => `${url}/${doc.slug as string}`, ''),
     }),
     redirectsPlugin({
       collections: ['case-studies', 'pages', 'posts'],

@@ -1,23 +1,22 @@
 'use client'
 
-import React from 'react'
-
 import { CopyToClipboard } from '@components/CopyToClipboard/index.js'
+import React from 'react'
 
 import classes from './index.module.scss'
 
 export type Props = {
-  className?: string
   background?: boolean
-  style?: 'default' | 'cta'
+  className?: string
   label?: string
+  style?: 'cta' | 'default'
 }
 
 const CreatePayloadApp: React.FC<Props> = ({
-  className,
   background = true,
-  style = 'default',
+  className,
   label = 'npx create-payload-app',
+  style = 'default',
 }) => {
   return (
     <div

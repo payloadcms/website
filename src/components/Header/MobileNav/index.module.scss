@@ -1,6 +1,6 @@
 @use '@scss/common.scss' as *;
 
-$curve: cubic-bezier(.165, 0.84, 0.44, 1);
+$curve: cubic-bezier(0.165, 0.84, 0.44, 1);
 
 .mobileNav {
   display: none;
@@ -60,7 +60,8 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
     text-decoration: none;
   }
 
-  & path, & rect {
+  & path,
+  & rect {
     color: var(--theme-elevation-900);
   }
 }
@@ -112,29 +113,29 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
 }
 
 .hamburgerOpen {
- & svg {
-  & > * {
-    transition: all var(--trans-default) ease;
+  & svg {
+    & > * {
+      transition: all var(--trans-default) ease;
+    }
+
+    & rect {
+      &:nth-child(1) {
+        transform: translateX(5px) rotate(45deg);
+        top: 0;
+        transform-origin: top left;
+      }
+
+      &:nth-child(2) {
+        opacity: 0;
+      }
+
+      &:nth-child(3) {
+        bottom: 0;
+        transform: translateX(5px) rotate(-45deg);
+        transform-origin: bottom left;
+      }
+    }
   }
-
-  & rect {
-    &:nth-child(1) {
-      transform: translateX(5px) rotate(45deg);
-      top: 0;
-      transform-origin: top left;
-    }
-
-    &:nth-child(2) {
-      opacity: 0;
-    }
-
-    &:nth-child(3) {
-      bottom: 0;
-      transform: translateX(5px) rotate(-45deg);
-      transform-origin: bottom left;
-    }
-  }
- }
 }
 
 .modalBlur {
@@ -228,7 +229,8 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
     border-top: 1px solid var(--theme-border-color);
   }
 
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     text-decoration: none;
   }
 
@@ -243,7 +245,7 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 1rem ;
+    gap: 1rem;
     cursor: pointer;
     position: relative;
     border-top: 1px solid var(--theme-border-color);
@@ -311,7 +313,8 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
   }
 }
 
-.defaultLink, .listLabelWrap {
+.defaultLink,
+.listLabelWrap {
   @include btnReset;
   & {
     display: flex;

@@ -8,11 +8,11 @@ export interface Options {
 export type SetValue = (e: Value) => void
 
 export interface FormField<FieldValue> {
-  showError: boolean
-  errorMessage?: string
-  value: FieldValue
   debouncedValue: FieldValue
-  formSubmitted: boolean
+  errorMessage?: string
   formProcessing: boolean
+  formSubmitted: boolean
   setValue: SetValue
+  showError: boolean
+  value: FieldValue
 }

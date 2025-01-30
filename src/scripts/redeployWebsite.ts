@@ -1,6 +1,6 @@
-import { PayloadHandler } from 'payload'
+import type { PayloadHandler } from 'payload'
 
-const redeployWebsite: PayloadHandler = async req => {
+const redeployWebsite: PayloadHandler = async (req) => {
   try {
     if (!process.env.VERCEL_REDEPLOY_URL) {
       // return res.status(400).json({ success: false, message: 'No Vercel redeploy URL found' })
@@ -10,7 +10,7 @@ const redeployWebsite: PayloadHandler = async req => {
     const triggerRedeploy = async () => {
       await fetch(process.env.VERCEL_REDEPLOY_URL || '', {
         method: 'POST',
-      }).then(response => response.json())
+      }).then((response) => response.json())
     }
 
     await triggerRedeploy()

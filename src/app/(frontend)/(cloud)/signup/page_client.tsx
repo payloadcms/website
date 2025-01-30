@@ -1,44 +1,43 @@
 'use client'
 
-import React, { useCallback, useState } from 'react'
-import { Text } from '@forms/fields/Text/index.js'
-import Form from '@forms/Form/index.js'
-import FormProcessing from '@forms/FormProcessing/index.js'
-import FormSubmissionError from '@forms/FormSubmissionError/index.js'
-import Submit from '@forms/Submit/index.js'
-import { InitialState, OnSubmit } from '@forms/types.js'
-import Link from 'next/link'
-
-import { useSearchParams } from 'next/navigation'
+import type { InitialState, OnSubmit } from '@forms/types.js'
 
 import { Button } from '@components/Button/index.js'
 import { Gutter } from '@components/Gutter/index.js'
 import { Heading } from '@components/Heading/index.js'
 import { Highlight } from '@components/Highlight/index.js'
+import { Text } from '@forms/fields/Text/index.js'
+import Form from '@forms/Form/index.js'
+import FormProcessing from '@forms/FormProcessing/index.js'
+import FormSubmissionError from '@forms/FormSubmissionError/index.js'
+import Submit from '@forms/Submit/index.js'
 import { useAuth } from '@root/providers/Auth/index.js'
 import canUseDom from '@root/utilities/can-use-dom.js'
 import { getCookie } from '@root/utilities/get-cookie.js'
+import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
+import React, { useCallback, useState } from 'react'
 
 import classes from './page.module.scss'
 
 const initialFormState: InitialState = {
   email: {
-    value: '',
-    valid: false,
-    initialValue: undefined,
     errorMessage: 'Please enter a valid email address',
+    initialValue: undefined,
+    valid: false,
+    value: '',
   },
   password: {
-    value: '',
-    valid: false,
-    initialValue: undefined,
     errorMessage: 'Please enter a password',
+    initialValue: undefined,
+    valid: false,
+    value: '',
   },
   passwordConfirm: {
-    value: '',
-    valid: false,
-    initialValue: undefined,
     errorMessage: 'Please confirm your password',
+    initialValue: undefined,
+    valid: false,
+    value: '',
   },
 }
 
@@ -58,14 +57,14 @@ export const Signup: React.FC = () => {
         type: 'UPDATE',
         payload: [
           {
-            path: 'passwordConfirm',
             errorMessage: 'Passwords do not match',
+            path: 'passwordConfirm',
             valid: false,
             value: formData.passwordConfirm,
           },
           {
-            path: 'password',
             errorMessage: 'Passwords do not match',
+            path: 'password',
             valid: false,
             value: formData.password,
           },
@@ -84,20 +83,20 @@ export const Signup: React.FC = () => {
           formData?.redirect ? `?redirect=${formData.redirect}` : ''
         }`,
         {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
           body: JSON.stringify({
+            hubspotCookie,
+            pageName,
+            pageUri,
             query: `mutation {
             createUser(data: { email: "${formData.email}", password: "${formData.password}"}) {
               email
             }
           }`,
-            hubspotCookie,
-            pageUri,
-            pageName,
           }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          method: 'POST',
         },
       )
 
@@ -132,8 +131,8 @@ export const Signup: React.FC = () => {
             <h2>Already logged in</h2>
             <p>You must first logout to create another account.</p>
             <div className={classes.buttonWrap}>
-              <Button label="Log out" href="/logout" appearance="primary" el="link" />
-              <Button label="Dashboard" href="/cloud" appearance="secondary" el="link" />
+              <Button appearance="primary" el="link" href="/logout" label="Log out" />
+              <Button appearance="secondary" el="link" href="/cloud" label="Dashboard" />
             </div>
           </div>
         </div>
@@ -177,26 +176,26 @@ export const Signup: React.FC = () => {
             {'.'}
           </div>
           <Form
-            onSubmit={createAccount}
             className={classes.form}
-            initialState={initialFormState}
             formId={'payload_cloud_sign_up'}
+            initialState={initialFormState}
+            onSubmit={createAccount}
           >
             <FormSubmissionError />
             <FormProcessing message="Signing up, one moment..." />
             <Text
-              path="email"
-              label="Email"
-              required
               initialValue={searchParams?.get('email') || undefined}
+              label="Email"
+              path="email"
+              required
             />
-            <Text path="password" label="Password" type="password" required />
-            <Text path="passwordConfirm" label="Confirm Password" type="password" required />
+            <Text label="Password" path="password" required type="password" />
+            <Text label="Confirm Password" path="passwordConfirm" required type="password" />
             {typeof redirectParam === 'string' && (
               <Text path="redirect" type="hidden" value={redirectParam} />
             )}
             <div>
-              <Submit label="Signup" className={classes.submit} />
+              <Submit className={classes.submit} label="Signup" />
             </div>
           </Form>
         </div>

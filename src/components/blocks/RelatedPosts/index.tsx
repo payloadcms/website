@@ -1,19 +1,20 @@
+import type { Post } from '@root/payload-types.js'
+
 import { ContentMediaCard } from '@components/cards/ContentMediaCard/index.js'
 import { Gutter } from '@components/Gutter/index.js'
-import { Post } from '@root/payload-types.js'
 
 import classes from './index.module.scss'
 
 export type RelatedPostsBlock = {
-  blockType: 'relatedPosts'
   blockName: string
-  relatedPosts: (Post | string)[] | null
-  id?: string
+  blockType: 'relatedPosts'
   disableGutter?: boolean
+  id?: string
+  relatedPosts: (Post | string)[] | null
 }
 
-export const RelatedPosts: React.FC<RelatedPostsBlock> = props => {
-  const { relatedPosts, id = '', disableGutter } = props
+export const RelatedPosts: React.FC<RelatedPostsBlock> = (props) => {
+  const { id = '', disableGutter, relatedPosts } = props
 
   if (!relatedPosts || relatedPosts?.length === 0) {
     return null
@@ -34,14 +35,14 @@ export const RelatedPosts: React.FC<RelatedPostsBlock> = props => {
             (post, key) =>
               typeof post !== 'string' && (
                 <ContentMediaCard
-                  title={post.title}
+                  authors={post.authors}
                   description={post?.meta?.description}
                   href={`/blog/${post.slug}`}
-                  media={post.image}
-                  publishedOn={post.publishedOn}
-                  authors={post.authors}
-                  orientation={relatedPosts.length < 3 ? 'horizontal' : undefined}
                   key={key}
+                  media={post.image}
+                  orientation={relatedPosts.length < 3 ? 'horizontal' : undefined}
+                  publishedOn={post.publishedOn}
+                  title={post.title}
                 />
               ),
           )}

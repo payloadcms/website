@@ -7,10 +7,10 @@ export const QuoteIcon: React.FC<Props> = ({ className }) => {
   return (
     <svg
       className={className}
-      width="33"
+      fill="none"
       height="30"
       viewBox="0 0 33 30"
-      fill="none"
+      width="33"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path

@@ -1,10 +1,9 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
-
 import { Gutter } from '@components/Gutter/index.js'
 import { Heading } from '@components/Heading/index.js'
+import { useRouter, useSearchParams } from 'next/navigation'
+import React, { useEffect, useState } from 'react'
 
 import classes from './page.module.scss'
 
@@ -16,7 +15,7 @@ export const JoinTeam: React.FC = () => {
   const team = searchParams?.get('team')
 
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+  const [error, setError] = useState<null | string>(null)
 
   useEffect(() => {
     if (team) {
@@ -27,11 +26,11 @@ export const JoinTeam: React.FC = () => {
           const res = await fetch(
             `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/teams/${team}/accept-invitation`,
             {
-              method: 'POST',
               credentials: 'include',
               headers: {
                 'Content-Type': 'application/json',
               },
+              method: 'POST',
             },
           )
 
@@ -58,7 +57,7 @@ export const JoinTeam: React.FC = () => {
 
   return (
     <Gutter>
-      <Heading marginTop={false} element="h1">
+      <Heading element="h1" marginTop={false}>
         Join Team
       </Heading>
       {error && <p className={classes.error}>{error}</p>}

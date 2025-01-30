@@ -1,4 +1,4 @@
-@use "@scss/common" as *;
+@use '@scss/common' as *;
 
 .leader {
   margin-top: 0;
@@ -10,11 +10,11 @@
   gap: 1rem;
 
   & > * {
-      flex: 1;
+    flex: 1;
   }
 
   @include small-break {
-      flex-direction: column;
+    flex-direction: column;
   }
 }
 
@@ -33,8 +33,9 @@
     color: var(--theme-elevation-500);
   }
 
-   > a, button {
-      color: var(--theme-blue-500);
-      text-decoration: underline;
-   }
+  > a,
+  button {
+    color: var(--theme-blue-500);
+    text-decoration: underline;
+  }
 }

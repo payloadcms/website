@@ -1,16 +1,15 @@
-import * as React from 'react'
-
 import { uuid } from '@root/utilities/uuid.js'
+import * as React from 'react'
 
 const ArrayContext = React.createContext<{
   addRow: () => void
-  removeRow: (index: number) => void // eslint-disable-line no-unused-vars
   clearRows: () => void
+  removeRow: (index: number) => void
   uuids: string[]
 }>({
   addRow: () => {},
-  removeRow: () => {},
   clearRows: () => {},
+  removeRow: () => {},
   uuids: [],
 })
 
@@ -18,20 +17,20 @@ export const useArray = () => React.useContext(ArrayContext)
 
 export const ArrayProvider: React.FC<{
   children: React.ReactNode
-  instantiateEmpty?: boolean
   clearCount?: number // increment this to clear the array
-}> = props => {
-  const { children, instantiateEmpty, clearCount } = props
+  instantiateEmpty?: boolean
+}> = (props) => {
+  const { children, clearCount, instantiateEmpty } = props
 
   const [uuids, setUUIDs] = React.useState<string[]>(instantiateEmpty ? [] : [uuid()])
 
   const addRow = React.useCallback(() => {
-    setUUIDs(prev => [...prev, uuid()])
+    setUUIDs((prev) => [...prev, uuid()])
   }, [])
 
   const removeRow = React.useCallback(
     (index: number) => {
-      setUUIDs(prev => {
+      setUUIDs((prev) => {
         const initialRows = (instantiateEmpty ? [] : [uuid()]) as string[]
         const remainingRows = prev.filter((_, i) => i !== index)
         return remainingRows.length > 0 ? remainingRows : initialRows
@@ -54,8 +53,8 @@ export const ArrayProvider: React.FC<{
     <ArrayContext.Provider
       value={{
         addRow,
-        removeRow,
         clearRows,
+        removeRow,
         uuids,
       }}
     >

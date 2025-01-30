@@ -1,4 +1,5 @@
-import React from 'react'
+import type { Metadata } from 'next'
+
 import { fetchGitHubToken } from '@cloud/_api/fetchGitHubToken.js'
 import { fetchInstalls } from '@cloud/_api/fetchInstalls.js'
 import { fetchMe } from '@cloud/_api/fetchMe.js'
@@ -6,10 +7,9 @@ import { fetchPaymentMethods } from '@cloud/_api/fetchPaymentMethods.js'
 import { fetchPlans } from '@cloud/_api/fetchPlans.js'
 import { fetchProjectWithSubscription } from '@cloud/_api/fetchProject.js'
 import { fetchTemplates } from '@cloud/_api/fetchTemplates.js'
-import { Metadata } from 'next'
-import { redirect } from 'next/navigation'
-
 import Checkout from '@root/app/(frontend)/(cloud)/new/(checkout)/Checkout.js'
+import { redirect } from 'next/navigation'
+import React from 'react'
 
 export const dynamic = 'force-dynamic'
 
@@ -17,13 +17,13 @@ export default async ({
   params,
 }: {
   params: Promise<{
-    'team-slug': string
     'project-slug': string
+    'team-slug': string
   }>
 }) => {
-  const { 'team-slug': teamSlug, 'project-slug': projectSlug } = await params
+  const { 'project-slug': projectSlug, 'team-slug': teamSlug } = await params
   const { user } = await fetchMe()
-  const project = await fetchProjectWithSubscription({ teamSlug, projectSlug })
+  const project = await fetchProjectWithSubscription({ projectSlug, teamSlug })
 
   if (project.status === 'published') {
     redirect(`/cloud/${teamSlug}/${projectSlug}`)
@@ -48,14 +48,14 @@ export default async ({
 
   return (
     <Checkout
-      team={project.team}
-      project={project}
-      token={token}
-      plans={plans}
-      installs={installs}
-      templates={templates}
-      user={user}
       initialPaymentMethods={paymentMethods}
+      installs={installs}
+      plans={plans}
+      project={project}
+      team={project.team}
+      templates={templates}
+      token={token}
+      user={user}
     />
   )
 }
@@ -64,16 +64,16 @@ export async function generateMetadata({
   params,
 }: {
   params: Promise<{
-    'team-slug': string
     'project-slug': string
+    'team-slug': string
   }>
 }): Promise<Metadata> {
-  const { 'team-slug': teamSlug, 'project-slug': projectSlug } = await params
+  const { 'project-slug': projectSlug, 'team-slug': teamSlug } = await params
   return {
-    title: 'Checkout | Payload Cloud',
     openGraph: {
       title: 'Checkout | Payload Cloud',
       url: `/cloud/${teamSlug}/${projectSlug}/configure`,
     },
+    title: 'Checkout | Payload Cloud',
   }
 }

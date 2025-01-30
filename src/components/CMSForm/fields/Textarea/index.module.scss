@@ -1,5 +1,5 @@
-@use "@scss/common" as *;
-@use "../shared.scss";
+@use '@scss/common' as *;
+@use '../shared.scss';
 
 .wrap {
   position: relative;
@@ -10,9 +10,9 @@
     content: '';
     width: calc(100% - 2px);
     position: absolute;
-    height:100%;
+    height: 100%;
     left: 1px;
-    top:0;
+    top: 0;
     z-index: -1;
   }
 
@@ -31,7 +31,8 @@
     }
   }
 
-  .textareaLabel, .errorLabel {
+  .textareaLabel,
+  .errorLabel {
     margin: 0;
     width: fit-content;
   }
@@ -74,7 +75,8 @@
     transform: translateY(min(15%, 0.75rem));
   }
 
-  .textareaLabel, .errorLabel {
+  .textareaLabel,
+  .errorLabel {
     font-size: 12px;
   }
 

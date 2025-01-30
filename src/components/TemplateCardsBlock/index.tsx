@@ -28,7 +28,7 @@ const TemplateCard = (props: TemplateCardType) => {
   )
 }
 
-export const TemplateCards: React.FC<{ templates: TemplateCardType[] }> = props => {
+export const TemplateCards: React.FC<{ templates: TemplateCardType[] }> = (props) => {
   const { templates } = props
 
   return (
@@ -36,7 +36,7 @@ export const TemplateCards: React.FC<{ templates: TemplateCardType[] }> = props 
     Array.isArray(templates) &&
     templates.length > 0 && (
       <div className={classes.templateCardWrapper}>
-        {templates.map(template => (
+        {templates.map((template) => (
           <TemplateCard key={template.id} {...template} />
         ))}
       </div>

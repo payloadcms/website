@@ -3,9 +3,9 @@ import type { Project } from '@root/payload-cloud-types.js'
 
 export interface PayloadStripeSubscription {
   client_secret: string
+  error?: string
   paid?: boolean
   subscription?: string
-  error?: string
 }
 
 export const createSubscription = async (args: {
@@ -13,17 +13,15 @@ export const createSubscription = async (args: {
   project: Project
 }): Promise<PayloadStripeSubscription> => {
   const {
-    checkoutState: { paymentMethod, freeTrial, plan, team },
+    checkoutState: { freeTrial, paymentMethod, plan, team },
     project,
   } = args
 
   try {
     const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/create-subscription`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
       body: JSON.stringify({
+        freeTrial,
+        paymentMethod,
         project: {
           ...project,
           // flatten relationships to only the ID
@@ -32,9 +30,11 @@ export const createSubscription = async (args: {
           template:
             typeof project?.template === 'string' ? project.template : project?.template?.id,
         },
-        paymentMethod,
-        freeTrial,
       }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
     })
 
     const res: PayloadStripeSubscription = await req.json()

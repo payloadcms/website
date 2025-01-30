@@ -1,9 +1,10 @@
 'use client'
 
-import React, { Fragment, useCallback } from 'react'
+import type { Install } from '@cloud/_api/fetchInstalls.js'
+import type { TeamWithCustomer } from '@cloud/_api/fetchTeam.js'
+import type { Plan, Project, Team, Template, User } from '@root/payload-cloud-types.js'
+
 import { revalidateCache } from '@cloud/_actions/revalidateCache.js'
-import { Install } from '@cloud/_api/fetchInstalls.js'
-import { TeamWithCustomer } from '@cloud/_api/fetchTeam.js'
 import { BranchSelector } from '@cloud/_components/BranchSelector/index.js'
 import { ComparePlans } from '@cloud/_components/ComparePlans/index.js'
 import { CreditCardSelector } from '@cloud/_components/CreditCardSelector/index.js'
@@ -13,6 +14,12 @@ import { TeamSelector } from '@cloud/_components/TeamSelector/index.js'
 import { UniqueDomain } from '@cloud/_components/UniqueDomain/index.js'
 import { UniqueProjectSlug } from '@cloud/_components/UniqueSlug/index.js'
 import { cloudSlug } from '@cloud/slug.js'
+import { Accordion } from '@components/Accordion/index.js'
+import { Button } from '@components/Button/index.js'
+import { Gutter } from '@components/Gutter/index.js'
+import { Heading } from '@components/Heading/index.js'
+import { HR } from '@components/HR/index.js'
+import { Message } from '@components/Message/index.js'
 import { Checkbox } from '@forms/fields/Checkbox/index.js'
 import { Select } from '@forms/fields/Select/index.js'
 import { Text } from '@forms/fields/Text/index.js'
@@ -20,27 +27,21 @@ import Form from '@forms/Form/index.js'
 import FormSubmissionError from '@forms/FormSubmissionError/index.js'
 import Label from '@forms/Label/index.js'
 import Submit from '@forms/Submit/index.js'
+import { priceFromJSON } from '@root/utilities/price-from-json.js'
 import { Elements, useElements, useStripe } from '@stripe/react-stripe-js'
 import { loadStripe, type PaymentMethod } from '@stripe/stripe-js'
 import Link from 'next/link'
-
 import { redirect, useRouter } from 'next/navigation'
+import React, { Fragment, useCallback } from 'react'
+import { toast } from 'sonner'
 
-import { Button } from '@components/Button/index.js'
-import { Gutter } from '@components/Gutter/index.js'
-import { Heading } from '@components/Heading/index.js'
-import { Accordion } from '@components/Accordion/index.js'
-import { HR } from '@components/HR/index.js'
-import { Message } from '@components/Message/index.js'
-import { Plan, Project, Team, Template, User } from '@root/payload-cloud-types.js'
-import { priceFromJSON } from '@root/utilities/price-from-json.js'
+import type { CheckoutState } from './reducer.js'
+
 import { CloneOrDeployProgress } from '../../cloud/_components/CloneOrDeployProgress/index.js'
+import classes from './Checkout.module.scss'
 import { deploy } from './deploy.js'
 import { EnvVars } from './EnvVars.js'
-import { checkoutReducer, CheckoutState } from './reducer.js'
-
-import classes from './Checkout.module.scss'
-import { toast } from 'sonner'
+import { checkoutReducer } from './reducer.js'
 
 const apiKey = `${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`
 const Stripe = loadStripe(apiKey)
@@ -53,14 +54,14 @@ const title = 'Configure your project'
 // this is to avoid making more Stripe records than necessary
 // a new one is needed each time the plan (including trial), card, or team changes
 const Checkout: React.FC<{
-  project: Project | null | undefined
-  plans: Plan[]
+  initialPaymentMethods?: null | PaymentMethod[]
   installs: Install[]
+  plans: Plan[]
+  project: null | Project | undefined
   templates: Template[]
-  user: User | null | undefined
-  initialPaymentMethods?: PaymentMethod[] | null
-}> = props => {
-  const { project, plans, installs, templates, user, initialPaymentMethods } = props
+  user: null | undefined | User
+}> = (props) => {
+  const { initialPaymentMethods, installs, plans, project, templates, user } = props
   const isClone = Boolean(project?.template)
   const stripe = useStripe()
   const elements = useElements()
@@ -71,10 +72,10 @@ const Checkout: React.FC<{
   const [errorDeleting, setErrorDeleting] = React.useState('')
 
   const [checkoutState, dispatchCheckoutState] = React.useReducer(checkoutReducer, {
+    freeTrial: true,
+    paymentMethod: '',
     plan: project?.plan,
     team: project?.team,
-    paymentMethod: '',
-    freeTrial: true,
   } as CheckoutState)
 
   const handleCardChange = useCallback((incomingPaymentMethod: string) => {
@@ -129,11 +130,11 @@ const Checkout: React.FC<{
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project?.id}`,
         {
-          method: 'DELETE',
           credentials: 'include',
           headers: {
             'Content-Type': 'application/json',
           },
+          method: 'DELETE',
         },
       )
 
@@ -159,15 +160,15 @@ const Checkout: React.FC<{
   const handleSubmit = useCallback(
     async ({ unflattenedData }) => {
       await deploy({
-        project,
         checkoutState,
-        onDeploy,
-        user,
-        stripe,
         elements,
-        unflattenedData,
         installID: project?.installID,
+        onDeploy,
+        project,
         router,
+        stripe,
+        unflattenedData,
+        user,
       })
     },
     [checkoutState, onDeploy, project, user, stripe, elements, router],
@@ -191,7 +192,6 @@ const Checkout: React.FC<{
               <Fragment>
                 <div className={classes.installationSelector}>
                   <TeamSelector
-                    onChange={handleTeamChange}
                     className={classes.teamSelector}
                     initialValue={
                       typeof project?.team === 'object' &&
@@ -200,12 +200,13 @@ const Checkout: React.FC<{
                         ? project?.team?.id
                         : ''
                     }
+                    onChange={handleTeamChange}
                     required
                     user={user}
                   />
                 </div>
                 <div className={classes.totalPriceSection}>
-                  <Label label="Total cost" htmlFor="" />
+                  <Label htmlFor="" label="Total cost" />
                   <p className={classes.totalPrice}>
                     {priceFromJSON(
                       typeof checkoutState?.plan === 'object' &&
@@ -223,10 +224,10 @@ const Checkout: React.FC<{
                   </p>
                 </div>
                 <Button
-                  onClick={deleteProject}
-                  label="Cancel"
                   appearance="text"
                   className={classes.cancel}
+                  label="Cancel"
+                  onClick={deleteProject}
                 />
               </Fragment>
             </div>
@@ -236,19 +237,19 @@ const Checkout: React.FC<{
                   <Heading element="h4" marginTop={false}>
                     Select your plan
                   </Heading>
-                  <ComparePlans plans={plans} handlePlanChange={handlePlanChange} />
+                  <ComparePlans handlePlanChange={handlePlanChange} plans={plans} />
                 </div>
                 <div className={classes.plans}>
                   <PlanSelector
-                    plans={plans}
                     onChange={handlePlanChange}
+                    plans={plans}
                     selectedPlan={checkoutState?.plan}
                   />
                 </div>
                 <Checkbox
-                  label="Free trial, no credit card required"
-                  initialValue={checkoutState?.freeTrial}
                   className={classes.freeTrial}
+                  initialValue={checkoutState?.freeTrial}
+                  label="Free trial, no credit card required"
                   onChange={(value: boolean) => {
                     dispatchCheckoutState({
                       type: 'SET_FREE_TRIAL',
@@ -264,9 +265,8 @@ const Checkout: React.FC<{
                 <Accordion label={<p>Project Details</p>} openOnInit>
                   <div className={classes.projectDetails}>
                     <Select
-                      label="Region"
-                      path="region"
                       initialValue="us-east"
+                      label="Region"
                       options={[
                         {
                           label: 'US East',
@@ -281,19 +281,18 @@ const Checkout: React.FC<{
                           value: 'eu-west',
                         },
                       ]}
+                      path="region"
                       required
                     />
-                    <Text label="Project name" path="name" initialValue={project?.name} required />
+                    <Text initialValue={project?.name} label="Project name" path="name" required />
                     <UniqueProjectSlug
                       initialValue={project?.slug}
-                      teamID={typeof project?.team === 'string' ? project?.team : project?.team?.id}
                       projectID={project?.id}
+                      teamID={typeof project?.team === 'string' ? project?.team : project?.team?.id}
                       validateOnInit={true}
                     />
                     {isClone && (
                       <Select
-                        label="Template"
-                        path="template"
                         disabled
                         initialValue={
                           typeof project?.template === 'object' &&
@@ -302,21 +301,23 @@ const Checkout: React.FC<{
                             ? project?.template?.id
                             : project?.template
                         }
+                        label="Template"
                         options={[
                           { label: 'None', value: '' },
-                          ...(templates || [])?.map(template => ({
+                          ...(templates || [])?.map((template) => ({
                             label: template.name || '',
                             value: template.id,
                           })),
                         ]}
+                        path="template"
                         required
                       />
                     )}
-                    <RepoExists initialValue={project?.repositoryFullName} disabled />
+                    <RepoExists disabled initialValue={project?.repositoryFullName} />
                     <UniqueDomain
+                      id={project?.id}
                       initialValue={project?.defaultDomain}
                       team={checkoutState?.team}
-                      id={project?.id}
                     />
                   </div>
                 </Accordion>
@@ -325,45 +326,50 @@ const Checkout: React.FC<{
                     <Accordion label={<p>Build Settings</p>}>
                       <div className={classes.buildSettings}>
                         <Text
-                          label="Root Directory"
-                          placeholder="/"
-                          path="rootDirectory"
                           initialValue={project?.rootDirectory}
+                          label="Root Directory"
+                          path="rootDirectory"
+                          placeholder="/"
                           required
                         />
                         <Text
+                          description="Example: `pnpm install` or `npm install`"
+                          initialValue={project?.installScript}
                           label="Install Command"
                           path="installScript"
-                          placeholder="yarn install"
-                          initialValue={project?.installScript}
+                          placeholder="pnpm install"
                           required
-                          description="Example: `yarn install` or `npm install`"
                         />
                         <Text
+                          description="Example: `pnpm build` or `npm run build`"
+                          initialValue={project?.buildScript}
                           label="Build Command"
                           path="buildScript"
-                          placeholder="yarn build"
-                          initialValue={project?.buildScript}
+                          placeholder="pnpm build"
                           required
-                          description="Example: `yarn build` or `npm run build`"
                         />
                         <Text
+                          description="Example: `pnpm serve` or `npm run serve`"
+                          initialValue={project?.runScript}
                           label="Serve Command"
                           path="runScript"
-                          placeholder="yarn serve"
-                          initialValue={project?.runScript}
+                          placeholder="pnpm serve"
                           required
-                          description="Example: `yarn serve` or `npm run serve`"
                         />
                         <BranchSelector
-                          repositoryFullName={project?.repositoryFullName}
                           initialValue={project?.deploymentBranch}
+                          repositoryFullName={project?.repositoryFullName}
+                        />
+                        <Checkbox
+                          initialValue={true}
+                          label="Auto deploy on push"
+                          path="autoDeploy"
                         />
                         <Text
+                          description="Example: A Dockerfile in a src directory would require `src/Dockerfile`"
+                          initialValue={project?.dockerfilePath}
                           label="Dockerfile Path"
                           path="dockerfilePath"
-                          initialValue={project?.dockerfilePath}
-                          description="Example: A Dockerfile in a src directory would require `src/Dockerfile`"
                         />
                       </div>
                     </Accordion>
@@ -389,28 +395,28 @@ const Checkout: React.FC<{
                       </p>
                       {checkoutState?.team && (
                         <CreditCardSelector
-                          team={checkoutState?.team}
-                          onChange={handleCardChange}
                           enableInlineSave={false}
                           initialPaymentMethods={initialPaymentMethods}
+                          onChange={handleCardChange}
+                          team={checkoutState?.team}
                         />
                       )}
                     </div>
                   </Accordion>
                 )}
                 <Checkbox
-                  path="agreeToTerms"
+                  className={classes.agreeToTerms}
+                  initialValue={false}
                   label={
                     <div>
                       {'I agree to the '}
-                      <Link href="/cloud-terms" target="_blank" prefetch={false}>
+                      <Link href="/cloud-terms" prefetch={false} target="_blank">
                         Terms of Service
                       </Link>
                     </div>
                   }
+                  path="agreeToTerms"
                   required
-                  className={classes.agreeToTerms}
-                  initialValue={false}
                   validate={(value: boolean) => {
                     return !value
                       ? 'You must agree to the terms of service to deploy your project.'
@@ -423,9 +429,9 @@ const Checkout: React.FC<{
               </div>
               <HR />
               <CloneOrDeployProgress
-                type="deploy"
-                repositoryFullName={project?.repositoryFullName}
                 destination={project?.slug}
+                repositoryFullName={project?.repositoryFullName}
+                type="deploy"
               />
             </div>
           </div>
@@ -436,16 +442,16 @@ const Checkout: React.FC<{
 }
 
 const CheckoutProvider: React.FC<{
-  team: TeamWithCustomer
-  project: Project
-  plans: Plan[]
-  token: string | null
+  initialPaymentMethods?: null | PaymentMethod[]
   installs: Install[]
+  plans: Plan[]
+  project: Project
+  team: TeamWithCustomer
   templates: Template[]
-  user: User | null | undefined
-  initialPaymentMethods?: PaymentMethod[] | null
-}> = props => {
-  const { team, project, token, plans, installs, templates, user, initialPaymentMethods } = props
+  token: null | string
+  user: null | undefined | User
+}> = (props) => {
+  const { initialPaymentMethods, installs, plans, project, team, templates, token, user } = props
 
   if (!project) {
     redirect('/404')
@@ -466,12 +472,12 @@ const CheckoutProvider: React.FC<{
   return (
     <Elements stripe={Stripe}>
       <Checkout
-        project={project}
-        plans={plans}
+        initialPaymentMethods={initialPaymentMethods}
         installs={installs}
+        plans={plans}
+        project={project}
         templates={templates}
         user={user}
-        initialPaymentMethods={initialPaymentMethods}
       />
     </Elements>
   )

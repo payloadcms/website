@@ -1,0 +1,125 @@
+@use '@scss/common' as *;
+
+.toggle {
+  @include btnReset;
+  & {
+    display: flex;
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: var(--theme-elevation-150);
+    border: 1px solid var(--theme-elevation-250);
+    border-radius: 3px;
+    padding: 0.35rem;
+    transition: background-color 200ms linear;
+    cursor: pointer;
+  }
+
+  &:hover {
+    background-color: var(--theme-elevation-100);
+  }
+
+  .label {
+    & {
+      color: var(--color-base-100);
+    }
+  }
+}
+
+.table {
+  & td {
+    white-space: nowrap;
+    padding-block: 0.75rem;
+
+    &:first-child {
+      padding-left: 1.5rem;
+    }
+
+    &:last-child {
+      padding-right: 1.5rem;
+    }
+  }
+  overflow-x: scroll;
+}
+
+.drawerTable {
+  & th {
+    padding-top: 0;
+  }
+  & td {
+    background-color: var(--theme-elevation-100);
+  }
+
+  th:first-child {
+    padding: 0 0.75rem 0.75rem 0.75rem;
+  }
+
+  td:first-child {
+    padding: 0.75rem;
+  }
+
+  :global {
+    #heading-example,
+    .cell-example {
+      display: none;
+    }
+  }
+}
+
+.drawerContent {
+  margin-top: 1rem;
+  z-index: 99;
+}
+
+.code {
+  background-color: var(--color-base-900);
+  -webkit-overflow-scrolling: touch;
+  overflow-x: scroll;
+  pointer-events: all;
+  padding-bottom: 2rem;
+}
+
+@include large-break {
+  .toggle {
+    padding: 0.25rem;
+  }
+
+  .table {
+    & td,
+    & th {
+      padding: 0.5rem;
+    }
+  }
+
+  .drawerTable,
+  .table {
+    font-size: 14px;
+
+    & label {
+      font-size: 11px;
+    }
+  }
+}
+
+@include mid-break {
+  .toggle {
+    padding: 0.15rem;
+  }
+
+  .drawerTable,
+  .table {
+    font-size: 12px;
+
+    & label {
+      font-size: 10px;
+    }
+  }
+
+  .code {
+    padding-bottom: 1.25rem;
+    font-size: 11px;
+  }
+}
+
+.cellPath {
+  @include code;
+}

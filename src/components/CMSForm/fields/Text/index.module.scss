@@ -1,4 +1,4 @@
-@use "../shared.scss";
+@use '../shared.scss';
 @use '@scss/common' as *;
 
 .component {
@@ -33,7 +33,8 @@
     }
   }
 
-  .error, .textLabel {
+  .error,
+  .textLabel {
     width: fit-content;
     margin: 0;
   }
@@ -119,7 +120,8 @@
     transform: translateY(-25%);
   }
 
-  .error, .textLabel {
+  .error,
+  .textLabel {
     font-size: 12px;
   }
 

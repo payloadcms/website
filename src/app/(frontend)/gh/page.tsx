@@ -1,9 +1,9 @@
 'use client'
 
-import { Suspense, useEffect } from 'react'
-import { useSearchParams } from 'next/navigation'
+import type { PopupMessage } from '@root/utilities/use-popup-window.js'
 
-import { PopupMessage } from '@root/utilities/use-popup-window.js'
+import { useSearchParams } from 'next/navigation'
+import { Suspense, useEffect } from 'react'
 
 const Page = () => {
   // do not read `searchParams` prop, see https://github.com/vercel/next.js/issues/43077
@@ -11,7 +11,9 @@ const Page = () => {
 
   useEffect(() => {
     ;(async () => {
-      if (window.opener == null) window.close()
+      if (window.opener == null) {
+        window.close()
+      }
 
       const paramObj = Object.fromEntries(
         searchParams?.entries() || [],

@@ -7,7 +7,7 @@ import type { Fields, Property } from '../types.js'
 export const reduceFieldsToValues = (fields: Fields, unflatten: boolean): Property => {
   const data: Property = {}
 
-  Object.keys(fields).forEach(key => {
+  Object.keys(fields).forEach((key) => {
     if (fields[key].value !== undefined) {
       data[key] = typeof fields[key] === 'object' ? fields[key]?.value : fields[key]
     }

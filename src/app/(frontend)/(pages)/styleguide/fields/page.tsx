@@ -1,20 +1,21 @@
-import React from 'react'
+import type { Metadata } from 'next'
+
+import { Gutter } from '@components/Gutter/index.js'
 import { Checkbox } from '@forms/fields/Checkbox/index.js'
 import { NumberInput } from '@forms/fields/Number/index.js'
 import RadioGroup from '@forms/fields/RadioGroup/index.js'
 import { Select } from '@forms/fields/Select/index.js'
 import { Text } from '@forms/fields/Text/index.js'
 import { Textarea } from '@forms/fields/Textarea/index.js'
-import { Metadata } from 'next'
+import React from 'react'
 
-import { Gutter } from '@components/Gutter/index.js'
 import { StyleguidePageContent } from '../PageContent/index.js'
 
 const Fields: React.FC = () => {
   return (
-    <StyleguidePageContent title="Fields" darkModePadding darkModeMargins>
+    <StyleguidePageContent darkModeMargins darkModePadding title="Fields">
       <Gutter>
-        <Text placeholder="John" label="Text Field" />
+        <Text label="Text Field" placeholder="John" />
         <br />
         <Select
           label="Select Field"
@@ -35,8 +36,8 @@ const Fields: React.FC = () => {
         />
         <br />
         <Select
-          label="Multi-select Field"
           isMulti
+          label="Multi-select Field"
           options={[
             {
               label: 'Option 1',

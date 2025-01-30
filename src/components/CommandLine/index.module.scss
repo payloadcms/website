@@ -1,4 +1,4 @@
-@use "@scss/common" as *;
+@use '@scss/common' as *;
 
 .commandLineButton {
   width: 100%;
@@ -14,7 +14,7 @@
 }
 
 .icon {
-  margin-right: -.25rem;
+  margin-right: -0.25rem;
 }
 
 .lexicalCommandLineWrap {
@@ -52,8 +52,8 @@
     align-items: center;
     justify-content: center;
     color: var(--theme-text);
-    padding: .25rem;
-    border-radius: .25rem;
+    padding: 0.25rem;
+    border-radius: 0.25rem;
     transition: background 0.1s ease;
 
     & > svg {

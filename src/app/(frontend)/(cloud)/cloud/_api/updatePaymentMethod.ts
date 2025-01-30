@@ -1,29 +1,29 @@
 import type { Subscription } from '@cloud/_api/fetchSubscriptions.js'
 
 export const updatePaymentMethod = async (args: {
-  teamID: string
-  subscriptionID: string
   paymentMethod: string
+  subscriptionID: string
+  teamID: string
 }): Promise<Subscription> => {
-  const { teamID, subscriptionID, paymentMethod } = args
+  const { paymentMethod, subscriptionID, teamID } = args
 
   try {
     const req = await fetch(
       `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/${teamID}/subscriptions/${subscriptionID}`,
       {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         body: JSON.stringify({
           default_payment_method: paymentMethod,
         }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'PATCH',
       },
     )
 
-    const res: Subscription & {
+    const res: {
       error?: string
-    } = await req.json()
+    } & Subscription = await req.json()
 
     if (!req.ok) {
       throw new Error(res.error)

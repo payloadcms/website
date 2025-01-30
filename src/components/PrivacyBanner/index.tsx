@@ -1,10 +1,9 @@
 'use client'
 
-import * as React from 'react'
-import Link from 'next/link'
-
 import { Button } from '@components/Button/index.js'
 import { usePrivacy } from '@root/providers/Privacy/index.js'
+import Link from 'next/link'
+import * as React from 'react'
 
 import classes from './index.module.scss'
 
@@ -41,7 +40,7 @@ export const PrivacyBanner: React.FC = () => {
           We use cookies, subject to your consent, to analyze the use of our website and to ensure
           you get the best experience. Third parties with whom we collaborate can also install
           cookies in order to show you personalized advertisements on other websites. Read our{' '}
-          <Link href="/cookie" className={classes.privacyLink} prefetch={false}>
+          <Link className={classes.privacyLink} href="/cookie" prefetch={false}>
             cookie policy
           </Link>{' '}
           for more information.
@@ -49,19 +48,19 @@ export const PrivacyBanner: React.FC = () => {
         <div className={classes.buttonWrap}>
           <Button
             appearance="secondary"
-            label="Dismiss"
             className={classes.rejectButton}
+            label="Dismiss"
             onClick={() => {
-              updateCookieConsent(false, true)
+              updateCookieConsent(false)
               handleCloseBanner()
             }}
           />
           <Button
             appearance="primary"
-            label="Accept"
             className={classes.acceptButton}
+            label="Accept"
             onClick={() => {
-              updateCookieConsent(true, false)
+              updateCookieConsent(true)
               handleCloseBanner()
             }}
           />

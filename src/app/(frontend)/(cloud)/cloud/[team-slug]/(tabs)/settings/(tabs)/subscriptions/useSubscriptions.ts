@@ -9,15 +9,15 @@ import { subscriptionsReducer } from './reducer.js'
 
 export const useSubscriptions = (args: {
   delay?: number
-  initialSubscriptions?: SubscriptionsResult | null
-  team?: Team | null
+  initialSubscriptions?: null | SubscriptionsResult
+  team?: null | Team
 }): {
   cancelSubscription: (subscriptionID: string) => void
   error: string
   isLoading: 'deleting' | 'loading' | 'updating' | false | null
   loadMoreSubscriptions: () => void
   refreshSubscriptions: () => void
-  result: SubscriptionsResult | null
+  result: null | SubscriptionsResult
   updateSubscription: (subscriptionID: string, subscription: Subscription) => void
 } => {
   const { delay, initialSubscriptions, team } = args
@@ -35,7 +35,9 @@ export const useSubscriptions = (args: {
     async (successMessage?: string, starting_after?: string) => {
       let timer: NodeJS.Timeout
 
-      if (isRequesting.current) return
+      if (isRequesting.current) {
+        return
+      }
 
       isRequesting.current = true
 
@@ -47,7 +49,7 @@ export const useSubscriptions = (args: {
           team,
         })
 
-        setTimeout(() => {
+        timer = setTimeout(() => {
           dispatchResult({
             type: starting_after ? 'add' : 'reset',
             payload: subscriptions,
@@ -66,7 +68,6 @@ export const useSubscriptions = (args: {
 
       isRequesting.current = false
 
-      // eslint-disable-next-line consistent-return
       return () => {
         clearTimeout(timer)
       }
@@ -87,14 +88,14 @@ export const useSubscriptions = (args: {
 
   const updateSubscription = useCallback(
     async (stripeSubscriptionID: string, newSubscription: Subscription) => {
-      let timer: NodeJS.Timeout
-
       if (!stripeSubscriptionID) {
         setError('No subscription ID')
         return
       }
 
-      if (isUpdating.current) return
+      if (isUpdating.current) {
+        return
+      }
 
       isUpdating.current = true
 
@@ -128,25 +129,20 @@ export const useSubscriptions = (args: {
       }
 
       isUpdating.current = false
-
-      // eslint-disable-next-line consistent-return
-      return () => {
-        clearTimeout(timer)
-      }
     },
     [refreshSubscriptions, team],
   )
 
   const cancelSubscription = useCallback(
     async (stripeSubscriptionID: string) => {
-      let timer: NodeJS.Timeout
-
       if (!stripeSubscriptionID) {
         setError('No subscription ID')
         return
       }
 
-      if (isDeleting.current) return
+      if (isDeleting.current) {
+        return
+      }
 
       isDeleting.current = true
 
@@ -176,11 +172,6 @@ export const useSubscriptions = (args: {
       }
 
       isDeleting.current = false
-
-      // eslint-disable-next-line consistent-return
-      return () => {
-        clearTimeout(timer)
-      }
     },
     [refreshSubscriptions, team],
   )

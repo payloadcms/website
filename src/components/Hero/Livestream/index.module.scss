@@ -1,4 +1,4 @@
-@use "@scss/common" as *;
+@use '@scss/common' as *;
 
 .livestreamHero {
   position: relative;
@@ -20,7 +20,7 @@
 .videoCell {
   padding: 2rem 0;
 
-  &>*:not(:last-child) {
+  & > *:not(:last-child) {
     margin-bottom: 1rem;
   }
 
@@ -39,10 +39,10 @@
 }
 
 .videoWrap {
-  width: calc(100% + (calc(var(--gutter-h)*0.75)));
+  width: calc(100% + (calc(var(--gutter-h) * 0.75)));
 
   @include extra-large-break {
-    width: calc(100% + (calc(var(--gutter-h)*1)));
+    width: calc(100% + (calc(var(--gutter-h) * 1)));
   }
 
   @include mid-break {
@@ -105,7 +105,6 @@
     margin-bottom: 0;
   }
 }
-
 
 // BG
 

@@ -1,5 +1,5 @@
-import React from 'react'
 import Dynamic from 'next/dynamic'
+import React from 'react'
 
 import classes from './index.module.scss'
 

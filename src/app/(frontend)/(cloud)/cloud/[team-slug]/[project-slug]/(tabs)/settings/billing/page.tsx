@@ -1,23 +1,23 @@
-import * as React from 'react'
+import type { Metadata } from 'next'
+
 import { fetchMe } from '@cloud/_api/fetchMe.js'
 import { fetchPaymentMethods } from '@cloud/_api/fetchPaymentMethods.js'
 import { fetchProjectAndRedirect, ProjectWithSubscription } from '@cloud/_api/fetchProject.js'
 import { ProjectPaymentMethodSelector } from '@cloud/_components/CreditCardSelector/ProjectPaymentMethodSelector.js'
 import { cloudSlug } from '@cloud/slug.js'
-import { Text } from '@forms/fields/Text/index.js'
-import { Metadata } from 'next'
-import Link from 'next/link'
-
 import { Heading } from '@components/Heading/index.js'
 import { MaxWidth } from '@components/MaxWidth/index.js'
 import { Message } from '@components/Message/index.js'
+import { Text } from '@forms/fields/Text/index.js'
+import { PRODUCTION_ENVIRONMENT_SLUG } from '@root/constants.js'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
 import { checkTeamRoles } from '@root/utilities/check-team-roles.js'
-import { SectionHeader } from '../_layoutComponents/SectionHeader/index.js'
-
-import classes from './page.module.scss'
 import { generateRoutePath } from '@root/utilities/generate-route-path.js'
-import { PRODUCTION_ENVIRONMENT_SLUG } from '@root/constants.js'
+import Link from 'next/link'
+import * as React from 'react'
+
+import { SectionHeader } from '../_layoutComponents/SectionHeader/index.js'
+import classes from './page.module.scss'
 
 const statusLabels = {
   active: 'Active',
@@ -25,32 +25,32 @@ const statusLabels = {
   incomplete: 'Incomplete',
   incomplete_expired: 'Incomplete Expired',
   past_due: 'Past Due',
-  trialing: 'Trialing',
-  unpaid: 'Unpaid',
   paused: 'Paused',
+  trialing: 'Trialing',
   unknown: 'Unknown',
+  unpaid: 'Unpaid',
 }
 
 export default async ({
   params,
 }: {
   params: Promise<{
-    'team-slug': string
-    'project-slug': string
     'environment-slug': string
+    'project-slug': string
+    'team-slug': string
   }>
 }) => {
   const {
-    'team-slug': teamSlug,
-    'project-slug': projectSlug,
     'environment-slug': environmentSlug = PRODUCTION_ENVIRONMENT_SLUG,
+    'project-slug': projectSlug,
+    'team-slug': teamSlug,
   } = await params
   const { user } = await fetchMe()
 
-  const { team, project } = await fetchProjectAndRedirect({
-    teamSlug,
-    projectSlug,
+  const { project, team } = await fetchProjectAndRedirect({
     environmentSlug,
+    projectSlug,
+    teamSlug,
   })
 
   const isCurrentTeamOwner = checkTeamRoles(user, team, ['owner'])
@@ -68,7 +68,7 @@ export default async ({
 
   return (
     <MaxWidth>
-      <SectionHeader title="Project billing" className={classes.header} />
+      <SectionHeader className={classes.header} title="Project billing" />
       {!hasCustomerID && (
         <p className={classes.error}>
           This team does not have a billing account. Please contact support to resolve this issue.
@@ -81,30 +81,30 @@ export default async ({
       )}
       <div className={classes.fields}>
         <Text
-          value={project?.id}
-          label="Project ID"
-          disabled
           description="This is your project's ID within Payload"
+          disabled
+          label="Project ID"
+          value={project?.id}
         />
         {hasCustomerID && hasSubscriptionID && (
           <React.Fragment>
             <Text
-              disabled
-              value={project?.stripeSubscriptionID}
-              label="Subscription ID"
               description="This is the ID of the subscription for this project."
+              disabled
+              label="Subscription ID"
+              value={project?.stripeSubscriptionID}
             />
             <Text
-              value={statusLabels?.[project?.stripeSubscriptionStatus || 'unknown']}
-              label="Subscription Status"
               disabled
+              label="Subscription Status"
+              value={statusLabels?.[project?.stripeSubscriptionStatus || 'unknown']}
             />
             {!isCurrentTeamOwner && (
               <p className={classes.error}>You must be an owner of this team to manage billing.</p>
             )}
             {isCurrentTeamOwner && (
               <React.Fragment>
-                <Heading marginBottom={false} element="h6">
+                <Heading element="h6" marginBottom={false}>
                   Payment Method
                 </Heading>
                 {isFreeTier && (
@@ -120,9 +120,9 @@ export default async ({
                   {`.`}
                 </p>
                 <ProjectPaymentMethodSelector
-                  team={team}
-                  project={project}
                   initialPaymentMethods={paymentMethods}
+                  project={project}
+                  team={team}
                 />
               </React.Fragment>
             )}
@@ -137,26 +137,26 @@ export async function generateMetadata({
   params,
 }: {
   params: Promise<{
-    'team-slug': string
-    'project-slug': string
     'environment-slug': string
+    'project-slug': string
+    'team-slug': string
   }>
 }): Promise<Metadata> {
   const {
-    'team-slug': teamSlug,
-    'project-slug': projectSlug,
     'environment-slug': environmentSlug = PRODUCTION_ENVIRONMENT_SLUG,
+    'project-slug': projectSlug,
+    'team-slug': teamSlug,
   } = await params
   return {
-    title: 'Billing',
     openGraph: mergeOpenGraph({
       title: 'Billing',
       url: generateRoutePath({
-        teamSlug,
-        projectSlug,
         environmentSlug,
+        projectSlug,
         suffix: 'settings/billing',
+        teamSlug,
       }),
     }),
+    title: 'Billing',
   }
 }

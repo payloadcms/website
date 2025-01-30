@@ -29,7 +29,7 @@ html {
     white-space: pre-wrap;
   }
 
-  &[data-theme=light] {
+  &[data-theme='light'] {
     .Box-header {
       background-color: var(--theme-elevation-50);
     }
@@ -42,8 +42,8 @@ html {
     }
   }
 
-  &[data-theme=dark],
-  &[data-theme=light] {
+  &[data-theme='dark'],
+  &[data-theme='light'] {
     /*!
     * GitHub Dark v0.5.0
     * Copyright (c) 2012 - 2017 GitHub, Inc.
@@ -52,8 +52,7 @@ html {
 
     .pl-c
 
-    /* comment, punctuation.definition.comment, string.comment */
-      {
+    /* comment, punctuation.definition.comment, string.comment */ {
       color: #959da5;
     }
 
@@ -62,8 +61,7 @@ html {
     ,
     .pl-s .pl-v
 
-    /* string variable */
-      {
+    /* string variable */ {
       color: var(--color-blue-200);
     }
 
@@ -72,8 +70,7 @@ html {
     ,
     .pl-en
 
-    /* entity.name */
-      {
+    /* entity.name */ {
       color: var(--color-warning-500);
     }
 
@@ -82,22 +79,19 @@ html {
     ,
     .pl-s .pl-s1
 
-    /* string source */
-      {
+    /* string source */ {
       color: var(--theme-success-450);
     }
 
     .pl-ent
 
-    /* entity.name.tag */
-      {
+    /* entity.name.tag */ {
       color: #7bcc72;
     }
 
     .pl-k
 
-    /* keyword, storage, storage.type */
-      {
+    /* keyword, storage, storage.type */ {
       color: var(--theme-success-450);
     }
 
@@ -121,8 +115,7 @@ html {
     ,
     .pl-sr .pl-sra
 
-    /* string.regexp string.regexp.arbitrary-repitition */
-      {
+    /* string.regexp string.regexp.arbitrary-repitition */ {
       color: var(--color-blue-200);
     }
 
@@ -131,45 +124,39 @@ html {
     ,
     .pl-ml
 
-    /* markup.list, sublimelinter.mark.warning */
-      {
+    /* markup.list, sublimelinter.mark.warning */ {
       color: #fb8532;
     }
 
     .pl-bu
 
-    /* invalid.broken, invalid.deprecated, invalid.unimplemented, message.error, brackethighlighter.unmatched, sublimelinter.mark.error */
-      {
+    /* invalid.broken, invalid.deprecated, invalid.unimplemented, message.error, brackethighlighter.unmatched, sublimelinter.mark.error */ {
       color: #d73a49;
     }
 
     .pl-ii
 
-    /* invalid.illegal */
-      {
+    /* invalid.illegal */ {
       color: #fafbfc;
       background-color: #d73a49;
     }
 
     .pl-c2
 
-    /* carriage-return */
-      {
+    /* carriage-return */ {
       color: #fafbfc;
       background-color: #d73a49;
     }
 
     .pl-c2::before
 
-    /* carriage-return */
-      {
-      content: "^M";
+    /* carriage-return */ {
+      content: '^M';
     }
 
     .pl-sr .pl-cce
 
-    /* string.regexp constant.character.escape */
-      {
+    /* string.regexp constant.character.escape */ {
       font-weight: bold;
       color: #7bcc72;
     }
@@ -182,97 +169,84 @@ html {
     ,
     .pl-ms
 
-    /* meta.separator */
-      {
+    /* meta.separator */ {
       font-weight: bold;
       color: #0366d6;
     }
 
     .pl-mi
 
-    /* markup.italic */
-      {
+    /* markup.italic */ {
       font-style: italic;
       color: #f6f8fa;
     }
 
     .pl-mb
 
-    /* markup.bold */
-      {
+    /* markup.bold */ {
       font-weight: bold;
       color: #f6f8fa;
     }
 
     .pl-md
 
-    /* markup.deleted, meta.diff.header.from-file, punctuation.definition.deleted */
-      {
+    /* markup.deleted, meta.diff.header.from-file, punctuation.definition.deleted */ {
       color: #b31d28;
       background-color: #ffeef0;
     }
 
     .pl-mi1
 
-    /* markup.inserted, meta.diff.header.to-file, punctuation.definition.inserted */
-      {
+    /* markup.inserted, meta.diff.header.to-file, punctuation.definition.inserted */ {
       color: #176f2c;
       background-color: #f0fff4;
     }
 
     .pl-mc
 
-    /* markup.changed, punctuation.definition.changed */
-      {
+    /* markup.changed, punctuation.definition.changed */ {
       color: #b08800;
       background-color: #fffdef;
     }
 
     .pl-mi2
 
-    /* markup.ignored, markup.untracked */
-      {
+    /* markup.ignored, markup.untracked */ {
       color: #2f363d;
       background-color: #959da5;
     }
 
     .pl-mdr
 
-    /* meta.diff.range */
-      {
+    /* meta.diff.range */ {
       font-weight: bold;
       color: #b392f0;
     }
 
     .pl-mo
 
-    /* meta.output */
-      {
+    /* meta.output */ {
       color: #0366d6;
     }
 
     .pl-ba
 
-    /* brackethighlighter.tag, brackethighlighter.curly, brackethighlighter.round, brackethighlighter.square, brackethighlighter.angle, brackethighlighter.quote */
-      {
+    /* brackethighlighter.tag, brackethighlighter.curly, brackethighlighter.round, brackethighlighter.square, brackethighlighter.angle, brackethighlighter.quote */ {
       color: #ffeef0;
     }
 
     .pl-sg
 
-    /* sublimelinter.gutter-mark */
-      {
+    /* sublimelinter.gutter-mark */ {
       color: #6a737d;
     }
 
     .pl-corl
 
-    /* constant.other.reference.link, string.other.link */
-      {
+    /* constant.other.reference.link, string.other.link */ {
       text-decoration: underline;
       color: var(--color-blue-200);
     }
-
 
     .pl-s1 {
       color: var(--color-base-50);

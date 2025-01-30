@@ -83,7 +83,7 @@
   }
 }
 
-:global([data-theme="light"]) {
+:global([data-theme='light']) {
   .content {
     color: var(--color-base-100);
   }

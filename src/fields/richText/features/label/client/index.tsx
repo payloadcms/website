@@ -7,12 +7,12 @@ import {
 import { $getSelection, $isRangeSelection } from '@payloadcms/richtext-lexical/lexical'
 import { $setBlocksType } from '@payloadcms/richtext-lexical/lexical/selection'
 import { $findMatchingParent } from '@payloadcms/richtext-lexical/lexical/utils'
+import { LabelIcon } from '@root/fields/richText/features/label/client/icon'
 import {
   $createLabelNode,
   $isLabelNode,
   LabelNode,
 } from '@root/fields/richText/features/label/LabelNode'
-import { LabelIcon } from '@root/fields/richText/features/label/client/icon'
 
 import './styles.scss'
 

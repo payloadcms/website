@@ -1,26 +1,26 @@
 'use client'
 
-import * as React from 'react'
-import { formatDate } from '@utilities/format-date-time.js'
+import type { Page } from '@root/payload-types.js'
 
 import { Breadcrumbs } from '@components/Breadcrumbs/index.js'
 import { Button } from '@components/Button/index.js'
 import { Gutter } from '@components/Gutter/index.js'
 import { RichText } from '@components/RichText/index.js'
 import { Video } from '@components/RichText/Video/index.js'
-import { Page } from '@root/payload-types.js'
+import { formatDate } from '@utilities/format-date-time.js'
+import * as React from 'react'
 
 import classes from './index.module.scss'
 
 export const LivestreamHero: React.FC<{
-  livestream: NonNullable<Page['hero']['livestream']>
   breadcrumbs?: Page['breadcrumbs']
   links?: Page['hero']['links']
-}> = props => {
+  livestream: NonNullable<Page['hero']['livestream']>
+}> = (props) => {
   const {
     breadcrumbs,
-    livestream: { id: youtubeID = '', hideBreadcrumbs, date, guests, richText },
     links,
+    livestream: { id: youtubeID = '', date, guests, hideBreadcrumbs, richText },
   } = props
 
   const today = new Date()
@@ -31,7 +31,7 @@ export const LivestreamHero: React.FC<{
     <div data-theme="dark">
       <div className={classes.livestreamHero}>
         <div className={classes.bgWrapper}>
-          <Gutter disableMobile className={classes.bgGutter}>
+          <Gutter className={classes.bgGutter} disableMobile>
             <div className={classes.bg1}></div>
           </Gutter>
         </div>
@@ -52,14 +52,14 @@ export const LivestreamHero: React.FC<{
           <div className={['grid'].filter(Boolean).join(' ')}>
             <div className={['cols-8 cols-m-8 start-m-1'].filter(Boolean).join(' ')}>
               {breadcrumbs && !hideBreadcrumbs && (
-                <Breadcrumbs items={breadcrumbs} ellipsis={false} />
+                <Breadcrumbs ellipsis={false} items={breadcrumbs} />
               )}
               {richText && <RichText content={richText} />}
               {guests &&
                 Array.isArray(guests) &&
-                guests.map(({ name, link, image }, i) => {
+                guests.map(({ name, image, link }, i) => {
                   return (
-                    <a className={classes.guestWrap} key={i} href={link || '/'} target="_blank">
+                    <a className={classes.guestWrap} href={link || '/'} key={i} target="_blank">
                       {image && typeof image !== 'string' && (
                         <img src={`${process.env.NEXT_PUBLIC_CMS_URL}${image.url}`} />
                       )}
@@ -79,10 +79,9 @@ export const LivestreamHero: React.FC<{
                   &nbsp;
                   {Array.isArray(links) &&
                     links.map(({ link }, i) => {
-                      const { appearance, url, label } = link || {}
+                      const { appearance, label, url } = link || {}
                       return (
                         <Button
-                          key={i}
                           appearance={appearance}
                           className={[classes.link, appearance && classes[`link--${appearance}`]]
                             .filter(Boolean)
@@ -90,6 +89,7 @@ export const LivestreamHero: React.FC<{
                           el="a"
                           href={url}
                           icon="arrow"
+                          key={i}
                           label={label}
                         />
                       )
@@ -104,13 +104,13 @@ export const LivestreamHero: React.FC<{
                   .join(' ')}
               >
                 <div className={classes.videoWrap}>
-                  <Video platform="youtube" id={youtubeID} />
+                  <Video id={youtubeID} platform="youtube" />
                   <Button
                     className={[classes.link, classes[`link--default`]].join(' ')}
                     el="a"
                     href={`https://www.youtube.com/watch?v=${youtubeID}`}
-                    label="Go watch on youtube"
                     icon="arrow"
+                    label="Go watch on youtube"
                   />
                 </div>
               </div>

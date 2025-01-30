@@ -1,40 +1,41 @@
-import React, { Fragment } from 'react'
-import { ArrowIcon } from '@icons/ArrowIcon/index.js'
+import type { PaddingProps } from '@components/BlockWrapper/index.js'
+import type { Page } from '@root/payload-types.js'
 
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
 import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
 import { BlockSpacing } from '@components/BlockSpacing/index.js'
-import { BlockWrapper, PaddingProps } from '@components/BlockWrapper/index.js'
+import { BlockWrapper } from '@components/BlockWrapper/index.js'
 import { CMSLink } from '@components/CMSLink/index.js'
 import { Gutter } from '@components/Gutter/index.js'
 import { Media } from '@components/Media/index.js'
 import MediaParallax from '@components/MediaParallax/index.js'
 import { RichText } from '@components/RichText/index.js'
+import { ArrowIcon } from '@icons/ArrowIcon/index.js'
 import { QuoteIconAlt } from '@root/icons/QuoteIconAlt/index.js'
-import { Page } from '@root/payload-types.js'
+import React, { Fragment } from 'react'
 
 import classes from './index.module.scss'
 
-export type CalloutProps = Extract<Page['layout'][0], { blockType: 'callout' }> & {
-  padding: PaddingProps
+export type CalloutProps = {
   hideBackground?: boolean
-}
+  padding: PaddingProps
+} & Extract<Page['layout'][0], { blockType: 'callout' }>
 
-export const Callout: React.FC<CalloutProps> = props => {
+export const Callout: React.FC<CalloutProps> = (props) => {
   const {
-    calloutFields: { richText, role, author, logo, images, settings },
-    padding,
+    calloutFields: { author, images, logo, richText, role, settings },
     hideBackground,
+    padding,
   } = props
   const hasImages = images?.length && images.length > 0
 
   return (
-    <BlockWrapper settings={settings} padding={padding} hideBackground={hideBackground}>
+    <BlockWrapper hideBackground={hideBackground} padding={padding} settings={settings}>
       <BackgroundGrid className={classes.backgroundGrid} zIndex={0} />
       <div className={classes.wrapper}>
         <Gutter>
           <div className={[classes.container, 'grid'].filter(Boolean).join(' ')}>
-            <BackgroundScanline className={classes.scanline} enableBorders crosshairs={'all'} />
+            <BackgroundScanline className={classes.scanline} crosshairs={'all'} enableBorders />
             <div
               className={[
                 classes.contentWrapper,
@@ -47,8 +48,8 @@ export const Callout: React.FC<CalloutProps> = props => {
             >
               <QuoteIconAlt className={classes.quoteIcon} />
               <RichText
-                content={richText}
                 className={[classes.content].filter(Boolean).join(' ')}
+                content={richText}
               />
               <div className={[classes.authorWrapper, 'cols-12'].filter(Boolean).join(' ')}>
                 <div className={classes.logo}>

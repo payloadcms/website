@@ -1,37 +1,34 @@
 'use client'
-import React, { createRef, Fragment, useEffect, useRef, useState } from 'react'
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleGroup,
-  CollapsibleToggler,
-} from '@faceless-ui/collapsibles'
-import Image from 'next/image'
+import type { Page } from '@root/payload-types.js'
 
 import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
 import { CMSLink } from '@components/CMSLink/index.js'
 import { Media } from '@components/Media/index.js'
 import { RichText } from '@components/RichText/index.js'
 import SplitAnimate from '@components/SplitAnimate/index.js'
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleGroup,
+  CollapsibleToggler,
+} from '@faceless-ui/collapsibles'
 import { ArrowRightIcon } from '@root/icons/ArrowRightIcon/index.js'
 import { ChevronDownIcon } from '@root/icons/ChevronDownIcon/index.js'
 import { CrosshairIcon } from '@root/icons/CrosshairIcon/index.js'
-import { Page } from '@root/payload-types.js'
+import Image from 'next/image'
+import React, { createRef, Fragment, useEffect, useRef, useState } from 'react'
 
 import classes from './index.module.scss'
 
-export type MediaContentAccordionProps = Extract<
-  Page['layout'][0],
-  { blockType: 'mediaContentAccordion' }
-> & {
+export type MediaContentAccordionProps = {
   className?: string
-}
+} & Extract<Page['layout'][0], { blockType: 'mediaContentAccordion' }>
 
 export const DesktopMediaContentAccordion: React.FC<MediaContentAccordionProps> = ({
-  mediaContentAccordionFields,
   className,
+  mediaContentAccordionFields,
 }) => {
-  const { alignment, leader, heading, accordion } = mediaContentAccordionFields || {}
+  const { accordion, alignment, heading, leader } = mediaContentAccordionFields || {}
 
   const mediaRefs = useRef<Array<React.RefObject<HTMLDivElement>>>([])
   const [containerHeight, setContainerHeight] = useState(0)
@@ -65,7 +62,7 @@ export const DesktopMediaContentAccordion: React.FC<MediaContentAccordionProps> 
     updateContainerHeight()
     updateContentWidth()
 
-    const resizeObserver = new ResizeObserver(entries => {
+    const resizeObserver = new ResizeObserver((entries) => {
       updateContainerHeight()
       updateContentWidth()
     })
@@ -79,14 +76,14 @@ export const DesktopMediaContentAccordion: React.FC<MediaContentAccordionProps> 
   }, [activeAccordion])
 
   const rightPositionClassMap = {
-    normal: 'start-9 cols-8 start-m-1 cols-m-8',
     inset: 'start-10 cols-6 start-m-1 cols-m-8',
+    normal: 'start-9 cols-8 start-m-1 cols-m-8',
     wide: 'start-7 cols-12 start-m-1 cols-m-8',
   }
 
   const leftPositionClassMap = {
-    normal: 'start-1 cols-8 start-m-1 cols-m-8',
     inset: 'start-2 cols-6 start-m-1 cols-m-8',
+    normal: 'start-1 cols-8 start-m-1 cols-m-8',
     wide: 'start-1 cols-12 start-m-1 cols-m-8',
   }
 
@@ -116,9 +113,9 @@ export const DesktopMediaContentAccordion: React.FC<MediaContentAccordionProps> 
                         <Image
                           alt=""
                           className={classes.gradientBg}
-                          width={1920}
                           height={946}
                           src={`/images/gradients/1.jpg`}
+                          width={1920}
                         />
                         <CrosshairIcon
                           className={[classes.crosshairTopOne].filter(Boolean).join(' ')}
@@ -177,17 +174,17 @@ export const DesktopMediaContentAccordion: React.FC<MediaContentAccordionProps> 
                   </>
                 )}
                 <div
-                  ref={mediaRefs.current[index]}
                   className={[
                     classes.mediaDesktopContainer,
                     leftPositionClassMap[item.position as keyof typeof leftPositionClassMap],
                   ]
                     .filter(Boolean)
                     .join(' ')}
+                  ref={mediaRefs.current[index]}
                   style={{
+                    left: item.position === 'wide' ? `calc(-1 * ${contentWidth}px / 2)` : '0px',
                     opacity: index === activeAccordion ? 1 : 0,
                     width: '100%',
-                    left: item.position === 'wide' ? `calc(-1 * ${contentWidth}px / 2)` : '0px',
                   }}
                 >
                   {typeof item.media === 'object' && item.media !== null && (
@@ -196,7 +193,7 @@ export const DesktopMediaContentAccordion: React.FC<MediaContentAccordionProps> 
                 </div>
               </Fragment>
             ))}
-          <div ref={contentRef} className={['cols-4 start-13 cols-m-8'].filter(Boolean).join(' ')}>
+          <div className={['cols-4 start-13 cols-m-8'].filter(Boolean).join(' ')} ref={contentRef}>
             <div className={[classes.introWrapper].filter(Boolean).join(' ')}>
               {leader && <div className={classes.leader}>{leader}</div>}
               {heading && (
@@ -206,17 +203,17 @@ export const DesktopMediaContentAccordion: React.FC<MediaContentAccordionProps> 
               )}
             </div>
             <div>
-              <CollapsibleGroup allowMultiple={false} transTime={500} transCurve="ease-in-out">
+              <CollapsibleGroup allowMultiple={false} transCurve="ease-in-out" transTime={500}>
                 {hasAccordion &&
                   accordion.map((item, index) => (
                     <div
-                      key={item.id || index}
                       className={[
                         classes.collapsibleWrapper,
                         activeAccordion === index ? classes.activeLeftBorder : '',
                       ]
                         .filter(Boolean)
                         .join(' ')}
+                      key={item.id || index}
                     >
                       <Collapsible
                         onToggle={() => toggleAccordion(index)}
@@ -263,7 +260,7 @@ export const DesktopMediaContentAccordion: React.FC<MediaContentAccordionProps> 
         </Fragment>
       ) : (
         <Fragment>
-          <div ref={contentRef} className={['cols-4 start-1 cols-m-8'].filter(Boolean).join(' ')}>
+          <div className={['cols-4 start-1 cols-m-8'].filter(Boolean).join(' ')} ref={contentRef}>
             <div className={[classes.introWrapper].filter(Boolean).join(' ')}>
               {leader && <div className={classes.leader}>{leader}</div>}
               {heading && (
@@ -273,17 +270,17 @@ export const DesktopMediaContentAccordion: React.FC<MediaContentAccordionProps> 
               )}
             </div>
             <div>
-              <CollapsibleGroup allowMultiple={false} transTime={500} transCurve="ease-in-out">
+              <CollapsibleGroup allowMultiple={false} transCurve="ease-in-out" transTime={500}>
                 {hasAccordion &&
                   accordion.map((item, index) => (
                     <div
-                      key={item.id || index}
                       className={[
                         classes.collapsibleWrapper,
                         activeAccordion === index ? classes.activeLeftBorder : '',
                       ]
                         .filter(Boolean)
                         .join(' ')}
+                      key={item.id || index}
                     >
                       <Collapsible
                         onToggle={() => toggleAccordion(index)}
@@ -345,9 +342,9 @@ export const DesktopMediaContentAccordion: React.FC<MediaContentAccordionProps> 
                         <Image
                           alt=""
                           className={classes.gradientBg}
-                          width={1920}
                           height={946}
                           src={`/images/gradients/1.jpg`}
+                          width={1920}
                         />
                         <CrosshairIcon
                           className={[classes.crosshairTopOne].filter(Boolean).join(' ')}
@@ -406,13 +403,13 @@ export const DesktopMediaContentAccordion: React.FC<MediaContentAccordionProps> 
                   </>
                 )}
                 <div
-                  ref={mediaRefs.current[index]}
                   className={[
                     classes.mediaDesktopContainer,
                     rightPositionClassMap[item.position as keyof typeof rightPositionClassMap],
                   ]
                     .filter(Boolean)
                     .join(' ')}
+                  ref={mediaRefs.current[index]}
                   style={{
                     opacity: index === activeAccordion ? 1 : 0,
                     width: item.position === 'wide' ? `calc(100% + ${contentWidth}px / 2)` : '100%',

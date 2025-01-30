@@ -1,12 +1,11 @@
 'use client'
 
-import React, { createContext, useContext, useEffect, useReducer, useRef, useState } from 'react'
-import Link from 'next/link'
-
-import { usePathname } from 'next/navigation'
-
 import { ChainLinkIcon } from '@root/icons/ChainLinkIcon/index.js'
-import { IContext, NodeProps, Props, Reducer } from './types.js'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import React, { createContext, useContext, useEffect, useReducer, useRef, useState } from 'react'
+
+import type { IContext, NodeProps, Props, Reducer } from './types.js'
 
 import classes from './index.module.scss'
 
@@ -27,7 +26,7 @@ export const JumplistProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const [lastActive, setLastActive] = useState<string | undefined>()
 
   return (
-    <Context.Provider value={{ items, dispatch, lastActive, setLastActive }}>
+    <Context.Provider value={{ dispatch, items, lastActive, setLastActive }}>
       {children}
     </Context.Provider>
   )
@@ -35,7 +34,7 @@ export const JumplistProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
 export const useJumplist = (): IContext => useContext(Context)
 
-export const Jumplist: React.FC<Props> = ({ list, className, injectProps }) => {
+export const Jumplist: React.FC<Props> = ({ className, injectProps, list }) => {
   const { items, lastActive } = useJumplist()
   const pathname = usePathname()
 
@@ -60,7 +59,7 @@ const elements = {
   h6: 'h6',
 }
 
-export const JumplistNode: React.FC<NodeProps> = ({ children, id, type }) => {
+export const JumplistNode: React.FC<NodeProps> = ({ id, type, children }) => {
   const ref = useRef<HTMLDivElement>(null)
   const { dispatch, setLastActive } = useJumplist()
   const pathname = usePathname()
@@ -70,11 +69,13 @@ export const JumplistNode: React.FC<NodeProps> = ({ children, id, type }) => {
       const el = ref.current
 
       const observer = new IntersectionObserver(
-        entries => {
-          entries.forEach(entry => {
+        (entries) => {
+          entries.forEach((entry) => {
             dispatch({ id, active: entry.isIntersecting })
 
-            if (entry.isIntersecting) setLastActive(id)
+            if (entry.isIntersecting) {
+              setLastActive(id)
+            }
           })
         },
         {
@@ -93,9 +94,9 @@ export const JumplistNode: React.FC<NodeProps> = ({ children, id, type }) => {
   const Element: any = elements[type]
 
   return (
-    <Link href={`${pathname}/#${id}`} replace className={classes.node} id={id}>
+    <Link className={classes.node} href={`${pathname}/#${id}`} id={id} replace>
       <Element ref={ref}>
-        <ChainLinkIcon size="large" className={classes.linkedHeading} />
+        <ChainLinkIcon className={classes.linkedHeading} size="large" />
         {children}
       </Element>
     </Link>

@@ -22,7 +22,7 @@
     margin-left: 1.75rem;
   }
 
-  &:nth-child(2n+3) {
+  &:nth-child(2n + 3) {
     margin-top: 1.75rem;
   }
 
@@ -61,7 +61,7 @@
 
   @include large-break {
     & svg {
-      width: unset
+      width: unset;
     }
   }
 
@@ -81,7 +81,7 @@
   }
 }
 
-:global([data-theme="light"]) {
+:global([data-theme='light']) {
   .attachment {
     background-color: var(--theme-elevation-200);
 

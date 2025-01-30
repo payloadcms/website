@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import type { Media as MediaType } from '@root/payload-types.js'
 
+import { BackgroundScanline } from '@components/BackgroundScanline'
 import { Media } from '@components/Media/index.js'
 import { CrosshairIcon } from '@root/icons/CrosshairIcon/index.js'
-import { Media as MediaType } from '@root/payload-types.js'
-import { BackgroundScanline } from '@components/BackgroundScanline'
+import React, { useEffect, useState } from 'react'
 
 import classes from './index.module.scss'
 
@@ -11,7 +11,7 @@ type LogoItem = MediaType
 
 export const LogoShowcase: React.FC<{ logos: Array<MediaType> }> = ({ logos }) => {
   const [activeLogos, setActiveLogos] = useState<LogoItem[]>([])
-  const [animatingIndex, setAnimatingIndex] = useState<number | null>(null)
+  const [animatingIndex, setAnimatingIndex] = useState<null | number>(null)
   const [inactiveLogos, setInactiveLogos] = useState<LogoItem[]>([])
 
   useEffect(() => {
@@ -24,7 +24,9 @@ export const LogoShowcase: React.FC<{ logos: Array<MediaType> }> = ({ logos }) =
   }, [logos])
 
   useEffect(() => {
-    if (!logos || logos.length === 0 || logos.length <= 6) return
+    if (!logos || logos.length === 0 || logos.length <= 6) {
+      return
+    }
 
     const interval = setInterval(() => {
       const nextIndex = Math.floor(Math.random() * 6)
@@ -36,7 +38,7 @@ export const LogoShowcase: React.FC<{ logos: Array<MediaType> }> = ({ logos }) =
     return () => clearInterval(interval)
   })
 
-  const swapLogo = index => {
+  const swapLogo = (index) => {
     const newActive = [...activeLogos]
     const newInactive = [...inactiveLogos]
 
@@ -51,7 +53,7 @@ export const LogoShowcase: React.FC<{ logos: Array<MediaType> }> = ({ logos }) =
   return (
     <div className={classes.logoGrid}>
       {activeLogos.map((logo, index) => (
-        <Cell key={index} logo={logo} active={animatingIndex} index={index} />
+        <Cell active={animatingIndex} index={index} key={index} logo={logo} />
       ))}
       <CrosshairIcon className={classes.crosshairTop} />
       <CrosshairIcon className={classes.crosshairBottom} />
@@ -60,18 +62,18 @@ export const LogoShowcase: React.FC<{ logos: Array<MediaType> }> = ({ logos }) =
 }
 
 export const Cell = ({
-  logo,
   active,
   index,
+  logo,
 }: {
-  logo: LogoItem
-  active: number | null
+  active: null | number
   index: number
+  logo: LogoItem
 }) => {
   const isActive = active === index
   return (
     <div className={[isActive && classes.active, classes.logoItem].filter(Boolean).join(' ')}>
-      <Media resource={logo} className={classes.logo} />
+      <Media className={classes.logo} resource={logo} />
       <BackgroundScanline className={classes.scanline} />
     </div>
   )

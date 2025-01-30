@@ -1,13 +1,13 @@
-import React, { Fragment } from 'react'
+import type { Metadata } from 'next'
+
 import { fetchMe } from '@cloud/_api/fetchMe.js'
 import { fetchTemplates } from '@cloud/_api/fetchTemplates.js'
-import { Metadata } from 'next'
-import { redirect } from 'next/navigation'
-
 import { Gutter } from '@components/Gutter/index.js'
 import { NewProjectBlock } from '@components/NewProject/index.js'
 import { RenderParams } from '@components/RenderParams/index.js'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
+import { redirect } from 'next/navigation'
+import React, { Fragment } from 'react'
 
 export default async () => {
   const { user } = await fetchMe()
@@ -33,9 +33,9 @@ export default async () => {
 }
 
 export const metadata: Metadata = {
-  title: 'Clone Template | Payload Cloud',
   openGraph: mergeOpenGraph({
     title: 'Clone Template | Payload Cloud',
     url: '/new/clone',
   }),
+  title: 'Clone Template | Payload Cloud',
 }

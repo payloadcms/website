@@ -1,13 +1,14 @@
-import React from 'react'
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
-import { fetchBlogPost, fetchPosts } from '@data'
-import { BlogPost } from './BlogPost/index.js'
-import { RefreshRouteOnSave } from '@components/RefreshRouterOnSave/index.js'
 import { PayloadRedirects } from '@components/PayloadRedirects/index.js'
+import { RefreshRouteOnSave } from '@components/RefreshRouterOnSave/index.js'
+import { fetchBlogPost, fetchPosts } from '@data'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
 import { unstable_cache } from 'next/cache'
 import { draftMode } from 'next/headers.js'
+import React from 'react'
+
+import { BlogPost } from './BlogPost/index.js'
 
 const getPost = (slug, draft?) =>
   draft ? fetchBlogPost(slug) : unstable_cache(fetchBlogPost, ['blogPost', `post-${slug}`])(slug)
@@ -68,11 +69,8 @@ export async function generateMetadata({
     `${process.env.NEXT_PUBLIC_CMS_URL}${post.meta.image.url}`
 
   return {
-    title: post?.meta?.title,
     description: post?.meta?.description,
     openGraph: mergeOpenGraph({
-      title: post?.meta?.title ?? undefined,
-      url: `/blog/${slug}`,
       description: post?.meta?.description ?? undefined,
       images: ogImage
         ? [
@@ -81,6 +79,9 @@ export async function generateMetadata({
             },
           ]
         : undefined,
+      title: post?.meta?.title ?? undefined,
+      url: `/blog/${slug}`,
     }),
+    title: post?.meta?.title,
   }
 }
