@@ -31,7 +31,11 @@ export interface Config {
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
-  collectionsJoins: {};
+  collectionsJoins: {
+    docs: {
+      guides: 'posts';
+    };
+  };
   collectionsSelect: {
     'case-studies': CaseStudiesSelect<false> | CaseStudiesSelect<true>;
     'community-help': CommunityHelpSelect<false> | CommunityHelpSelect<true>;
@@ -3122,6 +3126,8 @@ export interface Post {
   id: string;
   title: string;
   image: string | Media;
+  category: 'blog' | 'guide';
+  tags?: string[] | null;
   useVideo?: boolean | null;
   videoUrl?: string | null;
   excerpt: {
@@ -3341,8 +3347,18 @@ export interface Post {
     [k: string]: unknown;
   } | null;
   relatedPosts?: (string | Post)[] | null;
+  /**
+   * Select the docs where you want to link to this guide. Be sure to select the correct version.
+   */
+  relatedDocs?: (string | Doc)[] | null;
   slug?: string | null;
-  authors: (string | User)[];
+  authorType?: ('guest' | 'team') | null;
+  authors?: (string | User)[] | null;
+  guestAuthor?: string | null;
+  guestYoutube?: string | null;
+  guestTwitter?: string | null;
+  guestLinkedin?: string | null;
+  guestWebsite?: string | null;
   publishedOn: string;
   meta?: {
     title?: string | null;
@@ -5068,6 +5084,57 @@ export interface StepsBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "docs".
+ */
+export interface Doc {
+  id: string;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  title: string;
+  description?: string | null;
+  keywords?: string | null;
+  headings?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  path?: string | null;
+  topic: string;
+  /**
+   * The topic group is displayed on the sidebar, but is not part of the URL
+   */
+  topicGroup: string;
+  slug: string;
+  label?: string | null;
+  order?: number | null;
+  version: string;
+  mdx?: string | null;
+  guides?: {
+    docs?: (string | Post)[] | null;
+    hasNextPage?: boolean | null;
+  } | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -5115,53 +5182,6 @@ export interface CommunityHelp {
   helpful?: boolean | null;
   relatedDocs?: (string | Doc)[] | null;
   threadCreatedAt?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "docs".
- */
-export interface Doc {
-  id: string;
-  content?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  title: string;
-  description?: string | null;
-  keywords?: string | null;
-  headings?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  path?: string | null;
-  topic: string;
-  /**
-   * The topic group is displayed on the sidebar, but is not part of the URL
-   */
-  topicGroup: string;
-  slug: string;
-  label?: string | null;
-  order?: number | null;
-  version: string;
-  mdx?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -6413,6 +6433,7 @@ export interface DocsSelect<T extends boolean = true> {
   order?: T;
   version?: T;
   mdx?: T;
+  guides?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -7434,6 +7455,8 @@ export interface PagesSelect<T extends boolean = true> {
 export interface PostsSelect<T extends boolean = true> {
   title?: T;
   image?: T;
+  category?: T;
+  tags?: T;
   useVideo?: T;
   videoUrl?: T;
   excerpt?: T;
@@ -7570,8 +7593,15 @@ export interface PostsSelect<T extends boolean = true> {
       };
   lexicalContent?: T;
   relatedPosts?: T;
+  relatedDocs?: T;
   slug?: T;
+  authorType?: T;
   authors?: T;
+  guestAuthor?: T;
+  guestYoutube?: T;
+  guestTwitter?: T;
+  guestLinkedin?: T;
+  guestWebsite?: T;
   publishedOn?: T;
   meta?:
     | T
