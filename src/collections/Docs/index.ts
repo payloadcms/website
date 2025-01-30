@@ -75,7 +75,7 @@ export const Docs: CollectionConfig = {
         },
       },
     },
-    defaultColumns: ['path', 'topic', 'slug', 'title'],
+    defaultColumns: ['path', 'topic', 'slug', 'title', 'version'],
     livePreview: {
       url: ({ collectionConfig, data, locale }) =>
         `${process.env.NEXT_PUBLIC_CMS_URL}/docs/${data.path}`,
@@ -117,7 +117,6 @@ export const Docs: CollectionConfig = {
               name: 'headings',
               type: 'json',
             },
-
             {
               name: 'path',
               type: 'text',
@@ -129,7 +128,7 @@ export const Docs: CollectionConfig = {
                 afterRead: [
                   ({ data }) => {
                     if (data) {
-                      return `${data.topic}/${data.slug}`
+                      return `${data.topic}/${data.slug} (${data.version})`
                     }
                   },
                 ],
@@ -196,6 +195,12 @@ export const Docs: CollectionConfig = {
         hidden: true,
       },
       maxLength: Number.MAX_SAFE_INTEGER,
+    },
+    {
+      name: 'guides',
+      type: 'join',
+      collection: 'posts',
+      on: 'relatedDocs',
     },
   ],
   hooks: {

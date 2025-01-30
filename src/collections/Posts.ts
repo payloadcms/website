@@ -50,6 +50,32 @@ export const Posts: CollectionConfig = {
       required: true,
     },
     {
+      type: 'row',
+      fields: [
+        {
+          name: 'category',
+          type: 'select',
+          admin: {
+            width: '50%',
+          },
+          defaultValue: 'blog',
+          options: [
+            { label: 'Blog', value: 'blog' },
+            { label: 'Guide', value: 'guide' },
+          ],
+          required: true,
+        },
+        {
+          name: 'tags',
+          type: 'text',
+          admin: {
+            width: '50%',
+          },
+          hasMany: true,
+        },
+      ],
+    },
+    {
       name: 'useVideo',
       type: 'checkbox',
       label: 'Use Youtube video as header image',
@@ -88,16 +114,83 @@ export const Posts: CollectionConfig = {
       hasMany: true,
       relationTo: 'posts',
     },
+    {
+      name: 'relatedDocs',
+      type: 'relationship',
+      admin: {
+        condition: (_, siblingData) => siblingData?.category === 'guide',
+        description:
+          'Select the docs where you want to link to this guide. Be sure to select the correct version.',
+      },
+      hasMany: true,
+      relationTo: 'docs',
+    },
     slugField(),
+    {
+      name: 'authorType',
+      type: 'select',
+      admin: {
+        position: 'sidebar',
+      },
+      defaultValue: 'team',
+      options: [
+        { label: 'Guest', value: 'guest' },
+        { label: 'Team', value: 'team' },
+      ],
+    },
     {
       name: 'authors',
       type: 'relationship',
       admin: {
+        condition: (_, siblingData) => siblingData?.authorType === 'team',
         position: 'sidebar',
       },
       hasMany: true,
       relationTo: 'users',
       required: true,
+    },
+    {
+      name: 'guestAuthor',
+      type: 'text',
+      admin: {
+        condition: (_, siblingData) => siblingData?.authorType === 'guest',
+        position: 'sidebar',
+      },
+    },
+    // {
+    //   name: 'guestAuthorLink',
+    //   type: 'text',
+    //   admin: {
+    //     condition: (_, siblingData) => siblingData?.authorType === 'guest',
+    //     position: 'sidebar',
+    //   },
+    // },
+    {
+      type: 'collapsible',
+      admin: {
+        condition: (_, siblingData) => siblingData?.authorType === 'guest',
+        initCollapsed: true,
+        position: 'sidebar',
+      },
+      fields: [
+        {
+          name: 'guestYoutube',
+          type: 'text',
+        },
+        {
+          name: 'guestTwitter',
+          type: 'text',
+        },
+        {
+          name: 'guestLinkedin',
+          type: 'text',
+        },
+        {
+          name: 'guestWebsite',
+          type: 'text',
+        },
+      ],
+      label: 'Guest Author Socials',
     },
     {
       name: 'publishedOn',
