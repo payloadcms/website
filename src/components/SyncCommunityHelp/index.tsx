@@ -43,7 +43,7 @@ const SyncCommunityHelp: React.FC = () => {
 
   return (
     <button className={baseClass} disabled={isSyncing} onClick={syncCommunityHelp} type="button">
-      {isSyncing ? 'Syncing...' : 'Sync Community Help'}
+      {isSyncing ? 'Fetching new threads...' : 'Update Community Help'}
     </button>
   )
 }
