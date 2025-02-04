@@ -128,6 +128,24 @@ export const Posts: CollectionConfig = {
       },
       hasMany: true,
       relationTo: 'docs',
+      hooks: {
+        afterChange: [
+          ({ value, req }) => {
+            value.forEach(async (docID) => {
+              const doc = await req.payload.findByID({
+                collection: 'docs',
+                id: docID,
+                select: {
+                  topic: true,
+                  slug: true,
+                },
+              })
+              revalidatePath(`/docs/${doc.topic}/${doc.slug}`)
+              console.log(`Revalidated: /docs/${doc.topic}/${doc.slug}`)
+            })
+          },
+        ],
+      },
     },
     slugField(),
     {
