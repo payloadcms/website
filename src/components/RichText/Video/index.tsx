@@ -11,12 +11,7 @@ export const Video: React.FC<{
   const { id, platform = 'vimeo' } = props
 
   return (
-    <div
-      className={classes.videoPlayer}
-      style={{
-        paddingTop: '56.25%',
-      }}
-    >
+    <div className={classes.videoPlayer}>
       {platform === 'youtube' && <YouTubePlayer videoID={id} />}
       {platform === 'vimeo' && <VimeoPlayer videoID={id} />}
     </div>
