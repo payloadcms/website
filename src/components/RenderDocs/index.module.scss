@@ -176,7 +176,7 @@
   display: block;
   padding: 3rem var(--column);
   text-decoration: none;
-  border-top: 1px solid var(--theme-border-color);
+  border-block: 1px solid var(--theme-border-color);
   transition: all 0.3s ease-in;
   margin: 0 calc(var(--column) * -1);
 
@@ -184,15 +184,10 @@
     transform: translate3D(0, 0, 0);
   }
 
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background-color: var(--theme-elevation-1000);
-    transition: width var(--trans-default) linear;
+  .nextScanlines {
+    z-index: -1;
+    background: var(--theme-bg);
+    transition: background var(--trans-default) linear;
   }
 
   h3 {
@@ -203,10 +198,9 @@
   &:hover {
     text-decoration: none;
     transition: all var(--trans-default) linear;
-    background-color: var(--theme-elevation-50);
 
-    &::after {
-      width: 100%;
+    .nextScanlines {
+      background: var(--theme-elevation-50);
     }
 
     .nextLabel svg {
