@@ -20,6 +20,7 @@ import Link from 'next/link'
 import React, { Suspense } from 'react'
 
 import classes from './index.module.scss'
+import { RelatedResources } from '@components/RelatedResources'
 
 export const RenderDocs = async ({
   children,
@@ -82,6 +83,11 @@ export const RenderDocs = async ({
 
   const hasRelatedThreads =
     relatedThreads && Array.isArray(relatedThreads) && relatedThreads.length > 0
+
+  const hasGuides =
+    currentDoc.guides && currentDoc.guides.docs && currentDoc.guides.docs?.length > 0
+
+  const guides = currentDoc?.guides?.docs ?? []
 
   const isLastGroup = topicGroups.length === groupIndex + 1
   const isLastTopic = topicGroup.topics.length === topicIndex + 1
@@ -153,10 +159,12 @@ export const RenderDocs = async ({
                 </div>
                 <h3>{next.title}</h3>
 
-                <BackgroundScanline crosshairs="all" />
+                <BackgroundScanline className={classes.nextScanlines} />
               </Link>
             )}
-            {hasRelatedThreads && <RelatedHelpList relatedThreads={relatedThreads} />}
+            {(hasGuides || hasRelatedThreads) && (
+              <RelatedResources guides={guides} relatedThreads={relatedThreads} />
+            )}
           </main>
           <aside className={['cols-3 start-14', classes.aside].join(' ')}>
             <div className={classes.asideStickyContent}>
