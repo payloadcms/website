@@ -6,9 +6,10 @@ import Link from 'next/link'
 import { Fragment } from 'react'
 
 import classes from './index.module.scss'
+import { GuestSocials } from '@components/GuestSocials'
 
 const AuthorContent: React.FC<{
-  author: Post['authors'][0]
+  author: NonNullable<Post['authors']>[0]
 }> = (props) => {
   const { author } = props
 
@@ -40,7 +41,7 @@ export const AuthorsList: React.FC<{
 
   return (
     <div className={classes.authorSlot}>
-      <span className={classes.label}>Author{`${authors.length > 1 ? 's' : ''}`}</span>
+      <span className={classes.authorLabel}>Author{authors.length > 1 && 's'}</span>
       {authors?.map((author, index) => (
         <Fragment key={index}>
           {author && typeof author !== 'string' && (
@@ -61,6 +62,27 @@ export const AuthorsList: React.FC<{
           )}
         </Fragment>
       ))}
+    </div>
+  )
+}
+
+export const GuestAuthorList: React.FC<{
+  author?: Post['guestAuthor']
+  socials?: Post['guestSocials']
+}> = (props) => {
+  const { author, socials } = props
+
+  if (!author) {
+    return null
+  }
+
+  return (
+    <div className={classes.authorSlot}>
+      <span className={classes.authorLabel}>Author</span>
+      <span>{author}</span>
+      <div className={classes.guestSocials}>
+        {socials && <GuestSocials guestSocials={socials} />}
+      </div>
     </div>
   )
 }

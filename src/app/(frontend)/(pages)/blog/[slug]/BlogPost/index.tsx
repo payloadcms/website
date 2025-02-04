@@ -15,10 +15,24 @@ import { useResize } from '@root/utilities/use-resize.js'
 import { formatDate } from '@utilities/format-date-time.js'
 import React from 'react'
 
-import { AuthorsList } from '../AuthorsList/index.js'
+import { AuthorsList, GuestAuthorList } from '../AuthorsList/index.js'
 import classes from './index.module.scss'
+import Link from 'next/link.js'
+import { ArrowRightIcon } from '@icons/ArrowRightIcon/index.js'
 export const BlogPost: React.FC<Post> = (props) => {
-  const { content, excerpt, image, publishedOn, relatedPosts, title, useVideo, videoUrl } = props
+  const {
+    content,
+    excerpt,
+    image,
+    publishedOn,
+    relatedPosts,
+    title,
+    useVideo,
+    videoUrl,
+    authorType,
+    guestAuthor,
+    guestSocials,
+  } = props
   const [docPadding, setDocPadding] = React.useState(0)
   const docRef = React.useRef<HTMLDivElement>(null)
   const docSize = useResize(docRef)
@@ -37,17 +51,11 @@ export const BlogPost: React.FC<Post> = (props) => {
         <div className={[classes.grid, 'grid'].filter(Boolean).join(' ')} ref={docRef}>
           <div className={[classes.stickyColumn, 'cols-3 start-1'].filter(Boolean).join(' ')}>
             <div className={classes.stickyContent}>
-              <div className={classes.authorTimeSlots}>
+              {authorType === 'team' ? (
                 <AuthorsList authors={props.authors} />
-                {publishedOn && (
-                  <div className={classes.dateSlot}>
-                    <span className={classes.publishLabel}>Published On</span>
-                    <time className={classes.date} dateTime={publishedOn}>
-                      {formatDate({ date: publishedOn })}
-                    </time>
-                  </div>
-                )}
-              </div>
+              ) : (
+                <GuestAuthorList author={guestAuthor} socials={guestSocials} />
+              )}
               <div className={classes.discordGitWrap}>
                 <DiscordGitCTA appearance="minimal" />
               </div>
@@ -62,25 +70,32 @@ export const BlogPost: React.FC<Post> = (props) => {
             <div className={classes.titleWrap}>
               <div>
                 <Breadcrumbs
-                  className={classes.breadcrumbs}
-                  ellipsis={false}
                   items={[
                     {
-                      label: 'Blog Post',
+                      label: (
+                        <span className={classes.allPosts}>
+                          <ArrowRightIcon />
+                          All Posts
+                        </span>
+                      ),
+                      url: '/blog',
+                    },
+                    {
+                      label: <time>{formatDate({ date: publishedOn })}</time>,
                     },
                   ]}
+                  className={classes.breadcrumbs}
                 />
                 <h1 className={classes.title}>{title}</h1>
+                {authorType === 'guest' && (
+                  <span className={classes.communityGuide}>Community Guide</span>
+                )}
               </div>
               <div className={classes.mobileAuthor}>
-                <AuthorsList authors={props.authors} />
-                {publishedOn && (
-                  <div className={classes.dateSlot}>
-                    <span className={classes.publishLabel}>Published On</span>
-                    <time className={classes.date} dateTime={publishedOn}>
-                      {formatDate({ date: publishedOn })}
-                    </time>
-                  </div>
+                {authorType === 'team' ? (
+                  <AuthorsList authors={props.authors} />
+                ) : (
+                  <GuestAuthorList author={guestAuthor} socials={guestSocials} />
                 )}
               </div>
             </div>
