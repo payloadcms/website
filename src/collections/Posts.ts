@@ -33,6 +33,9 @@ export const Posts: CollectionConfig = {
   defaultPopulate: {
     slug: true,
     authors: true,
+    authorType: true,
+    guestAuthor: true,
+    guestSocials: true,
     image: true,
     publishedOn: true,
     title: true,
