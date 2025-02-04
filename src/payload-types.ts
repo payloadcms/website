@@ -3355,10 +3355,12 @@ export interface Post {
   authorType?: ('guest' | 'team') | null;
   authors?: (string | User)[] | null;
   guestAuthor?: string | null;
-  guestYoutube?: string | null;
-  guestTwitter?: string | null;
-  guestLinkedin?: string | null;
-  guestWebsite?: string | null;
+  guestSocials?: {
+    youtube?: string | null;
+    twitter?: string | null;
+    linkedin?: string | null;
+    website?: string | null;
+  };
   publishedOn: string;
   meta?: {
     title?: string | null;
@@ -7598,10 +7600,14 @@ export interface PostsSelect<T extends boolean = true> {
   authorType?: T;
   authors?: T;
   guestAuthor?: T;
-  guestYoutube?: T;
-  guestTwitter?: T;
-  guestLinkedin?: T;
-  guestWebsite?: T;
+  guestSocials?:
+    | T
+    | {
+        youtube?: T;
+        twitter?: T;
+        linkedin?: T;
+        website?: T;
+      };
   publishedOn?: T;
   meta?:
     | T

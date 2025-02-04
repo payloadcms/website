@@ -36,6 +36,7 @@ export const Posts: CollectionConfig = {
     image: true,
     publishedOn: true,
     title: true,
+    category: true,
   },
   fields: [
     {
@@ -157,14 +158,6 @@ export const Posts: CollectionConfig = {
         position: 'sidebar',
       },
     },
-    // {
-    //   name: 'guestAuthorLink',
-    //   type: 'text',
-    //   admin: {
-    //     condition: (_, siblingData) => siblingData?.authorType === 'guest',
-    //     position: 'sidebar',
-    //   },
-    // },
     {
       type: 'collapsible',
       admin: {
@@ -174,20 +167,27 @@ export const Posts: CollectionConfig = {
       },
       fields: [
         {
-          name: 'guestYoutube',
-          type: 'text',
-        },
-        {
-          name: 'guestTwitter',
-          type: 'text',
-        },
-        {
-          name: 'guestLinkedin',
-          type: 'text',
-        },
-        {
-          name: 'guestWebsite',
-          type: 'text',
+          name: 'guestSocials',
+          label: false,
+          type: 'group',
+          fields: [
+            {
+              name: 'youtube',
+              type: 'text',
+            },
+            {
+              name: 'twitter',
+              type: 'text',
+            },
+            {
+              name: 'linkedin',
+              type: 'text',
+            },
+            {
+              name: 'website',
+              type: 'text',
+            },
+          ],
         },
       ],
       label: 'Guest Author Socials',
