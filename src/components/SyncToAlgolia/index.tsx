@@ -5,9 +5,9 @@ import React, { useState } from 'react'
 
 import './index.scss'
 
-const baseClass = 'sync-ch-button'
+const baseClass = 'sync-algolia-button'
 
-const SyncCommunityHelp: React.FC = () => {
+const SyncToAlgolia: React.FC = () => {
   const [isSyncing, setIsSyncing] = useState(false)
   const {
     config: {
@@ -15,14 +15,14 @@ const SyncCommunityHelp: React.FC = () => {
     },
   } = useConfig()
 
-  const syncCommunityHelp = async () => {
+  const syncToAlgolia = async () => {
     try {
       setIsSyncing(true)
 
-      const res = await fetch(`${api}/sync-ch`)
+      const res = await fetch(`${api}/sync-algolia`)
 
       if (!res.ok) {
-        let errorMessage = 'Failed to sync community help'
+        let errorMessage = 'Failed to sync Algolia with Community Help'
         try {
           const data = await res.json()
           errorMessage += `: ${data?.message || 'Unknown error'}`
@@ -33,19 +33,19 @@ const SyncCommunityHelp: React.FC = () => {
         return
       }
 
-      toast.success('Community help threads synced successfully')
+      toast.success('Algolia synced with Community Help threads successfully')
     } catch (error) {
       console.error('Sync failed:', error)
-      toast.error('An error occurred while syncing community help. Please try again.')
+      toast.error('An error occurred while syncing Algolia with community help. Please try again.')
     }
     setIsSyncing(false)
   }
 
   return (
-    <button className={baseClass} disabled={isSyncing} onClick={syncCommunityHelp} type="button">
-      {isSyncing ? 'Fetching new threads...' : 'Update Community Help'}
+    <button className={baseClass} disabled={isSyncing} onClick={syncToAlgolia} type="button">
+      {isSyncing ? 'Syncing...' : 'Sync Algolia + Community Help'}
     </button>
   )
 }
 
-export default SyncCommunityHelp
+export default SyncToAlgolia

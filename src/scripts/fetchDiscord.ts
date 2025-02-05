@@ -61,24 +61,7 @@ async function fetchFromDiscord(
     const url = new URL(baseURL)
     Object.entries(params).forEach(([key, value]) => url.searchParams.append(key, value))
 
-    let response
-    let retryCount = 0
-    const maxRetries = 5
-    while (true) {
-      response = await fetch(url, { headers })
-
-      if (response.status === 429) {
-        const retryAfter = response.headers.get('Retry-After')
-        console.warn(`Rate limited. Retrying after ${retryAfter} seconds.`)
-        await new Promise((resolve) => setTimeout(resolve, (retryAfter || 1) * 1000))
-      } else if (!response.ok && retryCount < maxRetries) {
-        console.warn(`Request failed with status ${response.status}. Retrying...`)
-        retryCount++
-        await new Promise((resolve) => setTimeout(resolve, retryCount * 1000))
-      } else {
-        break
-      }
-    }
+    const response = await fetch(url, { headers })
 
     if (!response.ok) {
       throw new Error(`Failed to fetch ${endpoint}: ${response.statusText}`)
@@ -250,42 +233,65 @@ async function fetchDiscord() {
     throw new Error('You are unauthorized, please log in.')
   }
 
-  const populateAll = populatedThreads.map(async (thread) => {
-    const threadExists = existingThreadIDs.some((existing) => existing.id === thread.info.id)
-    const body = JSON.stringify({
-      slug: thread.slug,
-      communityHelpJSON: thread,
-      communityHelpType: 'discord',
-      discordID: thread.info.id,
-      threadCreatedAt: thread.info.createdAt,
-      title: thread.info.name,
-    })
+  const populateAll = async () => {
+    let stopProcessing = false
 
-    const endpoint = threadExists
-      ? `${NEXT_PUBLIC_CMS_URL}/api/community-help?${qs.stringify({
-          depth: 0,
-          where: { discordID: { equals: thread.info.id } },
-        })}`
-      : `${NEXT_PUBLIC_CMS_URL}/api/community-help`
+    for (const thread of populatedThreads) {
+      if (stopProcessing) {
+        break
+      }
 
-    const method = threadExists ? 'PATCH' : 'POST'
+      const threadExists = existingThreadIDs.some((existing) => existing.id === thread.info.id)
+      const body = JSON.stringify({
+        slug: thread.slug,
+        communityHelpJSON: thread,
+        communityHelpType: 'discord',
+        discordID: thread.info.id,
+        threadCreatedAt: thread.info.createdAt,
+        title: thread.info.name,
+      })
 
-    try {
-      await fetch(endpoint, {
+      const endpoint = threadExists
+        ? `${NEXT_PUBLIC_CMS_URL}/api/community-help?${qs.stringify({
+            depth: 0,
+            where: { discordID: { equals: thread.info.id } },
+          })}`
+        : `${NEXT_PUBLIC_CMS_URL}/api/community-help`
+
+      const method = threadExists ? 'PATCH' : 'POST'
+
+      const options = {
         body,
         headers: {
           Authorization: `JWT ${token.value}`,
           'Content-Type': 'application/json',
         },
         method,
-      })
-    } catch (error) {
-      throw new Error(`Failed to populate thread ${thread.info.id}, 
-        ${error}`)
-    }
-  })
+      }
 
-  await Promise.all(populateAll)
+      try {
+        const response = await fetch(endpoint, options)
+
+        if (!response.ok) {
+          if (response.status === 504) {
+            console.error(`504 error encountered for thread ${thread.info.id}. Stopping process.`)
+            stopProcessing = true
+            break
+          } else {
+            console.error(`Error processing thread ${thread.info.id}: ${response.statusText}`)
+          }
+        } else {
+          console.log(`Successfully updated thread ${thread.info.id}`)
+        }
+      } catch (error) {
+        console.error(`Error processing thread ${thread.info.id}:`, error)
+        stopProcessing = true
+        break
+      }
+    }
+  }
+
+  await populateAll()
   console.timeEnd('Populating Discord')
 }
 

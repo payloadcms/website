@@ -4,10 +4,10 @@ import RedeployButton from '@components/RedeployButton'
 import RefreshMdxToLexicalButton from '@components/RefreshMdxToLexicalButton'
 import SyncCommunityHelp from '@components/SyncCommunityHelp'
 import SyncDocsButton from '@components/SyncDocsButton'
+import SyncToAlgolia from '@components/SyncToAlgolia'
+import React from 'react'
 
 import './index.scss'
-
-import React from 'react'
 
 const baseClass = 'after-nav-actions'
 
@@ -17,8 +17,10 @@ const AfterNavActions: React.FC = () => {
       <span className={`${baseClass}__group-title`}>Admin Actions</span>
       <SyncDocsButton />
       <RefreshMdxToLexicalButton />
-      <SyncCommunityHelp />
       <RedeployButton />
+
+      <SyncCommunityHelp />
+      <SyncToAlgolia />
     </div>
   )
 }
