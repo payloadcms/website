@@ -42,6 +42,7 @@ import {
   type JSXConvertersFunction,
   RichText as SerializedRichText,
 } from '@payloadcms/richtext-lexical/react'
+import { getVideo } from '@root/utilities/get-video'
 import React, { useCallback, useState } from 'react'
 
 import type { AllowedElements } from '../SpotlightAnimation/types.js'
@@ -158,15 +159,7 @@ export const jsxConverters: (args: { toc?: boolean }) => JSXConvertersFunction<N
         },
         video: ({ node }) => {
           const { url } = node.fields
-
-          if (url && (url.includes('vimeo') || url.includes('youtube'))) {
-            const source = url.includes('vimeo') ? 'vimeo' : 'youtube'
-            const id = source === 'vimeo' ? url.split('/').pop() : url.split('v=').pop()
-
-            return <Video id={id as string} platform={source} />
-          }
-
-          return null
+          return url ? <Video {...getVideo(url)} /> : null
         },
         VideoDrawer: ({ node }) => {
           return (

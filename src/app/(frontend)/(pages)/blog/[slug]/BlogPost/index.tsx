@@ -10,6 +10,7 @@ import { Media } from '@components/Media/index.js'
 import { RenderBlocks } from '@components/RenderBlocks/index.js'
 import { RichText } from '@components/RichText/index.js'
 import { Video } from '@components/RichText/Video/index.js'
+import { getVideo } from '@root/utilities/get-video.js'
 import { useResize } from '@root/utilities/use-resize.js'
 import { formatDate } from '@utilities/format-date-time.js'
 import React from 'react'
@@ -28,21 +29,6 @@ export const BlogPost: React.FC<Post> = (props) => {
     }
     setDocPadding(Math.round(docRef.current?.offsetWidth / 16) - 2)
   }, [docRef.current?.offsetWidth, docSize])
-
-  let videoToUse: {
-    id: string
-    platform: 'vimeo' | 'youtube'
-  } | null = null
-
-  if (videoUrl && (videoUrl.includes('vimeo') || videoUrl.includes('youtube'))) {
-    const platform = videoUrl.includes('vimeo') ? 'vimeo' : 'youtube'
-    const id = platform === 'vimeo' ? videoUrl.split('/').pop() : videoUrl.split('v=').pop()
-
-    videoToUse = {
-      id: id || '',
-      platform,
-    }
-  }
 
   return (
     <div className={classes.blog} id="blog">
@@ -103,8 +89,8 @@ export const BlogPost: React.FC<Post> = (props) => {
                 className={classes.heroImageWrap}
                 style={{ marginLeft: -(docPadding + 1), marginRight: docPadding * -4 - 6 }}
               >
-                {useVideo ? (
-                  <Video {...videoToUse} />
+                {useVideo && videoUrl ? (
+                  <Video {...getVideo(videoUrl)} />
                 ) : (
                   <Media className={classes.heroImage} priority resource={image} />
                 )}
