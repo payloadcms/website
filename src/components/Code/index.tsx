@@ -10,7 +10,7 @@ import classes from './index.module.scss'
 import { theme } from './theme.js'
 
 let highlightStart = false
-const highlightClassName = 'highlight-line'
+const highlightClassName = classes.highlight
 
 const highlightLine = (lineArray: { content: string }[], lineProps: { className: string }) => {
   let shouldExclude = false
