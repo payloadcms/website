@@ -2,9 +2,15 @@
 
 import type { Deployment, Project } from '@root/payload-cloud-types.js'
 
+import { Tabs } from '@cloud/_components/Tabs/index.js'
 import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
+import { Button } from '@components/Button/index.js'
 import { Gutter } from '@components/Gutter/index.js'
 import { Indicator } from '@components/Indicator/index.js'
+import { ModalWindow } from '@components/ModalWindow/index.js'
+import { useModal } from '@faceless-ui/modal'
+import Submit from '@forms/Submit/index.js'
+import { CloseIcon } from '@icons/CloseIcon/index.js'
 import { CommitIcon } from '@root/graphics/CommitIcon/index.js'
 import { GitHubIcon } from '@root/graphics/GitHub/index.js'
 import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'
@@ -40,38 +46,76 @@ export const InfraOnline: React.FC<{
 
   const [liveDeployment, setLiveDeployment] = React.useState<Deployment | null | undefined>()
   const [redeployTriggered, setRedeployTriggered] = React.useState(false)
+  const [redeployModalTabIndex, setRedeployModalTabIndex] = React.useState(0)
 
-  const triggerDeployment = React.useCallback(() => {
-    setRedeployTriggered(true)
-    const query = qs.stringify({
-      env: environmentSlug,
-    })
+  const { closeModal, openModal } = useModal()
 
-    fetch(
-      `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project?.id}/deploy${
-        query ? `?${query}` : ''
-      }`,
-      {
-        credentials: 'include',
-        method: 'POST',
+  const handleModalClose = React.useCallback(
+    (slug: string) => {
+      closeModal(slug)
+      setRedeployModalTabIndex(0)
+    },
+    [closeModal],
+  )
+
+  const triggerDeployment = React.useCallback(
+    (
+      type: 'deploy' | 'force-rebuild' | 'restart',
+      options: {
+        clearBuildCache?: boolean
       },
-    ).then((res) => {
-      setRedeployTriggered(false)
+    ) => {
+      setRedeployTriggered(true)
 
-      if (res.status === 200) {
-        reloadDeployments()
-        return toast.success('New deployment triggered successfully.')
+      const body = {
+        type,
+        options,
       }
 
-      if (res.status === 429) {
-        return toast.error(
-          'You can only manually deploy once per minute. Please wait and try again.',
-        )
-      }
+      const query = qs.stringify({
+        env: environmentSlug,
+      })
 
-      return toast.error('Failed to deploy')
-    })
-  }, [project?.id, reloadDeployments])
+      fetch(
+        `
+        ${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project?.id}/deploy${
+          query ? `?${query}` : ''
+        }`,
+        {
+          body: JSON.stringify(body),
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          method: 'POST',
+        },
+      )
+        .then((res) => {
+          setRedeployTriggered(false)
+
+          if (res.status === 200) {
+            handleModalClose('redeploy-modal')
+            reloadDeployments()
+            return toast.success('New deployment triggered successfully.')
+          }
+
+          if (res.status === 429) {
+            return toast.error(
+              'You can only manually deploy once per minute. Please wait and try again.',
+            )
+          }
+
+          handleModalClose('redeploy-modal')
+          return toast.error('Failed to deploy')
+        })
+        .catch(() => {
+          setRedeployTriggered(false)
+          handleModalClose('redeploy-modal')
+          toast.error('Failed to deploy')
+        })
+    },
+    [environmentSlug, handleModalClose, project?.id, reloadDeployments],
+  )
 
   // Poll deployments every 10 seconds
   React.useEffect(() => {
@@ -260,13 +304,143 @@ export const InfraOnline: React.FC<{
               <button
                 className={classes.reTriggerButton}
                 disabled={redeployTriggered}
-                onClick={triggerDeployment}
+                onClick={() => openModal('redeploy-modal')}
+                type="button"
               >
                 {redeployTriggered ? 'Redeploying...' : 'Trigger Redeploy'}
               </button>
             </div>
           </div>
         </div>
+        <ModalWindow className={classes.redeployModal} slug="redeploy-modal">
+          <header className={classes.modalHeader}>
+            <h4>Redeploy</h4>
+            <button
+              className={classes.modalCloseButton}
+              onClick={() => handleModalClose('redeploy-modal')}
+              type="button"
+            >
+              <CloseIcon size="large" />
+            </button>
+          </header>
+          <Tabs
+            className={classes.modalTabs}
+            tabs={[
+              {
+                isActive: redeployModalTabIndex === 0,
+                label: 'Deploy',
+                onClick: () => setRedeployModalTabIndex(0),
+              },
+              {
+                isActive: redeployModalTabIndex === 1,
+                label: 'Force rebuild and deploy',
+                onClick: () => setRedeployModalTabIndex(1),
+              },
+              {
+                isActive: redeployModalTabIndex === 2,
+                label: 'Restart',
+                onClick: () => setRedeployModalTabIndex(2),
+              },
+            ]}
+          />
+          {redeployModalTabIndex === 0 ? (
+            // Deploy
+            <form
+              className={classes.modalContent}
+              id="deploy-form"
+              onSubmit={(e) => {
+                e.preventDefault()
+                triggerDeployment('deploy', {})
+              }}
+            >
+              <p>Deploying your app will:</p>
+              <ul>
+                <li>Fetch any updates from your source repository and rebuild if needed</li>
+                <li>Not result in any down time</li>
+              </ul>
+              <hr />
+              <div className={classes.modalActions}>
+                <Button
+                  appearance={'secondary'}
+                  label={'Cancel'}
+                  onClick={() => handleModalClose('redeploy-modal')}
+                />
+                <Submit appearance={'primary'} label={'Deploy'} />
+              </div>
+            </form>
+          ) : redeployModalTabIndex === 1 ? (
+            // Force rebuild and deploy
+            <form
+              className={classes.modalContent}
+              id="force-rebuild-form"
+              onSubmit={(e) => {
+                e.preventDefault()
+                triggerDeployment('force-rebuild', {
+                  clearBuildCache: e.target['clear-build-cache'].checked,
+                })
+              }}
+            >
+              <p>Force rebuild and deploy will:</p>
+              <ul>
+                <li>
+                  Rebuild your entire app from the source repository with the latest updates, even
+                  if the source code has not changed
+                </li>
+                <li>Not result in any down time</li>
+              </ul>
+              <label htmlFor="clear-build-cache" id="clear-build-cache-label">
+                <input
+                  aria-labelledby="clear-build-cache-label"
+                  id="clear-build-cache"
+                  type="checkbox"
+                />
+                <p>
+                  <strong>Clear build cache</strong>
+                  <br />
+                  <span>
+                    Clear the build cache and start with a fresh build environment. Note that this
+                    will slow down the build.
+                  </span>
+                </p>
+              </label>
+              <hr />
+              <div className={classes.modalActions}>
+                <Button
+                  appearance={'secondary'}
+                  label={'Cancel'}
+                  onClick={() => handleModalClose('redeploy-modal')}
+                />
+                <Submit appearance={'primary'} label={'Force rebuild'} />
+              </div>
+            </form>
+          ) : (
+            // Restart
+            <form
+              className={classes.modalContent}
+              id="restart-form"
+              onSubmit={(e) => {
+                e.preventDefault()
+                triggerDeployment('restart', {})
+              }}
+            >
+              <p>Restarting your app will:</p>
+              <ul>
+                <li>Help fix an app that is stuck in a connection loop or a deadlock</li>
+                <li>Not fetch any updates from your source repository</li>
+                <li>Not result in any down time</li>
+              </ul>
+              <hr />
+              <div className={classes.modalActions}>
+                <Button
+                  appearance={'secondary'}
+                  label={'Cancel'}
+                  onClick={() => handleModalClose('redeploy-modal')}
+                />
+                <Submit appearance={'primary'} label={'Restart'} />
+              </div>
+            </form>
+          )}
+        </ModalWindow>
       </Gutter>
 
       {deployments?.length > 0 && (
