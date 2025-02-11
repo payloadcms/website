@@ -8,7 +8,9 @@ import { unstable_cache } from 'next/cache'
 import { draftMode } from 'next/headers.js'
 import React from 'react'
 
-import { BlogPost } from '../../blog/[slug]/BlogPost/index.js'
+import { BlogPost } from '../../blog/[slug]/BlogPost/index.jsx'
+
+export const dynamic = 'force-dynamic'
 
 const getPost = (slug, draft?) =>
   draft ? fetchBlogPost(slug) : unstable_cache(fetchBlogPost, ['blogPost', `post-${slug}`])(slug)
@@ -42,14 +44,14 @@ const Post = async ({
 
 export default Post
 
-export async function generateStaticParams() {
-  const getPosts = unstable_cache(fetchPosts, ['blogPosts'])
-  const posts = await getPosts()
+// export async function generateStaticParams() {
+//   const getPosts = unstable_cache(fetchPosts, ['blogPosts'])
+//   const posts = await getPosts()
 
-  return posts.map(({ slug }) => ({
-    slug,
-  }))
-}
+//   return posts.map(({ slug }) => ({
+//     slug,
+//   }))
+// }
 
 export async function generateMetadata({
   params,
