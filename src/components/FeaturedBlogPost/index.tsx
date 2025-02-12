@@ -23,18 +23,6 @@ export const FeaturedBlogPost: React.FC<Partial<Post>> = (props) => {
   return (
     <Link className={classes.wrapper} href={href} prefetch={false}>
       <BackgroundScanline className={[classes.scanline].filter(Boolean).join(' ')} />
-      <CrosshairIcon
-        className={[classes.crosshair, classes.crosshairTopLeft].filter(Boolean).join(' ')}
-      />
-      <CrosshairIcon
-        className={[classes.crosshair, classes.crosshairTopRight].filter(Boolean).join(' ')}
-      />
-      <CrosshairIcon
-        className={[classes.crosshair, classes.crosshairBottomLeft].filter(Boolean).join(' ')}
-      />
-      <CrosshairIcon
-        className={[classes.crosshair, classes.crosshairBottomRight].filter(Boolean).join(' ')}
-      />
       <div className={classes.contentWrapper}>
         {typeof media !== 'string' && <Media className={classes.media} resource={media} />}
         <div className={classes.content}>

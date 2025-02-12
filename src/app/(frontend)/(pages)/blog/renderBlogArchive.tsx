@@ -6,6 +6,7 @@ import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
 import { BlockSpacing } from '@components/BlockSpacing/index.js'
 import { BlockWrapper } from '@components/BlockWrapper/index.js'
 import { ContentMediaCard } from '@components/cards/ContentMediaCard/index.js'
+import BreadcrumbsBar from '@components/Hero/BreadcrumbsBar/index.js'
 import { FeaturedBlogPost } from '@components/FeaturedBlogPost/index.js'
 import { Gutter } from '@components/Gutter/index.js'
 import React from 'react'
@@ -16,13 +17,17 @@ export const RenderBlogArchive: React.FC<{ posts: Partial<Post>[] }> = ({ posts 
   const latestPost = posts[0]
   return (
     <React.Fragment>
+      <BreadcrumbsBar
+        breadcrumbs={[{ label: 'Blog' }]}
+        links={[
+          { label: 'Guides', url: '/guides' },
+          { label: 'Case Studies', url: '/case-studies' },
+        ]}
+      />
       <BlockWrapper padding={{ bottom: 'large', top: 'hero' }} settings={{}}>
         <BackgroundGrid zIndex={0} />
         <Gutter>
           <div className={[classes.hero].filter(Boolean).join(' ')}>
-            <div>
-              <h1 className={[classes.pageTitle].filter(Boolean).join(' ')}>Blog</h1>
-            </div>
             <div className={[classes.heroContent, 'grid'].filter(Boolean).join(' ')}>
               <h2 className={[classes.title, 'cols-8 cols-m-8'].filter(Boolean).join(' ')}>
                 Keep tabs on Payload
@@ -31,7 +36,7 @@ export const RenderBlogArchive: React.FC<{ posts: Partial<Post>[] }> = ({ posts 
                 className={[classes.description, 'cols-4 start-13 start-m-1 cols-m-8']
                   .filter(Boolean)
                   .join(' ')}
-              >{`Here, you’ll find news about feature releases, happenings in the industry, and Payload announcements in general.`}</p>
+              >{`Here, you'll find news about feature releases, happenings in the industry, and Payload announcements in general.`}</p>
             </div>
           </div>
 

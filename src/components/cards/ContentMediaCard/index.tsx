@@ -34,7 +34,7 @@ export const ContentMediaCard: React.FC<ContentMediaCardProps> = (props) => {
           <div className={classes.meta}>
             {publishedOn && (
               <time className={classes.date} dateTime={publishedOn}>
-                {formatDate({ date: publishedOn })}
+                {formatDate({ date: publishedOn, format: 'shortDateStamp' })}
               </time>
             )}
             {author && <p className={classes.author}>{author}</p>}
