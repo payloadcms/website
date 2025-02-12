@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 
 import { PayloadRedirects } from '@components/PayloadRedirects/index.js'
 import { RefreshRouteOnSave } from '@components/RefreshRouterOnSave/index.js'
+import BreadcrumbsBar from '@components/Hero/BreadcrumbsBar/index.js'
 import { fetchBlogPost, fetchPosts } from '@data'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
 import { unstable_cache } from 'next/cache'
@@ -35,6 +36,7 @@ const Post = async ({
     <>
       <PayloadRedirects disableNotFound url={url} />
       <RefreshRouteOnSave />
+      <BreadcrumbsBar breadcrumbs={[]} hero={{ type: 'default' }} />
       <BlogPost {...blogPost} />
     </>
   )

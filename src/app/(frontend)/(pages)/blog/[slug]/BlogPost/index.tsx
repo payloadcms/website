@@ -1,5 +1,3 @@
-'use client'
-
 import type { Post } from '@root/payload-types.js'
 
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
@@ -10,8 +8,6 @@ import { Media } from '@components/Media/index.js'
 import { RenderBlocks } from '@components/RenderBlocks/index.js'
 import { RichText } from '@components/RichText/index.js'
 import { Video } from '@components/RichText/Video/index.js'
-import { getVideo } from '@root/utilities/get-video.js'
-import { useResize } from '@root/utilities/use-resize.js'
 import { formatDate } from '@utilities/format-date-time.js'
 import React from 'react'
 
@@ -26,29 +22,21 @@ export const BlogPost: React.FC<Post> = (props) => {
     image,
     publishedOn,
     relatedPosts,
+    category,
     title,
     useVideo,
     videoUrl,
     authorType,
     guestAuthor,
     guestSocials,
+    relatedDocs,
   } = props
-  const [docPadding, setDocPadding] = React.useState(0)
-  const docRef = React.useRef<HTMLDivElement>(null)
-  const docSize = useResize(docRef)
-
-  React.useEffect(() => {
-    if (docRef.current?.offsetWidth === undefined) {
-      return
-    }
-    setDocPadding(Math.round(docRef.current?.offsetWidth / 16) - 2)
-  }, [docRef.current?.offsetWidth, docSize])
 
   return (
     <div className={classes.blog} id="blog">
       <BackgroundGrid wideGrid />
       <Gutter>
-        <div className={[classes.grid, 'grid'].filter(Boolean).join(' ')} ref={docRef}>
+        <div className={[classes.grid, 'grid'].filter(Boolean).join(' ')}>
           <div className={[classes.stickyColumn, 'cols-3 start-1'].filter(Boolean).join(' ')}>
             <div className={classes.stickyContent}>
               {authorType === 'team' ? (
@@ -75,10 +63,10 @@ export const BlogPost: React.FC<Post> = (props) => {
                       label: (
                         <span className={classes.allPosts}>
                           <ArrowRightIcon />
-                          All Posts
+                          {category === 'blog' ? 'All Posts' : 'Guides'}
                         </span>
                       ),
-                      url: '/blog',
+                      url: category === 'blog' ? '/blog' : '/guides',
                     },
                     {
                       label: <time>{formatDate({ date: publishedOn })}</time>,
@@ -87,9 +75,12 @@ export const BlogPost: React.FC<Post> = (props) => {
                   className={classes.breadcrumbs}
                 />
                 <h1 className={classes.title}>{title}</h1>
-                {authorType === 'guest' && (
-                  <span className={classes.communityGuide}>Community Guide</span>
-                )}
+                {category === 'guide' &&
+                  (authorType === 'guest' ? (
+                    <span className={classes.guideBadge}>Community Guide</span>
+                  ) : (
+                    <span className={classes.guideBadge}>Official Guide</span>
+                  ))}
               </div>
               <div className={classes.mobileAuthor}>
                 {authorType === 'team' ? (
@@ -100,12 +91,9 @@ export const BlogPost: React.FC<Post> = (props) => {
               </div>
             </div>
             {typeof image !== 'string' && (
-              <div
-                className={classes.heroImageWrap}
-                style={{ marginLeft: -(docPadding + 1), marginRight: docPadding * -4 - 6 }}
-              >
-                {useVideo && videoUrl ? (
-                  <Video {...getVideo(videoUrl)} />
+              <div className={classes.heroImageWrap}>
+                {useVideo ? (
+                  <Video {...videoToUse} />
                 ) : (
                   <Media className={classes.heroImage} priority resource={image} />
                 )}

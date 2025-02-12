@@ -40,7 +40,7 @@
   margin: 0 0 1rem;
 }
 
-.communityGuide {
+.guideBadge {
   @include body;
   & {
     display: inline-flex;
@@ -136,6 +136,7 @@
 }
 
 .heroImageWrap {
+  margin-inline: calc(var(--column) * -1) calc(var(--column) * -4);
   @include mid-break {
     display: none;
   }
