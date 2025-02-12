@@ -101,7 +101,11 @@ export const BlogPost: React.FC<Post> = (props) => {
             )}
             {typeof image !== 'string' && (
               <div className={classes.mobileImage}>
-                <Media className={classes.heroImage} priority resource={image} />
+                {useVideo ? (
+                  <Video {...videoToUse} />
+                ) : (
+                  <Media className={classes.heroImage} priority resource={image} />
+                )}
               </div>
             )}
             <RichText className={classes.excerpt} content={excerpt} />
