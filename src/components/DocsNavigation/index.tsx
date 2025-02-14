@@ -167,7 +167,7 @@ export const DocsNavigation = ({
                             topicRefs.current[`${groupIndex}-${index}`] = ref
                           }}
                         >
-                          {topic.label.replace('-', ' ')}
+                          {topic.label?.replace('-', ' ')}
                           <ChevronIcon aria-hidden className={classes.chevron} size="small" />
                         </Accordion.Trigger>
                         <Accordion.Content asChild>

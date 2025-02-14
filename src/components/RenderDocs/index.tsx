@@ -56,14 +56,15 @@ export const RenderDocs = async ({
 
   const topicGroup = topicGroups?.find(
     ({ groupLabel, topics }) =>
-      topics.some((topic) => topic.slug === topicSlug) && groupLabel === currentDoc.topicGroup,
+      topics.some((topic) => topic.slug.toLowerCase() === topicSlug) &&
+      groupLabel === currentDoc.topicGroup,
   )
 
   if (!topicGroup) {
     throw new Error('Topic group not found')
   }
 
-  const topic = topicGroup.topics.find((topic) => topic.slug === topicSlug)
+  const topic = topicGroup.topics.find((topic) => topic.slug.toLowerCase() === topicSlug)
 
   if (!topic) {
     throw new Error('Topic not found')
