@@ -21,6 +21,8 @@ import React, { Suspense } from 'react'
 
 import classes from './index.module.scss'
 
+export type DocsVersion = 'beta' | 'current' | 'dynamic' | 'local' | 'v2'
+
 export const RenderDocs = async ({
   children,
   currentDoc,
@@ -34,7 +36,7 @@ export const RenderDocs = async ({
   docSlug: string
   topicGroups: TopicGroupForNav[]
   topicSlug: string
-  version?: 'beta' | 'current' | 'dynamic' | 'v2'
+  version?: DocsVersion
 }) => {
   const groupIndex = topicGroups.findIndex(({ topics: tGroup }) =>
     tGroup.some((topic) => topic?.slug?.toLowerCase() === topicSlug.toLowerCase()),

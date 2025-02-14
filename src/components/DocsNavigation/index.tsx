@@ -1,4 +1,6 @@
 'use client'
+import type { DocsVersion } from '@components/RenderDocs'
+
 import { MenuIcon } from '@graphics/MenuIcon'
 import * as Accordion from '@radix-ui/react-accordion'
 import * as Portal from '@radix-ui/react-portal'
@@ -29,7 +31,7 @@ export const DocsNavigation = ({
   groupIndex: number
   indexInGroup: number
   topics: TopicGroupForNav[]
-  version?: 'beta' | 'current' | 'dynamic' | 'v2'
+  version?: DocsVersion
 }) => {
   const [currentTopicIsOpen, setCurrentTopicIsOpen] = useState(true)
   const [openTopicPreferences, setOpenTopicPreferences] = useState<string[]>()
@@ -167,7 +169,7 @@ export const DocsNavigation = ({
                             topicRefs.current[`${groupIndex}-${index}`] = ref
                           }}
                         >
-                          {topic.label?.replace('-', ' ')}
+                          {(topic.label || topic.slug)?.replace('-', ' ')}
                           <ChevronIcon aria-hidden className={classes.chevron} size="small" />
                         </Accordion.Trigger>
                         <Accordion.Content asChild>

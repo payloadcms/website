@@ -80,6 +80,7 @@ export default async function DocsPage(args: {
     topicGroup: topicGroup.groupLabel,
     // version: branch,
   }
+
   if (!curDoc) {
     notFound()
   }
@@ -91,7 +92,7 @@ export default async function DocsPage(args: {
         docSlug={docSlug}
         topicGroups={topics}
         topicSlug={topicSlug}
-        version="dynamic"
+        version="local"
       >
         <Banner type="warning">
           You are currently viewing documentation from your local repository.
