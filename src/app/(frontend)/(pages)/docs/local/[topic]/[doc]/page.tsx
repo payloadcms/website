@@ -1,4 +1,3 @@
-import type { Topic } from '@root/collections/Docs/types'
 import type { Metadata } from 'next'
 
 import { Banner } from '@components/Banner'
@@ -9,11 +8,12 @@ import config from '@payload-config'
 import { sanitizeServerEditorConfig } from '@payloadcms/richtext-lexical'
 import { contentLexicalEditorFeatures } from '@root/collections/Docs'
 import { mdxToLexical } from '@root/collections/Docs/mdxToLexical'
-import { fetchDocs } from '@root/scripts/fetchDocs'
 import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
 import { getPayload, type RequiredDataFromCollectionSlug } from 'payload'
 import React from 'react'
+
+import { fetchLocalDocs } from './api'
 
 export type TopicsOrder = { topics: string[] }[]
 
@@ -26,36 +26,27 @@ export default async function DocsPage(args: {
   }>
 }) {
   await headers()
-  const { params, searchParams } = args
+  const { params } = args
   const { doc: docSlug, topic: topicSlug } = await params
-  const { branch } = await searchParams
-
-  if (!branch?.length) {
-    notFound()
-  }
-
-  const topicGroups = await fetchDocs({ ref: branch, version: 'v3' })
-
   const payload = await getPayload({ config })
 
-  let curTopic: null | Topic = null
-  let curTopicGroup: any = null
+  const topics = fetchLocalDocs()
 
-  for (const topicGroup of topicGroups) {
-    const found = topicGroup.topics.find((topic) => topic.slug === topicSlug)
+  const groupIndex = topics.findIndex(({ topics: tGroup }) =>
+    tGroup.some((topic) => topic?.slug?.toLowerCase() === topicSlug),
+  )
 
-    if (found) {
-      curTopic = found
-      curTopicGroup = topicGroup
-      break
-    }
-  }
+  const indexInGroup = topics[groupIndex]?.topics?.findIndex(
+    (topic) => topic?.slug?.toLowerCase() === topicSlug,
+  )
 
-  if (!curTopic) {
-    notFound()
-  }
+  const topicGroup = topics?.[groupIndex]
 
-  const curParsedDoc = curTopic.docs.find((doc) => doc.slug === docSlug)
+  const topic = topicGroup?.topics?.[indexInGroup]
+
+  const docIndex = topic?.docs.findIndex((doc) => doc.slug.replace('.mdx', '') === docSlug)
+
+  const curParsedDoc = topic?.docs?.[docIndex]
 
   if (!curParsedDoc) {
     notFound()
@@ -83,11 +74,11 @@ export default async function DocsPage(args: {
     keywords: curParsedDoc.keywords,
     label: curParsedDoc.label,
     order: curParsedDoc.order,
-    path: `${curTopic.slug}/${curParsedDoc.slug}`,
+    path: `${topic.slug}/${curParsedDoc.slug}`,
     title: curParsedDoc.title,
-    topic: curTopic.slug,
-    topicGroup: curTopicGroup.groupLabel,
-    version: branch,
+    topic: topic.slug,
+    topicGroup: topicGroup.groupLabel,
+    version: 'local',
   }
 
   if (!curDoc) {
@@ -99,12 +90,13 @@ export default async function DocsPage(args: {
       <RenderDocs
         currentDoc={curDoc as any}
         docSlug={docSlug}
-        topicGroups={topicGroups}
+        // @ts-expect-error // TODO: fix this type
+        topicGroups={topics}
         topicSlug={topicSlug}
-        version="dynamic"
+        version="local"
       >
         <Banner type="warning">
-          You are currently viewing documentation for the <strong>{branch}</strong> branch.
+          You are currently viewing documentation from your local repository.
         </Banner>
       </RenderDocs>
     </>

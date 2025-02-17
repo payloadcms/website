@@ -64,10 +64,12 @@ function getHeadings(source) {
 
 function getLocalDocsPath() {
   const nodeModuleDocsPath = path.join(process.cwd(), './node_modules/payload/docs')
+
   const docDirs = {
     v2: process.env.DOCS_DIR_V2 ? path.resolve(process.env.DOCS_DIR_V2) : nodeModuleDocsPath,
     v3: process.env.DOCS_DIR_V3 ? path.resolve(process.env.DOCS_DIR_V3) : nodeModuleDocsPath,
   }
+
   return docDirs?.[ref] || nodeModuleDocsPath
 }
 
@@ -186,7 +188,7 @@ async function fetchDocs() {
   const docsFilename = path.resolve(__dirname, outputDirectory)
 
   const dir = path.dirname(docsFilename)
-  
+
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true })
   }

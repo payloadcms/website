@@ -1,4 +1,6 @@
 'use client'
+import type { DocsVersion } from '@components/RenderDocs'
+
 import { ChevronUpDownIcon } from '@root/icons/ChevronUpDownIcon/index.js'
 import { useRouter } from 'next/navigation'
 import React from 'react'
@@ -6,7 +8,7 @@ import React from 'react'
 import classes from './index.module.scss'
 
 export const VersionSelector: React.FC<{
-  initialVersion: 'beta' | 'current' | 'dynamic' | 'v2'
+  initialVersion: DocsVersion
 }> = ({ initialVersion }) => {
   const router = useRouter()
 

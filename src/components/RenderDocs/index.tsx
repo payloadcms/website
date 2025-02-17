@@ -21,6 +21,8 @@ import React, { Suspense } from 'react'
 
 import classes from './index.module.scss'
 
+export type DocsVersion = 'beta' | 'current' | 'dynamic' | 'local' | 'v2'
+
 export const RenderDocs = async ({
   children,
   currentDoc,
@@ -34,7 +36,7 @@ export const RenderDocs = async ({
   docSlug: string
   topicGroups: TopicGroupForNav[]
   topicSlug: string
-  version?: 'beta' | 'current' | 'dynamic' | 'v2'
+  version?: DocsVersion
 }) => {
   const groupIndex = topicGroups.findIndex(({ topics: tGroup }) =>
     tGroup.some((topic) => topic?.slug?.toLowerCase() === topicSlug.toLowerCase()),
@@ -56,14 +58,15 @@ export const RenderDocs = async ({
 
   const topicGroup = topicGroups?.find(
     ({ groupLabel, topics }) =>
-      topics.some((topic) => topic.slug === topicSlug) && groupLabel === currentDoc.topicGroup,
+      topics.some((topic) => topic.slug.toLowerCase() === topicSlug) &&
+      groupLabel === currentDoc.topicGroup,
   )
 
   if (!topicGroup) {
     throw new Error('Topic group not found')
   }
 
-  const topic = topicGroup.topics.find((topic) => topic.slug === topicSlug)
+  const topic = topicGroup.topics.find((topic) => topic.slug.toLowerCase() === topicSlug)
 
   if (!topic) {
     throw new Error('Topic not found')
