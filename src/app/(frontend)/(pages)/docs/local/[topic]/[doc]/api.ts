@@ -20,10 +20,18 @@ export type Doc = {
 }
 
 export const fetchLocalDocs = (ref?: 'v2' | 'v3'): TopicGroup[] => {
-  const topics =
-    ref === 'v2'
-      ? require('../../../../../../../docs/docs-v2.json')
-      : require('../../../../../../../docs/docs-v3.json')
+  let topics: TopicGroup[] = []
 
-  return topics as TopicGroup[]
+  if (process.env.NODE_ENV !== 'production') {
+    try {
+      topics =
+        ref === 'v2'
+          ? require('../../../../../../../docs/docs-v2.json')
+          : require('../../../../../../../docs/docs-v3.json')
+    } catch (_err) {
+      console.error('Error fetching local docs', _err) // eslint-disable-line no-console
+    }
+  }
+
+  return topics
 }
