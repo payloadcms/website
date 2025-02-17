@@ -78,7 +78,7 @@ export default async function DocsPage(args: {
     title: curParsedDoc.title,
     topic: topic.slug,
     topicGroup: topicGroup.groupLabel,
-    // version: branch,
+    version: 'local',
   }
 
   if (!curDoc) {
@@ -90,6 +90,7 @@ export default async function DocsPage(args: {
       <RenderDocs
         currentDoc={curDoc as any}
         docSlug={docSlug}
+        // @ts-expect-error // TODO: fix this type
         topicGroups={topics}
         topicSlug={topicSlug}
         version="local"
