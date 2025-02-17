@@ -6,6 +6,7 @@ import * as React from 'react'
 import type { ContentMediaCardProps } from '../types.js'
 
 import classes from './index.module.scss'
+import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
 
 export const ContentMediaCard: React.FC<ContentMediaCardProps> = (props) => {
   const { authors, className, href, media, publishedOn, title } = props
@@ -43,6 +44,7 @@ export const ContentMediaCard: React.FC<ContentMediaCardProps> = (props) => {
           <h2 className={classes.title}>{title}</h2>
         </div>
       </div>
+      <BackgroundScanline className={classes.scanline} />
     </Link>
   )
 }

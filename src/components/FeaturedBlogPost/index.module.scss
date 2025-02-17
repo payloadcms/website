@@ -8,7 +8,7 @@
   margin-bottom: 5.4rem;
 
   .scanline {
-    transition: opacity var(--trans-default) ease-in;
+    transition: opacity 0.3s;
   }
 
   &::before {
@@ -19,7 +19,7 @@
     right: 1px;
     height: 100%;
     background-color: var(--theme-elevation-0);
-    transition: background-color var(--trans-default) ease-in;
+    transition: background-color 0.3s;
   }
 
   &::after {
@@ -30,7 +30,7 @@
     width: 0;
     height: 2px;
     background-color: var(--theme-elevation-1000);
-    transition: width var(--trans-default) ease-in;
+    transition: width 0.3s;
   }
 
   @include mid-break {
