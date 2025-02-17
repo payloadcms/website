@@ -14,6 +14,7 @@ import classes from './index.module.scss'
 import { notFound } from 'next/navigation'
 import { BackgroundScanline } from '@components/BackgroundScanline'
 
+export const dynamicParams = false
 export default async ({
   params,
 }: {
