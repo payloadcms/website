@@ -12,7 +12,6 @@ export const topicOrder = {
       groupLabel: 'Features',
       topics: [
         'Admin',
-        'Custom-Components',
         'Authentication',
         'Rich-Text',
         'Live-Preview',

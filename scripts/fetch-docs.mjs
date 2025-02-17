@@ -64,11 +64,12 @@ function getHeadings(source) {
 
 function getLocalDocsPath() {
   const nodeModuleDocsPath = path.join(process.cwd(), './node_modules/payload/docs')
-  console.log(process.env.DOCS_DIR_V3)
+
   const docDirs = {
     v2: process.env.DOCS_DIR_V2 ? path.resolve(process.env.DOCS_DIR_V2) : nodeModuleDocsPath,
     v3: process.env.DOCS_DIR_V3 ? path.resolve(process.env.DOCS_DIR_V3) : nodeModuleDocsPath,
   }
+
   return docDirs?.[ref] || nodeModuleDocsPath
 }
 
