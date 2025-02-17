@@ -9,24 +9,27 @@ import { unstable_cache } from 'next/cache'
 import { draftMode } from 'next/headers.js'
 import React from 'react'
 
-import { BlogPost } from './BlogPost/index.js'
+import { Post } from '@components/Post/index.js'
 
-const getPost = (slug, draft?) =>
-  draft ? fetchBlogPost(slug) : unstable_cache(fetchBlogPost, ['blogPost', `post-${slug}`])(slug)
+const getPost = async (slug, draft?) =>
+  draft
+    ? await fetchBlogPost(slug)
+    : await unstable_cache(fetchBlogPost, ['blogPost', `post-${slug}`])(slug)
 
-const Post = async ({
+const PostPage = async ({
   params,
 }: {
   params: Promise<{
+    category: string
     slug: any
   }>
 }) => {
   const { isEnabled: draft } = await draftMode()
-  const { slug } = await params
+  const { category, slug } = await params
 
   const blogPost = await getPost(slug, draft)
 
-  const url = `/blog/${slug}`
+  const url = `/${category}/${slug}`
 
   if (!blogPost) {
     return <PayloadRedirects url={url} />
@@ -37,31 +40,41 @@ const Post = async ({
       <PayloadRedirects disableNotFound url={url} />
       <RefreshRouteOnSave />
       <BreadcrumbsBar breadcrumbs={[]} hero={{ type: 'default' }} />
-      <BlogPost {...blogPost} />
+      <Post {...blogPost} />
     </>
   )
 }
 
-export default Post
+export default PostPage
 
 export async function generateStaticParams() {
-  const getPosts = unstable_cache(fetchPosts, ['blogPosts'])
+  const getPosts = unstable_cache(fetchPosts, ['allPosts'])
   const posts = await getPosts()
 
-  return posts.map(({ slug }) => ({
-    slug,
-  }))
+  return posts
+    .map(({ slug, category }) => {
+      if (!category || typeof category === 'string' || !category.slug) {
+        return null
+      }
+
+      return {
+        category: category.slug,
+        slug,
+      }
+    })
+    .filter(Boolean)
 }
 
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{
-    slug: any
+    category: string
+    slug: string
   }>
 }): Promise<Metadata> {
   const { isEnabled: draft } = await draftMode()
-  const { slug } = await params
+  const { category, slug } = await params
   const post = await getPost(slug, draft)
 
   const ogImage =
@@ -82,7 +95,7 @@ export async function generateMetadata({
           ]
         : undefined,
       title: post?.meta?.title ?? undefined,
-      url: `/blog/${slug}`,
+      url: `/${category}/${slug}`,
     }),
     title: post?.meta?.title,
   }

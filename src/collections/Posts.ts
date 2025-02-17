@@ -39,7 +39,10 @@ export const Posts: CollectionConfig = {
     image: true,
     publishedOn: true,
     title: true,
-    category: true,
+    category: {
+      slug: true,
+      name: true,
+    },
   },
   fields: [
     {
@@ -58,16 +61,12 @@ export const Posts: CollectionConfig = {
       fields: [
         {
           name: 'category',
-          type: 'select',
+          type: 'relationship',
           admin: {
             width: '50%',
           },
-          defaultValue: 'blog',
-          options: [
-            { label: 'Blog', value: 'blog' },
-            { label: 'Guide', value: 'guide' },
-          ],
           required: true,
+          relationTo: 'categories',
         },
         {
           name: 'tags',

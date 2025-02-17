@@ -5,6 +5,7 @@ import { getPayload } from 'payload'
 import type {
   Budget,
   CaseStudy,
+  Category,
   CommunityHelp,
   Footer,
   Form,
@@ -117,10 +118,11 @@ export const fetchPosts = async (): Promise<Partial<Post>[]> => {
   const payload = await getPayload({ config })
   const data = await payload.find({
     collection: 'posts',
-    depth: 0,
+    depth: 1,
     limit: 300,
     select: {
       slug: true,
+      category: true,
     },
   })
 
@@ -150,6 +152,62 @@ export const fetchBlogPosts = async (): Promise<Partial<Post>[]> => {
       ],
     },
   })
+  return data.docs
+}
+
+export const fetchArchive = async (slug: string, draft?: boolean): Promise<Partial<Category>> => {
+  const payload = await getPayload({ config })
+  const currentDate = new Date()
+
+  const data = await payload.find({
+    collection: 'categories',
+    limit: 1,
+    depth: 2,
+    where: {
+      and: [{ slug: { equals: slug } }],
+    },
+    select: {
+      name: true,
+      description: true,
+      slug: true,
+      headline: true,
+      posts: true,
+    },
+    joins: {
+      posts: {
+        sort: '-publishedOn',
+        where: {
+          and: [
+            { publishedOn: { less_than_equal: currentDate } },
+            { _status: { equals: 'published' } },
+          ],
+        },
+      },
+    },
+    draft,
+  })
+  return data.docs[0]
+}
+
+export const fetchArchives = async (slug?: string): Promise<Partial<Category>[]> => {
+  const payload = await getPayload({ config })
+
+  const data = await payload.find({
+    collection: 'categories',
+    depth: 0,
+    select: {
+      slug: true,
+      name: true,
+    },
+    ...(slug && {
+      where: {
+        slug: {
+          not_equals: slug,
+        },
+      },
+    }),
+  })
+
   return data.docs
 }
 

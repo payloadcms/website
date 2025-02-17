@@ -1,4 +1,4 @@
-import type { Post } from '@root/payload-types.js'
+import type { Post as PostType } from '@root/payload-types.js'
 
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
 import { Breadcrumbs } from '@components/Breadcrumbs/index.js'
@@ -11,11 +11,10 @@ import { Video } from '@components/RichText/Video/index.js'
 import { formatDate } from '@utilities/format-date-time.js'
 import React from 'react'
 
-import { AuthorsList, GuestAuthorList } from '../AuthorsList/index.js'
+import { AuthorsList, GuestAuthorList } from './AuthorsList/index.js'
 import classes from './index.module.scss'
-import Link from 'next/link.js'
 import { ArrowRightIcon } from '@icons/ArrowRightIcon/index.js'
-export const BlogPost: React.FC<Post> = (props) => {
+export const Post: React.FC<PostType> = (props) => {
   const {
     content,
     excerpt,
@@ -29,11 +28,10 @@ export const BlogPost: React.FC<Post> = (props) => {
     authorType,
     guestAuthor,
     guestSocials,
-    relatedDocs,
   } = props
 
   return (
-    <div className={classes.blog} id="blog">
+    <div className={classes.post} id="blog">
       <BackgroundGrid wideGrid />
       <Gutter>
         <div className={[classes.grid, 'grid'].filter(Boolean).join(' ')}>
@@ -63,10 +61,10 @@ export const BlogPost: React.FC<Post> = (props) => {
                       label: (
                         <span className={classes.allPosts}>
                           <ArrowRightIcon />
-                          {category === 'blog' ? 'All Posts' : 'Guides'}
+                          {typeof category !== 'string' && category?.name}
                         </span>
                       ),
-                      url: category === 'blog' ? '/blog' : '/guides',
+                      url: typeof category !== 'string' ? `/${category?.slug}` : '/blog',
                     },
                     {
                       label: <time>{formatDate({ date: publishedOn })}</time>,
