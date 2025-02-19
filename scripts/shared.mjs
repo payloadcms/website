@@ -14,7 +14,7 @@ export const topicOrder = {
         'Admin',
         'Custom-Components',
         'Authentication',
-        'Rich-Text',
+        'Text-Editor',
         'Live-Preview',
         'Versions',
         'Upload',
