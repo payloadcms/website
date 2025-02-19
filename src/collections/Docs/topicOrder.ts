@@ -1,3 +1,6 @@
+// THIS FILE IS GENERATED INTO A JS FILE FOR THE LOCAL FETCH DOCS SCRIPT TO USE
+// DO NOT MODIFY THE JS FILE DIRECTLY, ONLY MODIFY THE TS SOURCE FILE
+
 type TopicOrder = {
   [version: string]: {
     groupLabel: string
@@ -50,6 +53,7 @@ export const topicOrder: TopicOrder = {
       groupLabel: 'Features',
       topics: [
         'Admin',
+        'Custom-Components',
         'Authentication',
         'Rich-Text',
         'Live-Preview',

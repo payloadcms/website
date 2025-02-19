@@ -6,7 +6,7 @@ import fs from 'fs'
 import matter from 'gray-matter'
 import path from 'path'
 
-import { topicOrder } from './shared.mjs'
+import { topicOrder } from './topicOrder.js'
 
 dotenv.config()
 
