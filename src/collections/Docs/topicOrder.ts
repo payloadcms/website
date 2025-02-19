@@ -50,6 +50,7 @@ export const topicOrder: TopicOrder = {
       groupLabel: 'Features',
       topics: [
         'Admin',
+        'Custom-Components',
         'Authentication',
         'Rich-Text',
         'Live-Preview',
