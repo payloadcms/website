@@ -1,3 +1,6 @@
+// THIS FILE GENERATES A COMMONJS FILE THE LOCAL FETCH DOCS SCRIPT
+// DO NOT MODIFY THE COMMONJS FILE DIRECTLY
+
 type TopicOrder = {
   [version: string]: {
     groupLabel: string
