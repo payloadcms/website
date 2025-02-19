@@ -1,9 +1,6 @@
-"use strict";
 // THIS FILE GENERATES A COMMONJS FILE THE LOCAL FETCH DOCS SCRIPT
 // DO NOT MODIFY THE COMMONJS FILE DIRECTLY
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.topicOrder = void 0;
-exports.topicOrder = {
+export const topicOrder = {
     v2: [
         {
             groupLabel: 'Basics',
