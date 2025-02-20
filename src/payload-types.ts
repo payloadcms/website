@@ -3179,7 +3179,7 @@ export interface Post {
   id: string;
   title: string;
   image: string | Media;
-  category?: (string | null) | Category;
+  category: string | Category;
   tags?: string[] | null;
   useVideo?: boolean | null;
   videoUrl?: string | null;

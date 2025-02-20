@@ -121,7 +121,6 @@ export const Posts: CollectionConfig = {
       name: 'relatedDocs',
       type: 'relationship',
       admin: {
-        condition: (_, siblingData) => siblingData?.category === 'guide',
         description:
           'Select the docs where you want to link to this guide. Be sure to select the correct version.',
       },

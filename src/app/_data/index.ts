@@ -199,6 +199,7 @@ export const fetchArchives = async (slug?: string): Promise<Partial<Category>[]>
       slug: true,
       name: true,
     },
+    sort: 'name',
     ...(slug && {
       where: {
         slug: {

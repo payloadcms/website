@@ -10,6 +10,45 @@ import { draftMode } from 'next/headers'
 
 import classes from './index.module.scss'
 import { FeaturedBlogPost } from '@components/FeaturedBlogPost'
+import { BackgroundScanline } from '@components/BackgroundScanline'
+import Link from 'next/link'
+import { ArrowIcon } from '@icons/ArrowIcon'
+import { ChevronDownIcon } from '@icons/ChevronDownIcon'
+import { MobileNav } from './MobileNav'
+
+const Navigation = ({
+  archives,
+  category,
+  className,
+}: {
+  archives: Partial<Category>[]
+  category: Category['slug']
+  className?: string
+}) => {
+  return (
+    <nav className={className}>
+      {archives.map(({ name, slug }) => {
+        return (
+          <Link
+            href={`/${slug}`}
+            key={slug}
+            className={[classes.tab, slug == category ? classes.active : '']
+              .filter(Boolean)
+              .join(' ')}
+          >
+            {name}
+          </Link>
+        )
+      })}
+      <Link href="/case-studies">
+        Case Studies <ArrowIcon />
+      </Link>
+      <Link href="https://www.github.com/payloadcms/payload/releases" target="_blank">
+        Releases <ArrowIcon />
+      </Link>
+    </nav>
+  )
+}
 
 export const Archive: React.FC<{ category: Category['slug'] }> = async ({ category }) => {
   const { isEnabled: draft } = await draftMode()
@@ -19,23 +58,24 @@ export const Archive: React.FC<{ category: Category['slug'] }> = async ({ catego
     : unstable_cache(fetchArchives, [`${category}-archives`])
 
   const archive = await getArchive(category)
-  const archives = await getArchives(category)
+  const archives = await getArchives()
 
   const { headline, description } = archive
   const posts = archive.posts?.docs || []
 
   const latestPost = posts[0]
 
-  const breadcrumbsLinks = archives.map((archive) => ({
-    label: archive.name,
-    url: `/${archive.slug}`,
-  }))
-
   return (
     <>
-      <BreadcrumbsBar breadcrumbs={[{ label: archive.name }]} links={breadcrumbsLinks} />
-      <BlockWrapper padding={{ bottom: 'large', top: 'hero' }} settings={{}}>
-        <BackgroundGrid zIndex={0} />
+      <div className={classes.navigation}>
+        <span className={classes.breadcrumbsLabel}>Posts</span>
+        <MobileNav className={classes.mobileNav} currentCategory={archive.name ?? ''}>
+          <Navigation archives={archives} category={category} />
+        </MobileNav>
+        <Navigation archives={archives} category={category} className={classes.desktopNav} />
+      </div>
+      <BlockWrapper padding={{ bottom: 'large', top: 'small' }} settings={{}}>
+        <BackgroundGrid zIndex={-1} />
         <Gutter>
           <div className={[classes.hero].filter(Boolean).join(' ')}>
             <div className={[classes.heroContent, 'grid'].filter(Boolean).join(' ')}>
@@ -51,9 +91,8 @@ export const Archive: React.FC<{ category: Category['slug'] }> = async ({ catego
               </p>
             </div>
           </div>
-
           {latestPost && typeof latestPost !== 'string' && <FeaturedBlogPost {...latestPost} />}
-          {posts && Array.isArray(posts) && posts.length > 0 && (
+          {posts && Array.isArray(posts) && posts.length > 0 ? (
             <div className={[classes.cardGrid, 'grid'].filter(Boolean).join(' ')}>
               {(posts || []).slice(1).map(
                 (post) =>
@@ -61,7 +100,7 @@ export const Archive: React.FC<{ category: Category['slug'] }> = async ({ catego
                     <div className={['cols-8 cols-m-8'].filter(Boolean).join(' ')} key={post.id}>
                       <ContentMediaCard
                         authors={post.authors}
-                        href={`/blog/${post.slug}`}
+                        href={`/${category}/${post.slug}`}
                         media={post.image}
                         publishedOn={post.publishedOn}
                         title={post.title}
@@ -69,6 +108,11 @@ export const Archive: React.FC<{ category: Category['slug'] }> = async ({ catego
                     </div>
                   ),
               )}
+            </div>
+          ) : (
+            <div className={classes.noPosts}>
+              <h5>No posts to show.</h5>
+              <BackgroundScanline />
             </div>
           )}
         </Gutter>
