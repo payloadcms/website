@@ -212,7 +212,7 @@ export const fetchArchives = async (slug?: string): Promise<Partial<Category>[]>
   return data.docs
 }
 
-export const fetchBlogPost = async (slug: string): Promise<Post> => {
+export const fetchBlogPost = async (slug: string, category): Promise<Post> => {
   const { isEnabled: draft } = await draftMode()
   const payload = await getPayload({ config })
 
@@ -224,6 +224,7 @@ export const fetchBlogPost = async (slug: string): Promise<Post> => {
     where: {
       and: [
         { slug: { equals: slug } },
+        { 'category.slug': { equals: category } },
         ...(draft
           ? []
           : [

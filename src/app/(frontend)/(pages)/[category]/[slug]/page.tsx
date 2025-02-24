@@ -11,10 +11,10 @@ import React from 'react'
 
 import { Post } from '@components/Post/index.js'
 
-const getPost = async (slug, draft?) =>
+const getPost = async (slug, category, draft?) =>
   draft
-    ? await fetchBlogPost(slug)
-    : await unstable_cache(fetchBlogPost, ['blogPost', `post-${slug}`])(slug)
+    ? await fetchBlogPost(slug, category)
+    : await unstable_cache(fetchBlogPost, ['blogPost', `post-${slug}`])(slug, category)
 
 const PostPage = async ({
   params,
@@ -27,7 +27,7 @@ const PostPage = async ({
   const { isEnabled: draft } = await draftMode()
   const { category, slug } = await params
 
-  const blogPost = await getPost(slug, draft)
+  const blogPost = await getPost(slug, category, draft)
 
   const url = `/${category}/${slug}`
 
