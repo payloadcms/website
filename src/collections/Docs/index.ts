@@ -219,6 +219,11 @@ export const Docs: CollectionConfig = {
       type: 'join',
       collection: 'posts',
       on: 'relatedDocs',
+      where: {
+        'category.slug': {
+          equals: 'guides',
+        },
+      },
     },
   ],
   hooks: {

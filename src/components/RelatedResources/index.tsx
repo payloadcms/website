@@ -30,9 +30,10 @@ export const RelatedResources: React.FC<RelatedResourcesProps> = ({ guides, rela
               <ul className={classes.list}>
                 {guides.map(
                   (guide) =>
-                    typeof guide !== 'string' && (
+                    typeof guide !== 'string' &&
+                    typeof guide.category !== 'string' && (
                       <li key={guide.slug} className={classes.item}>
-                        <Link href={`/guide/${guide.slug}`} prefetch={false} scroll={false}>
+                        <Link href={`/guides/${guide.slug}`} prefetch={false}>
                           {guide.title} <ArrowIcon className={classes.relatedPostsArrow} />
                         </Link>
                       </li>
