@@ -23,7 +23,6 @@ function Hit({ children, hit, path }) {
 function Component() {
   const path = usePathname()
   return (
-    // @ts-expect-error
     <DocSearch
       apiKey={process.env.NEXT_PUBLIC_ALGOLIA_DOCSEARCH_KEY || ''}
       appId="9MJY7K9GOW"

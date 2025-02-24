@@ -40,11 +40,14 @@ export const RichTextUpload: React.FC<Props> = (props) => {
   }
 
   return (
-    <div className={className} style={styles}>
-      <Wrap {...wrapProps}>
-        <Media resource={value as MediaType} />
-      </Wrap>
-    </div>
+    typeof value !== 'string' &&
+    typeof value !== 'number' && (
+      <div className={className} style={styles}>
+        <Wrap {...wrapProps}>
+          <Media resource={value.media} />
+        </Wrap>
+      </div>
+    )
   )
 }
 
