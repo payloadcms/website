@@ -156,6 +156,8 @@ export const Posts: CollectionConfig = {
       hooks: {
         afterChange: [
           ({ value, req }) => {
+            if (!Array.isArray(value)) return
+
             value.forEach(async (docID) => {
               const doc = await req.payload.findByID({
                 collection: 'docs',
