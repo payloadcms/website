@@ -20,7 +20,7 @@ export default async ({
     ? await fetchArchive(category, draft)
     : await unstable_cache(fetchArchive, [`${category}-archive`])(category, draft)
 
-  const posts = archive.posts?.docs
+  const posts = archive?.posts?.docs
 
   if (!archive || !posts) {
     notFound()
@@ -39,6 +39,11 @@ export const generateStaticParams = async () => {
 export const generateMetadata = async ({ params }: { params: Promise<{ category: string }> }) => {
   const { category } = await params
   const archive = await fetchArchive(category)
+
+  if (!archive) {
+    return null
+  }
+
   const { name, description } = archive
 
   return {
