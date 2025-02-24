@@ -80,7 +80,7 @@ export const Posts: CollectionConfig = {
                 revalidatePath(`/${category.slug}`)
                 console.log(`Revalidated: /${category.slug}`)
 
-                if (previousValue) {
+                if (value !== previousValue) {
                   const previousCategory = await req.payload.findByID({
                     collection: 'categories',
                     id: previousValue,
@@ -89,7 +89,7 @@ export const Posts: CollectionConfig = {
                     },
                   })
                   revalidatePath(`/${previousCategory.slug}`)
-                  console.log(`Revalidated: /${category.slug}`)
+                  console.log(`Revalidated: /${previousCategory.slug}`)
                 }
               },
             ],
@@ -252,12 +252,28 @@ export const Posts: CollectionConfig = {
   ],
   hooks: {
     afterChange: [
-      ({ doc, previousDoc }) => {
-        revalidatePath(`/${doc.category.slug}/${doc.slug}`)
-        console.log(`Revalidated: /${doc.category.slug}/${doc.slug}`)
+      async ({ doc, previousDoc, req }) => {
+        const category = await req.payload.findByID({
+          collection: 'categories',
+          id: doc.category,
+          select: {
+            slug: true,
+          },
+        })
 
-        revalidatePath(`/${previousDoc.category.slug}/${previousDoc.slug}`)
-        console.log(`Revalidated: /${previousDoc.category.slug}/${previousDoc.slug}`)
+        const previousCategory = await req.payload.findByID({
+          collection: 'categories',
+          id: previousDoc.category,
+          select: {
+            slug: true,
+          },
+        })
+
+        revalidatePath(`/${category.slug}/${doc.slug}`)
+        console.log(`Revalidated: /${category.slug}/${doc.slug}`)
+
+        revalidatePath(`/${previousCategory.slug}/${previousDoc.slug}`)
+        console.log(`Revalidated: /${previousCategory.slug}/${previousDoc.slug}`)
       },
     ],
   },
