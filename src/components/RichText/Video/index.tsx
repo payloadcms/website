@@ -13,7 +13,7 @@ export const Video: React.FC<{
 
   return (
     <div className={classes.videoPlayer}>
-      {platform === 'youtube' && <YouTubePlayer videoID={id} />}
+      {platform === 'youtube' && <YouTubePlayer start={start} videoID={id} />}
       {platform === 'vimeo' && <VimeoPlayer videoID={id} />}
     </div>
   )

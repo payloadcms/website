@@ -8,6 +8,7 @@ import { Media } from '@components/Media/index.js'
 import { RenderBlocks } from '@components/RenderBlocks/index.js'
 import { RichText } from '@components/RichText/index.js'
 import { Video } from '@components/RichText/Video/index.js'
+import { getVideo } from '@root/utilities/get-video.js'
 import { formatDate } from '@utilities/format-date-time.js'
 import React from 'react'
 
@@ -90,8 +91,8 @@ export const Post: React.FC<PostType> = (props) => {
             </div>
             {typeof image !== 'string' && (
               <div className={classes.heroImageWrap}>
-                {useVideo ? (
-                  <Video {...videoToUse} />
+                {useVideo && videoUrl ? (
+                  <Video {...getVideo(videoUrl)} />
                 ) : (
                   <Media className={classes.heroImage} priority resource={image} />
                 )}
@@ -99,8 +100,8 @@ export const Post: React.FC<PostType> = (props) => {
             )}
             {typeof image !== 'string' && (
               <div className={classes.mobileImage}>
-                {useVideo ? (
-                  <Video {...videoToUse} />
+                {useVideo && videoUrl ? (
+                  <Video {...getVideo(videoUrl)} />
                 ) : (
                   <Media className={classes.heroImage} priority resource={image} />
                 )}
