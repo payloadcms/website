@@ -33,9 +33,16 @@ export const Posts: CollectionConfig = {
   defaultPopulate: {
     slug: true,
     authors: true,
+    authorType: true,
+    guestAuthor: true,
+    guestSocials: true,
     image: true,
     publishedOn: true,
     title: true,
+    category: {
+      slug: true,
+      name: true,
+    },
   },
   fields: [
     {
@@ -48,6 +55,55 @@ export const Posts: CollectionConfig = {
       type: 'upload',
       relationTo: 'media',
       required: true,
+    },
+    {
+      type: 'row',
+      fields: [
+        {
+          name: 'category',
+          type: 'relationship',
+          admin: {
+            width: '50%',
+          },
+          required: true,
+          relationTo: 'categories',
+          hooks: {
+            afterChange: [
+              async ({ value, previousValue, req }) => {
+                const category = await req.payload.findByID({
+                  collection: 'categories',
+                  id: value,
+                  select: {
+                    slug: true,
+                  },
+                })
+                revalidatePath(`/${category.slug}`)
+                console.log(`Revalidated: /${category.slug}`)
+
+                if (value !== previousValue) {
+                  const previousCategory = await req.payload.findByID({
+                    collection: 'categories',
+                    id: previousValue,
+                    select: {
+                      slug: true,
+                    },
+                  })
+                  revalidatePath(`/${previousCategory.slug}`)
+                  console.log(`Revalidated: /${previousCategory.slug}`)
+                }
+              },
+            ],
+          },
+        },
+        {
+          name: 'tags',
+          type: 'text',
+          admin: {
+            width: '50%',
+          },
+          hasMany: true,
+        },
+      ],
     },
     {
       name: 'useVideo',
@@ -88,16 +144,101 @@ export const Posts: CollectionConfig = {
       hasMany: true,
       relationTo: 'posts',
     },
+    {
+      name: 'relatedDocs',
+      type: 'relationship',
+      admin: {
+        description:
+          'Select the docs where you want to link to this guide. Be sure to select the correct version.',
+      },
+      hasMany: true,
+      relationTo: 'docs',
+      hooks: {
+        afterChange: [
+          ({ value, req }) => {
+            if (!Array.isArray(value)) return
+
+            value.forEach(async (docID) => {
+              const doc = await req.payload.findByID({
+                collection: 'docs',
+                id: docID,
+                select: {
+                  topic: true,
+                  slug: true,
+                },
+              })
+              revalidatePath(`/docs/${doc.topic}/${doc.slug}`)
+              console.log(`Revalidated: /docs/${doc.topic}/${doc.slug}`)
+            })
+          },
+        ],
+      },
+    },
     slugField(),
+    {
+      name: 'authorType',
+      type: 'select',
+      admin: {
+        position: 'sidebar',
+      },
+      defaultValue: 'team',
+      options: [
+        { label: 'Guest', value: 'guest' },
+        { label: 'Team', value: 'team' },
+      ],
+    },
     {
       name: 'authors',
       type: 'relationship',
       admin: {
+        condition: (_, siblingData) => siblingData?.authorType === 'team',
         position: 'sidebar',
       },
       hasMany: true,
       relationTo: 'users',
       required: true,
+    },
+    {
+      name: 'guestAuthor',
+      type: 'text',
+      admin: {
+        condition: (_, siblingData) => siblingData?.authorType === 'guest',
+        position: 'sidebar',
+      },
+    },
+    {
+      type: 'collapsible',
+      admin: {
+        condition: (_, siblingData) => siblingData?.authorType === 'guest',
+        initCollapsed: true,
+        position: 'sidebar',
+      },
+      fields: [
+        {
+          name: 'guestSocials',
+          label: false,
+          type: 'group',
+          fields: [
+            {
+              name: 'youtube',
+              type: 'text',
+            },
+            {
+              name: 'twitter',
+              type: 'text',
+            },
+            {
+              name: 'linkedin',
+              type: 'text',
+            },
+            {
+              name: 'website',
+              type: 'text',
+            },
+          ],
+        },
+      ],
+      label: 'Guest Author Socials',
     },
     {
       name: 'publishedOn',
@@ -113,10 +254,44 @@ export const Posts: CollectionConfig = {
   ],
   hooks: {
     afterChange: [
-      ({ doc }) => {
-        revalidatePath(`/blog/${doc.slug}`)
-        revalidatePath(`/blog`, 'page')
-        console.log(`Revalidated: /blog/${doc.slug}`)
+      async ({ doc, previousDoc, req }) => {
+        const category = await req.payload.findByID({
+          collection: 'categories',
+          id: doc.category,
+          select: {
+            slug: true,
+          },
+        })
+
+        const previousCategory = await req.payload.findByID({
+          collection: 'categories',
+          id: previousDoc.category,
+          select: {
+            slug: true,
+          },
+        })
+
+        revalidatePath(`/${category.slug}/${doc.slug}`)
+        console.log(`Revalidated: /${category.slug}/${doc.slug}`)
+
+        revalidatePath(`/${previousCategory.slug}/${previousDoc.slug}`)
+        console.log(`Revalidated: /${previousCategory.slug}/${previousDoc.slug}`)
+      },
+    ],
+    afterDelete: [
+      async ({ doc, req }) => {
+        const category = await req.payload.findByID({
+          collection: 'categories',
+          id: doc.category,
+          select: {
+            slug: true,
+          },
+        })
+
+        revalidatePath(`/${category.slug}`)
+        revalidatePath(`/${category.slug}/${doc.slug}`)
+        console.log(`Revalidated: /${category.slug}`)
+        console.log(`Revalidated: /${category.slug}/${doc.slug}`)
       },
     ],
   },

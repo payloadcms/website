@@ -6,10 +6,65 @@
  * and re-run `payload generate:types` to regenerate this file.
  */
 
+/**
+ * Supported timezones in IANA format.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "supportedTimezones".
+ */
+export type SupportedTimezones =
+  | 'Pacific/Midway'
+  | 'Pacific/Niue'
+  | 'Pacific/Honolulu'
+  | 'Pacific/Rarotonga'
+  | 'America/Anchorage'
+  | 'Pacific/Gambier'
+  | 'America/Los_Angeles'
+  | 'America/Tijuana'
+  | 'America/Denver'
+  | 'America/Phoenix'
+  | 'America/Chicago'
+  | 'America/Guatemala'
+  | 'America/New_York'
+  | 'America/Bogota'
+  | 'America/Caracas'
+  | 'America/Santiago'
+  | 'America/Buenos_Aires'
+  | 'America/Sao_Paulo'
+  | 'Atlantic/South_Georgia'
+  | 'Atlantic/Azores'
+  | 'Atlantic/Cape_Verde'
+  | 'Europe/London'
+  | 'Europe/Berlin'
+  | 'Africa/Lagos'
+  | 'Europe/Athens'
+  | 'Africa/Cairo'
+  | 'Europe/Moscow'
+  | 'Asia/Riyadh'
+  | 'Asia/Dubai'
+  | 'Asia/Baku'
+  | 'Asia/Karachi'
+  | 'Asia/Tashkent'
+  | 'Asia/Calcutta'
+  | 'Asia/Dhaka'
+  | 'Asia/Almaty'
+  | 'Asia/Jakarta'
+  | 'Asia/Bangkok'
+  | 'Asia/Shanghai'
+  | 'Asia/Singapore'
+  | 'Asia/Tokyo'
+  | 'Asia/Seoul'
+  | 'Australia/Sydney'
+  | 'Pacific/Guam'
+  | 'Pacific/Noumea'
+  | 'Pacific/Auckland'
+  | 'Pacific/Fiji';
+
 export interface Config {
   auth: {
     users: UserAuthOperations;
   };
+  blocks: {};
   collections: {
     'case-studies': CaseStudy;
     'community-help': CommunityHelp;
@@ -17,6 +72,7 @@ export interface Config {
     media: Media;
     pages: Page;
     posts: Post;
+    categories: Category;
     'reusable-content': ReusableContent;
     users: User;
     partners: Partner;
@@ -31,7 +87,14 @@ export interface Config {
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
-  collectionsJoins: {};
+  collectionsJoins: {
+    docs: {
+      guides: 'posts';
+    };
+    categories: {
+      posts: 'posts';
+    };
+  };
   collectionsSelect: {
     'case-studies': CaseStudiesSelect<false> | CaseStudiesSelect<true>;
     'community-help': CommunityHelpSelect<false> | CommunityHelpSelect<true>;
@@ -39,6 +102,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
+    categories: CategoriesSelect<false> | CategoriesSelect<true>;
     'reusable-content': ReusableContentSelect<false> | ReusableContentSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     partners: PartnersSelect<false> | PartnersSelect<true>;
@@ -1168,9 +1232,6 @@ export interface CaseStudy {
                 background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
               reusableContent: string | ReusableContent;
-              /**
-               * This is a custom ID that can be used to target this block with CSS or JavaScript.
-               */
               customId?: string | null;
             };
             id?: string | null;
@@ -2833,9 +2894,6 @@ export interface Page {
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           reusableContent: string | ReusableContent;
-          /**
-           * This is a custom ID that can be used to target this block with CSS or JavaScript.
-           */
           customId?: string | null;
         };
         id?: string | null;
@@ -3122,6 +3180,8 @@ export interface Post {
   id: string;
   title: string;
   image: string | Media;
+  category: string | Category;
+  tags?: string[] | null;
   useVideo?: boolean | null;
   videoUrl?: string | null;
   excerpt: {
@@ -3315,9 +3375,6 @@ export interface Post {
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           reusableContent: string | ReusableContent;
-          /**
-           * This is a custom ID that can be used to target this block with CSS or JavaScript.
-           */
           customId?: string | null;
         };
         id?: string | null;
@@ -3341,8 +3398,20 @@ export interface Post {
     [k: string]: unknown;
   } | null;
   relatedPosts?: (string | Post)[] | null;
+  /**
+   * Select the docs where you want to link to this guide. Be sure to select the correct version.
+   */
+  relatedDocs?: (string | Doc)[] | null;
   slug?: string | null;
-  authors: (string | User)[];
+  authorType?: ('guest' | 'team') | null;
+  authors?: (string | User)[] | null;
+  guestAuthor?: string | null;
+  guestSocials?: {
+    youtube?: string | null;
+    twitter?: string | null;
+    linkedin?: string | null;
+    website?: string | null;
+  };
   publishedOn: string;
   meta?: {
     title?: string | null;
@@ -3355,6 +3424,23 @@ export interface Post {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories".
+ */
+export interface Category {
+  id: string;
+  name: string;
+  slug: string;
+  headline: string;
+  description: string;
+  posts?: {
+    docs?: (string | Post)[] | null;
+    hasNextPage?: boolean | null;
+  } | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -5068,6 +5154,57 @@ export interface StepsBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "docs".
+ */
+export interface Doc {
+  id: string;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  title: string;
+  description?: string | null;
+  keywords?: string | null;
+  headings?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  path?: string | null;
+  topic: string;
+  /**
+   * The topic group is displayed on the sidebar, but is not part of the URL
+   */
+  topicGroup: string;
+  slug: string;
+  label?: string | null;
+  order?: number | null;
+  version: string;
+  mdx?: string | null;
+  guides?: {
+    docs?: (string | Post)[] | null;
+    hasNextPage?: boolean | null;
+  } | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -5115,53 +5252,6 @@ export interface CommunityHelp {
   helpful?: boolean | null;
   relatedDocs?: (string | Doc)[] | null;
   threadCreatedAt?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "docs".
- */
-export interface Doc {
-  id: string;
-  content?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  title: string;
-  description?: string | null;
-  keywords?: string | null;
-  headings?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  path?: string | null;
-  topic: string;
-  /**
-   * The topic group is displayed on the sidebar, but is not part of the URL
-   */
-  topicGroup: string;
-  slug: string;
-  label?: string | null;
-  order?: number | null;
-  version: string;
-  mdx?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -5403,6 +5493,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'posts';
         value: string | Post;
+      } | null)
+    | ({
+        relationTo: 'categories';
+        value: string | Category;
       } | null)
     | ({
         relationTo: 'reusable-content';
@@ -6413,6 +6507,7 @@ export interface DocsSelect<T extends boolean = true> {
   order?: T;
   version?: T;
   mdx?: T;
+  guides?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -7434,6 +7529,8 @@ export interface PagesSelect<T extends boolean = true> {
 export interface PostsSelect<T extends boolean = true> {
   title?: T;
   image?: T;
+  category?: T;
+  tags?: T;
   useVideo?: T;
   videoUrl?: T;
   excerpt?: T;
@@ -7570,8 +7667,19 @@ export interface PostsSelect<T extends boolean = true> {
       };
   lexicalContent?: T;
   relatedPosts?: T;
+  relatedDocs?: T;
   slug?: T;
+  authorType?: T;
   authors?: T;
+  guestAuthor?: T;
+  guestSocials?:
+    | T
+    | {
+        youtube?: T;
+        twitter?: T;
+        linkedin?: T;
+        website?: T;
+      };
   publishedOn?: T;
   meta?:
     | T
@@ -7583,6 +7691,19 @@ export interface PostsSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories_select".
+ */
+export interface CategoriesSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  headline?: T;
+  description?: T;
+  posts?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -10214,9 +10335,6 @@ export interface PartnerProgram {
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 reusableContent: string | ReusableContent;
-                /**
-                 * This is a custom ID that can be used to target this block with CSS or JavaScript.
-                 */
                 customId?: string | null;
               };
               id?: string | null;
@@ -11522,9 +11640,6 @@ export interface PartnerProgram {
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 reusableContent: string | ReusableContent;
-                /**
-                 * This is a custom ID that can be used to target this block with CSS or JavaScript.
-                 */
                 customId?: string | null;
               };
               id?: string | null;

@@ -8,12 +8,6 @@ import { WindowInfoProvider } from '@faceless-ui/window-info'
 import React from 'react'
 import { CookiesProvider } from 'react-cookie'
 
-// import { ClockIcon } from '@root/graphics/ClockIcon'
-// import { InfoIcon } from '@root/graphics/InfoIcon'
-// import { CheckIcon } from '@root/icons/CheckIcon/index.js'
-// import { CloseIcon } from '@root/icons/CloseIcon/index.js'
-import { Slide } from '@faceless-ui/slider'
-// import { ErrorIcon } from '@root/icons/ErrorIcon'
 import { HeaderIntersectionObserver } from '@root/providers/HeaderIntersectionObserver/index.js'
 
 import { AuthProvider } from './Auth/index.js'
@@ -26,7 +20,6 @@ export const Providers: React.FC<{
   children: React.ReactNode
 }> = ({ children }) => {
   return (
-    // @ts-expect-error
     <CookiesProvider>
       <AuthProvider>
         <ScrollInfoProvider>

@@ -1,6 +1,4 @@
-'use client'
-
-import type { Post } from '@root/payload-types.js'
+import type { Post as PostType } from '@root/payload-types.js'
 
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
 import { Breadcrumbs } from '@components/Breadcrumbs/index.js'
@@ -11,43 +9,40 @@ import { RenderBlocks } from '@components/RenderBlocks/index.js'
 import { RichText } from '@components/RichText/index.js'
 import { Video } from '@components/RichText/Video/index.js'
 import { getVideo } from '@root/utilities/get-video.js'
-import { useResize } from '@root/utilities/use-resize.js'
 import { formatDate } from '@utilities/format-date-time.js'
 import React from 'react'
 
-import { AuthorsList } from '../AuthorsList/index.js'
+import { AuthorsList, GuestAuthorList } from './AuthorsList/index.js'
 import classes from './index.module.scss'
-export const BlogPost: React.FC<Post> = (props) => {
-  const { content, excerpt, image, publishedOn, relatedPosts, title, useVideo, videoUrl } = props
-  const [docPadding, setDocPadding] = React.useState(0)
-  const docRef = React.useRef<HTMLDivElement>(null)
-  const docSize = useResize(docRef)
-
-  React.useEffect(() => {
-    if (docRef.current?.offsetWidth === undefined) {
-      return
-    }
-    setDocPadding(Math.round(docRef.current?.offsetWidth / 16) - 2)
-  }, [docRef.current?.offsetWidth, docSize])
+import { ArrowRightIcon } from '@icons/ArrowRightIcon/index.js'
+export const Post: React.FC<PostType> = (props) => {
+  const {
+    content,
+    excerpt,
+    image,
+    publishedOn,
+    relatedPosts,
+    category,
+    title,
+    useVideo,
+    videoUrl,
+    authorType,
+    guestAuthor,
+    guestSocials,
+  } = props
 
   return (
-    <div className={classes.blog} id="blog">
+    <div className={classes.post} id="blog">
       <BackgroundGrid wideGrid />
       <Gutter>
-        <div className={[classes.grid, 'grid'].filter(Boolean).join(' ')} ref={docRef}>
+        <div className={[classes.grid, 'grid'].filter(Boolean).join(' ')}>
           <div className={[classes.stickyColumn, 'cols-3 start-1'].filter(Boolean).join(' ')}>
             <div className={classes.stickyContent}>
-              <div className={classes.authorTimeSlots}>
+              {authorType === 'team' ? (
                 <AuthorsList authors={props.authors} />
-                {publishedOn && (
-                  <div className={classes.dateSlot}>
-                    <span className={classes.publishLabel}>Published On</span>
-                    <time className={classes.date} dateTime={publishedOn}>
-                      {formatDate({ date: publishedOn })}
-                    </time>
-                  </div>
-                )}
-              </div>
+              ) : (
+                <GuestAuthorList author={guestAuthor} socials={guestSocials} />
+              )}
               <div className={classes.discordGitWrap}>
                 <DiscordGitCTA appearance="minimal" />
               </div>
@@ -62,33 +57,40 @@ export const BlogPost: React.FC<Post> = (props) => {
             <div className={classes.titleWrap}>
               <div>
                 <Breadcrumbs
-                  className={classes.breadcrumbs}
-                  ellipsis={false}
                   items={[
                     {
-                      label: 'Blog Post',
+                      label: (
+                        <span className={classes.allPosts}>
+                          <ArrowRightIcon />
+                          {typeof category !== 'string' && category?.name}
+                        </span>
+                      ),
+                      url: typeof category !== 'string' ? `/${category?.slug}` : '/blog',
+                    },
+                    {
+                      label: <time>{formatDate({ date: publishedOn })}</time>,
                     },
                   ]}
+                  className={classes.breadcrumbs}
                 />
                 <h1 className={classes.title}>{title}</h1>
+                {category === 'guide' &&
+                  (authorType === 'guest' ? (
+                    <span className={classes.guideBadge}>Community Guide</span>
+                  ) : (
+                    <span className={classes.guideBadge}>Official Guide</span>
+                  ))}
               </div>
               <div className={classes.mobileAuthor}>
-                <AuthorsList authors={props.authors} />
-                {publishedOn && (
-                  <div className={classes.dateSlot}>
-                    <span className={classes.publishLabel}>Published On</span>
-                    <time className={classes.date} dateTime={publishedOn}>
-                      {formatDate({ date: publishedOn })}
-                    </time>
-                  </div>
+                {authorType === 'team' ? (
+                  <AuthorsList authors={props.authors} />
+                ) : (
+                  <GuestAuthorList author={guestAuthor} socials={guestSocials} />
                 )}
               </div>
             </div>
             {typeof image !== 'string' && (
-              <div
-                className={classes.heroImageWrap}
-                style={{ marginLeft: -(docPadding + 1), marginRight: docPadding * -4 - 6 }}
-              >
+              <div className={classes.heroImageWrap}>
                 {useVideo && videoUrl ? (
                   <Video {...getVideo(videoUrl)} />
                 ) : (
@@ -98,7 +100,11 @@ export const BlogPost: React.FC<Post> = (props) => {
             )}
             {typeof image !== 'string' && (
               <div className={classes.mobileImage}>
-                <Media className={classes.heroImage} priority resource={image} />
+                {useVideo && videoUrl ? (
+                  <Video {...getVideo(videoUrl)} />
+                ) : (
+                  <Media className={classes.heroImage} priority resource={image} />
+                )}
               </div>
             )}
             <RichText className={classes.excerpt} content={excerpt} />

@@ -2,30 +2,34 @@ import type { Metadata } from 'next'
 
 import { PayloadRedirects } from '@components/PayloadRedirects/index.js'
 import { RefreshRouteOnSave } from '@components/RefreshRouterOnSave/index.js'
+import BreadcrumbsBar from '@components/Hero/BreadcrumbsBar/index.js'
 import { fetchBlogPost, fetchPosts } from '@data'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
 import { unstable_cache } from 'next/cache'
 import { draftMode } from 'next/headers.js'
 import React from 'react'
 
-import { BlogPost } from './BlogPost/index.js'
+import { Post } from '@components/Post/index.js'
 
-const getPost = (slug, draft?) =>
-  draft ? fetchBlogPost(slug) : unstable_cache(fetchBlogPost, ['blogPost', `post-${slug}`])(slug)
+const getPost = async (slug, category, draft?) =>
+  draft
+    ? await fetchBlogPost(slug, category)
+    : await unstable_cache(fetchBlogPost, ['blogPost', `post-${slug}`])(slug, category)
 
-const Post = async ({
+const PostPage = async ({
   params,
 }: {
   params: Promise<{
+    category: string
     slug: any
   }>
 }) => {
   const { isEnabled: draft } = await draftMode()
-  const { slug } = await params
+  const { category, slug } = await params
 
-  const blogPost = await getPost(slug, draft)
+  const blogPost = await getPost(slug, category, draft)
 
-  const url = `/blog/${slug}`
+  const url = `/${category}/${slug}`
 
   if (!blogPost) {
     return <PayloadRedirects url={url} />
@@ -35,31 +39,42 @@ const Post = async ({
     <>
       <PayloadRedirects disableNotFound url={url} />
       <RefreshRouteOnSave />
-      <BlogPost {...blogPost} />
+      <BreadcrumbsBar breadcrumbs={[]} hero={{ type: 'default' }} />
+      <Post {...blogPost} />
     </>
   )
 }
 
-export default Post
+export default PostPage
 
 export async function generateStaticParams() {
-  const getPosts = unstable_cache(fetchPosts, ['blogPosts'])
+  const getPosts = unstable_cache(fetchPosts, ['allPosts'])
   const posts = await getPosts()
 
-  return posts.map(({ slug }) => ({
-    slug,
-  }))
+  return posts
+    .map(({ slug, category }) => {
+      if (!category || typeof category === 'string' || !category.slug) {
+        return null
+      }
+
+      return {
+        category: category.slug,
+        slug,
+      }
+    })
+    .filter(Boolean)
 }
 
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{
-    slug: any
+    category: string
+    slug: string
   }>
 }): Promise<Metadata> {
   const { isEnabled: draft } = await draftMode()
-  const { slug } = await params
+  const { category, slug } = await params
   const post = await getPost(slug, draft)
 
   const ogImage =
@@ -80,7 +95,7 @@ export async function generateMetadata({
           ]
         : undefined,
       title: post?.meta?.title ?? undefined,
-      url: `/blog/${slug}`,
+      url: `/${category}/${slug}`,
     }),
     title: post?.meta?.title,
   }

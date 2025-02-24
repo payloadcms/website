@@ -1,0 +1,169 @@
+@use '@scss/common' as *;
+
+.navigation {
+  margin-top: var(--header-height);
+  margin-inline: var(--gutter-h);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-block: 1px solid var(--theme-border-color);
+
+  .desktopNav {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    a {
+      padding: 1rem 0.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      position: relative;
+      transition: color 0.2s;
+
+      &:hover {
+        color: var(--theme-elevation-500);
+      }
+    }
+
+    .tab {
+      &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: var(--theme-bg);
+        transition: background-color 0.2s;
+      }
+
+      &:hover::after {
+        background-color: var(--theme-elevation-500);
+      }
+    }
+
+    .tab.active {
+      &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: var(--theme-elevation-1000);
+      }
+
+      &:hover {
+        color: var(--theme-elevation-500);
+
+        &::after {
+          background-color: var(--theme-elevation-500);
+        }
+      }
+    }
+
+    @include mid-break {
+      display: none;
+    }
+  }
+}
+
+.hero {
+  margin-bottom: 5rem;
+}
+
+.pageTitle {
+  @include h5;
+  & {
+    opacity: 0.5;
+    margin: 0;
+    margin-bottom: 2rem;
+  }
+}
+
+.title {
+  @include h1;
+  & {
+    margin: 0;
+  }
+
+  @include mid-break {
+    margin-bottom: 2rem;
+  }
+}
+
+.description {
+  margin: 0;
+}
+
+.cardGrid {
+  row-gap: 5rem;
+
+  @include mid-break {
+    row-gap: 2.5rem;
+  }
+}
+
+.noPosts {
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background: var(--theme-bg);
+  border: 1px solid var(--theme-border-color);
+}
+
+.breadcrumbsLabel {
+  @include mid-break {
+    display: none;
+  }
+}
+
+.mobileNav {
+  display: none;
+
+  @include mid-break {
+    display: block;
+    width: 100%;
+    padding: 1.25rem 0;
+  }
+
+  nav {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem 0;
+
+    a {
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  }
+}
+
+.mobileNavTrigger {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 0.5rem;
+  width: 100%;
+
+  &[data-state='open'] {
+    .chevron {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+.divider {
+  color: var(--theme-elevation-400);
+}
