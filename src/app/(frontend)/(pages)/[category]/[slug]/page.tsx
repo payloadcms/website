@@ -11,8 +11,6 @@ import React from 'react'
 
 import { Post } from '@components/Post/index.js'
 
-export const dynamicParams = false
-
 const getPost = async (slug, draft?) =>
   draft
     ? await fetchBlogPost(slug)

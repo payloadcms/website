@@ -7,7 +7,6 @@ import React from 'react'
 import { notFound } from 'next/navigation'
 import { Archive } from '@components/Archive'
 
-export const dynamicParams = false
 export default async ({
   params,
 }: {
