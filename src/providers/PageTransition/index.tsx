@@ -1,6 +1,7 @@
 'use client'
 
 import canUseDom from '@root/utilities/can-use-dom.js'
+import { usePathname } from 'next/navigation'
 import React, { useEffect, useReducer, useRef, useState } from 'react'
 
 export const PageTransition: React.FC<{
@@ -8,6 +9,8 @@ export const PageTransition: React.FC<{
 }> = (props) => {
   const { children } = props
   const nodeRef = useRef(null)
+  const pathname = usePathname()
+  const hasInitialized = useRef(false)
 
   // this is used to force a re-render when the hash changes to avoid race conditions
   // by ensuring the DOM is updated before we running `getElementById` and `scrollIntoView`
@@ -37,6 +40,13 @@ export const PageTransition: React.FC<{
       element?.scrollIntoView()
     }
   }, [hash, transitionTicker])
+
+  useEffect(() => {
+    if (hasInitialized.current) {
+      window.scrollTo(0, 0)
+    }
+    hasInitialized.current = true
+  }, [pathname, hasInitialized])
 
   useEffect(() => {
     if (hash) {
