@@ -55,7 +55,9 @@ export const Archive: React.FC<{ category: Category['slug'] }> = async ({ catego
   const getArchive = draft ? fetchArchive : unstable_cache(fetchArchive, [`${category}-archive`])
   const getArchives = draft
     ? fetchArchives
-    : unstable_cache(fetchArchives, [`${category}-archives`])
+    : unstable_cache(fetchArchives, [`archives`], {
+        tags: ['archives'],
+      })
 
   const archive = await getArchive(category)
   const archives = await getArchives()

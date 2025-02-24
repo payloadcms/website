@@ -1,4 +1,5 @@
 import { isAdmin } from '@root/access/isAdmin'
+import { revalidatePath, revalidateTag } from 'next/cache'
 import { CollectionConfig } from 'payload'
 
 export const Categories: CollectionConfig = {
@@ -62,4 +63,22 @@ export const Categories: CollectionConfig = {
       defaultLimit: 0,
     },
   ],
+  hooks: {
+    afterChange: [
+      async ({ doc, previousDoc }) => {
+        revalidatePath(`/${doc.slug}`)
+        revalidateTag('archives')
+
+        if (doc.slug !== previousDoc?.slug) {
+          revalidatePath(`/${previousDoc?.slug}`)
+        }
+      },
+    ],
+    afterDelete: [
+      async ({ doc }) => {
+        revalidatePath(`/${doc.slug}`)
+        revalidateTag('archives')
+      },
+    ],
+  },
 }

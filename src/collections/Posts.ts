@@ -276,6 +276,22 @@ export const Posts: CollectionConfig = {
         console.log(`Revalidated: /${previousCategory.slug}/${previousDoc.slug}`)
       },
     ],
+    afterDelete: [
+      async ({ doc, req }) => {
+        const category = await req.payload.findByID({
+          collection: 'categories',
+          id: doc.category,
+          select: {
+            slug: true,
+          },
+        })
+
+        revalidatePath(`/${category.slug}`)
+        revalidatePath(`/${category.slug}/${doc.slug}`)
+        console.log(`Revalidated: /${category.slug}`)
+        console.log(`Revalidated: /${category.slug}/${doc.slug}`)
+      },
+    ],
   },
   versions: {
     drafts: true,
