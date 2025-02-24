@@ -10,9 +10,9 @@ import * as React from 'react'
 import classes from './index.module.scss'
 
 export const FeaturedBlogPost: React.FC<Partial<Post>> = (props) => {
-  const { slug, authors, image: media, meta, publishedOn, title, ...rest } = props
+  const { slug, authors, image: media, meta, publishedOn, title, category, ...rest } = props
 
-  const href = `/blog/${slug}`
+  const href = `/${category}/${slug}`
 
   const author =
     authors && authors[0] && typeof authors[0] !== 'string'

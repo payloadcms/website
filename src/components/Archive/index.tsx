@@ -91,7 +91,9 @@ export const Archive: React.FC<{ category: Category['slug'] }> = async ({ catego
               </p>
             </div>
           </div>
-          {latestPost && typeof latestPost !== 'string' && <FeaturedBlogPost {...latestPost} />}
+          {latestPost && typeof latestPost !== 'string' && (
+            <FeaturedBlogPost {...latestPost} category={category} />
+          )}
           {posts && Array.isArray(posts) && posts.length > 0 ? (
             <div className={[classes.cardGrid, 'grid'].filter(Boolean).join(' ')}>
               {(posts || []).slice(1).map(

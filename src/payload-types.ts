@@ -64,6 +64,7 @@ export interface Config {
   auth: {
     users: UserAuthOperations;
   };
+  blocks: {};
   collections: {
     'case-studies': CaseStudy;
     'community-help': CommunityHelp;
