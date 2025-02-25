@@ -149,3 +149,117 @@
     opacity: 0.5;
   }
 }
+
+.redeployModal > div {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+
+  .modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 2rem 1.5rem;
+
+    h4 {
+      margin: 0;
+    }
+
+    .modalCloseButton {
+      appearance: none;
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: auto;
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .modalTabs {
+    padding-inline: 2rem;
+
+    button {
+      @include body;
+      & {
+        font-family: var(--font-body);
+        letter-spacing: normal;
+      }
+    }
+  }
+
+  .modalContent {
+    padding: 0 2rem 2rem;
+    overflow: hidden;
+
+    p {
+      margin: 0 0 1rem;
+
+      ul {
+        padding: 1rem 1.5rem;
+      }
+    }
+
+    hr {
+      margin: 1rem 0;
+    }
+
+    .modalActions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    label {
+      display: flex;
+      gap: 0.75rem;
+      padding: 1rem;
+      background-color: var(--theme-elevation-100);
+      border: 1px solid var(--theme-border-color);
+      cursor: pointer;
+      transition-property: background-color, border;
+      transition-duration: 0.1s;
+      transition-timing-function: ease-in-out;
+
+      input {
+        width: 16px;
+        height: 16px;
+        @include body;
+        display: inline;
+        vertical-align: middle;
+        line-height: 1;
+        cursor: pointer;
+        flex-shrink: 0;
+      }
+
+      p {
+        margin: 0;
+      }
+
+      &:hover {
+        border: 1px solid var(--theme-elevation-350);
+      }
+
+      &:has(input:checked) {
+        background-color: var(--theme-elevation-150);
+        border: 1px solid var(--theme-elevation-500);
+      }
+
+      @include data-theme-selector('light') {
+        background-color: var(--theme-elevation-50);
+
+        &:has(input:checked) {
+          background-color: var(--theme-elevation-100);
+        }
+      }
+    }
+  }
+}
