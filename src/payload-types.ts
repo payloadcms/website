@@ -2418,6 +2418,7 @@ export interface Page {
         blockName?: string | null;
         blockType: 'contentGrid';
       }
+    | ComparisonTableType
     | {
         formFields: {
           settings?: {
@@ -5230,6 +5231,55 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ComparisonTableType".
+ */
+export interface ComparisonTableType {
+  comparisonTableFields: {
+    settings?: {
+      /**
+       * Leave blank for system default
+       */
+      theme?: ('light' | 'dark') | null;
+      background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
+    };
+    introContent?: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    style?: ('default' | 'centered') | null;
+    header: {
+      tableTitle: string;
+      columnOneHeader: string;
+      columnTwoHeader: string;
+    };
+    rows?:
+      | {
+          feature: string;
+          columnOneCheck?: boolean | null;
+          columnOne?: string | null;
+          columnTwoCheck?: boolean | null;
+          columnTwo?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'comparisonTable';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "community-help".
  */
 export interface CommunityHelp {
@@ -7027,6 +7077,7 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
+        comparisonTable?: T | ComparisonTableTypeSelect<T>;
         form?:
           | T
           | {
@@ -7521,6 +7572,43 @@ export interface PagesSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ComparisonTableType_select".
+ */
+export interface ComparisonTableTypeSelect<T extends boolean = true> {
+  comparisonTableFields?:
+    | T
+    | {
+        settings?:
+          | T
+          | {
+              theme?: T;
+              background?: T;
+            };
+        introContent?: T;
+        style?: T;
+        header?:
+          | T
+          | {
+              tableTitle?: T;
+              columnOneHeader?: T;
+              columnTwoHeader?: T;
+            };
+        rows?:
+          | T
+          | {
+              feature?: T;
+              columnOneCheck?: T;
+              columnOne?: T;
+              columnTwoCheck?: T;
+              columnTwo?: T;
+              id?: T;
+            };
+      };
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
