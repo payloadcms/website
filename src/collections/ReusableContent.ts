@@ -12,6 +12,7 @@ import { CaseStudyCards } from '../blocks/CaseStudyCards'
 import { CaseStudyParallax } from '../blocks/CaseStudyParallax'
 import { Code } from '../blocks/Code'
 import { CodeFeature } from '../blocks/CodeFeature'
+import { ComparisonTable } from '../blocks/ComparisonTable'
 import { Content } from '../blocks/Content'
 import { ContentGrid } from '../blocks/ContentGrid'
 import { ExampleTabs } from '../blocks/ExampleTabs'
@@ -62,6 +63,7 @@ export const ReusableContent: CollectionConfig = {
         CaseStudyParallax,
         Code,
         CodeFeature,
+        ComparisonTable,
         Content,
         ContentGrid,
         ExampleTabs,

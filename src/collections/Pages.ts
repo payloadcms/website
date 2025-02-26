@@ -32,6 +32,7 @@ import { fullTitle } from '../fields/fullTitle'
 import { hero } from '../fields/hero'
 import { slugField } from '../fields/slug'
 import { formatPreviewURL } from '../utilities/formatPreviewURL'
+import { ComparisonTable } from '../blocks/ComparisonTable'
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
@@ -92,6 +93,7 @@ export const Pages: CollectionConfig = {
                 CodeFeature,
                 Content,
                 ContentGrid,
+                ComparisonTable,
                 Form,
                 HoverCards,
                 HoverHighlights,

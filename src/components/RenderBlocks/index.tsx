@@ -37,6 +37,7 @@ import { getFieldsKeyFromBlock } from '@components/RenderBlocks/utilities.js'
 import { useThemePreference } from '@root/providers/Theme/index.js'
 import { toKebabCase } from '@utilities/to-kebab-case.js'
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react'
+import { ComparisonTable } from '@blocks/ComparisonTable'
 
 type ReusableContentBlockType = Extract<Page['layout'][0], { blockType: 'reusableContentBlock' }>
 
@@ -51,6 +52,7 @@ const blockComponents = {
   caseStudyParallax: CaseStudyParallax,
   code: CodeBlock,
   codeFeature: CodeFeature,
+  comparisonTable: ComparisonTable,
   content: ContentBlock,
   contentGrid: ContentGrid,
   cta: CallToAction,
