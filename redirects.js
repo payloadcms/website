@@ -22,6 +22,16 @@ export const redirects = async () => {
       destination: 'https://github.com/payloadcms/payload/discussions/categories/roadmap',
       permanent: true,
     },
+    {
+      source: '/blog',
+      destination: '/posts/blog',
+      permanent: true,
+    },
+    {
+      source: '/blog/:slug',
+      destination: '/posts/blog/:slug',
+      permanent: true,
+    },
   ]
 
   const internetExplorerRedirect = {

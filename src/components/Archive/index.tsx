@@ -30,7 +30,7 @@ const Navigation = ({
       {archives.map(({ name, slug }) => {
         return (
           <Link
-            href={`/${slug}`}
+            href={`/posts/${slug}`}
             key={slug}
             className={[classes.tab, slug == category ? classes.active : '']
               .filter(Boolean)

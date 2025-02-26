@@ -66,17 +66,17 @@ export const Categories: CollectionConfig = {
   hooks: {
     afterChange: [
       async ({ doc, previousDoc }) => {
-        revalidatePath(`/${doc.slug}`)
+        revalidatePath(`/posts/${doc.slug}`)
         revalidateTag('archives')
 
         if (doc.slug !== previousDoc?.slug) {
-          revalidatePath(`/${previousDoc?.slug}`)
+          revalidatePath(`/posts/${previousDoc?.slug}`)
         }
       },
     ],
     afterDelete: [
       async ({ doc }) => {
-        revalidatePath(`/${doc.slug}`)
+        revalidatePath(`/posts/${doc.slug}`)
         revalidateTag('archives')
       },
     ],

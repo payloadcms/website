@@ -77,8 +77,8 @@ export const Posts: CollectionConfig = {
                     slug: true,
                   },
                 })
-                revalidatePath(`/${category.slug}`)
-                console.log(`Revalidated: /${category.slug}`)
+                revalidatePath(`/posts/${category.slug}`)
+                console.log(`Revalidated: /posts/${category.slug}`)
 
                 if (value !== previousValue) {
                   const previousCategory = await req.payload.findByID({
@@ -88,8 +88,8 @@ export const Posts: CollectionConfig = {
                       slug: true,
                     },
                   })
-                  revalidatePath(`/${previousCategory.slug}`)
-                  console.log(`Revalidated: /${previousCategory.slug}`)
+                  revalidatePath(`/posts/${previousCategory.slug}`)
+                  console.log(`Revalidated: /posts/${previousCategory.slug}`)
                 }
               },
             ],
@@ -272,10 +272,10 @@ export const Posts: CollectionConfig = {
         })
 
         revalidatePath(`/${category.slug}/${doc.slug}`)
-        console.log(`Revalidated: /${category.slug}/${doc.slug}`)
+        console.log(`Revalidated: /posts/${category.slug}/${doc.slug}`)
 
         revalidatePath(`/${previousCategory.slug}/${previousDoc.slug}`)
-        console.log(`Revalidated: /${previousCategory.slug}/${previousDoc.slug}`)
+        console.log(`Revalidated: /posts/${previousCategory.slug}/${previousDoc.slug}`)
       },
     ],
     afterDelete: [
@@ -290,8 +290,8 @@ export const Posts: CollectionConfig = {
 
         revalidatePath(`/${category.slug}`)
         revalidatePath(`/${category.slug}/${doc.slug}`)
-        console.log(`Revalidated: /${category.slug}`)
-        console.log(`Revalidated: /${category.slug}/${doc.slug}`)
+        console.log(`Revalidated: /posts/${category.slug}`)
+        console.log(`Revalidated: /posts/${category.slug}/${doc.slug}`)
       },
     ],
   },
