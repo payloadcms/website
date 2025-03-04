@@ -5,6 +5,7 @@ import type { Media as MediaType } from '@types'
 import { CMSLink } from '@components/CMSLink/index.js'
 import { Media } from '@components/Media/index.js'
 import React from 'react'
+import type { TypedUploadCollection, UploadCollectionSlug } from 'payload'
 
 export type RichTextUploadNodeType = {
   fields: {
@@ -44,7 +45,7 @@ export const RichTextUpload: React.FC<Props> = (props) => {
     typeof value !== 'number' && (
       <div className={className} style={styles}>
         <Wrap {...wrapProps}>
-          <Media resource={value.media} />
+          <Media resource={value as TypedUploadCollection[UploadCollectionSlug]} />
         </Wrap>
       </div>
     )
