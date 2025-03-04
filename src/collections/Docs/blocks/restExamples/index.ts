@@ -2,8 +2,6 @@ import type { Block } from 'payload'
 
 import { BlocksFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
 
-import { CodeBlock } from '../code'
-
 export const RestExamplesBlock: Block = {
   slug: 'RestExamples',
   fields: [
@@ -50,7 +48,7 @@ export const RestExamplesBlock: Block = {
                 features: ({ defaultFeatures }) => [
                   ...defaultFeatures,
                   BlocksFeature({
-                    blocks: [CodeBlock],
+                    blocks: ['Code'],
                   }),
                 ],
               }),

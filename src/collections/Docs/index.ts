@@ -17,14 +17,6 @@ import { topicGroupsToDocsData } from '@root/scripts/syncDocs'
 import { revalidatePath } from 'next/cache'
 
 import { isAdmin } from '../../access/isAdmin'
-import { BannerBlock } from './blocks/banner'
-import { CodeBlock } from './blocks/code'
-import { LightDarkImageBlock } from './blocks/lightDarkImage'
-import { RestExamplesBlock } from './blocks/restExamples'
-import { TableWithDrawersBlock } from './blocks/tableWithDrawers'
-import { UploadBlock } from './blocks/upload'
-import { VideoDrawerBlock } from './blocks/VideoDrawer'
-import { YoutubeBlock } from './blocks/youtube'
 import { lexicalToMDX } from './mdxToLexical'
 
 export const contentLexicalEditorFeatures: FeatureProviderServer[] = [
@@ -50,14 +42,14 @@ export const contentLexicalEditorFeatures: FeatureProviderServer[] = [
   EXPERIMENTAL_TableFeature(),
   BlocksFeature({
     blocks: [
-      CodeBlock,
-      BannerBlock,
-      YoutubeBlock,
-      LightDarkImageBlock,
-      UploadBlock,
-      RestExamplesBlock,
-      TableWithDrawersBlock,
-      VideoDrawerBlock,
+      'Code',
+      'Banner',
+      'YouTube',
+      'LightDarkImage',
+      'Upload',
+      'RestExamples',
+      'TableWithDrawers',
+      'VideoDrawer',
     ],
   }),
 ]
