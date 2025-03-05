@@ -76,6 +76,7 @@ import { LightDarkImageBlock } from './collections/Docs/blocks/lightDarkImage'
 import { UploadBlock } from './collections/Docs/blocks/upload'
 import { TableWithDrawersBlock } from './collections/Docs/blocks/tableWithDrawers'
 import { RestExamplesBlock } from './collections/Docs/blocks/restExamples'
+import { opsCounterPlugin } from './plugins/opsCounter'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -369,6 +370,10 @@ export default buildConfig({
     disablePlaygroundInProduction: false,
   },
   plugins: [
+    opsCounterPlugin({
+      max: 200,
+      warnAt: 25,
+    }),
     formBuilderPlugin({
       formOverrides: {
         fields: ({ defaultFields }) => [
