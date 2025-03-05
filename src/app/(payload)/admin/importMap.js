@@ -38,6 +38,7 @@ import { default as default_7b4b356d4f495796f5ea32368107862c } from '@root/globa
 import { BlogMarkdownField as BlogMarkdownField_a0e4da4b38919785352cf36efa721675 } from '@root/blocks/BlogMarkdown/Field'
 import { default as default_26726ff2b18133c6c2dab451ecac5a3e } from '@root/components/TableCheckboxField'
 import { default as default_3ee709fabb34ea93648b8fdb9ee7323a } from '@root/components/AfterNavActions'
+import { VercelBlobClientUploadHandler as VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e } from '@payloadcms/storage-vercel-blob/client'
 
 export const importMap = {
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalCell": RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e,
@@ -79,5 +80,6 @@ export const importMap = {
   "@root/globals/CustomRowLabelTabs#default": default_7b4b356d4f495796f5ea32368107862c,
   "@root/blocks/BlogMarkdown/Field#BlogMarkdownField": BlogMarkdownField_a0e4da4b38919785352cf36efa721675,
   "@root/components/TableCheckboxField#default": default_26726ff2b18133c6c2dab451ecac5a3e,
-  "@root/components/AfterNavActions#default": default_3ee709fabb34ea93648b8fdb9ee7323a
+  "@root/components/AfterNavActions#default": default_3ee709fabb34ea93648b8fdb9ee7323a,
+  "@payloadcms/storage-vercel-blob/client#VercelBlobClientUploadHandler": VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e
 }
