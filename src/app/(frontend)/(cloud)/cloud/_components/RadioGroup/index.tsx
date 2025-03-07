@@ -1,4 +1,4 @@
-import { useField } from '@forms/fields/useField/index.js'
+import { useField } from '@forms/fields/useField/index'
 import * as React from 'react'
 
 import classes from './index.module.scss'

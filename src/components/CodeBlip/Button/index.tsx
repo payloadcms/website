@@ -1,11 +1,11 @@
 'use client'
-import { GradientBorderIcon } from '@root/icons/GradientBorderIcon/index.js'
-import { PlusIcon } from '@root/icons/PlusIcon/index.js'
+import { GradientBorderIcon } from '@root/icons/GradientBorderIcon/index'
+import { PlusIcon } from '@root/icons/PlusIcon/index'
 import React from 'react'
 
-import type { CodeBlip } from '../../Code/types.js'
+import type { CodeBlip } from '../../Code/types'
 
-import { useCodeBlip } from '../CodeBlipContext.js'
+import { useCodeBlip } from '../CodeBlipContext'
 import classes from './index.module.scss'
 
 const CodeBlipButton: React.FC<{ blip: CodeBlip; delay?: number; index?: number }> = ({

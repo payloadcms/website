@@ -3,7 +3,7 @@
 import type React from 'react'
 // import { HoverHighlightProps, HoverHighlights } from '@blocks/HoverHighlights'
 
-// import { StyleguidePageContent } from '../../PageContent/index.js'
+// import { StyleguidePageContent } from '../../PageContent/index'
 
 // const data: HoverHighlightProps = {
 //   hoverHighlightsFields: {

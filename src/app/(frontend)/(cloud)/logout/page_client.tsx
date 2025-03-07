@@ -1,8 +1,8 @@
 'use client'
 
-import { Button } from '@components/Button/index.js'
-import { Gutter } from '@components/Gutter/index.js'
-import { useAuth } from '@root/providers/Auth/index.js'
+import { Button } from '@components/Button/index'
+import { Gutter } from '@components/Gutter/index'
+import { useAuth } from '@root/providers/Auth/index'
 import React, { useEffect, useRef, useState } from 'react'
 
 import classes from './page.module.scss'

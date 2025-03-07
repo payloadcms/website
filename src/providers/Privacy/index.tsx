@@ -1,6 +1,6 @@
 'use client'
 
-import canUseDom from '@root/utilities/can-use-dom.js'
+import canUseDom from '@root/utilities/can-use-dom'
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react'
 
 type Privacy = {

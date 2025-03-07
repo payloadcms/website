@@ -1,14 +1,14 @@
 'use client'
 
-import type { CaseStudy as CaseStudyT } from '@root/payload-types.js'
+import type { CaseStudy as CaseStudyT } from '@root/payload-types'
 
-import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
-import { BlockWrapper } from '@components/BlockWrapper/index.js'
-import { Gutter } from '@components/Gutter/index.js'
-import BreadcrumbsBar from '@components/Hero/BreadcrumbsBar/index.js'
-import { Media } from '@components/Media/index.js'
-import { RenderBlocks } from '@components/RenderBlocks/index.js'
-import { RichText } from '@components/RichText/index.js'
+import { BackgroundGrid } from '@components/BackgroundGrid/index'
+import { BlockWrapper } from '@components/BlockWrapper/index'
+import { Gutter } from '@components/Gutter/index'
+import BreadcrumbsBar from '@components/Hero/BreadcrumbsBar/index'
+import { Media } from '@components/Media/index'
+import { RenderBlocks } from '@components/RenderBlocks/index'
+import { RichText } from '@components/RichText/index'
 import React from 'react'
 
 import classes from './index.module.scss'

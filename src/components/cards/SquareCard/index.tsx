@@ -1,9 +1,9 @@
-import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
-import { CMSLink } from '@components/CMSLink/index.js'
-import { ArrowIcon } from '@icons/ArrowIcon/index.js'
+import { BackgroundScanline } from '@components/BackgroundScanline/index'
+import { CMSLink } from '@components/CMSLink/index'
+import { ArrowIcon } from '@icons/ArrowIcon/index'
 import React from 'react'
 
-import type { SquareCardProps } from '../types.js'
+import type { SquareCardProps } from '../types'
 
 import classes from './index.module.scss'
 

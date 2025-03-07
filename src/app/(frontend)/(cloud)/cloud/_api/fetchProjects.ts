@@ -1,9 +1,9 @@
-import type { Project } from '@root/payload-cloud-types.js'
+import type { Project } from '@root/payload-cloud-types'
 
-import { PROJECT_QUERY, PROJECTS_QUERY } from '@data/project.js'
-import { mergeProjectEnvironment } from '@root/utilities/merge-project-environment.js'
+import { PROJECT_QUERY, PROJECTS_QUERY } from '@data/project'
+import { mergeProjectEnvironment } from '@root/utilities/merge-project-environment'
 
-import { payloadCloudToken } from './token.js'
+import { payloadCloudToken } from './token'
 
 export interface ProjectsRes {
   docs: Project[]

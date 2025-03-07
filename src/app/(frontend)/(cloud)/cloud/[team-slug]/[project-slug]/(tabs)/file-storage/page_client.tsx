@@ -1,12 +1,12 @@
 'use client'
 
-import type { Project, Team } from '@root/payload-cloud-types.js'
+import type { Project, Team } from '@root/payload-cloud-types'
 
-import { Banner } from '@components/Banner/index.js'
-import { CopyToClipboard } from '@components/CopyToClipboard/index.js'
-import { Gutter } from '@components/Gutter/index.js'
-import { Secret } from '@forms/fields/Secret/index.js'
-import Label from '@forms/Label/index.js'
+import { Banner } from '@components/Banner/index'
+import { CopyToClipboard } from '@components/CopyToClipboard/index'
+import { Gutter } from '@components/Gutter/index'
+import { Secret } from '@forms/fields/Secret/index'
+import Label from '@forms/Label/index'
 import * as React from 'react'
 
 import classes from './page.module.scss'

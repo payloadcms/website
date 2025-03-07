@@ -1,8 +1,8 @@
 import type { Endpoints } from '@octokit/types'
 
-import type { Install } from './fetchInstalls.js'
+import type { Install } from './fetchInstalls'
 
-import { payloadCloudToken } from './token.js'
+import { payloadCloudToken } from './token'
 
 type GitHubResponse =
   Endpoints['GET /user/installations/{installation_id}/repositories']['response']

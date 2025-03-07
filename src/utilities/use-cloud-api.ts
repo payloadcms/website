@@ -1,7 +1,7 @@
-import type { Deployment, Plan, Project, Team } from '@root/payload-cloud-types.js'
+import type { Deployment, Plan, Project, Team } from '@root/payload-cloud-types'
 
-import { useAuth } from '@root/providers/Auth/index.js'
-import { qs } from '@utilities/qs.js'
+import { useAuth } from '@root/providers/Auth/index'
+import { qs } from '@utilities/qs'
 import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react'
 
 export type UseCloudAPI<R, A = null> = (args?: A) => {

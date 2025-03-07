@@ -1,7 +1,7 @@
 import {
   default as EnvironmentSettingsPlanPage,
   generateMetadata,
-} from '@cloud/[team-slug]/[project-slug]/(tabs)/settings/plan/page.js'
+} from '@cloud/[team-slug]/[project-slug]/(tabs)/settings/plan/page'
 
 export default EnvironmentSettingsPlanPage
 

@@ -1,15 +1,15 @@
-import type { Page } from '@root/payload-types.js'
+import type { Page } from '@root/payload-types'
 
-import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
-import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
-import { BlockWrapper } from '@components/BlockWrapper/index.js'
-import { CMSLink } from '@components/CMSLink/index.js'
-import { Gutter } from '@components/Gutter/index.js'
-import { Media } from '@components/Media/index.js'
-import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'
+import { BackgroundGrid } from '@components/BackgroundGrid/index'
+import { BackgroundScanline } from '@components/BackgroundScanline/index'
+import { BlockWrapper } from '@components/BlockWrapper/index'
+import { CMSLink } from '@components/CMSLink/index'
+import { Gutter } from '@components/Gutter/index'
+import { Media } from '@components/Media/index'
+import { ArrowIcon } from '@root/icons/ArrowIcon/index'
 import React, { Fragment } from 'react'
 
-import { Highlights } from './Highlights/index.js'
+import { Highlights } from './Highlights/index'
 import classes from './index.module.scss'
 
 export type HoverHighlightProps = {

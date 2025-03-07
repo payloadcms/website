@@ -1,7 +1,7 @@
 'use client'
 import type { DocsVersion } from '@components/RenderDocs'
 
-import { ChevronUpDownIcon } from '@root/icons/ChevronUpDownIcon/index.js'
+import { ChevronUpDownIcon } from '@root/icons/ChevronUpDownIcon/index'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 

@@ -1,8 +1,8 @@
-import { CircleIconButton } from '@components/CircleIconButton/index.js'
-import { TrashIcon } from '@root/icons/TrashIcon/index.js'
+import { CircleIconButton } from '@components/CircleIconButton/index'
+import { TrashIcon } from '@root/icons/TrashIcon/index'
 import * as React from 'react'
 
-import { useArray } from './context.js'
+import { useArray } from './context'
 import classes from './index.module.scss'
 
 type ArrayRowProps = {

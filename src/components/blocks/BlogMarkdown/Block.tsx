@@ -1,6 +1,6 @@
-import type { ReusableContent } from '@root/payload-types.js'
+import type { ReusableContent } from '@root/payload-types'
 
-import Table from '@components/MDX/components/Table/index.js'
+import Table from '@components/MDX/components/Table/index'
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGFM from 'remark-gfm'

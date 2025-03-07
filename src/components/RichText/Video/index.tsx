@@ -1,8 +1,8 @@
 import React from 'react'
 
 import classes from './index.module.scss'
-import { VimeoPlayer } from './Vimeo/index.js'
-import { YouTubePlayer } from './YouTube/index.js'
+import { VimeoPlayer } from './Vimeo/index'
+import { YouTubePlayer } from './YouTube/index'
 
 export const Video: React.FC<{
   id?: string

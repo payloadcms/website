@@ -1,5 +1,5 @@
-import { Pill } from '@components/Pill/index.js'
-import { CheckIcon } from '@root/icons/CheckIcon/index.js'
+import { Pill } from '@components/Pill/index'
+import { CheckIcon } from '@root/icons/CheckIcon/index'
 import React, { Fragment } from 'react'
 
 import classes from './index.module.scss'

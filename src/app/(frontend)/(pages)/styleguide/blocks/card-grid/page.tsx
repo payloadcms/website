@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-import { CardGridPage } from './client_page.js'
+import { CardGridPage } from './client_page'
 
 export default (props) => {
   return <CardGridPage {...props} />

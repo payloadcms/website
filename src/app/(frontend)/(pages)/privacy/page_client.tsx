@@ -1,7 +1,7 @@
 'use client'
 
-import { BlockWrapper } from '@components/BlockWrapper/index.js'
-import { Gutter } from '@components/Gutter/index.js'
+import { BlockWrapper } from '@components/BlockWrapper/index'
+import { Gutter } from '@components/Gutter/index'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import React from 'react'
 

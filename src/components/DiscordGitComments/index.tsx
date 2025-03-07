@@ -1,13 +1,13 @@
-import type { Messages } from '@root/app/(frontend)/(pages)/community-help/(posts)/discord/[slug]/client_page.js'
+import type { Messages } from '@root/app/(frontend)/(pages)/community-help/(posts)/discord/[slug]/client_page'
 import type {
   Answer,
   Comment,
-} from '@root/app/(frontend)/(pages)/community-help/(posts)/github/[slug]/client_page.js'
+} from '@root/app/(frontend)/(pages)/community-help/(posts)/github/[slug]/client_page'
 
-import AuthorTag from '@components/AuthorTag/index.js'
-import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
-import { DiscordGitBody } from '@components/DiscordGitBody/index.js'
-import { FileAttachments } from '@components/FileAttachment/index.js'
+import AuthorTag from '@components/AuthorTag/index'
+import { BackgroundScanline } from '@components/BackgroundScanline/index'
+import { DiscordGitBody } from '@components/DiscordGitBody/index'
+import { FileAttachments } from '@components/FileAttachment/index'
 import * as cheerio from 'cheerio'
 import React from 'react'
 

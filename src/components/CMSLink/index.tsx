@@ -1,11 +1,11 @@
-import type { CaseStudy, Page, Post } from '@root/payload-types.js'
+import type { CaseStudy, Page, Post } from '@root/payload-types'
 
 import Link from 'next/link'
 import React from 'react'
 // eslint-disable-next-line import/no-cycle
-import type { ButtonProps } from '../Button/index.js'
+import type { ButtonProps } from '../Button/index'
 
-import { Button } from '../Button/index.js'
+import { Button } from '../Button/index'
 
 const relationSlugs = {
   case_studies: 'case-studies',

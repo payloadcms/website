@@ -1,12 +1,12 @@
 'use client'
 
-import useDebounce from '@utilities/use-debounce.js'
+import useDebounce from '@utilities/use-debounce'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
-import type { FieldWithPath, Value } from '../types.js'
-import type { FormField, SetValue } from './types.js'
+import type { FieldWithPath, Value } from '../types'
+import type { FormField, SetValue } from './types'
 
-import { useForm, useFormModified, useFormProcessing, useFormSubmitted } from '../Form/context.js'
+import { useForm, useFormModified, useFormProcessing, useFormSubmitted } from '../Form/context'
 
 // this hook:
 // 1. reports that the form has been modified

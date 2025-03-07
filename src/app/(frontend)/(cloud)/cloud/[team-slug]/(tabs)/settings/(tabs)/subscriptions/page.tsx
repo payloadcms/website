@@ -1,14 +1,14 @@
 import type { Metadata } from 'next'
 
-import { SectionHeader } from '@cloud/[team-slug]/[project-slug]/(tabs)/settings/_layoutComponents/SectionHeader/index.js'
-import { fetchMe } from '@cloud/_api/fetchMe.js'
-import { fetchPlans } from '@cloud/_api/fetchPlans.js'
-import { fetchSubscriptions } from '@cloud/_api/fetchSubscriptions.js'
-import { fetchTeamWithCustomer } from '@cloud/_api/fetchTeam.js'
-import { Message } from '@components/Message/index.js'
+import { SectionHeader } from '@cloud/[team-slug]/[project-slug]/(tabs)/settings/_layoutComponents/SectionHeader/index'
+import { fetchMe } from '@cloud/_api/fetchMe'
+import { fetchPlans } from '@cloud/_api/fetchPlans'
+import { fetchSubscriptions } from '@cloud/_api/fetchSubscriptions'
+import { fetchTeamWithCustomer } from '@cloud/_api/fetchTeam'
+import { Message } from '@components/Message/index'
 import React, { Fragment } from 'react'
 
-import { TeamSubscriptionsPage } from './page_client.js'
+import { TeamSubscriptionsPage } from './page_client'
 
 export default async ({
   params,

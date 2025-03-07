@@ -1,13 +1,13 @@
 'use client'
 
-import CodeBlip from '@components/CodeBlip/index.js'
+import CodeBlip from '@components/CodeBlip/index'
 import { Highlight } from 'prism-react-renderer'
 import React, { useCallback } from 'react'
 
-import type { Props } from './types.js'
+import type { Props } from './types'
 
 import classes from './index.module.scss'
-import { theme } from './theme.js'
+import { theme } from './theme'
 
 let highlightStart = false
 const highlightClassName = classes.highlight

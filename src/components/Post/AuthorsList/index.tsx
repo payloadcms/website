@@ -1,7 +1,7 @@
-import type { Post } from '@root/payload-types.js'
+import type { Post } from '@root/payload-types'
 
-import { Label } from '@components/Label/index.js'
-import { Media } from '@components/Media/index.js'
+import { Label } from '@components/Label/index'
+import { Media } from '@components/Media/index'
 import Link from 'next/link'
 import { Fragment } from 'react'
 

@@ -1,8 +1,8 @@
-import type { ReusableContent } from '@root/payload-types.js'
+import type { ReusableContent } from '@root/payload-types'
 
-import Code from '@components/Code/index.js'
-import CodeBlip from '@components/CodeBlip/index.js'
-import { Gutter } from '@components/Gutter/index.js'
+import Code from '@components/Code/index'
+import CodeBlip from '@components/CodeBlip/index'
+import { Gutter } from '@components/Gutter/index'
 import React from 'react'
 
 import classes from './index.module.scss'

@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
 
-import { Gutter } from '@components/Gutter/index.js'
-import { RichText } from '@components/RichText/index.js'
+import { Gutter } from '@components/Gutter/index'
+import { RichText } from '@components/RichText/index'
 import React from 'react'
 
-import { StyleguidePageContent } from '../PageContent/index.js'
+import { StyleguidePageContent } from '../PageContent/index'
 
 const Highlight: React.FC = () => {
   return (

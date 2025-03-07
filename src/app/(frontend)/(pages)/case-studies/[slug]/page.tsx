@@ -1,15 +1,15 @@
 import type { Metadata } from 'next'
 
-import { PayloadRedirects } from '@components/PayloadRedirects/index.js'
-import { RefreshRouteOnSave } from '@components/RefreshRouterOnSave/index.js'
+import { PayloadRedirects } from '@components/PayloadRedirects/index'
+import { RefreshRouteOnSave } from '@components/RefreshRouterOnSave/index'
 import { fetchCaseStudies, fetchCaseStudy } from '@data'
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { unstable_cache } from 'next/cache'
-import { draftMode } from 'next/headers.js'
+import { draftMode } from 'next/headers'
 import { notFound } from 'next/navigation'
 import React from 'react'
 
-import { CaseStudy } from './client_page.js'
+import { CaseStudy } from './client_page'
 
 const getCaseStudy = (slug, draft) =>
   draft ? fetchCaseStudy(slug) : unstable_cache(fetchCaseStudy, [`case-study-${slug}`])(slug)

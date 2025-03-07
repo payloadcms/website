@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
 
-import { Button } from '@components/Button/index.js'
-import { Gutter } from '@components/Gutter/index.js'
+import { Button } from '@components/Button/index'
+import { Gutter } from '@components/Gutter/index'
 import React from 'react'
 
-import { StyleguidePageContent } from '../PageContent/index.js'
+import { StyleguidePageContent } from '../PageContent/index'
 
 const Buttons: React.FC = () => {
   return (

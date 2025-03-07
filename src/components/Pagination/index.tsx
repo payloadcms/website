@@ -1,4 +1,4 @@
-import { ChevronIcon } from '@root/icons/ChevronIcon/index.js'
+import { ChevronIcon } from '@root/icons/ChevronIcon/index'
 import * as React from 'react'
 
 import classes from './index.module.scss'

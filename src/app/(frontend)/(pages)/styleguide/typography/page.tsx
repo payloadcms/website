@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 
-import { Gutter } from '@components/Gutter/index.js'
+import { Gutter } from '@components/Gutter/index'
 import React from 'react'
 
-import { StyleguidePageContent } from '../PageContent/index.js'
+import { StyleguidePageContent } from '../PageContent/index'
 
 const Typography: React.FC = () => {
   return (

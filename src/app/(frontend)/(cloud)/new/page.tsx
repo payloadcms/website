@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
 
-import { fetchTemplates } from '@cloud/_api/fetchTemplates.js'
-import { Gutter } from '@components/Gutter/index.js'
-import { NewProjectBlock } from '@components/NewProject/index.js'
-import { RenderParams } from '@components/RenderParams/index.js'
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
+import { fetchTemplates } from '@cloud/_api/fetchTemplates'
+import { Gutter } from '@components/Gutter/index'
+import { NewProjectBlock } from '@components/NewProject/index'
+import { RenderParams } from '@components/RenderParams/index'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import React, { Fragment } from 'react'
 
 export const dynamic = 'force-dynamic'

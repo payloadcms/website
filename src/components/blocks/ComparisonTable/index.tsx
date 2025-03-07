@@ -1,4 +1,4 @@
-import { BlockWrapper, type PaddingProps } from '@components/BlockWrapper/index.js'
+import { BlockWrapper, type PaddingProps } from '@components/BlockWrapper/index'
 
 import { Gutter } from '@components/Gutter'
 import classes from './index.module.scss'

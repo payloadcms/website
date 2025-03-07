@@ -1,4 +1,4 @@
-import useDebounce from '@root/utilities/use-debounce.js'
+import useDebounce from '@root/utilities/use-debounce'
 import React, { useCallback, useEffect } from 'react'
 import { useSearchBox } from 'react-instantsearch'
 

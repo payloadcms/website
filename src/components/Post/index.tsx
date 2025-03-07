@@ -1,20 +1,20 @@
-import type { Post as PostType } from '@root/payload-types.js'
+import type { Post as PostType } from '@root/payload-types'
 
-import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
-import { Breadcrumbs } from '@components/Breadcrumbs/index.js'
-import { DiscordGitCTA } from '@components/DiscordGitCTA/index.js'
-import { Gutter } from '@components/Gutter/index.js'
-import { Media } from '@components/Media/index.js'
-import { RenderBlocks } from '@components/RenderBlocks/index.js'
-import { RichText } from '@components/RichText/index.js'
-import { Video } from '@components/RichText/Video/index.js'
-import { getVideo } from '@root/utilities/get-video.js'
-import { formatDate } from '@utilities/format-date-time.js'
+import { BackgroundGrid } from '@components/BackgroundGrid/index'
+import { Breadcrumbs } from '@components/Breadcrumbs/index'
+import { DiscordGitCTA } from '@components/DiscordGitCTA/index'
+import { Gutter } from '@components/Gutter/index'
+import { Media } from '@components/Media/index'
+import { RenderBlocks } from '@components/RenderBlocks/index'
+import { RichText } from '@components/RichText/index'
+import { Video } from '@components/RichText/Video/index'
+import { getVideo } from '@root/utilities/get-video'
+import { formatDate } from '@utilities/format-date-time'
 import React from 'react'
 
-import { AuthorsList, GuestAuthorList } from './AuthorsList/index.js'
+import { AuthorsList, GuestAuthorList } from './AuthorsList/index'
 import classes from './index.module.scss'
-import { ArrowRightIcon } from '@icons/ArrowRightIcon/index.js'
+import { ArrowRightIcon } from '@icons/ArrowRightIcon/index'
 export const Post: React.FC<PostType> = (props) => {
   const {
     content,

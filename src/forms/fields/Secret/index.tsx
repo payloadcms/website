@@ -1,15 +1,15 @@
 'use client'
 
-import { CopyToClipboard } from '@components/CopyToClipboard/index.js'
-import { Tooltip } from '@components/Tooltip/index.js'
-import Label from '@forms/Label/index.js'
-import { EyeIcon } from '@root/icons/EyeIcon/index.js'
+import { CopyToClipboard } from '@components/CopyToClipboard/index'
+import { Tooltip } from '@components/Tooltip/index'
+import Label from '@forms/Label/index'
+import { EyeIcon } from '@root/icons/EyeIcon/index'
 import React, { Fragment } from 'react'
 
-import type { FieldProps } from '../types.js'
+import type { FieldProps } from '../types'
 
-import Error from '../../Error/index.js'
-import { useField } from '../useField/index.js'
+import Error from '../../Error/index'
+import { useField } from '../useField/index'
 import classes from './index.module.scss'
 
 type SecretProps = {

@@ -1,9 +1,9 @@
-import type { Post } from '@root/payload-types.js'
+import type { Post } from '@root/payload-types'
 
-import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
-import { Media } from '@components/Media/index.js'
-import { CrosshairIcon } from '@root/icons/CrosshairIcon/index.js'
-import { formatDate } from '@utilities/format-date-time.js'
+import { BackgroundScanline } from '@components/BackgroundScanline/index'
+import { Media } from '@components/Media/index'
+import { CrosshairIcon } from '@root/icons/CrosshairIcon/index'
+import { formatDate } from '@utilities/format-date-time'
 import Link from 'next/link'
 import * as React from 'react'
 

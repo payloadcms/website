@@ -1,11 +1,11 @@
 'use client'
 
-import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
-import { DiscordGitComments } from '@components/DiscordGitComments/index.js'
-import { DiscordGitCTA } from '@components/DiscordGitCTA/index.js'
-import { DiscordGitIntro } from '@components/DiscordGitIntro/index.js'
-import { Gutter } from '@components/Gutter/index.js'
-import OpenPost from '@components/OpenPost/index.js'
+import { BackgroundGrid } from '@components/BackgroundGrid/index'
+import { DiscordGitComments } from '@components/DiscordGitComments/index'
+import { DiscordGitCTA } from '@components/DiscordGitCTA/index'
+import { DiscordGitIntro } from '@components/DiscordGitIntro/index'
+import { Gutter } from '@components/Gutter/index'
+import OpenPost from '@components/OpenPost/index'
 import * as cheerio from 'cheerio'
 import React from 'react'
 

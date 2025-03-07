@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 
-import { fetchTeamWithCustomer } from '@cloud/_api/fetchTeam.js'
+import { fetchTeamWithCustomer } from '@cloud/_api/fetchTeam'
 
-import { TeamMembersPage } from './page_client.js'
+import { TeamMembersPage } from './page_client'
 
 export default async ({
   params,

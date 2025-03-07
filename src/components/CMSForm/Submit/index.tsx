@@ -1,9 +1,9 @@
 'use client'
 
-import type { ButtonProps } from '@components/Button/index.js'
+import type { ButtonProps } from '@components/Button/index'
 
-import { Button } from '@components/Button/index.js'
-import { useFormProcessing } from '@forms/Form/context.js'
+import { Button } from '@components/Button/index'
+import { useFormProcessing } from '@forms/Form/context'
 import React, { forwardRef } from 'react'
 
 type SubmitProps = {

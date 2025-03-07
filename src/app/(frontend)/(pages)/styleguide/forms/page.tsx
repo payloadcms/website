@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-import { FormsExample } from './client_page.js'
+import { FormsExample } from './client_page'
 
 export default (props) => {
   return <FormsExample {...props} />

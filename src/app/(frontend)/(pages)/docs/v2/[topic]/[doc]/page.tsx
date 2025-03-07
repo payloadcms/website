@@ -2,7 +2,7 @@ import { Banner } from '@components/Banner'
 /* eslint-disable no-restricted-exports */
 import { RenderDocs } from '@components/RenderDocs'
 import config from '@payload-config'
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { notFound, redirect } from 'next/navigation'
 import { getPayload } from 'payload'
 import React from 'react'

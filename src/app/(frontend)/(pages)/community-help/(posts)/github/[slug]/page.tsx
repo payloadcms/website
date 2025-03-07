@@ -1,16 +1,16 @@
 import type { Metadata } from 'next'
 
-import { fetchCommunityHelp, fetchCommunityHelps } from '@data/index.js'
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
-import { slugToText } from '@root/utilities/slug-to-text.js'
+import { fetchCommunityHelp, fetchCommunityHelps } from '@data/index'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
+import { slugToText } from '@root/utilities/slug-to-text'
 import { unstable_cache } from 'next/cache'
-import { draftMode } from 'next/headers.js'
+import { draftMode } from 'next/headers'
 import { notFound } from 'next/navigation'
 import React from 'react'
 
-import type { Answer, Author, Comment } from './client_page.js'
+import type { Answer, Author, Comment } from './client_page'
 
-import { GithubDiscussionPage } from './client_page.js'
+import { GithubDiscussionPage } from './client_page'
 
 type DateFromSource = string
 

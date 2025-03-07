@@ -1,6 +1,6 @@
 'use client'
 
-import type { StepsBlock } from '@root/payload-types.js'
+import type { StepsBlock } from '@root/payload-types'
 
 import { Media } from '@components/Media'
 import { RichText } from '@components/RichText'

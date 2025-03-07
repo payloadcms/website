@@ -1,7 +1,7 @@
-import type { Team } from '@root/payload-cloud-types.js'
+import type { Team } from '@root/payload-cloud-types'
 import type { PaymentMethod } from '@stripe/stripe-js'
 
-import { payloadCloudToken } from './token.js'
+import { payloadCloudToken } from './token'
 
 export const fetchPaymentMethods = async (args: {
   team: null | Team | undefined

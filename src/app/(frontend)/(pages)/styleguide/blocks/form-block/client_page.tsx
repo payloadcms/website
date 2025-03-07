@@ -1,7 +1,7 @@
 import type React from 'react'
-// import { FormBlock, FormBlockProps } from '@blocks/FormBlock/index.js'
+// import { FormBlock, FormBlockProps } from '@blocks/FormBlock/index'
 
-// import { StyleguidePageContent } from '../../PageContent/index.js'
+// import { StyleguidePageContent } from '../../PageContent/index'
 
 // const data: FormBlockProps = {
 //   blockType: 'form',

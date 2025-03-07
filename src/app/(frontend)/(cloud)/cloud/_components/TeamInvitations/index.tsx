@@ -1,11 +1,11 @@
-import type { Team } from '@root/payload-cloud-types.js'
+import type { Team } from '@root/payload-cloud-types'
 
-import { Heading } from '@components/Heading/index.js'
-import { formatDate } from '@root/utilities/format-date-time.js'
+import { Heading } from '@components/Heading/index'
+import { formatDate } from '@root/utilities/format-date-time'
 import React, { Fragment } from 'react'
 import { toast } from 'sonner'
 
-import { TeamMemberRow } from '../TeamMembers/TeamMemberRow.js'
+import { TeamMemberRow } from '../TeamMembers/TeamMemberRow'
 import classes from './index.module.scss'
 
 export const TeamInvitations: React.FC<{

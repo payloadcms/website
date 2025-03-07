@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
 
-import { fetchMe } from '@cloud/_api/fetchMe.js'
-import { fetchTemplates } from '@cloud/_api/fetchTemplates.js'
-import { Gutter } from '@components/Gutter/index.js'
-import { NewProjectBlock } from '@components/NewProject/index.js'
-import { RenderParams } from '@components/RenderParams/index.js'
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
+import { fetchMe } from '@cloud/_api/fetchMe'
+import { fetchTemplates } from '@cloud/_api/fetchTemplates'
+import { Gutter } from '@components/Gutter/index'
+import { NewProjectBlock } from '@components/NewProject/index'
+import { RenderParams } from '@components/RenderParams/index'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { redirect } from 'next/navigation'
 import React, { Fragment } from 'react'
 

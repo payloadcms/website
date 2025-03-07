@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
 
-import { fetchProjectAndRedirect } from '@cloud/_api/fetchProject.js'
-import { PRODUCTION_ENVIRONMENT_SLUG } from '@root/constants.js'
+import { fetchProjectAndRedirect } from '@cloud/_api/fetchProject'
+import { PRODUCTION_ENVIRONMENT_SLUG } from '@root/constants'
 
-import { InfraOffline } from './InfraOffline/index.js'
-import { InfraOnline } from './InfraOnline/index.js'
+import { InfraOffline } from './InfraOffline/index'
+import { InfraOnline } from './InfraOnline/index'
 
 export default async ({
   params,

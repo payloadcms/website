@@ -1,8 +1,8 @@
 'use client'
-import type { Page } from '@root/payload-types.js'
+import type { Page } from '@root/payload-types'
 
-import { ChangeHeaderTheme } from '@components/ChangeHeaderTheme/index.js'
-import { useThemePreference } from '@root/providers/Theme/index.js'
+import { ChangeHeaderTheme } from '@components/ChangeHeaderTheme/index'
+import { useThemePreference } from '@root/providers/Theme/index'
 import React, { useEffect, useMemo, useState } from 'react'
 
 import classes from './index.module.scss'

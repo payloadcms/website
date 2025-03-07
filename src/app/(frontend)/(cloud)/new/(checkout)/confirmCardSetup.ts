@@ -1,4 +1,4 @@
-import type { Team } from '@root/payload-cloud-types.js'
+import type { Team } from '@root/payload-cloud-types'
 import type {
   SetupIntentResult,
   Stripe, // eslint-disable-line import/named
@@ -8,7 +8,7 @@ import type {
 
 import { CardElement as StripeCardElement } from '@stripe/react-stripe-js'
 
-import { createSetupIntent } from './createSetupIntent.js'
+import { createSetupIntent } from './createSetupIntent'
 
 export const confirmCardSetup = async (args: {
   elements?: null | StripeElements

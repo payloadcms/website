@@ -1,4 +1,4 @@
-import type { Team } from '@root/payload-cloud-types.js'
+import type { Team } from '@root/payload-cloud-types'
 
 export interface PayloadStripeSetupIntent {
   client_secret?: string

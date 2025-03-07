@@ -1,6 +1,6 @@
 'use client'
 
-import useIntersection from '@utilities/useIntersection.js'
+import useIntersection from '@utilities/useIntersection'
 import React, { Fragment, useRef } from 'react'
 
 import classes from './index.module.scss'

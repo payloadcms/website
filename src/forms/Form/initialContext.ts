@@ -1,4 +1,4 @@
-import type { IFormContext } from '../types.js'
+import type { IFormContext } from '../types'
 
 const initialContext: IFormContext = {
   dispatchFields: () => false,

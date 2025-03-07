@@ -1,6 +1,6 @@
 'use client'
 
-import type { PopupMessage } from '@root/utilities/use-popup-window.js'
+import type { PopupMessage } from '@root/utilities/use-popup-window'
 
 import { useSearchParams } from 'next/navigation'
 import { Suspense, useEffect } from 'react'

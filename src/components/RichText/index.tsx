@@ -24,7 +24,7 @@ import type {
 
 import { Banner } from '@components/Banner'
 import { CMSLink } from '@components/CMSLink'
-import Code from '@components/Code/index.js'
+import Code from '@components/Code/index'
 import { CommandLine } from '@components/CommandLine'
 import { Label } from '@components/Label'
 import { LargeBody } from '@components/LargeBody'
@@ -32,7 +32,7 @@ import RichTextUpload from '@components/RichText/Upload'
 import { Video } from '@components/RichText/Video'
 import SpotlightAnimation from '@components/SpotlightAnimation'
 import { TemplateCards } from '@components/TemplateCardsBlock'
-import YouTube from '@components/YouTube/index.js'
+import YouTube from '@components/YouTube/index'
 
 import './index.scss'
 
@@ -45,15 +45,15 @@ import {
 import { getVideo } from '@root/utilities/get-video'
 import React, { useCallback, useState } from 'react'
 
-import type { AllowedElements } from '../SpotlightAnimation/types.js'
+import type { AllowedElements } from '../SpotlightAnimation/types'
 
-import { type AddHeading, type Heading, type IContext, RichTextContext } from './context.js'
+import { type AddHeading, type Heading, type IContext, RichTextContext } from './context'
 import { Heading as HeadingComponent } from './Heading'
-import LightDarkImage from './LightDarkImage/index.js'
+import LightDarkImage from './LightDarkImage/index'
 import { RestExamples } from './RestExamples'
-import { CustomTableJSXConverters } from './Table/index.js'
+import { CustomTableJSXConverters } from './Table/index'
 import { TableWithDrawers } from './TableWithDrawers'
-import { UploadBlockImage } from './UploadBlock/index.js'
+import { UploadBlockImage } from './UploadBlock/index'
 import { VideoDrawer } from './VideoDrawer'
 
 type Props = {

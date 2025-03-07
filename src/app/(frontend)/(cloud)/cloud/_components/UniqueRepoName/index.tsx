@@ -1,11 +1,11 @@
 import type { Endpoints } from '@octokit/types'
-import type { Project } from '@root/payload-cloud-types.js'
+import type { Project } from '@root/payload-cloud-types'
 
-import { Spinner } from '@components/Spinner/index.js'
-import { Text } from '@forms/fields/Text/index.js'
-import { CheckIcon } from '@root/icons/CheckIcon/index.js'
-import { CloseIcon } from '@root/icons/CloseIcon/index.js'
-import useDebounce from '@root/utilities/use-debounce.js'
+import { Spinner } from '@components/Spinner/index'
+import { Text } from '@forms/fields/Text/index'
+import { CheckIcon } from '@root/icons/CheckIcon/index'
+import { CloseIcon } from '@root/icons/CloseIcon/index'
+import useDebounce from '@root/utilities/use-debounce'
 import React, { useEffect, useRef, useState } from 'react'
 
 import classes from './index.module.scss'

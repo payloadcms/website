@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { Spinner } from '../Spinner/index.js'
+import { Spinner } from '../Spinner/index'
 import classes from './index.module.scss'
 
 export type IndicatorProps = {
