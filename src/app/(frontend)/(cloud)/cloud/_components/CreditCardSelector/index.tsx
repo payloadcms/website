@@ -1,14 +1,14 @@
-import type { TeamWithCustomer } from '@cloud/_api/fetchTeam.js'
+import type { TeamWithCustomer } from '@cloud/_api/fetchTeam'
 
-import { CreditCardElement } from '@cloud/_components/CreditCardElement/index.js'
-import { CircleIconButton } from '@components/CircleIconButton/index.js'
-import { LargeRadio } from '@components/LargeRadio/index.js'
-import { Pill } from '@components/Pill/index.js'
+import { CreditCardElement } from '@cloud/_components/CreditCardElement/index'
+import { CircleIconButton } from '@components/CircleIconButton/index'
+import { LargeRadio } from '@components/LargeRadio/index'
+import { Pill } from '@components/Pill/index'
 import { type PaymentMethod } from '@stripe/stripe-js'
 import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react'
 import { v4 as uuid } from 'uuid'
 
-import { usePaymentMethods } from '../CreditCardList/usePaymentMethods.js'
+import { usePaymentMethods } from '../CreditCardList/usePaymentMethods'
 import classes from './index.module.scss'
 
 type CreditCardSelectorType = {

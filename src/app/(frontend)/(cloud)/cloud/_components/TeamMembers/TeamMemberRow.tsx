@@ -1,8 +1,8 @@
-import { Select } from '@forms/fields/Select/index.js'
-import { Text } from '@forms/fields/Text/index.js'
+import { Select } from '@forms/fields/Select/index'
+import { Text } from '@forms/fields/Text/index'
 import React from 'react'
 
-import { userTeamRoles } from '../InviteTeammates/index.js'
+import { userTeamRoles } from '../InviteTeammates/index'
 import classes from './TeamMemberRow.module.scss'
 
 export const TeamMemberRow: React.FC<{

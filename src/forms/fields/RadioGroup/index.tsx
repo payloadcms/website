@@ -2,11 +2,11 @@
 
 import React, { useId } from 'react'
 
-import type { FieldProps } from '../types.js'
+import type { FieldProps } from '../types'
 
-import Error from '../../Error/index.js'
-import Label from '../../Label/index.js'
-import { useField } from '../useField/index.js'
+import Error from '../../Error/index'
+import Label from '../../Label/index'
+import { useField } from '../useField/index'
 import classes from './index.module.scss'
 
 export type Option = {

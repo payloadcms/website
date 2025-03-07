@@ -8,13 +8,13 @@ import { WindowInfoProvider } from '@faceless-ui/window-info'
 import React from 'react'
 import { CookiesProvider } from 'react-cookie'
 
-import { HeaderIntersectionObserver } from '@root/providers/HeaderIntersectionObserver/index.js'
+import { HeaderIntersectionObserver } from '@root/providers/HeaderIntersectionObserver/index'
 
-import { AuthProvider } from './Auth/index.js'
-import { ComputedCSSValuesProvider } from './ComputedCSSValues/index.js'
-import { PageTransition } from './PageTransition/index.js'
-import { ThemePreferenceProvider } from './Theme/index.js'
-import { ToastContainer } from './ToastContainer/index.js'
+import { AuthProvider } from './Auth/index'
+import { ComputedCSSValuesProvider } from './ComputedCSSValues/index'
+import { PageTransition } from './PageTransition/index'
+import { ThemePreferenceProvider } from './Theme/index'
+import { ToastContainer } from './ToastContainer/index'
 
 export const Providers: React.FC<{
   children: React.ReactNode

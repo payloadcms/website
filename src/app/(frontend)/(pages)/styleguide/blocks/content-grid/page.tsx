@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-import { ContentGridPage } from './client_page.js'
+import { ContentGridPage } from './client_page'
 
 export default (props) => {
   return <ContentGridPage {...props} />

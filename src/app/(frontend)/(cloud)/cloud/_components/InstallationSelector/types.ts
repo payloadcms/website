@@ -1,4 +1,4 @@
-import type { Install } from '@cloud/_api/fetchInstalls.js'
+import type { Install } from '@cloud/_api/fetchInstalls'
 
 export interface InstallationSelectorProps {
   className?: string

@@ -1,9 +1,9 @@
 'use client'
 
 import type React from 'react'
-// import { ContentGrid, ContentGridProps } from '@blocks/ContentGrid/index.js'
+// import { ContentGrid, ContentGridProps } from '@blocks/ContentGrid/index'
 
-// import { StyleguidePageContent } from '../../PageContent/index.js'
+// import { StyleguidePageContent } from '../../PageContent/index'
 
 // const data: ContentGridProps = {
 //   blockType: 'contentGrid',

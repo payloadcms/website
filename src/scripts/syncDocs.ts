@@ -5,7 +5,7 @@ import { sanitizeServerEditorConfig } from '@payloadcms/richtext-lexical'
 import { contentLexicalEditorFeatures } from '@root/collections/Docs'
 import { mdxToLexical } from '@root/collections/Docs/mdxToLexical'
 
-import { fetchDocs } from './fetchDocs.js'
+import { fetchDocs } from './fetchDocs'
 
 export const topicGroupsToDocsData: (args: {
   req: PayloadRequest

@@ -4,7 +4,7 @@ import type { ChangeEvent } from 'react'
 
 import React, { forwardRef, useCallback, useEffect, useReducer, useRef, useState } from 'react'
 
-import type { Data, Field, IFormContext, InitialState, OnSubmit } from '../types.js'
+import type { Data, Field, IFormContext, InitialState, OnSubmit } from '../types'
 
 import {
   FieldContext,
@@ -12,10 +12,10 @@ import {
   FormSubmittedContext,
   ModifiedContext,
   ProcessingContext,
-} from './context.js'
-import initialContext from './initialContext.js'
-import { reduceFieldsToValues } from './reduceFieldsToValues.js'
-import reducer from './reducer.js'
+} from './context'
+import initialContext from './initialContext'
+import { reduceFieldsToValues } from './reduceFieldsToValues'
+import reducer from './reducer'
 
 const defaultInitialState = {}
 

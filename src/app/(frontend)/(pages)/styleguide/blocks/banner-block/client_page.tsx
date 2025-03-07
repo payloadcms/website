@@ -1,9 +1,9 @@
 'use client'
 
 import type React from 'react'
-// import { BannerBlock, BannerBlockProps } from '@blocks/Banner/index.js'
+// import { BannerBlock, BannerBlockProps } from '@blocks/Banner/index'
 
-// import { StyleguidePageContent } from '../../PageContent/index.js'
+// import { StyleguidePageContent } from '../../PageContent/index'
 
 // const data: BannerBlockProps = {
 //   blockType: 'banner',

@@ -1,5 +1,5 @@
 import config from '@payload-config'
-import { draftMode } from 'next/headers.js'
+import { draftMode } from 'next/headers'
 import { getPayload } from 'payload'
 
 import type {
@@ -18,7 +18,7 @@ import type {
   Post,
   Region,
   Specialty,
-} from '../../payload-types.js'
+} from '../../payload-types'
 
 export const fetchGlobals = async (): Promise<{ footer: Footer; mainMenu: MainMenu }> => {
   const payload = await getPayload({ config })

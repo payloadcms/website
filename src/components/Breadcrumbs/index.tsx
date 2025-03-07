@@ -1,4 +1,4 @@
-import { EdgeScroll } from '@components/EdgeScroll/index.js'
+import { EdgeScroll } from '@components/EdgeScroll/index'
 import Link from 'next/link'
 import * as React from 'react'
 

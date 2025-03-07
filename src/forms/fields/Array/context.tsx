@@ -1,4 +1,4 @@
-import { uuid } from '@root/utilities/uuid.js'
+import { uuid } from '@root/utilities/uuid'
 import * as React from 'react'
 
 const ArrayContext = React.createContext<{

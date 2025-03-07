@@ -1,9 +1,9 @@
-import type { BannerBlock, ReusableContent } from '@root/payload-types.js'
+import type { BannerBlock, ReusableContent } from '@root/payload-types'
 
-import { CheckIcon } from '@root/icons/CheckIcon/index.js'
+import { CheckIcon } from '@root/icons/CheckIcon/index'
 import * as React from 'react'
 
-import { RichText } from '../RichText/index.js'
+import { RichText } from '../RichText/index'
 import classes from './index.module.scss'
 
 export type Props = {

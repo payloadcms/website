@@ -6,8 +6,8 @@ import {
   CollapsibleToggler,
   useCollapsible,
 } from '@faceless-ui/collapsibles'
-import { ChevronIcon } from '@root/graphics/ChevronIcon/index.js'
-import { EyeIcon } from '@root/icons/EyeIcon/index.js'
+import { ChevronIcon } from '@root/graphics/ChevronIcon/index'
+import { EyeIcon } from '@root/icons/EyeIcon/index'
 import * as React from 'react'
 
 import classes from './index.module.scss'

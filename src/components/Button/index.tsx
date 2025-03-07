@@ -1,18 +1,18 @@
 'use client'
 
-import type { Page } from '@root/payload-types.js'
+import type { Page } from '@root/payload-types'
 import type { HTMLAttributes } from 'react'
 
-import { CopyIcon } from '@icons/CopyIcon/index.js'
-import { GitHubIcon } from '@root/graphics/GitHub/index.js'
-import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'
-import { LoaderIcon } from '@root/icons/LoaderIcon/index.js'
-import { PlusIcon } from '@root/icons/PlusIcon/index.js'
-import { SearchIcon } from '@root/icons/SearchIcon/index.js'
+import { CopyIcon } from '@icons/CopyIcon/index'
+import { GitHubIcon } from '@root/graphics/GitHub/index'
+import { ArrowIcon } from '@root/icons/ArrowIcon/index'
+import { LoaderIcon } from '@root/icons/LoaderIcon/index'
+import { PlusIcon } from '@root/icons/PlusIcon/index'
+import { SearchIcon } from '@root/icons/SearchIcon/index'
 import Link from 'next/link'
 import React, { forwardRef, useEffect, useState } from 'react'
 // eslint-disable-next-line import/no-cycle
-import type { LinkType, Reference } from '../CMSLink/index.js'
+import type { LinkType, Reference } from '../CMSLink/index'
 
 import classes from './index.module.scss'
 

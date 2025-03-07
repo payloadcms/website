@@ -1,7 +1,7 @@
 import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 
-import { Drawer, DrawerToggler } from '@components/Drawer/index.js'
-import { ChevronIcon } from '@root/icons/ChevronIcon/index.js'
+import { Drawer, DrawerToggler } from '@components/Drawer/index'
+import { ChevronIcon } from '@root/icons/ChevronIcon/index'
 import React from 'react'
 
 import { RichText } from '../index'

@@ -1,7 +1,7 @@
 import type { Block } from 'payload'
 
-import { languages } from '../shared.js'
-import { codeConverter } from './converter.js'
+import { languages } from '../shared'
+import { codeConverter } from './converter'
 
 export const CodeBlock: Block = {
   slug: 'Code',

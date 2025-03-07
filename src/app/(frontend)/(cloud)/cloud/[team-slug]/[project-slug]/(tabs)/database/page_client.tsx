@@ -1,10 +1,10 @@
 'use client'
 
-import type { Project, Team } from '@root/payload-cloud-types.js'
+import type { Project, Team } from '@root/payload-cloud-types'
 
-import { Banner } from '@components/Banner/index.js'
-import { Gutter } from '@components/Gutter/index.js'
-import { Secret } from '@forms/fields/Secret/index.js'
+import { Banner } from '@components/Banner/index'
+import { Gutter } from '@components/Gutter/index'
+import { Secret } from '@forms/fields/Secret/index'
 import * as React from 'react'
 
 export const ProjectDatabasePage: React.FC<{

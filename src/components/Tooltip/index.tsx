@@ -1,4 +1,4 @@
-import { TooltipContent } from '@components/Tooltip/TooltipContent/index.js'
+import { TooltipContent } from '@components/Tooltip/TooltipContent/index'
 import * as React from 'react'
 
 import classes from './index.module.scss'

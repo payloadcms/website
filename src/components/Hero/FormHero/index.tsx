@@ -1,17 +1,17 @@
 'use client'
 
-import type { BlocksProp } from '@components/RenderBlocks/index.js'
-import type { Page } from '@root/payload-types.js'
+import type { BlocksProp } from '@components/RenderBlocks/index'
+import type { Page } from '@root/payload-types'
 
-import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
-import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
-import { BlockWrapper } from '@components/BlockWrapper/index.js'
-import { CMSForm } from '@components/CMSForm/index.js'
-import { Gutter } from '@components/Gutter/index.js'
-import { RichText } from '@components/RichText/index.js'
+import { BackgroundGrid } from '@components/BackgroundGrid/index'
+import { BackgroundScanline } from '@components/BackgroundScanline/index'
+import { BlockWrapper } from '@components/BlockWrapper/index'
+import { CMSForm } from '@components/CMSForm/index'
+import { Gutter } from '@components/Gutter/index'
+import { RichText } from '@components/RichText/index'
 import React, { useEffect, useRef, useState } from 'react'
 
-import { useGetHeroPadding } from '../useGetHeroPadding.js'
+import { useGetHeroPadding } from '../useGetHeroPadding'
 import classes from './index.module.scss'
 
 export type FormHeroProps = Page['hero']

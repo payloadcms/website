@@ -1,8 +1,8 @@
-import type { Team } from '@root/payload-cloud-types.js'
+import type { Team } from '@root/payload-cloud-types'
 
-import { TEAM_QUERY, TEAMS_QUERY } from '@data/team.js'
+import { TEAM_QUERY, TEAMS_QUERY } from '@data/team'
 
-import { payloadCloudToken } from './token.js'
+import { payloadCloudToken } from './token'
 
 export type TeamWithCustomer = {
   hasPublishedProjects: boolean

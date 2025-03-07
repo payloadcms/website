@@ -1,15 +1,15 @@
 import type { Metadata } from 'next'
 
-import { PayloadRedirects } from '@components/PayloadRedirects/index.js'
-import { RefreshRouteOnSave } from '@components/RefreshRouterOnSave/index.js'
-import BreadcrumbsBar from '@components/Hero/BreadcrumbsBar/index.js'
+import { PayloadRedirects } from '@components/PayloadRedirects/index'
+import { RefreshRouteOnSave } from '@components/RefreshRouterOnSave/index'
+import BreadcrumbsBar from '@components/Hero/BreadcrumbsBar/index'
 import { fetchBlogPost, fetchPosts } from '@data'
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { unstable_cache } from 'next/cache'
-import { draftMode } from 'next/headers.js'
+import { draftMode } from 'next/headers'
 import React from 'react'
 
-import { Post } from '@components/Post/index.js'
+import { Post } from '@components/Post/index'
 
 const getPost = async (slug, category, draft?) =>
   draft

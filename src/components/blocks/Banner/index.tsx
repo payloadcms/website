@@ -1,8 +1,8 @@
-import type { Props as BannerProps } from '@components/Banner/index.js'
-import type { ReusableContent } from '@root/payload-types.js'
+import type { Props as BannerProps } from '@components/Banner/index'
+import type { ReusableContent } from '@root/payload-types'
 
-import { Banner } from '@components/Banner/index.js'
-import { Gutter } from '@components/Gutter/index.js'
+import { Banner } from '@components/Banner/index'
+import { Gutter } from '@components/Gutter/index'
 import React from 'react'
 
 export type BannerBlockProps = Extract<ReusableContent['layout'][0], { blockType: 'banner' }>

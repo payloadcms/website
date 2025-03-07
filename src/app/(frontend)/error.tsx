@@ -1,5 +1,5 @@
 'use client'
-import { Gutter } from '@components/Gutter/index.js'
+import { Gutter } from '@components/Gutter/index'
 import NextError from 'next/error'
 import React from 'react'
 

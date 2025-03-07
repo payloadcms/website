@@ -1,6 +1,6 @@
-import type { Theme } from '@root/providers/Theme/types.js'
+import type { Theme } from '@root/providers/Theme/types'
 
-import { useHeaderObserver } from '@root/providers/HeaderIntersectionObserver/index.js'
+import { useHeaderObserver } from '@root/providers/HeaderIntersectionObserver/index'
 import * as React from 'react'
 
 import classes from './index.module.scss'

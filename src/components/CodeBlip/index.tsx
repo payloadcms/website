@@ -1,7 +1,7 @@
 'use client'
-import Button from './Button/index.js'
-import { Context, Provider, useCodeBlip } from './CodeBlipContext.js'
-import Modal from './Modal/index.js'
+import Button from './Button/index'
+import { Context, Provider, useCodeBlip } from './CodeBlipContext'
+import Modal from './Modal/index'
 
 export { useCodeBlip }
 

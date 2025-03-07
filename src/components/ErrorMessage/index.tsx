@@ -1,8 +1,8 @@
 'use client'
 
-import { CallToAction } from '@blocks/CallToAction/index.js'
-import BreadcrumbsBar from '@components/Hero/BreadcrumbsBar/index.js'
-import { DefaultHero } from '@components/Hero/Default/index.js'
+import { CallToAction } from '@blocks/CallToAction/index'
+import BreadcrumbsBar from '@components/Hero/BreadcrumbsBar/index'
+import { DefaultHero } from '@components/Hero/Default/index'
 import React from 'react'
 
 export const ErrorMessage: React.FC<{ error?: string }> = ({ error }) => {

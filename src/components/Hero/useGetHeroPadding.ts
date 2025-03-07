@@ -1,10 +1,10 @@
-import type { PaddingProps, Settings } from '@components/BlockWrapper/index.js'
-import type { BlocksProp } from '@components/RenderBlocks/index.js'
-import type { Page } from '@root/payload-types.js'
-import type { Theme } from '@root/providers/Theme/types.js'
+import type { PaddingProps, Settings } from '@components/BlockWrapper/index'
+import type { BlocksProp } from '@components/RenderBlocks/index'
+import type { Page } from '@root/payload-types'
+import type { Theme } from '@root/providers/Theme/types'
 
-import { getFieldsKeyFromBlock } from '@components/RenderBlocks/utilities.js'
-import { useThemePreference } from '@root/providers/Theme/index.js'
+import { getFieldsKeyFromBlock } from '@components/RenderBlocks/utilities'
+import { useThemePreference } from '@root/providers/Theme/index'
 import { useEffect, useMemo, useState } from 'react'
 
 export const useGetHeroPadding = (

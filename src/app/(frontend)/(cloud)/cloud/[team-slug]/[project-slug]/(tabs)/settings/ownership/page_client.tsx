@@ -1,15 +1,15 @@
 'use client'
 
-import type { Team } from '@root/payload-cloud-types.js'
+import type { Team } from '@root/payload-cloud-types'
 
-import { MaxWidth } from '@components/MaxWidth/index.js'
-import { useAuth } from '@root/providers/Auth/index.js'
-import { checkTeamRoles } from '@root/utilities/check-team-roles.js'
-import { isExpandedDoc } from '@root/utilities/is-expanded-doc.js'
+import { MaxWidth } from '@components/MaxWidth/index'
+import { useAuth } from '@root/providers/Auth/index'
+import { checkTeamRoles } from '@root/utilities/check-team-roles'
+import { isExpandedDoc } from '@root/utilities/is-expanded-doc'
 import Link from 'next/link'
 import * as React from 'react'
 
-import { SectionHeader } from '../_layoutComponents/SectionHeader/index.js'
+import { SectionHeader } from '../_layoutComponents/SectionHeader/index'
 import classes from './page.module.scss'
 
 export const ProjectOwnershipPage: React.FC<{

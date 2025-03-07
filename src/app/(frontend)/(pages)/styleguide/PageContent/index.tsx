@@ -1,9 +1,9 @@
-import { BlockSpacing } from '@components/BlockSpacing/index.js'
-import { Gutter } from '@components/Gutter/index.js'
+import { BlockSpacing } from '@components/BlockSpacing/index'
+import { Gutter } from '@components/Gutter/index'
 import React from 'react'
 
-import { StyleguideBreadcrumbs } from './Breadcrumbs/index.js'
-import { RenderDarkMode } from './RenderDarkMode/index.js'
+import { StyleguideBreadcrumbs } from './Breadcrumbs/index'
+import { RenderDarkMode } from './RenderDarkMode/index'
 
 export const StyleguidePageContent: React.FC<{
   children: React.ReactNode

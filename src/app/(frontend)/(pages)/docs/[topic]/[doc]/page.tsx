@@ -2,7 +2,7 @@ import { PayloadRedirects } from '@components/PayloadRedirects'
 /* eslint-disable no-restricted-exports */
 import { RenderDocs } from '@components/RenderDocs'
 import config from '@payload-config'
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { getPayload } from 'payload'
 import React from 'react'
 

@@ -1,5 +1,5 @@
-import type { CMSLinkType } from '@components/CMSLink/index.js'
-import type { Media, Post } from '@root/payload-types.js'
+import type { CMSLinkType } from '@components/CMSLink/index'
+import type { Media, Post } from '@root/payload-types'
 
 export interface SharedProps {
   className?: string

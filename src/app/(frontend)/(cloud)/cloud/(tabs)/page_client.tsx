@@ -1,21 +1,21 @@
 'use client'
 
-import type { Team, Template, User } from '@root/payload-cloud-types.js'
+import type { Team, Template, User } from '@root/payload-cloud-types'
 
-import { ProjectCard } from '@cloud/_components/ProjectCard/index.js'
-import { TeamSelector } from '@cloud/_components/TeamSelector/index.js'
-import { Gutter } from '@components/Gutter/index.js'
-import { NewProjectBlock } from '@components/NewProject/index.js'
-import { Pagination } from '@components/Pagination/index.js'
-import { Text } from '@forms/fields/Text/index.js'
-import { useAuth } from '@root/providers/Auth/index.js'
-import useDebounce from '@root/utilities/use-debounce.js'
+import { ProjectCard } from '@cloud/_components/ProjectCard/index'
+import { TeamSelector } from '@cloud/_components/TeamSelector/index'
+import { Gutter } from '@components/Gutter/index'
+import { NewProjectBlock } from '@components/NewProject/index'
+import { Pagination } from '@components/Pagination/index'
+import { Text } from '@forms/fields/Text/index'
+import { useAuth } from '@root/providers/Auth/index'
+import useDebounce from '@root/utilities/use-debounce'
 import Link from 'next/link'
 import React, { useEffect } from 'react'
 
-import type { ProjectsRes } from '../_api/fetchProjects.js'
+import type { ProjectsRes } from '../_api/fetchProjects'
 
-import { fetchProjectsClient } from '../_api/fetchProjects.js'
+import { fetchProjectsClient } from '../_api/fetchProjects'
 import classes from './page.module.scss'
 
 const delay = 500

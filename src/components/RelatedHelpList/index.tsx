@@ -1,7 +1,7 @@
-import type { CommunityHelp } from '@root/payload-types.js'
+import type { CommunityHelp } from '@root/payload-types'
 
-import { DiscordIcon } from '@root/graphics/DiscordIcon/index.js'
-import { GithubIcon } from '@root/graphics/GithubIcon/index.js'
+import { DiscordIcon } from '@root/graphics/DiscordIcon/index'
+import { GithubIcon } from '@root/graphics/GithubIcon/index'
 import Link from 'next/link'
 import React from 'react'
 

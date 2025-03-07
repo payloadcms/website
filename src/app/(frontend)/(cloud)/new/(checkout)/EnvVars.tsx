@@ -1,6 +1,6 @@
-import { ArrayProvider, useArray } from '@forms/fields/Array/context.js'
-import { AddArrayRow, ArrayRow } from '@forms/fields/Array/index.js'
-import { Text } from '@forms/fields/Text/index.js'
+import { ArrayProvider, useArray } from '@forms/fields/Array/context'
+import { AddArrayRow, ArrayRow } from '@forms/fields/Array/index'
+import { Text } from '@forms/fields/Text/index'
 import React from 'react'
 
 import classes from './EnvVars.module.scss'

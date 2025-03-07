@@ -1,14 +1,14 @@
-import type { Project } from '@root/payload-cloud-types.js'
+import type { Project } from '@root/payload-cloud-types'
 
-import { PROJECT_QUERY } from '@data/project.js'
-import { mergeProjectEnvironment } from '@root/utilities/merge-project-environment.js'
+import { PROJECT_QUERY } from '@data/project'
+import { mergeProjectEnvironment } from '@root/utilities/merge-project-environment'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
-import type { Subscription } from './fetchSubscriptions.js'
-import type { Customer, TeamWithCustomer } from './fetchTeam.js'
+import type { Subscription } from './fetchSubscriptions'
+import type { Customer, TeamWithCustomer } from './fetchTeam'
 
-import { payloadCloudToken } from './token.js'
+import { payloadCloudToken } from './token'
 
 export type ProjectWithSubscription = {
   stripeSubscription: Subscription

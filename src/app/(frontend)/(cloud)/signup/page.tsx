@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
 
-import { fetchMe } from '@cloud/_api/fetchMe.js'
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
+import { fetchMe } from '@cloud/_api/fetchMe'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { redirect } from 'next/navigation'
 
-import { Signup } from './page_client.js'
+import { Signup } from './page_client'
 
 export default async () => {
   const { user } = await fetchMe()

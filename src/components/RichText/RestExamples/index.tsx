@@ -1,14 +1,14 @@
 'use client'
-import { Drawer, DrawerToggler } from '@components/Drawer/index.js'
-import { CodeIcon } from '@root/icons/CodeIcon/index.js'
+import { Drawer, DrawerToggler } from '@components/Drawer/index'
+import { CodeIcon } from '@root/icons/CodeIcon/index'
 import React from 'react'
 
-import type { Data, Example } from './types.js'
+import type { Data, Example } from './types'
 
-import CustomTable from '../CustomTable/index.js'
-import { RichText } from '../index.js'
-import { GenerateRequest } from './generateRequest.js'
-import { GenerateResponse } from './generateResponse.js'
+import CustomTable from '../CustomTable/index'
+import { RichText } from '../index'
+import { GenerateRequest } from './generateRequest'
+import { GenerateResponse } from './generateResponse'
 import classes from './index.module.scss'
 
 const ExampleCell: React.FC<{ example: Example; row: Data }> = ({ example, row }) => {

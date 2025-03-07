@@ -1,13 +1,13 @@
 'use client'
 
-import type { Page } from '@root/payload-types.js'
+import type { Page } from '@root/payload-types'
 
-import { Breadcrumbs } from '@components/Breadcrumbs/index.js'
-import { Button } from '@components/Button/index.js'
-import { Gutter } from '@components/Gutter/index.js'
-import { RichText } from '@components/RichText/index.js'
-import { Video } from '@components/RichText/Video/index.js'
-import { formatDate } from '@utilities/format-date-time.js'
+import { Breadcrumbs } from '@components/Breadcrumbs/index'
+import { Button } from '@components/Button/index'
+import { Gutter } from '@components/Gutter/index'
+import { RichText } from '@components/RichText/index'
+import { Video } from '@components/RichText/Video/index'
+import { formatDate } from '@utilities/format-date-time'
 import * as React from 'react'
 
 import classes from './index.module.scss'

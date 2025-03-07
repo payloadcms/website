@@ -1,12 +1,12 @@
-import { Media } from '@components/Media/index.js'
-import { formatDate } from '@root/utilities/format-date-time.js'
+import { Media } from '@components/Media/index'
+import { formatDate } from '@root/utilities/format-date-time'
 import Link from 'next/link'
 import * as React from 'react'
 
-import type { ContentMediaCardProps } from '../types.js'
+import type { ContentMediaCardProps } from '../types'
 
 import classes from './index.module.scss'
-import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
+import { BackgroundScanline } from '@components/BackgroundScanline/index'
 
 export const ContentMediaCard: React.FC<ContentMediaCardProps> = (props) => {
   const { authors, className, href, media, publishedOn, title } = props

@@ -1,8 +1,8 @@
-import type { Template } from '@root/payload-cloud-types.js'
+import type { Template } from '@root/payload-cloud-types'
 
-import { TEMPLATES } from '@data/templates.js'
+import { TEMPLATES } from '@data/templates'
 
-import { payloadCloudToken } from './token.js'
+import { payloadCloudToken } from './token'
 
 export const fetchTemplates = async (): Promise<Template[]> => {
   const { cookies } = await import('next/headers')

@@ -1,15 +1,15 @@
 import type { Metadata } from 'next'
 
-import { Gutter } from '@components/Gutter/index.js'
-import { Checkbox } from '@forms/fields/Checkbox/index.js'
-import { NumberInput } from '@forms/fields/Number/index.js'
-import RadioGroup from '@forms/fields/RadioGroup/index.js'
-import { Select } from '@forms/fields/Select/index.js'
-import { Text } from '@forms/fields/Text/index.js'
-import { Textarea } from '@forms/fields/Textarea/index.js'
+import { Gutter } from '@components/Gutter/index'
+import { Checkbox } from '@forms/fields/Checkbox/index'
+import { NumberInput } from '@forms/fields/Number/index'
+import RadioGroup from '@forms/fields/RadioGroup/index'
+import { Select } from '@forms/fields/Select/index'
+import { Text } from '@forms/fields/Text/index'
+import { Textarea } from '@forms/fields/Textarea/index'
 import React from 'react'
 
-import { StyleguidePageContent } from '../PageContent/index.js'
+import { StyleguidePageContent } from '../PageContent/index'
 
 const Fields: React.FC = () => {
   return (

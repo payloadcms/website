@@ -1,12 +1,12 @@
 'use client'
 
-import canUseDom from '@root/utilities/can-use-dom.js'
+import canUseDom from '@root/utilities/can-use-dom'
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react'
 
-import type { Theme, ThemePreferenceContextType } from './types.js'
+import type { Theme, ThemePreferenceContextType } from './types'
 
-import { defaultTheme, getImplicitPreference, themeLocalStorageKey } from './shared.js'
-import { themeIsValid } from './types.js'
+import { defaultTheme, getImplicitPreference, themeLocalStorageKey } from './shared'
+import { themeIsValid } from './types'
 
 const initialContext: ThemePreferenceContextType = {
   setTheme: () => null,

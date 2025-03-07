@@ -1,16 +1,16 @@
 import type { Metadata } from 'next'
 
-import { fetchGitHubToken } from '@cloud/_api/fetchGitHubToken.js'
-import { fetchInstalls } from '@cloud/_api/fetchInstalls.js'
-import { fetchMe } from '@cloud/_api/fetchMe.js'
-import { fetchTemplate } from '@cloud/_api/fetchTemplate.js'
-import { Gutter } from '@components/Gutter/index.js'
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
-import { uuid as generateUUID } from '@root/utilities/uuid.js'
+import { fetchGitHubToken } from '@cloud/_api/fetchGitHubToken'
+import { fetchInstalls } from '@cloud/_api/fetchInstalls'
+import { fetchMe } from '@cloud/_api/fetchMe'
+import { fetchTemplate } from '@cloud/_api/fetchTemplate'
+import { Gutter } from '@components/Gutter/index'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
+import { uuid as generateUUID } from '@root/utilities/uuid'
 import { redirect } from 'next/navigation'
 import { Fragment } from 'react'
 
-import { CloneTemplate } from './page_client.js'
+import { CloneTemplate } from './page_client'
 
 const title = `Create new from template`
 

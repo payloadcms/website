@@ -1,6 +1,6 @@
-import type { Attachments } from '@root/app/(frontend)/(pages)/community-help/(posts)/discord/[slug]/client_page.js'
+import type { Attachments } from '@root/app/(frontend)/(pages)/community-help/(posts)/discord/[slug]/client_page'
 
-import { DownloadIcon } from '@root/graphics/DownloadIcon/index.js'
+import { DownloadIcon } from '@root/graphics/DownloadIcon/index'
 import Image from 'next/image'
 import React from 'react'
 

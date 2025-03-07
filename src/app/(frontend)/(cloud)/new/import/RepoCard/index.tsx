@@ -1,8 +1,8 @@
-import type { Repo } from '@cloud/_api/fetchRepos.js'
+import type { Repo } from '@cloud/_api/fetchRepos'
 
-import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
-import { LoadingShimmer } from '@components/LoadingShimmer/index.js'
-import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'
+import { BackgroundScanline } from '@components/BackgroundScanline/index'
+import { LoadingShimmer } from '@components/LoadingShimmer/index'
+import { ArrowIcon } from '@root/icons/ArrowIcon/index'
 import React from 'react'
 
 import classes from './index.module.scss'
