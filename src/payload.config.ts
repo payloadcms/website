@@ -77,6 +77,7 @@ import { UploadBlock } from './collections/Docs/blocks/upload'
 import { TableWithDrawersBlock } from './collections/Docs/blocks/tableWithDrawers'
 import { RestExamplesBlock } from './collections/Docs/blocks/restExamples'
 import { opsCounterPlugin } from './plugins/opsCounter'
+import { DownloadBlock } from './blocks/Download'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -109,6 +110,7 @@ export default buildConfig({
     MediaExampleBlock,
     Callout,
     CallToAction,
+    DownloadBlock,
     LightDarkImageBlock,
     TableWithDrawersBlock,
     YoutubeBlock,
@@ -339,7 +341,16 @@ export default buildConfig({
       LabelFeature(),
       LargeBodyFeature(),
       BlocksFeature({
-        blocks: ['spotlight', 'video', 'br', 'Banner', 'VideoDrawer', 'templateCards', 'Code'],
+        blocks: [
+          'spotlight',
+          'video',
+          'br',
+          'Banner',
+          'VideoDrawer',
+          'templateCards',
+          'Code',
+          'downloadBlock',
+        ],
       }),
     ],
   }),

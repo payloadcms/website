@@ -71,6 +71,7 @@ export interface Config {
     MediaExampleBlock: MediaExampleBlock;
     callout: Callout;
     cta: Cta;
+    downloadBlock: DownloadBlockType;
     LightDarkImage: LightDarkImageBlock;
     TableWithDrawers: TableWithDrawersBlock;
     YouTube: YoutubeBlock;
@@ -2740,6 +2741,33 @@ export interface Command {
   id?: string | null;
   blockName?: string | null;
   blockType: 'command';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DownloadBlockType".
+ */
+export interface DownloadBlockType {
+  downloads?:
+    | {
+        name: string;
+        /**
+         * The file to download
+         */
+        file: string | Media;
+        /**
+         * Thumbnail for the download. Defaults to file for images
+         */
+        thumbnail?: (string | null) | Media;
+        thumbnailAppearance: 'cover' | 'contain';
+        background: 'auto' | 'light' | 'dark';
+        copyToClipboard?: boolean | null;
+        copyToClipboardText?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'downloadBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
