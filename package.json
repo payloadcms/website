@@ -86,8 +86,8 @@
   "devDependencies": {
     "@next/bundle-analyzer": "15.2.2",
     "@octokit/types": "^9.0.0",
-    "@payloadcms/eslint-config": "3.9.0",
-    "@payloadcms/eslint-plugin": "3.9.0",
+    "@payloadcms/eslint-config": "3.28.0",
+    "@payloadcms/eslint-plugin": "3.28.0",
     "@types/cli-progress": "^3.11.0",
     "@types/node": "22.10.2",
     "@types/react": "19.0.2",
@@ -95,7 +95,7 @@
     "cli-progress": "^3.11.2",
     "discord.js": "^14.7.1",
     "dotenv": "^16.4.7",
-    "eslint": "9.17.0",
+    "eslint": "9.22.0",
     "prettier": "3.4.2",
     "typescript": "5.7.3"
   }

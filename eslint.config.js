@@ -44,7 +44,7 @@ export const rootEslintConfig = [
     },
     rules: {
       'payload/no-jsx-import-statements': 'warn',
-      restrictDefaultExports: 'allow',
+      restrictDefaultExports: 'off',
     },
   },
 ]
