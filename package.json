@@ -61,7 +61,7 @@
     "graphql": "16.8.1",
     "gray-matter": "^4.0.3",
     "instantsearch.js": "^4.72.2",
-    "next": "15.2.1",
+    "next": "15.2.2",
     "next-sitemap": "^4.0.6",
     "node-cron": "^3.0.3",
     "nodemailer-sendgrid": "^1.0.3",
@@ -84,7 +84,7 @@
     "uuid": "10.0.0"
   },
   "devDependencies": {
-    "@next/bundle-analyzer": "15.2.1",
+    "@next/bundle-analyzer": "15.2.2",
     "@octokit/types": "^9.0.0",
     "@payloadcms/eslint-config": "3.9.0",
     "@payloadcms/eslint-plugin": "3.9.0",
