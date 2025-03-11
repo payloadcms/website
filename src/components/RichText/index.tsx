@@ -11,6 +11,7 @@ import type {
   CodeBlock,
   CommandLineBlock,
   Doc,
+  DownloadBlockType,
   LightDarkImageBlock,
   RestExamplesBlock,
   SpotlightBlock,
@@ -55,6 +56,7 @@ import { CustomTableJSXConverters } from './Table/index'
 import { TableWithDrawers } from './TableWithDrawers'
 import { UploadBlockImage } from './UploadBlock/index'
 import { VideoDrawer } from './VideoDrawer'
+import { Download } from '@root/components/blocks/Download'
 
 type Props = {
   className?: string
@@ -68,6 +70,7 @@ export type NodeTypes =
       | BrBlock
       | CodeBlock
       | CommandLineBlock
+      | DownloadBlockType
       | LightDarkImageBlock
       | RestExamplesBlock
       | SpotlightBlock
@@ -104,6 +107,9 @@ export const jsxConverters: (args: { toc?: boolean }) => JSXConvertersFunction<N
             return <CommandLine command={command} lexical />
           }
           return null
+        },
+        downloadBlock: ({ node }) => {
+          return <Download {...node.fields} />
         },
         LightDarkImage: ({ node }) => {
           return (
