@@ -1,7 +1,9 @@
-import { DownloadBlockType } from '@root/payload-types'
-import classes from './index.module.scss'
+import type { DownloadBlockType } from '@root/payload-types'
+
 import { Media } from '@components/Media'
+
 import { CopyButton, DownloadButton } from './Buttons'
+import classes from './index.module.scss'
 
 export const Download: React.FC<DownloadBlockType> = ({ downloads }) => {
   return (
@@ -11,12 +13,12 @@ export const Download: React.FC<DownloadBlockType> = ({ downloads }) => {
           ({
             id,
             name,
-            file,
-            thumbnailAppearance,
             background,
-            thumbnail,
             copyToClipboard,
             copyToClipboardText,
+            file,
+            thumbnail,
+            thumbnailAppearance,
           }) => {
             const imageToUse =
               thumbnail && typeof thumbnail === 'object'
@@ -28,9 +30,9 @@ export const Download: React.FC<DownloadBlockType> = ({ downloads }) => {
               <div className={classes.downloadCard} key={id}>
                 {imageToUse && (
                   <Media
-                    resource={imageToUse}
                     className={[classes.downloadCardThumbnail, classes[background]].join(' ')}
                     imgClassName={classes[thumbnailAppearance]}
+                    resource={imageToUse}
                   />
                 )}
                 <div className={classes.downloadCardInfo}>
