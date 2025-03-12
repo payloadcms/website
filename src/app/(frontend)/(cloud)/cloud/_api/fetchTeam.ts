@@ -1,6 +1,7 @@
 import type { Team } from '@root/payload-cloud-types'
 
 import { TEAM_QUERY, TEAMS_QUERY } from '@data/team'
+import { notFound } from 'next/navigation'
 
 import { payloadCloudToken } from './token'
 
@@ -62,28 +63,33 @@ export const fetchTeam = async (teamSlug?: string): Promise<Team> => {
     throw new Error('No token provided')
   }
 
-  const doc: Team = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql`, {
-    body: JSON.stringify({
-      query: TEAM_QUERY,
-      variables: {
-        slug: teamSlug,
+  try {
+    const doc: Team = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql`, {
+      body: JSON.stringify({
+        query: TEAM_QUERY,
+        variables: {
+          slug: teamSlug,
+        },
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+        ...(token ? { Authorization: `JWT ${token}` } : {}),
       },
-    }),
-    headers: {
-      'Content-Type': 'application/json',
-      ...(token ? { Authorization: `JWT ${token}` } : {}),
-    },
-    method: 'POST',
-  })
-    ?.then((res) => res.json())
-    ?.then((res) => {
-      if (res.errors) {
-        throw new Error(res?.errors?.[0]?.message ?? 'Error fetching doc')
-      }
-      return res?.data?.Teams?.docs?.[0]
+      method: 'POST',
     })
+      ?.then((res) => res.json())
+      ?.then((res) => {
+        if (res.errors) {
+          throw new Error(res?.errors?.[0]?.message ?? 'Error fetching doc')
+        }
+        return res?.data?.Teams?.docs?.[0]
+      })
 
-  return doc
+    return doc
+  } catch (error) {
+    console.error(error)
+    notFound()
+  }
 }
 
 export const fetchTeamClient = async (slug: string): Promise<Team> => {
@@ -120,29 +126,34 @@ export const fetchTeamWithCustomer = async (slug?: string): Promise<TeamWithCust
     throw new Error('No slug provided')
   }
 
-  const data = await fetch(
-    `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/teams/${slug}/with-customer`,
-    {
-      headers: {
-        'Content-Type': 'application/json',
-        ...(token ? { Authorization: `JWT ${token}` } : {}),
+  try {
+    const data = await fetch(
+      `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/teams/${slug}/with-customer`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          ...(token ? { Authorization: `JWT ${token}` } : {}),
+        },
+        method: 'GET',
+        next: { tags: [`team_${slug}`] },
       },
-      method: 'GET',
-      next: { tags: [`team_${slug}`] },
-    },
-  )
-    ?.then((res) => {
-      if (!res.ok) {
-        throw new Error(`Error getting team with customer: ${res.statusText}`)
-      }
-      return res.json()
-    })
-    ?.then((res) => {
-      if (res.errors) {
-        throw new Error(res?.errors?.[0]?.message ?? 'Error fetching docs')
-      }
-      return res
-    })
+    )
+      ?.then((res) => {
+        if (!res.ok) {
+          throw new Error(`Error getting team with customer: ${res.statusText}`)
+        }
+        return res.json()
+      })
+      ?.then((res) => {
+        if (res.errors) {
+          throw new Error(res?.errors?.[0]?.message ?? 'Error fetching docs')
+        }
+        return res
+      })
 
-  return data
+    return data
+  } catch (error) {
+    console.error(error)
+    notFound()
+  }
 }

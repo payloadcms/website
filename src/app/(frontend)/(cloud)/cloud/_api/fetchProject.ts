@@ -3,7 +3,7 @@ import type { Project } from '@root/payload-cloud-types'
 import { PROJECT_QUERY } from '@data/project'
 import { mergeProjectEnvironment } from '@root/utilities/merge-project-environment'
 import { cookies } from 'next/headers'
-import { redirect } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 
 import type { Subscription } from './fetchSubscriptions'
 import type { Customer, TeamWithCustomer } from './fetchTeam'
@@ -59,19 +59,24 @@ export const fetchProjectAndRedirect = async (args: {
   team: TeamWithCustomer
 }> => {
   const { environmentSlug, projectSlug, teamSlug } = args || {}
-  const project = await fetchProjectWithSubscription({ environmentSlug, projectSlug, teamSlug })
+  try {
+    const project = await fetchProjectWithSubscription({ environmentSlug, projectSlug, teamSlug })
 
-  if (!project) {
-    redirect('/404')
-  }
+    if (!project) {
+      notFound()
+    }
 
-  if (project?.status === 'draft') {
-    redirect(`/cloud/${teamSlug}/${projectSlug}/configure`)
-  }
+    if (project?.status === 'draft') {
+      redirect(`/cloud/${teamSlug}/${projectSlug}/configure`)
+    }
 
-  return {
-    project,
-    team: project?.team,
+    return {
+      project,
+      team: project?.team,
+    }
+  } catch (error) {
+    console.error(error)
+    notFound()
   }
 }
 
