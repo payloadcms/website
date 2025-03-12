@@ -115,6 +115,9 @@ export const fetchProjectWithSubscription = async (args: {
       if (res.errors) {
         throw new Error(res?.errors?.[0]?.message ?? 'Error fetching doc')
       }
+      if (res.error) {
+        throw new Error(res.error ?? 'Error fetching doc')
+      }
       return res
     })
 
