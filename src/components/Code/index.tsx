@@ -75,6 +75,7 @@ const Code: React.FC<Props> = (props) => {
         classes.codeWrap,
         disableMinHeight && classes.disableMinHeight,
         parentClassName && parentClassName,
+        'code-block-wrap',
       ]
         .filter(Boolean)
         .join(' ')}
