@@ -81,7 +81,7 @@ const Code: React.FC<Props> = (props) => {
         .join(' ')}
       data-theme={'dark'}
     >
-      <Highlight code={children} language="jsx" theme={theme}>
+      <Highlight code={children} language="tsx" theme={theme}>
         {({ getLineProps, getTokenProps, style, tokens }) => (
           <div className={classNames} style={style}>
             {tokens
