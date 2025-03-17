@@ -27,7 +27,7 @@ export const Code: React.FC<CodeFieldClientProps> = ({
   const languageField = useFormFields(([fields]) => fields['language'])
 
   const language: string =
-    (languageField?.value as string) || (languageField.initialValue as string) || 'typescript'
+    (languageField?.value as string) || (languageField?.initialValue as string) || 'typescript'
 
   const label = languages[language as keyof typeof languages]
 
