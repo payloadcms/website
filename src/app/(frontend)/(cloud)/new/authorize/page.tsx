@@ -28,7 +28,7 @@ export default async ({
   const githubToken = await fetchGitHubToken()
 
   if (githubToken) {
-    redirect(redirectParam || '/new')
+    redirect(encodeURIComponent(redirectParam) || '/new')
   }
 
   return <AuthorizePage />

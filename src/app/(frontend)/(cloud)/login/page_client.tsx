@@ -54,6 +54,9 @@ export const Login: React.FC = () => {
       else {
         setRedirectTo(cloudSlug)
       }
+    } else {
+      // If no 'redirectParam' is provided, redirect to the default 'cloudSlug'
+      setRedirectTo(cloudSlug)
     }
   }, [searchParams])
 
