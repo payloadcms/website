@@ -1,15 +1,15 @@
 import type { Metadata } from 'next'
 
-import { GoogleAnalytics } from '@components/Analytics/GoogleAnalytics/index.js'
-import { GoogleTagManager } from '@components/Analytics/GoogleTagManager/index.js'
-import { PrivacyBanner } from '@components/PrivacyBanner/index.js'
-import { Providers } from '@providers/index.js'
-import { PrivacyProvider } from '@root/providers/Privacy/index.js'
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
+import { GoogleAnalytics } from '@components/Analytics/GoogleAnalytics/index'
+import { GoogleTagManager } from '@components/Analytics/GoogleTagManager/index'
+import { PrivacyBanner } from '@components/PrivacyBanner/index'
+import { Providers } from '@providers/index'
+import { PrivacyProvider } from '@root/providers/Privacy/index'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { GeistMono } from 'geist/font/mono'
 import React from 'react'
 
-import { untitledSans } from './fonts.js'
+import { untitledSans } from './fonts'
 import '../../css/app.scss'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {

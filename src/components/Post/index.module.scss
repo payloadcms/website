@@ -1,6 +1,6 @@
 @use '@scss/common' as *;
 
-.blog {
+.post {
   border-bottom: 1px solid var(--grid-line-dark);
   position: relative;
   overflow: hidden;
@@ -37,7 +37,38 @@
 }
 
 .breadcrumbs {
-  @include uppercaseLabel;
+  margin: 0 0 1rem;
+}
+
+.guideBadge {
+  @include body;
+  & {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.125rem 0.375rem;
+    margin: 0;
+    border-radius: 6px;
+    background: var(--theme-success-50);
+    border: 1px solid var(--theme-success-250);
+    color: var(--theme-success-600);
+    letter-spacing: normal;
+    font-weight: 400;
+    vertical-align: middle;
+    margin: 1rem 0 0;
+  }
+}
+
+.allPosts {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  text-decoration: none;
+
+  svg {
+    transform: rotate(180deg);
+  }
 }
 
 .blogWrap {
@@ -82,7 +113,7 @@
 }
 
 .publishLabel {
-  @include uppercaseLabel;
+  @include h6;
 }
 
 .stickyColumn {
@@ -105,6 +136,7 @@
 }
 
 .heroImageWrap {
+  margin-inline: calc(var(--column) * -1) calc(var(--column) * -4);
   @include mid-break {
     display: none;
   }
@@ -141,7 +173,7 @@
 
 @include mid-break {
   .mobileAuthor {
-    margin-top: 2rem;
+    margin-top: 1rem;
     display: flex;
 
     > * {
@@ -160,7 +192,7 @@
   }
 
   .mobileAuthor {
-    margin-top: 2rem;
+    margin-top: 1rem;
     display: flex;
     flex-direction: column;
   }

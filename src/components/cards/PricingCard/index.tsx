@@ -1,8 +1,8 @@
-import { CMSLink } from '@components/CMSLink/index.js'
-import { ArrowIcon } from '@icons/ArrowIcon/index.js'
+import { CMSLink } from '@components/CMSLink/index'
+import { ArrowIcon } from '@icons/ArrowIcon/index'
 import React from 'react'
 
-import type { PricingCardProps } from '../types.js'
+import type { PricingCardProps } from '../types'
 
 import classes from './index.module.scss'
 

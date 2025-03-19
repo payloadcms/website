@@ -5,6 +5,7 @@ import richText from '../../fields/richText'
 
 export const Form: Block = {
   slug: 'form',
+  interfaceName: 'FormBlock',
   fields: [
     blockFields({
       name: 'formFields',

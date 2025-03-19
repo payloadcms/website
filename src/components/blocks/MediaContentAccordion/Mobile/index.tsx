@@ -1,20 +1,20 @@
 'use client'
-import type { Page } from '@root/payload-types.js'
+import type { Page } from '@root/payload-types'
 
-import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
-import { CMSLink } from '@components/CMSLink/index.js'
-import { Media } from '@components/Media/index.js'
-import { RichText } from '@components/RichText/index.js'
-import SplitAnimate from '@components/SplitAnimate/index.js'
+import { BackgroundScanline } from '@components/BackgroundScanline/index'
+import { CMSLink } from '@components/CMSLink/index'
+import { Media } from '@components/Media/index'
+import { RichText } from '@components/RichText/index'
+import SplitAnimate from '@components/SplitAnimate/index'
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleGroup,
   CollapsibleToggler,
 } from '@faceless-ui/collapsibles'
-import { ArrowRightIcon } from '@root/icons/ArrowRightIcon/index.js'
-import { ChevronDownIcon } from '@root/icons/ChevronDownIcon/index.js'
-import { CrosshairIcon } from '@root/icons/CrosshairIcon/index.js'
+import { ArrowRightIcon } from '@root/icons/ArrowRightIcon/index'
+import { ChevronDownIcon } from '@root/icons/ChevronDownIcon/index'
+import { CrosshairIcon } from '@root/icons/CrosshairIcon/index'
 import Image from 'next/image'
 import React, { createRef, Fragment, useEffect, useRef, useState } from 'react'
 

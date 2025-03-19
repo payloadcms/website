@@ -1,8 +1,8 @@
-import { Footer } from '@components/Footer/index.js'
-import { Header } from '@components/Header/index.js'
-import { fetchGlobals } from '@data/index.js'
+import { Footer } from '@components/Footer/index'
+import { Header } from '@components/Header/index'
+import { fetchGlobals } from '@data/index'
 import { unstable_cache } from 'next/cache'
-import { draftMode } from 'next/headers.js'
+import { draftMode } from 'next/headers'
 import React from 'react'
 
 export const dynamic = 'force-static'

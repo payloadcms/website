@@ -1,13 +1,13 @@
 'use client'
 
-import Label from '@forms/Label/index.js'
-import { CheckIcon } from '@root/icons/CheckIcon/index.js'
+import Label from '@forms/Label/index'
+import { CheckIcon } from '@root/icons/CheckIcon/index'
 import React, { useEffect } from 'react'
 
-import type { FieldProps } from '../types.js'
+import type { FieldProps } from '../types'
 
-import Error from '../../Error/index.js'
-import { useField } from '../useField/index.js'
+import Error from '../../Error/index'
+import { useField } from '../useField/index'
 import classes from './index.module.scss'
 
 export const Checkbox: React.FC<

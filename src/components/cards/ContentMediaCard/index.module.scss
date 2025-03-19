@@ -3,6 +3,36 @@
 .blogCard {
   display: block;
   text-decoration: none;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--theme-text);
+    z-index: 1;
+    transition: width 0.3s;
+  }
+
+  &:hover {
+    &::after {
+      width: 100%;
+    }
+
+    .scanline {
+      opacity: 1;
+    }
+  }
+}
+
+.scanline {
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s;
+  border-block: 1px solid var(--theme-border-color);
 }
 
 .contentWrapper {
@@ -15,20 +45,17 @@
 
 .title {
   display: block;
-  @include h4;
+  @include h5;
 
   & {
-    margin: 0 !important;
+    margin-top: 0 !important;
     text-decoration: none;
-  }
-
-  &:hover {
-    text-decoration: underline;
   }
 }
 
 .media {
   max-width: 50%;
+  position: relative;
 
   @include small-break {
     width: 100%;
@@ -40,21 +67,24 @@
 
 .meta {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 1rem;
+  column-gap: 1rem;
+  row-gap: 0.5rem;
   opacity: 0.5;
-  margin-bottom: 1.2rem;
 
   @include small-break {
     margin-bottom: 0.6rem;
   }
 
   time {
+    text-wrap: nowrap;
     @include small;
   }
 
   p {
     margin: 0;
+    text-wrap: nowrap;
     @include small;
   }
 }
@@ -68,6 +98,7 @@
   flex-grow: 1;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 0.5rem;
   width: 50%;
   text-decoration: none;

@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
 
-import { fetchGitHubToken } from '@cloud/_api/fetchGitHubToken.js'
-import { fetchMe } from '@cloud/_api/fetchMe.js'
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
+import { fetchGitHubToken } from '@cloud/_api/fetchGitHubToken'
+import { fetchMe } from '@cloud/_api/fetchMe'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { redirect } from 'next/navigation'
 
-import { AuthorizePage } from './page_client.js'
+import { AuthorizePage } from './page_client'
 
 export default async ({
   searchParams,
@@ -28,7 +28,7 @@ export default async ({
   const githubToken = await fetchGitHubToken()
 
   if (githubToken) {
-    redirect(redirectParam || '/new')
+    redirect(encodeURIComponent(redirectParam) || '/new')
   }
 
   return <AuthorizePage />

@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
 
-import { Gutter } from '@components/Gutter/index.js'
-import { ProjectCard } from '@root/app/(frontend)/(cloud)/cloud/_components/ProjectCard/index.js'
+import { Gutter } from '@components/Gutter/index'
+import { ProjectCard } from '@root/app/(frontend)/(cloud)/cloud/_components/ProjectCard/index'
 import React from 'react'
 
-import { StyleguidePageContent } from '../PageContent/index.js'
+import { StyleguidePageContent } from '../PageContent/index'
 
 const Cards: React.FC = () => {
   return (

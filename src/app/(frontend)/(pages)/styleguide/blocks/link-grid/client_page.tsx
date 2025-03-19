@@ -1,9 +1,9 @@
 'use client'
 
 import type React from 'react'
-// import { LinkGrid, LinkGridProps } from '@blocks/LinkGrid/index.js'
+// import { LinkGrid, LinkGridProps } from '@blocks/LinkGrid/index'
 
-// import { StyleguidePageContent } from '../../PageContent/index.js'
+// import { StyleguidePageContent } from '../../PageContent/index'
 
 // const data: LinkGridProps = {
 //   blockType: 'linkGrid',

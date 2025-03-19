@@ -2,10 +2,10 @@ import type { ElementType } from 'react'
 
 import React, { forwardRef, Fragment } from 'react'
 
-import type { Props } from './types.js'
+import type { Props } from './types'
 
-import { Image } from './Image/index.js'
-import { Video } from './Video/index.js'
+import { Image } from './Image/index'
+import { Video } from './Video/index'
 
 export const Media = forwardRef<HTMLDivElement | HTMLImageElement | HTMLVideoElement, Props>(
   (props, ref) => {

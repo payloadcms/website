@@ -1,6 +1,6 @@
-import { Sidebar } from '@cloud/_components/Sidebar/index.js'
-import { Gutter } from '@components/Gutter/index.js'
-import { PRODUCTION_ENVIRONMENT_SLUG } from '@root/constants.js'
+import { Sidebar } from '@cloud/_components/Sidebar/index'
+import { Gutter } from '@components/Gutter/index'
+import { PRODUCTION_ENVIRONMENT_SLUG } from '@root/constants'
 import { generateRoutePath } from '@root/utilities/generate-route-path'
 import * as React from 'react'
 

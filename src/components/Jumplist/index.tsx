@@ -1,11 +1,11 @@
 'use client'
 
-import { ChainLinkIcon } from '@root/icons/ChainLinkIcon/index.js'
+import { ChainLinkIcon } from '@root/icons/ChainLinkIcon/index'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { createContext, useContext, useEffect, useReducer, useRef, useState } from 'react'
 
-import type { IContext, NodeProps, Props, Reducer } from './types.js'
+import type { IContext, NodeProps, Props, Reducer } from './types'
 
 import classes from './index.module.scss'
 

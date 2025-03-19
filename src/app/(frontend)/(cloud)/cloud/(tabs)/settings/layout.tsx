@@ -1,9 +1,9 @@
 'use client'
 
-import { cloudSlug } from '@cloud/slug.js'
-import { EdgeScroll } from '@components/EdgeScroll/index.js'
-import { Gutter } from '@components/Gutter/index.js'
-import { usePathnameSegments } from '@root/utilities/use-pathname-segments.js'
+import { cloudSlug } from '@cloud/slug'
+import { EdgeScroll } from '@components/EdgeScroll/index'
+import { Gutter } from '@components/Gutter/index'
+import { usePathnameSegments } from '@root/utilities/use-pathname-segments'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import * as React from 'react'

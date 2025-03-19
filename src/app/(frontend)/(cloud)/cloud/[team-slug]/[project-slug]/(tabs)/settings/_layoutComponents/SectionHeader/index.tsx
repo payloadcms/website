@@ -1,5 +1,5 @@
-import { Button } from '@components/Button/index.js'
-import { Heading } from '@components/Heading/index.js'
+import { Button } from '@components/Button/index'
+import { Heading } from '@components/Heading/index'
 import * as React from 'react'
 
 import classes from './index.module.scss'

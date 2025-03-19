@@ -1,4 +1,4 @@
-import type { Team } from '@root/payload-cloud-types.js'
+import type { Team } from '@root/payload-cloud-types'
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 

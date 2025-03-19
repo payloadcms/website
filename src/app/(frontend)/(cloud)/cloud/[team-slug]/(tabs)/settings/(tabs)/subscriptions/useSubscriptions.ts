@@ -1,11 +1,11 @@
-import type { Subscription, SubscriptionsResult } from '@cloud/_api/fetchSubscriptions.js'
-import type { Team } from '@root/payload-cloud-types.js'
+import type { Subscription, SubscriptionsResult } from '@cloud/_api/fetchSubscriptions'
+import type { Team } from '@root/payload-cloud-types'
 
-import { fetchSubscriptionsClient } from '@cloud/_api/fetchSubscriptions.js'
+import { fetchSubscriptionsClient } from '@cloud/_api/fetchSubscriptions'
 import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react'
 import { toast } from 'sonner'
 
-import { subscriptionsReducer } from './reducer.js'
+import { subscriptionsReducer } from './reducer'
 
 export const useSubscriptions = (args: {
   delay?: number

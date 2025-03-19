@@ -1,12 +1,12 @@
 'use client'
 
-import type { Install } from '@cloud/_api/fetchInstalls.js'
-import type { Project, Template } from '@root/payload-cloud-types.js'
+import type { Install } from '@cloud/_api/fetchInstalls'
+import type { Project, Template } from '@root/payload-cloud-types'
 
-import { useForm, useFormProcessing } from '@forms/Form/context.js'
-import { GithubIcon } from '@root/graphics/GithubIcon/index.js'
-import { PayloadIcon } from '@root/graphics/PayloadIcon/index.js'
-import { FolderIcon } from '@root/icons/FolderIcon/index.js'
+import { useForm, useFormProcessing } from '@forms/Form/context'
+import { GithubIcon } from '@root/graphics/GithubIcon/index'
+import { PayloadIcon } from '@root/graphics/PayloadIcon/index'
+import { FolderIcon } from '@root/icons/FolderIcon/index'
 import React, { Fragment, useEffect } from 'react'
 
 import classes from './index.module.scss'

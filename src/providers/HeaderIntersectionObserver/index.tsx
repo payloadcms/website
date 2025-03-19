@@ -1,9 +1,9 @@
 'use client'
 
-import type { Theme } from '@root/providers/Theme/types.js'
+import type { Theme } from '@root/providers/Theme/types'
 
 import { useWindowInfo } from '@faceless-ui/window-info'
-import { useThemePreference } from '@root/providers/Theme/index.js'
+import { useThemePreference } from '@root/providers/Theme/index'
 import { usePathname } from 'next/navigation'
 import * as React from 'react'
 

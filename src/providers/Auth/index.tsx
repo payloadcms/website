@@ -1,9 +1,9 @@
 'use client'
 
-import { ME_QUERY, USER } from '@data/me.js'
+import { ME_QUERY, USER } from '@data/me'
 import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
 
-import type { User } from '../../payload-cloud-types.js'
+import type { User } from '../../payload-cloud-types'
 
 type ResetPassword = (args: {
   password: string

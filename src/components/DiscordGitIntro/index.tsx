@@ -1,8 +1,8 @@
-import type { Attachments } from '@root/app/(frontend)/(pages)/community-help/(posts)/discord/[slug]/client_page.js'
+import type { Attachments } from '@root/app/(frontend)/(pages)/community-help/(posts)/discord/[slug]/client_page'
 
-import AuthorTag from '@components/AuthorTag/index.js'
-import { DiscordGitBody } from '@components/DiscordGitBody/index.js'
-import { FileAttachments } from '@components/FileAttachment/index.js'
+import AuthorTag from '@components/AuthorTag/index'
+import { DiscordGitBody } from '@components/DiscordGitBody/index'
+import { FileAttachments } from '@components/FileAttachment/index'
 import Link from 'next/link'
 import React, { Fragment } from 'react'
 

@@ -1,12 +1,12 @@
 'use client'
 
-import { Drawer, DrawerToggler } from '@components/Drawer/index.js'
+import { Drawer, DrawerToggler } from '@components/Drawer/index'
 import { useModal } from '@faceless-ui/modal'
 import React, { useCallback, useEffect, useId, useMemo, useState } from 'react'
 
-import type { TeamDrawerProps, TeamDrawerTogglerProps, UseTeamDrawer } from './types.js'
+import type { TeamDrawerProps, TeamDrawerTogglerProps, UseTeamDrawer } from './types'
 
-import { TeamDrawerContent } from './DrawerContent.js'
+import { TeamDrawerContent } from './DrawerContent'
 
 const formatTeamDrawerSlug = ({
   uuid,

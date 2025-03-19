@@ -113,26 +113,6 @@ $curve: cubic-bezier(0.165, 0.84, 0.44, 1);
       height: initial;
       min-height: 1rem;
     }
-
-    .highlight-line {
-      position: relative;
-
-      > * {
-        position: relative;
-        z-index: 2;
-      }
-
-      &:before {
-        content: ' ';
-        z-index: 1;
-        background-color: var(--color-base-900);
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-      }
-    }
   }
 
   @include large-break {
@@ -143,14 +123,47 @@ $curve: cubic-bezier(0.165, 0.84, 0.44, 1);
     padding: 1rem;
     font-size: 13px;
 
-    :global {
-      .highlight-line {
-        &:before {
-          right: calc(var(--gutter-h) * -1);
-          left: calc(var(--gutter-h) * -1);
-        }
+    .highlight {
+      &:before {
+        right: calc(var(--gutter-h) * -1);
+        left: calc(var(--gutter-h) * -1);
       }
     }
+  }
+}
+
+.highlight {
+  position: relative;
+
+  > * {
+    position: relative;
+    z-index: 2;
+  }
+
+  .lineNumber {
+    color: var(--color-base-200);
+  }
+
+  &::before {
+    content: ' ';
+    z-index: 1;
+    background-color: var(--color-base-800);
+    position: absolute;
+    top: -1px;
+    right: -2px;
+    bottom: 0;
+    left: -2px;
+    border-radius: 4px;
+  }
+
+  & + .highlight::before {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+  &:has(+ .highlight)::before {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
   }
 }
 

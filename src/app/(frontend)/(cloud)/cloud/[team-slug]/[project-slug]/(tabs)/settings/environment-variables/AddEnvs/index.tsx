@@ -1,19 +1,19 @@
 'use client'
 
-import type { OnSubmit } from '@forms/types.js'
-import type { Project } from '@root/payload-cloud-types.js'
+import type { OnSubmit } from '@forms/types'
+import type { Project } from '@root/payload-cloud-types'
 
-import { revalidateCache } from '@cloud/_actions/revalidateCache.js'
-import { ArrayProvider, useArray } from '@forms/fields/Array/context.js'
-import { AddArrayRow, ArrayRow } from '@forms/fields/Array/index.js'
-import { Text } from '@forms/fields/Text/index.js'
-import Form from '@forms/Form/index.js'
-import Submit from '@forms/Submit/index.js'
-import { qs } from '@root/utilities/qs.js'
+import { revalidateCache } from '@cloud/_actions/revalidateCache'
+import { ArrayProvider, useArray } from '@forms/fields/Array/context'
+import { AddArrayRow, ArrayRow } from '@forms/fields/Array/index'
+import { Text } from '@forms/fields/Text/index'
+import Form from '@forms/Form/index'
+import Submit from '@forms/Submit/index'
+import { qs } from '@root/utilities/qs'
 import * as React from 'react'
 import { toast } from 'sonner'
 
-import { validateKey, validateValue } from '../validations.js'
+import { validateKey, validateValue } from '../validations'
 import classes from './index.module.scss'
 
 type AddEnvsProps = {

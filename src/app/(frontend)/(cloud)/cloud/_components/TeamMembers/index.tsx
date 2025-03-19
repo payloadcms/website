@@ -1,11 +1,11 @@
-import type { Team, User } from '@root/payload-cloud-types.js'
+import type { Team, User } from '@root/payload-cloud-types'
 
-import { Heading } from '@components/Heading/index.js'
-import { formatDate } from '@root/utilities/format-date-time.js'
+import { Heading } from '@components/Heading/index'
+import { formatDate } from '@root/utilities/format-date-time'
 import React, { Fragment } from 'react'
 
 import classes from './index.module.scss'
-import { TeamMemberRow } from './TeamMemberRow.js'
+import { TeamMemberRow } from './TeamMemberRow'
 
 export type Member = {
   id?: string | undefined

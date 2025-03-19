@@ -1,16 +1,16 @@
-import type { Install } from '@cloud/_api/fetchInstalls.js'
+import type { Install } from '@cloud/_api/fetchInstalls'
 
-import { LoadingShimmer } from '@components/LoadingShimmer/index.js'
-import { Select } from '@forms/fields/Select/index.js'
-import Label from '@forms/Label/index.js'
-import { usePopupWindow } from '@root/utilities/use-popup-window.js'
+import { LoadingShimmer } from '@components/LoadingShimmer/index'
+import { Select } from '@forms/fields/Select/index'
+import Label from '@forms/Label/index'
+import { usePopupWindow } from '@root/utilities/use-popup-window'
 import React, { Fragment, useEffect, useRef, useState } from 'react'
 
-import type { InstallationSelectorProps } from './types.js'
+import type { InstallationSelectorProps } from './types'
 
-import { MenuList } from './components/MenuList/index.js'
-import { Option } from './components/Option/index.js'
-import { SingleValue } from './components/SingleValue/index.js'
+import { MenuList } from './components/MenuList/index'
+import { Option } from './components/Option/index'
+import { SingleValue } from './components/SingleValue/index'
 import classes from './index.module.scss'
 
 export const InstallationSelector: React.FC<InstallationSelectorProps> = (props) => {

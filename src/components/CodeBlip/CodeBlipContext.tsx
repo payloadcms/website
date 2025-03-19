@@ -1,5 +1,5 @@
 'use client'
-import type { CodeBlip } from '@components/Code/types.js'
+import type { CodeBlip } from '@components/Code/types'
 
 import React, { createContext, useContext, useState } from 'react'
 

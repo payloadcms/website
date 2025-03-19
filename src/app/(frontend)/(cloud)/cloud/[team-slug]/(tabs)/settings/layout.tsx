@@ -1,11 +1,11 @@
-import { fetchTeamWithCustomer } from '@cloud/_api/fetchTeam.js'
-import { Sidebar } from '@cloud/_components/Sidebar/index.js'
-import { cloudSlug } from '@cloud/slug.js'
-import { Gutter } from '@components/Gutter/index.js'
+import { fetchTeamWithCustomer } from '@cloud/_api/fetchTeam'
+import { Sidebar } from '@cloud/_components/Sidebar/index'
+import { cloudSlug } from '@cloud/slug'
+import { Gutter } from '@components/Gutter/index'
 import * as React from 'react'
 
 import classes from './layout.module.scss'
-import { TeamBillingMessages } from './TeamBillingMessages/index.js'
+import { TeamBillingMessages } from './TeamBillingMessages/index'
 
 export default async ({
   children,

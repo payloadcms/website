@@ -44,11 +44,12 @@ export const rootEslintConfig = [
     },
     rules: {
       'payload/no-jsx-import-statements': 'warn',
+      restrictDefaultExports: 'off',
     },
   },
 ]
 
-export default [
+const config = [
   ...rootEslintConfig,
   {
     languageOptions: {
@@ -60,3 +61,5 @@ export default [
     },
   },
 ]
+
+export default config

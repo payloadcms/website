@@ -1,4 +1,4 @@
-import type { Customer, TeamWithCustomer } from './fetchTeam.js'
+import type { Customer, TeamWithCustomer } from './fetchTeam'
 
 export const updateCustomer = async (
   team: null | TeamWithCustomer | undefined,

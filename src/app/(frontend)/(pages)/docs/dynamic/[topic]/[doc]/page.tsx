@@ -89,6 +89,7 @@ export default async function DocsPage(args: {
     topicGroup: curTopicGroup.groupLabel,
     version: branch,
   }
+
   if (!curDoc) {
     notFound()
   }

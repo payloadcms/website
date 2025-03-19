@@ -34,7 +34,6 @@ import { Pages } from './collections/Pages'
 import { Budgets, Industries, Regions, Specialties } from './collections/PartnerFilters'
 import { Partners } from './collections/Partners'
 import { Posts } from './collections/Posts'
-import { ReusableContent } from './collections/ReusableContent'
 import { Users } from './collections/Users'
 import { Footer } from './globals/Footer'
 import { GetStarted } from './globals/GetStarted'
@@ -42,6 +41,43 @@ import { MainMenu } from './globals/MainMenu'
 import { PartnerProgram } from './globals/PartnerProgram'
 import redeployWebsite from './scripts/redeployWebsite'
 import { refreshMdxToLexical, syncDocs } from './scripts/syncDocs'
+import { Categories } from './collections/Categories'
+import { Callout } from './blocks/Callout'
+import { CallToAction } from './blocks/CallToAction'
+import { CardGrid } from './blocks/CardGrid'
+import { CaseStudyCards } from './blocks/CaseStudyCards'
+import { CaseStudiesHighlight } from './blocks/CaseStudiesHighlight'
+import { CaseStudyParallax } from './blocks/CaseStudyParallax'
+import { CodeFeature } from './blocks/CodeFeature'
+import { Content } from './blocks/Content'
+import { ContentGrid } from './blocks/ContentGrid'
+import { ComparisonTable } from './blocks/ComparisonTable'
+import { Form } from './blocks/Form'
+import { HoverCards } from './blocks/HoverCards'
+import { HoverHighlights } from './blocks/HoverHighlights'
+import { LinkGrid } from './blocks/LinkGrid'
+import { LogoGrid } from './blocks/LogoGrid'
+import { MediaBlock } from './blocks/Media'
+import { MediaContent } from './blocks/MediaContent'
+import { MediaContentAccordion } from './blocks/MediaContentAccordion'
+import { Pricing } from './blocks/Pricing'
+import { Slider } from './blocks/Slider'
+import { Statement } from './blocks/Statement'
+import { Steps } from './blocks/Steps'
+import { StickyHighlights } from './blocks/StickyHighlights'
+import { CodeExampleBlock, ExampleTabs, MediaExampleBlock } from './blocks/ExampleTabs'
+import { ReusableContent as ReusableContentBlock } from './blocks/ReusableContent'
+
+import { ReusableContent } from './collections/ReusableContent'
+import { BlogContent } from './blocks/BlogContent'
+import { BlogMarkdown } from './blocks/BlogMarkdown'
+import { YoutubeBlock } from './collections/Docs/blocks/youtube'
+import { LightDarkImageBlock } from './collections/Docs/blocks/lightDarkImage'
+import { UploadBlock } from './collections/Docs/blocks/upload'
+import { TableWithDrawersBlock } from './collections/Docs/blocks/tableWithDrawers'
+import { RestExamplesBlock } from './collections/Docs/blocks/restExamples'
+import { opsCounterPlugin } from './plugins/opsCounter'
+import { DownloadBlock } from './blocks/Download'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -67,6 +103,173 @@ export default buildConfig({
       baseDir: dirname,
     },
   },
+  blocks: [
+    BlogContent,
+    BlogMarkdown,
+    CodeExampleBlock,
+    MediaExampleBlock,
+    Callout,
+    CallToAction,
+    DownloadBlock,
+    LightDarkImageBlock,
+    TableWithDrawersBlock,
+    YoutubeBlock,
+    CardGrid,
+    CaseStudyCards,
+    CaseStudiesHighlight,
+    UploadBlock,
+    CaseStudyParallax,
+    CodeFeature,
+    Content,
+    ContentGrid,
+    ComparisonTable,
+    Form,
+    HoverCards,
+    HoverHighlights,
+    LinkGrid,
+    LogoGrid,
+    MediaBlock,
+    MediaContent,
+    MediaContentAccordion,
+    RestExamplesBlock,
+    Pricing,
+    ReusableContentBlock,
+    Slider,
+    Statement,
+    Steps,
+    StickyHighlights,
+    ExampleTabs,
+    {
+      slug: 'spotlight',
+      fields: [
+        {
+          name: 'element',
+          type: 'select',
+          options: [
+            {
+              label: 'H1',
+              value: 'h1',
+            },
+            {
+              label: 'H2',
+              value: 'h2',
+            },
+            {
+              label: 'H3',
+              value: 'h3',
+            },
+            {
+              label: 'Paragraph',
+              value: 'p',
+            },
+          ],
+        },
+        {
+          name: 'richText',
+          type: 'richText',
+          editor: lexicalEditor(),
+        },
+      ],
+      interfaceName: 'SpotlightBlock',
+    },
+    {
+      slug: 'video',
+      fields: [
+        {
+          name: 'url',
+          type: 'text',
+        },
+      ],
+      interfaceName: 'VideoBlock',
+    },
+    {
+      slug: 'br',
+      fields: [
+        {
+          name: 'ignore',
+          type: 'text',
+        },
+      ],
+
+      interfaceName: 'BrBlock',
+    },
+    VideoDrawerBlock,
+    {
+      slug: 'commandLine',
+      fields: [
+        {
+          name: 'command',
+          type: 'text',
+        },
+      ],
+      interfaceName: 'CommandLineBlock',
+    },
+    {
+      slug: 'command',
+      fields: [
+        {
+          name: 'command',
+          type: 'text',
+          required: true,
+        },
+      ],
+      labels: {
+        plural: 'Command Lines',
+        singular: 'Command Line',
+      },
+    },
+    {
+      slug: 'link',
+      fields: [link()],
+      labels: {
+        plural: 'Links',
+        singular: 'Link',
+      },
+    },
+    {
+      slug: 'templateCards',
+      fields: [
+        {
+          name: 'templates',
+          type: 'array',
+          fields: [
+            {
+              name: 'name',
+              type: 'text',
+              required: true,
+            },
+            {
+              name: 'description',
+              type: 'textarea',
+              required: true,
+            },
+            {
+              name: 'image',
+              type: 'text',
+              required: true,
+            },
+            {
+              name: 'slug',
+              type: 'text',
+              required: true,
+            },
+            {
+              name: 'order',
+              type: 'number',
+              required: true,
+            },
+          ],
+          labels: {
+            plural: 'Templates',
+            singular: 'Template',
+          },
+        },
+      ],
+      interfaceName: 'TemplateCardsBlock',
+    },
+    BannerBlock,
+    CodeBlock,
+  ],
   collections: [
     CaseStudies,
     CommunityHelp,
@@ -74,6 +277,7 @@ export default buildConfig({
     Media,
     Pages,
     Posts,
+    Categories,
     ReusableContent,
     Users,
     Partners,
@@ -138,114 +342,14 @@ export default buildConfig({
       LargeBodyFeature(),
       BlocksFeature({
         blocks: [
-          {
-            slug: 'spotlight',
-            fields: [
-              {
-                name: 'element',
-                type: 'select',
-                options: [
-                  {
-                    label: 'H1',
-                    value: 'h1',
-                  },
-                  {
-                    label: 'H2',
-                    value: 'h2',
-                  },
-                  {
-                    label: 'H3',
-                    value: 'h3',
-                  },
-                  {
-                    label: 'Paragraph',
-                    value: 'p',
-                  },
-                ],
-              },
-              {
-                name: 'richText',
-                type: 'richText',
-                editor: lexicalEditor(),
-              },
-            ],
-            interfaceName: 'SpotlightBlock',
-          },
-          {
-            slug: 'video',
-            fields: [
-              {
-                name: 'url',
-                type: 'text',
-              },
-            ],
-            interfaceName: 'VideoBlock',
-          },
-          {
-            slug: 'br',
-            fields: [
-              {
-                name: 'ignore',
-                type: 'text',
-              },
-            ],
-
-            interfaceName: 'BrBlock',
-          },
-          VideoDrawerBlock,
-          {
-            slug: 'commandLine',
-            fields: [
-              {
-                name: 'command',
-                type: 'text',
-              },
-            ],
-            interfaceName: 'CommandLineBlock',
-          },
-          {
-            slug: 'templateCards',
-            fields: [
-              {
-                name: 'templates',
-                type: 'array',
-                fields: [
-                  {
-                    name: 'name',
-                    type: 'text',
-                    required: true,
-                  },
-                  {
-                    name: 'description',
-                    type: 'textarea',
-                    required: true,
-                  },
-                  {
-                    name: 'image',
-                    type: 'text',
-                    required: true,
-                  },
-                  {
-                    name: 'slug',
-                    type: 'text',
-                    required: true,
-                  },
-                  {
-                    name: 'order',
-                    type: 'number',
-                    required: true,
-                  },
-                ],
-                labels: {
-                  plural: 'Templates',
-                  singular: 'Template',
-                },
-              },
-            ],
-            interfaceName: 'TemplateCardsBlock',
-          },
-          BannerBlock,
-          CodeBlock,
+          'spotlight',
+          'video',
+          'br',
+          'Banner',
+          'VideoDrawer',
+          'templateCards',
+          'Code',
+          'downloadBlock',
         ],
       }),
     ],
@@ -277,6 +381,10 @@ export default buildConfig({
     disablePlaygroundInProduction: false,
   },
   plugins: [
+    opsCounterPlugin({
+      max: 200,
+      warnAt: 25,
+    }),
     formBuilderPlugin({
       formOverrides: {
         fields: ({ defaultFields }) => [

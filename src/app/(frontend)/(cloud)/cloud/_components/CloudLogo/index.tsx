@@ -1,4 +1,4 @@
-import { PayloadIcon } from '@root/graphics/PayloadIcon/index.js'
+import { PayloadIcon } from '@root/graphics/PayloadIcon/index'
 
 import classes from './classes.module.scss'
 

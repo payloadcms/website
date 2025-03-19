@@ -1,7 +1,7 @@
 import Dynamic from 'next/dynamic'
 import React from 'react'
 
-const Block = Dynamic(() => import('./Block.js'))
+const Block = Dynamic(() => import('./Block'))
 
 export function BlogMarkdown(props) {
   return (

@@ -1,6 +1,6 @@
-import type { Team } from '@root/payload-cloud-types.js'
+import type { Team } from '@root/payload-cloud-types'
 
-import { payloadCloudToken } from './token.js'
+import { payloadCloudToken } from './token'
 
 // TODO: type this using the Stripe module
 export interface Invoice {

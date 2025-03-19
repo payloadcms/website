@@ -1,4 +1,4 @@
-import canUseDOM from '@root/utilities/can-use-dom.js'
+import canUseDOM from '@root/utilities/can-use-dom'
 import * as qs from 'qs-esm'
 
 export const convertObjectStringsToArrays = (

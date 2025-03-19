@@ -1,6 +1,6 @@
-import type { Plan } from '@root/payload-cloud-types.js'
+import type { Plan } from '@root/payload-cloud-types'
 
-import { LargeRadio } from '@components/LargeRadio/index.js'
+import { LargeRadio } from '@components/LargeRadio/index'
 import React, { Fragment, useEffect } from 'react'
 
 import classes from './index.module.scss'

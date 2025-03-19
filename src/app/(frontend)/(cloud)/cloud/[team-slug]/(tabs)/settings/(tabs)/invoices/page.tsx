@@ -1,13 +1,13 @@
 import type { Metadata } from 'next'
 
-import { SectionHeader } from '@cloud/[team-slug]/[project-slug]/(tabs)/settings/_layoutComponents/SectionHeader/index.js'
-import { fetchInvoices } from '@cloud/_api/fetchInvoices.js'
-import { fetchMe } from '@cloud/_api/fetchMe.js'
-import { fetchTeamWithCustomer } from '@cloud/_api/fetchTeam.js'
-import { Message } from '@components/Message/index.js'
+import { SectionHeader } from '@cloud/[team-slug]/[project-slug]/(tabs)/settings/_layoutComponents/SectionHeader/index'
+import { fetchInvoices } from '@cloud/_api/fetchInvoices'
+import { fetchMe } from '@cloud/_api/fetchMe'
+import { fetchTeamWithCustomer } from '@cloud/_api/fetchTeam'
+import { Message } from '@components/Message/index'
 import React from 'react'
 
-import { TeamInvoicesPage } from './page_client.js'
+import { TeamInvoicesPage } from './page_client'
 
 export default async ({
   params,

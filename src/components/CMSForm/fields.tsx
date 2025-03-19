@@ -1,13 +1,13 @@
-import { RichText } from '@components/RichText/index.js'
-import { NumberInput } from '@forms/fields/Number/index.js'
-import { ChevronDownIcon } from '@root/icons/ChevronDownIcon/index.js'
+import { RichText } from '@components/RichText/index'
+import { NumberInput } from '@forms/fields/Number/index'
+import { ChevronDownIcon } from '@root/icons/ChevronDownIcon/index'
 import React from 'react'
 
 import classes from './fields.module.scss'
-import { Checkbox } from './fields/Checkbox/index.js'
-import { Select } from './fields/Select/index.js'
-import { Text } from './fields/Text/index.js'
-import { Textarea } from './fields/Textarea/index.js'
+import { Checkbox } from './fields/Checkbox/index'
+import { Select } from './fields/Select/index'
+import { Text } from './fields/Text/index'
+import { Textarea } from './fields/Textarea/index'
 
 export const fields = {
   checkbox: Checkbox,

@@ -1,13 +1,13 @@
 import type { Endpoints } from '@octokit/types'
-import type { Project } from '@root/payload-cloud-types.js'
+import type { Project } from '@root/payload-cloud-types'
 
-import { LoadingShimmer } from '@components/LoadingShimmer/index.js'
-import { Select } from '@forms/fields/Select/index.js'
-import { Text } from '@forms/fields/Text/index.js'
-import Label from '@forms/Label/index.js'
+import { LoadingShimmer } from '@components/LoadingShimmer/index'
+import { Select } from '@forms/fields/Select/index'
+import { Text } from '@forms/fields/Text/index'
+import Label from '@forms/Label/index'
 import React, { Fragment, useCallback, useEffect, useReducer, useRef, useState } from 'react'
 
-import { branchReducer } from './reducer.js'
+import { branchReducer } from './reducer'
 
 type GitHubListBranchesResponse = Endpoints['GET /repos/{owner}/{repo}/branches']['response']
 type GitHubFullRepoResponse = Endpoints['GET /repos/{owner}/{repo}']['response']

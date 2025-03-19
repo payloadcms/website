@@ -1,22 +1,22 @@
 'use client'
 
-import type { Plan, Project, Team } from '@root/payload-cloud-types.js'
+import type { Plan, Project, Team } from '@root/payload-cloud-types'
 
-import { cloudSlug } from '@cloud/slug.js'
-import { Accordion } from '@components/Accordion/index.js'
-import { Banner } from '@components/Banner/index.js'
-import Code from '@components/Code/index.js'
-import { HR } from '@components/HR/index.js'
-import { MaxWidth } from '@components/MaxWidth/index.js'
+import { cloudSlug } from '@cloud/slug'
+import { Accordion } from '@components/Accordion/index'
+import { Banner } from '@components/Banner/index'
+import Code from '@components/Code/index'
+import { HR } from '@components/HR/index'
+import { MaxWidth } from '@components/MaxWidth/index'
 import { CollapsibleGroup } from '@faceless-ui/collapsibles'
-import { Secret } from '@forms/fields/Secret/index.js'
-import { Text } from '@forms/fields/Text/index.js'
+import { Secret } from '@forms/fields/Secret/index'
+import { Text } from '@forms/fields/Text/index'
 import * as React from 'react'
 
-import { NoData } from '../_layoutComponents/NoData/index.js'
-import { SectionHeader } from '../_layoutComponents/SectionHeader/index.js'
-import { AddEmailDomain } from './AddEmailDomain/index.js'
-import { ManageEmailDomain } from './ManageEmailDomain/index.js'
+import { NoData } from '../_layoutComponents/NoData/index'
+import { SectionHeader } from '../_layoutComponents/SectionHeader/index'
+import { AddEmailDomain } from './AddEmailDomain/index'
+import { ManageEmailDomain } from './ManageEmailDomain/index'
 
 export const ProjectEmailPage: React.FC<{
   environmentSlug: string

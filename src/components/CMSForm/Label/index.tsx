@@ -1,6 +1,6 @@
 import React from 'react'
 
-import type { Props } from './types.js'
+import type { Props } from './types'
 
 import classes from './index.module.scss'
 

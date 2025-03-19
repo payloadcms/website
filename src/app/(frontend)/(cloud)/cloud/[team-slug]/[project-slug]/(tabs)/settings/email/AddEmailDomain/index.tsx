@@ -1,12 +1,12 @@
 'use client'
 
-import type { OnSubmit } from '@forms/types.js'
-import type { Project } from '@root/payload-cloud-types.js'
+import type { OnSubmit } from '@forms/types'
+import type { Project } from '@root/payload-cloud-types'
 
-import { Text } from '@forms/fields/Text/index.js'
-import Form from '@forms/Form/index.js'
-import Submit from '@forms/Submit/index.js'
-import { validateDomain } from '@forms/validations.js'
+import { Text } from '@forms/fields/Text/index'
+import Form from '@forms/Form/index'
+import Submit from '@forms/Submit/index'
+import { validateDomain } from '@forms/validations'
 import * as React from 'react'
 import { toast } from 'sonner'
 

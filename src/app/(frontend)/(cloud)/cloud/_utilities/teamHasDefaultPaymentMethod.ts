@@ -1,4 +1,4 @@
-import type { TeamWithCustomer } from '@cloud/_api/fetchTeam.js'
+import type { TeamWithCustomer } from '@cloud/_api/fetchTeam'
 
 // display an error to the user if the team has no default payment method
 // might also want to only do this if the team has published projects, new accounts should see no errors

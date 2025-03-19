@@ -1,4 +1,4 @@
-import type { Team } from '@root/payload-cloud-types.js'
+import type { Team } from '@root/payload-cloud-types'
 
 import { useRouter } from 'next/navigation'
 import * as React from 'react'

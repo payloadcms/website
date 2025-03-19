@@ -1,4 +1,4 @@
-import { ChevronIcon } from '@root/icons/ChevronIcon/index.js'
+import { ChevronIcon } from '@root/icons/ChevronIcon/index'
 import React from 'react'
 import { usePagination } from 'react-instantsearch'
 

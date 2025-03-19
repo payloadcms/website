@@ -1,17 +1,17 @@
 'use client'
 
-import type { Project, Team } from '@root/payload-cloud-types.js'
+import type { Project, Team } from '@root/payload-cloud-types'
 
-import { Accordion } from '@components/Accordion/index.js'
-import { HR } from '@components/HR/index.js'
-import { MaxWidth } from '@components/MaxWidth/index.js'
+import { Accordion } from '@components/Accordion/index'
+import { HR } from '@components/HR/index'
+import { MaxWidth } from '@components/MaxWidth/index'
 import { CollapsibleGroup } from '@faceless-ui/collapsibles'
 import * as React from 'react'
 
-import { NoData } from '../_layoutComponents/NoData/index.js'
-import { SectionHeader } from '../_layoutComponents/SectionHeader/index.js'
-import { AddDomain } from './AddDomain/index.js'
-import { ManageDomain } from './ManageDomain/index.js'
+import { NoData } from '../_layoutComponents/NoData/index'
+import { SectionHeader } from '../_layoutComponents/SectionHeader/index'
+import { AddDomain } from './AddDomain/index'
+import { ManageDomain } from './ManageDomain/index'
 
 export const ProjectDomainsPage: React.FC<{
   environmentSlug: string

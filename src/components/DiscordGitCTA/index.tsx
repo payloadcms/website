@@ -1,6 +1,6 @@
-import { DiscordUsersPill } from '@components/DiscordUsersPill/index.js'
-import { GithubStarsPill } from '@components/GithubStarsPill/index.js'
-import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'
+import { DiscordUsersPill } from '@components/DiscordUsersPill/index'
+import { GithubStarsPill } from '@components/GithubStarsPill/index'
+import { ArrowIcon } from '@root/icons/ArrowIcon/index'
 import Link from 'next/link'
 import React from 'react'
 

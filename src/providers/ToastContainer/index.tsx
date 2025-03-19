@@ -2,10 +2,10 @@
 import React from 'react'
 import { Toaster } from 'sonner'
 
-import { Error } from './icons/Error.js'
-import { Info } from './icons/Info.js'
-import { Success } from './icons/Success.js'
-import { Warning } from './icons/Warning.js'
+import { Error } from './icons/Error'
+import { Info } from './icons/Info'
+import { Success } from './icons/Success'
+import { Warning } from './icons/Warning'
 
 export function ToastContainer() {
   return (

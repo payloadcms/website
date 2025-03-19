@@ -1,5 +1,5 @@
-import { cloudSlug } from '@cloud/slug.js'
-import { useAuth } from '@root/providers/Auth/index.js'
+import { cloudSlug } from '@cloud/slug'
+import { useAuth } from '@root/providers/Auth/index'
 import Link from 'next/link'
 import * as React from 'react'
 

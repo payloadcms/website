@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
 
-import { Gutter } from '@components/Gutter/index.js'
-import { ArrowIcon } from '@icons/ArrowIcon/index.js'
-import { SearchIcon } from '@icons/SearchIcon/index.js'
+import { Gutter } from '@components/Gutter/index'
+import { ArrowIcon } from '@icons/ArrowIcon/index'
+import { SearchIcon } from '@icons/SearchIcon/index'
 import React from 'react'
 
-import { StyleguidePageContent } from '../PageContent/index.js'
+import { StyleguidePageContent } from '../PageContent/index'
 
 const Highlight: React.FC = () => {
   return (

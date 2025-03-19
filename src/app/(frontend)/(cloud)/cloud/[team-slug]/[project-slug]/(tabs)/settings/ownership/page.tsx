@@ -1,9 +1,9 @@
-import { fetchProjectAndRedirect } from '@cloud/_api/fetchProject.js'
-import { PRODUCTION_ENVIRONMENT_SLUG } from '@root/constants.js'
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
+import { fetchProjectAndRedirect } from '@cloud/_api/fetchProject'
+import { PRODUCTION_ENVIRONMENT_SLUG } from '@root/constants'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import React from 'react'
 
-import { ProjectOwnershipPage } from './page_client.js'
+import { ProjectOwnershipPage } from './page_client'
 
 export default async ({
   params,

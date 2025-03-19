@@ -1,7 +1,7 @@
 // project reducer
 
-import type { TeamWithCustomer } from '@cloud/_api/fetchTeam.js'
-import type { Plan } from '@root/payload-cloud-types.js'
+import type { TeamWithCustomer } from '@cloud/_api/fetchTeam'
+import type { Plan } from '@root/payload-cloud-types'
 
 interface SET_PLAN {
   payload: Plan

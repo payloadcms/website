@@ -1,12 +1,17 @@
 @use '@scss/common' as *;
 
 .authorSlot {
+  padding: 2.5rem 1rem 1rem;
+  border-bottom: 1px solid var(--theme-border-color);
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
 
-  @include mid-break {
-    padding: 0;
+  .authorLabel {
+    @include h5;
+    & {
+      margin: 0 0 0.5rem;
+    }
   }
 }
 
@@ -56,4 +61,21 @@
   overflow: hidden;
   margin-right: 0.75rem;
   flex-shrink: 0;
+}
+
+.guestSocials {
+  display: flex;
+  padding: 0.25rem 0;
+  gap: 0.25rem;
+}
+
+@include mid-break {
+  .authorSlot {
+    padding: 0;
+    border: none;
+  }
+
+  .authorLabel {
+    display: none;
+  }
 }

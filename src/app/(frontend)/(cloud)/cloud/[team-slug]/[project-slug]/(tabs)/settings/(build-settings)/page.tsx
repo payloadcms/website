@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
 
-import { fetchProjectAndRedirect } from '@cloud/_api/fetchProject.js'
-import { PRODUCTION_ENVIRONMENT_SLUG } from '@root/constants.js'
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
-import { generateRoutePath } from '@root/utilities/generate-route-path.js'
+import { fetchProjectAndRedirect } from '@cloud/_api/fetchProject'
+import { PRODUCTION_ENVIRONMENT_SLUG } from '@root/constants'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
+import { generateRoutePath } from '@root/utilities/generate-route-path'
 
-import { ProjectBuildSettingsPage } from './page_client.js'
+import { ProjectBuildSettingsPage } from './page_client'
 
 export default async ({
   params,

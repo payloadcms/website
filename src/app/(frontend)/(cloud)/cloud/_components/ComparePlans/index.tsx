@@ -1,11 +1,11 @@
-import type { Plan } from '@root/payload-cloud-types.js'
+import type { Plan } from '@root/payload-cloud-types'
 
-import { PricingCard } from '@components/cards/PricingCard/index.js'
-import { Drawer, DrawerToggler } from '@components/Drawer/index.js'
+import { PricingCard } from '@components/cards/PricingCard/index'
+import { Drawer, DrawerToggler } from '@components/Drawer/index'
 import { useModal } from '@faceless-ui/modal'
-import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'
-import { CheckIcon } from '@root/icons/CheckIcon/index.js'
-import { CloseIcon } from '@root/icons/CloseIcon/index.js'
+import { ArrowIcon } from '@root/icons/ArrowIcon/index'
+import { CheckIcon } from '@root/icons/CheckIcon/index'
+import { CloseIcon } from '@root/icons/CloseIcon/index'
 import React, { Fragment } from 'react'
 
 import classes from './index.module.scss'

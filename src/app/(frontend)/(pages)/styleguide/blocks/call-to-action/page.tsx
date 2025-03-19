@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-import { CallToActionPage } from './client_page.js'
+import { CallToActionPage } from './client_page'
 
 export default (props) => {
   return <CallToActionPage {...props} />

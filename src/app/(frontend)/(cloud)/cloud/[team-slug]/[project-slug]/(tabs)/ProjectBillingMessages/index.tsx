@@ -1,16 +1,16 @@
-import type { ProjectWithSubscription } from '@cloud/_api/fetchProject.js'
-import type { TeamWithCustomer } from '@cloud/_api/fetchTeam.js'
+import type { ProjectWithSubscription } from '@cloud/_api/fetchProject'
+import type { TeamWithCustomer } from '@cloud/_api/fetchTeam'
 
-import { hasBadSubscription } from '@cloud/_utilities/hasBadSubscription.js'
-import { projectHasPaymentMethod } from '@cloud/_utilities/projectHasPaymentMethod.js'
-import { teamHasDefaultPaymentMethod } from '@cloud/_utilities/teamHasDefaultPaymentMethod.js'
-import { Gutter } from '@components/Gutter/index.js'
+import { hasBadSubscription } from '@cloud/_utilities/hasBadSubscription'
+import { projectHasPaymentMethod } from '@cloud/_utilities/projectHasPaymentMethod'
+import { teamHasDefaultPaymentMethod } from '@cloud/_utilities/teamHasDefaultPaymentMethod'
+import { Gutter } from '@components/Gutter/index'
 import React from 'react'
 
-import { BadSubscriptionMessage } from './BadSubscription.js'
+import { BadSubscriptionMessage } from './BadSubscription'
 import classes from './index.module.scss'
-import { MissingPaymentMethodMessage } from './MissingPaymentMethod.js'
-import { TrialMessage } from './TrialMessage.js'
+import { MissingPaymentMethodMessage } from './MissingPaymentMethod'
+import { TrialMessage } from './TrialMessage'
 
 export const ProjectBillingMessages: React.FC<{
   project: ProjectWithSubscription

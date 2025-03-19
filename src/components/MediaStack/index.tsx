@@ -1,4 +1,4 @@
-import type { Media as MediaType } from '@root/payload-types.js'
+import type { Media as MediaType } from '@root/payload-types'
 
 import { Media } from '@components/Media'
 import Image from 'next/image'

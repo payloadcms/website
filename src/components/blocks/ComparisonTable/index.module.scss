@@ -1,0 +1,106 @@
+@use '@scss/common' as *;
+
+.richText {
+  margin-bottom: 4rem;
+}
+
+.tableWrap {
+  display: block;
+  overflow-x: scroll;
+  max-width: 100%;
+  margin-inline: 1px;
+}
+
+.comparisonTable {
+  border-block: 1px solid var(--theme-border-color);
+  border-collapse: collapse;
+  background-color: var(--theme-bg);
+  width: calc(var(--column) * 16 - 2px);
+
+  * {
+    text-align: left;
+    padding: 0;
+    margin: 0;
+  }
+
+  thead {
+    @include h4;
+
+    th {
+      font-weight: 500;
+      padding: 1.5rem 1rem;
+
+      &:first-of-type {
+        padding: 1.5rem;
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      border-top: 1px solid var(--theme-border-color);
+    }
+
+    td {
+      padding: 1rem;
+
+      &:first-of-type {
+        @include h5;
+        & {
+          padding: 1rem 1.5rem;
+        }
+      }
+    }
+  }
+
+  .column {
+    @include body;
+    border-left: 1px solid var(--theme-border-color);
+  }
+}
+
+.featureColumnHeader {
+  width: calc(var(--column) * 8);
+  min-width: 240px;
+}
+
+.columnHeader {
+  width: calc(var(--column) * 4);
+  min-width: 160px;
+}
+
+@include mid-break {
+  .featureColumnHeader {
+    width: calc(var(--column) * 4);
+    min-width: 240px;
+  }
+
+  .columnHeader {
+    width: calc(var(--column) * 2);
+    min-width: 160px;
+  }
+
+  .comparisonTable {
+    width: calc(var(--column) * 8 - 2px);
+  }
+}
+
+@include small-break {
+  .comparisonTable {
+    width: auto;
+  }
+}
+
+.cell {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.icon {
+  display: block;
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+}

@@ -1,11 +1,11 @@
-import { Heading } from '@components/Heading/index.js'
-import { Media } from '@components/Media/index.js'
-import { Pill } from '@components/Pill/index.js'
-import { PlusIcon } from '@root/icons/PlusIcon/index.js'
+import { Heading } from '@components/Heading/index'
+import { Media } from '@components/Media/index'
+import { Pill } from '@components/Pill/index'
+import { PlusIcon } from '@root/icons/PlusIcon/index'
 import Link from 'next/link'
 import * as React from 'react'
 
-import type { DefaultCardProps } from '../types.js'
+import type { DefaultCardProps } from '../types'
 
 import classes from './index.module.scss'
 

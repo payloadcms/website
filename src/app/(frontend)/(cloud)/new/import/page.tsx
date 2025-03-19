@@ -1,19 +1,19 @@
-import type { RepoResults } from '@cloud/_api/fetchRepos.js'
+import type { RepoResults } from '@cloud/_api/fetchRepos'
 import type { Metadata } from 'next'
 
-import { fetchGitHubToken } from '@cloud/_api/fetchGitHubToken.js'
-import { fetchInstalls } from '@cloud/_api/fetchInstalls.js'
-import { fetchMe } from '@cloud/_api/fetchMe.js'
-import { fetchRepos, Repo } from '@cloud/_api/fetchRepos.js'
-import { Breadcrumbs } from '@components/Breadcrumbs/index.js'
-import { Gutter } from '@components/Gutter/index.js'
-import { Heading } from '@components/Heading/index.js'
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
-import { uuid as generateUUID } from '@root/utilities/uuid.js'
+import { fetchGitHubToken } from '@cloud/_api/fetchGitHubToken'
+import { fetchInstalls } from '@cloud/_api/fetchInstalls'
+import { fetchMe } from '@cloud/_api/fetchMe'
+import { fetchRepos, Repo } from '@cloud/_api/fetchRepos'
+import { Breadcrumbs } from '@components/Breadcrumbs/index'
+import { Gutter } from '@components/Gutter/index'
+import { Heading } from '@components/Heading/index'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
+import { uuid as generateUUID } from '@root/utilities/uuid'
 import { redirect } from 'next/navigation'
 import { Fragment } from 'react'
 
-import { ImportProject } from './page_client.js'
+import { ImportProject } from './page_client'
 
 const title = `Import a codebase`
 

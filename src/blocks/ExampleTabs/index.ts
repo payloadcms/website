@@ -1,6 +1,6 @@
 import type { Block } from 'payload'
 
-const CodeExampleBlock: Block = {
+export const CodeExampleBlock: Block = {
   slug: 'CodeExampleBlock',
   fields: [
     {
@@ -16,7 +16,7 @@ const CodeExampleBlock: Block = {
   },
 }
 
-const MediaExampleBlock: Block = {
+export const MediaExampleBlock: Block = {
   slug: 'MediaExampleBlock',
   fields: [
     {
@@ -56,7 +56,8 @@ export const ExampleTabs: Block = {
         {
           name: 'examples',
           type: 'blocks',
-          blocks: [CodeExampleBlock, MediaExampleBlock],
+          blockReferences: ['CodeExampleBlock', 'MediaExampleBlock'],
+          blocks: [],
           maxRows: 2,
           minRows: 1,
           required: true,

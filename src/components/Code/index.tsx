@@ -1,16 +1,16 @@
 'use client'
 
-import CodeBlip from '@components/CodeBlip/index.js'
+import CodeBlip from '@components/CodeBlip/index'
 import { Highlight } from 'prism-react-renderer'
 import React, { useCallback } from 'react'
 
-import type { Props } from './types.js'
+import type { Props } from './types'
 
 import classes from './index.module.scss'
-import { theme } from './theme.js'
+import { theme } from './theme'
 
 let highlightStart = false
-const highlightClassName = 'highlight-line'
+const highlightClassName = classes.highlight
 
 const highlightLine = (lineArray: { content: string }[], lineProps: { className: string }) => {
   let shouldExclude = false
@@ -75,12 +75,13 @@ const Code: React.FC<Props> = (props) => {
         classes.codeWrap,
         disableMinHeight && classes.disableMinHeight,
         parentClassName && parentClassName,
+        'code-block-wrap',
       ]
         .filter(Boolean)
         .join(' ')}
       data-theme={'dark'}
     >
-      <Highlight code={children} language="jsx" theme={theme}>
+      <Highlight code={children} language="tsx" theme={theme}>
         {({ getLineProps, getTokenProps, style, tokens }) => (
           <div className={classNames} style={style}>
             {tokens

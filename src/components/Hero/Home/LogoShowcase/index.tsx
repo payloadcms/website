@@ -1,7 +1,7 @@
-import type { Media as MediaType } from '@root/payload-types.js'
+import type { Media as MediaType } from '@root/payload-types'
 
-import { Media } from '@components/Media/index.js'
-import { CrosshairIcon } from '@root/icons/CrosshairIcon/index.js'
+import { Media } from '@components/Media/index'
+import { CrosshairIcon } from '@root/icons/CrosshairIcon/index'
 import React, { useEffect, useState } from 'react'
 
 import classes from './index.module.scss'

@@ -1,4 +1,4 @@
-import { useResize } from '@utilities/use-resize.js'
+import { useResize } from '@utilities/use-resize'
 import * as React from 'react'
 
 interface IComputedCSSValues {

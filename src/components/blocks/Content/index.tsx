@@ -1,10 +1,10 @@
-import type { PaddingProps } from '@components/BlockWrapper/index.js'
-import type { Page } from '@root/payload-types.js'
+import type { PaddingProps } from '@components/BlockWrapper/index'
+import type { Page } from '@root/payload-types'
 
-import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
-import { BlockWrapper } from '@components/BlockWrapper/index.js'
-import { Gutter } from '@components/Gutter/index.js'
-import { RichText } from '@components/RichText/index.js'
+import { BackgroundGrid } from '@components/BackgroundGrid/index'
+import { BlockWrapper } from '@components/BlockWrapper/index'
+import { Gutter } from '@components/Gutter/index'
+import { RichText } from '@components/RichText/index'
 import React from 'react'
 
 import classes from './index.module.scss'
