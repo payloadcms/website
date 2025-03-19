@@ -39,14 +39,14 @@ export default async ({ searchParams }) => {
 
     redirect(
       `/login?success=${encodeURIComponent('Your email has been verified. You may now log in.')}${
-        redirectParam ? `&redirect=${redirectParam}` : ''
+        redirectParam ? encodeURIComponent(`&redirect=${redirectParam}`) : ''
       }${emailParam ? `&email=${emailParam}` : ''}`,
     )
   }
 
   redirect(
     `/login?error=${encodeURIComponent('Invalid verification token. Please try again.')}${
-      redirectParam ? `&redirect=${redirectParam}` : ''
+      redirectParam ? encodeURIComponent(`&redirect=${redirectParam}`) : ''
     }${emailParam ? `&email=${emailParam}` : ''}`,
   )
 }
