@@ -1,4 +1,4 @@
-import { payloadToken } from '@data/token.js'
+import { payloadToken } from '@data/token'
 import { cookies, draftMode } from 'next/headers'
 import { redirect } from 'next/navigation'
 

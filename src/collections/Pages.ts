@@ -4,30 +4,6 @@ import { revalidatePath } from 'next/cache'
 
 import { isAdmin } from '../access/isAdmin'
 import { publishedOnly } from '../access/publishedOnly'
-import { Callout } from '../blocks/Callout'
-import { CallToAction } from '../blocks/CallToAction'
-import { CardGrid } from '../blocks/CardGrid'
-import { CaseStudiesHighlight } from '../blocks/CaseStudiesHighlight'
-import { CaseStudyCards } from '../blocks/CaseStudyCards'
-import { CaseStudyParallax } from '../blocks/CaseStudyParallax'
-import { CodeFeature } from '../blocks/CodeFeature'
-import { Content } from '../blocks/Content'
-import { ContentGrid } from '../blocks/ContentGrid'
-import { ExampleTabs } from '../blocks/ExampleTabs'
-import { Form } from '../blocks/Form'
-import { HoverCards } from '../blocks/HoverCards'
-import { HoverHighlights } from '../blocks/HoverHighlights'
-import { LinkGrid } from '../blocks/LinkGrid'
-import { LogoGrid } from '../blocks/LogoGrid'
-import { MediaBlock } from '../blocks/Media'
-import { MediaContent } from '../blocks/MediaContent'
-import { MediaContentAccordion } from '../blocks/MediaContentAccordion'
-import { Pricing } from '../blocks/Pricing'
-import { ReusableContent } from '../blocks/ReusableContent'
-import { Slider } from '../blocks/Slider'
-import { Statement } from '../blocks/Statement'
-import { Steps } from '../blocks/Steps'
-import { StickyHighlights } from '../blocks/StickyHighlights'
 import { fullTitle } from '../fields/fullTitle'
 import { hero } from '../fields/hero'
 import { slugField } from '../fields/slug'
@@ -82,31 +58,33 @@ export const Pages: CollectionConfig = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [
-                Callout,
-                CallToAction,
-                CardGrid,
-                CaseStudyCards,
-                CaseStudiesHighlight,
-                CaseStudyParallax,
-                CodeFeature,
-                Content,
-                ContentGrid,
-                Form,
-                HoverCards,
-                HoverHighlights,
-                LinkGrid,
-                LogoGrid,
-                MediaBlock,
-                MediaContent,
-                MediaContentAccordion,
-                Pricing,
-                ReusableContent,
-                Slider,
-                Statement,
-                Steps,
-                StickyHighlights,
-                ExampleTabs,
+              blocks: [],
+              blockReferences: [
+                'callout',
+                'cta',
+                'cardGrid',
+                'caseStudyCards',
+                'caseStudiesHighlight',
+                'caseStudyParallax',
+                'codeFeature',
+                'content',
+                'contentGrid',
+                'comparisonTable',
+                'form',
+                'hoverCards',
+                'hoverHighlights',
+                'linkGrid',
+                'logoGrid',
+                'mediaBlock',
+                'mediaContent',
+                'mediaContentAccordion',
+                'pricing',
+                'reusableContentBlock',
+                'slider',
+                'statement',
+                'steps',
+                'stickyHighlights',
+                'exampleTabs',
               ],
               required: true,
             },

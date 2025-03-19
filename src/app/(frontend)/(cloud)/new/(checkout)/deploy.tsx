@@ -1,16 +1,16 @@
-import type { Project, User } from '@root/payload-cloud-types.js'
-import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime.js'
+import type { Project, User } from '@root/payload-cloud-types'
+import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
-import { updateCustomer } from '@cloud/_api/updateCustomer.js'
-import { teamHasDefaultPaymentMethod } from '@cloud/_utilities/teamHasDefaultPaymentMethod.js'
+import { updateCustomer } from '@cloud/_api/updateCustomer'
+import { teamHasDefaultPaymentMethod } from '@cloud/_utilities/teamHasDefaultPaymentMethod'
 import { type Stripe, type StripeElements } from '@stripe/stripe-js'
 import { toast } from 'sonner'
 
-import type { CheckoutState } from './reducer.js'
+import type { CheckoutState } from './reducer'
 
-import { confirmCardPayment } from './confirmCardPayment.js'
-import { confirmCardSetup } from './confirmCardSetup.js'
-import { createSubscription } from './createSubscription.js'
+import { confirmCardPayment } from './confirmCardPayment'
+import { confirmCardSetup } from './confirmCardSetup'
+import { createSubscription } from './createSubscription'
 
 export const deploy = async (args: {
   checkoutState: CheckoutState

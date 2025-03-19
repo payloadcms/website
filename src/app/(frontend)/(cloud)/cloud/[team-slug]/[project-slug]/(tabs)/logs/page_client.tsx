@@ -1,12 +1,12 @@
 'use client'
 
-import type { LogLine } from '@components/SimpleLogs/index.js'
-import type { Project, Team } from '@root/payload-cloud-types.js'
+import type { LogLine } from '@components/SimpleLogs/index'
+import type { Project, Team } from '@root/payload-cloud-types'
 
-import { Gutter } from '@components/Gutter/index.js'
-import { Heading } from '@components/Heading/index.js'
-import { SimpleLogs, styleLogLine } from '@components/SimpleLogs/index.js'
-import { useWebSocket } from '@root/utilities/use-websocket.js'
+import { Gutter } from '@components/Gutter/index'
+import { Heading } from '@components/Heading/index'
+import { SimpleLogs, styleLogLine } from '@components/SimpleLogs/index'
+import { useWebSocket } from '@root/utilities/use-websocket'
 import * as React from 'react'
 
 export const ProjectLogsPage: React.FC<{

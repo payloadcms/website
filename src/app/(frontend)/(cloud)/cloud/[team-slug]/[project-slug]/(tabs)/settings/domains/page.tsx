@@ -1,10 +1,10 @@
-import { fetchProjectAndRedirect } from '@cloud/_api/fetchProject.js'
-import { PRODUCTION_ENVIRONMENT_SLUG } from '@root/constants.js'
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
-import { generateRoutePath } from '@root/utilities/generate-route-path.js'
+import { fetchProjectAndRedirect } from '@cloud/_api/fetchProject'
+import { PRODUCTION_ENVIRONMENT_SLUG } from '@root/constants'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
+import { generateRoutePath } from '@root/utilities/generate-route-path'
 import React from 'react'
 
-import { ProjectDomainsPage } from './page_client.js'
+import { ProjectDomainsPage } from './page_client'
 
 export default async ({
   params,

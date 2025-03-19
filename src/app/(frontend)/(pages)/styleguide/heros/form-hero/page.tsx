@@ -1,9 +1,9 @@
 import type React from 'react'
 // import { Metadata } from 'next'
 
-// import { Hero } from '@components/Hero/index.js'
-// import { Page } from '@root/payload-types.js'
-// import { StyleguidePageContent } from '../../PageContent/index.js'
+// import { Hero } from '@components/Hero/index'
+// import { Page } from '@root/payload-types'
+// import { StyleguidePageContent } from '../../PageContent/index'
 
 // const hero: Page['hero'] = {
 //   type: 'form',

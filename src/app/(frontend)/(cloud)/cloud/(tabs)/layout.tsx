@@ -1,6 +1,6 @@
-import { DashboardTabs } from '@cloud/_components/DashboardTabs/index.js'
-import { cloudSlug } from '@cloud/slug.js'
-import { Gutter } from '@components/Gutter/index.js'
+import { DashboardTabs } from '@cloud/_components/DashboardTabs/index'
+import { cloudSlug } from '@cloud/slug'
+import { Gutter } from '@components/Gutter/index'
 import { Fragment } from 'react'
 
 export default async (props) => {

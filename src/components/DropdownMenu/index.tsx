@@ -1,8 +1,8 @@
-import useClickAway from '@root/utilities/use-click-away.js'
+import useClickAway from '@root/utilities/use-click-away'
 import * as React from 'react'
 
 import classes from './index.module.scss'
-import { MenuContent } from './MenuContent/index.js'
+import { MenuContent } from './MenuContent/index'
 
 type MenuProps = {
   children?: React.ReactNode

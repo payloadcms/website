@@ -3,11 +3,11 @@
 import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
 import ReactSelect from 'react-select'
 
-import type { FieldProps } from '../types.js'
+import type { FieldProps } from '../types'
 
-import Error from '../../Error/index.js'
-import Label from '../../Label/index.js'
-import { useFormField } from '../../useFormField/index.js'
+import Error from '../../Error/index'
+import Label from '../../Label/index'
+import { useFormField } from '../../useFormField/index'
 import classes from './index.module.scss'
 
 type Option = {

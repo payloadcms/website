@@ -1,6 +1,6 @@
 import { useId } from 'react'
 
-import { formatDrawerSlug } from './index.js'
+import { formatDrawerSlug } from './index'
 
 export const useDrawerSlug = (slug: string): string => {
   const uuid = useId()

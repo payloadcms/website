@@ -1,18 +1,18 @@
 'use client'
 
-import type { Form as FormType } from '@root/payload-types.js'
+import type { Form as FormType } from '@root/payload-types'
 
-import { RichText } from '@components/RichText/index.js'
-import Form from '@forms/Form/index.js'
-import { CrosshairIcon } from '@root/icons/CrosshairIcon/index.js'
-import { getCookie } from '@root/utilities/get-cookie.js'
+import { RichText } from '@components/RichText/index'
+import Form from '@forms/Form/index'
+import { CrosshairIcon } from '@root/icons/CrosshairIcon/index'
+import { getCookie } from '@root/utilities/get-cookie'
 import { usePathname, useRouter } from 'next/navigation'
 import * as React from 'react'
 import { toast } from 'sonner'
 
-import { fields } from './fields.js'
+import { fields } from './fields'
 import classes from './index.module.scss'
-import Submit from './Submit/index.js'
+import Submit from './Submit/index'
 
 const buildInitialState = (fields) => {
   const state = {}

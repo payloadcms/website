@@ -1,5 +1,5 @@
-import type { CheckoutState } from '@root/app/(frontend)/(cloud)/new/(checkout)/reducer.js'
-import type { Project } from '@root/payload-cloud-types.js'
+import type { CheckoutState } from '@root/app/(frontend)/(cloud)/new/(checkout)/reducer'
+import type { Project } from '@root/payload-cloud-types'
 
 export interface PayloadStripeSubscription {
   client_secret: string

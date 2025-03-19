@@ -1,11 +1,11 @@
 'use client'
 
-import type { ListItem } from '@components/Jumplist/types.js'
-import type { Heading } from '@root/collections/Docs/types.js'
+import type { ListItem } from '@components/Jumplist/types'
+import type { Heading } from '@root/collections/Docs/types'
 
 import React, { useEffect, useRef, useState } from 'react'
 
-import { Jumplist } from '../Jumplist/index.js'
+import { Jumplist } from '../Jumplist/index'
 import classes from './index.module.scss'
 
 export type Props = {

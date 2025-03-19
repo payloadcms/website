@@ -1,9 +1,9 @@
 'use client'
 
-import type { CMSLinkType } from '@components/CMSLink/index.js'
+import type { CMSLinkType } from '@components/CMSLink/index'
 
-import { Button } from '@components/Button/index.js'
-import { CMSLink } from '@components/CMSLink/index.js'
+import { Button } from '@components/Button/index'
+import { CMSLink } from '@components/CMSLink/index'
 import { useState } from 'react'
 
 import classes from '../index.module.scss'

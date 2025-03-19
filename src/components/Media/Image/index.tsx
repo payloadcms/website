@@ -5,7 +5,7 @@ import type { StaticImageData } from 'next/image'
 import NextImage from 'next/image'
 import React, { useState } from 'react'
 
-import type { Props } from '../types.js'
+import type { Props } from '../types'
 
 import cssVariables from '../../../../cssVariables.cjs'
 import classes from './index.module.scss'

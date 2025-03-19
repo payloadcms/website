@@ -1,4 +1,4 @@
-import type { Team, User } from '@root/payload-cloud-types.js'
+import type { Team, User } from '@root/payload-cloud-types'
 
 export const checkTeamRoles = (
   user: null | undefined | User,

@@ -1,10 +1,10 @@
-import type { SearchClient } from 'algoliasearch/lite.js'
+import type { SearchClient } from 'algoliasearch/lite'
 
-import algoliasearch from 'algoliasearch/lite.js'
+import algoliasearch from 'algoliasearch/lite'
 import React, { useState } from 'react'
 import { Configure, InstantSearch } from 'react-instantsearch'
 
-import { getInitialState } from './getInitialState.js'
+import { getInitialState } from './getInitialState'
 
 let searchClient: SearchClient
 const appID = process.env.NEXT_PUBLIC_ALGOLIA_CH_ID

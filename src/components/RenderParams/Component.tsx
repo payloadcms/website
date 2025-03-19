@@ -3,7 +3,7 @@
 import { useSearchParams } from 'next/navigation'
 import { useEffect } from 'react'
 
-import { Message } from '../Message/index.js'
+import { Message } from '../Message/index'
 import classes from './index.module.scss'
 
 export type Props = {

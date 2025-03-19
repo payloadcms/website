@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { redirect } from 'next/navigation'
 
 // force this component to use dynamic search params, see https://github.com/vercel/next.js/issues/43077

@@ -1,18 +1,18 @@
-import type { BlocksProp } from '@components/RenderBlocks/index.js'
-import type { Page } from '@root/payload-types.js'
+import type { BlocksProp } from '@components/RenderBlocks/index'
+import type { Page } from '@root/payload-types'
 
-import BreadcrumbsBar from '@components/Hero/BreadcrumbsBar/index.js'
+import BreadcrumbsBar from '@components/Hero/BreadcrumbsBar/index'
 import React from 'react'
 
-import { CenteredContent } from './CenteredContent/index.js'
-import { ContentMediaHero } from './ContentMedia/index.js'
-import { DefaultHero } from './Default/index.js'
-import { FormHero } from './FormHero/index.js'
-import { GradientHero } from './Gradient/index.js'
-import { HomeHero } from './Home/index.js'
-import { HomeNewHero } from './HomeNew/index.js'
-import { LivestreamHero } from './Livestream/index.js'
-import { ThreeHero } from './Three/index.js'
+import { CenteredContent } from './CenteredContent/index'
+import { ContentMediaHero } from './ContentMedia/index'
+import { DefaultHero } from './Default/index'
+import { FormHero } from './FormHero/index'
+import { GradientHero } from './Gradient/index'
+import { HomeHero } from './Home/index'
+import { HomeNewHero } from './HomeNew/index'
+import { LivestreamHero } from './Livestream/index'
+import { ThreeHero } from './Three/index'
 
 const heroes = {
   centeredContent: CenteredContent,

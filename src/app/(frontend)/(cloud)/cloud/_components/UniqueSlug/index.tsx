@@ -1,14 +1,14 @@
-import { Spinner } from '@components/Spinner/index.js'
-import { Text } from '@forms/fields/Text/index.js'
-import { CheckIcon } from '@root/icons/CheckIcon/index.js'
-import { CloseIcon } from '@root/icons/CloseIcon/index.js'
-import useDebounce from '@root/utilities/use-debounce.js'
+import { Spinner } from '@components/Spinner/index'
+import { Text } from '@forms/fields/Text/index'
+import { CheckIcon } from '@root/icons/CheckIcon/index'
+import { CloseIcon } from '@root/icons/CloseIcon/index'
+import useDebounce from '@root/utilities/use-debounce'
 import React, { useEffect, useState } from 'react'
 
-import type { SlugValidationResult } from './reducer.js'
+import type { SlugValidationResult } from './reducer'
 
 import classes from './index.module.scss'
-import { stateReducer } from './reducer.js'
+import { stateReducer } from './reducer'
 
 // checks Payload to ensure that the given slug is unique and ensures only the validated slug is used
 // displays a success message if the slug is available, warns the user if the slug is taken

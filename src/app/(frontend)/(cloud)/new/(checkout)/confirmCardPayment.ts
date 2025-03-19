@@ -7,8 +7,8 @@ import type {
 
 import { CardElement as StripeCardElement } from '@stripe/react-stripe-js'
 
-import type { PayloadStripeSubscription } from './createSubscription.js'
-import type { CheckoutState } from './reducer.js'
+import type { PayloadStripeSubscription } from './createSubscription'
+import type { CheckoutState } from './reducer'
 
 export const confirmCardPayment = async (args: {
   checkoutState: CheckoutState

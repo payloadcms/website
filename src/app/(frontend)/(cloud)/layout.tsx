@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 
-import { CloudFooter } from '@cloud/_components/CloudFooter/index.js'
-import { CloudHeader } from '@cloud/_components/CloudHeader/index.js'
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
+import { CloudFooter } from '@cloud/_components/CloudFooter/index'
+import { CloudHeader } from '@cloud/_components/CloudHeader/index'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 
 import classes from './layout.module.scss'
 

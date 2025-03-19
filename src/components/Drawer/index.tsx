@@ -1,9 +1,9 @@
 'use client'
 import { Modal, useModal } from '@faceless-ui/modal'
-import { CloseIcon } from '@root/icons/CloseIcon/index.js'
+import { CloseIcon } from '@root/icons/CloseIcon/index'
 import React, { useCallback, useEffect, useState } from 'react'
 
-import type { Props, TogglerProps } from './types.js'
+import type { Props, TogglerProps } from './types'
 
 import classes from './index.module.scss'
 

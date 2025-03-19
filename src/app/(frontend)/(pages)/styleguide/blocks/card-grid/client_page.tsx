@@ -1,9 +1,9 @@
 'use client'
 
 import type React from 'react'
-// import { CardGrid, CardGridProps } from '@blocks/CardGrid/index.js'
+// import { CardGrid, CardGridProps } from '@blocks/CardGrid/index'
 
-// import { StyleguidePageContent } from '../../PageContent/index.js'
+// import { StyleguidePageContent } from '../../PageContent/index'
 
 // const data: CardGridProps = {
 //   blockType: 'cardGrid',

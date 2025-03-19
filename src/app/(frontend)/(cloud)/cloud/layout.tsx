@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
 
-import { Gutter } from '@components/Gutter/index.js'
-import { RenderParams } from '@components/RenderParams/index.js'
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
+import { Gutter } from '@components/Gutter/index'
+import { RenderParams } from '@components/RenderParams/index'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { Fragment } from 'react'
 
-import { fetchMe } from './_api/fetchMe.js'
+import { fetchMe } from './_api/fetchMe'
 
 export const metadata: Metadata = {
   title: {

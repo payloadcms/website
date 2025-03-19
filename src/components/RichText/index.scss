@@ -22,6 +22,10 @@
     white-space: pre-wrap;
   }
 
+  .code-block-wrap span {
+    white-space: unset;
+  }
+
   .lexical-table-container {
     overflow: auto;
     margin-bottom: 2rem;

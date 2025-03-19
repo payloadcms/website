@@ -15,16 +15,16 @@
   &:focus-visible {
     @include outline;
   }
+}
 
+.tip {
+  opacity: 0;
+  transition: opacity 0.15s cubic-bezier(0.165, 0.84, 0.44, 1);
+  pointer-events: none;
+}
+
+.show {
   .tip {
-    opacity: 0;
-    transition: opacity 0.15s cubic-bezier(0.165, 0.84, 0.44, 1);
-    pointer-events: none;
-  }
-
-  &.show {
-    .tip {
-      opacity: 1;
-    }
+    opacity: 1;
   }
 }

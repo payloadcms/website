@@ -1,5 +1,5 @@
-import { CloseIcon } from '@root/icons/CloseIcon/index.js'
-import { PlusIcon } from '@root/icons/PlusIcon/index.js'
+import { CloseIcon } from '@root/icons/CloseIcon/index'
+import { PlusIcon } from '@root/icons/PlusIcon/index'
 import React from 'react'
 
 import classes from './index.module.scss'

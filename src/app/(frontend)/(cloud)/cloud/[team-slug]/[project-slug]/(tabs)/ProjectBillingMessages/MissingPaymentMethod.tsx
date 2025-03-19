@@ -1,9 +1,9 @@
 'use client'
 
-import type { ProjectWithSubscription } from '@cloud/_api/fetchProject.js'
-import type { TeamWithCustomer } from '@cloud/_api/fetchTeam.js'
+import type { ProjectWithSubscription } from '@cloud/_api/fetchProject'
+import type { TeamWithCustomer } from '@cloud/_api/fetchTeam'
 
-import { Message } from '@components/Message/index.js'
+import { Message } from '@components/Message/index'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { Fragment } from 'react'

@@ -1,8 +1,8 @@
-import type { Team, User } from '@root/payload-cloud-types.js'
+import type { Team, User } from '@root/payload-cloud-types'
 
-import { useTeamDrawer } from '@cloud/_components/TeamDrawer/index.js'
-import { LoadingShimmer } from '@components/LoadingShimmer/index.js'
-import { Select } from '@forms/fields/Select/index.js'
+import { useTeamDrawer } from '@cloud/_components/TeamDrawer/index'
+import { LoadingShimmer } from '@components/LoadingShimmer/index'
+import { Select } from '@forms/fields/Select/index'
 import React, { Fragment, useEffect } from 'react'
 import { components } from 'react-select'
 

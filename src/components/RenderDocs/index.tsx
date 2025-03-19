@@ -2,24 +2,27 @@ import type { Heading, TopicGroupForNav } from '@root/collections/Docs/types'
 import type { Doc } from '@root/payload-types'
 
 import { BackgroundGrid } from '@components/BackgroundGrid'
-import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
-import { DiscordGitCTA } from '@components/DiscordGitCTA/index.js'
+import { BackgroundScanline } from '@components/BackgroundScanline/index'
+import { DiscordGitCTA } from '@components/DiscordGitCTA/index'
 import { DocsNavigation } from '@components/DocsNavigation'
 import { Feedback } from '@components/Feedback'
 import { Gutter } from '@components/Gutter'
 import { JumplistProvider } from '@components/Jumplist'
 import { PayloadRedirects } from '@components/PayloadRedirects'
-import { RelatedHelpList } from '@components/RelatedHelpList/index.js'
+import { RelatedHelpList } from '@components/RelatedHelpList/index'
 import { RichTextWithTOC } from '@components/RichText'
-import { TableOfContents } from '@components/TableOfContents/index.js'
-import { VersionSelector } from '@components/VersionSelector/index.js'
+import { TableOfContents } from '@components/TableOfContents/index'
+import { VersionSelector } from '@components/VersionSelector/index'
 import { fetchRelatedThreads } from '@data'
-import { ArrowIcon } from '@icons/ArrowIcon/index.js'
+import { ArrowIcon } from '@icons/ArrowIcon/index'
 import { unstable_cache } from 'next/cache'
 import Link from 'next/link'
 import React, { Suspense } from 'react'
 
 import classes from './index.module.scss'
+import { RelatedResources } from '@components/RelatedResources'
+
+export type DocsVersion = 'beta' | 'current' | 'dynamic' | 'local' | 'v2'
 
 export const RenderDocs = async ({
   children,
@@ -34,7 +37,7 @@ export const RenderDocs = async ({
   docSlug: string
   topicGroups: TopicGroupForNav[]
   topicSlug: string
-  version?: 'beta' | 'current' | 'dynamic' | 'v2'
+  version?: DocsVersion
 }) => {
   const groupIndex = topicGroups.findIndex(({ topics: tGroup }) =>
     tGroup.some((topic) => topic?.slug?.toLowerCase() === topicSlug.toLowerCase()),
@@ -56,14 +59,15 @@ export const RenderDocs = async ({
 
   const topicGroup = topicGroups?.find(
     ({ groupLabel, topics }) =>
-      topics.some((topic) => topic.slug === topicSlug) && groupLabel === currentDoc.topicGroup,
+      topics.some((topic) => topic.slug.toLowerCase() === topicSlug) &&
+      groupLabel === currentDoc.topicGroup,
   )
 
   if (!topicGroup) {
     throw new Error('Topic group not found')
   }
 
-  const topic = topicGroup.topics.find((topic) => topic.slug === topicSlug)
+  const topic = topicGroup.topics.find((topic) => topic.slug.toLowerCase() === topicSlug)
 
   if (!topic) {
     throw new Error('Topic not found')
@@ -82,6 +86,11 @@ export const RenderDocs = async ({
 
   const hasRelatedThreads =
     relatedThreads && Array.isArray(relatedThreads) && relatedThreads.length > 0
+
+  const hasGuides =
+    currentDoc.guides && currentDoc.guides.docs && currentDoc.guides.docs?.length > 0
+
+  const guides = currentDoc?.guides?.docs ?? []
 
   const isLastGroup = topicGroups.length === groupIndex + 1
   const isLastTopic = topicGroup.topics.length === topicIndex + 1
@@ -153,10 +162,12 @@ export const RenderDocs = async ({
                 </div>
                 <h3>{next.title}</h3>
 
-                <BackgroundScanline crosshairs="all" />
+                <BackgroundScanline className={classes.nextScanlines} />
               </Link>
             )}
-            {hasRelatedThreads && <RelatedHelpList relatedThreads={relatedThreads} />}
+            {(hasGuides || hasRelatedThreads) && (
+              <RelatedResources guides={guides} relatedThreads={relatedThreads} />
+            )}
           </main>
           <aside className={['cols-3 start-14', classes.aside].join(' ')}>
             <div className={classes.asideStickyContent}>

@@ -1,4 +1,4 @@
-import { TooltipContent } from '@components/Tooltip/TooltipContent/index.js'
+import { TooltipContent } from '@components/Tooltip/TooltipContent/index'
 import * as React from 'react'
 
 import classes from './index.module.scss'
@@ -6,6 +6,7 @@ import classes from './index.module.scss'
 type TooltipProps = {
   children: React.ReactNode
   text: React.ReactNode
+  unstyled?: boolean
 } & (
   | {
       /**
@@ -28,6 +29,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
   onClick,
   setIsVisible: setIsActive,
   text,
+  unstyled,
 }) => {
   const [isVisibleInternal, setIsVisibleInternal] = React.useState(false)
   const hoistControl = typeof setIsActive === 'function'
@@ -48,7 +50,9 @@ export const Tooltip: React.FC<TooltipProps> = ({
 
   return (
     <button
-      className={[classes.tooltip, show && classes.show, className].filter(Boolean).join(' ')}
+      className={[!unstyled && classes.tooltip, show && classes.show, className]
+        .filter(Boolean)
+        .join(' ')}
       onBlur={() => onFocusChange('leave')}
       onClick={onClick}
       onFocus={() => onFocusChange('enter')}

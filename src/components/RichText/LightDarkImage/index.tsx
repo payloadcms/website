@@ -1,5 +1,5 @@
 'use client'
-import { useThemePreference } from '@root/providers/Theme/index.js'
+import { useThemePreference } from '@root/providers/Theme/index'
 import React from 'react'
 
 import classes from './index.module.scss'

@@ -1,7 +1,7 @@
-import { Drawer, DrawerToggler } from '@components/Drawer/index.js'
-import YouTube from '@components/YouTube/index.js'
-import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'
-import { PlayIcon } from '@root/icons/PlayIcon/index.js'
+import { Drawer, DrawerToggler } from '@components/Drawer/index'
+import YouTube from '@components/YouTube/index'
+import { ArrowIcon } from '@root/icons/ArrowIcon/index'
+import { PlayIcon } from '@root/icons/PlayIcon/index'
 import Image from 'next/image'
 import React from 'react'
 

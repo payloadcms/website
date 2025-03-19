@@ -1,10 +1,10 @@
 'use client'
-import { Avatar } from '@root/components/Avatar/index.js'
-import { FullLogo } from '@root/graphics/FullLogo/index.js'
-import { useAuth } from '@root/providers/Auth/index.js'
+import { Avatar } from '@root/components/Avatar/index'
+import { FullLogo } from '@root/graphics/FullLogo/index'
+import { useAuth } from '@root/providers/Auth/index'
 import Link from 'next/link'
 
-import { DashboardBreadcrumbs } from '../DashboardBreadcrumbs/index.js'
+import { DashboardBreadcrumbs } from '../DashboardBreadcrumbs/index'
 import classes from './classes.module.scss'
 
 export const CloudHeader = () => {

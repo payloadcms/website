@@ -1,10 +1,10 @@
 'use client'
 
-import { Gutter } from '@components/Gutter/index.js'
+import { Gutter } from '@components/Gutter/index'
 import { Cell, Grid } from '@faceless-ui/css-grid'
-import RadioGroup from '@forms/fields/RadioGroup/index.js'
-import FormComponent from '@forms/Form/index.js'
-import { usePrivacy } from '@root/providers/Privacy/index.js'
+import RadioGroup from '@forms/fields/RadioGroup/index'
+import FormComponent from '@forms/Form/index'
+import { usePrivacy } from '@root/providers/Privacy/index'
 import React from 'react'
 
 import classes from './index.module.scss'

@@ -1,4 +1,4 @@
-import type { Project } from '@root/payload-cloud-types.js'
+import type { Project } from '@root/payload-cloud-types'
 
 export const hasBadSubscription = (
   subscriptionStatus: Project['stripeSubscriptionStatus'],

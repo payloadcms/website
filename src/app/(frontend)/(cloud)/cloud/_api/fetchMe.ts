@@ -1,10 +1,10 @@
-import type { User } from '@root/payload-cloud-types.js'
+import type { User } from '@root/payload-cloud-types'
 
-import { ME_QUERY } from '@data/me.js'
+import { ME_QUERY } from '@data/me'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
-import { payloadCloudToken } from './token.js'
+import { payloadCloudToken } from './token'
 
 export const fetchMe = async (args?: {
   nullUserRedirect?: string

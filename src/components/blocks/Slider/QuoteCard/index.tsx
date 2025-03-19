@@ -1,4 +1,4 @@
-import type { Page } from '@root/payload-types.js'
+import type { Page } from '@root/payload-types'
 
 import { CMSLink } from '@components/CMSLink'
 import { Media } from '@components/Media'

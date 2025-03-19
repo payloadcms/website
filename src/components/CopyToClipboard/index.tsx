@@ -1,6 +1,6 @@
 'use client'
-import { Tooltip } from '@components/Tooltip/index.js'
-import { CopyIcon } from '@root/icons/CopyIcon/index.js'
+import { Tooltip } from '@components/Tooltip/index'
+import { CopyIcon } from '@root/icons/CopyIcon/index'
 import React, { useCallback, useRef, useState } from 'react'
 
 import classes from './index.module.scss'

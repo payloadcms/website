@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 
-import { fetchProjectAndRedirect } from '@cloud/_api/fetchProject.js'
-import { PRODUCTION_ENVIRONMENT_SLUG } from '@root/constants.js'
+import { fetchProjectAndRedirect } from '@cloud/_api/fetchProject'
+import { PRODUCTION_ENVIRONMENT_SLUG } from '@root/constants'
 
-import { ProjectFileStoragePage } from './page_client.js'
+import { ProjectFileStoragePage } from './page_client'
 
 export default async ({
   params,

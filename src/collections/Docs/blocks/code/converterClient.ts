@@ -1,3 +1,3 @@
 'use client'
 
-export { codeConverter as codeConverterClient } from './converter.js'
+export { codeConverter as codeConverterClient } from './converter'

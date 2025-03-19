@@ -1,20 +1,20 @@
 'use client'
 
-import type { Project, Team } from '@root/payload-cloud-types.js'
-import type { RequireField } from '@root/ts-helpers/requireField.js'
+import type { Project, Team } from '@root/payload-cloud-types'
+import type { RequireField } from '@root/ts-helpers/requireField'
 
-import { fetchProjectClient } from '@cloud/_api/fetchProjects.js'
-import { Banner } from '@components/Banner/index.js'
-import { ExtendedBackground } from '@components/ExtendedBackground/index.js'
-import { Gutter } from '@components/Gutter/index.js'
-import { Heading } from '@components/Heading/index.js'
-import { Indicator } from '@components/Indicator/index.js'
-import { Message } from '@components/Message/index.js'
-import { useGetProjectDeployments } from '@root/utilities/use-cloud-api.js'
+import { fetchProjectClient } from '@cloud/_api/fetchProjects'
+import { Banner } from '@components/Banner/index'
+import { ExtendedBackground } from '@components/ExtendedBackground/index'
+import { Gutter } from '@components/Gutter/index'
+import { Heading } from '@components/Heading/index'
+import { Indicator } from '@components/Indicator/index'
+import { Message } from '@components/Message/index'
+import { useGetProjectDeployments } from '@root/utilities/use-cloud-api'
 import Link from 'next/link'
 import * as React from 'react'
 
-import { DeploymentLogs } from '../DeploymentLogs/index.js'
+import { DeploymentLogs } from '../DeploymentLogs/index'
 import classes from './index.module.scss'
 
 type DeploymentPhases = RequireField<Project, 'infraStatus'>['infraStatus']

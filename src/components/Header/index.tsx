@@ -1,17 +1,17 @@
 'use client'
 
-import type { MainMenu } from '@root/payload-types.js'
+import type { MainMenu } from '@root/payload-types'
 
-import { UniversalTruth } from '@components/UniversalTruth/index.js'
+import { UniversalTruth } from '@components/UniversalTruth/index'
 import { useModal } from '@faceless-ui/modal'
 import { useScrollInfo } from '@faceless-ui/scroll-info'
-import { useHeaderObserver } from '@root/providers/HeaderIntersectionObserver/index.js'
+import { useHeaderObserver } from '@root/providers/HeaderIntersectionObserver/index'
 import { useSearchParams } from 'next/navigation'
 import * as React from 'react'
 
-import { DesktopNav } from './DesktopNav/index.js'
+import { DesktopNav } from './DesktopNav/index'
 import classes from './index.module.scss'
-import { MobileNav, modalSlug as mobileNavModalSlug } from './MobileNav/index.js'
+import { MobileNav, modalSlug as mobileNavModalSlug } from './MobileNav/index'
 
 export const Header: React.FC<MainMenu> = ({ menuCta, tabs }) => {
   const { isModalOpen } = useModal()

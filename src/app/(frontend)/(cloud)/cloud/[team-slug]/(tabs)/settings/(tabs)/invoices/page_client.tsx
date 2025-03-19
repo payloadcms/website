@@ -1,20 +1,20 @@
 'use client'
 
-import type { InvoicesResult } from '@cloud/_api/fetchInvoices.js'
-import type { TeamWithCustomer } from '@cloud/_api/fetchTeam.js'
-import type { User } from '@root/payload-cloud-types.js'
+import type { InvoicesResult } from '@cloud/_api/fetchInvoices'
+import type { TeamWithCustomer } from '@cloud/_api/fetchTeam'
+import type { User } from '@root/payload-cloud-types'
 
-import { CircleIconButton } from '@components/CircleIconButton/index.js'
-import { Heading } from '@components/Heading/index.js'
-import { Pill } from '@components/Pill/index.js'
-import { checkTeamRoles } from '@root/utilities/check-team-roles.js'
-import { formatDate } from '@root/utilities/format-date-time.js'
-import { priceFromJSON } from '@root/utilities/price-from-json.js'
-import Link from 'next/link.js'
+import { CircleIconButton } from '@components/CircleIconButton/index'
+import { Heading } from '@components/Heading/index'
+import { Pill } from '@components/Pill/index'
+import { checkTeamRoles } from '@root/utilities/check-team-roles'
+import { formatDate } from '@root/utilities/format-date-time'
+import { priceFromJSON } from '@root/utilities/price-from-json'
+import Link from 'next/link'
 import * as React from 'react'
 
 import classes from './page.module.scss'
-import { useInvoices } from './useInvoices.js'
+import { useInvoices } from './useInvoices'
 
 export const TeamInvoicesPage: React.FC<{
   invoices: InvoicesResult

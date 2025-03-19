@@ -1,11 +1,11 @@
-import { EdgeScroll } from '@components/EdgeScroll/index.js'
+import { EdgeScroll } from '@components/EdgeScroll/index'
 import Link from 'next/link'
 import * as React from 'react'
 
 import classes from './index.module.scss'
 
 export type Breadcrumb = {
-  label?: null | string
+  label?: null | string | React.ReactNode
   url?: null | string
 }
 
@@ -23,7 +23,8 @@ export const Breadcrumbs: React.FC<Props> = ({ className, ellipsis = true, items
     >
       {items?.map((item, index) => {
         const isLast = index === items.length - 1
-        const doEllipsis = ellipsis && (item?.label || '')?.length > 8 && !isLast
+        const doEllipsis =
+          ellipsis && typeof item.label === 'string' && (item?.label || '')?.length > 8 && !isLast
 
         if (item?.url && typeof item.url === 'string') {
           return (

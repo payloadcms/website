@@ -204,30 +204,8 @@ export const hero: Field = {
       admin: {
         condition: (_, { type, threeCTA }) => type === 'three' && threeCTA === 'buttons',
       },
-      blocks: [
-        {
-          slug: 'link',
-          fields: [link()],
-          labels: {
-            plural: 'Links',
-            singular: 'Link',
-          },
-        },
-        {
-          slug: 'command',
-          fields: [
-            {
-              name: 'command',
-              type: 'text',
-              required: true,
-            },
-          ],
-          labels: {
-            plural: 'Command Lines',
-            singular: 'Command Line',
-          },
-        },
-      ],
+      blockReferences: ['link', 'command'],
+      blocks: [],
       labels: {
         plural: 'Buttons',
         singular: 'Button',

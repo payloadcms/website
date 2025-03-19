@@ -1,16 +1,16 @@
 'use client'
 
-import type { FieldProps } from '@forms/fields/types.js'
+import type { FieldProps } from '@forms/fields/types'
 
-import Label from '@components/CMSForm/Label/index.js'
-import Error from '@forms/Error/index.js'
-import { useFormField } from '@forms/useFormField/index.js'
+import Label from '@components/CMSForm/Label/index'
+import Error from '@forms/Error/index'
+import { useFormField } from '@forms/useFormField/index'
 import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
 import ReactSelect from 'react-select'
 
-import { countryOptions } from './countries.js'
+import { countryOptions } from './countries'
 import classes from './index.module.scss'
-import { stateOptions } from './states.js'
+import { stateOptions } from './states'
 
 type Option = {
   label: string

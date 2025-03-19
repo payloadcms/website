@@ -1,15 +1,15 @@
 'use client'
 
-import type { TeamWithCustomer } from '@cloud/_api/fetchTeam.js'
+import type { TeamWithCustomer } from '@cloud/_api/fetchTeam'
 import type { PaymentMethod } from '@stripe/stripe-js'
 
-import { CreditCardElement } from '@cloud/_components/CreditCardElement/index.js'
-import { Button } from '@components/Button/index.js'
-import { CircleIconButton } from '@components/CircleIconButton/index.js'
-import { DropdownMenu } from '@components/DropdownMenu/index.js'
-import { Heading } from '@components/Heading/index.js'
-import { ModalWindow } from '@components/ModalWindow/index.js'
-import { Pill } from '@components/Pill/index.js'
+import { CreditCardElement } from '@cloud/_components/CreditCardElement/index'
+import { Button } from '@components/Button/index'
+import { CircleIconButton } from '@components/CircleIconButton/index'
+import { DropdownMenu } from '@components/DropdownMenu/index'
+import { Heading } from '@components/Heading/index'
+import { ModalWindow } from '@components/ModalWindow/index'
+import { Pill } from '@components/Pill/index'
 import { useModal } from '@faceless-ui/modal'
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
@@ -17,7 +17,7 @@ import React, { Fragment, useEffect, useRef, useState } from 'react'
 import { v4 as uuid } from 'uuid'
 
 import classes from './index.module.scss'
-import { usePaymentMethods } from './usePaymentMethods.js'
+import { usePaymentMethods } from './usePaymentMethods'
 
 const apiKey = `${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`
 const Stripe = loadStripe(apiKey)

@@ -1,5 +1,5 @@
-import { Message } from '@components/Message/index.js'
-import { useForm, useFormProcessing, useFormSubmitted } from '@forms/Form/context.js'
+import { Message } from '@components/Message/index'
+import { useForm, useFormProcessing, useFormSubmitted } from '@forms/Form/context'
 import React from 'react'
 
 const FormSubmissionError: React.FC<{

@@ -1,7 +1,7 @@
 'use client'
 
-import { usePrivacy } from '@root/providers/Privacy/index.js'
-import { analyticsEvent } from '@root/utilities/analytics.js'
+import { usePrivacy } from '@root/providers/Privacy/index'
+import { analyticsEvent } from '@root/utilities/analytics'
 import { usePathname } from 'next/navigation'
 import Script from 'next/script'
 import * as React from 'react'

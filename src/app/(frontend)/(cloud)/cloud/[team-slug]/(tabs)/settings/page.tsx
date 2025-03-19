@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 
-import { fetchTeamWithCustomer } from '@cloud/_api/fetchTeam.js'
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
+import { fetchTeamWithCustomer } from '@cloud/_api/fetchTeam'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 
-import { TeamSettingsPage } from './page_client.js'
+import { TeamSettingsPage } from './page_client'
 
 export default async ({
   params,

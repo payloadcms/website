@@ -1,8 +1,8 @@
 'use client'
 
-import { Gutter } from '@components/Gutter/index.js'
-import { Heading } from '@components/Heading/index.js'
-import { getImplicitPreference } from '@root/providers/Theme/shared.js'
+import { Gutter } from '@components/Gutter/index'
+import { Heading } from '@components/Heading/index'
+import { getImplicitPreference } from '@root/providers/Theme/shared'
 import Link from 'next/link'
 import React, { useEffect } from 'react'
 

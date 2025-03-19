@@ -1,8 +1,8 @@
+import { PayloadRedirects } from '@components/PayloadRedirects'
 /* eslint-disable no-restricted-exports */
 import { RenderDocs } from '@components/RenderDocs'
 import config from '@payload-config'
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
-import { notFound } from 'next/navigation'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { getPayload } from 'payload'
 import React from 'react'
 
@@ -35,7 +35,7 @@ export default async function DocsPage({ params }: { params: Promise<Params> }) 
   const topicGroups = await fetchTopicsForSidebar({ payload, version: 'v3' })
 
   if (!curDoc?.docs?.length) {
-    notFound()
+    return <PayloadRedirects url={`/docs/${topicSlug}/${docSlug}`} />
   }
 
   const doc = curDoc.docs[0]

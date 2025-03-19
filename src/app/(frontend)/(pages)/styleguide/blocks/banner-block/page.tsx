@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-import { BannerBlockPage } from './client_page.js'
+import { BannerBlockPage } from './client_page'
 
 export default (props) => {
   return <BannerBlockPage {...props} />

@@ -1,21 +1,21 @@
 'use client'
 
-import type { Deployment, Project } from '@root/payload-cloud-types.js'
+import type { Deployment, Project } from '@root/payload-cloud-types'
 
-import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
-import { Gutter } from '@components/Gutter/index.js'
-import { Indicator } from '@components/Indicator/index.js'
-import { CommitIcon } from '@root/graphics/CommitIcon/index.js'
-import { GitHubIcon } from '@root/graphics/GitHub/index.js'
-import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'
-import { BranchIcon } from '@root/icons/BranchIcon/index.js'
-import { formatDate } from '@root/utilities/format-date-time.js'
-import { qs } from '@root/utilities/qs.js'
-import { useGetProjectDeployments } from '@root/utilities/use-cloud-api.js'
+import { BackgroundScanline } from '@components/BackgroundScanline/index'
+import { Gutter } from '@components/Gutter/index'
+import { Indicator } from '@components/Indicator/index'
+import { CommitIcon } from '@root/graphics/CommitIcon/index'
+import { GitHubIcon } from '@root/graphics/GitHub/index'
+import { ArrowIcon } from '@root/icons/ArrowIcon/index'
+import { BranchIcon } from '@root/icons/BranchIcon/index'
+import { formatDate } from '@root/utilities/format-date-time'
+import { qs } from '@root/utilities/qs'
+import { useGetProjectDeployments } from '@root/utilities/use-cloud-api'
 import * as React from 'react'
 import { toast } from 'sonner'
 
-import { DeploymentLogs } from '../DeploymentLogs/index.js'
+import { DeploymentLogs } from '../DeploymentLogs/index'
 import classes from './index.module.scss'
 
 type FinalDeploymentStages = Extract<Deployment['deploymentStatus'], 'ACTIVE' | 'SUPERSEDED'>

@@ -11,6 +11,7 @@ import type {
   CodeBlock,
   CommandLineBlock,
   Doc,
+  DownloadBlockType,
   LightDarkImageBlock,
   RestExamplesBlock,
   SpotlightBlock,
@@ -24,7 +25,7 @@ import type {
 
 import { Banner } from '@components/Banner'
 import { CMSLink } from '@components/CMSLink'
-import Code from '@components/Code/index.js'
+import Code from '@components/Code/index'
 import { CommandLine } from '@components/CommandLine'
 import { Label } from '@components/Label'
 import { LargeBody } from '@components/LargeBody'
@@ -32,7 +33,7 @@ import RichTextUpload from '@components/RichText/Upload'
 import { Video } from '@components/RichText/Video'
 import SpotlightAnimation from '@components/SpotlightAnimation'
 import { TemplateCards } from '@components/TemplateCardsBlock'
-import YouTube from '@components/YouTube/index.js'
+import YouTube from '@components/YouTube/index'
 
 import './index.scss'
 
@@ -42,18 +43,20 @@ import {
   type JSXConvertersFunction,
   RichText as SerializedRichText,
 } from '@payloadcms/richtext-lexical/react'
+import { getVideo } from '@root/utilities/get-video'
 import React, { useCallback, useState } from 'react'
 
-import type { AllowedElements } from '../SpotlightAnimation/types.js'
+import type { AllowedElements } from '../SpotlightAnimation/types'
 
-import { type AddHeading, type Heading, type IContext, RichTextContext } from './context.js'
+import { type AddHeading, type Heading, type IContext, RichTextContext } from './context'
 import { Heading as HeadingComponent } from './Heading'
-import LightDarkImage from './LightDarkImage/index.js'
+import LightDarkImage from './LightDarkImage/index'
 import { RestExamples } from './RestExamples'
-import { CustomTableJSXConverters } from './Table/index.js'
+import { CustomTableJSXConverters } from './Table/index'
 import { TableWithDrawers } from './TableWithDrawers'
-import { UploadBlockImage } from './UploadBlock/index.js'
+import { UploadBlockImage } from './UploadBlock/index'
 import { VideoDrawer } from './VideoDrawer'
+import { Download } from '@root/components/blocks/Download'
 
 type Props = {
   className?: string
@@ -67,6 +70,7 @@ export type NodeTypes =
       | BrBlock
       | CodeBlock
       | CommandLineBlock
+      | DownloadBlockType
       | LightDarkImageBlock
       | RestExamplesBlock
       | SpotlightBlock
@@ -103,6 +107,9 @@ export const jsxConverters: (args: { toc?: boolean }) => JSXConvertersFunction<N
             return <CommandLine command={command} lexical />
           }
           return null
+        },
+        downloadBlock: ({ node }) => {
+          return <Download {...node.fields} />
         },
         LightDarkImage: ({ node }) => {
           return (
@@ -158,15 +165,7 @@ export const jsxConverters: (args: { toc?: boolean }) => JSXConvertersFunction<N
         },
         video: ({ node }) => {
           const { url } = node.fields
-
-          if (url && (url.includes('vimeo') || url.includes('youtube'))) {
-            const source = url.includes('vimeo') ? 'vimeo' : 'youtube'
-            const id = source === 'vimeo' ? url.split('/').pop() : url.split('v=').pop()
-
-            return <Video id={id as string} platform={source} />
-          }
-
-          return null
+          return url ? <Video {...getVideo(url)} /> : null
         },
         VideoDrawer: ({ node }) => {
           return (
