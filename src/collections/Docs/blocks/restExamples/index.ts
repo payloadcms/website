@@ -68,10 +68,9 @@ export const RestExamplesBlock: Block = {
               ...item,
               example: {
                 ...item.example,
-                drawerContent:
-                  lexicalToMarkdown && item.example.drawerContent
-                    ? lexicalToMarkdown({ editorState: item.example.drawerContent })
-                    : undefined,
+                drawerContent: item.example.drawerContent
+                  ? lexicalToMarkdown({ editorState: item.example.drawerContent })
+                  : undefined,
               },
             }
           }),
@@ -85,10 +84,9 @@ export const RestExamplesBlock: Block = {
             ...item,
             example: {
               ...item.example,
-              drawerContent:
-                markdownToLexical && item.example.drawerContent
-                  ? markdownToLexical({ markdown: item.example.drawerContent })
-                  : undefined,
+              drawerContent: item.example.drawerContent
+                ? markdownToLexical({ markdown: item.example.drawerContent })
+                : undefined,
             },
           }
         }),
