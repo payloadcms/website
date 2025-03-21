@@ -24,7 +24,7 @@ export const AuthorizePage: React.FC = () => {
   const isRequesting = React.useRef(false)
 
   const redirectRef = React.useRef(
-    `${redirectParam}` || `/new${teamParam ? `?team=${teamParam}` : ''}`,
+    encodeURIComponent(redirectParam || `/new${teamParam ? `?team=${teamParam}` : ''}`),
   )
 
   const href = `https://github.com/login/oauth/authorize?client_id=${
