@@ -8,7 +8,6 @@ import { CrosshairIcon } from '@root/icons/CrosshairIcon/index'
 import { getCookie } from '@root/utilities/get-cookie'
 import { usePathname, useRouter } from 'next/navigation'
 import * as React from 'react'
-import { useRef } from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
 import { toast } from 'sonner'
 
@@ -49,7 +48,7 @@ const RenderForm = ({ form, hiddenFields }: { form: FormType; hiddenFields: stri
 
   const initialState = buildInitialState(form.fields)
 
-  const recaptcha = useRef<ReCAPTCHA>(null)
+  const recaptcha = React.useRef<ReCAPTCHA>(null)
 
   const router = useRouter()
 
@@ -194,8 +193,10 @@ const RenderForm = ({ form, hiddenFields }: { form: FormType; hiddenFields: stri
             </div>
             <div className={classes.captchaWrap}>
               <ReCAPTCHA
+                className={classes.captcha}
                 ref={recaptcha}
                 sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''}
+                theme="dark"
               />
             </div>
             <Submit

@@ -48,8 +48,21 @@
   }
 
   .captchaWrap {
-    padding: 1.5rem 2rem;
+    padding: 1.5rem 1rem;
     border-bottom: 1px solid var(--theme-border-color);
+    background-color: var(--theme-bg);
+  }
+
+  .captcha {
+    overflow: hidden;
+    width: 300px;
+    height: 76px;
+    border-radius: 4px;
+    border: 1px solid var(--theme-elevation-300);
+
+    iframe {
+      margin: -1px 0px 0px -2px;
+    }
   }
 
   .submitButton {
