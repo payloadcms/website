@@ -34,8 +34,12 @@ export default async ({
 
   const token = await fetchGitHubToken()
 
+  const uuid = generateUUID()
+
   if (!token) {
-    redirect(`/new/authorize?redirect=${encodeURIComponent(`/new/clone/${templateSlug}`)}`)
+    redirect(
+      `/new/authorize?redirect=${encodeURIComponent(`/new/clone/${templateSlug}`)}&uuid=${uuid}`,
+    )
   }
 
   const template = await fetchTemplate(templateSlug)
@@ -45,8 +49,6 @@ export default async ({
   }
 
   const installs = await fetchInstalls()
-
-  const uuid = generateUUID()
 
   return (
     <Fragment>

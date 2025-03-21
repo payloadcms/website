@@ -10,6 +10,7 @@ const Page = () => {
   const searchParams = useSearchParams()
 
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     ;(async () => {
       if (window.opener == null) {
         window.close()
