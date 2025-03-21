@@ -218,7 +218,6 @@ const RenderForm = ({ form, hiddenFields }: { form: FormType; hiddenFields: stri
 export const CMSForm: React.FC<{
   form?: FormType | null | string
   hiddenFields?: string[]
-  reCaptcha?: boolean
 }> = (props) => {
   const { form, hiddenFields } = props
 
