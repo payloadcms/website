@@ -8,6 +8,8 @@ import { CrosshairIcon } from '@root/icons/CrosshairIcon/index'
 import { getCookie } from '@root/utilities/get-cookie'
 import { usePathname, useRouter } from 'next/navigation'
 import * as React from 'react'
+import { useRef } from 'react'
+import ReCAPTCHA from 'react-google-recaptcha'
 import { toast } from 'sonner'
 
 import { fields } from './fields'
@@ -47,6 +49,8 @@ const RenderForm = ({ form, hiddenFields }: { form: FormType; hiddenFields: stri
 
   const initialState = buildInitialState(form.fields)
 
+  const recaptcha = useRef<ReCAPTCHA>(null)
+
   const router = useRouter()
 
   const pathname = usePathname()
@@ -58,12 +62,38 @@ const RenderForm = ({ form, hiddenFields }: { form: FormType; hiddenFields: stri
 
         setIsLoading(true)
 
+        const captchaValue = recaptcha.current ? recaptcha.current.getValue() : undefined
+
+        if (recaptcha && !captchaValue) {
+          setIsLoading(false)
+          toast.error('Please complete the reCAPTCHA.')
+
+          return
+        }
+
         const dataToSend = Object.entries(data).map(([name, value]) => ({
           field: name,
           value,
         }))
 
         try {
+          const verify = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/verify-captcha`, {
+            body: JSON.stringify({ captchaValue }),
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            method: 'POST',
+          })
+
+          const verifyRes = await verify.json()
+
+          if (verifyRes.success === false) {
+            setIsLoading(false)
+            toast.error('Failed to verify CAPTCHA.')
+
+            return
+          }
+
           const hubspotCookie = getCookie('hubspotutk')
           const pageUri = `${process.env.NEXT_PUBLIC_SITE_URL}${pathname}`
           const slugParts = pathname?.split('/')
@@ -178,6 +208,12 @@ const RenderForm = ({ form, hiddenFields }: { form: FormType; hiddenFields: stri
               })}
               <CrosshairIcon className={[classes.crosshair, classes.crosshairLeft].join(' ')} />
             </div>
+            <div className={classes.captchaWrap}>
+              <ReCAPTCHA
+                ref={recaptcha}
+                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''}
+              />
+            </div>
             <Submit
               className={[classes.submitButton, classes.hideTopBorder].filter(Boolean).join(' ')}
               disabled={isLoading}
@@ -197,6 +233,7 @@ const RenderForm = ({ form, hiddenFields }: { form: FormType; hiddenFields: stri
 export const CMSForm: React.FC<{
   form?: FormType | null | string
   hiddenFields?: string[]
+  reCaptcha?: boolean
 }> = (props) => {
   const { form, hiddenFields } = props
 
