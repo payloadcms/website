@@ -20,6 +20,7 @@ export const AuthorizePage: React.FC = () => {
   const params = useSearchParams()
   const redirectParam = params?.get('redirect')
   const teamParam = params?.get('team')
+  const uuid = params?.get('uuid')
   const [isRedirecting, setRedirecting] = React.useState(false)
   const isRequesting = React.useRef(false)
 
@@ -27,16 +28,19 @@ export const AuthorizePage: React.FC = () => {
     `${redirectParam}` || `/new${teamParam ? `?team=${teamParam}` : ''}`,
   )
 
+  // Set uuid in local storage and pass through with state. To be validated later.
+  localStorage.setItem(`gh-redirect-uuid`, uuid || '')
+
   const href = `https://github.com/login/oauth/authorize?client_id=${
     process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID
   }&redirect_uri=${encodeURIComponent(
     process.env.NEXT_PUBLIC_GITHUB_REDIRECT_URI || '',
-  )}&state=${encodeURIComponent(`/new/import${teamParam ? `?team=${teamParam}` : ''}`)}`
+  )}&state=${encodeURIComponent(`/new/import?uuid=${uuid}${teamParam ? `&team=${teamParam}` : ''}`)}`
 
   const [exchangeError, setExchangeError] = React.useState<null | string>(null)
 
   const handleMessage = useCallback(
-    async ({ code }) => {
+    async ({ code, state }) => {
       if (isRequesting.current) {
         return
       }
@@ -45,6 +49,13 @@ export const AuthorizePage: React.FC = () => {
       setRedirecting(true)
 
       try {
+        const ghRedirectUUID = localStorage.getItem(`gh-redirect-uuid`)
+        // Parse state value from github, which looks like `/new/import?uuid=1234`
+        const parsed = new URLSearchParams(state.split('?')?.[1]) as { uuid?: string }
+        if (!parsed.uuid || !ghRedirectUUID || ghRedirectUUID !== parsed.uuid) {
+          throw new Error(`UUID mismatch`)
+        }
+
         const codeExchanged = await exchangeCode(code)
 
         if (codeExchanged) {
