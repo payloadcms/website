@@ -77,33 +77,17 @@ const RenderForm = ({ form, hiddenFields }: { form: FormType; hiddenFields: stri
         }))
 
         try {
-          const verify = await fetch('/api/verify-captcha', {
-            body: JSON.stringify({ captchaValue }),
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            method: 'POST',
-          })
-
-          const verifyRes = await verify.json()
-
-          if (verifyRes.success === false) {
-            setIsLoading(false)
-            toast.error('Failed to verify CAPTCHA.')
-
-            return
-          }
-
           const hubspotCookie = getCookie('hubspotutk')
           const pageUri = `${process.env.NEXT_PUBLIC_SITE_URL}${pathname}`
           const slugParts = pathname?.split('/')
           const pageName = slugParts?.at(-1) === '' ? 'Home' : slugParts?.at(-1)
-          const req = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/form-submissions`, {
+          const req = await fetch('/api/form-submissions', {
             body: JSON.stringify({
               form: formID,
               hubspotCookie,
               pageName,
               pageUri,
+              recaptcha: captchaValue,
               submissionData: dataToSend,
             }),
             credentials: 'include',
@@ -113,12 +97,12 @@ const RenderForm = ({ form, hiddenFields }: { form: FormType; hiddenFields: stri
             method: 'POST',
           })
 
-          const res = await req.json()
-
-          if (req.status >= 400) {
+          if (!req.ok) {
+            const { errors } = await req.json()
+            for (const error of errors) {
+              toast.error(error.message)
+            }
             setIsLoading(false)
-            toast.error(res.message)
-
             return
           }
 
