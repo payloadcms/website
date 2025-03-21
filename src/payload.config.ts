@@ -421,6 +421,7 @@ export default buildConfig({
           {
             name: 'recaptcha',
             type: 'text',
+            required: true,
             validate: async (value) => {
               const res = await fetch(
                 `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.NEXT_PRIVATE_RECAPTCHA_SECRET_KEY}&response=${value}`,

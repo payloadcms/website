@@ -3208,7 +3208,7 @@ export interface FormSubmission {
         id?: string | null;
       }[]
     | null;
-  recaptcha?: string | null;
+  recaptcha: string;
   updatedAt: string;
   createdAt: string;
 }
