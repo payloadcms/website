@@ -77,7 +77,7 @@ const RenderForm = ({ form, hiddenFields }: { form: FormType; hiddenFields: stri
         }))
 
         try {
-          const verify = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/verify-captcha`, {
+          const verify = await fetch('/api/verify-captcha', {
             body: JSON.stringify({ captchaValue }),
             headers: {
               'Content-Type': 'application/json',
