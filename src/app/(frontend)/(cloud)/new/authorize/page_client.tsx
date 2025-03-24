@@ -54,6 +54,9 @@ export const AuthorizePage: React.FC = () => {
         // Parse state value from github, which looks like `/new/import?uuid=1234`
         const parsed = new URLSearchParams(state.split('?')?.[1]) as { uuid?: string }
         if (!parsed.uuid || !ghRedirectUUID || ghRedirectUUID !== parsed.uuid) {
+          console.error(
+            `UUID mismatch: ${ghRedirectUUID} !== ${parsed.uuid}. Incoming state: ${state}`,
+          )
           throw new Error(`UUID mismatch`)
         }
 
