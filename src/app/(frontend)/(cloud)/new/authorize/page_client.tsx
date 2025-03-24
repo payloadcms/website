@@ -52,10 +52,11 @@ export const AuthorizePage: React.FC = () => {
       try {
         const ghRedirectUUID = localStorage.getItem(`gh-redirect-uuid`)
         // Parse state value from github, which looks like `/new/import?uuid=1234`
-        const parsed = new URLSearchParams(state.split('?')?.[1]) as { uuid?: string }
-        if (!parsed.uuid || !ghRedirectUUID || ghRedirectUUID !== parsed.uuid) {
+        const parsed = new URLSearchParams(state.split('?')?.[1])
+        const parsedUUID = parsed.get('uuid')
+        if (!parsedUUID || !ghRedirectUUID || ghRedirectUUID !== parsedUUID) {
           console.error(
-            `UUID mismatch: ${ghRedirectUUID} !== ${parsed.uuid}. Incoming state: ${state}`,
+            `UUID mismatch: ${ghRedirectUUID} !== ${parsedUUID}. Incoming state: ${state}`,
           )
           throw new Error(`UUID mismatch`)
         }
