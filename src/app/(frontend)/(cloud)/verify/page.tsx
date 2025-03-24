@@ -12,19 +12,21 @@ export const dynamic = 'force-dynamic'
 export default async ({ searchParams }) => {
   const { email: emailParam, redirect: redirectParam, token } = searchParams
 
-  const safeRedirect = getSafeRedirect(redirectParam, '')
-
   const buildLoginRedirectURL = ({
     type,
     message,
+    redirectParam,
   }: {
     message: string
+    redirectParam?: string
     type: 'error' | 'success'
   }): string => {
     const base = '/login'
     const query = new URLSearchParams()
 
     query.set(type, message)
+
+    const safeRedirect = getSafeRedirect(redirectParam || '', '')
 
     if (safeRedirect) {
       query.set('redirect', safeRedirect)
@@ -65,6 +67,7 @@ export default async ({ searchParams }) => {
         buildLoginRedirectURL({
           type: 'success',
           message: 'Your email has been verified. You may now log in.',
+          redirectParam,
         }),
       )
     } catch (e) {
@@ -72,6 +75,7 @@ export default async ({ searchParams }) => {
         buildLoginRedirectURL({
           type: 'error',
           message: `Error verifying email: ${e.message}`,
+          redirectParam,
         }),
       )
     }
@@ -81,6 +85,7 @@ export default async ({ searchParams }) => {
     buildLoginRedirectURL({
       type: 'error',
       message: 'Invalid verification token. Please try again.',
+      redirectParam,
     }),
   )
 }
