@@ -1,3 +1,4 @@
+import type { Media } from '@root/payload-types'
 import type { Metadata } from 'next'
 
 import { Hero } from '@components/Hero/index'
@@ -62,11 +63,11 @@ export async function generateMetadata({
   const { isEnabled: draft } = await draftMode()
   const page = await getPage(slug, draft)
 
-  const ogImage =
-    typeof page?.meta?.image === 'object' &&
-    page?.meta?.image !== null &&
-    'url' in page?.meta?.image &&
-    `${page.meta.image.url}`
+  let ogImage: Media | null = null
+
+  if (page && page.meta?.image && typeof page.meta.image !== 'string') {
+    ogImage = page.meta.image
+  }
 
   // check if noIndex is true
   const noIndexMeta = page?.noindex ? { robots: 'noindex' } : {}
@@ -78,7 +79,7 @@ export async function generateMetadata({
       images: ogImage
         ? [
             {
-              url: ogImage,
+              url: ogImage.url as string,
             },
           ]
         : undefined,

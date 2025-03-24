@@ -1,15 +1,15 @@
+import type { Media } from '@root/payload-types'
 import type { Metadata } from 'next'
 
-import { PayloadRedirects } from '@components/PayloadRedirects/index'
-import { RefreshRouteOnSave } from '@components/RefreshRouterOnSave/index'
 import BreadcrumbsBar from '@components/Hero/BreadcrumbsBar/index'
+import { PayloadRedirects } from '@components/PayloadRedirects/index'
+import { Post } from '@components/Post/index'
+import { RefreshRouteOnSave } from '@components/RefreshRouterOnSave/index'
 import { fetchBlogPost, fetchPosts } from '@data'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { unstable_cache } from 'next/cache'
 import { draftMode } from 'next/headers'
 import React from 'react'
-
-import { Post } from '@components/Post/index'
 
 const getPost = async (slug, category, draft?) =>
   draft
@@ -25,7 +25,7 @@ const PostPage = async ({
   }>
 }) => {
   const { isEnabled: draft } = await draftMode()
-  const { category, slug } = await params
+  const { slug, category } = await params
 
   const blogPost = await getPost(slug, category, draft)
 
@@ -58,8 +58,8 @@ export async function generateStaticParams() {
       }
 
       return {
-        category: category.slug,
         slug,
+        category: category.slug,
       }
     })
     .filter(Boolean)
@@ -74,14 +74,16 @@ export async function generateMetadata({
   }>
 }): Promise<Metadata> {
   const { isEnabled: draft } = await draftMode()
-  const { category, slug } = await params
-  const post = await getPost(slug, draft)
+  const { slug, category } = await params
+  const post = await getPost(slug, category, draft)
 
-  const ogImage =
-    typeof post?.meta?.image === 'object' &&
-    post?.meta?.image !== null &&
-    'url' in post?.meta?.image &&
-    `${process.env.NEXT_PUBLIC_CMS_URL}${post.meta.image.url}`
+  let ogImage: Media | null = null
+
+  if (post && post.image && typeof post.image !== 'string') {
+    ogImage = post.image
+  } else if (post && post.meta?.image && typeof post.meta.image !== 'string') {
+    ogImage = post.meta.image
+  }
 
   return {
     description: post?.meta?.description,
@@ -90,7 +92,7 @@ export async function generateMetadata({
       images: ogImage
         ? [
             {
-              url: ogImage,
+              url: ogImage.url as string,
             },
           ]
         : undefined,
