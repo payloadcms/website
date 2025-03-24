@@ -8,6 +8,7 @@ import { RenderParams } from '@components/RenderParams/index'
 import { exchangeCode } from '@root/app/(frontend)/(cloud)/new/authorize/exchangeCode'
 import { GitHubIcon } from '@root/graphics/GitHub/index'
 import { ArrowIcon } from '@root/icons/ArrowIcon/index'
+import { getSafeRedirect } from '@root/utilities/getSafeRedirect'
 import { usePopupWindow } from '@root/utilities/use-popup-window'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -24,7 +25,7 @@ export const AuthorizePage: React.FC = () => {
   const isRequesting = React.useRef(false)
 
   const redirectRef = React.useRef(
-    encodeURIComponent(redirectParam || `/new${teamParam ? `?team=${teamParam}` : ''}`),
+    getSafeRedirect(redirectParam || `/new${teamParam ? `?team=${teamParam}` : ''}`),
   )
 
   const href = `https://github.com/login/oauth/authorize?client_id=${
