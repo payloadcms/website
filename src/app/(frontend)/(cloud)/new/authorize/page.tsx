@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { fetchGitHubToken } from '@cloud/_api/fetchGitHubToken'
 import { fetchMe } from '@cloud/_api/fetchMe'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
+import { getSafeRedirect } from '@root/utilities/getSafeRedirect'
 import { redirect } from 'next/navigation'
 
 import { AuthorizePage } from './page_client'
@@ -27,8 +28,10 @@ export default async ({
 
   const githubToken = await fetchGitHubToken()
 
+  const redirectUrl = getSafeRedirect(redirectParam, '/new')
+
   if (githubToken) {
-    redirect(encodeURIComponent(redirectParam) || '/new')
+    redirect(redirectUrl)
   }
 
   return <AuthorizePage />

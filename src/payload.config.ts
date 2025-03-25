@@ -23,35 +23,20 @@ import path from 'path'
 import { buildConfig, type TextField } from 'payload'
 import { fileURLToPath } from 'url'
 
-import { CaseStudies } from './collections/CaseStudies'
-import { CommunityHelp } from './collections/CommunityHelp'
-import { Docs } from './collections/Docs'
-import { BannerBlock } from './collections/Docs/blocks/banner'
-import { CodeBlock } from './collections/Docs/blocks/code'
-import { VideoDrawerBlock } from './collections/Docs/blocks/VideoDrawer'
-import { Media } from './collections/Media'
-import { Pages } from './collections/Pages'
-import { Budgets, Industries, Regions, Specialties } from './collections/PartnerFilters'
-import { Partners } from './collections/Partners'
-import { Posts } from './collections/Posts'
-import { Users } from './collections/Users'
-import { Footer } from './globals/Footer'
-import { GetStarted } from './globals/GetStarted'
-import { MainMenu } from './globals/MainMenu'
-import { PartnerProgram } from './globals/PartnerProgram'
-import redeployWebsite from './scripts/redeployWebsite'
-import { refreshMdxToLexical, syncDocs } from './scripts/syncDocs'
-import { Categories } from './collections/Categories'
+import { BlogContent } from './blocks/BlogContent'
+import { BlogMarkdown } from './blocks/BlogMarkdown'
 import { Callout } from './blocks/Callout'
 import { CallToAction } from './blocks/CallToAction'
 import { CardGrid } from './blocks/CardGrid'
-import { CaseStudyCards } from './blocks/CaseStudyCards'
 import { CaseStudiesHighlight } from './blocks/CaseStudiesHighlight'
+import { CaseStudyCards } from './blocks/CaseStudyCards'
 import { CaseStudyParallax } from './blocks/CaseStudyParallax'
 import { CodeFeature } from './blocks/CodeFeature'
+import { ComparisonTable } from './blocks/ComparisonTable'
 import { Content } from './blocks/Content'
 import { ContentGrid } from './blocks/ContentGrid'
-import { ComparisonTable } from './blocks/ComparisonTable'
+import { DownloadBlock } from './blocks/Download'
+import { CodeExampleBlock, ExampleTabs, MediaExampleBlock } from './blocks/ExampleTabs'
 import { Form } from './blocks/Form'
 import { HoverCards } from './blocks/HoverCards'
 import { HoverHighlights } from './blocks/HoverHighlights'
@@ -61,23 +46,37 @@ import { MediaBlock } from './blocks/Media'
 import { MediaContent } from './blocks/MediaContent'
 import { MediaContentAccordion } from './blocks/MediaContentAccordion'
 import { Pricing } from './blocks/Pricing'
+import { ReusableContent as ReusableContentBlock } from './blocks/ReusableContent'
 import { Slider } from './blocks/Slider'
 import { Statement } from './blocks/Statement'
 import { Steps } from './blocks/Steps'
 import { StickyHighlights } from './blocks/StickyHighlights'
-import { CodeExampleBlock, ExampleTabs, MediaExampleBlock } from './blocks/ExampleTabs'
-import { ReusableContent as ReusableContentBlock } from './blocks/ReusableContent'
-
-import { ReusableContent } from './collections/ReusableContent'
-import { BlogContent } from './blocks/BlogContent'
-import { BlogMarkdown } from './blocks/BlogMarkdown'
-import { YoutubeBlock } from './collections/Docs/blocks/youtube'
+import { CaseStudies } from './collections/CaseStudies'
+import { Categories } from './collections/Categories'
+import { CommunityHelp } from './collections/CommunityHelp'
+import { Docs } from './collections/Docs'
+import { BannerBlock } from './collections/Docs/blocks/banner'
+import { CodeBlock } from './collections/Docs/blocks/code'
 import { LightDarkImageBlock } from './collections/Docs/blocks/lightDarkImage'
-import { UploadBlock } from './collections/Docs/blocks/upload'
-import { TableWithDrawersBlock } from './collections/Docs/blocks/tableWithDrawers'
 import { RestExamplesBlock } from './collections/Docs/blocks/restExamples'
+import { TableWithDrawersBlock } from './collections/Docs/blocks/tableWithDrawers'
+import { UploadBlock } from './collections/Docs/blocks/upload'
+import { VideoDrawerBlock } from './collections/Docs/blocks/VideoDrawer'
+import { YoutubeBlock } from './collections/Docs/blocks/youtube'
+import { Media } from './collections/Media'
+import { Pages } from './collections/Pages'
+import { Budgets, Industries, Regions, Specialties } from './collections/PartnerFilters'
+import { Partners } from './collections/Partners'
+import { Posts } from './collections/Posts'
+import { ReusableContent } from './collections/ReusableContent'
+import { Users } from './collections/Users'
+import { Footer } from './globals/Footer'
+import { GetStarted } from './globals/GetStarted'
+import { MainMenu } from './globals/MainMenu'
+import { PartnerProgram } from './globals/PartnerProgram'
 import { opsCounterPlugin } from './plugins/opsCounter'
-import { DownloadBlock } from './blocks/Download'
+import redeployWebsite from './scripts/redeployWebsite'
+import { refreshMdxToLexical, syncDocs } from './scripts/syncDocs'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -417,15 +416,33 @@ export default buildConfig({
         },
       },
       formSubmissionOverrides: {
+        fields: ({ defaultFields }) => [
+          ...defaultFields,
+          {
+            name: 'recaptcha',
+            type: 'text',
+            required: true,
+            validate: async (value) => {
+              const res = await fetch(
+                `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.NEXT_PRIVATE_RECAPTCHA_SECRET_KEY}&response=${value}`,
+                {
+                  method: 'POST',
+                },
+              )
+              const data = await res.json()
+              if (!data.success) {
+                return 'Invalid captcha'
+              } else {
+                return true
+              }
+            },
+          },
+        ],
         hooks: {
           afterChange: [
             async ({ doc, req }) => {
-              req.payload.logger.info('IP of form submission')
-              req.payload.logger.info({
-                allHeaders: req?.headers,
-                forwardedFor: req?.headers?.['x-forwarded-for'],
-                realIP: req?.headers?.['x-real-ip'],
-              })
+              req.payload.logger.info('Form Submission Received')
+              req.payload.logger.info(Object.fromEntries(req?.headers.entries()))
 
               const body = req.json ? await req.json() : {}
 

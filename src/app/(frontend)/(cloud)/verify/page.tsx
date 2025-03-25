@@ -1,14 +1,43 @@
 import type { Metadata } from 'next'
 
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
+import { getSafeRedirect } from '@root/utilities/getSafeRedirect'
 import { redirect } from 'next/navigation'
 
 // force this component to use dynamic search params, see https://github.com/vercel/next.js/issues/43077
 // this is only an issue in production
 export const dynamic = 'force-dynamic'
 
+// eslint-disable-next-line no-restricted-exports
 export default async ({ searchParams }) => {
   const { email: emailParam, redirect: redirectParam, token } = searchParams
+
+  const buildLoginRedirectURL = ({
+    type,
+    message,
+    redirectParam,
+  }: {
+    message: string
+    redirectParam?: string
+    type: 'error' | 'success'
+  }): string => {
+    const base = '/login'
+    const query = new URLSearchParams()
+
+    query.set(type, message)
+
+    const safeRedirect = getSafeRedirect(redirectParam || '', '')
+
+    if (safeRedirect) {
+      query.set('redirect', safeRedirect)
+    }
+
+    if (emailParam) {
+      query.set('email', emailParam)
+    }
+
+    return `${base}?${query.toString()}`
+  }
 
   if (token) {
     try {
@@ -26,28 +55,38 @@ export default async ({ searchParams }) => {
       })
 
       if (res.ok) {
-        const { data, errors } = await res.json()
+        const { errors } = await res.json()
         if (errors) {
           throw new Error(errors[0].message)
         }
       } else {
         throw new Error('Invalid login')
       }
-    } catch (e) {
-      throw new Error(`Error verifying email: ${e.message}`)
-    }
 
-    redirect(
-      `/login?success=${encodeURIComponent('Your email has been verified. You may now log in.')}${
-        redirectParam ? encodeURIComponent(`&redirect=${redirectParam}`) : ''
-      }${emailParam ? `&email=${emailParam}` : ''}`,
-    )
+      redirect(
+        buildLoginRedirectURL({
+          type: 'success',
+          message: 'Your email has been verified. You may now log in.',
+          redirectParam,
+        }),
+      )
+    } catch (e) {
+      redirect(
+        buildLoginRedirectURL({
+          type: 'error',
+          message: `Error verifying email: ${e.message}`,
+          redirectParam,
+        }),
+      )
+    }
   }
 
   redirect(
-    `/login?error=${encodeURIComponent('Invalid verification token. Please try again.')}${
-      redirectParam ? encodeURIComponent(`&redirect=${redirectParam}`) : ''
-    }${emailParam ? `&email=${emailParam}` : ''}`,
+    buildLoginRedirectURL({
+      type: 'error',
+      message: 'Invalid verification token. Please try again.',
+      redirectParam,
+    }),
   )
 }
 
