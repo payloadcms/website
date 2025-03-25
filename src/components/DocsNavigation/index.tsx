@@ -143,11 +143,16 @@ export const DocsNavigation = ({
             </div>
           )}
           <Accordion.Root
-            defaultValue={currentTopic}
-            onValueChange={(value) =>
-              window.localStorage.setItem(openTopicsLocalStorageKey, JSON.stringify(value))
-            }
-            type="single"
+            value={openTopicPreferences}
+            onValueChange={(value) => {
+              // We only want to have one topic open at a time,
+              // so we'll always set the last value in the array
+              const newValue =
+                Array.isArray(value) && value.length > 0 ? [value[value.length - 1]] : value
+              window.localStorage.setItem(openTopicsLocalStorageKey, JSON.stringify(newValue))
+              setOpenTopicPreferences(newValue)
+            }}
+            type="multiple"
           >
             {topics.map((tGroup, groupIndex) => (
               <Fragment key={`group-${groupIndex}`}>
