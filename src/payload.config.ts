@@ -441,12 +441,8 @@ export default buildConfig({
         hooks: {
           afterChange: [
             async ({ doc, req }) => {
-              req.payload.logger.info('IP of form submission')
-              req.payload.logger.info({
-                allHeaders: req?.headers,
-                forwardedFor: req?.headers?.['x-forwarded-for'],
-                realIP: req?.headers?.['x-real-ip'],
-              })
+              req.payload.logger.info('Form Submission Received')
+              req.payload.logger.info(Object.fromEntries(req?.headers.entries()))
 
               const body = req.json ? await req.json() : {}
 
