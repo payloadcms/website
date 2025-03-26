@@ -61,6 +61,7 @@ export const topicOrder: TopicOrder = {
         'Upload',
         'Email',
         'Jobs-Queue',
+        'Query-Presets',
         'TypeScript',
       ],
     },
