@@ -1,61 +1,58 @@
 @use '@scss/common' as *;
 
-.featuredMediaWrap {
-  margin-top: 4rem;
-  width: calc(100% + var(--gutter-h));
+.featuredImage {
+  width: 150%;
+  height: auto;
+}
 
-  img {
-    width: 100%;
-  }
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
 
-  @include large-break {
-    margin-top: 2rem;
-    margin-left: 0;
-    width: calc(100% + var(--gutter-h));
+  @include mid-break {
+    gap: 0;
   }
 }
 
 .metaWrapper {
+  max-width: calc(var(--column) * 4);
+
   @include mid-break {
     display: flex;
-    margin-top: 2rem;
+    flex-wrap: wrap;
+    margin-block: 2rem;
+    max-width: calc(var(--column) * 8);
   }
 }
 
 .metaItem {
-  border-top: 1px solid var(--grid-line-dark);
-  padding: 1.5rem;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--theme-border-color);
+  border-bottom: none;
+  padding: 1rem 1.5rem;
+  gap: 0.5rem;
+  text-decoration: none;
 
-  @include data-theme-selector('dark') {
-    border-color: var(--grid-line-dark);
+  p {
+    transition: opacity 0.2s ease;
   }
 
-  @include data-theme-selector('light') {
-    border-color: var(--grid-line-light);
+  &:last-child {
+    border-bottom: 1px solid var(--theme-border-color);
   }
 
-  @include mid-break {
-    width: 50%;
-    border-bottom: 1px solid var(--grid-line-dark);
-
-    @include data-theme-selector('dark') {
-      border-color: var(--grid-line-dark);
+  &:hover {
+    p {
+      opacity: 0.5;
     }
 
-    @include data-theme-selector('light') {
-      border-color: var(--grid-line-light);
-    }
-  }
-
-  &:last-of-type {
-    border-bottom: 1px solid var(--grid-line-dark);
-
-    @include data-theme-selector('dark') {
-      border-color: var(--grid-line-dark);
-    }
-
-    @include data-theme-selector('light') {
-      border-color: var(--grid-line-light);
+    .arrow {
+      opacity: 1;
+      transform: translate(0.25rem, calc(-50% - 0.25rem));
     }
   }
 }
@@ -64,8 +61,19 @@
   @include h6;
   & {
     text-transform: uppercase;
-    margin-top: 0;
+    margin-block: 0;
   }
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  right: 1.5rem;
+  opacity: 1;
+  transform: translate(0, -50%);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
 }
 
 .metaValue {
