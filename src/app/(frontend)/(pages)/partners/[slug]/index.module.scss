@@ -141,6 +141,11 @@
   border-block: 1px solid var(--theme-border-color);
   text-decoration: none;
 
+  h6 {
+    display: flex;
+    gap: 0.5rem;
+  }
+
   @include mid-break {
     flex-direction: column;
   }
@@ -209,6 +214,10 @@
   &:hover {
     &::after {
       width: 100%;
+    }
+
+    .arrow {
+      transform: translate(4px, -4px);
     }
   }
 }
