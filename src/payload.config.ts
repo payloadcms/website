@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-exports */
 import { revalidateRedirects } from '@hooks/revalidateRedirects'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
