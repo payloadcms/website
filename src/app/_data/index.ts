@@ -161,18 +161,8 @@ export const fetchArchive = async (slug: string, draft?: boolean): Promise<Parti
 
   const data = await payload.find({
     collection: 'categories',
-    limit: 1,
     depth: 2,
-    where: {
-      and: [{ slug: { equals: slug } }],
-    },
-    select: {
-      name: true,
-      description: true,
-      slug: true,
-      headline: true,
-      posts: true,
-    },
+    draft,
     joins: {
       posts: {
         sort: '-publishedOn',
@@ -184,7 +174,17 @@ export const fetchArchive = async (slug: string, draft?: boolean): Promise<Parti
         },
       },
     },
-    draft,
+    limit: 1,
+    select: {
+      name: true,
+      slug: true,
+      description: true,
+      headline: true,
+      posts: true,
+    },
+    where: {
+      and: [{ slug: { equals: slug } }],
+    },
   })
   return data.docs[0]
 }
@@ -196,8 +196,8 @@ export const fetchArchives = async (slug?: string): Promise<Partial<Category>[]>
     collection: 'categories',
     depth: 0,
     select: {
-      slug: true,
       name: true,
+      slug: true,
     },
     sort: 'name',
     ...(slug && {
@@ -347,15 +347,47 @@ export const fetchPartners = async (): Promise<Partner[]> => {
   return data.docs
 }
 
-export const fetchPartner = async (slug: string): Promise<Partner> => {
+export const fetchPartner = async (slug: string): Promise<Partial<Partner>> => {
   const { isEnabled: draft } = await draftMode()
   const payload = await getPayload({ config })
 
   const data = await payload.find({
     collection: 'partners',
-    depth: 1,
+    depth: 2,
     draft,
     limit: 1,
+    populate: {
+      'case-studies': {
+        slug: true,
+        featuredImage: true,
+        meta: {
+          description: true,
+        },
+        title: true,
+      },
+    },
+    select: {
+      name: true,
+      budgets: true,
+      city: true,
+      content: {
+        bannerImage: true,
+        caseStudy: true,
+        contributions: true,
+        idealProject: true,
+        overview: true,
+        projects: true,
+        services: true,
+      },
+      email: true,
+      featured: true,
+      industries: true,
+      regions: true,
+      social: true,
+      specialties: true,
+      topContributor: true,
+      website: true,
+    },
     where: {
       and: [
         { slug: { equals: slug } },

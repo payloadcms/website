@@ -10,6 +10,7 @@ import { GitHubIcon } from '@root/graphics/GitHub/index'
 import { ArrowIcon } from '@root/icons/ArrowIcon/index'
 import { getSafeRedirect } from '@root/utilities/getSafeRedirect'
 import { usePopupWindow } from '@root/utilities/use-popup-window'
+import { uuid as generateUUID } from '@root/utilities/uuid'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import React, { useCallback } from 'react'
@@ -21,7 +22,7 @@ export const AuthorizePage: React.FC = () => {
   const params = useSearchParams()
   const redirectParam = params?.get('redirect')
   const teamParam = params?.get('team')
-  const uuid = params?.get('uuid')
+  const uuid = params?.get('uuid') || generateUUID()
   const [isRedirecting, setRedirecting] = React.useState(false)
   const isRequesting = React.useRef(false)
 
@@ -30,7 +31,7 @@ export const AuthorizePage: React.FC = () => {
   )
 
   // Set uuid in local storage and pass through with state. To be validated later.
-  localStorage.setItem(`gh-redirect-uuid`, uuid || '')
+  localStorage.setItem(`gh-redirect-uuid`, uuid)
 
   const href = `https://github.com/login/oauth/authorize?client_id=${
     process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID

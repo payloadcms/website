@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-exports */
 import { BackgroundGrid } from '@components/BackgroundGrid'
 import { BackgroundScanline } from '@components/BackgroundScanline'
 import { CMSForm } from '@components/CMSForm'
@@ -52,7 +53,7 @@ export default async function PartnerPage({ params }: { params: Promise<{ slug: 
   }
 
   const { bannerImage, caseStudy, contributions, idealProject, overview, projects, services } =
-    partner.content
+    partner.content || {}
 
   const { contactForm } = partnerProgram
 
@@ -101,8 +102,10 @@ export default async function PartnerPage({ params }: { params: Promise<{ slug: 
           {caseStudy && typeof caseStudy !== 'string' && (
             <Link className={classes.caseStudy} href={`/case-studies/${caseStudy.slug}`}>
               <div className={classes.caseStudyText}>
-                <h6>Case Study</h6>
-                <h4>{caseStudy.meta?.title}</h4>
+                <h6>
+                  Case Study <ArrowIcon className={classes.arrow} />
+                </h6>
+                <h4>{caseStudy.title}</h4>
                 <small>{caseStudy.meta?.description}</small>
               </div>
               <div className={classes.caseStudyImage}>

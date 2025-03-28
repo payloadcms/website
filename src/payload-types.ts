@@ -1157,6 +1157,7 @@ export interface CaseStudy {
   };
   industry?: string | null;
   useCase?: string | null;
+  partner?: (string | null) | Partner;
   featuredImage: string | Media;
   layout?:
     | (
@@ -1199,6 +1200,170 @@ export interface CaseStudy {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "partners".
+ */
+export interface Partner {
+  id: string;
+  name: string;
+  website: string;
+  email: string;
+  slug: string;
+  /**
+   * Set to inactive to hide this partner from the directory.
+   */
+  agency_status?: ('active' | 'inactive') | null;
+  hubspotID?: string | null;
+  logo: string | Media;
+  /**
+   * This field is managed by the Featured Partners field in the Partner Program collection
+   */
+  featured?: boolean | null;
+  topContributor?: boolean | null;
+  content: {
+    /**
+     * 1600 x 800px recommended
+     */
+    bannerImage: string | Media;
+    overview: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    services: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    idealProject: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    caseStudy?: (string | null) | CaseStudy;
+    /**
+     * Contributions to Payload. Must be a valid GitHub issue, pull request, or discussion URL from a repo in the 'payloadcms' organization.
+     */
+    contributions?:
+      | {
+          type: 'discussion' | 'pr' | 'issue';
+          repo: string;
+          number: number;
+          id?: string | null;
+        }[]
+      | null;
+    projects?:
+      | {
+          year: number;
+          name: string;
+          link: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  city: string;
+  regions: (string | Region)[];
+  specialties: (string | Specialty)[];
+  budgets: (string | Budget)[];
+  industries: (string | Industry)[];
+  social?:
+    | {
+        platform: 'linkedin' | 'twitter' | 'facebook' | 'instagram' | 'youtube' | 'github';
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "regions".
+ */
+export interface Region {
+  id: string;
+  name: string;
+  /**
+   * Must contain only lowercase letters, numbers, hyphens, and underscores
+   */
+  value: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "specialties".
+ */
+export interface Specialty {
+  id: string;
+  name: string;
+  /**
+   * Must contain only lowercase letters, numbers, hyphens, and underscores
+   */
+  value: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "budgets".
+ */
+export interface Budget {
+  id: string;
+  name: string;
+  /**
+   * Must contain only lowercase letters, numbers, hyphens, and underscores
+   */
+  value: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "industries".
+ */
+export interface Industry {
+  id: string;
+  name: string;
+  /**
+   * Must contain only lowercase letters, numbers, hyphens, and underscores
+   */
+  value: string;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1799,6 +1964,7 @@ export interface Form {
    * Attached to submission button to track clicks
    */
   customID?: string | null;
+  requireRecaptcha?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -3032,170 +3198,6 @@ export interface CommunityHelp {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "partners".
- */
-export interface Partner {
-  id: string;
-  name: string;
-  website: string;
-  email: string;
-  slug: string;
-  /**
-   * Set to inactive to hide this partner from the directory.
-   */
-  agency_status?: ('active' | 'inactive') | null;
-  hubspotID?: string | null;
-  logo: string | Media;
-  /**
-   * This field is managed by the Featured Partners field in the Partner Program collection
-   */
-  featured?: boolean | null;
-  topContributor?: boolean | null;
-  content: {
-    /**
-     * 1600 x 800px recommended
-     */
-    bannerImage: string | Media;
-    overview: {
-      root: {
-        type: string;
-        children: {
-          type: string;
-          version: number;
-          [k: string]: unknown;
-        }[];
-        direction: ('ltr' | 'rtl') | null;
-        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-        indent: number;
-        version: number;
-      };
-      [k: string]: unknown;
-    };
-    services: {
-      root: {
-        type: string;
-        children: {
-          type: string;
-          version: number;
-          [k: string]: unknown;
-        }[];
-        direction: ('ltr' | 'rtl') | null;
-        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-        indent: number;
-        version: number;
-      };
-      [k: string]: unknown;
-    };
-    idealProject: {
-      root: {
-        type: string;
-        children: {
-          type: string;
-          version: number;
-          [k: string]: unknown;
-        }[];
-        direction: ('ltr' | 'rtl') | null;
-        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-        indent: number;
-        version: number;
-      };
-      [k: string]: unknown;
-    };
-    caseStudy?: (string | null) | CaseStudy;
-    /**
-     * Contributions to Payload. Must be a valid GitHub issue, pull request, or discussion URL from a repo in the 'payloadcms' organization.
-     */
-    contributions?:
-      | {
-          type: 'discussion' | 'pr' | 'issue';
-          repo: string;
-          number: number;
-          id?: string | null;
-        }[]
-      | null;
-    projects?:
-      | {
-          year: number;
-          name: string;
-          link: string;
-          id?: string | null;
-        }[]
-      | null;
-  };
-  city: string;
-  regions: (string | Region)[];
-  specialties: (string | Specialty)[];
-  budgets: (string | Budget)[];
-  industries: (string | Industry)[];
-  social?:
-    | {
-        platform: 'linkedin' | 'twitter' | 'facebook' | 'instagram' | 'youtube' | 'github';
-        url: string;
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "regions".
- */
-export interface Region {
-  id: string;
-  name: string;
-  /**
-   * Must contain only lowercase letters, numbers, hyphens, and underscores
-   */
-  value: string;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "specialties".
- */
-export interface Specialty {
-  id: string;
-  name: string;
-  /**
-   * Must contain only lowercase letters, numbers, hyphens, and underscores
-   */
-  value: string;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "budgets".
- */
-export interface Budget {
-  id: string;
-  name: string;
-  /**
-   * Must contain only lowercase letters, numbers, hyphens, and underscores
-   */
-  value: string;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "industries".
- */
-export interface Industry {
-  id: string;
-  name: string;
-  /**
-   * Must contain only lowercase letters, numbers, hyphens, and underscores
-   */
-  value: string;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "form-submissions".
  */
 export interface FormSubmission {
@@ -3208,7 +3210,7 @@ export interface FormSubmission {
         id?: string | null;
       }[]
     | null;
-  recaptcha: string;
+  recaptcha?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -3365,6 +3367,7 @@ export interface CaseStudiesSelect<T extends boolean = true> {
   introContent?: T;
   industry?: T;
   useCase?: T;
+  partner?: T;
   featuredImage?: T;
   layout?: T | {};
   slug?: T;
@@ -3956,6 +3959,7 @@ export interface FormsSelect<T extends boolean = true> {
       };
   hubSpotFormID?: T;
   customID?: T;
+  requireRecaptcha?: T;
   updatedAt?: T;
   createdAt?: T;
 }

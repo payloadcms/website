@@ -26,6 +26,14 @@ export const Partners: CollectionConfig = {
     name: true,
     slug: true,
     budgets: true,
+    caseStudy: {
+      slug: true,
+      featuredImage: true,
+      meta: {
+        description: true,
+      },
+      title: true,
+    },
     content: {
       bannerImage: true,
     },

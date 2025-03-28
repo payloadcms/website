@@ -60,6 +60,19 @@ const config = [
       },
     },
   },
+  {
+    name: 'Next.js pages',
+    rules: {
+      'no-restricted-exports': 'off',
+    },
+    files: [
+      'src/app/**/page.tsx',
+      'src/app/**/layout.tsx',
+      'src/app/**/page.client.tsx',
+      'src/app/**/not-found.tsx',
+      'src/payload.config.ts',
+    ],
+  },
 ]
 
 export default config
