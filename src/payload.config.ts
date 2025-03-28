@@ -404,6 +404,14 @@ export default buildConfig({
             },
             label: 'Custom ID',
           },
+          {
+            name: 'requireRecaptcha',
+            type: 'checkbox',
+            admin: {
+              position: 'sidebar',
+            },
+            label: 'Require reCAPTCHA',
+          },
         ],
         hooks: {
           afterChange: [
@@ -420,8 +428,20 @@ export default buildConfig({
           {
             name: 'recaptcha',
             type: 'text',
-            required: true,
-            validate: async (value) => {
+            validate: async (value, { req, siblingData }) => {
+              const form = await req.payload.findByID({
+                id: siblingData?.form,
+                collection: 'forms',
+              })
+
+              if (!form?.requireRecaptcha) {
+                return true
+              }
+
+              if (!value) {
+                return 'Please complete the reCAPTCHA'
+              }
+
               const res = await fetch(
                 `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.NEXT_PRIVATE_RECAPTCHA_SECRET_KEY}&response=${value}`,
                 {

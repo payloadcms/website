@@ -1964,6 +1964,7 @@ export interface Form {
    * Attached to submission button to track clicks
    */
   customID?: string | null;
+  requireRecaptcha?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -3209,7 +3210,7 @@ export interface FormSubmission {
         id?: string | null;
       }[]
     | null;
-  recaptcha: string;
+  recaptcha?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -3958,6 +3959,7 @@ export interface FormsSelect<T extends boolean = true> {
       };
   hubSpotFormID?: T;
   customID?: T;
+  requireRecaptcha?: T;
   updatedAt?: T;
   createdAt?: T;
 }

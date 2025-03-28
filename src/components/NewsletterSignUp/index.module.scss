@@ -64,10 +64,6 @@ $curve: cubic-bezier(0.165, 0.84, 0.44, 1);
   &:focus {
     border-color: rgba(255, 255, 255, 0.25);
 
-    @include data-theme-selector('light') {
-      border-color: rgba(0, 0, 0, 0.25);
-    }
-
     &::placeholder {
       opacity: 0.5;
     }
