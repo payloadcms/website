@@ -24,7 +24,9 @@
     "lint": "next lint",
     "prettier:fix": "prettier --write .",
     "migrate-lexical-script": "payload run ./src/migrate.ts",
-    "migrate-posts": "payload run ./src/migrate-posts-to-lexical.ts"
+    "migrate-posts": "payload run ./src/migrate-posts-to-lexical.ts",
+    "resave-collections": "payload run ./src/resave-collections.ts",
+    "resave-duplicate-documents": "payload run ./src/resave-duplicate-documents.ts"
   },
   "dependencies": {
     "@docsearch/react": "^3.9.0",
