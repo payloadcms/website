@@ -1,12 +1,13 @@
+import { BackgroundScanline } from '@components/BackgroundScanline/index'
 import { Media } from '@components/Media/index'
 import { formatDate } from '@root/utilities/format-date-time'
+import Image from 'next/image'
 import Link from 'next/link'
 import * as React from 'react'
 
 import type { ContentMediaCardProps } from '../types'
 
 import classes from './index.module.scss'
-import { BackgroundScanline } from '@components/BackgroundScanline/index'
 
 export const ContentMediaCard: React.FC<ContentMediaCardProps> = (props) => {
   const { authors, className, href, media, publishedOn, title } = props
@@ -24,7 +25,16 @@ export const ContentMediaCard: React.FC<ContentMediaCardProps> = (props) => {
       prefetch={false}
     >
       <div className={[classes.contentWrapper, className && className].filter(Boolean).join(' ')}>
-        {typeof media !== 'string' && (
+        {typeof media === 'string' ? (
+          <Image
+            alt=""
+            className={classes.media}
+            height={630}
+            sizes="(max-width: 768px) 100vw, 20vw"
+            src={media}
+            width={1200}
+          />
+        ) : (
           <Media
             className={classes.media}
             resource={media}

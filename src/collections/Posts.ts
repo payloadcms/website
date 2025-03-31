@@ -29,15 +29,17 @@ export const Posts: CollectionConfig = {
     slug: true,
     authors: true,
     authorType: true,
-    category: {
-      name: true,
-      slug: true,
-    },
+    category: true,
+    dynamicThumbnail: true,
+    featuredMedia: true,
     guestAuthor: true,
     guestSocials: true,
     image: true,
     publishedOn: true,
+    relatedPosts: true,
+    thumbnail: true,
     title: true,
+    videoUrl: true,
   },
   fields: [
     {
@@ -46,8 +48,53 @@ export const Posts: CollectionConfig = {
       required: true,
     },
     {
+      name: 'featuredMedia',
+      type: 'select',
+      defaultValue: 'upload',
+      options: [
+        {
+          label: 'Image Upload',
+          value: 'upload',
+        },
+        {
+          label: 'Video Embed',
+          value: 'videoUrl',
+        },
+      ],
+    },
+    {
       name: 'image',
       type: 'upload',
+      admin: {
+        condition: (_, siblingData) => siblingData?.featuredMedia === 'upload',
+      },
+      relationTo: 'media',
+      required: true,
+    },
+    {
+      name: 'videoUrl',
+      type: 'text',
+      admin: {
+        condition: (_, siblingData) => siblingData?.featuredMedia === 'videoUrl',
+      },
+      label: 'Video URL',
+    },
+    {
+      name: 'dynamicThumbnail',
+      type: 'checkbox',
+      admin: {
+        condition: (_, siblingData) => siblingData?.featuredMedia === 'videoUrl',
+      },
+      defaultValue: true,
+      label: 'Use dynamic thumbnail',
+    },
+    {
+      name: 'thumbnail',
+      type: 'upload',
+      admin: {
+        condition: (_, siblingData) =>
+          !siblingData?.dynamicThumbnail && siblingData?.featuredMedia !== 'upload',
+      },
       relationTo: 'media',
       required: true,
     },
@@ -111,19 +158,6 @@ export const Posts: CollectionConfig = {
           hasMany: true,
         },
       ],
-    },
-    {
-      name: 'useVideo',
-      type: 'checkbox',
-      label: 'Use Youtube video as header image',
-    },
-    {
-      name: 'videoUrl',
-      type: 'text',
-      admin: {
-        condition: (_, siblingData) => siblingData?.useVideo,
-      },
-      label: 'Video URL',
     },
     richText({
       name: 'excerpt',
@@ -278,6 +312,9 @@ export const Posts: CollectionConfig = {
       required: true,
     },
   ],
+  forceSelect: {
+    relatedPosts: true,
+  },
   hooks: {
     afterChange: [
       async ({ doc, previousDoc, req }) => {

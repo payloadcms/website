@@ -768,11 +768,13 @@ export interface Page {
 export interface Post {
   id: string;
   title: string;
-  image: string | Media;
+  featuredMedia?: ('upload' | 'videoUrl') | null;
+  image?: (string | null) | Media;
+  videoUrl?: string | null;
+  dynamicThumbnail?: boolean | null;
+  thumbnail?: (string | null) | Media;
   category: string | Category;
   tags?: string[] | null;
-  useVideo?: boolean | null;
-  videoUrl?: string | null;
   excerpt: {
     root: {
       type: string;
@@ -3611,11 +3613,13 @@ export interface PagesSelect<T extends boolean = true> {
  */
 export interface PostsSelect<T extends boolean = true> {
   title?: T;
+  featuredMedia?: T;
   image?: T;
+  videoUrl?: T;
+  dynamicThumbnail?: T;
+  thumbnail?: T;
   category?: T;
   tags?: T;
-  useVideo?: T;
-  videoUrl?: T;
   excerpt?: T;
   content?:
     | T
