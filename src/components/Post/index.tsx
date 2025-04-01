@@ -76,7 +76,8 @@ export const Post: React.FC<Partial<PostType>> = (props) => {
                   ]}
                 />
                 <h1 className={classes.title}>{title}</h1>
-                {category === 'guide' &&
+                {typeof category !== 'string' &&
+                  category?.slug === 'guides' &&
                   (authorType === 'guest' ? (
                     <span className={classes.guideBadge}>Community Guide</span>
                   ) : (
