@@ -828,21 +828,6 @@ export interface Post {
     | MediaBlock
     | ReusableContentBlock
   )[];
-  lexicalContent?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
   relatedPosts?: (string | Post)[] | null;
   /**
    * Select the docs where you want to link to this guide. Be sure to select the correct version.
@@ -3644,7 +3629,6 @@ export interface PostsSelect<T extends boolean = true> {
               blockName?: T;
             };
       };
-  lexicalContent?: T;
   relatedPosts?: T;
   relatedDocs?: T;
   slug?: T;

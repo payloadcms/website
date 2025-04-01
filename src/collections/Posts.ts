@@ -177,10 +177,6 @@ export const Posts: CollectionConfig = {
       required: true,
     },
     {
-      name: 'lexicalContent',
-      type: 'richText',
-    },
-    {
       name: 'relatedPosts',
       type: 'relationship',
       filterOptions: ({ id }) => {
