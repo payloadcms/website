@@ -222,6 +222,7 @@ export const fetchBlogPost = async (slug: string, category): Promise<Partial<Pos
     draft,
     limit: 1,
     select: {
+      authors: true,
       authorType: true,
       category: true,
       content: true,
@@ -230,6 +231,7 @@ export const fetchBlogPost = async (slug: string, category): Promise<Partial<Pos
       guestAuthor: true,
       guestSocials: true,
       image: true,
+      meta: true,
       publishedOn: true,
       relatedPosts: true,
       title: true,
