@@ -34,7 +34,5 @@ export const Media: CollectionConfig<'media'> = {
       relationTo: 'media',
     },
   ],
-  upload: {
-    adminThumbnail: () => false,
-  },
+  upload: true,
 }
