@@ -23,8 +23,7 @@
     "start": "next start",
     "lint": "next lint",
     "prettier:fix": "prettier --write .",
-    "migrate-lexical-script": "payload run ./src/migrate.ts",
-    "migrate-posts": "payload run ./src/migrate-posts-to-lexical.ts"
+    "migrate-lexical-script": "payload run ./src/migrate.ts"
   },
   "dependencies": {
     "@docsearch/react": "^3.9.0",
