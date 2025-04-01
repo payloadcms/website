@@ -30,6 +30,14 @@ export async function GET(req: NextRequest): Promise<ImageResponse> {
     const titlePerWord = title?.trim()?.split(' ')
     const hasTopic = searchParams.has('topic')
     const topic = hasTopic ? searchParams.get('topic')?.slice(0, 100).replace('-', ' ') : ''
+    const hasType = searchParams.has('type')
+    const ogType = hasType ? searchParams.get('type') : 'docs'
+
+    const ogTypeLabel = {
+      blog: 'Blog Post',
+      docs: 'Documentation',
+      guides: 'Guides & Tutorials',
+    }
 
     return new ImageResponse(
       (
@@ -156,7 +164,7 @@ export async function GET(req: NextRequest): Promise<ImageResponse> {
                   textTransform: 'uppercase',
                 }}
               >
-                Documentation
+                {ogTypeLabel[ogType ?? 'docs']}
               </div>
             </div>
 

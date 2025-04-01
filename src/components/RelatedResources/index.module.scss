@@ -49,6 +49,7 @@
   }
 
   .item {
+    text-decoration: underline;
     border-bottom: 1px solid var(--theme-border-color);
 
     &:last-child {

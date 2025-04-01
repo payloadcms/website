@@ -1,4 +1,3 @@
-import type { Media } from '@root/payload-types'
 import type { Metadata } from 'next'
 
 import BreadcrumbsBar from '@components/Hero/BreadcrumbsBar/index'
@@ -77,12 +76,21 @@ export async function generateMetadata({
   const { slug, category } = await params
   const post = await getPost(slug, category, draft)
 
-  let ogImage: Media | null = null
+  let ogImage: null | string = null
 
-  if (post && post.image && typeof post.image !== 'string') {
-    ogImage = post.image
-  } else if (post && post.meta?.image && typeof post.meta.image !== 'string') {
-    ogImage = post.meta.image
+  if (post) {
+    if (post?.meta?.image && typeof post.meta.image !== 'string' && post.meta.image?.url) {
+      ogImage = post.meta.image.url
+    } else if (
+      post.featuredMedia === 'upload' &&
+      post.image &&
+      typeof post.image !== 'string' &&
+      post.image?.url
+    ) {
+      ogImage = post.image.url
+    } else if (post.featuredMedia === 'videoUrl' && post.videoUrl) {
+      ogImage = `${process.env.NEXT_PUBLIC_SITE_URL}/api/og?type=${category}&title=${post.title}`
+    }
   }
 
   return {
@@ -92,7 +100,7 @@ export async function generateMetadata({
       images: ogImage
         ? [
             {
-              url: ogImage.url as string,
+              url: ogImage,
             },
           ]
         : undefined,

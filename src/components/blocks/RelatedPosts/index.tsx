@@ -20,32 +20,38 @@ export const RelatedPosts: React.FC<RelatedPostsBlock> = (props) => {
     return null
   }
 
-  const colStart = {
-    0: 'start-1',
-    1: 'start-6',
-    2: 'start-11',
-  }
-
   return (
     <Gutter leftGutter={!disableGutter} rightGutter={!disableGutter}>
       <div className={classes.relatedPosts} id={id}>
         <h4 className={classes.title}>Related Posts</h4>
         <div className={classes.grid}>
-          {relatedPosts.map(
-            (post, key) =>
-              typeof post !== 'string' && (
-                <ContentMediaCard
-                  authors={post.authors}
-                  description={post?.meta?.description}
-                  href={`/blog/${post.slug}`}
-                  key={key}
-                  media={post.image}
-                  orientation={relatedPosts.length < 3 ? 'horizontal' : undefined}
-                  publishedOn={post.publishedOn}
-                  title={post.title}
-                />
-              ),
-          )}
+          {relatedPosts
+            .filter((post) => typeof post !== 'string')
+            .map((post) => {
+              const postCategory =
+                post.category && typeof post.category !== 'string' ? post.category.slug : 'blog'
+
+              const thumbnailAsset =
+                post.featuredMedia === 'upload'
+                  ? post.image
+                  : post.dynamicThumbnail
+                    ? `/api/og?type=${postCategory}&title=${post.title}`
+                    : post.thumbnail
+
+              return (
+                typeof post !== 'string' && (
+                  <div className={['cols-8 cols-m-8'].filter(Boolean).join(' ')} key={post.id}>
+                    <ContentMediaCard
+                      authors={post.authors}
+                      href={`/posts/${postCategory}/${post.slug}`}
+                      media={thumbnailAsset ?? ''}
+                      publishedOn={post.publishedOn}
+                      title={post.title}
+                    />
+                  </div>
+                )
+              )
+            })}
         </div>
       </div>
     </Gutter>

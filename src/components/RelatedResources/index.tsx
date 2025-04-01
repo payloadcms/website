@@ -1,14 +1,15 @@
+import type { CommunityHelp, Post } from '@root/payload-types'
+
+import { ChevronIcon } from '@icons/ChevronIcon'
 import * as Accordion from '@radix-ui/react-accordion'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
 import Link from 'next/link'
 
 import classes from './index.module.scss'
-import { CommunityHelp, Post } from '@root/payload-types'
-import { ChevronIcon } from '@icons/ChevronIcon'
 
 type RelatedResourcesProps = {
-  guides?: (string | Partial<Post>)[]
-  relatedThreads?: (string | Partial<CommunityHelp>)[]
+  guides?: (Partial<Post> | string)[]
+  relatedThreads?: (Partial<CommunityHelp> | string)[]
 }
 
 export const RelatedResources: React.FC<RelatedResourcesProps> = ({ guides, relatedThreads }) => {
@@ -18,7 +19,7 @@ export const RelatedResources: React.FC<RelatedResourcesProps> = ({ guides, rela
 
   return (
     <div className={classes.resources}>
-      <Accordion.Root type="multiple" defaultValue={['guides', 'threads']}>
+      <Accordion.Root defaultValue={['guides', 'threads']} type="multiple">
         {hasGuides && (
           <Accordion.Item value="guides">
             <Accordion.Trigger asChild>
@@ -28,17 +29,19 @@ export const RelatedResources: React.FC<RelatedResourcesProps> = ({ guides, rela
             </Accordion.Trigger>
             <Accordion.Content asChild>
               <ul className={classes.list}>
-                {guides.map(
-                  (guide) =>
-                    typeof guide !== 'string' &&
-                    typeof guide.category !== 'string' && (
-                      <li key={guide.slug} className={classes.item}>
-                        <Link href={`/guides/${guide.slug}`} prefetch={false}>
+                {guides.map((guide) => {
+                  console.log({ guide })
+
+                  return (
+                    typeof guide !== 'string' && (
+                      <li className={classes.item} key={guide.slug}>
+                        <Link href={`/posts/guides/${guide.slug}`} prefetch={false}>
                           {guide.title} <ArrowIcon className={classes.relatedPostsArrow} />
                         </Link>
                       </li>
-                    ),
-                )}
+                    )
+                  )
+                })}
               </ul>
             </Accordion.Content>
           </Accordion.Item>
@@ -53,7 +56,7 @@ export const RelatedResources: React.FC<RelatedResourcesProps> = ({ guides, rela
                 {relatedThreads.map(
                   (thread) =>
                     typeof thread !== 'string' && (
-                      <li key={thread.slug} className={classes.item}>
+                      <li className={classes.item} key={thread.slug}>
                         <Link href={`/community-help/${thread.communityHelpType}/${thread.slug}`}>
                           {thread.title} <ArrowIcon className={classes.relatedPostsArrow} />
                         </Link>

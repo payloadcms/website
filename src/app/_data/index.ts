@@ -212,7 +212,7 @@ export const fetchArchives = async (slug?: string): Promise<Partial<Category>[]>
   return data.docs
 }
 
-export const fetchBlogPost = async (slug: string, category): Promise<Post> => {
+export const fetchBlogPost = async (slug: string, category): Promise<Partial<Post>> => {
   const { isEnabled: draft } = await draftMode()
   const payload = await getPayload({ config })
 
@@ -221,6 +221,20 @@ export const fetchBlogPost = async (slug: string, category): Promise<Post> => {
     depth: 2,
     draft,
     limit: 1,
+    select: {
+      authorType: true,
+      category: true,
+      content: true,
+      excerpt: true,
+      featuredMedia: true,
+      guestAuthor: true,
+      guestSocials: true,
+      image: true,
+      publishedOn: true,
+      relatedPosts: true,
+      title: true,
+      videoUrl: true,
+    },
     where: {
       and: [
         { slug: { equals: slug } },

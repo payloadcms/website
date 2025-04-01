@@ -8,27 +8,27 @@ import { Media } from '@components/Media/index'
 import { RenderBlocks } from '@components/RenderBlocks/index'
 import { RichText } from '@components/RichText/index'
 import { Video } from '@components/RichText/Video/index'
+import { ArrowRightIcon } from '@icons/ArrowRightIcon/index'
 import { getVideo } from '@root/utilities/get-video'
 import { formatDate } from '@utilities/format-date-time'
 import React from 'react'
 
 import { AuthorsList, GuestAuthorList } from './AuthorsList/index'
 import classes from './index.module.scss'
-import { ArrowRightIcon } from '@icons/ArrowRightIcon/index'
-export const Post: React.FC<PostType> = (props) => {
+export const Post: React.FC<Partial<PostType>> = (props) => {
   const {
+    authorType,
+    category,
     content,
     excerpt,
+    featuredMedia,
+    guestAuthor,
+    guestSocials,
     image,
     publishedOn,
     relatedPosts,
-    category,
     title,
-    useVideo,
     videoUrl,
-    authorType,
-    guestAuthor,
-    guestSocials,
   } = props
 
   return (
@@ -57,6 +57,7 @@ export const Post: React.FC<PostType> = (props) => {
             <div className={classes.titleWrap}>
               <div>
                 <Breadcrumbs
+                  className={classes.breadcrumbs}
                   items={[
                     {
                       label: (
@@ -65,13 +66,14 @@ export const Post: React.FC<PostType> = (props) => {
                           {typeof category !== 'string' && category?.name}
                         </span>
                       ),
-                      url: typeof category !== 'string' ? `/${category?.slug}` : '/blog',
+                      url: typeof category !== 'string' ? `/posts/${category?.slug}` : 'posts/blog',
                     },
                     {
-                      label: <time>{formatDate({ date: publishedOn })}</time>,
+                      ...(publishedOn && {
+                        label: <time>{formatDate({ date: publishedOn })}</time>,
+                      }),
                     },
                   ]}
-                  className={classes.breadcrumbs}
                 />
                 <h1 className={classes.title}>{title}</h1>
                 {category === 'guide' &&
@@ -89,24 +91,22 @@ export const Post: React.FC<PostType> = (props) => {
                 )}
               </div>
             </div>
-            {typeof image !== 'string' && (
-              <div className={classes.heroImageWrap}>
-                {useVideo && videoUrl ? (
-                  <Video {...getVideo(videoUrl)} />
-                ) : (
-                  <Media className={classes.heroImage} priority resource={image} />
-                )}
-              </div>
-            )}
-            {typeof image !== 'string' && (
-              <div className={classes.mobileImage}>
-                {useVideo && videoUrl ? (
-                  <Video {...getVideo(videoUrl)} />
-                ) : (
-                  <Media className={classes.heroImage} priority resource={image} />
-                )}
-              </div>
-            )}
+            <div className={classes.heroImageWrap}>
+              {featuredMedia === 'upload'
+                ? image &&
+                  typeof image !== 'string' && (
+                    <Media className={classes.heroImage} priority resource={image} />
+                  )
+                : videoUrl && <Video {...getVideo(videoUrl)} />}
+            </div>
+            <div className={classes.mobileImage}>
+              {featuredMedia === 'upload'
+                ? image &&
+                  typeof image !== 'string' && (
+                    <Media className={classes.heroImage} priority resource={image} />
+                  )
+                : videoUrl && <Video {...getVideo(videoUrl)} />}
+            </div>
             <RichText className={classes.excerpt} content={excerpt} />
             <div className={classes.blocks}>
               <RenderBlocks
