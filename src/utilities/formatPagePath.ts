@@ -1,6 +1,7 @@
 export const formatPagePath = (
   collection: string,
   doc: any, // eslint-disable-line @typescript-eslint/no-explicit-any
+  category?: string,
 ): string => {
   const { slug, breadcrumbs } = doc
 
@@ -21,7 +22,7 @@ export const formatPagePath = (
         prefix = '/partners'
         break
       case 'posts':
-        prefix = '/blog'
+        prefix = `/posts/${category}`
         break
       default:
         prefix = `/${collection}`

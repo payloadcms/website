@@ -22,7 +22,9 @@ export const Posts: CollectionConfig = {
     livePreview: {
       url: ({ data }) => formatPreviewURL('posts', data),
     },
-    preview: (doc) => formatPreviewURL('posts', doc),
+    preview: (doc) => {
+      return formatPreviewURL('posts', doc, (doc?.category as { slug: string })?.slug)
+    },
     useAsTitle: 'title',
   },
   defaultPopulate: {
