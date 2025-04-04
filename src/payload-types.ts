@@ -845,6 +845,10 @@ export interface Post {
     website?: string | null;
   };
   publishedOn: string;
+  /**
+   * Paste this code into the docs to link to this post
+   */
+  addToDocs?: string | null;
   meta?: {
     title?: string | null;
     description?: string | null;
@@ -3654,6 +3658,7 @@ export interface PostsSelect<T extends boolean = true> {
         website?: T;
       };
   publishedOn?: T;
+  addToDocs?: T;
   meta?:
     | T
     | {
