@@ -4,8 +4,9 @@ export const ResourceBlock: Block = {
   slug: 'Resource',
   fields: [
     {
-      name: 'id',
-      type: 'text',
+      name: 'post',
+      type: 'relationship',
+      relationTo: 'posts',
     },
   ],
   interfaceName: 'ResourceBlock',
@@ -13,13 +14,13 @@ export const ResourceBlock: Block = {
     export({ fields }) {
       return {
         props: {
-          id: fields.id,
+          id: fields.post,
         },
       }
     },
     import({ props }) {
       return {
-        id: props.id,
+        post: props.id,
       }
     },
   },

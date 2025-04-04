@@ -28,6 +28,7 @@ export const ResourceBlock: React.FC<{ id: string }> = ({ id }) => {
     if (!id) {
       return
     }
+    console.log({ id })
     const fetchResource = async () => {
       const query = qs.stringify({
         select: {
