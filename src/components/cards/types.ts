@@ -16,11 +16,12 @@ export interface SquareCardProps extends SharedProps {
 }
 
 export interface ContentMediaCardProps extends SharedProps {
-  authors: Post['authors']
+  authors: Post['authors'] | Post['guestAuthor']
   href: string
   media: Media | string
   orientation?: 'horizontal' | 'vertical'
   publishedOn?: string
+  style?: 'default' | 'minimal'
 }
 
 export interface PricingCardProps extends SharedProps {

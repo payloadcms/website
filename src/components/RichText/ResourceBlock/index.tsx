@@ -171,6 +171,7 @@ export const ResourceBlock: React.FC<{ id: string }> = ({ id }) => {
                       blockName: 'Related Posts',
                       blockType: 'relatedPosts',
                       relatedPosts: resourceData.relatedPosts || [],
+                      style: 'minimal',
                     },
                   ]}
                   disableGutter

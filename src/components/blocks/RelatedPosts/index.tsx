@@ -11,10 +11,11 @@ export type RelatedPostsBlock = {
   disableGutter?: boolean
   id?: string
   relatedPosts: (Post | string)[] | null
+  style?: 'default' | 'minimal'
 }
 
 export const RelatedPosts: React.FC<RelatedPostsBlock> = (props) => {
-  const { id = '', disableGutter, relatedPosts } = props
+  const { id = '', disableGutter, relatedPosts, style } = props
 
   if (!relatedPosts || relatedPosts?.length === 0) {
     return null
@@ -22,7 +23,10 @@ export const RelatedPosts: React.FC<RelatedPostsBlock> = (props) => {
 
   return (
     <Gutter leftGutter={!disableGutter} rightGutter={!disableGutter}>
-      <div className={classes.relatedPosts} id={id}>
+      <div
+        className={[classes.relatedPosts, style && classes[style]].filter(Boolean).join(' ')}
+        id={id}
+      >
         <h4 className={classes.title}>Related Posts</h4>
         <div className={classes.grid}>
           {relatedPosts
@@ -42,10 +46,11 @@ export const RelatedPosts: React.FC<RelatedPostsBlock> = (props) => {
                 typeof post !== 'string' && (
                   <div className={['cols-8 cols-m-8'].filter(Boolean).join(' ')} key={post.id}>
                     <ContentMediaCard
-                      authors={post.authors}
+                      authors={post.authorType === 'team' ? post.authors : post.guestAuthor}
                       href={`/posts/${postCategory}/${post.slug}`}
                       media={thumbnailAsset ?? ''}
                       publishedOn={post.publishedOn}
+                      style={style}
                       title={post.title}
                     />
                   </div>

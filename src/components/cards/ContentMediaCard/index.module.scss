@@ -64,7 +64,6 @@
     max-width: 100%;
   }
 }
-
 .meta {
   display: flex;
   flex-wrap: wrap;
@@ -108,5 +107,24 @@
   @include small-break {
     width: 100%;
     padding: 0;
+  }
+}
+
+.minimal {
+  border: 1px solid var(--theme-border-color);
+  .media {
+    max-width: 25%;
+  }
+
+  .title {
+    margin-bottom: 0;
+    @include body;
+    & {
+      font-weight: 500;
+    }
+  }
+
+  .scanline {
+    border: none;
   }
 }
