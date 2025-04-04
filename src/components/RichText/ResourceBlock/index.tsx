@@ -155,7 +155,7 @@ export const ResourceBlock: React.FC<{ id: string }> = ({ id }) => {
                 )}
               </span>
             )}
-            {resourceData?.featuredMedia === 'upload'
+            {resource?.featuredMedia === 'upload'
               ? resourceData?.image &&
                 typeof resourceData?.image !== 'string' && (
                   <Media className={classes.heroImage} priority resource={resourceData?.image} />
