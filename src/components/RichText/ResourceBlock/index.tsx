@@ -28,7 +28,6 @@ export const ResourceBlock: React.FC<{ id: string }> = ({ id }) => {
     if (!id) {
       return
     }
-    console.log({ id })
     const fetchResource = async () => {
       const query = qs.stringify({
         select: {
@@ -95,10 +94,6 @@ export const ResourceBlock: React.FC<{ id: string }> = ({ id }) => {
     }
     await fetchResourceData()
   }, [resource, resourceData])
-
-  useEffect(() => {
-    console.log('Resource data:', resourceData)
-  }, [resourceData])
 
   return (
     <>
