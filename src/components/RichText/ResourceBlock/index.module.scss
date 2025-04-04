@@ -1,0 +1,128 @@
+@use '@scss/common' as *;
+
+.loading,
+.resourceBanner {
+  @include btnReset;
+  & {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+    border-radius: 2px;
+    background: var(--theme-success-100);
+    border: 1px solid var(--theme-success-200);
+    color: var(--theme-blue-text);
+  }
+}
+
+.loading {
+  background: linear-gradient(
+    90deg,
+    var(--theme-success-100) 25%,
+    var(--theme-success-150) 50%,
+    var(--theme-success-100) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1s infinite linear;
+  cursor: progress;
+
+  & > * {
+    width: 100%;
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: 100% 0;
+    }
+    100% {
+      background-position: -100% 0;
+    }
+  }
+}
+
+.resourceBanner {
+  cursor: pointer;
+  transition: opacity 0.1s ease-out;
+  &:hover {
+    opacity: 0.8;
+
+    .arrow {
+      transform: translateX(0.25rem);
+    }
+  }
+}
+
+.resourceTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  text-align: left;
+  @include body;
+
+  & {
+    font-weight: 500;
+  }
+}
+
+.skeleton,
+.drawerSkeleton {
+  display: block;
+  width: 100%;
+  height: 1lh;
+  border-radius: 4px;
+  background: linear-gradient(
+    90deg,
+    var(--theme-success-150) 25%,
+    var(--theme-success-200) 50%,
+    var(--theme-success-150) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1s infinite linear;
+}
+
+.drawerSkeleton {
+  height: 800px;
+  background: linear-gradient(
+    90deg,
+    var(--theme-elevation-150) 25%,
+    var(--theme-elevation-200) 50%,
+    var(--theme-elevation-150) 75%
+  );
+}
+
+.arrow {
+  transition: transform 0.1s ease-in-out;
+  transform: translateX(0);
+}
+
+.resourceContent {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 1080px;
+}
+
+.author {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.articleTitle {
+  margin: 0;
+}
+
+.resourceTypeBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 0.5rem;
+  border-radius: 4px;
+  background-color: var(--theme-success-50);
+  color: var(--theme-success-800);
+  border: 1px solid var(--theme-success-200);
+  letter-spacing: normal;
+  font-weight: 400;
+  @include body;
+}

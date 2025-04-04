@@ -9,3 +9,9 @@
   display: grid;
   row-gap: 2rem;
 }
+
+.minimal {
+  .grid {
+    row-gap: 1rem;
+  }
+}

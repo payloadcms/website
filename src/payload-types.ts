@@ -96,6 +96,7 @@ export interface Config {
     RestExamples: RestExamplesBlock;
     pricing: Pricing;
     reusableContentBlock: ReusableContentBlock;
+    Resource: ResourceBlock;
     slider: Slider;
     statement: Statement;
     steps: StepsBlock;
@@ -844,6 +845,10 @@ export interface Post {
     website?: string | null;
   };
   publishedOn: string;
+  /**
+   * Paste this code into the docs to link to this post
+   */
+  addToDocs?: string | null;
   meta?: {
     title?: string | null;
     description?: string | null;
@@ -3048,6 +3053,16 @@ export interface RestExamplesBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ResourceBlock".
+ */
+export interface ResourceBlock {
+  post?: (string | null) | Post;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'Resource';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "SpotlightBlock".
  */
 export interface SpotlightBlock {
@@ -3644,6 +3659,7 @@ export interface PostsSelect<T extends boolean = true> {
         website?: T;
       };
   publishedOn?: T;
+  addToDocs?: T;
   meta?:
     | T
     | {

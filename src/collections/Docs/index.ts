@@ -48,6 +48,7 @@ export const contentLexicalEditorFeatures: FeatureProviderServer[] = [
       'LightDarkImage',
       'Upload',
       'RestExamples',
+      'Resource',
       'TableWithDrawers',
       'VideoDrawer',
     ],

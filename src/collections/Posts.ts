@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload'
 
+import { addToDocs } from '@root/fields/addToDocs'
 import { revalidatePath } from 'next/cache'
 
 import { isAdmin } from '../access/isAdmin'
@@ -309,6 +310,7 @@ export const Posts: CollectionConfig = {
       },
       required: true,
     },
+    addToDocs,
   ],
   forceSelect: {
     relatedPosts: true,

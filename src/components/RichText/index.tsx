@@ -13,6 +13,7 @@ import type {
   Doc,
   DownloadBlockType,
   LightDarkImageBlock,
+  ResourceBlock,
   RestExamplesBlock,
   SpotlightBlock,
   TableWithDrawersBlock,
@@ -43,6 +44,7 @@ import {
   type JSXConvertersFunction,
   RichText as SerializedRichText,
 } from '@payloadcms/richtext-lexical/react'
+import { Download } from '@root/components/blocks/Download'
 import { getVideo } from '@root/utilities/get-video'
 import React, { useCallback, useState } from 'react'
 
@@ -51,12 +53,12 @@ import type { AllowedElements } from '../SpotlightAnimation/types'
 import { type AddHeading, type Heading, type IContext, RichTextContext } from './context'
 import { Heading as HeadingComponent } from './Heading'
 import LightDarkImage from './LightDarkImage/index'
+import { ResourceBlock as Resource } from './ResourceBlock'
 import { RestExamples } from './RestExamples'
 import { CustomTableJSXConverters } from './Table/index'
 import { TableWithDrawers } from './TableWithDrawers'
 import { UploadBlockImage } from './UploadBlock/index'
 import { VideoDrawer } from './VideoDrawer'
-import { Download } from '@root/components/blocks/Download'
 
 type Props = {
   className?: string
@@ -72,6 +74,7 @@ export type NodeTypes =
       | CommandLineBlock
       | DownloadBlockType
       | LightDarkImageBlock
+      | ResourceBlock
       | RestExamplesBlock
       | SpotlightBlock
       | TableWithDrawersBlock
@@ -120,6 +123,17 @@ export const jsxConverters: (args: { toc?: boolean }) => JSXConvertersFunction<N
               srcLight={node.fields.srcLight}
             />
           )
+        },
+        Resource: ({ node }) => {
+          if (!node.fields.post) {
+            return null
+          }
+
+          if (typeof node.fields.post === 'string') {
+            return <Resource id={node.fields.post} />
+          } else {
+            return <Resource id={node.fields.post.id} />
+          }
         },
         RestExamples: ({ node }) => {
           return <RestExamples data={node.fields.data} />
@@ -246,13 +260,13 @@ export const RichTextWithTOC: React.FC<Props> = ({ className, content: _content 
   }
 
   return (
-    <RichTextContext.Provider value={context}>
+    <RichTextContext value={context}>
       <SerializedRichText
         className={['payload-richtext', 'docs-richtext', className].filter(Boolean).join(' ')}
         converters={jsxConverters({ toc: true })}
         data={content}
       />
-    </RichTextContext.Provider>
+    </RichTextContext>
   )
 }
 

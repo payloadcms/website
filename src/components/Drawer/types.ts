@@ -8,7 +8,7 @@ export interface Props {
   size?: 'l' | 'm' | 's'
   slug: string
 
-  title?: string
+  title?: React.ReactNode | string
 }
 
 export type TogglerProps = {
