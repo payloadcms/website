@@ -96,6 +96,7 @@ export interface Config {
     RestExamples: RestExamplesBlock;
     pricing: Pricing;
     reusableContentBlock: ReusableContentBlock;
+    Resource: ResourceBlock;
     slider: Slider;
     statement: Statement;
     steps: StepsBlock;
@@ -3045,6 +3046,15 @@ export interface RestExamplesBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'RestExamples';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ResourceBlock".
+ */
+export interface ResourceBlock {
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'Resource';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

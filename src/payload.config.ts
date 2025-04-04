@@ -57,6 +57,7 @@ import { Docs } from './collections/Docs'
 import { BannerBlock } from './collections/Docs/blocks/banner'
 import { CodeBlock } from './collections/Docs/blocks/code'
 import { LightDarkImageBlock } from './collections/Docs/blocks/lightDarkImage'
+import { ResourceBlock } from './collections/Docs/blocks/resource'
 import { RestExamplesBlock } from './collections/Docs/blocks/restExamples'
 import { TableWithDrawersBlock } from './collections/Docs/blocks/tableWithDrawers'
 import { UploadBlock } from './collections/Docs/blocks/upload'
@@ -132,6 +133,7 @@ export default buildConfig({
     RestExamplesBlock,
     Pricing,
     ReusableContentBlock,
+    ResourceBlock,
     Slider,
     Statement,
     Steps,
