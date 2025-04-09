@@ -171,7 +171,7 @@ export const Posts: CollectionConfig = {
       blockReferences: [
         Banner,
         'blogContent',
-        'Code',
+        'code',
         'blogMarkdown',
         'mediaBlock',
         'reusableContentBlock',

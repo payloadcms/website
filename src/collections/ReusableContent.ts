@@ -1,7 +1,8 @@
 import type { CollectionConfig } from 'payload'
 
-import { isAdmin } from '../access/isAdmin'
 import { Banner } from '@root/blocks/Banner'
+
+import { isAdmin } from '../access/isAdmin'
 
 export const ReusableContent: CollectionConfig = {
   slug: 'reusable-content',
@@ -34,7 +35,7 @@ export const ReusableContent: CollectionConfig = {
         'caseStudyCards',
         'caseStudiesHighlight',
         'caseStudyParallax',
-        'Code',
+        'code',
         'codeFeature',
         'comparisonTable',
         'content',

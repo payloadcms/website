@@ -112,6 +112,7 @@ export interface Config {
     templateCards: TemplateCardsBlock;
     Banner: BannerBlock;
     Code: CodeBlock;
+    code: Code;
   };
   collections: {
     'case-studies': CaseStudy;
@@ -824,7 +825,7 @@ export interface Post {
         blockType: 'banner';
       }
     | BlogContent
-    | CodeBlock
+    | Code
     | BlogMarkdown
     | MediaBlock
     | ReusableContentBlock
@@ -881,42 +882,10 @@ export interface Category {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CodeBlock".
+ * via the `definition` "code".
  */
-export interface CodeBlock {
-  language?:
-    | (
-        | 'bash'
-        | 'css'
-        | 'dockerfile'
-        | 'env'
-        | 'graphql'
-        | 'html'
-        | 'js'
-        | 'json'
-        | 'jsx'
-        | 'plaintext'
-        | 'scss'
-        | 'sh'
-        | 'text'
-        | 'ts'
-        | 'tsx'
-        | 'vue'
-        | 'yaml'
-        | 'yml'
-      )
-    | null;
-  code?: string | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'Code';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "mediaBlock".
- */
-export interface MediaBlock {
-  mediaBlockFields: {
+export interface Code {
+  codeFields: {
     settings?: {
       /**
        * Leave blank for system default
@@ -924,68 +893,13 @@ export interface MediaBlock {
       theme?: ('light' | 'dark') | null;
       background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
     };
-    position?: ('default' | 'wide') | null;
-    media: string | Media;
-    caption?: {
-      root: {
-        type: string;
-        children: {
-          type: string;
-          version: number;
-          [k: string]: unknown;
-        }[];
-        direction: ('ltr' | 'rtl') | null;
-        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-        indent: number;
-        version: number;
-      };
-      [k: string]: unknown;
-    } | null;
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'mediaBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "reusableContentBlock".
- */
-export interface ReusableContentBlock {
-  reusableContentBlockFields: {
-    settings?: {
-      /**
-       * Leave blank for system default
-       */
-      theme?: ('light' | 'dark') | null;
-      background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
-    };
-    reusableContent: string | ReusableContent;
-    customId?: string | null;
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'reusableContentBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "reusable-content".
- */
-export interface ReusableContent {
-  id: string;
-  title: string;
-  layout: (
-    | {
-        bannerFields: {
-          settings?: {
-            /**
-             * Leave blank for system default
-             */
-            theme?: ('light' | 'dark') | null;
-            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
-          };
-          type?: ('default' | 'success' | 'warning' | 'error') | null;
-          addCheckmark?: boolean | null;
-          content: {
+    language?: ('none' | 'js' | 'ts') | null;
+    code: string;
+    codeBlips?:
+      | {
+          row: number;
+          label: string;
+          feature: {
             root: {
               type: string;
               children: {
@@ -1000,76 +914,8 @@ export interface ReusableContent {
             };
             [k: string]: unknown;
           };
-        };
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'banner';
-      }
-    | BlogContent
-    | BlogMarkdown
-    | Callout
-    | Cta
-    | CardGrid
-    | CaseStudyCards
-    | CaseStudiesHighlight
-    | CaseStudyParallax
-    | CodeBlock
-    | CodeFeature
-    | ComparisonTableType
-    | Content
-    | ContentGrid
-    | ExampleTabsBlock
-    | FormBlock
-    | HoverCards
-    | HoverHighlights
-    | LinkGrid
-    | LogoGrid
-    | MediaBlock
-    | MediaContent
-    | MediaContentAccordion
-    | Pricing
-    | Slider
-    | Statement
-    | StepsBlock
-    | StickyHighlights
-  )[];
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "cardGrid".
- */
-export interface CardGrid {
-  cardGridFields: {
-    settings?: {
-      /**
-       * Leave blank for system default
-       */
-      theme?: ('light' | 'dark') | null;
-      background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
-    };
-    richText: {
-      root: {
-        type: string;
-        children: {
-          type: string;
-          version: number;
-          [k: string]: unknown;
-        }[];
-        direction: ('ltr' | 'rtl') | null;
-        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-        indent: number;
-        version: number;
-      };
-      [k: string]: unknown;
-    };
-    /**
-     * These links will be placed above the card grid as calls-to-action.
-     */
-    links?:
-      | {
-          link: {
+          enableLink?: boolean | null;
+          link?: {
             type?: ('reference' | 'custom') | null;
             newTab?: boolean | null;
             reference?:
@@ -1092,38 +938,10 @@ export interface CardGrid {
           id?: string | null;
         }[]
       | null;
-    revealDescription?: boolean | null;
-    cards?:
-      | {
-          title: string;
-          description?: string | null;
-          enableLink?: boolean | null;
-          link?: {
-            type?: ('reference' | 'custom') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: string | Post;
-                } | null)
-              | ({
-                  relationTo: 'case-studies';
-                  value: string | CaseStudy;
-                } | null);
-            url?: string | null;
-            customId?: string | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
   };
   id?: string | null;
   blockName?: string | null;
-  blockType: 'cardGrid';
+  blockType: 'code';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1356,6 +1174,95 @@ export interface Industry {
   value: string;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "cardGrid".
+ */
+export interface CardGrid {
+  cardGridFields: {
+    settings?: {
+      /**
+       * Leave blank for system default
+       */
+      theme?: ('light' | 'dark') | null;
+      background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
+    };
+    richText: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    /**
+     * These links will be placed above the card grid as calls-to-action.
+     */
+    links?:
+      | {
+          link: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null)
+              | ({
+                  relationTo: 'case-studies';
+                  value: string | CaseStudy;
+                } | null);
+            url?: string | null;
+            label: string;
+            customId?: string | null;
+          };
+          id?: string | null;
+        }[]
+      | null;
+    revealDescription?: boolean | null;
+    cards?:
+      | {
+          title: string;
+          description?: string | null;
+          enableLink?: boolean | null;
+          link?: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null)
+              | ({
+                  relationTo: 'case-studies';
+                  value: string | CaseStudy;
+                } | null);
+            url?: string | null;
+            customId?: string | null;
+          };
+          id?: string | null;
+        }[]
+      | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'cardGrid';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2194,6 +2101,41 @@ export interface LogoGrid {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "mediaBlock".
+ */
+export interface MediaBlock {
+  mediaBlockFields: {
+    settings?: {
+      /**
+       * Leave blank for system default
+       */
+      theme?: ('light' | 'dark') | null;
+      background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
+    };
+    position?: ('default' | 'wide') | null;
+    media: string | Media;
+    caption?: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'mediaBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "mediaContent".
  */
 export interface MediaContent {
@@ -2392,6 +2334,221 @@ export interface Pricing {
   id?: string | null;
   blockName?: string | null;
   blockType: 'pricing';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "reusableContentBlock".
+ */
+export interface ReusableContentBlock {
+  reusableContentBlockFields: {
+    settings?: {
+      /**
+       * Leave blank for system default
+       */
+      theme?: ('light' | 'dark') | null;
+      background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
+    };
+    reusableContent: string | ReusableContent;
+    customId?: string | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'reusableContentBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "reusable-content".
+ */
+export interface ReusableContent {
+  id: string;
+  title: string;
+  layout: (
+    | {
+        bannerFields: {
+          settings?: {
+            /**
+             * Leave blank for system default
+             */
+            theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
+          };
+          type?: ('default' | 'success' | 'warning' | 'error') | null;
+          addCheckmark?: boolean | null;
+          content: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
+            [k: string]: unknown;
+          };
+        };
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'banner';
+      }
+    | BlogContent
+    | BlogMarkdown
+    | Callout
+    | Cta
+    | CardGrid
+    | CaseStudyCards
+    | CaseStudiesHighlight
+    | CaseStudyParallax
+    | CodeBlock
+    | CodeFeature
+    | ComparisonTableType
+    | Content
+    | ContentGrid
+    | ExampleTabsBlock
+    | FormBlock
+    | HoverCards
+    | HoverHighlights
+    | LinkGrid
+    | LogoGrid
+    | MediaBlock
+    | MediaContent
+    | MediaContentAccordion
+    | Pricing
+    | Slider
+    | Statement
+    | StepsBlock
+    | StickyHighlights
+  )[];
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CodeBlock".
+ */
+export interface CodeBlock {
+  language?:
+    | (
+        | 'bash'
+        | 'css'
+        | 'dockerfile'
+        | 'env'
+        | 'graphql'
+        | 'html'
+        | 'js'
+        | 'json'
+        | 'jsx'
+        | 'plaintext'
+        | 'scss'
+        | 'sh'
+        | 'text'
+        | 'ts'
+        | 'tsx'
+        | 'vue'
+        | 'yaml'
+        | 'yml'
+      )
+    | null;
+  code?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'Code';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ComparisonTableType".
+ */
+export interface ComparisonTableType {
+  comparisonTableFields: {
+    settings?: {
+      /**
+       * Leave blank for system default
+       */
+      theme?: ('light' | 'dark') | null;
+      background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
+    };
+    introContent?: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    style?: ('default' | 'centered') | null;
+    header: {
+      tableTitle: string;
+      columnOneHeader: string;
+      columnTwoHeader: string;
+    };
+    rows?:
+      | {
+          feature: string;
+          columnOneCheck?: boolean | null;
+          columnOne?: string | null;
+          columnTwoCheck?: boolean | null;
+          columnTwo?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'comparisonTable';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ExampleTabsBlock".
+ */
+export interface ExampleTabsBlock {
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  tabs: {
+    label: string;
+    content?: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    examples: (CodeExampleBlock | MediaExampleBlock)[];
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'exampleTabs';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2688,99 +2845,6 @@ export interface StickyHighlights {
   id?: string | null;
   blockName?: string | null;
   blockType: 'stickyHighlights';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ExampleTabsBlock".
- */
-export interface ExampleTabsBlock {
-  content?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  tabs: {
-    label: string;
-    content?: {
-      root: {
-        type: string;
-        children: {
-          type: string;
-          version: number;
-          [k: string]: unknown;
-        }[];
-        direction: ('ltr' | 'rtl') | null;
-        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-        indent: number;
-        version: number;
-      };
-      [k: string]: unknown;
-    } | null;
-    examples: (CodeExampleBlock | MediaExampleBlock)[];
-    id?: string | null;
-  }[];
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'exampleTabs';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ComparisonTableType".
- */
-export interface ComparisonTableType {
-  comparisonTableFields: {
-    settings?: {
-      /**
-       * Leave blank for system default
-       */
-      theme?: ('light' | 'dark') | null;
-      background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
-    };
-    introContent?: {
-      root: {
-        type: string;
-        children: {
-          type: string;
-          version: number;
-          [k: string]: unknown;
-        }[];
-        direction: ('ltr' | 'rtl') | null;
-        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-        indent: number;
-        version: number;
-      };
-      [k: string]: unknown;
-    } | null;
-    style?: ('default' | 'centered') | null;
-    header: {
-      tableTitle: string;
-      columnOneHeader: string;
-      columnTwoHeader: string;
-    };
-    rows?:
-      | {
-          feature: string;
-          columnOneCheck?: boolean | null;
-          columnOne?: string | null;
-          columnTwoCheck?: boolean | null;
-          columnTwo?: string | null;
-          id?: string | null;
-        }[]
-      | null;
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'comparisonTable';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

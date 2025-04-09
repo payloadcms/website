@@ -30,6 +30,7 @@ import { CardGrid } from './blocks/CardGrid'
 import { CaseStudiesHighlight } from './blocks/CaseStudiesHighlight'
 import { CaseStudyCards } from './blocks/CaseStudyCards'
 import { CaseStudyParallax } from './blocks/CaseStudyParallax'
+import { Code } from './blocks/Code'
 import { CodeFeature } from './blocks/CodeFeature'
 import { ComparisonTable } from './blocks/ComparisonTable'
 import { Content } from './blocks/Content'
@@ -269,6 +270,7 @@ export default buildConfig({
     },
     BannerBlock,
     CodeBlock,
+    Code,
   ],
   collections: [
     CaseStudies,
