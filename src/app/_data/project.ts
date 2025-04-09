@@ -39,7 +39,7 @@ const PROJECT = `
 `
 
 export const PROJECTS_QUERY = `
-query Project($teamIDs: [String!], $page: Int, $limit: Int, $search: String) {
+query Project($teamIDs: [JSON], $page: Int, $limit: Int, $search: String) {
   Projects(where: { AND: [{ team: { in: $teamIDs } }], OR: [{ name: { like: $search } }, { slug: { like: $search } }] }, limit: $limit, page: $page) {
     docs {
       ${PROJECT}
