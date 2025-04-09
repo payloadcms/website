@@ -1,21 +1,22 @@
 'use client'
 import type { TextFieldClientComponent } from 'payload'
+
+import { TableIcon } from '@blocks/ComparisonTable/Icons'
 import { useField } from '@payloadcms/ui'
 
 import classes from './index.module.scss'
-import { TableIcon } from '@blocks/ComparisonTable/Icons'
 
 const TableCheckboxField: TextFieldClientComponent = ({ path }) => {
-  const { value, setValue } = useField({ path })
+  const { setValue, value } = useField({ path })
 
   return (
     <button
-      type="button"
+      className={classes.toggle}
+      data-checked={value}
       onClick={() => {
         setValue(!value)
       }}
-      className={classes.toggle}
-      data-checked={value}
+      type="button"
     >
       <TableIcon checked={Boolean(value)} />
     </button>

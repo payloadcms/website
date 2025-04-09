@@ -9,6 +9,8 @@ import { BlockWrapper } from '@components/BlockWrapper/index'
 import { CMSLink } from '@components/CMSLink/index'
 import Code from '@components/Code/index'
 import CodeBlip from '@components/CodeBlip/index'
+const CodeBlipProvider = CodeBlip.Provider
+
 import { Gutter } from '@components/Gutter/index'
 import { RichText } from '@components/RichText/index'
 import SplitAnimate from '@components/SplitAnimate/index'
@@ -387,7 +389,7 @@ export const CodeFeatureComponent: React.FC<Props> = ({
 }
 
 export const CodeFeature: React.FC<Props> = (props) => (
-  <CodeBlip.Provider>
+  <CodeBlipProvider>
     <CodeFeatureComponent {...props} />
-  </CodeBlip.Provider>
+  </CodeBlipProvider>
 )

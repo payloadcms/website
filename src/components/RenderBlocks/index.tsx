@@ -16,6 +16,7 @@ import { CaseStudyCards } from '@blocks/CaseStudyCards/index'
 import { CaseStudyParallax } from '@blocks/CaseStudyParallax/index'
 import { CodeBlock } from '@blocks/CodeBlock/index'
 import { CodeFeature } from '@blocks/CodeFeature/index'
+import { ComparisonTable } from '@blocks/ComparisonTable'
 import { ContentBlock } from '@blocks/Content/index'
 import { ContentGrid } from '@blocks/ContentGrid/index'
 import { FormBlock } from '@blocks/FormBlock/index'
@@ -37,7 +38,6 @@ import { getFieldsKeyFromBlock } from '@components/RenderBlocks/utilities'
 import { useThemePreference } from '@root/providers/Theme/index'
 import { toKebabCase } from '@utilities/to-kebab-case'
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react'
-import { ComparisonTable } from '@blocks/ComparisonTable'
 
 type ReusableContentBlockType = Extract<Page['layout'][0], { blockType: 'reusableContentBlock' }>
 

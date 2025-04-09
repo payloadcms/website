@@ -1,5 +1,4 @@
 import { Banner } from '@components/Banner'
-/* eslint-disable no-restricted-exports */
 import { RenderDocs } from '@components/RenderDocs'
 import config from '@payload-config'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'

@@ -12,7 +12,10 @@ type SubmitProps = {
   processing?: boolean
 } & ButtonProps
 
-const Submit = forwardRef<HTMLButtonElement, SubmitProps>((props, ref) => {
+const Submit = ({
+  ref,
+  ...props
+}: { ref?: React.RefObject<HTMLButtonElement | null> } & SubmitProps) => {
   const {
     id,
     appearance = 'default',
@@ -47,6 +50,6 @@ const Submit = forwardRef<HTMLButtonElement, SubmitProps>((props, ref) => {
       size={size}
     />
   )
-})
+}
 
 export default Submit

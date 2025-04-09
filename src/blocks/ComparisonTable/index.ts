@@ -1,23 +1,23 @@
+import type { Block } from 'payload'
+
 import { blockFields } from '@root/fields/blockFields'
-import { Block } from 'payload'
 
 export const ComparisonTable: Block = {
   slug: 'comparisonTable',
-  interfaceName: 'ComparisonTableType',
   fields: [
     blockFields({
       name: 'comparisonTableFields',
       fields: [
         {
           name: 'introContent',
-          label: 'Intro Content',
           type: 'richText',
+          label: 'Intro Content',
         },
         {
           name: 'style',
-          label: 'Style',
           type: 'select',
           defaultValue: 'default',
+          label: 'Style',
           options: [
             {
               label: 'Default',
@@ -31,7 +31,6 @@ export const ComparisonTable: Block = {
         },
         {
           name: 'header',
-          label: 'Table Header',
           type: 'group',
           admin: {
             hideGutter: true,
@@ -43,43 +42,41 @@ export const ComparisonTable: Block = {
                 {
                   name: 'tableTitle',
                   type: 'text',
+                  admin: {
+                    placeholder: 'Compare Features',
+                    width: '40%',
+                  },
                   label: 'Title',
                   required: true,
-                  admin: {
-                    width: '40%',
-                    placeholder: 'Compare Features',
-                  },
                 },
                 {
                   name: 'columnOneHeader',
                   type: 'text',
+                  admin: {
+                    placeholder: 'Payload',
+                    width: '30%',
+                  },
                   label: 'Column One Header',
                   required: true,
-                  admin: {
-                    width: '30%',
-                    placeholder: 'Payload',
-                  },
                 },
                 {
                   name: 'columnTwoHeader',
                   type: 'text',
+                  admin: {
+                    placeholder: 'The other guys',
+                    width: '30%',
+                  },
                   label: 'Column Two Header',
                   required: true,
-                  admin: {
-                    width: '30%',
-                    placeholder: 'The other guys',
-                  },
                 },
               ],
             },
           ],
+          label: 'Table Header',
         },
         {
           name: 'rows',
           type: 'array',
-          label: 'Rows',
-          minRows: 1,
-          maxRows: 10,
           fields: [
             {
               type: 'row',
@@ -87,60 +84,64 @@ export const ComparisonTable: Block = {
                 {
                   name: 'feature',
                   type: 'text',
+                  admin: {
+                    placeholder: 'Feature',
+                    width: '40%',
+                  },
                   label: false,
                   required: true,
-                  admin: {
-                    width: '40%',
-                    placeholder: 'Feature',
-                  },
                 },
                 {
                   name: 'columnOneCheck',
                   type: 'checkbox',
-                  label: false,
                   admin: {
                     components: {
                       Field: '@root/components/TableCheckboxField',
                     },
                   },
+                  label: false,
                 },
                 {
                   name: 'columnOne',
                   type: 'text',
-                  label: false,
                   admin: {
-                    width: 'calc(30% - 50px)',
                     style: {
                       alignSelf: 'flex-end',
                     },
+                    width: 'calc(30% - 50px)',
                   },
+                  label: false,
                 },
                 {
                   name: 'columnTwoCheck',
                   type: 'checkbox',
-                  label: false,
                   admin: {
                     components: {
                       Field: '@root/components/TableCheckboxField',
                     },
                   },
+                  label: false,
                 },
                 {
                   name: 'columnTwo',
                   type: 'text',
-                  label: false,
                   admin: {
-                    width: 'calc(30% - 50px)',
                     style: {
                       alignSelf: 'flex-end',
                     },
+                    width: 'calc(30% - 50px)',
                   },
+                  label: false,
                 },
               ],
             },
           ],
+          label: 'Rows',
+          maxRows: 10,
+          minRows: 1,
         },
       ],
     }),
   ],
+  interfaceName: 'ComparisonTableType',
 }

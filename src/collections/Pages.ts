@@ -58,7 +58,6 @@ export const Pages: CollectionConfig = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [],
               blockReferences: [
                 'callout',
                 'cta',
@@ -86,6 +85,7 @@ export const Pages: CollectionConfig = {
                 'stickyHighlights',
                 'exampleTabs',
               ],
+              blocks: [],
               required: true,
             },
           ],

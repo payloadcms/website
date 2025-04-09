@@ -5,7 +5,6 @@ import richText from '../../fields/richText'
 
 export const Form: Block = {
   slug: 'form',
-  interfaceName: 'FormBlock',
   fields: [
     blockFields({
       name: 'formFields',
@@ -23,6 +22,7 @@ export const Form: Block = {
   graphQL: {
     singularName: 'FormBlock',
   },
+  interfaceName: 'FormBlock',
   labels: {
     plural: 'Form Blocks',
     singular: 'Form Block',

@@ -21,7 +21,7 @@ const Context = React.createContext<ContextT>({
   headerTheme: null,
   setHeaderTheme: () => {},
 })
-export const useHeaderObserver = (): ContextT => React.useContext(Context)
+export const useHeaderObserver = (): ContextT => React.use(Context)
 
 type HeaderIntersectionObserverProps = {
   children: React.ReactNode
@@ -104,7 +104,7 @@ export const HeaderIntersectionObserver: React.FC<HeaderIntersectionObserverProp
   }, [pathname])
 
   return (
-    <Context.Provider
+    <Context
       value={{
         addObservable,
         debug,
@@ -116,6 +116,6 @@ export const HeaderIntersectionObserver: React.FC<HeaderIntersectionObserverProp
         {debug && <div className={classes.intersectionObserverDebugger} />}
         {children}
       </>
-    </Context.Provider>
+    </Context>
   )
 }

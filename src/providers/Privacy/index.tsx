@@ -1,7 +1,7 @@
 'use client'
 
 import canUseDom from '@root/utilities/can-use-dom'
-import React, { createContext, useCallback, useContext, useEffect, useState } from 'react'
+import React, { createContext, use, useCallback, useEffect, useState } from 'react'
 
 type Privacy = {
   cookieConsent?: boolean
@@ -81,12 +81,12 @@ const PrivacyProvider: React.FC<{ children: React.ReactNode }> = ({ children }) 
   }, [cookieConsent])
 
   return (
-    <Context.Provider value={{ cookieConsent, country, showConsent, updateCookieConsent }}>
+    <Context value={{ cookieConsent, country, showConsent, updateCookieConsent }}>
       {children}
-    </Context.Provider>
+    </Context>
   )
 }
 
-const usePrivacy = (): Privacy => useContext(Context)
+const usePrivacy = (): Privacy => use(Context)
 
 export { PrivacyProvider, usePrivacy }

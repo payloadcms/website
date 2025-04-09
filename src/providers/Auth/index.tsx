@@ -1,7 +1,7 @@
 'use client'
 
 import { ME_QUERY, USER } from '@data/me'
-import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
+import React, { createContext, use, useCallback, useEffect, useRef, useState } from 'react'
 
 import type { User } from '../../payload-cloud-types'
 
@@ -257,7 +257,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   )
 
   return (
-    <Context.Provider
+    <Context
       value={{
         forgotPassword,
         login,
@@ -269,10 +269,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }}
     >
       {children}
-    </Context.Provider>
+    </Context>
   )
 }
 
 type UseAuth<T = User> = () => AuthContext
 
-export const useAuth: UseAuth = () => useContext(Context)
+export const useAuth: UseAuth = () => use(Context)

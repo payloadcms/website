@@ -1,6 +1,6 @@
 import type { StaticImageData } from 'next/image'
+import type { TypedUploadCollection, UploadCollectionSlug } from 'payload'
 import type { ElementType, Ref } from 'react'
-import type { UploadCollectionSlug, TypedUploadCollection } from 'payload'
 
 export interface Props {
   alt?: string

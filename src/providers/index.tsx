@@ -5,10 +5,9 @@ import { ModalContainer, ModalProvider } from '@faceless-ui/modal'
 import { MouseInfoProvider } from '@faceless-ui/mouse-info'
 import { ScrollInfoProvider } from '@faceless-ui/scroll-info'
 import { WindowInfoProvider } from '@faceless-ui/window-info'
+import { HeaderIntersectionObserver } from '@root/providers/HeaderIntersectionObserver/index'
 import React from 'react'
 import { CookiesProvider } from 'react-cookie'
-
-import { HeaderIntersectionObserver } from '@root/providers/HeaderIntersectionObserver/index'
 
 import { AuthProvider } from './Auth/index'
 import { ComputedCSSValuesProvider } from './ComputedCSSValues/index'

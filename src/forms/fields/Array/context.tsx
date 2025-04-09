@@ -13,7 +13,7 @@ const ArrayContext = React.createContext<{
   uuids: [],
 })
 
-export const useArray = () => React.useContext(ArrayContext)
+export const useArray = () => React.use(ArrayContext)
 
 export const ArrayProvider: React.FC<{
   children: React.ReactNode
@@ -50,7 +50,7 @@ export const ArrayProvider: React.FC<{
   }, [clearCount, clearRows])
 
   return (
-    <ArrayContext.Provider
+    <ArrayContext
       value={{
         addRow,
         clearRows,
@@ -59,6 +59,6 @@ export const ArrayProvider: React.FC<{
       }}
     >
       {children}
-    </ArrayContext.Provider>
+    </ArrayContext>
   )
 }

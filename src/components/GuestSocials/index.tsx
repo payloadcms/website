@@ -1,25 +1,26 @@
-import { SocialIcon } from '@components/SocialIcon'
 import type { Post } from '@types'
 
+import { SocialIcon } from '@components/SocialIcon'
+
 type GuestSocialProps = {
-  guestSocials: NonNullable<Post['guestSocials']>
   className?: string
+  guestSocials: NonNullable<Post['guestSocials']>
 }
 
 export const GuestSocials: React.FC<GuestSocialProps> = ({ guestSocials }) => {
   return (
     <>
       {guestSocials.youtube && (
-        <SocialIcon platform="youtube" size="small" href={guestSocials.youtube} />
+        <SocialIcon href={guestSocials.youtube} platform="youtube" size="small" />
       )}
       {guestSocials.twitter && (
-        <SocialIcon platform="twitter" size="small" href={guestSocials.twitter} />
+        <SocialIcon href={guestSocials.twitter} platform="twitter" size="small" />
       )}
       {guestSocials.linkedin && (
-        <SocialIcon platform="linkedin" size="small" href={guestSocials.linkedin} />
+        <SocialIcon href={guestSocials.linkedin} platform="linkedin" size="small" />
       )}
       {guestSocials.website && (
-        <SocialIcon platform="web" size="small" href={guestSocials.website} />
+        <SocialIcon href={guestSocials.website} platform="web" size="small" />
       )}
     </>
   )

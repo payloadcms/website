@@ -33,7 +33,7 @@ export type FormProps = {
   onSubmit?: OnSubmit
 }
 
-const Form = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
+const Form = ({ ref, ...props }: { ref?: React.RefObject<HTMLFormElement | null> } & FormProps) => {
   const {
     action,
     children,
@@ -144,25 +144,25 @@ const Form = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
       onSubmit={contextRef.current.handleSubmit}
       ref={ref}
     >
-      <FormContext.Provider
+      <FormContext
         value={{
           ...contextRef.current,
           apiErrors: errorsFromProps,
           submissionError: errorFromSubmit,
         }}
       >
-        <FieldContext.Provider value={contextRef.current}>
-          <FormSubmittedContext.Provider value={hasSubmitted}>
-            <ProcessingContext.Provider value={isProcessing}>
-              <ModifiedContext.Provider value={isModified}>
+        <FieldContext value={contextRef.current}>
+          <FormSubmittedContext value={hasSubmitted}>
+            <ProcessingContext value={isProcessing}>
+              <ModifiedContext value={isModified}>
                 {typeof children === 'function' ? children(contextRef.current) : children}
-              </ModifiedContext.Provider>
-            </ProcessingContext.Provider>
-          </FormSubmittedContext.Provider>
-        </FieldContext.Provider>
-      </FormContext.Provider>
+              </ModifiedContext>
+            </ProcessingContext>
+          </FormSubmittedContext>
+        </FieldContext>
+      </FormContext>
     </form>
   )
-})
+}
 
 export default Form

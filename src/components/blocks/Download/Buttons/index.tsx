@@ -1,13 +1,15 @@
 'use client'
 
+import type { DownloadBlockType } from '@types'
+
+import { Tooltip } from '@components/Tooltip'
 import { DownloadIcon } from '@graphics/DownloadIcon'
+import { CheckIcon } from '@icons/CheckIcon'
 import { CopyIcon } from '@icons/CopyIcon'
-import { DownloadBlockType, Media } from '@types'
+import { Media } from '@types'
+import { useState } from 'react'
 
 import classes from '../index.module.scss'
-import { Tooltip } from '@components/Tooltip'
-import { useState } from 'react'
-import { CheckIcon } from '@icons/CheckIcon'
 export const DownloadButton: React.FC<{
   file: NonNullable<DownloadBlockType['downloads']>[0]['file']
 }> = ({ file }) => {
@@ -21,12 +23,12 @@ export const DownloadButton: React.FC<{
   if (typeof file !== 'string' && file.url) {
     return (
       <Tooltip
-        text={clicked ? 'Downloading!' : 'Download'}
         className={classes.button}
         onClick={handleClick}
+        text={clicked ? 'Downloading!' : 'Download'}
         unstyled
       >
-        <a href={file.url} download={file.filename} target="_blank">
+        <a download={file.filename} href={file.url} target="_blank">
           {clicked ? <CheckIcon /> : <DownloadIcon />}
         </a>
       </Tooltip>
@@ -47,9 +49,9 @@ export const CopyButton: React.FC<{
 
   return (
     <Tooltip
-      text={clicked ? 'Copied!' : 'Copy to clipboard'}
       className={classes.button}
       onClick={handleClick}
+      text={clicked ? 'Copied!' : 'Copy to clipboard'}
       unstyled
     >
       {clicked ? <CheckIcon /> : <CopyIcon />}

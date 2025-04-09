@@ -1,11 +1,12 @@
-import { BlockWrapper, type PaddingProps } from '@components/BlockWrapper/index'
+import type { Page } from '@types'
 
-import { Gutter } from '@components/Gutter'
-import classes from './index.module.scss'
 import { BackgroundGrid } from '@components/BackgroundGrid'
-import { Page } from '@types'
-import { TableIcon } from './Icons'
+import { BlockWrapper, type PaddingProps } from '@components/BlockWrapper/index'
+import { Gutter } from '@components/Gutter'
 import { RichText } from '@components/RichText'
+
+import { TableIcon } from './Icons'
+import classes from './index.module.scss'
 
 type ComparisonTableProps = {
   hideBackground?: boolean
@@ -13,8 +14,8 @@ type ComparisonTableProps = {
 } & Extract<Page['layout'][0], { blockType: 'comparisonTable' }>
 
 export const ComparisonTable: React.FC<ComparisonTableProps> = (props) => {
-  const { padding, comparisonTableFields } = props
-  const { introContent, style, settings, header, rows } = comparisonTableFields || {}
+  const { comparisonTableFields, padding } = props
+  const { header, introContent, rows, settings, style } = comparisonTableFields || {}
 
   return (
     <BlockWrapper padding={padding} settings={settings}>
@@ -23,7 +24,7 @@ export const ComparisonTable: React.FC<ComparisonTableProps> = (props) => {
         <div className="cols-16 cols-m-8 grid">
           {introContent && (
             <div className={style === 'centered' ? 'cols-8 start-5 start-m-1' : 'cols-8'}>
-              <RichText content={introContent} className={classes.richText} />
+              <RichText className={classes.richText} content={introContent} />
             </div>
           )}
         </div>
@@ -43,7 +44,7 @@ export const ComparisonTable: React.FC<ComparisonTableProps> = (props) => {
             </thead>
             <tbody>
               {rows?.map(
-                ({ feature, columnOneCheck, columnOne, columnTwoCheck, columnTwo, id }) => (
+                ({ id, columnOne, columnOneCheck, columnTwo, columnTwoCheck, feature }) => (
                   <tr key={id}>
                     <td>{feature}</td>
                     <td>

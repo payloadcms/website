@@ -10,6 +10,7 @@ import { Gutter } from '@components/Gutter'
 import { JumplistProvider } from '@components/Jumplist'
 import { PayloadRedirects } from '@components/PayloadRedirects'
 import { RelatedHelpList } from '@components/RelatedHelpList/index'
+import { RelatedResources } from '@components/RelatedResources'
 import { RichTextWithTOC } from '@components/RichText'
 import { TableOfContents } from '@components/TableOfContents/index'
 import { VersionSelector } from '@components/VersionSelector/index'
@@ -20,7 +21,6 @@ import Link from 'next/link'
 import React, { Suspense } from 'react'
 
 import classes from './index.module.scss'
-import { RelatedResources } from '@components/RelatedResources'
 
 export type DocsVersion = 'beta' | 'current' | 'dynamic' | 'local' | 'v2'
 

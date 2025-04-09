@@ -6,6 +6,7 @@ import { BackgroundScanline } from '@components/BackgroundScanline/index'
 import { CMSLink } from '@components/CMSLink/index'
 import Code from '@components/Code/index'
 import CodeBlip from '@components/CodeBlip/index'
+const CodeBlipProvider = CodeBlip.Provider
 import { Gutter } from '@components/Gutter/index'
 import { Media } from '@components/Media/index'
 import { RichText } from '@components/RichText/index'
@@ -196,8 +197,8 @@ export const StickyHighlightComponent: React.FC<Props> = ({
 
 export const StickyHighlight: React.FC<Props> = React.memo((props) => {
   return (
-    <CodeBlip.Provider>
+    <CodeBlipProvider>
       <StickyHighlightComponent {...props} />
-    </CodeBlip.Provider>
+    </CodeBlipProvider>
   )
 })

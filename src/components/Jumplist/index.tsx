@@ -3,7 +3,7 @@
 import { ChainLinkIcon } from '@root/icons/ChainLinkIcon/index'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import React, { createContext, useContext, useEffect, useReducer, useRef, useState } from 'react'
+import React, { createContext, use, useEffect, useReducer, useRef, useState } from 'react'
 
 import type { IContext, NodeProps, Props, Reducer } from './types'
 
@@ -25,14 +25,10 @@ export const JumplistProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const [items, dispatch] = useReducer(reducer, {})
   const [lastActive, setLastActive] = useState<string | undefined>()
 
-  return (
-    <Context.Provider value={{ dispatch, items, lastActive, setLastActive }}>
-      {children}
-    </Context.Provider>
-  )
+  return <Context value={{ dispatch, items, lastActive, setLastActive }}>{children}</Context>
 }
 
-export const useJumplist = (): IContext => useContext(Context)
+export const useJumplist = (): IContext => use(Context)
 
 export const Jumplist: React.FC<Props> = ({ className, injectProps, list }) => {
   const { items, lastActive } = useJumplist()

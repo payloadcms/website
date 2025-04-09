@@ -2,6 +2,7 @@ import type { ReusableContent } from '@root/payload-types'
 
 import Code from '@components/Code/index'
 import CodeBlip from '@components/CodeBlip/index'
+const CodeBlipProvider = CodeBlip.Provider
 import { Gutter } from '@components/Gutter/index'
 import React from 'react'
 
@@ -19,7 +20,7 @@ export const CodeBlock: React.FC<
   } = codeFields
 
   return (
-    <CodeBlip.Provider>
+    <CodeBlipProvider>
       <div className={classes.container}>
         <CodeBlip.Modal />
         {disableGutter ? (
@@ -42,6 +43,6 @@ export const CodeBlock: React.FC<
           </Gutter>
         )}
       </div>
-    </CodeBlip.Provider>
+    </CodeBlipProvider>
   )
 }

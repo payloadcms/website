@@ -17,7 +17,7 @@ export const useStarCount = (): string | undefined => {
       }
     }
 
-    getStarCount()
+    void getStarCount()
   }, [])
 
   return starCount

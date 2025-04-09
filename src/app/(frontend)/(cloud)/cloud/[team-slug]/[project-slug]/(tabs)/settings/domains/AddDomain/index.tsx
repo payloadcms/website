@@ -7,11 +7,11 @@ import { Text } from '@forms/fields/Text/index'
 import Form from '@forms/Form/index'
 import Submit from '@forms/Submit/index'
 import { validateDomain } from '@forms/validations'
+import { useRouter } from 'next/navigation'
 import * as React from 'react'
 import { toast } from 'sonner'
 
 import classes from './index.module.scss'
-import { useRouter } from 'next/navigation'
 
 const generateUUID = () => {
   return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)

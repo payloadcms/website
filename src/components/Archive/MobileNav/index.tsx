@@ -15,7 +15,7 @@ export const MobileNav = ({
   currentCategory: string
 }) => {
   return (
-    <Accordion.Root type="single" className={className} collapsible>
+    <Accordion.Root className={className} collapsible type="single">
       <Accordion.Item value="menu">
         <Accordion.Trigger asChild>
           <div className={classes.mobileNavTrigger}>

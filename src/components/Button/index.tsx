@@ -243,7 +243,10 @@ const elements: {
   div: 'div',
 }
 
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
+export const Button = ({
+  ref,
+  ...props
+}: { ref?: React.RefObject<HTMLButtonElement | null> } & ButtonProps) => {
   const {
     id,
     type,
@@ -377,4 +380,4 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
   }
 
   return null
-})
+}

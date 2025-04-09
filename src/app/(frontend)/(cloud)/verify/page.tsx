@@ -8,7 +8,6 @@ import { redirect } from 'next/navigation'
 // this is only an issue in production
 export const dynamic = 'force-dynamic'
 
-// eslint-disable-next-line no-restricted-exports
 export default async ({ searchParams }) => {
   const { email: emailParam, redirect: redirectParam, token } = searchParams
 

@@ -1,11 +1,9 @@
+import { Archive } from '@components/Archive'
 import { fetchArchive, fetchArchives } from '@data'
 import { unstable_cache } from 'next/cache'
 import { draftMode } from 'next/headers'
-
-import React from 'react'
-
 import { notFound } from 'next/navigation'
-import { Archive } from '@components/Archive'
+import React from 'react'
 
 export default async ({
   params,
@@ -47,7 +45,7 @@ export const generateMetadata = async ({ params }: { params: Promise<{ category:
   const { name, description } = archive
 
   return {
-    title: `${name} | Payload`,
     description,
+    title: `${name} | Payload`,
   }
 }

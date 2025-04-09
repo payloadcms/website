@@ -1,22 +1,11 @@
-import { Block } from 'payload'
+import type { Block } from 'payload'
 
 export const DownloadBlock: Block = {
   slug: 'downloadBlock',
-  interfaceName: 'DownloadBlockType',
-  labels: {
-    singular: 'Download Block',
-    plural: 'Download Blocks',
-  },
   fields: [
     {
       name: 'downloads',
-      label: 'Downloads',
-      labels: {
-        singular: 'Download',
-        plural: 'Downloads',
-      },
       type: 'array',
-      minRows: 1,
       fields: [
         {
           name: 'name',
@@ -29,21 +18,21 @@ export const DownloadBlock: Block = {
             {
               name: 'file',
               type: 'upload',
-              relationTo: 'media',
-              required: true,
               admin: {
                 description: 'The file to download',
                 width: '50%',
               },
+              relationTo: 'media',
+              required: true,
             },
             {
               name: 'thumbnail',
               type: 'upload',
-              relationTo: 'media',
               admin: {
                 description: 'Thumbnail for the download. Defaults to file for images',
                 width: '50%',
               },
+              relationTo: 'media',
             },
           ],
         },
@@ -53,29 +42,29 @@ export const DownloadBlock: Block = {
             {
               name: 'thumbnailAppearance',
               type: 'select',
-              required: true,
+              admin: {
+                width: '50%',
+              },
               defaultValue: 'cover',
               options: [
                 { label: 'Cover', value: 'cover' },
                 { label: 'Contain', value: 'contain' },
               ],
-              admin: {
-                width: '50%',
-              },
+              required: true,
             },
             {
               name: 'background',
               type: 'select',
-              required: true,
+              admin: {
+                width: '50%',
+              },
               defaultValue: 'auto',
               options: [
                 { label: 'Auto', value: 'auto' },
                 { label: 'Light', value: 'light' },
                 { label: 'Dark', value: 'dark' },
               ],
-              admin: {
-                width: '50%',
-              },
+              required: true,
             },
           ],
         },
@@ -91,6 +80,17 @@ export const DownloadBlock: Block = {
           },
         },
       ],
+      label: 'Downloads',
+      labels: {
+        plural: 'Downloads',
+        singular: 'Download',
+      },
+      minRows: 1,
     },
   ],
+  interfaceName: 'DownloadBlockType',
+  labels: {
+    plural: 'Download Blocks',
+    singular: 'Download Block',
+  },
 }

@@ -1,5 +1,5 @@
 'use client'
-import { createContext, useContext } from 'react'
+import { createContext, use } from 'react'
 
 type HeadingType = 'primary' | 'secondary' | 'tertiary'
 
@@ -21,4 +21,4 @@ export const RichTextContext = createContext<IContext>({
   toc: [] as Array<[string, Heading]>,
 })
 
-export const useRichText = (): IContext => useContext(RichTextContext)
+export const useRichText = (): IContext => use(RichTextContext)

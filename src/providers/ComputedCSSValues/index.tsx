@@ -6,7 +6,7 @@ interface IComputedCSSValues {
 }
 export const Context = React.createContext<IComputedCSSValues | undefined>(undefined)
 export const useComputedCSSValues = (): IComputedCSSValues => {
-  const context = React.useContext(Context)
+  const context = React.use(Context)
 
   if (context === undefined) {
     throw new Error('useComputedCSSValues must be used within a ComputedCSSValuesProvider')
@@ -23,13 +23,13 @@ export const ComputedCSSValuesProvider: React.FC<Props> = ({ children }) => {
   const resize = useResize(gutterRef)
 
   return (
-    <Context.Provider
+    <Context
       value={{
         gutterH: resize.size?.width ?? 0,
       }}
     >
       {children}
       <div ref={gutterRef} style={{ width: `var(--gutter-h)` }} />
-    </Context.Provider>
+    </Context>
   )
 }

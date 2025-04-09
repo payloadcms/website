@@ -143,7 +143,6 @@ export const DocsNavigation = ({
             </div>
           )}
           <Accordion.Root
-            value={openTopicPreferences}
             onValueChange={(value) => {
               // We only want to have one topic open at a time,
               // so we'll always set the last value in the array
@@ -153,6 +152,7 @@ export const DocsNavigation = ({
               setOpenTopicPreferences(newValue)
             }}
             type="multiple"
+            value={openTopicPreferences}
           >
             {topics.map((tGroup, groupIndex) => (
               <Fragment key={`group-${groupIndex}`}>

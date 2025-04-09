@@ -1,7 +1,7 @@
 'use client'
 
 import canUseDom from '@root/utilities/can-use-dom'
-import React, { createContext, useCallback, useContext, useEffect, useState } from 'react'
+import React, { createContext, use, useCallback, useEffect, useState } from 'react'
 
 import type { Theme, ThemePreferenceContextType } from './types'
 
@@ -53,12 +53,7 @@ export const ThemePreferenceProvider: React.FC<{ children?: React.ReactNode }> =
     setThemeState(themeToSet)
   }, [])
 
-  return (
-    <ThemePreferenceContext.Provider value={{ setTheme, theme }}>
-      {children}
-    </ThemePreferenceContext.Provider>
-  )
+  return <ThemePreferenceContext value={{ setTheme, theme }}>{children}</ThemePreferenceContext>
 }
 
-export const useThemePreference = (): ThemePreferenceContextType =>
-  useContext(ThemePreferenceContext)
+export const useThemePreference = (): ThemePreferenceContextType => use(ThemePreferenceContext)

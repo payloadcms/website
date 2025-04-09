@@ -5,7 +5,7 @@ import * as React from 'react'
 import classes from './index.module.scss'
 
 export type Breadcrumb = {
-  label?: null | string | React.ReactNode
+  label?: null | React.ReactNode | string
   url?: null | string
 }
 

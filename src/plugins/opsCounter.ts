@@ -1,4 +1,6 @@
-import { APIError, CollectionBeforeOperationHook, Plugin } from 'payload'
+import type { CollectionBeforeOperationHook, Plugin } from 'payload'
+
+import { APIError } from 'payload'
 
 type Args = {
   max?: number
@@ -11,7 +13,7 @@ export const opsCounterPlugin =
     const max = args?.max || 50
     const warnAt = args?.warnAt || 10
 
-    const beforeOperationHook: CollectionBeforeOperationHook = ({ req, collection, operation }) => {
+    const beforeOperationHook: CollectionBeforeOperationHook = ({ collection, operation, req }) => {
       const currentCount = req.context.opsCount
 
       if (typeof currentCount === 'number') {
@@ -32,8 +34,12 @@ export const opsCounterPlugin =
     }
 
     ;(config.collections || []).forEach((collection) => {
-      if (!collection.hooks) collection.hooks = {}
-      if (!collection.hooks.beforeOperation) collection.hooks.beforeOperation = []
+      if (!collection.hooks) {
+        collection.hooks = {}
+      }
+      if (!collection.hooks.beforeOperation) {
+        collection.hooks.beforeOperation = []
+      }
 
       collection.hooks.beforeOperation.push(beforeOperationHook)
     })

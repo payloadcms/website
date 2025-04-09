@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-exports */
 import { BackgroundGrid } from '@components/BackgroundGrid'
 import { BackgroundScanline } from '@components/BackgroundScanline'
 import { CMSForm } from '@components/CMSForm'
