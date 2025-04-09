@@ -129,11 +129,7 @@ export const jsxConverters: (args: { toc?: boolean }) => JSXConvertersFunction<N
             return null
           }
 
-          if (typeof node.fields.post === 'string') {
-            return <Resource id={node.fields.post} />
-          } else {
-            return <Resource id={node.fields.post.id} />
-          }
+          return <Resource id={node.fields.post} />
         },
         RestExamples: ({ node }) => {
           return <RestExamples data={node.fields.data} />

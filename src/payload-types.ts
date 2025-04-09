@@ -3056,7 +3056,7 @@ export interface RestExamplesBlock {
  * via the `definition` "ResourceBlock".
  */
 export interface ResourceBlock {
-  post?: (string | null) | Post;
+  post?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'Resource';

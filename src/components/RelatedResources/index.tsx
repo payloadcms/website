@@ -30,8 +30,6 @@ export const RelatedResources: React.FC<RelatedResourcesProps> = ({ guides, rela
             <Accordion.Content asChild>
               <ul className={classes.list}>
                 {guides.map((guide) => {
-                  console.log({ guide })
-
                   return (
                     typeof guide !== 'string' && (
                       <li className={classes.item} key={guide.slug}>

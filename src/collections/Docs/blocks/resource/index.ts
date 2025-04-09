@@ -5,8 +5,7 @@ export const ResourceBlock: Block = {
   fields: [
     {
       name: 'post',
-      type: 'relationship',
-      relationTo: 'posts',
+      type: 'text',
     },
   ],
   interfaceName: 'ResourceBlock',
