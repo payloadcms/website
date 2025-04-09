@@ -2402,7 +2402,7 @@ export interface ReusableContent {
     | CaseStudyCards
     | CaseStudiesHighlight
     | CaseStudyParallax
-    | CodeBlock
+    | Code
     | CodeFeature
     | ComparisonTableType
     | Content
@@ -2424,38 +2424,6 @@ export interface ReusableContent {
   )[];
   updatedAt: string;
   createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CodeBlock".
- */
-export interface CodeBlock {
-  language?:
-    | (
-        | 'bash'
-        | 'css'
-        | 'dockerfile'
-        | 'env'
-        | 'graphql'
-        | 'html'
-        | 'js'
-        | 'json'
-        | 'jsx'
-        | 'plaintext'
-        | 'scss'
-        | 'sh'
-        | 'text'
-        | 'ts'
-        | 'tsx'
-        | 'vue'
-        | 'yaml'
-        | 'yml'
-      )
-    | null;
-  code?: string | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'Code';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3234,6 +3202,38 @@ export interface BannerBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'Banner';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CodeBlock".
+ */
+export interface CodeBlock {
+  language?:
+    | (
+        | 'bash'
+        | 'css'
+        | 'dockerfile'
+        | 'env'
+        | 'graphql'
+        | 'html'
+        | 'js'
+        | 'json'
+        | 'jsx'
+        | 'plaintext'
+        | 'scss'
+        | 'sh'
+        | 'text'
+        | 'ts'
+        | 'tsx'
+        | 'vue'
+        | 'yaml'
+        | 'yml'
+      )
+    | null;
+  code?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'Code';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
