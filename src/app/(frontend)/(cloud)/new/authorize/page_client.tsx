@@ -13,7 +13,7 @@ import { usePopupWindow } from '@root/utilities/use-popup-window'
 import { uuid as generateUUID } from '@root/utilities/uuid'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 
 import classes from './page.module.scss'
 
@@ -30,8 +30,10 @@ export const AuthorizePage: React.FC = () => {
     getSafeRedirect(redirectParam || `/new${teamParam ? `?team=${teamParam}` : ''}`),
   )
 
-  // Set uuid in local storage and pass through with state. To be validated later.
-  localStorage.setItem(`gh-redirect-uuid`, uuid)
+  useEffect(() => {
+    // Set uuid in local storage and pass through with state. To be validated later.
+    localStorage.setItem(`gh-redirect-uuid`, uuid)
+  }, [uuid])
 
   const href = `https://github.com/login/oauth/authorize?client_id=${
     process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID
