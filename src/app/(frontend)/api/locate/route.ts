@@ -1,4 +1,4 @@
-const gdprCountryCodes = [
+const gdprCountryCodes = new Set([
   // -----[ EU 28 ]-----
   'AT', // Austria
   'BE', // Belgium
@@ -75,14 +75,14 @@ const gdprCountryCodes = [
   // -----[ Other ]-----
   'JE', // Jersey
   'GG', // Guernsey
-]
+])
 
 /**
  * Returns the status of GDPR requirement and defaults to true when unknown
  * @param countryCode
  */
 const locate = (countryCode: null | string = null): boolean =>
-  countryCode ? gdprCountryCodes.indexOf(countryCode) > -1 : true
+  countryCode ? gdprCountryCodes.has(countryCode) : true
 
 export function GET(req: Request) {
   const country = req.headers.get('x-vercel-ip-country')
