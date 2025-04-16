@@ -78,7 +78,7 @@ const CardList: React.FC<CreditCardListType> = (props) => {
                 <div>
                   {isDeleting
                     ? 'Deleting...'
-                    : `${paymentMethod?.card?.brand} ending in ${paymentMethod?.card?.last4}`}
+                    : `${paymentMethod?.card?.brand} ending in ${paymentMethod?.card?.last4} exp ${paymentMethod?.card?.exp_month}/${paymentMethod?.card?.exp_year}`}
                 </div>
                 {isDefault && (
                   <div className={classes.default}>
@@ -164,6 +164,10 @@ const CardList: React.FC<CreditCardListType> = (props) => {
             <b>{`${paymentMethodToDelete?.current?.card?.brand}`}</b>
             {` ending in `}
             <b>{`${paymentMethodToDelete?.current?.card?.last4}`}</b>
+            {` exp `}
+            <b>
+              {`${paymentMethodToDelete?.current?.card?.exp_month}/${paymentMethodToDelete?.current?.card?.exp_year}`}
+            </b>
             {`?`}
           </Heading>
           <p>Are you sure you want to do this? This action cannot be undone.</p>
