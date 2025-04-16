@@ -128,7 +128,7 @@ export const CreditCardSelector: React.FC<CreditCardSelectorType> = (props) => {
                 id={paymentMethod.id}
                 label={
                   <div className={classes.cardBrand}>
-                    {`${paymentMethod?.card?.brand} ending in ${paymentMethod?.card?.last4}`}
+                    {`${paymentMethod?.card?.brand} ending in ${paymentMethod?.card?.last4} expires ${paymentMethod?.card?.exp_month}/${paymentMethod?.card?.exp_year}`}
                     {isDefault && (
                       <div className={classes.default}>
                         <Pill text="Default" />
