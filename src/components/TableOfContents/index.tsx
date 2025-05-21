@@ -1,11 +1,10 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 'use client'
 
-import type { ListItem } from '@components/Jumplist/types'
 import type { Heading } from '@root/collections/Docs/types'
 
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 
-import { Jumplist } from '../Jumplist/index'
 import classes from './index.module.scss'
 
 export type Props = {
@@ -13,71 +12,64 @@ export type Props = {
   headings: Heading[]
 }
 
-export const TableOfContents: React.FC<Props> = ({ className, headings }) => {
-  const listItemRefs = useRef<(HTMLDivElement | null)[]>([])
-  const [indicatorTop, setIndicatorTop] = useState<number | undefined>(undefined)
-  const [activeHeadingId, setActiveHeadingId] = useState<null | string>(null)
-  const [resetIndicator, setResetIndicator] = useState(true)
+export const TableOfContents: React.FC<Props> = ({ className = '', headings }) => {
+  const [onViewport, setOnViewport] = useState<null | string>(null)
+  const [hovered, setHovered] = useState<null | string>(null)
+
+  const activeId = hovered ?? onViewport
+
+  const offsetTop = useMemo(() => {
+    if (!activeId) {
+      return 0
+    }
+    const toc = document.getElementById('toc')
+    const el = toc?.querySelector(`a[href="#${activeId}"]`) as HTMLAnchorElement
+    const rect = el.getBoundingClientRect()
+    const tocRect = toc?.getBoundingClientRect()
+    return rect.top - (tocRect?.top ?? 0)
+  }, [activeId])
 
   useEffect(() => {
-    if (activeHeadingId !== null) {
-      const offsetTop = activeHeadingId ? listItemRefs.current[activeHeadingId]?.offsetTop : 0
-      setIndicatorTop(offsetTop)
-    } else {
-      setIndicatorTop(undefined)
+    const handleScroll = () => {
+      setHovered(null)
+      for (const { anchor } of headings) {
+        const el = document.getElementById(anchor)
+        const rect = el?.getBoundingClientRect()
+        if (rect && rect.top >= 70 && rect.bottom <= window.innerHeight) {
+          setOnViewport(anchor)
+          break
+        }
+      }
     }
-    if (resetIndicator) {
-      setResetIndicator(false)
-    }
-  }, [activeHeadingId, headings, resetIndicator])
 
-  const [list, setList] = useState<ListItem[]>([])
+    window.addEventListener('scroll', handleScroll)
+    handleScroll() // Initial run
 
-  useEffect(() => {
-    setList(
-      headings.map(({ anchor, level, text }) => ({
-        id: anchor,
-        anchor,
-        Component: ({ active }) => {
-          useEffect(() => {
-            if (active) {
-              setActiveHeadingId(anchor)
-            }
-          }, [active])
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [headings])
 
-          const handleMouseEnter = () => {
-            const offsetTop = listItemRefs.current[anchor]?.offsetTop || 0
-            setIndicatorTop(offsetTop)
-          }
+  return (
+    <nav className={[classes.wrap, className].filter(Boolean).join(' ')} id="toc">
+      <h6 className={classes.tocTitle}>On this page</h6>
+      <ul className={classes.toc} onMouseLeave={() => setHovered(null)}>
+        {headings.map(({ anchor, level, text }) => {
+          const isActive = anchor === activeId
           return (
             <div
-              className={[classes[`heading-${level}`], active && classes.active]
+              className={[classes[`heading-${level}`], isActive && classes.active]
                 .filter(Boolean)
                 .join(' ')}
               key={anchor}
-              onMouseEnter={handleMouseEnter}
-              ref={(ref) => {
-                listItemRefs.current[anchor] = ref
-              }}
+              onMouseEnter={() => setHovered(anchor)}
             >
-              {text}
+              <a className={classes.link} href={`#${anchor}`}>
+                {text}
+              </a>
             </div>
           )
-        },
-      })),
-    )
-  }, [headings])
-
-  return headings?.length > 0 ? (
-    <div
-      className={[classes.wrap, className].filter(Boolean).join(' ')}
-      onMouseLeave={() => setResetIndicator(true)}
-    >
-      <h6 className={classes.tocTitle}>On this page</h6>
-      <Jumplist className={classes.toc} list={list} />
-      {indicatorTop !== undefined && (
-        <div className={classes.indicator} style={{ top: indicatorTop }} />
-      )}
-    </div>
-  ) : null
+        })}
+      </ul>
+      <div className={classes.indicator} style={{ top: offsetTop }} />
+    </nav>
+  )
 }

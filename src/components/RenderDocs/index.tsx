@@ -7,9 +7,7 @@ import { DiscordGitCTA } from '@components/DiscordGitCTA/index'
 import { DocsNavigation } from '@components/DocsNavigation'
 import { Feedback } from '@components/Feedback'
 import { Gutter } from '@components/Gutter'
-import { JumplistProvider } from '@components/Jumplist'
 import { PayloadRedirects } from '@components/PayloadRedirects'
-import { RelatedHelpList } from '@components/RelatedHelpList/index'
 import { RelatedResources } from '@components/RelatedResources'
 import { RichTextWithTOC } from '@components/RichText'
 import { TableOfContents } from '@components/TableOfContents/index'
@@ -126,62 +124,60 @@ export const RenderDocs = async ({
 
   return (
     <Gutter className={classes.wrap}>
-      <JumplistProvider>
-        <div className="grid">
-          <DocsNavigation
-            currentDoc={docSlug}
-            currentTopic={topicSlug}
-            docIndex={docIndex}
-            groupIndex={groupIndex}
-            indexInGroup={topicIndex}
-            topics={topicGroups}
-            version={version}
-          />
-          <div aria-hidden className={classes.navOverlay} />
-          <main className={['cols-8 start-5 cols-m-8 start-m-1', classes.content].join(' ')}>
-            <Suspense fallback={<DocsSkeleton />}>
-              {children}
-              <h1 className={classes.title}>{currentDoc.title}</h1>
-              <div className={classes.mdx}>
-                <RichTextWithTOC content={currentDoc.content} />
-              </div>
-            </Suspense>
-            {next && (
-              <Link
-                className={[classes.next, hasRelatedThreads && classes.hasRelatedThreads]
-                  .filter(Boolean)
-                  .join(' ')}
-                data-algolia-no-crawl
-                href={`/docs/${version ? `${version}/` : ''}${next?.topic?.toLowerCase()}/${
-                  next.slug
-                }`}
-                prefetch={false}
-              >
-                <div className={classes.nextLabel}>
-                  Next <ArrowIcon />
-                </div>
-                <h3>{next.title}</h3>
-
-                <BackgroundScanline className={classes.nextScanlines} />
-              </Link>
-            )}
-            {(hasGuides || hasRelatedThreads) && (
-              <RelatedResources guides={guides} relatedThreads={relatedThreads} />
-            )}
-          </main>
-          <aside className={['cols-3 start-14', classes.aside].join(' ')}>
-            <div className={classes.asideStickyContent}>
-              {!hideVersionSelector && <VersionSelector initialVersion={version ?? 'current'} />}
-              <TableOfContents headings={currentDoc.headings as Heading[]} />
-              <div className={classes.discordGitWrap}>
-                <DiscordGitCTA appearance="minimal" />
-              </div>
-              <Feedback path={path} />
+      <div className="grid">
+        <DocsNavigation
+          currentDoc={docSlug}
+          currentTopic={topicSlug}
+          docIndex={docIndex}
+          groupIndex={groupIndex}
+          indexInGroup={topicIndex}
+          topics={topicGroups}
+          version={version}
+        />
+        <div aria-hidden className={classes.navOverlay} />
+        <main className={['cols-8 start-5 cols-m-8 start-m-1', classes.content].join(' ')}>
+          <Suspense fallback={<DocsSkeleton />}>
+            {children}
+            <h1 className={classes.title}>{currentDoc.title}</h1>
+            <div className={classes.mdx}>
+              <RichTextWithTOC content={currentDoc.content} />
             </div>
-          </aside>
-        </div>
-        <BackgroundGrid wideGrid />
-      </JumplistProvider>
+          </Suspense>
+          {next && (
+            <Link
+              className={[classes.next, hasRelatedThreads && classes.hasRelatedThreads]
+                .filter(Boolean)
+                .join(' ')}
+              data-algolia-no-crawl
+              href={`/docs/${version ? `${version}/` : ''}${next?.topic?.toLowerCase()}/${
+                next.slug
+              }`}
+              prefetch={false}
+            >
+              <div className={classes.nextLabel}>
+                Next <ArrowIcon />
+              </div>
+              <h3>{next.title}</h3>
+
+              <BackgroundScanline className={classes.nextScanlines} />
+            </Link>
+          )}
+          {(hasGuides || hasRelatedThreads) && (
+            <RelatedResources guides={guides} relatedThreads={relatedThreads} />
+          )}
+        </main>
+        <aside className={['cols-3 start-14', classes.aside].join(' ')}>
+          <div className={classes.asideStickyContent}>
+            {!hideVersionSelector && <VersionSelector initialVersion={version ?? 'current'} />}
+            <TableOfContents headings={currentDoc.headings as Heading[]} />
+            <div className={classes.discordGitWrap}>
+              <DiscordGitCTA appearance="minimal" />
+            </div>
+            <Feedback path={path} />
+          </div>
+        </aside>
+      </div>
+      <BackgroundGrid wideGrid />
     </Gutter>
   )
 }
