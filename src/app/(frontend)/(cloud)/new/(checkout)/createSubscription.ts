@@ -31,6 +31,7 @@ export const createSubscription = async (args: {
             typeof project?.template === 'string' ? project.template : project?.template?.id,
         },
       }),
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
       },

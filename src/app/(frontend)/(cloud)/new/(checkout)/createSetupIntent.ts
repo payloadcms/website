@@ -17,6 +17,7 @@ export const createSetupIntent = async (args: {
       body: JSON.stringify({
         team: team?.id,
       }),
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
       },
