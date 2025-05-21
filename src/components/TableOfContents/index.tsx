@@ -2,7 +2,7 @@
 
 import type { Heading } from '@root/collections/Docs/types'
 
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useReducer, useState } from 'react'
 
 import classes from './index.module.scss'
 
@@ -11,37 +11,44 @@ export type Props = {
   headings: Heading[]
 }
 
-export const TableOfContents: React.FC<Props> = ({ className = '', headings }) => {
-  const [onViewport, setOnViewport] = useState<null | string>(null)
+/**
+ * returns the height at which the ToC indicator should be.
+ * Currently the top position. We could make it cover all visible headings, as fumadocs does.
+ */
+const useTocIndicator = (headings: Heading[]) => {
+  const [onViewport, setOnViewport] = useReducer(() => {
+    for (const { anchor } of headings) {
+      const el = document.getElementById(anchor)
+      const rect = el?.getBoundingClientRect()
+      if (rect && rect.top >= 70) {
+        return anchor
+      }
+    }
+  }, null)
 
-  const offsetTop = useMemo(() => {
+  const topPosition = useMemo(() => {
     if (!onViewport) {
       return 0
     }
     const toc = document.getElementById('toc')
-    const el = toc?.querySelector(`a[href="#${onViewport}"]`) as HTMLAnchorElement
-    const rect = el.getBoundingClientRect()
+    // This is the "ToC heading" which refers to the first "article heading" to appear from the top of the viewport.
+    const firstOnViewport = toc?.querySelector(`a[href="#${onViewport}"]`) as HTMLAnchorElement
+    const rect = firstOnViewport.getBoundingClientRect()
     const tocRect = toc?.getBoundingClientRect()
     return rect.top - (tocRect?.top ?? 0)
   }, [onViewport])
 
   useEffect(() => {
-    const handleScroll = () => {
-      for (const { anchor } of headings) {
-        const el = document.getElementById(anchor)
-        const rect = el?.getBoundingClientRect()
-        if (rect && rect.top >= 70 && rect.bottom <= window.innerHeight) {
-          setOnViewport(anchor)
-          break
-        }
-      }
-    }
+    window.addEventListener('scroll', setOnViewport)
+    setOnViewport() // Initial run
+    return () => window.removeEventListener('scroll', setOnViewport)
+  }, [setOnViewport, headings])
 
-    window.addEventListener('scroll', handleScroll)
-    handleScroll() // Initial run
+  return topPosition
+}
 
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [headings])
+export const TableOfContents: React.FC<Props> = ({ className = '', headings }) => {
+  const position = useTocIndicator(headings)
 
   return (
     <nav className={[classes.wrap, className].filter(Boolean).join(' ')} id="toc">
@@ -57,7 +64,7 @@ export const TableOfContents: React.FC<Props> = ({ className = '', headings }) =
           )
         })}
       </ul>
-      <div className={classes.indicator} style={{ top: offsetTop }} />
+      <div className={classes.indicator} style={{ top: position }} />
     </nav>
   )
 }
