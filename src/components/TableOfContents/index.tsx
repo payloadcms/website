@@ -1,11 +1,9 @@
 'use client'
 
-import type { ListItem } from '@components/Jumplist/types'
 import type { Heading } from '@root/collections/Docs/types'
 
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useReducer } from 'react'
 
-import { Jumplist } from '../Jumplist/index'
 import classes from './index.module.scss'
 
 export type Props = {
@@ -13,71 +11,54 @@ export type Props = {
   headings: Heading[]
 }
 
-export const TableOfContents: React.FC<Props> = ({ className, headings }) => {
-  const listItemRefs = useRef<(HTMLDivElement | null)[]>([])
-  const [indicatorTop, setIndicatorTop] = useState<number | undefined>(undefined)
-  const [activeHeadingId, setActiveHeadingId] = useState<null | string>(null)
-  const [resetIndicator, setResetIndicator] = useState(true)
+/**
+ * returns the height at which the ToC indicator should be.
+ * Currently the top position. We could make it cover all visible headings, as fumadocs does.
+ */
+const useTocIndicator = (headings: Heading[]) => {
+  const [position, setPosition] = useReducer((): number => {
+    for (const { anchor } of headings) {
+      const el = document.getElementById(anchor)
+      const rect = el?.getBoundingClientRect()
+      if (rect && rect.top >= 70) {
+        const toc = document.getElementById('toc')
+        // This is the "ToC heading" which refers to the first "article heading" to appear from the top of the viewport.
+        const firstOnViewport = toc?.querySelector(`a[href="#${anchor}"]`) as HTMLAnchorElement
+        const rect = firstOnViewport.getBoundingClientRect()
+        const tocRect = toc?.getBoundingClientRect()
+        return rect.top - (tocRect?.top ?? 0)
+      }
+    }
+    return 0
+  }, 0)
 
   useEffect(() => {
-    if (activeHeadingId !== null) {
-      const offsetTop = activeHeadingId ? listItemRefs.current[activeHeadingId]?.offsetTop : 0
-      setIndicatorTop(offsetTop)
-    } else {
-      setIndicatorTop(undefined)
-    }
-    if (resetIndicator) {
-      setResetIndicator(false)
-    }
-  }, [activeHeadingId, headings, resetIndicator])
+    window.addEventListener('scroll', setPosition)
+    setPosition() // Initial run
+    return () => window.removeEventListener('scroll', setPosition)
+  }, [setPosition, headings])
 
-  const [list, setList] = useState<ListItem[]>([])
+  return position
+}
 
-  useEffect(() => {
-    setList(
-      headings.map(({ anchor, level, text }) => ({
-        id: anchor,
-        anchor,
-        Component: ({ active }) => {
-          useEffect(() => {
-            if (active) {
-              setActiveHeadingId(anchor)
-            }
-          }, [active])
+export const TableOfContents: React.FC<Props> = ({ className = '', headings }) => {
+  const position = useTocIndicator(headings)
 
-          const handleMouseEnter = () => {
-            const offsetTop = listItemRefs.current[anchor]?.offsetTop || 0
-            setIndicatorTop(offsetTop)
-          }
-          return (
-            <div
-              className={[classes[`heading-${level}`], active && classes.active]
-                .filter(Boolean)
-                .join(' ')}
-              key={anchor}
-              onMouseEnter={handleMouseEnter}
-              ref={(ref) => {
-                listItemRefs.current[anchor] = ref
-              }}
-            >
-              {text}
-            </div>
-          )
-        },
-      })),
-    )
-  }, [headings])
-
-  return headings?.length > 0 ? (
-    <div
-      className={[classes.wrap, className].filter(Boolean).join(' ')}
-      onMouseLeave={() => setResetIndicator(true)}
-    >
+  return (
+    <nav className={[classes.wrap, className].filter(Boolean).join(' ')} id="toc">
       <h6 className={classes.tocTitle}>On this page</h6>
-      <Jumplist className={classes.toc} list={list} />
-      {indicatorTop !== undefined && (
-        <div className={classes.indicator} style={{ top: indicatorTop }} />
-      )}
-    </div>
-  ) : null
+      <ul className={classes.toc}>
+        {headings.map(({ anchor, level, text }) => {
+          return (
+            <li className={classes[`heading-${level}`]} key={anchor}>
+              <a className={classes.link} href={`#${anchor}`}>
+                {text}
+              </a>
+            </li>
+          )
+        })}
+      </ul>
+      <div className={classes.indicator} style={{ top: position }} />
+    </nav>
+  )
 }
