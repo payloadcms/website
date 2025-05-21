@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 'use client'
 
 import type { Heading } from '@root/collections/Docs/types'
@@ -14,24 +13,20 @@ export type Props = {
 
 export const TableOfContents: React.FC<Props> = ({ className = '', headings }) => {
   const [onViewport, setOnViewport] = useState<null | string>(null)
-  const [hovered, setHovered] = useState<null | string>(null)
-
-  const activeId = hovered ?? onViewport
 
   const offsetTop = useMemo(() => {
-    if (!activeId) {
+    if (!onViewport) {
       return 0
     }
     const toc = document.getElementById('toc')
-    const el = toc?.querySelector(`a[href="#${activeId}"]`) as HTMLAnchorElement
+    const el = toc?.querySelector(`a[href="#${onViewport}"]`) as HTMLAnchorElement
     const rect = el.getBoundingClientRect()
     const tocRect = toc?.getBoundingClientRect()
     return rect.top - (tocRect?.top ?? 0)
-  }, [activeId])
+  }, [onViewport])
 
   useEffect(() => {
     const handleScroll = () => {
-      setHovered(null)
       for (const { anchor } of headings) {
         const el = document.getElementById(anchor)
         const rect = el?.getBoundingClientRect()
@@ -51,21 +46,14 @@ export const TableOfContents: React.FC<Props> = ({ className = '', headings }) =
   return (
     <nav className={[classes.wrap, className].filter(Boolean).join(' ')} id="toc">
       <h6 className={classes.tocTitle}>On this page</h6>
-      <ul className={classes.toc} onMouseLeave={() => setHovered(null)}>
+      <ul className={classes.toc}>
         {headings.map(({ anchor, level, text }) => {
-          const isActive = anchor === activeId
           return (
-            <div
-              className={[classes[`heading-${level}`], isActive && classes.active]
-                .filter(Boolean)
-                .join(' ')}
-              key={anchor}
-              onMouseEnter={() => setHovered(anchor)}
-            >
+            <li className={classes[`heading-${level}`]} key={anchor}>
               <a className={classes.link} href={`#${anchor}`}>
                 {text}
               </a>
-            </div>
+            </li>
           )
         })}
       </ul>
