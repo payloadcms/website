@@ -51,7 +51,6 @@ export const topicOrder = {
         'Live-Preview',
         'Versions',
         'Upload',
-        'Folders',
         'Email',
         'Jobs-Queue',
         'Query-Presets',
