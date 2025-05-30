@@ -35,7 +35,11 @@ export const JoinTeam: React.FC = () => {
             },
           )
 
-          const { data, error } = await res.json()
+          const {
+            data,
+            error,
+          }: { data: { team: { id: string; name: string; slug: string } }; error: string } =
+            await res.json()
 
           if (res.status === 200) {
             router.push(

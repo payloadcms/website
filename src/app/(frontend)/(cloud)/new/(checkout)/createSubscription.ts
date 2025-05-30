@@ -10,7 +10,7 @@ export interface PayloadStripeSubscription {
 
 export const createSubscription = async (args: {
   checkoutState: CheckoutState
-  project: Project
+  project: Pick<Project, 'id' | 'plan' | 'team'>
 }): Promise<PayloadStripeSubscription> => {
   const {
     checkoutState: { freeTrial, paymentMethod, plan, team },
@@ -23,12 +23,10 @@ export const createSubscription = async (args: {
         freeTrial,
         paymentMethod,
         project: {
-          ...project,
+          id: project.id,
           // flatten relationships to only the ID
           plan: typeof plan === 'string' ? plan : plan.id,
           team: typeof team === 'string' ? team : team.id,
-          template:
-            typeof project?.template === 'string' ? project.template : project?.template?.id,
         },
       }),
       credentials: 'include',

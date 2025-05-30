@@ -2,6 +2,7 @@
 
 import type { Install } from '@cloud/_api/fetchInstalls'
 import type { TeamWithCustomer } from '@cloud/_api/fetchTeam'
+import type { ProjectDeployResponse } from '@root/app/(frontend)/types'
 import type { Plan, Project, Team, Template, User } from '@root/payload-cloud-types'
 
 import { revalidateCache } from '@cloud/_actions/revalidateCache'
@@ -106,7 +107,7 @@ const Checkout: React.FC<{
   }, [])
 
   const onDeploy = useCallback(
-    (project: Project) => {
+    (project: ProjectDeployResponse) => {
       const redirectURL =
         typeof project?.team === 'object' && project?.team !== null
           ? `/${cloudSlug}/${project?.team?.slug}/${project.slug}`
