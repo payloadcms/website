@@ -1,4 +1,5 @@
-import type { Project, User } from '@root/payload-cloud-types'
+import type { ProjectDeployResponse } from '@root/app/(frontend)/types'
+import type { Project, Team, User } from '@root/payload-cloud-types'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 import { updateCustomer } from '@cloud/_api/updateCustomer'
@@ -16,7 +17,7 @@ export const deploy = async (args: {
   checkoutState: CheckoutState
   elements: null | StripeElements | undefined
   installID?: string
-  onDeploy?: (project: Project) => void
+  onDeploy?: (project: ProjectDeployResponse) => void
   project: null | Project | undefined
   router: AppRouterInstance
   stripe: null | Stripe | undefined
@@ -117,7 +118,7 @@ export const deploy = async (args: {
     })
 
     const res: {
-      doc: Project
+      doc: ProjectDeployResponse
       error
       message: string
     } = await req.json()
@@ -127,7 +128,11 @@ export const deploy = async (args: {
       // this will ensure everything worked before the customer pays for it
       const subscription = await createSubscription({
         checkoutState,
-        project: res.doc,
+        project: {
+          id: res.doc.id,
+          plan: res.doc.plan,
+          team: typeof res.doc.team === 'string' ? res.doc.team : res.doc.team.id,
+        },
       })
 
       if (!elements || !stripe) {
