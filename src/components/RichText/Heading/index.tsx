@@ -9,9 +9,6 @@ import { formatAnchor } from '../formatAnchor'
 import classes from './index.module.scss'
 
 export const Heading: React.FC<any> = ({ node, nodesToJSX }) => {
-  const children = nodesToJSX({
-    nodes: node.children,
-  })
   const pathname = usePathname()
 
   const childrenText = node.children?.[0]?.text as string
@@ -27,6 +24,14 @@ export const Heading: React.FC<any> = ({ node, nodesToJSX }) => {
 
   const HeadingElement = node.tag.toLowerCase()
 
+  const copyOfNode = JSON.parse(JSON.stringify(node))
+  if (copyOfNode.children && copyOfNode.children[0]) {
+    copyOfNode.children[0].text = label
+  }
+
+  const children = nodesToJSX({
+    nodes: copyOfNode.children,
+  })
   return (
     <Link className={classes.node} href={`${pathname}/#${anchor}`} id={anchor} replace>
       <HeadingElement>
