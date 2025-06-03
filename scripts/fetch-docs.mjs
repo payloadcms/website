@@ -160,11 +160,20 @@ async function fetchDocs() {
 
                 if (!docMatter) return null
 
+                // Replace headings with anchors with just the text
+                const headings = await getHeadings(docMatter.content)
+                headings.forEach((heading) => {
+                  docMatter.content = docMatter.content.replace(
+                    `${heading.text}#${heading.anchor}`,
+                    heading.text,
+                  )
+                })
+
                 return {
                   slug: docFilename.replace('.mdx', ''),
                   content: docMatter.content,
                   desc: docMatter.data.desc || docMatter.data.description || '',
-                  headings: await getHeadings(docMatter.content),
+                  headings,
                   keywords: docMatter.data.keywords || '',
                   label: docMatter.data.label,
                   order: docMatter.data.order,
