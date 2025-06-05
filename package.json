@@ -34,17 +34,17 @@
     "@faceless-ui/scroll-info": "2.0.0",
     "@faceless-ui/slider": "2.0.0-beta.0",
     "@faceless-ui/window-info": "3.0.1",
-    "@payloadcms/db-mongodb": "3.33.0",
-    "@payloadcms/email-nodemailer": "3.33.0",
-    "@payloadcms/live-preview-react": "3.33.0",
-    "@payloadcms/next": "3.33.0",
-    "@payloadcms/plugin-form-builder": "3.33.0",
-    "@payloadcms/plugin-nested-docs": "3.33.0",
-    "@payloadcms/plugin-redirects": "3.33.0",
-    "@payloadcms/plugin-seo": "3.33.0",
-    "@payloadcms/richtext-lexical": "3.33.0",
-    "@payloadcms/storage-vercel-blob": "3.33.0",
-    "@payloadcms/ui": "3.33.0",
+    "@payloadcms/db-mongodb": "3.34.0",
+    "@payloadcms/email-nodemailer": "3.34.0",
+    "@payloadcms/live-preview-react": "3.34.0",
+    "@payloadcms/next": "3.34.0",
+    "@payloadcms/plugin-form-builder": "3.34.0",
+    "@payloadcms/plugin-nested-docs": "3.34.0",
+    "@payloadcms/plugin-redirects": "3.34.0",
+    "@payloadcms/plugin-seo": "3.34.0",
+    "@payloadcms/richtext-lexical": "3.34.0",
+    "@payloadcms/storage-vercel-blob": "3.34.0",
+    "@payloadcms/ui": "3.34.0",
     "@radix-ui/react-accordion": "^1.2.1",
     "@radix-ui/react-portal": "^1.1.2",
     "@radix-ui/react-tabs": "^1.1.1",
@@ -60,11 +60,11 @@
     "graphql": "16.8.1",
     "gray-matter": "^4.0.3",
     "instantsearch.js": "^4.72.2",
-    "next": "15.2.5",
+    "next": "15.3.3",
     "next-sitemap": "^4.0.6",
     "node-cron": "^3.0.3",
     "nodemailer-sendgrid": "^1.0.3",
-    "payload": "3.33.0",
+    "payload": "3.34.0",
     "prism-react-renderer": "^2.3.1",
     "qs-esm": "7.0.2",
     "react": "19.1.0",
@@ -84,7 +84,7 @@
     "uuid": "10.0.0"
   },
   "devDependencies": {
-    "@next/bundle-analyzer": "15.2.5",
+    "@next/bundle-analyzer": "15.3.3",
     "@octokit/types": "^9.0.0",
     "@payloadcms/eslint-config": "3.28.0",
     "@payloadcms/eslint-plugin": "3.28.0",
@@ -99,5 +99,12 @@
     "eslint": "9.22.0",
     "prettier": "3.4.2",
     "typescript": "5.7.3"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "sharp",
+      "@parcel/watcher",
+      "esbuild"
+    ]
   }
 }
