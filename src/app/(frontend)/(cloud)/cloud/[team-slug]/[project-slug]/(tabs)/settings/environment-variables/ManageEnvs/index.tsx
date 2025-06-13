@@ -76,7 +76,7 @@ export const ManageEnv: React.FC<Props> = ({
     }
 
     return null
-  }, [projectID, key])
+  }, [environmentSlug, key, projectID])
 
   const updateEnv = React.useCallback(
     async ({ data }) => {
@@ -127,7 +127,7 @@ export const ManageEnv: React.FC<Props> = ({
 
       return null
     },
-    [projectID, id],
+    [id, environmentSlug, projectID],
   )
 
   const deleteEnv = React.useCallback(async () => {
@@ -157,7 +157,7 @@ export const ManageEnv: React.FC<Props> = ({
     } finally {
       closeModal(modalSlug)
     }
-  }, [projectID, key, closeModal, modalSlug])
+  }, [environmentSlug, key, projectID, closeModal, modalSlug])
 
   return (
     <>
