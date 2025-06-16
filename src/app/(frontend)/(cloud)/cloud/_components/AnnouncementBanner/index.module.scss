@@ -1,0 +1,22 @@
+.announcementBanner {
+  padding: 1rem;
+  background: var(--theme-success-100);
+  color: var(--theme-success-800);
+  border: 1px solid var(--theme-success-150);
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  margin-block: 2rem;
+
+  p {
+    margin: 0;
+  }
+}
+
+.dismissButton {
+  padding: 0.25rem 0.5rem;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}

@@ -6,6 +6,7 @@ import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { Fragment } from 'react'
 
 import { fetchMe } from './_api/fetchMe'
+import { AnnouncementBanner } from './_components/AnnouncementBanner'
 
 export const metadata: Metadata = {
   title: {
@@ -34,6 +35,7 @@ export default async (props) => {
   return (
     <Fragment>
       <Gutter>
+        <AnnouncementBanner />
         <RenderParams />
       </Gutter>
       {children}
