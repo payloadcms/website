@@ -6,6 +6,7 @@ import { userTeamRoles } from '../InviteTeammates/index'
 import classes from './TeamMemberRow.module.scss'
 
 export const TeamMemberRow: React.FC<{
+  disabled?: boolean
   footer?: React.ReactNode
   initialEmail?: string
   initialRoles?: ('admin' | 'owner' | 'user')[]
@@ -13,7 +14,15 @@ export const TeamMemberRow: React.FC<{
   leader?: string
   onUpdateRoles?: (newRoles: ('admin' | 'owner' | 'user')[]) => void
 }> = (props) => {
-  const { footer, initialEmail, initialRoles, isOwnerOrGlobalAdmin, leader, onUpdateRoles } = props
+  const {
+    disabled,
+    footer,
+    initialEmail,
+    initialRoles,
+    isOwnerOrGlobalAdmin,
+    leader,
+    onUpdateRoles,
+  } = props
 
   // Called when there's a change in the roles of the team member. It triggers the onUpdateRoles prop.
   const handleRolesChange = (newRoles: any) => {
@@ -35,7 +44,7 @@ export const TeamMemberRow: React.FC<{
           ]
             .filter(Boolean)
             .join(' ')}
-          disabled={!onUpdateRoles || !isOwnerOrGlobalAdmin}
+          disabled={!onUpdateRoles || !isOwnerOrGlobalAdmin || disabled}
           initialValue={initialRoles}
           isClearable={false}
           isMulti
