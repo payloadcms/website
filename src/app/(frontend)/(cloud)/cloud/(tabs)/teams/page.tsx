@@ -3,15 +3,14 @@ import type { Metadata } from 'next'
 import { LinkGrid } from '@blocks/LinkGrid/index'
 import { fetchMe } from '@cloud/_api/fetchMe'
 import { fetchTeams } from '@cloud/_api/fetchTeam'
-import { TeamDrawer, TeamDrawerToggler } from '@cloud/_components/TeamDrawer/index'
 import { cloudSlug } from '@cloud/slug'
+import { Banner } from '@components/Banner'
 import { Gutter } from '@components/Gutter/index'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
+import Link from 'next/link'
 import React from 'react'
 
 import classes from './page.module.scss'
-
-const drawerSlug = 'team-drawer'
 
 export default async () => {
   const { user } = await fetchMe()
@@ -26,26 +25,13 @@ export default async () => {
     <React.Fragment>
       <div className={classes.teams}>
         <Gutter className={classes.introContent}>
-          {!hasTeams && (
+          <Banner type="warning">
             <p>
-              {`You are not a member of any teams. `}
-              <TeamDrawerToggler className={classes.createTeamLink} drawerSlug={drawerSlug}>
-                Create a new team
-              </TeamDrawerToggler>
-              {' to get started.'}
+              Creating new teams is currently not available. To make changes to your existing team,
+              please contact{' '}
+              <Link href={'mailto:support@payloadcms.com'}>support@payloadcms.com</Link>
             </p>
-          )}
-          {Boolean(teams?.length) && (
-            <p>
-              {`You are a member of ${teams?.length || 0} team${
-                (teams?.length || 0) > 1 ? 's' : ''
-              }. `}
-              <TeamDrawerToggler className={classes.createTeamLink} drawerSlug={drawerSlug}>
-                Create a new team
-              </TeamDrawerToggler>
-              {'.'}
-            </p>
-          )}
+          </Banner>
         </Gutter>
         {hasTeams && (
           <LinkGrid
@@ -70,7 +56,6 @@ export default async () => {
           />
         )}
       </div>
-      <TeamDrawer drawerSlug={drawerSlug} redirectOnCreate />
     </React.Fragment>
   )
 }
