@@ -6,10 +6,16 @@ import { ArrowIcon } from '@icons/ArrowIcon'
 import classes from './index.module.scss'
 
 export const TopBar: React.FC<TopBarType> = ({ link, message }) => {
-  const { label, reference, url } = link || {}
+  const { type, label, reference, url } = link || {}
 
   return (
-    <CMSLink className={classes.topBar} customId="topBar" reference={reference} url={url}>
+    <CMSLink
+      className={classes.topBar}
+      customId="topBar"
+      reference={reference}
+      type={type}
+      url={url}
+    >
       <span className={classes.message}>{message}</span>
       <span className={classes.label}>{label}</span>
       <ArrowIcon />
