@@ -9,13 +9,7 @@ export const TopBar: React.FC<TopBarType> = ({ link, message }) => {
   const { type, label, reference, url } = link || {}
 
   return (
-    <CMSLink
-      className={classes.topBar}
-      customId="topBar"
-      reference={reference}
-      type={type}
-      url={url}
-    >
+    <CMSLink className={classes.topBar} reference={reference} type={type} url={url}>
       <span className={classes.message}>{message}</span>
       <span className={classes.label}>{label}</span>
       <ArrowIcon />

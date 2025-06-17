@@ -68,3 +68,19 @@
     opacity: 1;
   }
 }
+
+.topBar {
+  max-height: 100px;
+  opacity: 1;
+  overflow: hidden;
+  pointer-events: auto;
+  transition:
+    opacity 0.5s,
+    max-height 0.5s;
+}
+
+.topBarHidden {
+  max-height: 0;
+  opacity: 0;
+  pointer-events: none;
+}
