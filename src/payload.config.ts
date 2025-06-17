@@ -352,6 +352,7 @@ export default buildConfig({
           'templateCards',
           'Code',
           'downloadBlock',
+          'commandLine',
         ],
       }),
     ],
