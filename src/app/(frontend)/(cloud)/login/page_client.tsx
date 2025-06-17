@@ -97,7 +97,7 @@ export const Login: React.FC = () => {
       <Banner type="success">
         We're joining Figma! During this transition, new signups are paused. Existing projects
         continue running normally.&nbsp;&nbsp;
-        <Link href="/payload-is-joining-figma">Read more</Link>
+        <Link href="/payload-has-joined-figma">Read more</Link>
         &nbsp;&nbsp;
         <ArrowIcon />
       </Banner>
