@@ -107,6 +107,6 @@ export async function generateMetadata({
       title: post?.meta?.title ?? undefined,
       url: `/${category}/${slug}`,
     }),
-    title: post?.meta?.title,
+    title: post?.meta?.title ?? post?.title ?? undefined,
   }
 }
