@@ -1,7 +1,7 @@
 @use '@scss/common' as *;
 
 .navigation {
-  margin-top: var(--header-height);
+  margin-top: var(--page-padding-top);
   margin-inline: var(--gutter-h);
   display: flex;
   justify-content: space-between;
