@@ -1,15 +1,18 @@
 @use '@scss/common' as *;
 
+.wrapper {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  width: 100%;
+}
+
 .cloudHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid var(--theme-border-color);
   background: var(--theme-bg);
-  position: fixed;
-  z-index: 100;
-  top: 0;
-  width: 100%;
   height: var(--header-height);
   padding: var(--base) var(--gutter-h);
 

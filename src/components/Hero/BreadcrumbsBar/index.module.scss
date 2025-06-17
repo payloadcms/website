@@ -2,7 +2,7 @@
 
 .wrapper {
   position: relative;
-  padding-top: var(--header-height);
+  padding-top: var(--page-padding-top);
   z-index: 1;
 
   &.hasBackground {

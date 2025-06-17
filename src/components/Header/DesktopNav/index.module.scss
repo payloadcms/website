@@ -29,7 +29,7 @@ $curve: cubic-bezier(0.165, 0.84, 0.44, 1);
 
 .background {
   height: var(--header-height);
-  top: var(--page-padding-top);
+  top: var(--header-height);
   position: absolute;
   z-index: -1;
   width: 100%;

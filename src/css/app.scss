@@ -50,6 +50,10 @@
 
   --column: calc((100vw - (var(--gutter-h) * 2)) / 16);
 
+  &:has(#topBar) {
+    --page-padding-top: calc(var(--header-height) + 3rem);
+  }
+
   @include extra-large-break {
     --font-body-size: 16px;
     --gutter-h: 8rem;

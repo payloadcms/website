@@ -18,9 +18,14 @@ import type {
   Post,
   Region,
   Specialty,
+  TopBar,
 } from '../../payload-types'
 
-export const fetchGlobals = async (): Promise<{ footer: Footer; mainMenu: MainMenu }> => {
+export const fetchGlobals = async (): Promise<{
+  footer: Footer
+  mainMenu: MainMenu
+  topBar: TopBar
+}> => {
   const payload = await getPayload({ config })
   const mainMenu = await payload.findGlobal({
     slug: 'main-menu',
@@ -30,10 +35,15 @@ export const fetchGlobals = async (): Promise<{ footer: Footer; mainMenu: MainMe
     slug: 'footer',
     depth: 1,
   })
+  const topBar = await payload.findGlobal({
+    slug: 'topBar',
+    depth: 1,
+  })
 
   return {
     footer,
     mainMenu,
+    topBar,
   }
 }
 

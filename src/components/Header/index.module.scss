@@ -1,12 +1,16 @@
 @use '@scss/common' as *;
 
-.header {
+.wrapper {
   position: fixed;
   top: 0;
+  z-index: var(--z-nav);
+  width: 100%;
+}
+
+.header {
   display: flex;
   align-items: center;
   width: 100%;
-  z-index: var(--z-nav);
   transition: color 300ms ease;
   max-width: 100vw;
 

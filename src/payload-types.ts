@@ -174,12 +174,14 @@ export interface Config {
     'main-menu': MainMenu;
     'get-started': GetStarted;
     'partner-program': PartnerProgram;
+    topBar: TopBar;
   };
   globalsSelect: {
     footer: FooterSelect<false> | FooterSelect<true>;
     'main-menu': MainMenuSelect<false> | MainMenuSelect<true>;
     'get-started': GetStartedSelect<false> | GetStartedSelect<true>;
     'partner-program': PartnerProgramSelect<false> | PartnerProgramSelect<true>;
+    topBar: TopBarSelect<false> | TopBarSelect<true>;
   };
   locale: null;
   user: User & {
@@ -4543,6 +4545,37 @@ export interface PartnerProgram {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "topBar".
+ */
+export interface TopBar {
+  id: string;
+  enableTopBar?: boolean | null;
+  message?: string | null;
+  link?: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null)
+      | ({
+          relationTo: 'case-studies';
+          value: string | CaseStudy;
+        } | null);
+    url?: string | null;
+    label: string;
+    customId?: string | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "footer_select".
  */
 export interface FooterSelect<T extends boolean = true> {
@@ -4782,6 +4815,27 @@ export interface PartnerProgramSelect<T extends boolean = true> {
     | {
         beforeDirectory?: T | {};
         afterDirectory?: T | {};
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "topBar_select".
+ */
+export interface TopBarSelect<T extends boolean = true> {
+  enableTopBar?: T;
+  message?: T;
+  link?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+        customId?: T;
       };
   updatedAt?: T;
   createdAt?: T;
