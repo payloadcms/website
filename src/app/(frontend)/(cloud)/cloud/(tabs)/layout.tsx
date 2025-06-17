@@ -1,6 +1,9 @@
 import { DashboardTabs } from '@cloud/_components/DashboardTabs/index'
 import { cloudSlug } from '@cloud/slug'
+import { Banner } from '@components/Banner'
 import { Gutter } from '@components/Gutter/index'
+import { ArrowIcon } from '@icons/ArrowIcon'
+import Link from 'next/link'
 import { Fragment } from 'react'
 
 export default async (props) => {
@@ -10,6 +13,13 @@ export default async (props) => {
     <Fragment>
       <Gutter>
         <h2>Cloud</h2>
+        <Banner type="success">
+          We're joining Figma! During this transition, new signups are paused. Existing projects
+          continue running normally.&nbsp;&nbsp;
+          <Link href="/payload-is-joining-figma">Read more</Link>
+          &nbsp;&nbsp;
+          <ArrowIcon />
+        </Banner>
         <DashboardTabs
           tabs={{
             [cloudSlug]: {

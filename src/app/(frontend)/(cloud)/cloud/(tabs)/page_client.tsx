@@ -120,23 +120,6 @@ export const CloudPage: React.FC<{
     ? Array.from(Array(result?.docs?.length || result?.limit).keys())
     : result?.docs || []
 
-  const matchedTeam = user?.teams?.find(({ team }) =>
-    typeof team === 'string' ? team === selectedTeam : team?.id === selectedTeam,
-  )?.team as Team
-
-  if (initialState?.totalDocs === 0) {
-    return (
-      <NewProjectBlock
-        cardLeader="New"
-        heading={
-          selectedTeam ? `Team '${matchedTeam?.name}' has no projects` : `You have no projects`
-        }
-        teamSlug={matchedTeam?.slug}
-        templates={templates}
-      />
-    )
-  }
-
   return (
     <Gutter>
       {error && <p className={classes.error}>{error}</p>}
@@ -162,17 +145,6 @@ export const CloudPage: React.FC<{
           user={user}
         />
       </div>
-      {renderNewProjectBlock && !isLoading && (
-        <NewProjectBlock
-          cardLeader="New"
-          heading={
-            selectedTeam ? `Team '${matchedTeam?.name}' has no projects` : `You have no projects`
-          }
-          largeHeading={false}
-          teamSlug={matchedTeam?.slug}
-          templates={templates}
-        />
-      )}
       {(!renderNewProjectBlock || isLoading) && (
         <div className={classes.content}>
           {!isLoading && debouncedSearch && result?.totalDocs === 0 ? (
