@@ -2,7 +2,6 @@
 
 import type { InitialState } from '@forms/types'
 
-import { AnnouncementBanner } from '@cloud/_components/AnnouncementBanner'
 import { cloudSlug } from '@cloud/slug'
 import { Gutter } from '@components/Gutter/index'
 import { RenderParams } from '@components/RenderParams/index'
@@ -91,7 +90,6 @@ export const Login: React.FC = () => {
 
   return (
     <Gutter>
-      <AnnouncementBanner />
       <RenderParams />
       <h1 className={classes.heading}>Log in to Payload Cloud</h1>
       <div className="grid">
@@ -110,6 +108,21 @@ export const Login: React.FC = () => {
             <div>
               <Submit className={classes.submit} label="Log in" />
             </div>
+          </Form>
+        </div>
+        <div
+          className={[classes.sidebarWrap, 'cols-6 start-10 cols-m-8 start-m-1']
+            .filter(Boolean)
+            .join(' ')}
+        >
+          <div className={classes.sidebar}>
+            <p>
+              {`Don't have an account? `}
+              <Link href={`/signup${redirectTo ? `?redirect=${redirectTo}` : ''}`}>
+                Register for free
+              </Link>
+              {'.'}
+            </p>
             <p>
               {`Forgot your password? `}
               <Link href={`/forgot-password${redirectTo ? `?redirect=${redirectTo}` : ''}`}>
@@ -117,7 +130,7 @@ export const Login: React.FC = () => {
               </Link>
               {'.'}
             </p>
-          </Form>
+          </div>
         </div>
       </div>
     </Gutter>
