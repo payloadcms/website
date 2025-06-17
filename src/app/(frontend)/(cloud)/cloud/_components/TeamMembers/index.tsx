@@ -40,6 +40,7 @@ export const TeamMembers: React.FC<{
         // Rendering each team member in a row with their details.
         return (
           <TeamMemberRow
+            disabled
             footer={
               <Fragment>
                 {`Joined On ${formatDate({

@@ -10,6 +10,7 @@ import { revalidateCache } from '@cloud/_actions/revalidateCache'
 import { InviteTeammates } from '@cloud/_components/InviteTeammates/index'
 import { TeamInvitations } from '@cloud/_components/TeamInvitations/index'
 import { TeamMembers } from '@cloud/_components/TeamMembers/index'
+import { Banner } from '@components/Banner'
 import { HR } from '@components/HR/index'
 import { ModalWindow } from '@components/ModalWindow/index'
 import { useModal } from '@faceless-ui/modal'
@@ -18,6 +19,7 @@ import FormProcessing from '@forms/FormProcessing/index'
 import FormSubmissionError from '@forms/FormSubmissionError/index'
 import Submit from '@forms/Submit/index'
 import { useAuth } from '@root/providers/Auth/index'
+import Link from 'next/link'
 import * as React from 'react'
 import { toast } from 'sonner'
 
@@ -189,14 +191,18 @@ export const TeamMembersPage: React.FC<{
           team={team}
         />
         <HR margin="small" />
-        {team?.invitations && team?.invitations?.length > 0 && (
+        {/* {team?.invitations && team?.invitations?.length > 0 && (
           <React.Fragment>
             <TeamInvitations team={team} />
             <HR />
           </React.Fragment>
-        )}
-        <InviteTeammates clearCount={clearCount} />
-        <HR margin="small" />
+        )} */}
+        <Banner type="warning">
+          <p>
+            Editing teams is currently not available. To make changes to your team, please contact{' '}
+            <Link href={'mailto:support@payloadcms.com'}>support@payloadcms.com</Link>
+          </p>
+        </Banner>
         <Submit className={classes.submit} label="Save" />
       </Form>
       <ModalWindow className={classes.modal} slug="updateRoles">

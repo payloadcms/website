@@ -3,6 +3,7 @@
 import type { InitialState } from '@forms/types'
 
 import { cloudSlug } from '@cloud/slug'
+import { Banner } from '@components/Banner'
 import { Gutter } from '@components/Gutter/index'
 import { RenderParams } from '@components/RenderParams/index'
 import { Text } from '@forms/fields/Text/index'
@@ -10,6 +11,7 @@ import Form from '@forms/Form/index'
 import FormProcessing from '@forms/FormProcessing/index'
 import FormSubmissionError from '@forms/FormSubmissionError/index'
 import Submit from '@forms/Submit/index'
+import { ArrowIcon } from '@icons/ArrowIcon'
 import { useAuth } from '@root/providers/Auth/index'
 import Link from 'next/link'
 import { redirect, useSearchParams } from 'next/navigation'
@@ -92,6 +94,13 @@ export const Login: React.FC = () => {
     <Gutter>
       <RenderParams />
       <h1 className={classes.heading}>Log in to Payload Cloud</h1>
+      <Banner type="success">
+        We're joining Figma! During this transition, new signups are paused. Existing projects
+        continue running normally.&nbsp;&nbsp;
+        <Link href="/payload-is-joining-figma">Read more</Link>
+        &nbsp;&nbsp;
+        <ArrowIcon />
+      </Banner>
       <div className="grid">
         <div className={['cols-6 cols-m-8'].filter(Boolean).join(' ')}>
           <Form className={classes.form} initialState={initialFormState} onSubmit={handleSubmit}>
@@ -108,21 +117,6 @@ export const Login: React.FC = () => {
             <div>
               <Submit className={classes.submit} label="Log in" />
             </div>
-          </Form>
-        </div>
-        <div
-          className={[classes.sidebarWrap, 'cols-6 start-10 cols-m-8 start-m-1']
-            .filter(Boolean)
-            .join(' ')}
-        >
-          <div className={classes.sidebar}>
-            <p>
-              {`Don't have an account? `}
-              <Link href={`/signup${redirectTo ? `?redirect=${redirectTo}` : ''}`}>
-                Register for free
-              </Link>
-              {'.'}
-            </p>
             <p>
               {`Forgot your password? `}
               <Link href={`/forgot-password${redirectTo ? `?redirect=${redirectTo}` : ''}`}>
@@ -130,7 +124,7 @@ export const Login: React.FC = () => {
               </Link>
               {'.'}
             </p>
-          </div>
+          </Form>
         </div>
       </div>
     </Gutter>

@@ -109,7 +109,7 @@ export const TeamPage: React.FC<{
       {error && <p className={classes.error}>{error}</p>}
       <div className={['grid', classes.controls].join(' ')}>
         <Text
-          className={['cols-14', classes.search].join(' ')}
+          className={['cols-16', classes.search].join(' ')}
           fullWidth={false}
           initialValue={search}
           onChange={(value: string) => {
@@ -118,14 +118,6 @@ export const TeamPage: React.FC<{
           }}
           placeholder="Search projects"
         />
-        <div className="cols-2">
-          <Link
-            className={classes.createButton}
-            href={`/new${team?.slug ? `?team=${team?.slug}` : ''}`}
-          >
-            New Project
-          </Link>
-        </div>
       </div>
       <div className={classes.content}>
         {!isLoading && debouncedSearch && result?.totalDocs === 0 ? (
