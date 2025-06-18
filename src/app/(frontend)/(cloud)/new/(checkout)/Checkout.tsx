@@ -194,6 +194,7 @@ const Checkout: React.FC<{
                 <div className={classes.installationSelector}>
                   <TeamSelector
                     className={classes.teamSelector}
+                    enterpriseOnly={true}
                     initialValue={
                       typeof project?.team === 'object' &&
                       project?.team !== null &&
