@@ -32,11 +32,11 @@ export const redirects = async () => {
       destination: '/posts/blog/:slug',
       permanent: true,
     },
-    {
-      source: '/new/:slug*',
-      destination: '/payload-has-joined-figma',
-      permanent: false,
-    },
+    // {
+    //   source: '/new/:slug*',
+    //   destination: '/payload-has-joined-figma',
+    //   permanent: false,
+    // },
   ]
 
   const internetExplorerRedirect = {
