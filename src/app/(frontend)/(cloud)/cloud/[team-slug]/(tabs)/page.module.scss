@@ -50,6 +50,14 @@
   &:hover {
     background-color: var(--theme-elevation-300);
   }
+
+  @include mid-break {
+    height: 54px;
+  }
+
+  @include small-break {
+    border-left-width: 1px;
+  }
 }
 
 .controlsBG {

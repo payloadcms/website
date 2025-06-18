@@ -120,12 +120,36 @@ export const CloudPage: React.FC<{
     ? Array.from(Array(result?.docs?.length || result?.limit).keys())
     : result?.docs || []
 
+  const matchedTeam = user?.teams?.find(({ team }) =>
+    typeof team === 'string' ? team === selectedTeam : team?.id === selectedTeam,
+  )?.team as Team
+
+  if (initialState?.totalDocs === 0) {
+    return (
+      <NewProjectBlock
+        cardLeader="New"
+        heading={
+          selectedTeam ? `Team '${matchedTeam?.name}' has no projects` : `You have no projects`
+        }
+        teamSlug={matchedTeam?.slug}
+        templates={templates}
+      />
+    )
+  }
+
+  const userHasEnterpriseTeam = user?.teams?.some(
+    ({ team }) => typeof team !== 'string' && team?.isEnterprise === true,
+  )
+
   return (
     <Gutter>
       {error && <p className={classes.error}>{error}</p>}
       <div className={['grid', classes.controls].join(' ')}>
         <Text
-          className={['cols-12 cols-m-4 cols-s-8', classes.search].join(' ')}
+          className={[
+            userHasEnterpriseTeam ? 'cols-8 cols-m-8' : 'cols-12 cols-m-8',
+            classes.search,
+          ].join(' ')}
           initialValue={search}
           onChange={(value: string) => {
             setSearch(value)
@@ -135,7 +159,10 @@ export const CloudPage: React.FC<{
         />
         <TeamSelector
           allowEmpty
-          className={['cols-4 cols-s-8', classes.teamSelector].join(' ')}
+          className={[
+            userHasEnterpriseTeam ? 'cols-6 cols-l-4 cols-m-4' : 'cols-4 cols-m-8',
+            classes.teamSelector,
+          ].join(' ')}
           initialValue="none"
           label={false}
           onChange={(incomingTeam) => {
@@ -144,6 +171,16 @@ export const CloudPage: React.FC<{
           }}
           user={user}
         />
+        {userHasEnterpriseTeam && (
+          <div className="cols-2 cols-l-4 cols-m-4 cols-s-4">
+            <Link
+              className={classes.createButton}
+              href={`/new${matchedTeam?.slug ? `?team=${matchedTeam?.slug}` : ''}`}
+            >
+              New Project
+            </Link>
+          </div>
+        )}
       </div>
       {(!renderNewProjectBlock || isLoading) && (
         <div className={classes.content}>
