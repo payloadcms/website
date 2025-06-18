@@ -67,6 +67,66 @@ export interface Project {
   template?: string | Template
   makePrivate?: boolean
   repositoryName?: string
+  environments?: {
+    name: string
+    environmentSlug: string
+    infraStatus?:
+      | 'notStarted'
+      | 'infraCreationError'
+      | 'awaitingDatabase'
+      | 'appCreationError'
+      | 'deploying'
+      | 'deployError'
+      | 'done'
+      | 'error'
+      | 'reinstating'
+      | 'reinstatingError'
+      | 'suspended'
+      | 'suspendingError'
+    deletedOn?: string
+    troubleshoot?: boolean
+    digitalOceanAppID?: string
+    deploymentBranch?: string
+    outputDirectory?: string
+    buildScript?: string
+    installScript?: string
+    runScript?: string
+    rootDirectory?: string
+    dockerfilePath?: string
+    autoDeploy?: boolean
+    overrides?:
+      | {
+          [k: string]: unknown
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null
+    atlasProjectID?: string
+    atlasConnectionString?: string
+    atlasDatabaseName?: string
+    atlasDatabaseType?: 'cluster' | 'serverless'
+    atlasDatabaseUser?: string
+    atlasDatabasePassword?: string
+    cloudflareCacheKey?: string
+    cloudflareDNSRecordID?: string
+    defaultDomain?: string
+    domains?: {
+      domain: string
+      cloudflareID?: string
+      recordType?: 'A' | 'CNAME'
+      recordName?: string
+      recordContent?: string
+      id?: string
+    }[]
+    environmentVariables?: {
+      key?: string
+      value?: string
+      id?: string
+    }[]
+    id?: string
+  }[]
   digitalOceanAppID?: string
   deploymentBranch?: string
   outputDirectory?: string
@@ -89,6 +149,7 @@ export interface Project {
   repositoryFullName?: string
   repositoryID?: string
   installID?: string
+  useGitProxy?: boolean
   cloudflareCacheKey?: string
   cloudflareDNSRecordID?: string
   defaultDomain?: string
@@ -157,67 +218,6 @@ export interface Project {
   trialEndsAt?: string
   suspendedAt?: string
   createdBy?: string | User
-  environments?: {
-    name: string
-    environmentSlug: string
-    infraStatus?:
-      | 'notStarted'
-      | 'infraCreationError'
-      | 'awaitingDatabase'
-      | 'appCreationError'
-      | 'deploying'
-      | 'deployError'
-      | 'done'
-      | 'error'
-      | 'reinstating'
-      | 'reinstatingError'
-      | 'suspended'
-      | 'suspendingError'
-    deletedOn?: string
-    troubleshoot?: boolean
-    digitalOceanAppID?: string
-    deploymentBranch?: string
-    outputDirectory?: string
-    buildScript?: string
-    installScript?: string
-    runScript?: string
-    rootDirectory?: string
-    dockerfilePath?: string
-    autoDeploy?: boolean
-    overrides?:
-      | {
-          [k: string]: unknown
-        }
-      | unknown[]
-      | string
-      | number
-      | boolean
-      | null
-    atlasProjectID?: string
-    atlasConnectionString?: string
-    atlasDatabaseName?: string
-    atlasDatabaseType?: 'cluster' | 'serverless'
-    atlasDatabaseUser?: string
-    atlasDatabasePassword?: string
-    cloudflareCacheKey?: string
-    cloudflareDNSRecordID?: string
-    defaultDomain?: string
-    domains?: {
-      domain: string
-      cloudflareID?: string
-      recordType?: 'A' | 'CNAME'
-      recordName?: string
-      recordContent?: string
-      id?: string
-    }[]
-    PAYLOAD_SECRET?: string
-    environmentVariables?: {
-      key?: string
-      value?: string
-      id?: string
-    }[]
-    id?: string
-  }[]
   updatedAt: string
   createdAt: string
 }
@@ -251,6 +251,7 @@ export interface Team {
   id: string
   name: string
   slug: string
+  isEnterprise?: boolean
   members?: {
     user?: string | User
     roles?: ('owner' | 'admin' | 'user')[]
@@ -324,6 +325,9 @@ export interface Template {
   templateBranch?: string
   templatePath?: string
   sha?: string
+  buildScript?: string
+  installScript?: string
+  runScript?: string
   order?: number
   image?: string | Media
   files?: {
