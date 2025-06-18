@@ -33,7 +33,7 @@
 }
 
 .search input {
-  @include small-break {
+  @include mid-break {
     border-right: 1px solid var(--theme-border-color);
     border-bottom-width: 0;
   }

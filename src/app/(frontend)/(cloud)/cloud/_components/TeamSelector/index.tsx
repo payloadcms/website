@@ -21,6 +21,7 @@ const SelectMenuButton = (props) => {
 export const TeamSelector: React.FC<{
   allowEmpty?: boolean
   className?: string
+  enterpriseOnly?: boolean // used to filter out teams that are not enterprise
   initialValue?: string
   label?: false | string
   onChange?: (value?: Team) => void
@@ -82,11 +83,14 @@ export const TeamSelector: React.FC<{
   }, [user])
 
   const options =
-    user?.teams && user.teams?.length > 0
+    Array.isArray(user?.teams) && user.teams.length > 0
       ? ([
-          ...user?.teams
-            ?.map(({ team }) => {
+          ...user.teams
+            .map(({ team }) => {
               if (!team) {
+                return null
+              }
+              if (props.enterpriseOnly && typeof team !== 'string' && team?.isEnterprise !== true) {
                 return null
               }
               return {

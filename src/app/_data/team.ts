@@ -3,6 +3,7 @@ name
 slug
 stripeCustomerID
 billingEmail
+isEnterprise
 members {
   user {
     id

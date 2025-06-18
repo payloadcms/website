@@ -9,6 +9,7 @@ export const USER = `
       name
       slug
       stripeCustomerID
+      isEnterprise
     }
     roles
   }
