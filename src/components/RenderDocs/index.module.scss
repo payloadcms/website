@@ -5,6 +5,7 @@
   padding: 0 var(--gutter-h);
   margin-top: var(--page-padding-top);
   border-bottom: 1px solid var(--theme-border-color);
+  transition: margin-top 0.5s ease;
 
   @include mid-break {
     overflow: hidden;
@@ -19,6 +20,7 @@
     height: 1px;
     background: var(--theme-border-color);
     z-index: 1;
+    transition: top 0.5s ease;
   }
 }
 
@@ -140,6 +142,7 @@
   top: var(--page-padding-top);
   max-height: calc(100vh - var(--page-padding-top));
   overflow: scroll;
+  transition: top 0.5s ease;
 
   &::-webkit-scrollbar {
     background-color: transparent;

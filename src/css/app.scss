@@ -24,10 +24,10 @@
   --breakpoint-l-height: $breakpoint-l-height;
 
   --scrollbar-width: 17px;
-  --page-padding-top: var(--header-height);
   --sticky-sidebar-top: calc(var(--header-height) + 1.25rem);
   --header-height: 90px;
-  --top-bar-height: 46px;
+  --top-bar-height: 3rem;
+  --page-padding-top: calc(var(--header-height) + var(--top-bar-height));
 
   --font-body-size: 18px;
 
@@ -49,10 +49,6 @@
   --trans-default: 150ms;
 
   --column: calc((100vw - (var(--gutter-h) * 2)) / 16);
-
-  &:has(#topBar) {
-    --page-padding-top: calc(var(--header-height) + 3rem);
-  }
 
   @include extra-large-break {
     --font-body-size: 16px;
@@ -76,7 +72,6 @@
     --gutter-h: 2rem;
     --block-spacing: 3.5rem;
     --new-block-spacing: 4rem;
-    --page-padding-top: var(--header-height);
   }
 
   @include small-break {
