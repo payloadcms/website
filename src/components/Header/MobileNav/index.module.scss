@@ -157,7 +157,7 @@ $curve: cubic-bezier(0.165, 0.84, 0.44, 1);
   max-height: 100%;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
-  padding-top: var(--page-padding-top);
+  margin-top: var(--page-padding-top);
   display: none;
   visibility: hidden;
   position: relative;
