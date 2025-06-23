@@ -23,7 +23,6 @@ export const Header: React.FC<
   const { headerTheme } = useHeaderObserver()
   const { y } = useScrollInfo()
   const [hideBackground, setHideBackground] = React.useState(true)
-  const [hideTopBar, setHideTopBar] = React.useState(false)
 
   React.useEffect(() => {
     if (isMobileNavOpen) {
@@ -31,15 +30,12 @@ export const Header: React.FC<
     } else {
       setHideBackground(y < 30)
     }
-    setHideTopBar(y > 30)
+    document.documentElement.style.setProperty('--top-bar-height', y > 30 ? '0px' : '3rem')
   }, [y, isMobileNavOpen])
 
   return (
     <div className={classes.wrapper} data-theme={headerTheme}>
-      <div
-        className={[classes.topBar, hideTopBar && classes.topBarHidden].filter(Boolean).join(' ')}
-        id="topBar"
-      >
+      <div className={classes.topBar} id="topBar">
         {children}
       </div>
       <header

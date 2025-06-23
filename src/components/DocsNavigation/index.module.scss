@@ -6,6 +6,7 @@
   max-height: calc(100vh - var(--page-padding-top));
   overflow: auto;
   flex-shrink: 0;
+  transition: top 0.5s ease;
 
   &::-webkit-scrollbar,
   &::-webkit-scrollbar-thumb {
