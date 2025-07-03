@@ -58,7 +58,7 @@ The documentation for this site is stored in the [Payload repo](https://github.c
 
 #### Working on the docs locally - GitHub
 
-By default, the docs are pulled from the `main` branch of the Payload repo on GitHub. You can **load the docs** for a different branch by opening the /dynamic/ route in the website.
+By default, the docs are pulled from the `main` branch of the Payload repo on GitHub. You can **load the docs** for a different branch by opening the /docs/dynamic/ route in the website.
 
 Example:
 
@@ -81,14 +81,16 @@ COMMIT_DOCS_API_KEY=
 
 #### Working on docs locally - local markdown files
 
-If you have the docs stored locally as markdown files and would like to preview them in the website, you can use the /local/ route in the website. First, you need to set the `DOCS_DIR_V3` environment variable to point to your local `docs` directory.
+If you have the docs stored locally as markdown files and would like to preview them in the website, you can use the /docs/local/ route in the website. First, you need to set the `DOCS_DIR_V3` environment variable to point to your local `docs` directory.
 
 ```env
 // .env
 DOCS_DIR_V3=/documents/github/payload/docs
 ```
 
-Then, just open the /local/ route in the website: http://localhost:3000/docs/local/getting-started/concepts
+Then, just open the `/docs/local/` route: http://localhost:3000/docs/local/getting-started/concepts.
+
+Every time you make a change to the markdown files, just reload the page to see the changes reflected. The local MDX files are read, automatically converted to lexical on-the-fly, and rendered in the website. This process will not make any changes to the database.
 
 #### Beta and Legacy environment flags
 
