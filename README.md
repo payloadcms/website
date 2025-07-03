@@ -53,12 +53,12 @@ The documentation for this site is stored in the [Payload repo](https://github.c
 
 1. Docs are pulled from the Payload repo on GitHub.
 2. The docs are converted from MDX to Lexical and stored in the CMS.
-3. The docs are revalidated.
-4. Visiting the docs will pull the latest docs from the CMS, and render those lexical nodes to JSX.
+3. The frontend docs pages are revalidated.
+4. Visiting the docs pages will pull the latest docs from the CMS, and render those lexical nodes to JSX.
 
 #### Working on the docs locally - GitHub
 
-By default, the docs are pulled from the `main` branch of the Payload repo on GitHub. You can **load the docs** for a different branch by opening the /docs/dynamic/ route in the website.
+By default, the docs are pulled from the `main` branch of the Payload repo on GitHub. You can **load the docs** for a different branch by opening the /docs/dynamic/ route on the website. This will dynamically load them every time you visit the page, without needing to sync them in the CMS.
 
 Example:
 
