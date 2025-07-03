@@ -139,45 +139,51 @@ export async function fetchDocs(args?: {
       topicOrder[version].map(
         async ({ groupLabel, topics: topicsGroup }) => ({
           groupLabel,
-          topics: await Promise.all(
-            topicsGroup.map(async (key) => {
-              const topicSlug = key.toLowerCase()
-              const filenames = await getFilenames({ topicSlug })
+          topics: (
+            await Promise.all(
+              topicsGroup
+                .map(async (key) => {
+                  const topicSlug = key.toLowerCase()
+                  const filenames = await getFilenames({ topicSlug })
 
-              if (filenames.length === 0) {
-                return null
-              }
+                  if (filenames.length === 0) {
+                    return null
+                  }
 
-              const parsedDocs: ParsedDoc[] = (
-                await Promise.all(
-                  filenames.map(async (docFilename) => {
-                    const docMatter = await getDocMatter({ docFilename, topicSlug })
+                  const parsedDocs: ParsedDoc[] = (
+                    await Promise.all(
+                      filenames
+                        .map(async (docFilename) => {
+                          const docMatter = await getDocMatter({ docFilename, topicSlug })
 
-                    if (!docMatter) {
-                      return null
-                    }
+                          if (!docMatter) {
+                            return null
+                          }
 
-                    return {
-                      slug: docFilename.replace('.mdx', ''),
-                      content: docMatter.content,
-                      desc: docMatter.data.desc || docMatter.data.description || '',
-                      headings: getHeadings(docMatter.content),
-                      keywords: docMatter.data.keywords || '',
-                      label: docMatter.data.label,
-                      order: docMatter.data.order,
-                      title: docMatter.data.title,
-                    }
-                  }),
-                )
-              ).filter(Boolean) as ParsedDoc[]
+                          return {
+                            slug: docFilename.replace('.mdx', ''),
+                            content: docMatter.content,
+                            desc: docMatter.data.desc || docMatter.data.description || '',
+                            headings: getHeadings(docMatter.content),
+                            keywords: docMatter.data.keywords || '',
+                            label: docMatter.data.label,
+                            order: docMatter.data.order,
+                            title: docMatter.data.title,
+                          }
+                        })
+                        .filter(Boolean),
+                    )
+                  ).filter(Boolean) as ParsedDoc[]
 
-              return {
-                slug: topicSlug,
-                docs: parsedDocs.sort((a, b) => a.order - b.order),
-                label: key,
-              } as Topic
-            }),
-          ),
+                  return {
+                    slug: topicSlug,
+                    docs: parsedDocs.sort((a, b) => a.order - b.order),
+                    label: key,
+                  } as Topic
+                })
+                .filter(Boolean),
+            )
+          ).filter(Boolean),
         }),
         [],
       ),

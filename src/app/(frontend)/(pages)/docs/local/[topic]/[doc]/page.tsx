@@ -1,3 +1,4 @@
+import type { Topic } from '@root/collections/Docs/types'
 import type { Metadata } from 'next'
 
 import { Banner } from '@components/Banner'
@@ -6,12 +7,11 @@ import config from '@payload-config'
 import { sanitizeServerEditorConfig } from '@payloadcms/richtext-lexical'
 import { contentLexicalEditorFeatures } from '@root/collections/Docs'
 import { mdxToLexical } from '@root/collections/Docs/mdxToLexical'
+import { fetchDocs } from '@root/scripts/fetchDocs'
 import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
 import { getPayload, type RequiredDataFromCollectionSlug } from 'payload'
 import React from 'react'
-
-import { fetchLocalDocs } from './api'
 
 export type TopicsOrder = { topics: string[] }[]
 
@@ -26,25 +26,29 @@ export default async function DocsPage(args: {
   await headers()
   const { params } = args
   const { doc: docSlug, topic: topicSlug } = await params
+
+  const topicGroups = await fetchDocs({ ref: 'v3', source: 'local', version: 'v3' })
+
   const payload = await getPayload({ config })
 
-  const topics = fetchLocalDocs()
+  let curTopic: null | Topic = null
+  let curTopicGroup: any = null
 
-  const groupIndex = topics.findIndex(({ topics: tGroup }) =>
-    tGroup.some((topic) => topic?.slug?.toLowerCase() === topicSlug),
-  )
+  for (const topicGroup of topicGroups) {
+    const found = topicGroup.topics.find((topic) => topic.slug === topicSlug)
 
-  const indexInGroup = topics[groupIndex]?.topics?.findIndex(
-    (topic) => topic?.slug?.toLowerCase() === topicSlug,
-  )
+    if (found) {
+      curTopic = found
+      curTopicGroup = topicGroup
+      break
+    }
+  }
 
-  const topicGroup = topics?.[groupIndex]
+  if (!curTopic) {
+    notFound()
+  }
 
-  const topic = topicGroup?.topics?.[indexInGroup]
-
-  const docIndex = topic?.docs.findIndex((doc) => doc.slug.replace('.mdx', '') === docSlug)
-
-  const curParsedDoc = topic?.docs?.[docIndex]
+  const curParsedDoc = curTopic.docs.find((doc) => doc.slug === docSlug)
 
   if (!curParsedDoc) {
     notFound()
@@ -72,10 +76,10 @@ export default async function DocsPage(args: {
     keywords: curParsedDoc.keywords,
     label: curParsedDoc.label,
     order: curParsedDoc.order,
-    path: `${topic.slug}/${curParsedDoc.slug}`,
+    path: `${curTopic.slug}/${curParsedDoc.slug}`,
     title: curParsedDoc.title,
-    topic: topic.slug,
-    topicGroup: topicGroup.groupLabel,
+    topic: curTopic.slug,
+    topicGroup: curTopicGroup.groupLabel,
     version: 'local',
   }
 
@@ -84,20 +88,18 @@ export default async function DocsPage(args: {
   }
 
   return (
-    <>
+    <div>
       <RenderDocs
         currentDoc={curDoc as any}
         docSlug={docSlug}
-        // @ts-expect-error // TODO: fix this type
-        topicGroups={topics}
+        key={`${topicSlug}-${docSlug}`}
+        topicGroups={topicGroups}
         topicSlug={topicSlug}
         version="local"
       >
-        <Banner type="warning">
-          You are currently viewing documentation from your local repository.
-        </Banner>
+        <Banner type="warning">You are currently viewing local documentation.</Banner>
       </RenderDocs>
-    </>
+    </div>
   )
 }
 
