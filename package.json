@@ -52,7 +52,7 @@
     "graphql": "16.8.1",
     "gray-matter": "^4.0.3",
     "instantsearch.js": "^4.72.2",
-    "next": "15.3.4",
+    "next": "15.3.3",
     "next-sitemap": "^4.0.6",
     "node-cron": "^3.0.3",
     "nodemailer-sendgrid": "^1.0.3",
