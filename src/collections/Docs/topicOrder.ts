@@ -72,7 +72,7 @@ export const topicOrder: TopicOrder = {
     },
     {
       groupLabel: 'Deployment',
-      topics: ['Cloud', 'Production'],
+      topics: ['Cloud', 'Production', 'Performance'],
     },
   ],
 }
