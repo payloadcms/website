@@ -24,7 +24,7 @@ export const CenteredContent: React.FC<
   const padding = useGetHeroPadding(theme, firstContentBlock)
 
   return (
-    <BlockWrapper padding={padding} settings={{ theme }}>
+    <BlockWrapper hero padding={padding} settings={{ theme }}>
       <BackgroundGrid zIndex={0} />
       <Gutter>
         <div className={[classes.container, 'grid'].filter(Boolean).join(' ')}>

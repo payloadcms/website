@@ -304,6 +304,10 @@ dialog {
   color: var(--color-base-1000);
 }
 
+.hero .background-grid div {
+  background: linear-gradient(to bottom, transparent 0px, var(--theme-border-color) 8vh);
+}
+
 .background-scanline {
   background-image: url('/images/scanline-dark.png');
   background-repeat: repeat;

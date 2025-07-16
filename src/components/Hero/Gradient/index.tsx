@@ -43,7 +43,7 @@ export const GradientHero: React.FC<
   const padding = useGetHeroPadding(theme, firstContentBlock)
 
   return (
-    <BlockWrapper padding={{ bottom: 'small', top: 'small' }} settings={{ theme }}>
+    <BlockWrapper hero padding={{ bottom: 'small', top: 'small' }} settings={{ theme }}>
       {Boolean(fullBackground) && (
         <Media
           alt=""

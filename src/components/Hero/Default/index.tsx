@@ -21,7 +21,7 @@ export const DefaultHero: React.FC<
   const withoutDescription = !description || description.root.children.length < 1
 
   return (
-    <BlockWrapper padding={{ bottom: 'small', top: 'small' }} settings={{ theme }}>
+    <BlockWrapper hero padding={{ bottom: 'small', top: 'small' }} settings={{ theme }}>
       <Gutter>
         <BackgroundGrid zIndex={0} />
         <div className={classes.defaultHero}>

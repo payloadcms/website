@@ -44,6 +44,7 @@ export const ThreeHero: React.FC<
     <>
       <BlockWrapper
         className={classes.blockWrapper}
+        hero
         padding={{ bottom: 'large', top: 'small' }}
         settings={{ theme }}
       >

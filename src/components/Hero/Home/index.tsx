@@ -153,7 +153,7 @@ export const HomeHero: React.FC<
 
   return (
     <ChangeHeaderTheme theme="dark">
-      <BlockWrapper padding={padding} setPadding={false} settings={{ theme: 'dark' }}>
+      <BlockWrapper hero padding={padding} setPadding={false} settings={{ theme: 'dark' }}>
         <div className={classes.bgFull}>
           <Media
             alt=""

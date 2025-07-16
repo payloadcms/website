@@ -29,6 +29,7 @@ export const BackgroundGrid: React.FC<Props> = ({
       className={[
         classes.backgroundGrid,
         'grid',
+        'background-grid',
         ignoreGutter && classes.ignoreGutter,
         className,
         wideGrid && classes.wideGrid,

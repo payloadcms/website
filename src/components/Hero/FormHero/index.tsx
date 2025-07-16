@@ -44,7 +44,7 @@ export const FormHero: React.FC<
   }
 
   return (
-    <BlockWrapper padding={padding} settings={{ theme }}>
+    <BlockWrapper hero padding={padding} settings={{ theme }}>
       <BackgroundGrid zIndex={0} />
       <Gutter>
         <div className={[classes.formHero, 'grid'].filter(Boolean).join(' ')}>

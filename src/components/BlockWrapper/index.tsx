@@ -20,6 +20,7 @@ export type PaddingProps = {
 type Props = {
   children: React.ReactNode
   className?: string
+  hero?: boolean
   hideBackground?: boolean
   padding?: PaddingProps
   /**
@@ -34,6 +35,7 @@ type Props = {
 export const BlockWrapper: React.FC<Props> = ({
   children,
   className,
+  hero = false,
   hideBackground,
   padding,
   setPadding = true,
@@ -59,6 +61,7 @@ export const BlockWrapper: React.FC<Props> = ({
       <div
         className={[
           classes.blockWrapper,
+          hero && 'hero',
           theme && classes[`theme-${theme}`],
           padding?.top && classes[`padding-top-${padding?.top}`],
           padding?.bottom && classes[`padding-bottom-${padding?.bottom}`],

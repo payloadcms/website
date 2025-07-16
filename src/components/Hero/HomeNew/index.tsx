@@ -41,6 +41,7 @@ export const HomeNewHero: React.FC<
     <ChangeHeaderTheme theme="dark">
       <BlockWrapper
         className={classes.heroWrapper}
+        hero
         padding={{ bottom: 'small', top: 'small' }}
         settings={{ theme: 'dark' }}
       >
