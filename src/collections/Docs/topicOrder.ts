@@ -37,7 +37,7 @@ export const topicOrder: TopicOrder = {
     },
     {
       groupLabel: 'Deployment',
-      topics: ['Cloud', 'Production'],
+      topics: ['Production'],
     },
   ],
   v3: [
@@ -72,7 +72,7 @@ export const topicOrder: TopicOrder = {
     },
     {
       groupLabel: 'Deployment',
-      topics: ['Cloud', 'Production', 'Performance'],
+      topics: ['Production', 'Performance'],
     },
   ],
 }
