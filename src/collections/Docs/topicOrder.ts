@@ -63,6 +63,7 @@ export const topicOrder: TopicOrder = {
         'Email',
         'Jobs-Queue',
         'Query-Presets',
+        'Trash',
         'TypeScript',
       ],
     },
