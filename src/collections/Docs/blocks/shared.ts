@@ -5,6 +5,7 @@ export const languages = {
   env: 'Environment Variables',
   graphql: 'GraphQL',
   html: 'HTML',
+  http: 'HTTP',
   js: 'JavaScript',
   json: 'JSON',
   jsx: 'JSX',
