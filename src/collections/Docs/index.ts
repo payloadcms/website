@@ -219,6 +219,11 @@ export const Docs: CollectionConfig = {
       },
     },
   ],
+  forceSelect: {
+    slug: true,
+    topic: true,
+    version: true,
+  },
   hooks: {
     afterRead: [
       async ({ doc: _doc, findMany, req }) => {
