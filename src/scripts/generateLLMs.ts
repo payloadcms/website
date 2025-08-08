@@ -1,4 +1,4 @@
-import { writeFileSync } from 'fs'
+import { writeFile } from 'fs/promises'
 import { join } from 'path'
 
 import { fetchDocs } from './fetchDocs'
@@ -10,22 +10,7 @@ async function generateLLMs() {
     return
   }
 
-  const topics = await fetchDocs({ ref: 'main', version: 'v3' })
-
-  const output = topics.map((group) => ({
-    groupLabel: group.groupLabel,
-    topics: group.topics.map((topic) => ({
-      slug: topic.slug,
-      docs: topic.docs.map((doc) => ({
-        slug: doc.slug,
-        content: doc.content,
-        label: doc.label,
-        order: doc.order,
-        title: doc.title,
-      })),
-      label: topic.label,
-    })),
-  }))
+  const output = await fetchDocs({ ref: 'main', version: 'v3' })
 
   let outputStr = '# Payload\n\n'
   let fullOutputStr = `# Payload Documentation\n\n`
@@ -44,8 +29,7 @@ async function generateLLMs() {
 
   const filePath = join(process.cwd(), 'public', 'llms.txt')
   const fullFilePath = join(process.cwd(), 'public', 'llms-full.txt')
-  writeFileSync(filePath, outputStr)
-  writeFileSync(fullFilePath, fullOutputStr)
+  await Promise.all([writeFile(filePath, outputStr), writeFile(fullFilePath, fullOutputStr)])
   console.log(`Wrote llms.txt to ${filePath}`)
   console.log(`Wrote llms-full.txt to ${fullFilePath}`)
 }
