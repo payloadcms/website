@@ -18,10 +18,10 @@ async function generateLLMs() {
   for (const group of output) {
     outputStr += `## ${group.groupLabel}\n\n`
     for (const topic of group.topics) {
-      outputStr += `### ${topic.label.replace('-', ' ')}\n`
+      outputStr += `### ${topic.label.replace('-', ' ')}\n\n`
       for (const doc of topic.docs) {
-        outputStr += `- [${doc.title}](https://payloadcms.com/docs/${topic.slug}/${doc.slug})\n`
-        fullOutputStr += `#${doc.title}\nSource: https://payloadcms.com/docs/${topic.slug}/${doc.slug}\n\n${doc.content}\n\n`
+        outputStr += `- [${doc.title}](https://payloadcms.com/docs/${topic.slug}/${doc.slug})\n\n`
+        fullOutputStr += `# ${doc.title}\n\nSource: https://payloadcms.com/docs/${topic.slug}/${doc.slug}\n\n${doc.content}\n\n`
       }
       outputStr += '\n'
     }
