@@ -2,12 +2,9 @@ import type { GithubAPIResponse, ParsedDoc, Topic, TopicGroup } from '@root/coll
 
 import { topicOrder } from '@root/collections/Docs/topicOrder'
 import { decodeBase64 } from '@root/utilities/decode-base-64'
-import { config } from 'dotenv'
 import { writeFileSync } from 'fs'
 import matter from 'gray-matter'
 import { join } from 'path'
-
-config()
 
 const githubAPI = 'https://api.github.com/repos/payloadcms/payload'
 const headers = {
