@@ -1,55 +1,7 @@
-import type { GithubAPIResponse, ParsedDoc, Topic, TopicGroup } from '@root/collections/Docs/types'
-
-import { topicOrder } from '@root/collections/Docs/topicOrder'
-import { decodeBase64 } from '@root/utilities/decode-base-64'
 import { writeFileSync } from 'fs'
-import matter from 'gray-matter'
 import { join } from 'path'
 
-const githubAPI = 'https://api.github.com/repos/payloadcms/payload'
-const headers = {
-  Accept: 'application/vnd.github.v3+json.html',
-  Authorization: `token ${process.env.GITHUB_ACCESS_TOKEN}`,
-}
-
-const fetchDocsFromTopic = async ({ topicSlug }: { topicSlug: string }) => {
-  try {
-    const docs = await fetch(`${githubAPI}/contents/docs/${topicSlug}`, {
-      headers,
-    }).then((res) => res.json())
-
-    if (docs && Array.isArray(docs)) {
-      return docs.map((doc) => doc.name)
-    } else if (docs && typeof docs === 'object' && 'message' in docs) {
-      console.error(`Error fetching ${topicSlug}. Reason: ${docs.message}`)
-    }
-    return []
-  } catch (_e) {
-    return []
-  }
-}
-
-async function getDocMatter({
-  docFilename,
-  topicSlug,
-}: {
-  docFilename: string
-  topicSlug: string
-}) {
-  const json: GithubAPIResponse = await fetch(
-    `${githubAPI}/contents/docs/${topicSlug}/${docFilename}`,
-    {
-      headers,
-    },
-  ).then((res) => res.json())
-
-  const parsedDoc = matter(decodeBase64(json.content))
-  parsedDoc.content = parsedDoc.content
-    .replace(/\(\/docs\//g, '(../')
-    .replace(/"\/docs\//g, '"../')
-    .replace(/https:\/\/payloadcms.com\/docs\//g, '../')
-  return parsedDoc
-}
+import { fetchDocs } from './fetchDocs'
 
 async function generateLLMs() {
   console.log('Generating LLMs...')
@@ -58,60 +10,7 @@ async function generateLLMs() {
     return
   }
 
-  const topics: TopicGroup[] = (
-    await Promise.all(
-      topicOrder.v3.map(
-        async ({ groupLabel, topics: topicsGroup }) => ({
-          groupLabel,
-          topics: (
-            await Promise.all(
-              topicsGroup
-                .map(async (key) => {
-                  const topicSlug = key.toLowerCase()
-                  const filenames = await fetchDocsFromTopic({ topicSlug })
-
-                  if (filenames.length === 0) {
-                    return null
-                  }
-
-                  const parsedDocs: ParsedDoc[] = (
-                    await Promise.all(
-                      filenames
-                        .map(async (docFilename) => {
-                          const docMatter = await getDocMatter({ docFilename, topicSlug })
-
-                          if (!docMatter) {
-                            return null
-                          }
-
-                          return {
-                            slug: docFilename.replace('.mdx', ''),
-                            content: docMatter.content,
-                            desc: docMatter.data.desc || docMatter.data.description || '',
-                            keywords: docMatter.data.keywords || '',
-                            label: docMatter.data.label,
-                            order: docMatter.data.order,
-                            title: docMatter.data.title,
-                          }
-                        })
-                        .filter(Boolean),
-                    )
-                  ).filter(Boolean) as ParsedDoc[]
-
-                  return {
-                    slug: topicSlug,
-                    docs: parsedDocs.sort((a, b) => a.order - b.order),
-                    label: key,
-                  } as Topic
-                })
-                .filter(Boolean),
-            )
-          ).filter(Boolean),
-        }),
-        [],
-      ),
-    )
-  ).filter(Boolean) as TopicGroup[]
+  const topics = await fetchDocs({ ref: 'main', version: 'v3' })
 
   const output = topics.map((group) => ({
     groupLabel: group.groupLabel,
