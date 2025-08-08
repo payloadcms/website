@@ -3218,6 +3218,7 @@ export interface CodeBlock {
         | 'env'
         | 'graphql'
         | 'html'
+        | 'http'
         | 'js'
         | 'json'
         | 'jsx'
