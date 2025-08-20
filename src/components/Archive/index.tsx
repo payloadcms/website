@@ -42,9 +42,6 @@ const Navigation = ({
       <Link href="/case-studies">
         Case Studies <ArrowIcon />
       </Link>
-      <Link href="https://www.github.com/payloadcms/payload/releases" target="_blank">
-        Releases <ArrowIcon />
-      </Link>
     </nav>
   )
 }
