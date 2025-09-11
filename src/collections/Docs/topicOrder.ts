@@ -33,7 +33,7 @@ export const topicOrder: TopicOrder = {
     },
     {
       groupLabel: 'Ecosystem',
-      topics: ['Plugins', 'Examples', 'Integrations'],
+      topics: ['Plugins', 'Ecommerce', 'Examples', 'Integrations'],
     },
     {
       groupLabel: 'Deployment',
