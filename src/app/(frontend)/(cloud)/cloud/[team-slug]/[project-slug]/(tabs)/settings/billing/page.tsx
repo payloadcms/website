@@ -61,11 +61,6 @@ export default async ({
     team,
   })
 
-  // check if this plan is free, and do not show a message if it is
-  // some plans are have pricing that is different than what is offered in the UI
-  // so instead of checking `project.plan` we check the amount of the `stripeSubscription`
-  const isFreeTier = !project.stripeSubscription?.plan?.amount // could be `0` or `null`
-
   return (
     <MaxWidth>
       <SectionHeader className={classes.header} title="Project billing" />
@@ -107,11 +102,9 @@ export default async ({
                 <Heading element="h6" marginBottom={false}>
                   Payment Method
                 </Heading>
-                {isFreeTier && (
-                  <Message
-                    success={`This project is on a free tier. No billing information is required.`}
-                  />
-                )}
+                <Message
+                  success={`As part of Payload's partnership with Figma, we're waiving your existing hosting costs. When a new platform is available, we'll notify you of the details.`}
+                />
                 <p className={classes.description}>
                   {`Select which card to use for this project. If your payment fails, we will attempt to bill your team's default payment method (if any). To set your team's default payment method or manage all payment methods on file, please visit the `}
                   <Link href={`/${cloudSlug}/${team.slug}/settings/billing`} prefetch={false}>
