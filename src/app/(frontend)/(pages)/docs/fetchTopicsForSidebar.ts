@@ -33,10 +33,10 @@ export const fetchTopicsForSidebar = async ({
   const docs = result.docs
 
   const topicGroups: TopicGroupForNav[] = topicOrder[version]
-    .map(
-      ({ groupLabel, topics: topicsGroup }) => ({
-        groupLabel,
-        topics: topicsGroup.map((key) => {
+    .map(({ groupLabel, topics: topicsGroup }) => ({
+      groupLabel,
+      topics: topicsGroup
+        .map((key) => {
           const topicSlug = key.toLowerCase()
 
           const docsForTopic = docs.filter(
@@ -44,25 +44,26 @@ export const fetchTopicsForSidebar = async ({
           )
 
           const parsedDocs: ParsedDocForNav[] = docsForTopic
-            .map((doc) => {
-              return {
-                slug: doc.slug,
-                label: doc.label ?? '',
-                order: doc.order ?? 0,
-                title: doc.title ?? '',
-              }
-            })
+            .map((doc) => ({
+              slug: doc.slug,
+              label: doc.label ?? '',
+              order: doc.order ?? 0,
+              title: doc.title ?? '',
+            }))
             .filter(Boolean) as ParsedDocForNav[]
+
+          if (parsedDocs.length === 0) {
+            return null // Omit topics with no docs
+          }
 
           return {
             slug: topicSlug,
             docs: parsedDocs.sort((a, b) => a.order - b.order),
             label: key,
           } as TopicForNav
-        }),
-      }),
-      [],
-    )
+        })
+        .filter(Boolean), // Remove nulls (topics with no docs)
+    }))
     .filter(Boolean) as TopicGroupForNav[]
 
   return topicGroups
