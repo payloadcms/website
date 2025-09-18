@@ -1,5 +1,4 @@
-// THIS FILE IS GENERATED INTO A JS FILE FOR THE LOCAL FETCH DOCS SCRIPT TO USE
-// DO NOT MODIFY THE JS FILE DIRECTLY, ONLY MODIFY THE TS SOURCE FILE
+// UPDATE THIS FILE WHEN ADDING A NEW TOPIC FOR DOCS
 
 type TopicOrder = {
   [version: string]: {
@@ -29,6 +28,7 @@ export const topicOrder: TopicOrder = {
         'Upload',
         'Email',
         'TypeScript',
+        'Experimental',
       ],
     },
     {
@@ -66,6 +66,7 @@ export const topicOrder: TopicOrder = {
         'Trash',
         'Troubleshooting',
         'TypeScript',
+        'Experimental',
       ],
     },
     {
