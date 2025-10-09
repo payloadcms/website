@@ -1,0 +1,14 @@
+name: on-payload-release
+
+on:
+  repository_dispatch:
+    types: [payload-release-event]
+
+jobs:
+  receive-repository-dispatch:
+    runs-on: ubuntu-latest
+
+    # Just log that we received the event
+    steps:
+      - name: Log the event payload
+        run: 'echo "Event received: ${{ toJson(github.event.client_payload) }}"'
