@@ -1,6 +1,7 @@
 name: on-payload-release
 
 on:
+  workflow_dispatch:
   repository_dispatch:
     types: [payload-release-event]
 
@@ -11,4 +12,15 @@ jobs:
     # Just log that we received the event
     steps:
       - name: Log the event payload
+        if: ${{ github.event_name != 'workflow_dispatch' }}
         run: 'echo "Event received: ${{ toJson(github.event.client_payload) }}"'
+
+      - name: Slack notification to sync docs
+        uses: slackapi/slack-github-action@v2.1.1
+        with:
+          webhook: ${{ secrets.SLACK_WEBHOOK_WEBSITE_CHANNEL }}
+          webhook-type: incoming-webhook
+          payload: |
+            {
+              "text": "👀 New version of Payload released. Please sync the docs in the Payload CMS Admin."
+            }
