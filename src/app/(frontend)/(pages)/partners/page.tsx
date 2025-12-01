@@ -35,21 +35,21 @@ export default async function Partners() {
 
   const getPartners = draft ? fetchPartners : unstable_cache(fetchPartners, ['partners'])
   const partners = await getPartners()
-  const partnerList = partners.map((partner) => {
+  const partnerList = partners?.map((partner) => {
     return {
       ...partner,
       budgets: partner.budgets
-        .map((budget) => typeof budget !== 'string' && budget.value)
-        .filter((value): value is string => !!value),
+        ?.map((budget) => typeof budget !== 'string' && budget.value)
+        ?.filter((value): value is string => !!value),
       industries: partner.industries
-        .map((industry) => typeof industry !== 'string' && industry.value)
-        .filter((value): value is string => !!value),
+        ?.map((industry) => typeof industry !== 'string' && industry.value)
+        ?.filter((value): value is string => !!value),
       regions: partner.regions
-        .map((region) => typeof region !== 'string' && region.value)
-        .filter((value): value is string => !!value),
+        ?.map((region) => typeof region !== 'string' && region.value)
+        ?.filter((value): value is string => !!value),
       specialties: partner.specialties
-        .map((specialty) => typeof specialty !== 'string' && specialty.value)
-        .filter((value): value is string => !!value),
+        ?.map((specialty) => typeof specialty !== 'string' && specialty.value)
+        ?.filter((value): value is string => !!value),
     }
   })
 

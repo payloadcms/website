@@ -90,21 +90,19 @@ const nextConfig = withBundleAnalyzer({
   sassOptions: {
     silenceDeprecations: ['legacy-js-api', 'import'], // https://github.com/vercel/next.js/issues/71638
   },
-  experimental: {
-    turbo: {
-      resolveAlias: {
-        '@scss': path.resolve(dirname, './src/css/'),
-        '@components': path.resolve(dirname, './src/components.js'),
-        '@cloud': path.resolve(dirname, './src/app/cloud'),
-        '@forms': path.resolve(dirname, './src/forms'),
-        '@blocks': path.resolve(dirname, './src/blocks'),
-        '@providers': path.resolve(dirname, './src/providers'),
-        '@icons': path.resolve(dirname, './src/icons'),
-        '@utilities': path.resolve(dirname, './src/utilities'),
-        '@types': path.resolve(dirname, './payload-types.ts'),
-        '@graphics': path.resolve(dirname, './src/graphics'),
-        '@graphql': path.resolve(dirname, './src/graphql'),
-      },
+  turbopack: {
+    resolveAlias: {
+      '@scss': path.resolve(dirname, './src/css/'),
+      '@components': path.resolve(dirname, './src/components.js'),
+      '@cloud': path.resolve(dirname, './src/app/cloud'),
+      '@forms': path.resolve(dirname, './src/forms'),
+      '@blocks': path.resolve(dirname, './src/blocks'),
+      '@providers': path.resolve(dirname, './src/providers'),
+      '@icons': path.resolve(dirname, './src/icons'),
+      '@utilities': path.resolve(dirname, './src/utilities'),
+      '@types': path.resolve(dirname, './payload-types.ts'),
+      '@graphics': path.resolve(dirname, './src/graphics'),
+      '@graphql': path.resolve(dirname, './src/graphql'),
     },
   },
   webpack: (config) => {

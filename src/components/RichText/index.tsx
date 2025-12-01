@@ -143,11 +143,7 @@ export const jsxConverters: (args: { toc?: boolean }) => JSXConvertersFunction<N
             nodes: richText?.root?.children as SerializedLexicalNode[],
           })
 
-          return (
-            <SpotlightAnimation as={as} richTextChildren={node.children}>
-              {Children}
-            </SpotlightAnimation>
-          )
+          return <SpotlightAnimation as={as}>{Children}</SpotlightAnimation>
         },
         TableWithDrawers: ({ node }) => {
           return (
