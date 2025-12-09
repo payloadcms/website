@@ -58,7 +58,7 @@ export const fetchPage = async (incomingSlugSegments: string[]): Promise<null | 
     collection: 'pages',
     depth: 2,
     draft,
-    limit: 1,
+    limit: 10000,
     where: {
       and: [
         {
