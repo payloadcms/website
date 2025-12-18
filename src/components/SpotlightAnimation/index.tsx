@@ -9,14 +9,9 @@ import classes from './index.module.scss'
 interface Props {
   as?: AllowedElements
   children: React.ReactNode
-  /**
-   * Gets an array from rich text which it can loop through and get a string text
-   * Required for SplitAnimate to work
-   */
-  richTextChildren?: any[]
 }
 
-const SpotlightAnimation: React.FC<Props> = ({ as = 'h2', children, richTextChildren }) => {
+const SpotlightAnimation: React.FC<Props> = ({ as = 'h2', children }) => {
   const containerRef = useRef<HTMLHeadingElement>(null)
   const containerSize = useResize(containerRef)
 
