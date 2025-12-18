@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 'use client'
 
 import type { CollectionSlug } from 'payload'
@@ -45,12 +46,28 @@ export function usePopulateDocument<T>({
           method: 'GET',
         })
         if (!res.ok) {
+          console.error(
+            'Error fetching document for id',
+            id,
+            'collection',
+            collection,
+            'error',
+            res.statusText,
+          )
           setData(fallback)
           return
         }
         const json = await res.json()
         setData(json as T)
-      } catch {
+      } catch (error) {
+        console.error(
+          'Error populating document for id',
+          id,
+          'collection',
+          collection,
+          'error',
+          error,
+        )
         setData(fallback)
       } finally {
         setLoading(false)

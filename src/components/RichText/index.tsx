@@ -13,8 +13,7 @@ import type {
   Doc,
   DownloadBlockType,
   LightDarkImageBlock,
-  Media,
-  PayloadMediaBlock,
+  PayloadMediaBlock as PayloadMediaBlockType,
   ResourceBlock,
   RestExamplesBlock,
   SpotlightBlock,
@@ -40,7 +39,6 @@ import YouTube from '@components/YouTube/index'
 
 import './index.scss'
 
-import { usePopulateDocument } from '@hooks/usePopulateDocument'
 import { useLivePreview } from '@payloadcms/live-preview-react'
 import {
   type JSXConverters,
@@ -56,6 +54,7 @@ import type { AllowedElements } from '../SpotlightAnimation/types'
 import { type AddHeading, type Heading, type IContext, RichTextContext } from './context'
 import { Heading as HeadingComponent } from './Heading'
 import { LightDarkImage } from './LightDarkImage/index'
+import { PayloadMediaBlock } from './PayloadMedia'
 import { ResourceBlock as Resource } from './ResourceBlock'
 import { RestExamples } from './RestExamples'
 import { CustomTableJSXConverters } from './Table/index'
@@ -77,7 +76,7 @@ export type NodeTypes =
       | CommandLineBlock
       | DownloadBlockType
       | LightDarkImageBlock
-      | PayloadMediaBlock
+      | PayloadMediaBlockType
       | ResourceBlock
       | RestExamplesBlock
       | SpotlightBlock
@@ -129,29 +128,7 @@ export const jsxConverters: (args: { toc?: boolean }) => JSXConvertersFunction<N
           )
         },
         PayloadMedia: ({ node }) => {
-          const { data: media } = usePopulateDocument<Media>({
-            id: typeof node.fields.media === 'object' ? node.fields.media.id : node.fields.media,
-            collection: 'media',
-            depth: 1,
-            enabled: typeof node.fields.media !== 'object',
-            fallback: node?.fields?.media as Media,
-          })
-
-          return (
-            <LightDarkImage
-              alt={media?.alt ?? ''}
-              caption={node?.fields?.caption ?? ''}
-              srcDark={
-                typeof media?.darkModeFallback === 'object'
-                  ? (media?.darkModeFallback?.url ?? undefined)
-                  : undefined
-              }
-              srcDarkId={
-                typeof media?.darkModeFallback !== 'object' ? media?.darkModeFallback : undefined
-              }
-              srcLight={media?.url ?? undefined}
-            />
-          )
+          return <PayloadMediaBlock {...node.fields} />
         },
         Resource: ({ node }) => {
           if (!node.fields.post) {

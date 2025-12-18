@@ -27,7 +27,7 @@ export const PayloadMediaBlock: Block = {
     import: ({ props }) => {
       return {
         caption: props.caption,
-        mediaID: props.mediaID,
+        media: props.mediaID,
       }
     },
   },
