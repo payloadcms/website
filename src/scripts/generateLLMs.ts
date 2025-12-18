@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { writeFile } from 'fs/promises'
 import { join } from 'path'
 
@@ -34,4 +35,5 @@ async function generateLLMs() {
   console.log(`Wrote llms-full.txt to ${fullFilePath}`)
 }
 
-void generateLLMs()
+// @ts-expect-error - this is fine, typescript won't need to compile this
+await generateLLMs()
