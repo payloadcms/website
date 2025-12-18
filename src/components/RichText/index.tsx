@@ -46,7 +46,7 @@ import {
 } from '@payloadcms/richtext-lexical/react'
 import { Download } from '@root/components/blocks/Download'
 import { getVideo } from '@root/utilities/get-video'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 
 import type { AllowedElements } from '../SpotlightAnimation/types'
 
@@ -221,13 +221,13 @@ export const jsxConverters: (args: { toc?: boolean }) => JSXConvertersFunction<N
 export const RichTextWithTOC: React.FC<Props> = ({ className, content: _content }) => {
   const [toc, setTOC] = useState<Map<string, Heading>>(new Map())
 
+  const initialData = useMemo(() => ({ content: _content }) as Doc, [_content])
+
   const {
     data: { content },
   } = useLivePreview<Doc>({
     depth: 2,
-    initialData: {
-      content: _content,
-    } as Doc,
+    initialData,
     serverURL: process.env.NEXT_PUBLIC_CMS_URL as string,
   })
 
