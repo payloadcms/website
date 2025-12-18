@@ -4,7 +4,6 @@ import { ReactSelect } from '@payloadcms/ui'
 
 import './index.scss'
 
-import { useRouter, useSearchParams } from 'next/navigation'
 import React from 'react'
 
 export const BranchButtonClient: React.FC<{ branch: null | string; branchNames: string[] }> = (
@@ -12,8 +11,6 @@ export const BranchButtonClient: React.FC<{ branch: null | string; branchNames: 
 ) => {
   const { branch, branchNames } = args
   const [selectedBranch, setSelectedBranch] = React.useState<null | string>(branch)
-  const router = useRouter()
-  const searchParams = useSearchParams()
 
   return (
     <ReactSelect

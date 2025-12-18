@@ -62,12 +62,7 @@ export const Docs: CollectionConfig = {
     delete: isAdmin,
     read: () => true,
     update: ({ id, data, isReadingStaticFile, req }) => {
-      const queryParams = req.query
-      return (
-        isAdmin({ id, data, isReadingStaticFile, req }) &&
-        !!queryParams.branch &&
-        queryParams.branch !== 'main'
-      )
+      return isAdmin({ id, data, isReadingStaticFile, req })
     },
   },
   admin: {

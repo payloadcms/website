@@ -1,8 +1,11 @@
 'use client'
 
+import type { SaveButtonClientProps } from 'payload'
+
 import { useFormField } from '@forms/useFormField'
 import {
   FormSubmit,
+  SaveButton as PayloadSaveButton,
   useConfig,
   useDocumentInfo,
   useEditDepth,
@@ -16,7 +19,9 @@ import { useSearchParams } from 'next/navigation'
 import * as qs from 'qs-esm'
 import React, { useRef } from 'react'
 
-export const SaveButtonClient: React.FC = () => {
+import './index.scss'
+
+export const SaveButtonClient: React.FC<SaveButtonClientProps> = (props) => {
   const { submit } = useForm()
   const modified = useFormModified()
   const versionField = useFormField(([fields]) => fields.version)
@@ -72,15 +77,18 @@ export const SaveButtonClient: React.FC = () => {
   }
 
   return (
-    <FormSubmit
-      buttonId="action-save"
-      disabled={forceDisable}
-      onClick={handleSubmit}
-      ref={ref}
-      size="medium"
-      type="button"
-    >
-      Save And Commit
-    </FormSubmit>
+    <div className="custom-save-button-container">
+      <FormSubmit
+        buttonId="action-save"
+        disabled={forceDisable}
+        onClick={handleSubmit}
+        ref={ref}
+        size="medium"
+        type="button"
+      >
+        Save And Commit
+      </FormSubmit>
+      <PayloadSaveButton {...props} />
+    </div>
   )
 }
