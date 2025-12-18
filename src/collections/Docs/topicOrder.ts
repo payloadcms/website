@@ -66,7 +66,6 @@ export const topicOrder: TopicOrder = {
         'Trash',
         'Troubleshooting',
         'TypeScript',
-        'Experimental',
       ],
     },
     {
