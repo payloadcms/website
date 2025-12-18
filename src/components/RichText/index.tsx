@@ -13,6 +13,8 @@ import type {
   Doc,
   DownloadBlockType,
   LightDarkImageBlock,
+  Media,
+  PayloadMediaBlock,
   ResourceBlock,
   RestExamplesBlock,
   SpotlightBlock,
@@ -38,6 +40,7 @@ import YouTube from '@components/YouTube/index'
 
 import './index.scss'
 
+import { usePopulateDocument } from '@hooks/usePopulateDocument'
 import { useLivePreview } from '@payloadcms/live-preview-react'
 import {
   type JSXConverters,
@@ -52,7 +55,7 @@ import type { AllowedElements } from '../SpotlightAnimation/types'
 
 import { type AddHeading, type Heading, type IContext, RichTextContext } from './context'
 import { Heading as HeadingComponent } from './Heading'
-import LightDarkImage from './LightDarkImage/index'
+import { LightDarkImage } from './LightDarkImage/index'
 import { ResourceBlock as Resource } from './ResourceBlock'
 import { RestExamples } from './RestExamples'
 import { CustomTableJSXConverters } from './Table/index'
@@ -74,6 +77,7 @@ export type NodeTypes =
       | CommandLineBlock
       | DownloadBlockType
       | LightDarkImageBlock
+      | PayloadMediaBlock
       | ResourceBlock
       | RestExamplesBlock
       | SpotlightBlock
@@ -119,8 +123,33 @@ export const jsxConverters: (args: { toc?: boolean }) => JSXConvertersFunction<N
             <LightDarkImage
               alt={node.fields.alt ?? ''}
               caption={node.fields.caption ?? ''}
-              srcDark={node.fields.srcDark}
-              srcLight={node.fields.srcLight}
+              srcDark={node.fields.srcDark ?? undefined}
+              srcLight={node.fields.srcLight ?? undefined}
+            />
+          )
+        },
+        PayloadMedia: ({ node }) => {
+          const { data: media } = usePopulateDocument<Media>({
+            id: typeof node.fields.media === 'object' ? node.fields.media.id : node.fields.media,
+            collection: 'media',
+            depth: 1,
+            enabled: typeof node.fields.media !== 'object',
+            fallback: node?.fields?.media as Media,
+          })
+
+          return (
+            <LightDarkImage
+              alt={media?.alt ?? ''}
+              caption={node?.fields?.caption ?? ''}
+              srcDark={
+                typeof media?.darkModeFallback === 'object'
+                  ? (media?.darkModeFallback?.url ?? undefined)
+                  : undefined
+              }
+              srcDarkId={
+                typeof media?.darkModeFallback !== 'object' ? media?.darkModeFallback : undefined
+              }
+              srcLight={media?.url ?? undefined}
             />
           )
         },

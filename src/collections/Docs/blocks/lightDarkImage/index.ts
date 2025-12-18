@@ -24,7 +24,7 @@ export const LightDarkImageBlock: Block = {
   ],
   interfaceName: 'LightDarkImageBlock',
   jsx: {
-    export: ({ fields, lexicalToMarkdown }) => {
+    export: ({ fields }) => {
       return {
         props: {
           alt: fields.alt,
@@ -34,7 +34,7 @@ export const LightDarkImageBlock: Block = {
         },
       }
     },
-    import: ({ children, markdownToLexical, props }) => {
+    import: ({ props }) => {
       return {
         alt: props.alt,
         caption: props.caption,

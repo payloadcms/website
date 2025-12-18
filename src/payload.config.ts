@@ -58,6 +58,7 @@ import { Docs } from './collections/Docs'
 import { BannerBlock } from './collections/Docs/blocks/banner'
 import { CodeBlock } from './collections/Docs/blocks/code'
 import { LightDarkImageBlock } from './collections/Docs/blocks/lightDarkImage'
+import { PayloadMediaBlock } from './collections/Docs/blocks/payloadMedia'
 import { ResourceBlock } from './collections/Docs/blocks/resource'
 import { RestExamplesBlock } from './collections/Docs/blocks/restExamples'
 import { TableWithDrawersBlock } from './collections/Docs/blocks/tableWithDrawers'
@@ -113,6 +114,7 @@ export default buildConfig({
     CallToAction,
     DownloadBlock,
     LightDarkImageBlock,
+    PayloadMediaBlock,
     TableWithDrawersBlock,
     YoutubeBlock,
     CardGrid,

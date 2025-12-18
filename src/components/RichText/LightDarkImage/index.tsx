@@ -1,17 +1,46 @@
 'use client'
+import type { Media } from '@types'
+
+import { usePopulateDocument } from '@root/hooks/usePopulateDocument'
 import { useThemePreference } from '@root/providers/Theme/index'
 import React from 'react'
 
 import classes from './index.module.scss'
 
-const LightDarkImage: (props: {
+type Props = {
   alt: string
   caption?: string
-  srcDark: string
-  srcLight: string
-}) => React.JSX.Element = ({ alt, caption, srcDark, srcLight }) => {
+  srcDark?: string
+  srcDarkId?: string
+  srcLight?: string
+  srcLightId?: string
+}
+
+export const LightDarkImage: (props: Props) => null | React.JSX.Element = ({
+  alt,
+  caption,
+  srcDark,
+  srcDarkId,
+  srcLight,
+  srcLightId,
+}) => {
   const { theme } = useThemePreference()
-  const src = theme === 'dark' ? srcDark : srcLight
+  const isDark = theme === 'dark'
+
+  const directSrc = isDark ? srcDark : srcLight
+  const mediaId = isDark ? srcDarkId : srcLightId
+
+  const { data: media } = usePopulateDocument<Media>({
+    id: mediaId,
+    collection: 'media',
+    enabled: !directSrc && !!mediaId,
+  })
+
+  const src = directSrc ?? media?.url
+
+  if (!src) {
+    return null
+  }
 
   return (
     <div className={classes.imageWrap}>
@@ -20,5 +49,3 @@ const LightDarkImage: (props: {
     </div>
   )
 }
-
-export default LightDarkImage

@@ -46,6 +46,7 @@ export const contentLexicalEditorFeatures: FeatureProviderServer[] = [
       'Banner',
       'YouTube',
       'LightDarkImage',
+      'PayloadMedia',
       'Upload',
       'RestExamples',
       'Resource',
