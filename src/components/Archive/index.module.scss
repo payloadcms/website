@@ -101,7 +101,7 @@
   margin: 0;
 }
 
-.cardGrid {
+.cardGrid.cardGrid {
   row-gap: 5rem;
 
   @include mid-break {
