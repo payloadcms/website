@@ -27,7 +27,7 @@
     "@faceless-ui/scroll-info": "2.0.0",
     "@faceless-ui/slider": "2.0.0-beta.0",
     "@faceless-ui/window-info": "3.0.1",
-    "@payloadcms/db-mongodb": "3.68.5",
+    "@payloadcms/db-postgres": "3.68.5",
     "@payloadcms/email-nodemailer": "3.68.5",
     "@payloadcms/live-preview-react": "3.68.5",
     "@payloadcms/next": "3.68.5",
