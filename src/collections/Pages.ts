@@ -11,6 +11,7 @@ import { formatPreviewURL } from '../utilities/formatPreviewURL'
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
+  dbName: 'pg',
   access: {
     create: isAdmin,
     delete: isAdmin,

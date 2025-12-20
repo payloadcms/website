@@ -11,6 +11,7 @@ import { formatPreviewURL } from '../utilities/formatPreviewURL'
 
 export const CaseStudies: CollectionConfig = {
   slug: 'case-studies',
+  dbName: 'cs',
   access: {
     create: isAdmin,
     delete: isAdmin,

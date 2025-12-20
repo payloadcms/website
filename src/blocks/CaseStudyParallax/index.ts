@@ -4,6 +4,7 @@ import { blockFields } from '../../fields/blockFields'
 
 export const CaseStudyParallax: Block = {
   slug: 'caseStudyParallax',
+  dbName: 'csp',
   fields: [
     blockFields({
       name: 'caseStudyParallaxFields',
@@ -11,6 +12,7 @@ export const CaseStudyParallax: Block = {
         {
           name: 'items',
           type: 'array',
+          dbName: 'itm',
           fields: [
             {
               name: 'quote',
@@ -30,6 +32,7 @@ export const CaseStudyParallax: Block = {
             {
               name: 'images',
               type: 'array',
+              dbName: 'img',
               fields: [
                 {
                   name: 'image',

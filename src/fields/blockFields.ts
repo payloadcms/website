@@ -8,9 +8,17 @@ interface Args {
   overrides?: Partial<GroupField>
 }
 
+// Generate short dbName from camelCase name (e.g., 'caseStudyParallaxFields' -> 'cspf')
+const generateShortDbName = (name: string): string => {
+  const matches = name.match(/[A-Z]?[a-z]+/g)
+  if (!matches) return name.slice(0, 4)
+  return matches.map((word) => word[0].toLowerCase()).join('')
+}
+
 export const themeField: (width?: number) => Field = (width) => ({
   name: 'theme',
   type: 'select',
+  dbName: 'thm',
   admin: {
     description: 'Leave blank for system default',
     width: width ? `${width}%` : '50%',
@@ -30,6 +38,7 @@ export const themeField: (width?: number) => Field = (width) => ({
 export const backgroundField: Field = {
   name: 'background',
   type: 'select',
+  dbName: 'bg',
   admin: {
     width: '50%',
   },
@@ -58,6 +67,7 @@ export const blockFields = ({ name, fields, overrides }: Args): Field =>
     {
       name,
       type: 'group',
+      dbName: generateShortDbName(name),
       admin: {
         hideGutter: true,
         style: {
@@ -72,6 +82,7 @@ export const blockFields = ({ name, fields, overrides }: Args): Field =>
             {
               name: 'settings',
               type: 'group',
+              dbName: 'set',
               admin: {
                 hideGutter: true,
                 initCollapsed: true,

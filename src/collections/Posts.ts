@@ -12,6 +12,7 @@ import { formatPreviewURL } from '../utilities/formatPreviewURL'
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
+  dbName: 'pt',
   access: {
     create: isAdmin,
     delete: isAdmin,
