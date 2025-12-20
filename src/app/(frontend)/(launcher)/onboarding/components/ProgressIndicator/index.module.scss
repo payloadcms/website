@@ -1,0 +1,76 @@
+@use '@scss/queries.scss' as *;
+
+.progress {
+  margin-bottom: calc(var(--base) * 3);
+}
+
+.steps {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: calc(var(--base));
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--base) * 0.5);
+  flex: 1;
+  position: relative;
+}
+
+.stepNumber {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--theme-elevation-200);
+  color: var(--theme-elevation-600);
+  font-weight: 600;
+  transition: all 0.3s ease;
+
+  .active & {
+    background: var(--color-success);
+    color: white;
+    transform: scale(1.1);
+  }
+
+  .completed & {
+    background: var(--color-success);
+    color: white;
+  }
+}
+
+.stepLabel {
+  font-size: 0.75rem;
+  color: var(--theme-elevation-500);
+  text-align: center;
+
+  @include small-break {
+    display: none;
+  }
+
+  .active & {
+    color: var(--theme-elevation-800);
+    font-weight: 600;
+  }
+
+  .completed & {
+    color: var(--color-success);
+  }
+}
+
+.progressBar {
+  height: 4px;
+  background: var(--theme-elevation-200);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: var(--color-success);
+  transition: width 0.3s ease;
+}

@@ -55,6 +55,7 @@ import { CaseStudies } from './collections/CaseStudies'
 import { Categories } from './collections/Categories'
 import { CommunityHelp } from './collections/CommunityHelp'
 import { Docs } from './collections/Docs'
+import { Tenants, GeneratedSites, BusinessTemplates } from './collections/Launcher'
 import { BannerBlock } from './collections/Docs/blocks/banner'
 import { CodeBlock } from './collections/Docs/blocks/code'
 import { LightDarkImageBlock } from './collections/Docs/blocks/lightDarkImage'
@@ -290,6 +291,10 @@ export default buildConfig({
     Specialties,
     Regions,
     Budgets,
+    // 신자동 런처
+    Tenants,
+    GeneratedSites,
+    BusinessTemplates,
   ],
   cors: [
     process.env.PAYLOAD_PUBLIC_APP_URL || '',
