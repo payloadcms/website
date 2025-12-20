@@ -130,6 +130,9 @@ export interface Config {
     specialties: Specialty;
     regions: Region;
     budgets: Budget;
+    tenants: Tenant;
+    'generated-sites': GeneratedSite;
+    'business-templates': BusinessTemplate;
     forms: Form;
     'form-submissions': FormSubmission;
     redirects: Redirect;
@@ -161,6 +164,9 @@ export interface Config {
     specialties: SpecialtiesSelect<false> | SpecialtiesSelect<true>;
     regions: RegionsSelect<false> | RegionsSelect<true>;
     budgets: BudgetsSelect<false> | BudgetsSelect<true>;
+    tenants: TenantsSelect<false> | TenantsSelect<true>;
+    'generated-sites': GeneratedSitesSelect<false> | GeneratedSitesSelect<true>;
+    'business-templates': BusinessTemplatesSelect<false> | BusinessTemplatesSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
@@ -170,7 +176,7 @@ export interface Config {
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
   db: {
-    defaultIDType: string;
+    defaultIDType: number;
   };
   fallbackLocale: null;
   globals: {
@@ -281,7 +287,7 @@ export interface CodeExampleBlock {
  * via the `definition` "MediaExampleBlock".
  */
 export interface MediaExampleBlock {
-  media: string | Media;
+  media: number | Media;
   id?: string | null;
   blockName?: string | null;
   blockType: 'MediaExampleBlock';
@@ -291,12 +297,12 @@ export interface MediaExampleBlock {
  * via the `definition` "media".
  */
 export interface Media {
-  id: string;
+  id: number;
   alt: string;
   /**
    * Choose an upload to render if the visitor is using dark mode.
    */
-  darkModeFallback?: (string | null) | Media;
+  darkModeFallback?: (number | null) | Media;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -337,12 +343,12 @@ export interface Callout {
       };
       [k: string]: unknown;
     };
-    logo: string | Media;
+    logo: number | Media;
     author?: string | null;
     role?: string | null;
     images?:
       | {
-          image: string | Media;
+          image: number | Media;
           id?: string | null;
         }[]
       | null;
@@ -393,15 +399,15 @@ export interface Cta {
             reference?:
               | ({
                   relationTo: 'pages';
-                  value: string | Page;
+                  value: number | Page;
                 } | null)
               | ({
                   relationTo: 'posts';
-                  value: string | Post;
+                  value: number | Post;
                 } | null)
               | ({
                   relationTo: 'case-studies';
-                  value: string | CaseStudy;
+                  value: number | CaseStudy;
                 } | null);
             url?: string | null;
             label: string;
@@ -416,21 +422,21 @@ export interface Cta {
       reference?:
         | ({
             relationTo: 'pages';
-            value: string | Page;
+            value: number | Page;
           } | null)
         | ({
             relationTo: 'posts';
-            value: string | Post;
+            value: number | Post;
           } | null)
         | ({
             relationTo: 'case-studies';
-            value: string | CaseStudy;
+            value: number | CaseStudy;
           } | null);
       url?: string | null;
       label: string;
       customId?: string | null;
     };
-    bannerImage?: (string | null) | Media;
+    bannerImage?: (number | null) | Media;
     gradientBackground?: boolean | null;
   };
   id?: string | null;
@@ -442,7 +448,7 @@ export interface Cta {
  * via the `definition` "pages".
  */
 export interface Page {
-  id: string;
+  id: number;
   title: string;
   fullTitle?: string | null;
   noindex?: boolean | null;
@@ -471,15 +477,15 @@ export interface Page {
             reference?:
               | ({
                   relationTo: 'pages';
-                  value: string | Page;
+                  value: number | Page;
                 } | null)
               | ({
                   relationTo: 'posts';
-                  value: string | Post;
+                  value: number | Post;
                 } | null)
               | ({
                   relationTo: 'case-studies';
-                  value: string | CaseStudy;
+                  value: number | CaseStudy;
                 } | null);
             url?: string | null;
             label: string;
@@ -511,7 +517,7 @@ export interface Page {
         | {
             name?: string | null;
             link?: string | null;
-            image?: (string | null) | Media;
+            image?: (number | null) | Media;
             id?: string | null;
           }[]
         | null;
@@ -523,15 +529,15 @@ export interface Page {
       reference?:
         | ({
             relationTo: 'pages';
-            value: string | Page;
+            value: number | Page;
           } | null)
         | ({
             relationTo: 'posts';
-            value: string | Post;
+            value: number | Post;
           } | null)
         | ({
             relationTo: 'case-studies';
-            value: string | CaseStudy;
+            value: number | CaseStudy;
           } | null);
       url?: string | null;
       label: string;
@@ -579,15 +585,15 @@ export interface Page {
             reference?:
               | ({
                   relationTo: 'pages';
-                  value: string | Page;
+                  value: number | Page;
                 } | null)
               | ({
                   relationTo: 'posts';
-                  value: string | Post;
+                  value: number | Post;
                 } | null)
               | ({
                   relationTo: 'case-studies';
-                  value: string | CaseStudy;
+                  value: number | CaseStudy;
                 } | null);
             url?: string | null;
             label: string;
@@ -634,15 +640,15 @@ export interface Page {
             reference?:
               | ({
                   relationTo: 'pages';
-                  value: string | Page;
+                  value: number | Page;
                 } | null)
               | ({
                   relationTo: 'posts';
-                  value: string | Post;
+                  value: number | Post;
                 } | null)
               | ({
                   relationTo: 'case-studies';
-                  value: string | CaseStudy;
+                  value: number | CaseStudy;
                 } | null);
             url?: string | null;
             label: string;
@@ -669,15 +675,15 @@ export interface Page {
             reference?:
               | ({
                   relationTo: 'pages';
-                  value: string | Page;
+                  value: number | Page;
                 } | null)
               | ({
                   relationTo: 'posts';
-                  value: string | Post;
+                  value: number | Post;
                 } | null)
               | ({
                   relationTo: 'case-studies';
-                  value: string | CaseStudy;
+                  value: number | CaseStudy;
                 } | null);
             url?: string | null;
             label: string;
@@ -688,18 +694,18 @@ export interface Page {
       | null;
     images?:
       | {
-          image: string | Media;
+          image: number | Media;
           id?: string | null;
         }[]
       | null;
     enableMedia?: boolean | null;
-    media?: (string | null) | Media;
-    secondaryMedia?: (string | null) | Media;
-    featureVideo?: (string | null) | Media;
-    form?: (string | null) | Form;
+    media?: (number | null) | Media;
+    secondaryMedia?: (number | null) | Media;
+    featureVideo?: (number | null) | Media;
+    form?: (number | null) | Form;
     logos?:
       | {
-          logoMedia: string | Media;
+          logoMedia: number | Media;
           id?: string | null;
         }[]
       | null;
@@ -718,7 +724,7 @@ export interface Page {
       };
       [k: string]: unknown;
     } | null;
-    logoShowcase?: (string | Media)[] | null;
+    logoShowcase?: (number | Media)[] | null;
   };
   layout: (
     | Callout
@@ -754,12 +760,12 @@ export interface Page {
     /**
      * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
-    image?: (string | null) | Media;
+    image?: (number | null) | Media;
   };
-  parent?: (string | null) | Page;
+  parent?: (number | null) | Page;
   breadcrumbs?:
     | {
-        doc?: (string | null) | Page;
+        doc?: (number | null) | Page;
         url?: string | null;
         label?: string | null;
         id?: string | null;
@@ -774,14 +780,14 @@ export interface Page {
  * via the `definition` "posts".
  */
 export interface Post {
-  id: string;
+  id: number;
   title: string;
   featuredMedia?: ('upload' | 'videoUrl') | null;
-  image?: (string | null) | Media;
+  image?: (number | null) | Media;
   videoUrl?: string | null;
   dynamicThumbnail?: boolean | null;
-  thumbnail?: (string | null) | Media;
-  category: string | Category;
+  thumbnail?: (number | null) | Media;
+  category: number | Category;
   tags?: string[] | null;
   excerpt: {
     root: {
@@ -836,14 +842,14 @@ export interface Post {
     | MediaBlock
     | ReusableContentBlock
   )[];
-  relatedPosts?: (string | Post)[] | null;
+  relatedPosts?: (number | Post)[] | null;
   /**
    * Select the docs where you want to link to this guide. Be sure to select the correct version.
    */
-  relatedDocs?: (string | Doc)[] | null;
+  relatedDocs?: (number | Doc)[] | null;
   slug?: string | null;
   authorType?: ('guest' | 'team') | null;
-  authors?: (string | User)[] | null;
+  authors?: (number | User)[] | null;
   guestAuthor?: string | null;
   guestSocials?: {
     youtube?: string | null;
@@ -862,7 +868,7 @@ export interface Post {
     /**
      * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
-    image?: (string | null) | Media;
+    image?: (number | null) | Media;
   };
   updatedAt: string;
   createdAt: string;
@@ -873,13 +879,13 @@ export interface Post {
  * via the `definition` "categories".
  */
 export interface Category {
-  id: string;
+  id: number;
   name: string;
   slug: string;
   headline: string;
   description: string;
   posts?: {
-    docs?: (string | Post)[];
+    docs?: (number | Post)[];
     hasNextPage?: boolean;
     totalDocs?: number;
   };
@@ -927,15 +933,15 @@ export interface Code {
             reference?:
               | ({
                   relationTo: 'pages';
-                  value: string | Page;
+                  value: number | Page;
                 } | null)
               | ({
                   relationTo: 'posts';
-                  value: string | Post;
+                  value: number | Post;
                 } | null)
               | ({
                   relationTo: 'case-studies';
-                  value: string | CaseStudy;
+                  value: number | CaseStudy;
                 } | null);
             url?: string | null;
             label: string;
@@ -954,7 +960,7 @@ export interface Code {
  * via the `definition` "case-studies".
  */
 export interface CaseStudy {
-  id: string;
+  id: number;
   title: string;
   introContent: {
     root: {
@@ -973,8 +979,8 @@ export interface CaseStudy {
   };
   industry?: string | null;
   useCase?: string | null;
-  partner?: (string | null) | Partner;
-  featuredImage: string | Media;
+  partner?: (number | null) | Partner;
+  featuredImage: number | Media;
   layout?:
     | (
         | Callout
@@ -1011,7 +1017,7 @@ export interface CaseStudy {
     /**
      * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
-    image?: (string | null) | Media;
+    image?: (number | null) | Media;
   };
   updatedAt: string;
   createdAt: string;
@@ -1022,7 +1028,7 @@ export interface CaseStudy {
  * via the `definition` "partners".
  */
 export interface Partner {
-  id: string;
+  id: number;
   name: string;
   website: string;
   email: string;
@@ -1032,7 +1038,7 @@ export interface Partner {
    */
   agency_status?: ('active' | 'inactive') | null;
   hubspotID?: string | null;
-  logo: string | Media;
+  logo: number | Media;
   /**
    * This field is managed by the Featured Partners field in the Partner Program collection
    */
@@ -1042,7 +1048,7 @@ export interface Partner {
     /**
      * 1600 x 800px recommended
      */
-    bannerImage: string | Media;
+    bannerImage: number | Media;
     overview: {
       root: {
         type: string;
@@ -1088,7 +1094,7 @@ export interface Partner {
       };
       [k: string]: unknown;
     };
-    caseStudy?: (string | null) | CaseStudy;
+    caseStudy?: (number | null) | CaseStudy;
     /**
      * Contributions to Payload. Must be a valid GitHub issue, pull request, or discussion URL from a repo in the 'payloadcms' organization.
      */
@@ -1110,10 +1116,10 @@ export interface Partner {
       | null;
   };
   city: string;
-  regions: (string | Region)[];
-  specialties: (string | Specialty)[];
-  budgets: (string | Budget)[];
-  industries: (string | Industry)[];
+  regions: (number | Region)[];
+  specialties: (number | Specialty)[];
+  budgets: (number | Budget)[];
+  industries: (number | Industry)[];
   social?:
     | {
         platform: 'linkedin' | 'twitter' | 'facebook' | 'instagram' | 'youtube' | 'github';
@@ -1130,7 +1136,7 @@ export interface Partner {
  * via the `definition` "regions".
  */
 export interface Region {
-  id: string;
+  id: number;
   name: string;
   /**
    * Must contain only lowercase letters, numbers, hyphens, and underscores
@@ -1144,7 +1150,7 @@ export interface Region {
  * via the `definition` "specialties".
  */
 export interface Specialty {
-  id: string;
+  id: number;
   name: string;
   /**
    * Must contain only lowercase letters, numbers, hyphens, and underscores
@@ -1158,7 +1164,7 @@ export interface Specialty {
  * via the `definition` "budgets".
  */
 export interface Budget {
-  id: string;
+  id: number;
   name: string;
   /**
    * Must contain only lowercase letters, numbers, hyphens, and underscores
@@ -1172,7 +1178,7 @@ export interface Budget {
  * via the `definition` "industries".
  */
 export interface Industry {
-  id: string;
+  id: number;
   name: string;
   /**
    * Must contain only lowercase letters, numbers, hyphens, and underscores
@@ -1220,15 +1226,15 @@ export interface CardGrid {
             reference?:
               | ({
                   relationTo: 'pages';
-                  value: string | Page;
+                  value: number | Page;
                 } | null)
               | ({
                   relationTo: 'posts';
-                  value: string | Post;
+                  value: number | Post;
                 } | null)
               | ({
                   relationTo: 'case-studies';
-                  value: string | CaseStudy;
+                  value: number | CaseStudy;
                 } | null);
             url?: string | null;
             label: string;
@@ -1249,15 +1255,15 @@ export interface CardGrid {
             reference?:
               | ({
                   relationTo: 'pages';
-                  value: string | Page;
+                  value: number | Page;
                 } | null)
               | ({
                   relationTo: 'posts';
-                  value: string | Post;
+                  value: number | Post;
                 } | null)
               | ({
                   relationTo: 'case-studies';
-                  value: string | CaseStudy;
+                  value: number | CaseStudy;
                 } | null);
             url?: string | null;
             customId?: string | null;
@@ -1301,7 +1307,7 @@ export interface CaseStudyCards {
             };
             [k: string]: unknown;
           };
-          caseStudy: string | CaseStudy;
+          caseStudy: number | CaseStudy;
           id?: string | null;
         }[]
       | null;
@@ -1338,7 +1344,7 @@ export interface CaseStudiesHighlight {
       };
       [k: string]: unknown;
     };
-    caseStudies: (string | CaseStudy)[];
+    caseStudies: (number | CaseStudy)[];
   };
   id?: string | null;
   blockName?: string | null;
@@ -1361,10 +1367,10 @@ export interface CaseStudyParallax {
       | {
           quote: string;
           author?: string | null;
-          logo: string | Media;
+          logo: number | Media;
           images?:
             | {
-                image: string | Media;
+                image: number | Media;
                 id?: string | null;
               }[]
             | null;
@@ -1372,7 +1378,7 @@ export interface CaseStudyParallax {
            * A label for the navigation tab at the bottom of the parallax
            */
           tabLabel: string;
-          caseStudy: string | CaseStudy;
+          caseStudy: number | CaseStudy;
           id?: string | null;
         }[]
       | null;
@@ -1426,15 +1432,15 @@ export interface CodeFeature {
             reference?:
               | ({
                   relationTo: 'pages';
-                  value: string | Page;
+                  value: number | Page;
                 } | null)
               | ({
                   relationTo: 'posts';
-                  value: string | Post;
+                  value: number | Post;
                 } | null)
               | ({
                   relationTo: 'case-studies';
-                  value: string | CaseStudy;
+                  value: number | CaseStudy;
                 } | null);
             url?: string | null;
             label: string;
@@ -1474,15 +1480,15 @@ export interface CodeFeature {
                   reference?:
                     | ({
                         relationTo: 'pages';
-                        value: string | Page;
+                        value: number | Page;
                       } | null)
                     | ({
                         relationTo: 'posts';
-                        value: string | Post;
+                        value: number | Post;
                       } | null)
                     | ({
                         relationTo: 'case-studies';
-                        value: string | CaseStudy;
+                        value: number | CaseStudy;
                       } | null);
                   url?: string | null;
                   label: string;
@@ -1617,15 +1623,15 @@ export interface ContentGrid {
             reference?:
               | ({
                   relationTo: 'pages';
-                  value: string | Page;
+                  value: number | Page;
                 } | null)
               | ({
                   relationTo: 'posts';
-                  value: string | Post;
+                  value: number | Post;
                 } | null)
               | ({
                   relationTo: 'case-studies';
-                  value: string | CaseStudy;
+                  value: number | CaseStudy;
                 } | null);
             url?: string | null;
             label: string;
@@ -1687,7 +1693,7 @@ export interface FormBlock {
       };
       [k: string]: unknown;
     };
-    form: string | Form;
+    form: number | Form;
   };
   id?: string | null;
   blockName?: string | null;
@@ -1698,7 +1704,7 @@ export interface FormBlock {
  * via the `definition` "forms".
  */
 export interface Form {
-  id: string;
+  id: number;
   title: string;
   fields?:
     | (
@@ -1912,15 +1918,15 @@ export interface HoverCards {
             reference?:
               | ({
                   relationTo: 'pages';
-                  value: string | Page;
+                  value: number | Page;
                 } | null)
               | ({
                   relationTo: 'posts';
-                  value: string | Post;
+                  value: number | Post;
                 } | null)
               | ({
                   relationTo: 'case-studies';
-                  value: string | CaseStudy;
+                  value: number | CaseStudy;
                 } | null);
             url?: string | null;
             customId?: string | null;
@@ -1951,8 +1957,8 @@ export interface HoverHighlights {
       | {
           text: string;
           media?: {
-            top?: (string | null) | Media;
-            bottom?: (string | null) | Media;
+            top?: (number | null) | Media;
+            bottom?: (number | null) | Media;
           };
           link?: {
             type?: ('reference' | 'custom') | null;
@@ -1960,15 +1966,15 @@ export interface HoverHighlights {
             reference?:
               | ({
                   relationTo: 'pages';
-                  value: string | Page;
+                  value: number | Page;
                 } | null)
               | ({
                   relationTo: 'posts';
-                  value: string | Post;
+                  value: number | Post;
                 } | null)
               | ({
                   relationTo: 'case-studies';
-                  value: string | CaseStudy;
+                  value: number | CaseStudy;
                 } | null);
             url?: string | null;
             customId?: string | null;
@@ -1983,15 +1989,15 @@ export interface HoverHighlights {
       reference?:
         | ({
             relationTo: 'pages';
-            value: string | Page;
+            value: number | Page;
           } | null)
         | ({
             relationTo: 'posts';
-            value: string | Post;
+            value: number | Post;
           } | null)
         | ({
             relationTo: 'case-studies';
-            value: string | CaseStudy;
+            value: number | CaseStudy;
           } | null);
       url?: string | null;
       label: string;
@@ -2023,15 +2029,15 @@ export interface LinkGrid {
             reference?:
               | ({
                   relationTo: 'pages';
-                  value: string | Page;
+                  value: number | Page;
                 } | null)
               | ({
                   relationTo: 'posts';
-                  value: string | Post;
+                  value: number | Post;
                 } | null)
               | ({
                   relationTo: 'case-studies';
-                  value: string | CaseStudy;
+                  value: number | CaseStudy;
                 } | null);
             url?: string | null;
             label: string;
@@ -2080,15 +2086,15 @@ export interface LogoGrid {
       reference?:
         | ({
             relationTo: 'pages';
-            value: string | Page;
+            value: number | Page;
           } | null)
         | ({
             relationTo: 'posts';
-            value: string | Post;
+            value: number | Post;
           } | null)
         | ({
             relationTo: 'case-studies';
-            value: string | CaseStudy;
+            value: number | CaseStudy;
           } | null);
       url?: string | null;
       label: string;
@@ -2096,7 +2102,7 @@ export interface LogoGrid {
     };
     logos?:
       | {
-          logoMedia: string | Media;
+          logoMedia: number | Media;
           id?: string | null;
         }[]
       | null;
@@ -2119,7 +2125,7 @@ export interface MediaBlock {
       background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
     };
     position?: ('default' | 'wide') | null;
-    media: string | Media;
+    media: number | Media;
     caption?: {
       root: {
         type: string;
@@ -2183,15 +2189,15 @@ export interface MediaContent {
       reference?:
         | ({
             relationTo: 'pages';
-            value: string | Page;
+            value: number | Page;
           } | null)
         | ({
             relationTo: 'posts';
-            value: string | Post;
+            value: number | Post;
           } | null)
         | ({
             relationTo: 'case-studies';
-            value: string | CaseStudy;
+            value: number | CaseStudy;
           } | null);
       url?: string | null;
       label: string;
@@ -2199,7 +2205,7 @@ export interface MediaContent {
     };
     images?:
       | {
-          image: string | Media;
+          image: number | Media;
           id?: string | null;
         }[]
       | null;
@@ -2260,21 +2266,21 @@ export interface MediaContentAccordion {
             reference?:
               | ({
                   relationTo: 'pages';
-                  value: string | Page;
+                  value: number | Page;
                 } | null)
               | ({
                   relationTo: 'posts';
-                  value: string | Post;
+                  value: number | Post;
                 } | null)
               | ({
                   relationTo: 'case-studies';
-                  value: string | CaseStudy;
+                  value: number | CaseStudy;
                 } | null);
             url?: string | null;
             label: string;
             customId?: string | null;
           };
-          media: string | Media;
+          media: number | Media;
           id?: string | null;
         }[]
       | null;
@@ -2311,15 +2317,15 @@ export interface Pricing {
             reference?:
               | ({
                   relationTo: 'pages';
-                  value: string | Page;
+                  value: number | Page;
                 } | null)
               | ({
                   relationTo: 'posts';
-                  value: string | Post;
+                  value: number | Post;
                 } | null)
               | ({
                   relationTo: 'case-studies';
-                  value: string | CaseStudy;
+                  value: number | CaseStudy;
                 } | null);
             url?: string | null;
             label: string;
@@ -2354,7 +2360,7 @@ export interface ReusableContentBlock {
       theme?: ('light' | 'dark') | null;
       background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
     };
-    reusableContent: string | ReusableContent;
+    reusableContent: number | ReusableContent;
     customId?: string | null;
   };
   id?: string | null;
@@ -2366,7 +2372,7 @@ export interface ReusableContentBlock {
  * via the `definition` "reusable-content".
  */
 export interface ReusableContent {
-  id: string;
+  id: number;
   title: string;
   layout: (
     | {
@@ -2560,15 +2566,15 @@ export interface Slider {
             reference?:
               | ({
                   relationTo: 'pages';
-                  value: string | Page;
+                  value: number | Page;
                 } | null)
               | ({
                   relationTo: 'posts';
-                  value: string | Post;
+                  value: number | Post;
                 } | null)
               | ({
                   relationTo: 'case-studies';
-                  value: string | CaseStudy;
+                  value: number | CaseStudy;
                 } | null);
             url?: string | null;
             label: string;
@@ -2585,7 +2591,7 @@ export interface Slider {
       quote: string;
       author: string;
       role?: string | null;
-      logo?: (string | null) | Media;
+      logo?: (number | null) | Media;
       enableLink?: boolean | null;
       link?: {
         type?: ('reference' | 'custom') | null;
@@ -2593,15 +2599,15 @@ export interface Slider {
         reference?:
           | ({
               relationTo: 'pages';
-              value: string | Page;
+              value: number | Page;
             } | null)
           | ({
               relationTo: 'posts';
-              value: string | Post;
+              value: number | Post;
             } | null)
           | ({
               relationTo: 'case-studies';
-              value: string | CaseStudy;
+              value: number | CaseStudy;
             } | null);
         url?: string | null;
         label: string;
@@ -2650,15 +2656,15 @@ export interface Statement {
             reference?:
               | ({
                   relationTo: 'pages';
-                  value: string | Page;
+                  value: number | Page;
                 } | null)
               | ({
                   relationTo: 'posts';
-                  value: string | Post;
+                  value: number | Post;
                 } | null)
               | ({
                   relationTo: 'case-studies';
-                  value: string | CaseStudy;
+                  value: number | CaseStudy;
                 } | null);
             url?: string | null;
             label: string;
@@ -2668,7 +2674,7 @@ export interface Statement {
         }[]
       | null;
     assetType?: ('media' | 'code') | null;
-    media?: (string | null) | Media;
+    media?: (number | null) | Media;
     code?: string | null;
     mediaWidth?: ('small' | 'medium' | 'large' | 'full') | null;
     backgroundGlow?: ('none' | 'colorful' | 'white') | null;
@@ -2707,7 +2713,7 @@ export interface StepsBlock {
         };
         [k: string]: unknown;
       };
-      media?: (string | null) | Media;
+      media?: (number | null) | Media;
       id?: string | null;
     }[];
   };
@@ -2752,15 +2758,15 @@ export interface StickyHighlights {
             reference?:
               | ({
                   relationTo: 'pages';
-                  value: string | Page;
+                  value: number | Page;
                 } | null)
               | ({
                   relationTo: 'posts';
-                  value: string | Post;
+                  value: number | Post;
                 } | null)
               | ({
                   relationTo: 'case-studies';
-                  value: string | CaseStudy;
+                  value: number | CaseStudy;
                 } | null);
             url?: string | null;
             label: string;
@@ -2794,15 +2800,15 @@ export interface StickyHighlights {
                   reference?:
                     | ({
                         relationTo: 'pages';
-                        value: string | Page;
+                        value: number | Page;
                       } | null)
                     | ({
                         relationTo: 'posts';
-                        value: string | Post;
+                        value: number | Post;
                       } | null)
                     | ({
                         relationTo: 'case-studies';
-                        value: string | CaseStudy;
+                        value: number | CaseStudy;
                       } | null);
                   url?: string | null;
                   label: string;
@@ -2811,7 +2817,7 @@ export interface StickyHighlights {
                 id?: string | null;
               }[]
             | null;
-          media?: (string | null) | Media;
+          media?: (number | null) | Media;
           id?: string | null;
         }[]
       | null;
@@ -2825,7 +2831,7 @@ export interface StickyHighlights {
  * via the `definition` "docs".
  */
 export interface Doc {
-  id: string;
+  id: number;
   content?: {
     root: {
       type: string;
@@ -2865,7 +2871,7 @@ export interface Doc {
   version: string;
   mdx?: string | null;
   guides?: {
-    docs?: (string | Post)[];
+    docs?: (number | Post)[];
     hasNextPage?: boolean;
     totalDocs?: number;
   };
@@ -2877,14 +2883,14 @@ export interface Doc {
  * via the `definition` "users".
  */
 export interface User {
-  id: string;
+  id: number;
   firstName: string;
   lastName: string;
   /**
    * Example: `payloadcms`
    */
   twitter?: string | null;
-  photo?: (string | null) | Media;
+  photo?: (number | null) | Media;
   roles: ('admin' | 'public')[];
   updatedAt: string;
   createdAt: string;
@@ -2915,15 +2921,15 @@ export interface Link {
     reference?:
       | ({
           relationTo: 'pages';
-          value: string | Page;
+          value: number | Page;
         } | null)
       | ({
           relationTo: 'posts';
-          value: string | Post;
+          value: number | Post;
         } | null)
       | ({
           relationTo: 'case-studies';
-          value: string | CaseStudy;
+          value: number | CaseStudy;
         } | null);
     url?: string | null;
     label: string;
@@ -2958,11 +2964,11 @@ export interface DownloadBlockType {
         /**
          * The file to download
          */
-        file: string | Media;
+        file: number | Media;
         /**
          * Thumbnail for the download. Defaults to file for images
          */
-        thumbnail?: (string | null) | Media;
+        thumbnail?: (number | null) | Media;
         thumbnailAppearance: 'cover' | 'contain';
         background: 'auto' | 'light' | 'dark';
         copyToClipboard?: boolean | null;
@@ -2992,7 +2998,7 @@ export interface LightDarkImageBlock {
  * via the `definition` "PayloadMediaBlock".
  */
 export interface PayloadMediaBlock {
-  media: string | Media;
+  media: number | Media;
   caption?: string | null;
   id?: string | null;
   blockName?: string | null;
@@ -3265,7 +3271,7 @@ export interface CodeBlock {
  * via the `definition` "community-help".
  */
 export interface CommunityHelp {
-  id: string;
+  id: number;
   title?: string | null;
   communityHelpType?: ('discord' | 'github') | null;
   githubID?: string | null;
@@ -3282,8 +3288,333 @@ export interface CommunityHelp {
   introDescription?: string | null;
   slug?: string | null;
   helpful?: boolean | null;
-  relatedDocs?: (string | Doc)[] | null;
+  relatedDocs?: (number | Doc)[] | null;
   threadCreatedAt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tenants".
+ */
+export interface Tenant {
+  id: number;
+  businessName: string;
+  businessType:
+    | 'meat'
+    | 'cafe'
+    | 'korean'
+    | 'japanese'
+    | 'chinese'
+    | 'western'
+    | 'chicken_pizza'
+    | 'snack'
+    | 'bakery'
+    | 'franchise_hq'
+    | 'other_food'
+    | 'retail'
+    | 'service'
+    | 'other';
+  ownerName?: string | null;
+  phone?: string | null;
+  email?: string | null;
+  location?: {
+    address?: string | null;
+    addressDetail?: string | null;
+    city?: string | null;
+    district?: string | null;
+    neighborhood?: string | null;
+    postalCode?: string | null;
+    lat?: number | null;
+    lng?: number | null;
+  };
+  branding?: {
+    /**
+     * HEX 코드 (예: #FF5733)
+     */
+    primaryColor?: string | null;
+    secondaryColor?: string | null;
+    vibe?: ('casual' | 'premium' | 'traditional' | 'modern' | 'cute' | 'hipster') | null;
+    logo?: (number | null) | Media;
+    slogan?: string | null;
+  };
+  /**
+   * 예: 30-40대 직장인, 가족 단위 손님
+   */
+  targetCustomer?: string | null;
+  signatureMenu?:
+    | {
+        name: string;
+        price?: number | null;
+        description?: string | null;
+        image?: (number | null) | Media;
+        isSignature?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  operation?: {
+    openDate?: string | null;
+    /**
+     * 예: 11:00 - 22:00
+     */
+    businessHours?: string | null;
+    closedDays?: string | null;
+    storeSize?: number | null;
+    floors?: number | null;
+    seatingCapacity?: number | null;
+  };
+  features?: {
+    delivery?: boolean | null;
+    reservation?: boolean | null;
+    parking?: boolean | null;
+    groupBooking?: boolean | null;
+    wifi?: boolean | null;
+    petFriendly?: boolean | null;
+    kidsZone?: boolean | null;
+  };
+  /**
+   * 온보딩 완료 시 자동 생성됨
+   */
+  generatedConfig?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  generatedSites?: (number | GeneratedSite)[] | null;
+  /**
+   * CareOn 하드웨어 연동 정보
+   */
+  careOn?: {
+    subscribed?: boolean | null;
+    cctvCount?: number | null;
+    posConnected?: boolean | null;
+    contractDate?: string | null;
+    contractEndDate?: string | null;
+    monthlyFee?: number | null;
+  };
+  onboarding?: {
+    currentStep?: number | null;
+    completedSteps?:
+      | {
+          [k: string]: unknown;
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null;
+    startedAt?: string | null;
+    completedAt?: string | null;
+  };
+  user: number | User;
+  status?: ('onboarding' | 'active' | 'dormant' | 'cancelled') | null;
+  /**
+   * 관리자용 메모
+   */
+  notes?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "generated-sites".
+ */
+export interface GeneratedSite {
+  id: number;
+  name: string;
+  /**
+   * URL에 사용될 고유 식별자
+   */
+  slug: string;
+  tenant: number | Tenant;
+  type: 'website' | 'blog' | 'landing' | 'app' | 'admin';
+  template?: (number | null) | BusinessTemplate;
+  /**
+   * 사이트 생성에 사용된 config.json
+   */
+  config?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  deployment?: {
+    url?: string | null;
+    customDomain?: string | null;
+    sslEnabled?: boolean | null;
+    vercelProjectId?: string | null;
+    lastDeployedAt?: string | null;
+    deploymentStatus?: ('queued' | 'building' | 'deployed' | 'error' | 'cancelled') | null;
+  };
+  blogSettings?: {
+    autoPostEnabled?: boolean | null;
+    postFrequency?: ('daily' | 'twice_weekly' | 'weekly' | 'biweekly' | 'monthly') | null;
+    topics?:
+      | {
+          topic?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    writingStyle?: ('friendly' | 'expert' | 'humorous' | 'informative') | null;
+  };
+  analytics?: {
+    totalPageViews?: number | null;
+    totalVisitors?: number | null;
+    avgSessionDuration?: number | null;
+    bounceRate?: number | null;
+    topPages?:
+      | {
+          [k: string]: unknown;
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null;
+    lastUpdated?: string | null;
+  };
+  seo?: {
+    metaTitle?: string | null;
+    metaDescription?: string | null;
+    ogImage?: (number | null) | Media;
+    /**
+     * 쉼표로 구분
+     */
+    keywords?: string | null;
+    googleAnalyticsId?: string | null;
+    naverSiteVerification?: string | null;
+  };
+  status?: ('draft' | 'building' | 'active' | 'paused' | 'error' | 'deleted') | null;
+  isPublic?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "business-templates".
+ */
+export interface BusinessTemplate {
+  id: number;
+  name: string;
+  slug: string;
+  businessType:
+    | 'meat'
+    | 'cafe'
+    | 'korean'
+    | 'japanese'
+    | 'chinese'
+    | 'western'
+    | 'chicken_pizza'
+    | 'bakery'
+    | 'franchise_hq'
+    | 'general';
+  description?: string | null;
+  /**
+   * 카드에 표시될 한 줄 설명
+   */
+  shortDescription?: string | null;
+  previewImage?: (number | null) | Media;
+  previewImages?:
+    | {
+        image?: (number | null) | Media;
+        caption?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  demoUrl?: string | null;
+  /**
+   * 템플릿의 기본 config.json 구조
+   */
+  baseConfig?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  components?:
+    | {
+        name: string;
+        type:
+          | 'hero'
+          | 'about'
+          | 'menu'
+          | 'gallery'
+          | 'location'
+          | 'reviews'
+          | 'contact'
+          | 'reservation'
+          | 'footer'
+          | 'blog'
+          | 'faq'
+          | 'team'
+          | 'services'
+          | 'pricing'
+          | 'cta';
+        isRequired?: boolean | null;
+        order?: number | null;
+        defaultConfig?:
+          | {
+              [k: string]: unknown;
+            }
+          | unknown[]
+          | string
+          | number
+          | boolean
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  colorPalettes?:
+    | {
+        name?: string | null;
+        primary?: string | null;
+        secondary?: string | null;
+        accent?: string | null;
+        background?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  fonts?: {
+    /**
+     * Google Fonts 이름
+     */
+    heading?: string | null;
+    body?: string | null;
+  };
+  gitRepo?: string | null;
+  gitBranch?: string | null;
+  tags?:
+    | {
+        tag?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  features?:
+    | {
+        feature?: string | null;
+        icon?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  pricing?: {
+    isFree?: boolean | null;
+    price?: number | null;
+    freeWithCareOn?: boolean | null;
+  };
+  order?: number | null;
+  isActive?: boolean | null;
+  isFeatured?: boolean | null;
+  usageCount?: number | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -3292,8 +3623,8 @@ export interface CommunityHelp {
  * via the `definition` "form-submissions".
  */
 export interface FormSubmission {
-  id: string;
-  form: string | Form;
+  id: number;
+  form: number | Form;
   submissionData?:
     | {
         field: string;
@@ -3310,22 +3641,22 @@ export interface FormSubmission {
  * via the `definition` "redirects".
  */
 export interface Redirect {
-  id: string;
+  id: number;
   from: string;
   to?: {
     type?: ('reference' | 'custom') | null;
     reference?:
       | ({
           relationTo: 'case-studies';
-          value: string | CaseStudy;
+          value: number | CaseStudy;
         } | null)
       | ({
           relationTo: 'pages';
-          value: string | Page;
+          value: number | Page;
         } | null)
       | ({
           relationTo: 'posts';
-          value: string | Post;
+          value: number | Post;
         } | null);
     url?: string | null;
   };
@@ -3337,7 +3668,7 @@ export interface Redirect {
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
-  id: string;
+  id: number;
   key: string;
   data:
     | {
@@ -3354,80 +3685,92 @@ export interface PayloadKv {
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
-  id: string;
+  id: number;
   document?:
     | ({
         relationTo: 'case-studies';
-        value: string | CaseStudy;
+        value: number | CaseStudy;
       } | null)
     | ({
         relationTo: 'community-help';
-        value: string | CommunityHelp;
+        value: number | CommunityHelp;
       } | null)
     | ({
         relationTo: 'docs';
-        value: string | Doc;
+        value: number | Doc;
       } | null)
     | ({
         relationTo: 'media';
-        value: string | Media;
+        value: number | Media;
       } | null)
     | ({
         relationTo: 'pages';
-        value: string | Page;
+        value: number | Page;
       } | null)
     | ({
         relationTo: 'posts';
-        value: string | Post;
+        value: number | Post;
       } | null)
     | ({
         relationTo: 'categories';
-        value: string | Category;
+        value: number | Category;
       } | null)
     | ({
         relationTo: 'reusable-content';
-        value: string | ReusableContent;
+        value: number | ReusableContent;
       } | null)
     | ({
         relationTo: 'users';
-        value: string | User;
+        value: number | User;
       } | null)
     | ({
         relationTo: 'partners';
-        value: string | Partner;
+        value: number | Partner;
       } | null)
     | ({
         relationTo: 'industries';
-        value: string | Industry;
+        value: number | Industry;
       } | null)
     | ({
         relationTo: 'specialties';
-        value: string | Specialty;
+        value: number | Specialty;
       } | null)
     | ({
         relationTo: 'regions';
-        value: string | Region;
+        value: number | Region;
       } | null)
     | ({
         relationTo: 'budgets';
-        value: string | Budget;
+        value: number | Budget;
+      } | null)
+    | ({
+        relationTo: 'tenants';
+        value: number | Tenant;
+      } | null)
+    | ({
+        relationTo: 'generated-sites';
+        value: number | GeneratedSite;
+      } | null)
+    | ({
+        relationTo: 'business-templates';
+        value: number | BusinessTemplate;
       } | null)
     | ({
         relationTo: 'forms';
-        value: string | Form;
+        value: number | Form;
       } | null)
     | ({
         relationTo: 'form-submissions';
-        value: string | FormSubmission;
+        value: number | FormSubmission;
       } | null)
     | ({
         relationTo: 'redirects';
-        value: string | Redirect;
+        value: number | Redirect;
       } | null);
   globalSlug?: string | null;
   user: {
     relationTo: 'users';
-    value: string | User;
+    value: number | User;
   };
   updatedAt: string;
   createdAt: string;
@@ -3437,10 +3780,10 @@ export interface PayloadLockedDocument {
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
-  id: string;
+  id: number;
   user: {
     relationTo: 'users';
-    value: string | User;
+    value: number | User;
   };
   key?: string | null;
   value?:
@@ -3460,7 +3803,7 @@ export interface PayloadPreference {
  * via the `definition` "payload-migrations".
  */
 export interface PayloadMigration {
-  id: string;
+  id: number;
   name?: string | null;
   batch?: number | null;
   updatedAt: string;
@@ -3946,6 +4289,229 @@ export interface BudgetsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tenants_select".
+ */
+export interface TenantsSelect<T extends boolean = true> {
+  businessName?: T;
+  businessType?: T;
+  ownerName?: T;
+  phone?: T;
+  email?: T;
+  location?:
+    | T
+    | {
+        address?: T;
+        addressDetail?: T;
+        city?: T;
+        district?: T;
+        neighborhood?: T;
+        postalCode?: T;
+        lat?: T;
+        lng?: T;
+      };
+  branding?:
+    | T
+    | {
+        primaryColor?: T;
+        secondaryColor?: T;
+        vibe?: T;
+        logo?: T;
+        slogan?: T;
+      };
+  targetCustomer?: T;
+  signatureMenu?:
+    | T
+    | {
+        name?: T;
+        price?: T;
+        description?: T;
+        image?: T;
+        isSignature?: T;
+        id?: T;
+      };
+  operation?:
+    | T
+    | {
+        openDate?: T;
+        businessHours?: T;
+        closedDays?: T;
+        storeSize?: T;
+        floors?: T;
+        seatingCapacity?: T;
+      };
+  features?:
+    | T
+    | {
+        delivery?: T;
+        reservation?: T;
+        parking?: T;
+        groupBooking?: T;
+        wifi?: T;
+        petFriendly?: T;
+        kidsZone?: T;
+      };
+  generatedConfig?: T;
+  generatedSites?: T;
+  careOn?:
+    | T
+    | {
+        subscribed?: T;
+        cctvCount?: T;
+        posConnected?: T;
+        contractDate?: T;
+        contractEndDate?: T;
+        monthlyFee?: T;
+      };
+  onboarding?:
+    | T
+    | {
+        currentStep?: T;
+        completedSteps?: T;
+        startedAt?: T;
+        completedAt?: T;
+      };
+  user?: T;
+  status?: T;
+  notes?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "generated-sites_select".
+ */
+export interface GeneratedSitesSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  tenant?: T;
+  type?: T;
+  template?: T;
+  config?: T;
+  deployment?:
+    | T
+    | {
+        url?: T;
+        customDomain?: T;
+        sslEnabled?: T;
+        vercelProjectId?: T;
+        lastDeployedAt?: T;
+        deploymentStatus?: T;
+      };
+  blogSettings?:
+    | T
+    | {
+        autoPostEnabled?: T;
+        postFrequency?: T;
+        topics?:
+          | T
+          | {
+              topic?: T;
+              id?: T;
+            };
+        writingStyle?: T;
+      };
+  analytics?:
+    | T
+    | {
+        totalPageViews?: T;
+        totalVisitors?: T;
+        avgSessionDuration?: T;
+        bounceRate?: T;
+        topPages?: T;
+        lastUpdated?: T;
+      };
+  seo?:
+    | T
+    | {
+        metaTitle?: T;
+        metaDescription?: T;
+        ogImage?: T;
+        keywords?: T;
+        googleAnalyticsId?: T;
+        naverSiteVerification?: T;
+      };
+  status?: T;
+  isPublic?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "business-templates_select".
+ */
+export interface BusinessTemplatesSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  businessType?: T;
+  description?: T;
+  shortDescription?: T;
+  previewImage?: T;
+  previewImages?:
+    | T
+    | {
+        image?: T;
+        caption?: T;
+        id?: T;
+      };
+  demoUrl?: T;
+  baseConfig?: T;
+  components?:
+    | T
+    | {
+        name?: T;
+        type?: T;
+        isRequired?: T;
+        order?: T;
+        defaultConfig?: T;
+        id?: T;
+      };
+  colorPalettes?:
+    | T
+    | {
+        name?: T;
+        primary?: T;
+        secondary?: T;
+        accent?: T;
+        background?: T;
+        id?: T;
+      };
+  fonts?:
+    | T
+    | {
+        heading?: T;
+        body?: T;
+      };
+  gitRepo?: T;
+  gitBranch?: T;
+  tags?:
+    | T
+    | {
+        tag?: T;
+        id?: T;
+      };
+  features?:
+    | T
+    | {
+        feature?: T;
+        icon?: T;
+        id?: T;
+      };
+  pricing?:
+    | T
+    | {
+        isFree?: T;
+        price?: T;
+        freeWithCareOn?: T;
+      };
+  order?: T;
+  isActive?: T;
+  isFeatured?: T;
+  usageCount?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "forms_select".
  */
 export interface FormsSelect<T extends boolean = true> {
@@ -4158,7 +4724,7 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  * via the `definition` "footer".
  */
 export interface Footer {
-  id: string;
+  id: number;
   columns?:
     | {
         label: string;
@@ -4170,15 +4736,15 @@ export interface Footer {
                 reference?:
                   | ({
                       relationTo: 'pages';
-                      value: string | Page;
+                      value: number | Page;
                     } | null)
                   | ({
                       relationTo: 'posts';
-                      value: string | Post;
+                      value: number | Post;
                     } | null)
                   | ({
                       relationTo: 'case-studies';
-                      value: string | CaseStudy;
+                      value: number | CaseStudy;
                     } | null);
                 url?: string | null;
                 label: string;
@@ -4198,7 +4764,7 @@ export interface Footer {
  * via the `definition` "main-menu".
  */
 export interface MainMenu {
-  id: string;
+  id: number;
   tabs?:
     | {
         label: string;
@@ -4210,15 +4776,15 @@ export interface MainMenu {
           reference?:
             | ({
                 relationTo: 'pages';
-                value: string | Page;
+                value: number | Page;
               } | null)
             | ({
                 relationTo: 'posts';
-                value: string | Post;
+                value: number | Post;
               } | null)
             | ({
                 relationTo: 'case-studies';
-                value: string | CaseStudy;
+                value: number | CaseStudy;
               } | null);
           url?: string | null;
           customId?: string | null;
@@ -4232,15 +4798,15 @@ export interface MainMenu {
                 reference?:
                   | ({
                       relationTo: 'pages';
-                      value: string | Page;
+                      value: number | Page;
                     } | null)
                   | ({
                       relationTo: 'posts';
-                      value: string | Post;
+                      value: number | Post;
                     } | null)
                   | ({
                       relationTo: 'case-studies';
-                      value: string | CaseStudy;
+                      value: number | CaseStudy;
                     } | null);
                 url?: string | null;
                 label: string;
@@ -4259,15 +4825,15 @@ export interface MainMenu {
                   reference?:
                     | ({
                         relationTo: 'pages';
-                        value: string | Page;
+                        value: number | Page;
                       } | null)
                     | ({
                         relationTo: 'posts';
-                        value: string | Post;
+                        value: number | Post;
                       } | null)
                     | ({
                         relationTo: 'case-studies';
-                        value: string | CaseStudy;
+                        value: number | CaseStudy;
                       } | null);
                   url?: string | null;
                   label: string;
@@ -4300,15 +4866,15 @@ export interface MainMenu {
                         reference?:
                           | ({
                               relationTo: 'pages';
-                              value: string | Page;
+                              value: number | Page;
                             } | null)
                           | ({
                               relationTo: 'posts';
-                              value: string | Post;
+                              value: number | Post;
                             } | null)
                           | ({
                               relationTo: 'case-studies';
-                              value: string | CaseStudy;
+                              value: number | CaseStudy;
                             } | null);
                         url?: string | null;
                         label: string;
@@ -4328,15 +4894,15 @@ export interface MainMenu {
                         reference?:
                           | ({
                               relationTo: 'pages';
-                              value: string | Page;
+                              value: number | Page;
                             } | null)
                           | ({
                               relationTo: 'posts';
-                              value: string | Post;
+                              value: number | Post;
                             } | null)
                           | ({
                               relationTo: 'case-studies';
-                              value: string | CaseStudy;
+                              value: number | CaseStudy;
                             } | null);
                         url?: string | null;
                         label: string;
@@ -4358,15 +4924,15 @@ export interface MainMenu {
     reference?:
       | ({
           relationTo: 'pages';
-          value: string | Page;
+          value: number | Page;
         } | null)
       | ({
           relationTo: 'posts';
-          value: string | Post;
+          value: number | Post;
         } | null)
       | ({
           relationTo: 'case-studies';
-          value: string | CaseStudy;
+          value: number | CaseStudy;
         } | null);
     url?: string | null;
     label: string;
@@ -4380,7 +4946,7 @@ export interface MainMenu {
  * via the `definition` "get-started".
  */
 export interface GetStarted {
-  id: string;
+  id: number;
   heading?: string | null;
   tabs?:
     | {
@@ -4428,15 +4994,15 @@ export interface GetStarted {
           reference?:
             | ({
                 relationTo: 'pages';
-                value: string | Page;
+                value: number | Page;
               } | null)
             | ({
                 relationTo: 'posts';
-                value: string | Post;
+                value: number | Post;
               } | null)
             | ({
                 relationTo: 'case-studies';
-                value: string | CaseStudy;
+                value: number | CaseStudy;
               } | null);
           url?: string | null;
           label: string;
@@ -4451,7 +5017,7 @@ export interface GetStarted {
     /**
      * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
-    image?: (string | null) | Media;
+    image?: (number | null) | Media;
   };
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -4461,11 +5027,11 @@ export interface GetStarted {
  * via the `definition` "partner-program".
  */
 export interface PartnerProgram {
-  id: string;
+  id: number;
   /**
    * Select the form that should be used for the contact form.
    */
-  contactForm: string | Form;
+  contactForm: number | Form;
   hero?: {
     richText?: {
       root: {
@@ -4490,15 +5056,15 @@ export interface PartnerProgram {
             reference?:
               | ({
                   relationTo: 'pages';
-                  value: string | Page;
+                  value: number | Page;
                 } | null)
               | ({
                   relationTo: 'posts';
-                  value: string | Post;
+                  value: number | Post;
                 } | null)
               | ({
                   relationTo: 'case-studies';
-                  value: string | CaseStudy;
+                  value: number | CaseStudy;
                 } | null);
             url?: string | null;
             label: string;
@@ -4515,15 +5081,15 @@ export interface PartnerProgram {
             reference?:
               | ({
                   relationTo: 'pages';
-                  value: string | Page;
+                  value: number | Page;
                 } | null)
               | ({
                   relationTo: 'posts';
-                  value: string | Post;
+                  value: number | Post;
                 } | null)
               | ({
                   relationTo: 'case-studies';
-                  value: string | CaseStudy;
+                  value: number | CaseStudy;
                 } | null);
             url?: string | null;
             label: string;
@@ -4535,7 +5101,7 @@ export interface PartnerProgram {
   };
   featuredPartners: {
     description?: string | null;
-    partners: (string | Partner)[];
+    partners: (number | Partner)[];
   };
   contentBlocks?: {
     beforeDirectory?:
@@ -4603,7 +5169,7 @@ export interface PartnerProgram {
  * via the `definition` "topBar".
  */
 export interface TopBar {
-  id: string;
+  id: number;
   enableTopBar?: boolean | null;
   message?: string | null;
   link?: {
@@ -4612,15 +5178,15 @@ export interface TopBar {
     reference?:
       | ({
           relationTo: 'pages';
-          value: string | Page;
+          value: number | Page;
         } | null)
       | ({
           relationTo: 'posts';
-          value: string | Post;
+          value: number | Post;
         } | null)
       | ({
           relationTo: 'case-studies';
-          value: string | CaseStudy;
+          value: number | CaseStudy;
         } | null);
     url?: string | null;
     label: string;
