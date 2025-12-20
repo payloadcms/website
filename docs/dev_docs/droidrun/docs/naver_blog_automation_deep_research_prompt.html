@@ -1,0 +1,222 @@
+<span id="markdown-mermaid" aria-hidden="true"
+                    data-dark-mode-theme="dark"
+                    data-light-mode-theme="default"
+                    data-max-text-size="50000"></span>
+                <h1 id="네이버-블로그-자동-포스팅-시스템-개발을-위한-딥-리서치-지시-프롬프트">네이버 블로그 자동 포스팅 시스템 개발을 위한 딥 리서치 지시 프롬프트</h1>
+<h2 id="-프로젝트-목표">🎯 프로젝트 목표</h2>
+<p>안드로이드 디바이스에서 <strong>네이버 블로그 자동 포스팅</strong>을 구현하되, <strong>이미지 삽입</strong>과 <strong>이미지에 URL 링크 추가</strong> 기능을 포함한 완전 자동화 시스템을 개발해야 합니다.</p>
+<h2 id="-요구사항-명세">📋 요구사항 명세</h2>
+<ol>
+<li><strong>핵심 기능</strong>: 네이버 블로그 앱을 통한 자동 포스팅</li>
+<li><strong>이미지 처리</strong>: 로컬/웹 이미지 업로드 및 삽입</li>
+<li><strong>링크 기능</strong>: 삽입된 이미지에 URL 하이퍼링크 부착</li>
+<li><strong>실행 환경</strong>: Android 디바이스 + Droidrun 프레임워크</li>
+<li><strong>출력 형태</strong>: 완전 자동화된 포스팅 완료</li>
+</ol>
+<h2 id="-droidrun-프레임워크-분석-결과">🔧 Droidrun 프레임워크 분석 결과</h2>
+<h3 id="아키텍처-이해">아키텍처 이해</h3>
+<pre><code>DroidAgent (오케스트레이터)
+├── 추론 모드: ManagerAgent → ExecutorAgent → ScripterAgent
+└── 직접 모드: CodeActAgent
+</code></pre>
+<h3 id="핵심-컴포넌트">핵심 컴포넌트</h3>
+<ul>
+<li><strong>Portal APK</strong>: 접근성 서비스를 통한 UI 트리 노출</li>
+<li><strong>다중 에이전트</strong>: 계획(Manager) → 실행(Executor) → 스크립팅(Scripter)</li>
+<li><strong>이벤트 스트리밍</strong>: 실시간 실행 모니터링</li>
+<li><strong>커스텀 도구</strong>: 확장 가능한 기능 추가</li>
+</ul>
+<h3 id="사용-가능한-도구">사용 가능한 도구</h3>
+<pre><code class="language-python"><span class="hljs-comment"># UI 상호작용</span>
+tap_by_index(index), swipe(), input_text(), back()
+
+<span class="hljs-comment"># 앱 관리</span>
+start_app(package), get_state(), take_screenshot()
+
+<span class="hljs-comment"># 데이터 처리</span>
+remember(), get_memory(), complete()
+
+<span class="hljs-comment"># 커스텀 도구 확장 가능</span>
+custom_tools = {<span class="hljs-string">&quot;api_call&quot;</span>: api_function}
+</code></pre>
+<h2 id="-딥-리서치-요구사항">🔍 딥 리서치 요구사항</h2>
+<h3 id="1-네이버-블로그-앱-분석">1. 네이버 블로그 앱 분석</h3>
+<p><strong>필수 조사사항:</strong></p>
+<ul>
+<li>네이버 블로그 앱의 UI 구조 및 컴포넌트 계층도</li>
+<li>글쓰기 화면의 정확한 요소 식별자 및 좌표</li>
+<li>이미지 업로드 프로세스 및 버튼 위치</li>
+<li>링크 추가 인터페이스 및 동작 방식</li>
+<li>포스팅 완료까지의 전체 워크플로우</li>
+</ul>
+<p><strong>조사 방법:</strong></p>
+<ul>
+<li>실제 앱 설치 및 UI 트리 덤프</li>
+<li>다양한 화면 크기에서의 일관성 검증</li>
+<li>동적 콘텐츠 로딩 대응 전략</li>
+</ul>
+<h3 id="2-이미지-처리-메커니즘">2. 이미지 처리 메커니즘</h3>
+<p><strong>기술적 도전과제:</strong></p>
+<ul>
+<li>안드로이드 파일 시스템 접근 및 이미지 저장</li>
+<li>네이버 블로그의 이미지 업로드 API 이해</li>
+<li>이미지 압축 및 포맷 변환 요구사항</li>
+<li>다중 이미지 순차 처리 로직</li>
+</ul>
+<p><strong>구현 전략:</strong></p>
+<ul>
+<li>로컬 파일 시스템 vs 웹 URL 이미지 구분 처리</li>
+<li>이미지 유효성 검증 및 오류 처리</li>
+<li>업로드 진행상황 모니터링</li>
+</ul>
+<h3 id="3-url-링크-부착-시스템">3. URL 링크 부착 시스템</h3>
+<p><strong>핵심 요구사항:</strong></p>
+<ul>
+<li>이미지 선택 및 링크 추가 UI 조작</li>
+<li>URL 유효성 검증 및 포맷팅</li>
+<li>링크 텍스트 커스터마이징</li>
+<li>다중 링크 지원</li>
+</ul>
+<h3 id="4-자동화-워크플로우-설계">4. 자동화 워크플로우 설계</h3>
+<p><strong>단계별 프로세스:</strong></p>
+<pre><code>1. 네이버 블로그 앱 실행 및 로그인
+2. 새 글쓰기 시작
+3. 제목 및 본문 입력
+4. 이미지 파일 준비 및 업로드
+5. 각 이미지에 URL 링크 부착
+6. 포스팅 완료 및 검증
+</code></pre>
+<h3 id="5-오류-처리-및-복구-전략">5. 오류 처리 및 복구 전략</h3>
+<p><strong>예상되는 문제점:</strong></p>
+<ul>
+<li>네트워크 타임아웃 및 재시도 로직</li>
+<li>앱 업데이트로 인한 UI 변경 대응</li>
+<li>로그인 세션 만료 처리</li>
+<li>이미지 업로드 실패 시 롤백</li>
+</ul>
+<h2 id="️-구현-전략-제안">🛠️ 구현 전략 제안</h2>
+<h3 id="권장-아키텍처">권장 아키텍처</h3>
+<pre><code class="language-python"><span class="hljs-comment"># 1. 추론 모드 사용 (복잡한 워크플로우)</span>
+config.agent.reasoning = <span class="hljs-literal">True</span>
+
+<span class="hljs-comment"># 2. 네이버 블로그 앱 카드 생성</span>
+app_cards = {
+  <span class="hljs-string">&quot;com.nhn.android.blog&quot;</span>: <span class="hljs-string">&quot;naver_blog.md&quot;</span>
+}
+
+<span class="hljs-comment"># 3. 커스텀 도구로 이미지 처리</span>
+custom_tools = {
+  <span class="hljs-string">&quot;prepare_images&quot;</span>: prepare_images_function,
+  <span class="hljs-string">&quot;add_image_links&quot;</span>: add_image_links_function,
+  <span class="hljs-string">&quot;validate_posting&quot;</span>: validate_posting_function
+}
+</code></pre>
+<h3 id="커스텀-도구-설계">커스텀 도구 설계</h3>
+<pre><code class="language-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">prepare_images</span>(<span class="hljs-params">image_paths: <span class="hljs-type">List</span>[<span class="hljs-built_in">str</span>]</span>) -&gt; <span class="hljs-type">Dict</span>:
+    <span class="hljs-string">&quot;&quot;&quot;이미지 파일들을 안드로이드 파일 시스템으로 복사&quot;&quot;&quot;</span>
+    <span class="hljs-keyword">pass</span>
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">add_image_links</span>(<span class="hljs-params">image_indices: <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>], urls: <span class="hljs-type">List</span>[<span class="hljs-built_in">str</span>]</span>) -&gt; <span class="hljs-built_in">bool</span>:
+    <span class="hljs-string">&quot;&quot;&quot;각 이미지에 URL 링크 부착&quot;&quot;&quot;</span>
+    <span class="hljs-keyword">pass</span>
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">validate_posting</span>(<span class="hljs-params">post_url: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">bool</span>:
+    <span class="hljs-string">&quot;&quot;&quot;포스팅 성공 검증&quot;&quot;&quot;</span>
+    <span class="hljs-keyword">pass</span>
+</code></pre>
+<h2 id="-평가-기준-및-성공-메트릭">📊 평가 기준 및 성공 메트릭</h2>
+<h3 id="기능-완성도">기능 완성도</h3>
+<ul class="contains-task-list">
+<li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox"> 네이버 블로그 앱 자동 실행 및 로그인</li>
+<li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox"> 텍스트 포스팅 자동화</li>
+<li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox"> 단일/다중 이미지 업로드</li>
+<li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox"> 이미지별 URL 링크 부착</li>
+<li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox"> 포스팅 완료 및 URL 반환</li>
+</ul>
+<h3 id="안정성-지표">안정성 지표</h3>
+<ul class="contains-task-list">
+<li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox"> 90% 이상의 성공률</li>
+<li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox"> 평균 실행 시간 5분 이내</li>
+<li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox"> 오류 발생 시 적절한 복구</li>
+</ul>
+<h3 id="확장성">확장성</h3>
+<ul class="contains-task-list">
+<li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox"> 다양한 이미지 포맷 지원</li>
+<li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox"> 커스텀 링크 텍스트 지원</li>
+<li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox"> 배치 처리 기능</li>
+</ul>
+<h2 id="-구체적인-조사-및-구현-지시사항">🎯 구체적인 조사 및 구현 지시사항</h2>
+<h3 id="phase-1-네이버-블로그-앱-리버스-엔지니어링">Phase 1: 네이버 블로그 앱 리버스 엔지니어링</h3>
+<ol>
+<li><strong>UI 요소 매핑</strong>: 모든 글쓰기 관련 화면의 요소 계층도 작성</li>
+<li><strong>워크플로우 시퀀스</strong>: 포스팅 완료까지의 클릭/입력 시퀀스 기록</li>
+<li><strong>동적 요소 처리</strong>: 로딩 상태, 팝업, 에러 화면 대응 전략</li>
+</ol>
+<h3 id="phase-2-이미지-처리-파이프라인">Phase 2: 이미지 처리 파이프라인</h3>
+<ol>
+<li><strong>파일 시스템 통합</strong>: Android 파일 접근 권한 및 경로 최적화</li>
+<li><strong>업로드 메커니즘</strong>: 네이버의 이미지 업로드 API 분석</li>
+<li><strong>링크 부착 로직</strong>: 이미지 선택 → 링크 추가 → URL 입력 자동화</li>
+</ol>
+<h3 id="phase-3-droidrun-통합-및-최적화">Phase 3: Droidrun 통합 및 최적화</h3>
+<ol>
+<li><strong>에이전트 구성</strong>: Manager/Executor/Scripter 역할 분담 최적화</li>
+<li><strong>커스텀 도구 개발</strong>: 이미지 처리 및 API 호출 도구 구현</li>
+<li><strong>에러 처리 강화</strong>: 네트워크 문제, UI 변경, 세션 만료 대응</li>
+</ol>
+<h3 id="phase-4-테스트-및-배포">Phase 4: 테스트 및 배포</h3>
+<ol>
+<li><strong>종단간 테스트</strong>: 실제 포스팅 시나리오 검증</li>
+<li><strong>성능 최적화</strong>: 실행 시간 단축 및 리소스 사용 최적화</li>
+<li><strong>모니터링</strong>: 실행 로그 및 성공률 추적 시스템</li>
+</ol>
+<h2 id="-기대-결과물">🚀 기대 결과물</h2>
+<h3 id="코드-구조">코드 구조</h3>
+<pre><code>naver_blog_automation/
+├── config/
+│   ├── config.yaml          # Droidrun 구성
+│   └── app_cards/
+│       └── naver_blog.md    # 앱 카드
+├── tools/
+│   ├── image_processor.py   # 이미지 처리 도구
+│   ├── naver_api.py        # 네이버 API 연동
+│   └── link_manager.py     # 링크 관리 도구
+├── workflows/
+│   ├── posting_workflow.py # 메인 워크플로우
+│   └── error_recovery.py   # 오류 복구
+└── tests/
+    ├── integration_test.py # 통합 테스트
+    └── ui_mapping.py       # UI 매핑 검증
+</code></pre>
+<h3 id="실행-예시">실행 예시</h3>
+<pre><code class="language-python"><span class="hljs-keyword">from</span> naver_blog_automation <span class="hljs-keyword">import</span> NaverBlogPoster
+
+poster = NaverBlogPoster(
+    title=<span class="hljs-string">&quot;자동 포스팅 테스트&quot;</span>,
+    content=<span class="hljs-string">&quot;Droidrun으로 생성된 포스트입니다.&quot;</span>,
+    images=[
+        {<span class="hljs-string">&quot;path&quot;</span>: <span class="hljs-string">&quot;/path/to/image1.jpg&quot;</span>, <span class="hljs-string">&quot;url&quot;</span>: <span class="hljs-string">&quot;https://example.com/1&quot;</span>},
+        {<span class="hljs-string">&quot;path&quot;</span>: <span class="hljs-string">&quot;/path/to/image2.png&quot;</span>, <span class="hljs-string">&quot;url&quot;</span>: <span class="hljs-string">&quot;https://example.com/2&quot;</span>}
+    ]
+)
+
+result = <span class="hljs-keyword">await</span> poster.post()
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;포스팅 완료: <span class="hljs-subst">{result.post_url}</span>&quot;</span>)
+</code></pre>
+<h2 id="-추가-조사-필요사항">🔍 추가 조사 필요사항</h2>
+<h3 id="네이버-블로그-앱-버전-호환성">네이버 블로그 앱 버전 호환성</h3>
+<ul>
+<li>최신 버전 vs 구 버전 UI 차이 분석</li>
+<li>업데이트 대응 전략 수립</li>
+</ul>
+<h3 id="네트워크-및-api-제한">네트워크 및 API 제한</h3>
+<ul>
+<li>업로드 크기 제한 및 압축 전략</li>
+<li>API 호출 빈도 제한 및 분산 처리</li>
+</ul>
+<h3 id="보안-및-개인정보">보안 및 개인정보</h3>
+<ul>
+<li>로그인 정보 안전한 저장 및 사용</li>
+<li>세션 관리 및 자동 재인증</li>
+</ul>
+<p>이 프롬프트를 기반으로 상세한 기술 분석과 구현 계획을 수립해주시기 바랍니다. 특히 네이버 블로그 앱의 실제 UI 구조와 Droidrun 프레임워크의 최적 활용 방안에 중점을 두어 조사해주세요.</p>

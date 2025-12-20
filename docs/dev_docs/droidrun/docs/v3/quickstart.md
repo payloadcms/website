@@ -1,0 +1,95 @@
+---
+title: 'Quickstart'
+description: 'Get up and running with DroidRun quickly and effectively'
+---
+
+<iframe
+  className="w-full aspect-video rounded-xl"
+  src="https://www.youtube.com/embed/4WT7FXJah2I"
+  title="YouTube video player"
+  frameBorder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+></iframe>
+
+This guide will help you get DroidRun installed and running quickly, controlling your Android device through natural language in minutes.
+
+### Prerequisites
+
+Before installing DroidRun, ensure you have:
+
+1. **Python 3.10+** installed on your system
+2. [Android Debug Bridge (adb)](https://developer.android.com/studio/releases/platform-tools) installed and configured
+3. **Android device** with:
+   - [Developer options enabled](https://developer.android.com/studio/debug/dev-options)
+   - USB debugging enabled
+   - Connected via USB or on the same network (for wireless debugging)
+
+### Install from PyPI
+Choose which ever provider you'd like to use. If you encounter dependency resolution issues use [`uv`](https://docs.astral.sh/uv/getting-started/installation/).
+```bash
+pip install 'droidrun[google,anthropic,openai,deepseek,ollama,dev]'
+```
+
+### Setup the Portal APK
+```bash
+droidrun setup
+```
+
+### Test functionality
+```bash
+droidrun ping
+```
+
+### Run Your First Command via CLI
+
+```bash
+export OPENAI_API_KEY=<YOUR API KEY>
+droidrun "Open the settings app and tell me the android version" --provider OpenAI --model gpt-4o
+```
+
+### Create a Simple Agent via Script
+
+For complex automation, create a Python script:
+
+```python
+#!/usr/bin/env python3
+import asyncio
+from droidrun import AdbTools, DroidAgent
+from llama_index.llms.google_genai import GoogleGenAI
+
+async def main():
+    # Load tools
+    tools = AdbTools()
+    # set up google gemini llm
+    llm = GoogleGenAI(
+        api_key="YOUR_GEMINI_API_KEY",  # Replace with your Gemini API key
+        model="gemini-2.5-flash",  # or "gemini-2.5-pro" for enhanced reasoning
+    )
+    
+    # Create agent
+    agent = DroidAgent(
+        goal="Open Settings and check battery level",
+        llm=llm,
+        tools=tools
+    )
+    
+    # Run agent
+    result = await agent.run()
+    print(f"Success: {result['success']}")
+    if result.get('output'):
+        print(f"Output: {result['output']}")
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+
+## Next Steps
+
+Now that you've got DroidRun running, you can:
+
+- Learn about the [Agent](/v3/concepts/agent)
+- See supported [LLM providers](/v3/concepts/models)
+- Discover [Android interactions](/v3/concepts/android-tools)
+- Learn about the [Portal App](/v3/concepts/portal-app) 

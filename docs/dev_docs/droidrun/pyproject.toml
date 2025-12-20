@@ -1,0 +1,181 @@
+[project]
+name = "droidrun"
+version = "0.4.10"
+description = "A framework for controlling Android devices through LLM agents"
+authors = [{ name = "Niels Schmidt", email = "niels.schmidt@droidrun.ai" }]
+dependencies = [
+    "async_adbutils",
+    "llama-index==0.14.4",
+    "posthog>=6.7.6",
+    "pydantic>=2.11.10",
+    "rich>=14.1.0",
+    "arize-phoenix>=12.3.0",
+    "httpx>=0.27.0",
+    "llama-index-callbacks-arize-phoenix>=0.6.1",
+    "llama-index-workflows==2.8.3",
+    "aiofiles>=25.1.0",
+]
+requires-python = ">=3.11"
+readme = "README.md"
+license = { text = "MIT" }
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Testing",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Libraries :: Application Frameworks",
+    "Topic :: Communications :: Chat",
+    "Topic :: Software Development :: Testing :: Acceptance",
+    "Topic :: Software Development :: Quality Assurance",
+    "Topic :: System :: Emulators",
+    "Topic :: Utilities",
+]
+
+[project.urls]
+Homepage = "https://github.com/droidrun/droidrun"
+"Bug Tracker" = "https://github.com/droidrun/droidrun/issues"
+Documentation = "https://docs.droidrun.ai/"
+
+[project.optional-dependencies]
+anthropic = [
+    "anthropic>=0.67.0",
+    "llama-index-llms-anthropic>=0.8.6,<0.9.0",
+]
+openai = [
+    "openai>=1.99.1",
+    "llama-index-llms-openai>=0.5.6",
+    "llama-index-llms-openai-like>=0.5.1",
+]
+google = [
+    "llama-index-llms-google-genai>=0.3.1",
+]
+deepseek = [
+    "llama-index-llms-deepseek>=0.2.1",
+]
+ollama = [
+    "llama-index-llms-ollama>=0.7.2",
+]
+dev = [
+    "black==25.9.0",
+    "ruff>=0.13.0",
+    "mypy>=1.0.0",
+    "bandit>=1.8.6",
+    "safety>=3.2.11",
+    "droidrun[langfuse]",
+    "droidrun[google]",
+]
+openrouter = [
+    "llama-index-llms-openrouter>=0.4.2",
+]
+langfuse = [
+    "langfuse>=2.0.0",
+    "openinference-instrumentation-llama-index>=3.0.0",
+    "llama-index-instrumentation"
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["droidrun"]
+
+[project.scripts]
+droidrun = "droidrun.cli.main:cli"
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+
+[tool.ruff.lint]
+select = [
+    "E", # pycodestyle errors
+    "W", # pycodestyle warnings
+    "F", # pyflakes
+    "I", # isort
+    "B", # flake8-bugbear
+]
+ignore = ["E501"]
+
+[[tool.pydoc-markdown.loaders]]
+type = "python"
+packages = ["droidrun"]
+modules = ["droidrun"]
+
+[[tool.pydoc-markdown.processors]]
+type = "filter"
+documented_only = false
+do_not_filter_modules = true
+skip_empty_modules = true
+
+[[tool.pydoc-markdown.processors]]
+type = "smart"
+
+[[tool.pydoc-markdown.processors]]
+type = "crossref"
+
+[tool.pydoc-markdown.renderer]
+type = "hugo"
+build_directory = "docs"
+content_directory = "v4/sdk"
+clean_render = true
+
+
+[tool.pydoc-markdown.renderer.markdown]
+classdef_with_decorators = false
+signature_with_decorators = false
+data_code_block = true
+descriptive_class_title = false
+render_module_header = false
+format_code_style = "facebook"
+add_module_prefix = false
+add_method_class_prefix = true
+
+header_level_by_type = { Module = 1, Class = 2, Method = 4, Function = 4, Variable = 4 }
+
+
+[[tool.pydoc-markdown.renderer.pages]]
+title = "DroidAgent"
+name = "droid-agent"
+contents = [
+    "droidrun.agent.droid.droid_agent.DroidAgent",
+    "droidrun.agent.droid.droid_agent.DroidAgent.__init__",
+    "droidrun.agent.droid.droid_agent.DroidAgent.run",
+]
+
+[[tool.pydoc-markdown.renderer.pages]]
+title = "Tools"
+name = "base-tools"
+contents = [
+    "droidrun.tools.tools.Tools.*",
+    "droidrun.tools.tools.describe_tools",
+]
+
+[[tool.pydoc-markdown.renderer.pages]]
+title = "AdbTools"
+name = "adb-tools"
+contents = ["droidrun.tools.adb.AdbTools.*"]
+
+[[tool.pydoc-markdown.renderer.pages]]
+title = "IOSTools"
+name = "ios-tools"
+contents = ["droidrun.tools.ios.IOSTools.*"]
+
+[dependency-groups]
+dev = [
+    "arize-phoenix>=11.32.1",
+    "bandit>=1.8.6",
+    "llama-index-callbacks-arize-phoenix>=0.6.1",
+    "ruff>=0.13.0",
+    "safety>=3.2.11",
+]

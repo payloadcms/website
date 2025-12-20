@@ -1,0 +1,103 @@
+---
+title: 'Android Control'
+description: 'Learn how to control Android devices in DroidRun using the comprehensive tools API.
+Tools provide the bridge between your AI agents and Android devices, enabling UI interaction, app management, and state analysis. Use tools directly or through DroidAgent for automated Android testing and control.'
+---
+
+```python
+from droidrun import DroidAgent, AdbTools
+
+# Load tools for a device
+tools = AdbTools(serial="device_serial")
+
+# Create agent with tools
+agent = DroidAgent(
+    goal="Your task",
+    llm=llm,
+    tools=tools
+)
+```
+
+## UI Interaction Tools
+
+**`tap_by_index(index: int) -> str`**  
+Tap on a UI element by its index from cached elements. Must call `get_state()` first.
+
+**`swipe(start_x: int, start_y: int, end_x: int, end_y: int, duration_ms: int = 300) -> bool`**  
+Perform swipe gesture. For long press, use same start/end coordinates with longer duration.
+
+**`input_text(text: str) -> str`**  
+Input text into focused element. Supports special characters and non-ASCII text.
+
+**`press_key(keycode: int) -> str`**  
+Press Android keys using keycodes. Common: HOME (3), BACK (4), ENTER (66), DELETE (67).
+
+**`back() -> str`**  
+Convenience method to press the Android back button.
+
+```python
+# UI interaction examples
+tools.get_state()  # Cache elements first
+tools.tap_by_index(2)  # Tap element
+tools.swipe(500, 200, 500, 800, 400)  # Swipe down
+tools.input_text("Hello, World!")
+tools.press_key(66)  # Enter key
+tools.back()
+```
+
+## App Management Tools
+
+**`start_app(package: str, activity: str = "") -> str`**  
+Start application by package name and optional activity.
+
+**`list_packages(include_system_apps: bool = False) -> List[str]`**  
+List installed packages. Optionally include system apps.
+
+**`install_app(apk_path: str, reinstall: bool = False, grant_permissions: bool = True) -> str`**  
+Install APK file with optional reinstall and permission granting.
+
+```python
+# App management examples
+await tools.start_app("com.android.settings")
+packages = await tools.list_packages()
+all_packages = await tools.list_packages(include_system_apps=True)
+await tools.install_app("/path/to/app.apk", reinstall=True)
+```
+
+## State Analysis Tools
+
+**`get_state(serial: Optional[str] = None) -> Dict[str, Any]`**  
+Get comprehensive device state including accessibility tree and phone state. Caches UI elements.
+
+**`take_screenshot() -> Tuple[str, bytes]`**  
+Capture device screen and return format and image data. Stores screenshots for GIF creation.
+
+```python
+# State analysis examples
+state = await tools.get_state()
+a11y_tree = state["a11y_tree"]
+phone_state = state["phone_state"]
+
+format, image_data = await tools.take_screenshot()
+```
+
+## Quick Reference
+
+| Function | Purpose | Returns |
+|----------|---------|---------|
+| `tap_by_index(index)` | Tap UI element by index | Status message |
+| `swipe(x1, y1, x2, y2, duration)` | Swipe gesture | Success boolean |
+| `input_text(text)` | Type text | Status message |
+| `press_key(keycode)` | Press Android key | Status message |
+| `back()` | Press back button | Status message |
+| `start_app(package, activity)` | Launch application | Status message |
+| `list_packages(include_system)` | List installed apps | Package list |
+| `install_app(path, reinstall, permissions)` | Install APK | Status message |
+| `get_state(serial)` | Get device state | State dictionary |
+| `take_screenshot()` | Capture screen | Format and image data |
+| `remember(info)` | Store information | Confirmation message |
+| `get_memory()` | Retrieve stored info | Memory list |
+| `complete(success, reason)` | Finish task | None |
+
+## Dive Deeper
+SDK reference documentation is available in the v4 documentation.

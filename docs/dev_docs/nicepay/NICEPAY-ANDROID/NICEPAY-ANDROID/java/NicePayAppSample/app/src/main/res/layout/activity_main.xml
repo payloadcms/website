@@ -1,0 +1,62 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"  android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="본 결제는 웹페이지에서 결제 요청 시 Sample로 제공되는 모듈로"
+        android:textSize="12sp"
+        android:gravity="center"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        />
+
+    <TextView
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="가맹점에 맞게 변경하여 사용하십시요."
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/btn_pay"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/text_verno"
+        android:layout_marginBottom="32dp"
+        android:text="구매를 시작합니다"
+        android:textSize="15sp"
+        android:textColor="#274e91"
+        android:textStyle="bold"
+        android:background="@android:color/transparent"
+        android:onClick="actionPay"
+        />
+
+    <TextView
+        android:id="@+id/text_verno"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
+        android:text=""
+        android:textSize="10sp"
+        android:textColor="#737373"
+        />
+    </RelativeLayout>
+
+</LinearLayout>
