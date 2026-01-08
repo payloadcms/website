@@ -261,19 +261,30 @@ async function fetchDiscord() {
     )
   })
 
+  // Apply batch limit if set
+  const batchLimit = process.env.SYNC_BATCH_LIMIT
+    ? parseInt(process.env.SYNC_BATCH_LIMIT, 10)
+    : filteredThreads.length
+
+  const threadsToSync = filteredThreads.slice(0, batchLimit)
+
   console.log(
-    `[fetchDiscord] Found ${existingThreadIDs.length} existing threads in CMS, ${filteredThreads.length} need to be synced`,
+    `[fetchDiscord] Found ${existingThreadIDs.length} existing threads in CMS, ${filteredThreads.length} need to be synced${
+      batchLimit < filteredThreads.length
+        ? ` (processing ${batchLimit} this run due to SYNC_BATCH_LIMIT)`
+        : ''
+    }`,
   )
 
-  if (filteredThreads.length === 0) {
+  if (threadsToSync.length === 0) {
     console.log('[fetchDiscord] No threads to sync. All up to date!')
     console.timeEnd('[fetchDiscord] Total duration')
     return
   }
 
-  bar.start(filteredThreads.length, 0)
+  bar.start(threadsToSync.length, 0)
 
-  const threadSegments = segmentArray(filteredThreads, 10)
+  const threadSegments = segmentArray(threadsToSync, 10)
   const populatedThreads: any[] = []
 
   for (const segment of threadSegments) {

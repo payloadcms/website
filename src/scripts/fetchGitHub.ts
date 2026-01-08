@@ -303,11 +303,22 @@ async function fetchGitHub(): Promise<void> {
     githubID: thread.githubID as string,
   }))
 
+  // Apply batch limit if set
+  const batchLimit = process.env.SYNC_BATCH_LIMIT
+    ? parseInt(process.env.SYNC_BATCH_LIMIT, 10)
+    : filteredDiscussions.length
+
+  const discussionsToSync = filteredDiscussions.slice(0, batchLimit)
+
   console.log(
-    `[fetchGitHub] Found ${existingDiscussions.length} existing discussions in CMS, ${filteredDiscussions.length} to process`,
+    `[fetchGitHub] Found ${existingDiscussions.length} existing discussions in CMS, ${filteredDiscussions.length} to process${
+      batchLimit < filteredDiscussions.length
+        ? ` (processing ${batchLimit} this run due to SYNC_BATCH_LIMIT)`
+        : ''
+    }`,
   )
 
-  const populateAll = filteredDiscussions.map(async (discussion) => {
+  const populateAll = discussionsToSync.map(async (discussion) => {
     if (!discussion) {
       return
     }
