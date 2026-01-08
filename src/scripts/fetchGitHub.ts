@@ -1,4 +1,3 @@
-import { qs } from '@root/utilities/qs'
 import { cookies } from 'next/headers'
 
 import sanitizeSlug from '../utilities/sanitizeSlug'
@@ -9,11 +8,19 @@ const headers = {
   'Content-Type': 'application/json',
 }
 
+type ExistingDiscussion = {
+  docId: string
+  githubID: string
+}
+
 async function fetchGitHub(): Promise<void> {
   if (!GITHUB_ACCESS_TOKEN) {
-    console.log('No GitHub access token found - skipping discussions retrieval')
-    process.exit(0)
+    console.log('[fetchGitHub] No GitHub access token found - skipping discussions retrieval')
+    return
   }
+
+  console.time('[fetchGitHub] Total duration')
+  console.log('[fetchGitHub] Starting GitHub discussions sync...')
 
   const discussionData: any = []
 
@@ -115,18 +122,77 @@ async function fetchGitHub(): Promise<void> {
     method: 'POST',
   }).then((res) => res.json())
 
+  if (initialReq.errors) {
+    console.error('[fetchGitHub] GitHub API returned errors:', JSON.stringify(initialReq.errors))
+    throw new Error(`GitHub API error: ${initialReq.errors[0]?.message || 'Unknown error'}`)
+  }
+
+  if (!initialReq.data?.repository?.discussions) {
+    console.error('[fetchGitHub] Unexpected GitHub API response:', JSON.stringify(initialReq))
+    throw new Error('GitHub API returned unexpected response structure')
+  }
+
   discussionData.push(...initialReq.data.repository.discussions.nodes)
   let hasNextPage = initialReq.data.repository.discussions.pageInfo.hasNextPage
   let cursor = initialReq.data.repository.discussions.pageInfo.endCursor
 
   while (hasNextPage) {
-    const nextReq = await fetch('https://api.github.com/graphql', {
-      body: JSON.stringify({
-        query: createQuery(cursor, hasNextPage),
-      }),
-      headers,
-      method: 'POST',
-    }).then((res) => res.json())
+    let nextReq
+    const retries = 3
+    let success = false
+
+    // Retry logic for timeouts
+    for (let attempt = 0; attempt <= retries && !success; attempt++) {
+      try {
+        nextReq = await fetch('https://api.github.com/graphql', {
+          body: JSON.stringify({
+            query: createQuery(cursor, hasNextPage),
+          }),
+          headers,
+          method: 'POST',
+        }).then((res) => res.json())
+
+        // Check for timeout or service errors in the response
+        if (nextReq.message && nextReq.message.includes("couldn't respond")) {
+          if (attempt < retries) {
+            console.warn(
+              `[fetchGitHub] GitHub API timeout, retrying in 3s (attempt ${attempt + 1}/${retries + 1})`,
+            )
+            await new Promise((resolve) => setTimeout(resolve, 3000))
+            continue
+          } else {
+            console.error('[fetchGitHub] GitHub API timeout after retries:', nextReq.message)
+            throw new Error(`GitHub API timeout: ${nextReq.message}`)
+          }
+        }
+
+        if (nextReq.errors) {
+          console.error('[fetchGitHub] GitHub API returned errors:', JSON.stringify(nextReq.errors))
+          throw new Error(`GitHub API error: ${nextReq.errors[0]?.message || 'Unknown error'}`)
+        }
+
+        if (!nextReq.data?.repository?.discussions) {
+          console.error('[fetchGitHub] Unexpected GitHub API response:', JSON.stringify(nextReq))
+          throw new Error('GitHub API returned unexpected response structure')
+        }
+
+        success = true
+      } catch (error) {
+        if (attempt < retries) {
+          console.warn(
+            `[fetchGitHub] Error fetching discussions page, retrying (attempt ${attempt + 1}/${retries + 1}):`,
+            error.message,
+          )
+          await new Promise((resolve) => setTimeout(resolve, 3000))
+        } else {
+          throw error
+        }
+      }
+    }
+
+    if (!success || !nextReq) {
+      throw new Error('Failed to fetch GitHub discussions after retries')
+    }
 
     discussionData.push(...nextReq.data.repository.discussions.nodes)
 
@@ -134,7 +200,7 @@ async function fetchGitHub(): Promise<void> {
     cursor = nextReq.data.repository.discussions.pageInfo.endCursor
   }
 
-  console.log(`Retrieved ${discussionData.length} discussions from GitHub`)
+  console.log(`[fetchGitHub] Retrieved ${discussionData.length} discussions from GitHub`)
   const formattedDiscussions = discussionData.map((discussion) => {
     const { answer, answerChosenAt, answerChosenBy, category } = discussion
 
@@ -223,18 +289,29 @@ async function fetchGitHub(): Promise<void> {
   }
 
   const filteredDiscussions = formattedDiscussions.filter((discussion) => discussion !== null)
-  const existingDiscussionIDs = await fetch(
+
+  console.log('[fetchGitHub] Fetching existing GitHub discussions from CMS...')
+  const existingDiscussions: ExistingDiscussion[] = await fetch(
     `${NEXT_PUBLIC_CMS_URL}/api/community-help?depth=0&where[communityHelpType][equals]=github&limit=0`,
   )
     .then((res) => res.json())
-    .then((data) => data.docs.map((thread) => thread.githubID))
+    .then((data) =>
+      data.docs.map((thread) => ({
+        docId: thread.id,
+        githubID: thread.githubID,
+      })),
+    )
+
+  console.log(
+    `[fetchGitHub] Found ${existingDiscussions.length} existing discussions in CMS, ${filteredDiscussions.length} to process`,
+  )
 
   const populateAll = filteredDiscussions.map(async (discussion) => {
     if (!discussion) {
       return
     }
 
-    const discussionExists = existingDiscussionIDs.includes(discussion.id)
+    const existingDiscussion = existingDiscussions.find((d) => d.githubID === discussion.id)
     const body = JSON.stringify({
       slug: discussion.slug,
       communityHelpJSON: discussion,
@@ -244,26 +321,45 @@ async function fetchGitHub(): Promise<void> {
       title: discussion.title,
     })
 
-    const endpoint = discussionExists
-      ? `${NEXT_PUBLIC_CMS_URL}/api/community-help?${qs.stringify({
-          depth: 0,
-          where: { githubID: { equals: discussion.id } },
-        })}`
+    const endpoint = existingDiscussion
+      ? `${NEXT_PUBLIC_CMS_URL}/api/community-help/${existingDiscussion.docId}`
       : `${NEXT_PUBLIC_CMS_URL}/api/community-help`
 
-    const method = discussionExists ? 'PATCH' : 'POST'
+    const method = existingDiscussion ? 'PATCH' : 'POST'
 
-    await fetch(endpoint, {
-      body,
-      headers: {
-        Authorization: `JWT ${token.value}`,
-        'Content-Type': 'application/json',
-      },
-      method,
-    })
+    try {
+      const response = await fetch(endpoint, {
+        body,
+        headers: {
+          Authorization: `JWT ${token.value}`,
+          'Content-Type': 'application/json',
+        },
+        method,
+      })
+
+      if (!response.ok) {
+        const errorText = await response.text()
+        console.error(
+          `[fetchGitHub] ${method} failed for discussion "${discussion.title}" (#${discussion.id}): ${response.status} ${response.statusText}`,
+        )
+        console.error(`[fetchGitHub] Response body: ${errorText}`)
+      } else {
+        const action = method === 'POST' ? 'created' : 'updated'
+        console.log(
+          `[fetchGitHub] Successfully ${action} discussion "${discussion.title}" (#${discussion.id})`,
+        )
+      }
+    } catch (error) {
+      console.error(
+        `[fetchGitHub] Exception processing discussion "${discussion.title}" (#${discussion.id}):`,
+        error,
+      )
+    }
   })
 
   await Promise.all(populateAll)
+  console.log('[fetchGitHub] Sync completed!')
+  console.timeEnd('[fetchGitHub] Total duration')
 }
 
 export default fetchGitHub

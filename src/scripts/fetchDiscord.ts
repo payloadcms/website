@@ -1,7 +1,6 @@
 // @ts-ignore
 import * as discordMDX from 'discord-markdown'
 const { toHTML } = discordMDX
-import { qs } from '@root/utilities/qs'
 import cliProgress from 'cli-progress'
 import { cookies } from 'next/headers'
 
@@ -41,6 +40,12 @@ type Message = {
   timestamp: string
 }
 
+type ExistingThread = {
+  discordID: string
+  docId: string
+  messageCount: number
+}
+
 function segmentArray(array, segmentSize) {
   const result: Array<(typeof array)[0]> = []
   for (let i = 0; i < array.length; i += segmentSize) {
@@ -52,6 +57,7 @@ function segmentArray(array, segmentSize) {
 async function fetchFromDiscord(
   endpoint: string,
   fetchType: 'messages' | 'threads',
+  retries = 3,
 ): Promise<any[]> {
   const baseURL = `${DISCORD_API_BASE}${endpoint}`
   const allResults: Message[] | Thread[] = []
@@ -61,10 +67,42 @@ async function fetchFromDiscord(
     const url = new URL(baseURL)
     Object.entries(params).forEach(([key, value]) => url.searchParams.append(key, value))
 
-    const response = await fetch(url, { headers })
+    let response
+    let lastError
 
-    if (!response.ok) {
-      throw new Error(`Failed to fetch ${endpoint}: ${response.statusText}`)
+    // Retry logic for transient failures
+    for (let attempt = 0; attempt <= retries; attempt++) {
+      try {
+        response = await fetch(url, { headers })
+
+        if (response.ok) {
+          break // Success, exit retry loop
+        }
+
+        // If it's a 503 Service Unavailable or 429 Rate Limit, retry
+        if (response.status === 503 || response.status === 429) {
+          const waitTime = response.status === 429 ? 5000 : 2000 // Wait longer for rate limits
+          console.warn(
+            `[fetchDiscord] ${response.status} ${response.statusText} for ${endpoint}, retrying in ${waitTime}ms (attempt ${attempt + 1}/${retries + 1})`,
+          )
+          await new Promise((resolve) => setTimeout(resolve, waitTime))
+          continue
+        }
+
+        // For other errors, throw immediately
+        throw new Error(`Failed to fetch ${endpoint}: ${response.status} ${response.statusText}`)
+      } catch (error) {
+        lastError = error
+        if (attempt < retries) {
+          console.warn(`[fetchDiscord] Error fetching ${endpoint}, retrying (attempt ${attempt + 1}/${retries + 1}):`, error)
+          await new Promise((resolve) => setTimeout(resolve, 2000))
+        }
+      }
+    }
+
+    if (!response || !response.ok) {
+      console.error(`[fetchDiscord] Failed to fetch ${endpoint} after ${retries + 1} attempts, skipping...`)
+      throw lastError || new Error(`Failed to fetch ${endpoint}`)
     }
 
     const data = await response.json()
@@ -175,38 +213,56 @@ async function fetchDiscord() {
     cliProgress.Presets.shades_classic,
   )
 
-  console.time('Populating Discord')
+  console.time('[fetchDiscord] Total duration')
+  console.log('[fetchDiscord] Starting Discord sync...')
 
   const activeThreadsData = await fetchFromDiscord(
     `/guilds/${DISCORD_GUILD_ID}/threads/active`,
     'threads',
   )
+  console.log(`[fetchDiscord] Found ${activeThreadsData.length} active threads`)
+
   const archivedThreadsData = await fetchFromDiscord(
     `/channels/${DISCORD_SCRAPE_CHANNEL_ID}/threads/archived/public`,
     'threads',
   )
+  console.log(`[fetchDiscord] Found ${archivedThreadsData.length} archived threads`)
 
   const allThreads = [...activeThreadsData, ...archivedThreadsData].filter(
     (thread) => thread.applied_tags?.includes(answeredTag) && thread.message_count > 1,
   ) as Thread[]
+  console.log(
+    `[fetchDiscord] ${allThreads.length} threads after filtering (answered + has messages)`,
+  )
 
-  const existingThreadIDs = await fetch(
+  const existingThreadIDs: ExistingThread[] = await fetch(
     `${NEXT_PUBLIC_CMS_URL}/api/community-help?depth=0&where[communityHelpType][equals]=discord&limit=0`,
   )
     .then((res) => res.json())
     .then((data) =>
       data.docs.map((thread) => ({
-        id: thread.discordID,
+        discordID: thread.discordID,
+        docId: thread.id,
         messageCount: thread.communityHelpJSON.messageCount || 0,
       })),
     )
 
   const filteredThreads = allThreads.filter((thread) => {
-    const existingThread = existingThreadIDs.some((existing) => existing.id === thread.id)
+    const existingThread = existingThreadIDs.find((existing) => existing.discordID === thread.id)
     return (
       !existingThread || (existingThread && existingThread.messageCount !== thread.message_count)
     )
   })
+
+  console.log(
+    `[fetchDiscord] Found ${existingThreadIDs.length} existing threads in CMS, ${filteredThreads.length} need to be synced`,
+  )
+
+  if (filteredThreads.length === 0) {
+    console.log('[fetchDiscord] No threads to sync. All up to date!')
+    console.timeEnd('[fetchDiscord] Total duration')
+    return
+  }
 
   bar.start(filteredThreads.length, 0)
 
@@ -215,12 +271,21 @@ async function fetchDiscord() {
 
   for (const segment of threadSegments) {
     const threadPromises = segment.map(async (thread) => {
-      const messages = await fetchFromDiscord(`/channels/${thread.id}/messages`, 'messages')
-      return createSanitizedThread(thread, messages)
+      try {
+        const messages = await fetchFromDiscord(`/channels/${thread.id}/messages`, 'messages')
+        return createSanitizedThread(thread, messages)
+      } catch (error) {
+        console.error(
+          `[fetchDiscord] Failed to fetch messages for thread "${thread.name}" (${thread.id}), skipping:`,
+          error.message,
+        )
+        return null // Return null for failed threads so we can filter them out
+      }
     })
 
     const sanitizedThreads = await Promise.all(threadPromises)
-    populatedThreads.push(...sanitizedThreads)
+    const successfulThreads = sanitizedThreads.filter((t) => t !== null)
+    populatedThreads.push(...successfulThreads)
     bar.update(populatedThreads.length)
   }
 
@@ -241,7 +306,9 @@ async function fetchDiscord() {
         break
       }
 
-      const threadExists = existingThreadIDs.some((existing) => existing.id === thread.info.id)
+      const existingThread = existingThreadIDs.find(
+        (existing) => existing.discordID === thread.info.id,
+      )
       const body = JSON.stringify({
         slug: thread.slug,
         communityHelpJSON: thread,
@@ -251,14 +318,11 @@ async function fetchDiscord() {
         title: thread.info.name,
       })
 
-      const endpoint = threadExists
-        ? `${NEXT_PUBLIC_CMS_URL}/api/community-help?${qs.stringify({
-            depth: 0,
-            where: { discordID: { equals: thread.info.id } },
-          })}`
+      const endpoint = existingThread
+        ? `${NEXT_PUBLIC_CMS_URL}/api/community-help/${existingThread.docId}`
         : `${NEXT_PUBLIC_CMS_URL}/api/community-help`
 
-      const method = threadExists ? 'PATCH' : 'POST'
+      const method = existingThread ? 'PATCH' : 'POST'
 
       const options = {
         body,
@@ -273,18 +337,30 @@ async function fetchDiscord() {
         const response = await fetch(endpoint, options)
 
         if (!response.ok) {
+          const errorText = await response.text()
           if (response.status === 504) {
-            console.error(`504 error encountered for thread ${thread.info.id}. Stopping process.`)
+            console.error(
+              `[fetchDiscord] 504 Gateway Timeout for thread "${thread.info.name}" (${thread.info.id}). Stopping process.`,
+            )
             stopProcessing = true
             break
           } else {
-            console.error(`Error processing thread ${thread.info.id}: ${response.statusText}`)
+            console.error(
+              `[fetchDiscord] ${method} failed for thread "${thread.info.name}" (${thread.info.id}): ${response.status} ${response.statusText}`,
+            )
+            console.error(`[fetchDiscord] Response body: ${errorText}`)
           }
         } else {
-          console.log(`Successfully updated thread ${thread.info.id}`)
+          const action = method === 'POST' ? 'created' : 'updated'
+          console.log(
+            `[fetchDiscord] Successfully ${action} thread "${thread.info.name}" (${thread.info.id})`,
+          )
         }
       } catch (error) {
-        console.error(`Error processing thread ${thread.info.id}:`, error)
+        console.error(
+          `[fetchDiscord] Exception processing thread "${thread.info.name}" (${thread.info.id}):`,
+          error,
+        )
         stopProcessing = true
         break
       }
@@ -292,7 +368,8 @@ async function fetchDiscord() {
   }
 
   await populateAll()
-  console.timeEnd('Populating Discord')
+  console.log('[fetchDiscord] Sync completed!')
+  console.timeEnd('[fetchDiscord] Total duration')
 }
 
 export default fetchDiscord
