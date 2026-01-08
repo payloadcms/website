@@ -18,8 +18,6 @@ const AfterNavActions: React.FC = () => {
       <SyncDocsButton />
       <RefreshMdxToLexicalButton />
       <RedeployButton />
-
-      <SyncCommunityHelp />
       <SyncToAlgolia />
     </div>
   )
