@@ -2,6 +2,12 @@
   "github": {
     "silent": true
   },
+  "crons": [
+    {
+      "path": "/api/sync-ch",
+      "schedule": "0 2 * * *"
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
