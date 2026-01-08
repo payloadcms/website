@@ -2,12 +2,12 @@
 import * as discordMDX from 'discord-markdown'
 const { toHTML } = discordMDX
 import cliProgress from 'cli-progress'
-import { cookies } from 'next/headers'
+import { getPayload } from 'payload'
+import config from '@payload-config'
 
 import sanitizeSlug from '../utilities/sanitizeSlug'
 
-const { DISCORD_GUILD_ID, DISCORD_SCRAPE_CHANNEL_ID, DISCORD_TOKEN, NEXT_PUBLIC_CMS_URL } =
-  process.env
+const { DISCORD_GUILD_ID, DISCORD_SCRAPE_CHANNEL_ID, DISCORD_TOKEN } = process.env
 const DISCORD_API_BASE = 'https://discord.com/api/v10'
 const answeredTag = '1034538089546264577'
 const headers = {
@@ -235,17 +235,24 @@ async function fetchDiscord() {
     `[fetchDiscord] ${allThreads.length} threads after filtering (answered + has messages)`,
   )
 
-  const existingThreadIDs: ExistingThread[] = await fetch(
-    `${NEXT_PUBLIC_CMS_URL}/api/community-help?depth=0&where[communityHelpType][equals]=discord&limit=0`,
-  )
-    .then((res) => res.json())
-    .then((data) =>
-      data.docs.map((thread) => ({
-        discordID: thread.discordID,
-        docId: thread.id,
-        messageCount: thread.communityHelpJSON.messageCount || 0,
-      })),
-    )
+  const payload = await getPayload({ config })
+  const existingThreadsResult = await payload.find({
+    collection: 'community-help',
+    depth: 0,
+    limit: 0,
+    overrideAccess: true,
+    where: {
+      communityHelpType: {
+        equals: 'discord',
+      },
+    },
+  })
+
+  const existingThreadIDs: ExistingThread[] = existingThreadsResult.docs.map((thread) => ({
+    discordID: thread.discordID as string,
+    docId: thread.id,
+    messageCount: (thread.communityHelpJSON as any)?.messageCount || 0,
+  }))
 
   const filteredThreads = allThreads.filter((thread) => {
     const existingThread = existingThreadIDs.find((existing) => existing.discordID === thread.id)
@@ -291,69 +298,41 @@ async function fetchDiscord() {
 
   bar.stop()
 
-  const cookieStore = await cookies()
-  const token = cookieStore.get('payload-token')
-
-  if (!token) {
-    throw new Error('You are unauthorized, please log in.')
-  }
-
   const populateAll = async () => {
-    let stopProcessing = false
-
     for (const thread of populatedThreads) {
-      if (stopProcessing) {
-        break
-      }
-
       const existingThread = existingThreadIDs.find(
         (existing) => existing.discordID === thread.info.id,
       )
-      const body = JSON.stringify({
+      const data = {
         slug: thread.slug,
         communityHelpJSON: thread,
-        communityHelpType: 'discord',
+        communityHelpType: 'discord' as const,
         discordID: thread.info.id,
         threadCreatedAt: thread.info.createdAt,
         title: thread.info.name,
-      })
-
-      const endpoint = existingThread
-        ? `${NEXT_PUBLIC_CMS_URL}/api/community-help/${existingThread.docId}`
-        : `${NEXT_PUBLIC_CMS_URL}/api/community-help`
-
-      const method = existingThread ? 'PATCH' : 'POST'
-
-      const options = {
-        body,
-        headers: {
-          Authorization: `JWT ${token.value}`,
-          'Content-Type': 'application/json',
-        },
-        method,
       }
 
       try {
-        const response = await fetch(endpoint, options)
-
-        if (!response.ok) {
-          const errorText = await response.text()
-          if (response.status === 504) {
-            console.error(
-              `[fetchDiscord] 504 Gateway Timeout for thread "${thread.info.name}" (${thread.info.id}). Stopping process.`,
-            )
-            stopProcessing = true
-            break
-          } else {
-            console.error(
-              `[fetchDiscord] ${method} failed for thread "${thread.info.name}" (${thread.info.id}): ${response.status} ${response.statusText}`,
-            )
-            console.error(`[fetchDiscord] Response body: ${errorText}`)
-          }
-        } else {
-          const action = method === 'POST' ? 'created' : 'updated'
+        if (existingThread) {
+          // Update existing thread
+          await payload.update({
+            id: existingThread.docId,
+            collection: 'community-help',
+            data,
+            overrideAccess: true,
+          })
           console.log(
-            `[fetchDiscord] Successfully ${action} thread "${thread.info.name}" (${thread.info.id})`,
+            `[fetchDiscord] Successfully updated thread "${thread.info.name}" (${thread.info.id})`,
+          )
+        } else {
+          // Create new thread
+          await payload.create({
+            collection: 'community-help',
+            data,
+            overrideAccess: true,
+          })
+          console.log(
+            `[fetchDiscord] Successfully created thread "${thread.info.name}" (${thread.info.id})`,
           )
         }
       } catch (error) {
@@ -361,8 +340,6 @@ async function fetchDiscord() {
           `[fetchDiscord] Exception processing thread "${thread.info.name}" (${thread.info.id}):`,
           error,
         )
-        stopProcessing = true
-        break
       }
     }
   }

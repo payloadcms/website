@@ -1,25 +1,31 @@
-import { qs } from '@root/utilities/qs'
-import { cookies } from 'next/headers'
-
-const { NEXT_PUBLIC_CMS_URL } = process.env
+import { getPayload } from 'payload'
+import config from '@payload-config'
 
 async function clearDuplicateThreads() {
-  const existingThreads = await fetch(`${NEXT_PUBLIC_CMS_URL}/api/community-help?depth=0&limit=0`)
-    .then((res) => res.json())
-    .then((data) =>
-      data.docs.map((thread) => ({
-        id: thread.communityHelpType === 'discord' ? thread.discordID : thread.githubID, // Use respective IDs
-        communityHelpType: thread.communityHelpType,
-        uniqueID: thread.id,
-      })),
-    )
+  const payload = await getPayload({ config })
 
-  const threadGroups = existingThreads.reduce((acc, thread) => {
-    const groupId = thread.id
-    acc[groupId] = acc[groupId] || []
-    acc[groupId].push(thread)
-    return acc
-  }, {})
+  const existingThreadsResult = await payload.find({
+    collection: 'community-help',
+    depth: 0,
+    limit: 0,
+    overrideAccess: true,
+  })
+
+  const existingThreads = existingThreadsResult.docs.map((thread) => ({
+    id: (thread.communityHelpType === 'discord' ? thread.discordID : thread.githubID) as string, // Use respective IDs
+    communityHelpType: thread.communityHelpType,
+    uniqueID: thread.id,
+  }))
+
+  const threadGroups = existingThreads.reduce(
+    (acc, thread) => {
+      const groupId = thread.id
+      acc[groupId] = acc[groupId] || []
+      acc[groupId].push(thread)
+      return acc
+    },
+    {} as Record<string, typeof existingThreads>,
+  )
 
   const threadsToDelete: string[] = []
   const cleanedThreads = Object.values(threadGroups).map((group: any[]) => {
@@ -29,12 +35,7 @@ async function clearDuplicateThreads() {
     return group[0]
   })
 
-  const cookieStore = await cookies()
-  const token = cookieStore.get('payload-token')
-
-  if (!token) {
-    throw new Error('You are unauthorized, please log in.')
-  }
+  console.log(`[clearDuplicateThreads] Found ${threadsToDelete.length} duplicate threads to delete`)
 
   const batchNumber = 10
   for (let i = 0; i < threadsToDelete.length; i += batchNumber) {
@@ -42,29 +43,20 @@ async function clearDuplicateThreads() {
     await Promise.all(
       batch.map(async (id) => {
         try {
-          const res = await fetch(
-            `${NEXT_PUBLIC_CMS_URL}/api/community-help?${qs.stringify({
-              depth: 0,
-              where: { id: { equals: id } },
-            })}`,
-            {
-              credentials: 'include',
-              headers: {
-                Authorization: `JWT ${token.value}`,
-                'Content-Type': 'application/json',
-              },
-              method: 'DELETE',
-            },
-          )
-          if (!res.ok) {
-            throw new Error(`Failed to delete thread with ID: ${id}`)
-          }
+          await payload.delete({
+            id,
+            collection: 'community-help',
+            overrideAccess: true,
+          })
+          console.log(`[clearDuplicateThreads] Successfully deleted thread with ID: ${id}`)
         } catch (error) {
-          console.error('Error deleting thread:', error)
+          console.error(`[clearDuplicateThreads] Error deleting thread ${id}:`, error)
         }
       }),
     )
   }
+
+  console.log('[clearDuplicateThreads] Cleanup completed!')
 }
 
 export default clearDuplicateThreads

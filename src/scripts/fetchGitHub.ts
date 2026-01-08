@@ -1,8 +1,9 @@
-import { cookies } from 'next/headers'
+import { getPayload } from 'payload'
+import config from '@payload-config'
 
 import sanitizeSlug from '../utilities/sanitizeSlug'
 
-const { GITHUB_ACCESS_TOKEN, NEXT_PUBLIC_CMS_URL } = process.env
+const { GITHUB_ACCESS_TOKEN } = process.env
 const headers = {
   Authorization: `Bearer ${GITHUB_ACCESS_TOKEN}`,
   'Content-Type': 'application/json',
@@ -281,26 +282,26 @@ async function fetchGitHub(): Promise<void> {
     return null
   })
 
-  const cookieStore = await cookies()
-  const token = cookieStore.get('payload-token')
-
-  if (!token) {
-    throw new Error('You are unauthorized, please log in.')
-  }
-
   const filteredDiscussions = formattedDiscussions.filter((discussion) => discussion !== null)
 
   console.log('[fetchGitHub] Fetching existing GitHub discussions from CMS...')
-  const existingDiscussions: ExistingDiscussion[] = await fetch(
-    `${NEXT_PUBLIC_CMS_URL}/api/community-help?depth=0&where[communityHelpType][equals]=github&limit=0`,
-  )
-    .then((res) => res.json())
-    .then((data) =>
-      data.docs.map((thread) => ({
-        docId: thread.id,
-        githubID: thread.githubID,
-      })),
-    )
+  const payload = await getPayload({ config })
+  const existingDiscussionsResult = await payload.find({
+    collection: 'community-help',
+    where: {
+      communityHelpType: {
+        equals: 'github',
+      },
+    },
+    limit: 0,
+    depth: 0,
+    overrideAccess: true,
+  })
+
+  const existingDiscussions: ExistingDiscussion[] = existingDiscussionsResult.docs.map((thread) => ({
+    docId: thread.id,
+    githubID: thread.githubID as string,
+  }))
 
   console.log(
     `[fetchGitHub] Found ${existingDiscussions.length} existing discussions in CMS, ${filteredDiscussions.length} to process`,
@@ -312,41 +313,36 @@ async function fetchGitHub(): Promise<void> {
     }
 
     const existingDiscussion = existingDiscussions.find((d) => d.githubID === discussion.id)
-    const body = JSON.stringify({
+    const data = {
       slug: discussion.slug,
       communityHelpJSON: discussion,
-      communityHelpType: 'github',
+      communityHelpType: 'github' as const,
       githubID: discussion.id,
       threadCreatedAt: discussion.createdAt,
       title: discussion.title,
-    })
-
-    const endpoint = existingDiscussion
-      ? `${NEXT_PUBLIC_CMS_URL}/api/community-help/${existingDiscussion.docId}`
-      : `${NEXT_PUBLIC_CMS_URL}/api/community-help`
-
-    const method = existingDiscussion ? 'PATCH' : 'POST'
+    }
 
     try {
-      const response = await fetch(endpoint, {
-        body,
-        headers: {
-          Authorization: `JWT ${token.value}`,
-          'Content-Type': 'application/json',
-        },
-        method,
-      })
-
-      if (!response.ok) {
-        const errorText = await response.text()
-        console.error(
-          `[fetchGitHub] ${method} failed for discussion "${discussion.title}" (#${discussion.id}): ${response.status} ${response.statusText}`,
-        )
-        console.error(`[fetchGitHub] Response body: ${errorText}`)
-      } else {
-        const action = method === 'POST' ? 'created' : 'updated'
+      if (existingDiscussion) {
+        // Update existing discussion
+        await payload.update({
+          id: existingDiscussion.docId,
+          collection: 'community-help',
+          data,
+          overrideAccess: true,
+        })
         console.log(
-          `[fetchGitHub] Successfully ${action} discussion "${discussion.title}" (#${discussion.id})`,
+          `[fetchGitHub] Successfully updated discussion "${discussion.title}" (#${discussion.id})`,
+        )
+      } else {
+        // Create new discussion
+        await payload.create({
+          collection: 'community-help',
+          data,
+          overrideAccess: true,
+        })
+        console.log(
+          `[fetchGitHub] Successfully created discussion "${discussion.title}" (#${discussion.id})`,
         )
       }
     } catch (error) {

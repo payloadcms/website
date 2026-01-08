@@ -25,5 +25,5 @@ export async function GET(): Promise<NextResponse> {
     }
   }
 
-  return NextResponse.json((JSON.stringify({ success: true }), { status: 200 }))
+  return NextResponse.json({ success: true }, { status: 200 })
 }
