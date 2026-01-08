@@ -222,11 +222,20 @@ async function fetchDiscord() {
   )
   console.log(`[fetchDiscord] Found ${activeThreadsData.length} active threads`)
 
-  const archivedThreadsData = await fetchFromDiscord(
-    `/channels/${DISCORD_SCRAPE_CHANNEL_ID}/threads/archived/public`,
-    'threads',
-  )
-  console.log(`[fetchDiscord] Found ${archivedThreadsData.length} archived threads`)
+  // Only fetch archived threads if SYNC_ARCHIVED_THREADS is explicitly set to 'true'
+  // This dramatically speeds up sync time by skipping 12,000+ archived threads that rarely change
+  const shouldFetchArchived = process.env.SYNC_ARCHIVED_THREADS === 'true'
+  let archivedThreadsData: Thread[] = []
+
+  if (shouldFetchArchived) {
+    archivedThreadsData = await fetchFromDiscord(
+      `/channels/${DISCORD_SCRAPE_CHANNEL_ID}/threads/archived/public`,
+      'threads',
+    )
+    console.log(`[fetchDiscord] Found ${archivedThreadsData.length} archived threads`)
+  } else {
+    console.log('[fetchDiscord] Skipping archived threads (set SYNC_ARCHIVED_THREADS=true to include them)')
+  }
 
   const allThreads = [...activeThreadsData, ...archivedThreadsData].filter(
     (thread) => thread.applied_tags?.includes(answeredTag) && thread.message_count > 1,
