@@ -151,23 +151,34 @@ export default async function PartnerPage({ params }: { params: Promise<{ slug: 
                 <CMSForm
                   form={{
                     ...contactForm,
-                    fields: contactForm.fields?.map((field) => {
-                      if (field.blockType === 'text' && field.name === 'toName') {
-                        return {
-                          ...field,
-                          defaultValue: partner.name,
+                    fields: [
+                      ...(contactForm.fields?.map((field) => {
+                        if (field.blockType === 'text' && field.name === 'toName') {
+                          return {
+                            ...field,
+                            defaultValue: partner.name,
+                          }
                         }
-                      }
-                      if (field.blockType === 'email' && field.name === 'toEmail') {
-                        return {
-                          ...field,
-                          defaultValue: partner.email,
+                        // Remove required flag from toEmail since we're replacing it with partnerId
+                        if (field.blockType === 'email' && field.name === 'toEmail') {
+                          return {
+                            ...field,
+                            required: false,
+                          }
                         }
-                      }
-                      return field
-                    }),
+                        return field
+                      }) || []),
+                      // Injected hidden field used for server-side email lookup
+                      {
+                        name: 'partnerId',
+                        blockType: 'text',
+                        defaultValue: partner.id,
+                        label: 'Partner ID',
+                        required: false,
+                      },
+                    ],
                   }}
-                  hiddenFields={['toName', 'toEmail']}
+                  hiddenFields={['toName', 'toEmail', 'partnerId']}
                 />
               </div>
               <BackgroundScanline className={classes.scanlines} />
