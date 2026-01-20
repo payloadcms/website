@@ -159,7 +159,7 @@ export default async function PartnerPage({ params }: { params: Promise<{ slug: 
                             defaultValue: partner.name,
                           }
                         }
-                        // Remove required flag from toEmail since we're replacing it with partnerId
+                        // Make toEmail optional - it's required in the form config but populated server-side from partnerId now
                         if (field.blockType === 'email' && field.name === 'toEmail') {
                           return {
                             ...field,

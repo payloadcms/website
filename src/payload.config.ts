@@ -476,7 +476,7 @@ export default buildConfig({
                 const { form, submissionData: submissionDataFromDoc } = doc
                 const portalID = process.env.NEXT_PRIVATE_HUBSPOT_PORTAL_KEY
 
-                // Remove partnerId from HubSpot submission (already converted to toEmail by beforeChange hook)
+                // Remove partnerId from HubSpot submission (toEmail already populated by beforeChange hook)
                 const submissionData = submissionDataFromDoc.filter(
                   (field) => field.field !== 'partnerId',
                 )
