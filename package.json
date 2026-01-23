@@ -43,6 +43,7 @@
     "@radix-ui/react-tabs": "^1.1.1",
     "@stripe/react-stripe-js": "^3.1.1",
     "@stripe/stripe-js": "^1.47.0",
+    "@zubricks/plugin-google-analytics": "^1.0.2",
     "algoliasearch": "^4.23.3",
     "cheerio": "^1.0.0-rc.12",
     "cross-env": "7.0.3",

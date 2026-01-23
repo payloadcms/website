@@ -16,6 +16,7 @@ import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import link from '@root/fields/link'
 import { LabelFeature } from '@root/fields/richText/features/label/server'
 import { LargeBodyFeature } from '@root/fields/richText/features/largeBody/server'
+import { googleAnalytics } from '@zubricks/plugin-google-analytics'
 import { revalidateTag } from 'next/cache'
 import nodemailerSendgrid from 'nodemailer-sendgrid'
 import path from 'path'
@@ -390,6 +391,10 @@ export default buildConfig({
     opsCounterPlugin({
       max: 200,
       warnAt: 25,
+    }),
+    googleAnalytics({
+      // Optional: Configure which widgets to enable
+      enabledWidgets: ['analytics-overview', 'top-pages', 'active-users', 'channel-groups'],
     }),
     formBuilderPlugin({
       formOverrides: {

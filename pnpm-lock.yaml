@@ -80,6 +80,9 @@ importers:
       '@stripe/stripe-js':
         specifier: ^1.47.0
         version: 1.54.2
+      '@zubricks/plugin-google-analytics':
+        specifier: ^1.0.2
+        version: 1.0.2(next@15.4.10(@opentelemetry/api@1.9.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(sass@1.94.2))(payload@3.72.0(graphql@16.8.1)(typescript@5.7.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       algoliasearch:
         specifier: ^4.23.3
         version: 4.25.3
@@ -1851,6 +1854,15 @@ packages:
   '@vladfrangu/async_event_emitter@2.4.7':
     resolution: {integrity: sha512-Xfe6rpCTxSxfbswi/W/Pz7zp1WWSNn4A0eW4mLkQUewCrXXtMj31lCg+iQyTkh/CkusZSq9eDflu7tjEDXUY6g==}
     engines: {node: '>=v14.0.0', npm: '>=7.0.0'}
+
+  '@zubricks/plugin-google-analytics@1.0.2':
+    resolution: {integrity: sha512-c/9GRH4cToK8PDu8aWlmmuI5tFtID76uwtGzOWGR5ef24HuIthwENv4ue0a/AH5poYGaqNTz9BgTyvcZ1z1nhw==}
+    engines: {node: ^18.20.2 || >=20.9.0}
+    peerDependencies:
+      next: ^15.0.0 || ^15.1.0
+      payload: ^3.0.0
+      react: ^19.0.0
+      react-dom: ^19.0.0
 
   abbrev@1.1.1:
     resolution: {integrity: sha512-nne9/IiQ/hzIhY6pdDnbBtz7DjPTKrY00P/zvPSm5pOFkl6xuGrGnXn/VtTNNfNtAfZ9/1RtehkszU9qcTii0Q==}
@@ -6649,6 +6661,13 @@ snapshots:
   '@vercel/oidc@3.0.5': {}
 
   '@vladfrangu/async_event_emitter@2.4.7': {}
+
+  '@zubricks/plugin-google-analytics@1.0.2(next@15.4.10(@opentelemetry/api@1.9.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(sass@1.94.2))(payload@3.72.0(graphql@16.8.1)(typescript@5.7.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)':
+    dependencies:
+      next: 15.4.10(@opentelemetry/api@1.9.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(sass@1.94.2)
+      payload: 3.72.0(graphql@16.8.1)(typescript@5.7.3)
+      react: 19.2.3
+      react-dom: 19.2.3(react@19.2.3)
 
   abbrev@1.1.1: {}
 
