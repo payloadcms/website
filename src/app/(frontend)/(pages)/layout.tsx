@@ -1,6 +1,5 @@
 import { Footer } from '@components/Footer/index'
 import { Header } from '@components/Header/index'
-import { TopBar } from '@components/TopBar'
 import { fetchGlobals } from '@data/index'
 import { unstable_cache } from 'next/cache'
 import { draftMode } from 'next/headers'
@@ -18,7 +17,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
 
   return (
     <React.Fragment>
-      <Header {...mainMenu}>{topBar.enableTopBar && <TopBar {...topBar} />}</Header>
+      <Header {...mainMenu} topBar={topBar} />
       <div>
         {children}
         <div id="docsearch" />

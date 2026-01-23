@@ -4,6 +4,7 @@
   position: relative;
   padding-top: var(--page-padding-top);
   z-index: 1;
+  transition: padding-top 500ms ease-out;
 
   &.hasBackground {
     background-color: var(--color-base-0);

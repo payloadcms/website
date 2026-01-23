@@ -11,7 +11,7 @@
   display: flex;
   align-items: center;
   width: 100%;
-  transition: color 300ms ease;
+  transition: color 300ms ease-out;
   max-width: 100vw;
 
   &:before {
@@ -24,7 +24,7 @@
     background: var(--theme-bg);
     opacity: 1;
     z-index: -1;
-    transition: opacity 500ms ease-out;
+    transition: opacity 300ms ease-out;
   }
 
   &:after {
@@ -38,13 +38,13 @@
     // backdrop-filter: blur(5px);
     z-index: -1;
     opacity: 1;
-    transition: opacity 500ms ease-out;
+    transition: opacity 300ms ease-out;
   }
 
   @include mobile-header-break {
     &:before,
     &:after {
-      transition: opacity 200ms ease;
+      transition: opacity 300ms ease-out;
     }
   }
 }
@@ -74,5 +74,5 @@
   opacity: 1;
   overflow: hidden;
   pointer-events: auto;
-  transition: height 0.5s ease;
+  transition: height 300ms ease-out;
 }

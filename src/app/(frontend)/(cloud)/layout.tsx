@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 
 import { CloudFooter } from '@cloud/_components/CloudFooter/index'
 import { CloudHeader } from '@cloud/_components/CloudHeader/index'
-import { TopBar } from '@components/TopBar'
 import { fetchGlobals } from '@data'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 
@@ -30,7 +29,7 @@ export default async (props) => {
 
   return (
     <div className={classes.layout}>
-      <CloudHeader>{topBar.enableTopBar && <TopBar {...topBar} />}</CloudHeader>
+      <CloudHeader topBar={topBar} />
       <div className={classes.container}>{children}</div>
       <CloudFooter />
     </div>
