@@ -29,6 +29,16 @@ export const Users: CollectionConfig = {
     tokenExpiration: 28800, // 8 hours
   },
   fields: [
+    // Override default email field to restrict public read access
+    {
+      name: 'email',
+      type: 'email',
+      access: {
+        read: isAdminOrSelfFieldLevel,
+      },
+      required: true,
+      unique: true,
+    },
     {
       type: 'row',
       fields: [

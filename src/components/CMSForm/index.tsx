@@ -127,22 +127,16 @@ const RenderForm = ({ form, hiddenFields }: { form: FormType; hiddenFields: stri
             } catch (err) {
               console.warn(err) // eslint-disable-line no-console
               toast.error('Something went wrong. Did not redirect.')
-              // setError({
-              //   message: 'Something went wrong. Did not redirect.',
-              // })
             }
           }
         } catch (err) {
           console.warn(err) // eslint-disable-line no-console
           setIsLoading(false)
           toast.error('Something went wrong.')
-          // setError({
-          //   message: 'Something went wrong.',
-          // })
         }
       }
 
-      submitForm()
+      void submitForm()
     },
     [router, formID, formRedirect, confirmationType, pathname],
   )

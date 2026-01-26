@@ -364,6 +364,7 @@ export const fetchPartners = async (): Promise<Partner[]> => {
     collection: 'partners',
     depth: 2,
     limit: 300,
+    overrideAccess: false, // Respect field-level access control (excludes email and hubspotID)
     sort: 'slug',
     where: {
       AND: [{ agency_status: { equals: 'active' } }, { _status: { equals: 'published' } }],
@@ -405,7 +406,6 @@ export const fetchPartner = async (slug: string): Promise<Partial<Partner>> => {
         projects: true,
         services: true,
       },
-      email: true,
       featured: true,
       industries: true,
       regions: true,

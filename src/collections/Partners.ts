@@ -57,6 +57,9 @@ export const Partners: CollectionConfig = {
     {
       name: 'email',
       type: 'email',
+      access: {
+        read: isAdminFieldLevel,
+      },
       label: 'Contact Email',
       required: true,
     },
