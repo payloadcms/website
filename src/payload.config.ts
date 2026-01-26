@@ -437,7 +437,6 @@ export default buildConfig({
           afterChange: [
             ({ doc }) => {
               revalidateTag(`form-${doc.title}`)
-              console.log(`Revalidated form: ${doc.title}`)
             },
           ],
         },
@@ -486,8 +485,14 @@ export default buildConfig({
               const body = req.json ? await req.json() : {}
 
               const sendSubmissionToHubSpot = async (): Promise<void> => {
-                const { form, submissionData } = doc
+                const { form, submissionData: submissionDataFromDoc } = doc
                 const portalID = process.env.NEXT_PRIVATE_HUBSPOT_PORTAL_KEY
+
+                // Remove partnerId from HubSpot submission (toEmail already populated by beforeChange hook)
+                const submissionData = submissionDataFromDoc.filter(
+                  (field) => field.field !== 'partnerId',
+                )
+
                 const data = {
                   context: {
                     ...('hubspotCookie' in body && { hutk: body?.hubspotCookie }),
@@ -499,6 +504,7 @@ export default buildConfig({
                     value: key.value,
                   })),
                 }
+
                 try {
                   await fetch(
                     `https://api.hsforms.com/submissions/v3/integration/submit/${portalID}/${form.hubSpotFormID}`,
@@ -518,6 +524,40 @@ export default buildConfig({
                 }
               }
               await sendSubmissionToHubSpot()
+            },
+          ],
+          beforeChange: [
+            async ({ data, req }) => {
+              // Look up partner email if partnerId is present and populate toEmail field
+              // This runs before email notifications are sent
+              const partnerIdField = data?.submissionData?.find(
+                (field) => field.field === 'partnerId',
+              )
+
+              if (partnerIdField?.value) {
+                try {
+                  const partner = await req.payload.findByID({
+                    id: partnerIdField.value,
+                    collection: 'partners',
+                    overrideAccess: true,
+                  })
+
+                  if (partner?.email) {
+                    // Add toEmail field to submissionData for email notifications
+                    data.submissionData.push({
+                      field: 'toEmail',
+                      value: partner.email,
+                    })
+                  }
+                } catch (err) {
+                  req.payload.logger.error({
+                    err,
+                    msg: 'Failed to lookup partner email',
+                  })
+                }
+              }
+
+              return data
             },
           ],
         },
