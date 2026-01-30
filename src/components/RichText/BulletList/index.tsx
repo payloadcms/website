@@ -1,10 +1,12 @@
+import { CheckIcon } from '@root/icons/CheckIcon/index'
+import { CloseIcon } from '@root/icons/CloseIcon/index'
 import React from 'react'
 
 import './index.scss'
 
 interface BulletListItem {
-  text: string
   icon: 'check' | 'x'
+  text: string
 }
 
 interface BulletListProps {
@@ -16,8 +18,10 @@ export const BulletList: React.FC<BulletListProps> = ({ items }) => {
     <div className="bullet-list-wrapper">
       <ul className="bullet-list">
         {items.map((item, index) => (
-          <li key={index} className={`bullet-list__item bullet-list__item--${item.icon}`}>
-            <span className="bullet-list__icon">{item.icon === 'check' ? '✓' : '✕'}</span>
+          <li className={`bullet-list__item bullet-list__item--${item.icon}`} key={index}>
+            <span className="bullet-list__icon">
+              {item.icon === 'check' ? <CheckIcon /> : <CloseIcon />}
+            </span>
             <span className="bullet-list__text">{item.text}</span>
           </li>
         ))}

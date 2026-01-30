@@ -2,18 +2,24 @@
 .bullet-list-wrapper {
   display: flex;
   justify-content: center;
-  margin: 1rem 0;
+  margin-bottom: 2rem;
+}
+
+[data-theme='dark'] {
+  .bullet-list {
+    border: 1px solid white;
+  }
 }
 
 .bullet-list {
+  width: fit-content;
+  max-width: 500px;
   list-style: none;
   padding: 2rem;
   border-radius: 4px;
   background: black;
   color: white;
-  margin: 1rem 0 1.5rem 0;
-  max-width: 800px;
-  width: fit-content;
+  margin: 0;
 
   @include small-break {
     width: 100%;
@@ -38,15 +44,20 @@
     font-weight: bold;
     color: white;
     flex-shrink: 0;
-    margin-top: 0.125rem;
+
+    svg {
+      path, line {
+        stroke-width: 2;
+      }
+    }
   }
 
   &__item--check &__icon {
-    background-color: #48d67c; // green-500
+    background-color: #48d67c;
   }
 
   &__item--x &__icon {
-    background-color: #d65353; // red-500
+    background-color: var(--color-error-500);
   }
 
   &__text {
