@@ -40,6 +40,7 @@ import { default as default_7b4b356d4f495796f5ea32368107862c } from '@root/globa
 import { BlogMarkdownField as BlogMarkdownField_a0e4da4b38919785352cf36efa721675 } from '@root/blocks/BlogMarkdown/Field'
 import { default as default_26726ff2b18133c6c2dab451ecac5a3e } from '@root/components/TableCheckboxField'
 import { default as default_3ee709fabb34ea93648b8fdb9ee7323a } from '@root/components/AfterNavActions'
+import { default as default_a051299f4bf9241bdd40f33c65d7b919 } from '@root/components/EasterEggStyles'
 import { VercelBlobClientUploadHandler as VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e } from '@payloadcms/storage-vercel-blob/client'
 import { default as default_d9d84b12053d852de8af5bf5f5320665 } from '@zubricks/plugin-google-analytics/widgets/AnalyticsMetrics'
 import { default as default_939fb33bbe4c23b419c46044ebdc6d00 } from '@zubricks/plugin-google-analytics/widgets/AnalyticsTopPages'
@@ -90,6 +91,7 @@ export const importMap = {
   "@root/blocks/BlogMarkdown/Field#BlogMarkdownField": BlogMarkdownField_a0e4da4b38919785352cf36efa721675,
   "@root/components/TableCheckboxField#default": default_26726ff2b18133c6c2dab451ecac5a3e,
   "@root/components/AfterNavActions#default": default_3ee709fabb34ea93648b8fdb9ee7323a,
+  "@root/components/EasterEggStyles#default": default_a051299f4bf9241bdd40f33c65d7b919,
   "@payloadcms/storage-vercel-blob/client#VercelBlobClientUploadHandler": VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e,
   "@zubricks/plugin-google-analytics/widgets/AnalyticsMetrics#default": default_d9d84b12053d852de8af5bf5f5320665,
   "@zubricks/plugin-google-analytics/widgets/AnalyticsTopPages#default": default_939fb33bbe4c23b419c46044ebdc6d00,

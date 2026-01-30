@@ -52,6 +52,9 @@ export const contentLexicalEditorFeatures: FeatureProviderServer[] = [
       'Resource',
       'TableWithDrawers',
       'VideoDrawer',
+      'Pill',
+      'Arrow',
+      'BulletList',
     ],
   }),
 ]

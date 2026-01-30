@@ -66,6 +66,9 @@ import { TableWithDrawersBlock } from './collections/Docs/blocks/tableWithDrawer
 import { UploadBlock } from './collections/Docs/blocks/upload'
 import { VideoDrawerBlock } from './collections/Docs/blocks/VideoDrawer'
 import { YoutubeBlock } from './collections/Docs/blocks/youtube'
+import { PillBlock } from './collections/Docs/blocks/pill'
+import { ArrowBlock } from './collections/Docs/blocks/arrow'
+import { BulletListBlock } from './collections/Docs/blocks/bulletList'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Budgets, Industries, Regions, Specialties } from './collections/PartnerFilters'
@@ -101,6 +104,7 @@ export default buildConfig({
     },
     components: {
       afterNavLinks: ['@root/components/AfterNavActions'],
+      providers: ['@root/components/EasterEggStyles'],
     },
     importMap: {
       baseDir: dirname,
@@ -118,6 +122,9 @@ export default buildConfig({
     PayloadMediaBlock,
     TableWithDrawersBlock,
     YoutubeBlock,
+    PillBlock,
+    ArrowBlock,
+    BulletListBlock,
     CardGrid,
     CaseStudyCards,
     CaseStudiesHighlight,

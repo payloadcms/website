@@ -1,0 +1,16 @@
+.pill {
+  background: var(--theme-elevation-900);
+  color: var(--theme-elevation-0);
+  padding: 0.5rem 1.5rem;
+  border-radius: 9999px;
+  font-family: var(--font-geist-mono);
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  display: block;
+  margin: 1rem auto 1.5rem auto;
+  width: fit-content;
+  text-align: center;
+}

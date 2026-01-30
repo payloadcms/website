@@ -77,6 +77,9 @@ export interface Config {
     PayloadMedia: PayloadMediaBlock;
     TableWithDrawers: TableWithDrawersBlock;
     YouTube: YoutubeBlock;
+    Pill: PillBlock;
+    Arrow: ArrowBlock;
+    BulletList: BulletListBlock;
     cardGrid: CardGrid;
     caseStudyCards: CaseStudyCards;
     caseStudiesHighlight: CaseStudiesHighlight;
@@ -3026,6 +3029,43 @@ export interface YoutubeBlock {
   title?: string | null;
   blockName?: string | null;
   blockType: 'YouTube';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PillBlock".
+ */
+export interface PillBlock {
+  /**
+   * E.g., "1. DEFINE WORK" or "2. QUEUE JOBS"
+   */
+  text: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'Pill';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ArrowBlock".
+ */
+export interface ArrowBlock {
+  direction: 'down' | 'up' | 'left' | 'right';
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'Arrow';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BulletListBlock".
+ */
+export interface BulletListBlock {
+  items: {
+    text: string;
+    icon: 'check' | 'x';
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'BulletList';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

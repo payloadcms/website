@@ -6,14 +6,17 @@ import type { SerializedLexicalNode } from '@payloadcms/richtext-lexical/lexical
 import type { SerializedLabelNode } from '@root/fields/richText/features/label/LabelNode'
 import type { SerializedLargeBodyNode } from '@root/fields/richText/features/largeBody/LargeBodyNode'
 import type {
+  ArrowBlock,
   BannerBlock,
   BrBlock,
+  BulletListBlock,
   CodeBlock,
   CommandLineBlock,
   Doc,
   DownloadBlockType,
   LightDarkImageBlock,
   PayloadMediaBlock as PayloadMediaBlockType,
+  PillBlock,
   ResourceBlock,
   RestExamplesBlock,
   SpotlightBlock,
@@ -52,7 +55,10 @@ import React, { useCallback, useMemo, useState } from 'react'
 import type { AllowedElements } from '../SpotlightAnimation/types'
 
 import { type AddHeading, type Heading, type IContext, RichTextContext } from './context'
+import { Arrow } from './Arrow'
+import { BulletList } from './BulletList'
 import { Heading as HeadingComponent } from './Heading'
+import { Pill } from './Pill'
 import { LightDarkImage } from './LightDarkImage/index'
 import { PayloadMediaBlock } from './PayloadMedia'
 import { ResourceBlock as Resource } from './ResourceBlock'
@@ -70,13 +76,16 @@ type Props = {
 export type NodeTypes =
   | DefaultNodeTypes
   | SerializedBlockNode<
+      | ArrowBlock
       | BannerBlock
       | BrBlock
+      | BulletListBlock
       | CodeBlock
       | CommandLineBlock
       | DownloadBlockType
       | LightDarkImageBlock
       | PayloadMediaBlockType
+      | PillBlock
       | ResourceBlock
       | RestExamplesBlock
       | SpotlightBlock
@@ -97,10 +106,16 @@ export const jsxConverters: (args: { toc?: boolean }) => JSXConvertersFunction<N
       ...defaultConverters,
       ...CustomTableJSXConverters,
       blocks: {
+        Arrow: ({ node }) => {
+          return <Arrow direction={node.fields.direction} />
+        },
         Banner: ({ node }) => {
           return <Banner content={node.fields.content} type={node.fields.type} />
         },
         br: () => <br />,
+        BulletList: ({ node }) => {
+          return <BulletList items={node.fields.items} />
+        },
         Code: ({ node }) => {
           const codeString: string = node.fields.code ?? ''
           return (
@@ -129,6 +144,9 @@ export const jsxConverters: (args: { toc?: boolean }) => JSXConvertersFunction<N
         },
         PayloadMedia: ({ node }) => {
           return <PayloadMediaBlock {...node.fields} />
+        },
+        Pill: ({ node }) => {
+          return <Pill text={node.fields.text} />
         },
         Resource: ({ node }) => {
           if (!node.fields.post) {
@@ -281,3 +299,5 @@ export const RichText: React.FC<Props> = ({ className, content }) => {
     />
   )
 }
+
+export { Arrow, BulletList, Pill }

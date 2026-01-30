@@ -2,12 +2,53 @@
 
 $curve: cubic-bezier(0.165, 0.84, 0.44, 1);
 
+.codeWrap:has(+ :global(.docs-arrow)) {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 4px !important;
+  margin-left: auto;
+  margin-right: auto;
+  overflow-x: hidden;
+
+  .code {
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    width: 100%;
+  }
+
+  .line {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .lineNumber {
+    flex-shrink: 0;
+  }
+
+  .lineCodeWrapper {
+    flex: 1;
+    min-width: 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+
+    span {
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+  }
+}
+
 .codeWrap {
   min-height: 24rem;
   display: flex;
   align-items: center;
   overflow-x: auto;
   background-color: var(--theme-elevation-100);
+}
+
+.codeWrap + .docs-arrow {
+  background-color: red;
 }
 
 .disableMinHeight {

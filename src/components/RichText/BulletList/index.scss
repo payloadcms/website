@@ -1,0 +1,56 @@
+@use '@scss/common' as *;
+.bullet-list-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.bullet-list {
+  list-style: none;
+  padding: 2rem;
+  border-radius: 4px;
+  background: black;
+  color: white;
+  margin: 1rem 0 1.5rem 0;
+  max-width: 800px;
+  width: fit-content;
+
+  @include small-break {
+    width: 100%;
+  }
+
+  &__item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin: 0.75rem 0;
+    width: fit-content;
+  }
+
+  &__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: white;
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+  }
+
+  &__item--check &__icon {
+    background-color: #48d67c; // green-500
+  }
+
+  &__item--x &__icon {
+    background-color: #d65353; // red-500
+  }
+
+  &__text {
+    flex: 1;
+    line-height: 1.6;
+  }
+}
