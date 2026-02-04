@@ -56,19 +56,19 @@ import { CaseStudies } from './collections/CaseStudies'
 import { Categories } from './collections/Categories'
 import { CommunityHelp } from './collections/CommunityHelp'
 import { Docs } from './collections/Docs'
+import { ArrowBlock } from './collections/Docs/blocks/arrow'
 import { BannerBlock } from './collections/Docs/blocks/banner'
+import { BulletListBlock } from './collections/Docs/blocks/bulletList'
 import { CodeBlock } from './collections/Docs/blocks/code'
 import { LightDarkImageBlock } from './collections/Docs/blocks/lightDarkImage'
 import { PayloadMediaBlock } from './collections/Docs/blocks/payloadMedia'
+import { PillBlock } from './collections/Docs/blocks/pill'
 import { ResourceBlock } from './collections/Docs/blocks/resource'
 import { RestExamplesBlock } from './collections/Docs/blocks/restExamples'
 import { TableWithDrawersBlock } from './collections/Docs/blocks/tableWithDrawers'
 import { UploadBlock } from './collections/Docs/blocks/upload'
 import { VideoDrawerBlock } from './collections/Docs/blocks/VideoDrawer'
 import { YoutubeBlock } from './collections/Docs/blocks/youtube'
-import { PillBlock } from './collections/Docs/blocks/pill'
-import { ArrowBlock } from './collections/Docs/blocks/arrow'
-import { BulletListBlock } from './collections/Docs/blocks/bulletList'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Budgets, Industries, Regions, Specialties } from './collections/PartnerFilters'
@@ -104,7 +104,6 @@ export default buildConfig({
     },
     components: {
       afterNavLinks: ['@root/components/AfterNavActions'],
-      providers: ['@root/components/EasterEggStyles'],
     },
     importMap: {
       baseDir: dirname,
