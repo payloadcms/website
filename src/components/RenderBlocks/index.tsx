@@ -30,6 +30,7 @@ import { MediaContentAccordion } from '@blocks/MediaContentAccordion/index'
 import { Pricing } from '@blocks/Pricing/index'
 import { RelatedPosts } from '@blocks/RelatedPosts/index'
 import { ReusableContentBlock } from '@blocks/ReusableContent/index'
+import { RoadmapBlock } from '@blocks/RoadmapBlock/index'
 import { Slider } from '@blocks/Slider/index'
 import { Statement } from '@blocks/Statement/index'
 import { Steps } from '@blocks/Steps/index'
@@ -67,6 +68,7 @@ const blockComponents = {
   pricing: Pricing,
   relatedPosts: RelatedPosts,
   reusableContentBlock: ReusableContentBlock,
+  roadmap: RoadmapBlock,
   slider: Slider,
   statement: Statement,
   steps: Steps,

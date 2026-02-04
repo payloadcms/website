@@ -79,6 +79,7 @@ export const Pages: CollectionConfig = {
                 'mediaContentAccordion',
                 'pricing',
                 'reusableContentBlock',
+                'roadmap',
                 'slider',
                 'statement',
                 'steps',

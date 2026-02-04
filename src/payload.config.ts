@@ -48,6 +48,7 @@ import { MediaContent } from './blocks/MediaContent'
 import { MediaContentAccordion } from './blocks/MediaContentAccordion'
 import { Pricing } from './blocks/Pricing'
 import { ReusableContent as ReusableContentBlock } from './blocks/ReusableContent'
+import { Roadmap } from './blocks/Roadmap'
 import { Slider } from './blocks/Slider'
 import { Statement } from './blocks/Statement'
 import { Steps } from './blocks/Steps'
@@ -148,6 +149,7 @@ export default buildConfig({
     Pricing,
     ReusableContentBlock,
     ResourceBlock,
+    Roadmap,
     Slider,
     Statement,
     Steps,

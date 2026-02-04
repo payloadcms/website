@@ -101,6 +101,7 @@ export interface Config {
     pricing: Pricing;
     reusableContentBlock: ReusableContentBlock;
     Resource: ResourceBlock;
+    roadmap: RoadmapBlock;
     slider: Slider;
     statement: Statement;
     steps: StepsBlock;
@@ -744,6 +745,7 @@ export interface Page {
     | MediaContentAccordion
     | Pricing
     | ReusableContentBlock
+    | RoadmapBlock
     | Slider
     | Statement
     | StepsBlock
@@ -2949,6 +2951,46 @@ export interface Command {
   id?: string | null;
   blockName?: string | null;
   blockType: 'command';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RoadmapBlock".
+ */
+export interface RoadmapBlock {
+  roadmapFields?: {
+    settings?: {
+      /**
+       * Leave blank for system default
+       */
+      theme?: ('light' | 'dark') | null;
+      background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
+    };
+    /**
+     * Add introductory content above the roadmap. This will be displayed before the roadmap items.
+     */
+    richText?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    /**
+     * Display P0, P1, P2, or TBD badges on each card. Recommended when not grouping by priority.
+     */
+    showPriorityBadges?: boolean | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'roadmap';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

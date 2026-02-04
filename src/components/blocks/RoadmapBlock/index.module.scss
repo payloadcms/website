@@ -1,0 +1,110 @@
+@use '@scss/common.scss' as *;
+
+.roadmapBlock {
+  position: relative;
+  margin-top: -18rem;
+}
+
+.introWrapper {
+  margin-bottom: 3rem;
+
+  @include mid-break {
+    margin-bottom: 2rem;
+  }
+}
+
+.richText {
+  @include large-body;
+}
+
+.roadmapWrapper {
+  gap: 2rem;
+  align-items: stretch;
+
+  @include mid-break {
+    gap: 3rem;
+  }
+}
+
+.column {
+  background-color: var(--theme-elevation-50);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 2em;
+  align-self: stretch;
+}
+
+.columnHeader {
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--grid-line-light);
+  position: sticky;
+  top: 68px;
+  background-color: var(--theme-elevation-50);
+  z-index: 10;
+  padding-top: 2rem;
+  margin-top: -2rem;
+  margin-left: -2em;
+  margin-right: -2em;
+  padding-left: 2em;
+  padding-right: 2em;
+
+  @include data-theme-selector('dark') {
+    border-color: var(--grid-line-dark);
+    background-color: var(--theme-elevation-100);
+  }
+
+  @include mid-break {
+    top: 68px;
+  }
+}
+
+.columnTitle {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--theme-elevation-1000);
+
+  @include data-theme-selector('dark') {
+    color: var(--theme-elevation-0);
+  }
+
+  .count {
+    font-weight: 400;
+    font-size: 1.125rem;
+    color: var(--theme-elevation-600);
+    margin-left: 0.5rem;
+
+    @include data-theme-selector('dark') {
+      color: var(--theme-elevation-500);
+    }
+  }
+}
+
+.columnDescription {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--theme-elevation-750);
+
+  @include data-theme-selector('dark') {
+    color: var(--theme-elevation-400);
+  }
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex: 1;
+}
+
+.loading {
+  padding: 3rem;
+  text-align: center;
+  color: var(--theme-elevation-750);
+  font-size: 1.125rem;
+
+  @include data-theme-selector('dark') {
+    color: var(--theme-elevation-400);
+  }
+}
