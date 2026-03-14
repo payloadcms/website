@@ -8,7 +8,6 @@ import { ThemeDarkIcon } from '@root/graphics/ThemeDarkIcon/index'
 import { ThemeLightIcon } from '@root/graphics/ThemeLightIcon/index'
 import { ChevronUpDownIcon } from '@root/icons/ChevronUpDownIcon/index'
 import { useAuth } from '@root/providers/Auth/index'
-import { useHeaderObserver } from '@root/providers/HeaderIntersectionObserver/index'
 import { useThemePreference } from '@root/providers/Theme/index'
 import { getImplicitPreference, themeLocalStorageKey } from '@root/providers/Theme/shared'
 import Link from 'next/link'
@@ -22,19 +21,16 @@ export const CloudFooter = () => {
   const selectRef = React.useRef<HTMLSelectElement>(null)
   const themeId = useId()
   const { setTheme } = useThemePreference()
-  const { setHeaderTheme } = useHeaderObserver()
 
   const onThemeChange = (themeToSet: 'auto' & Theme) => {
     if (themeToSet === 'auto') {
       const implicitPreference = getImplicitPreference() ?? 'light'
-      setHeaderTheme(implicitPreference)
       setTheme(implicitPreference)
       if (selectRef.current) {
         selectRef.current.value = 'auto'
       }
     } else {
       setTheme(themeToSet)
-      setHeaderTheme(themeToSet)
     }
   }
 
