@@ -2,7 +2,7 @@ import type { StaticImageData } from 'next/image'
 import type { TypedUploadCollection, UploadCollectionSlug } from 'payload'
 import type { ElementType, Ref } from 'react'
 
-export interface Props {
+export interface MediaProps {
   alt?: string
   className?: string
   fill?: boolean // for NextImage only
