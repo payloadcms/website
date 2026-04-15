@@ -74,6 +74,7 @@ import { Pages } from './collections/Pages'
 import { Budgets, Industries, Regions, Specialties } from './collections/PartnerFilters'
 import { Partners } from './collections/Partners'
 import { Posts } from './collections/Posts'
+import { Releases } from './collections/Releases'
 import { ReusableContent } from './collections/ReusableContent'
 import { Users } from './collections/Users'
 import { Footer } from './globals/Footer'
@@ -289,6 +290,7 @@ export default buildConfig({
     Media,
     Pages,
     Posts,
+    Releases,
     Categories,
     ReusableContent,
     Users,
@@ -563,7 +565,7 @@ export default buildConfig({
       },
     }),
     seoPlugin({
-      collections: ['case-studies', 'pages', 'posts'],
+      collections: ['case-studies', 'pages', 'posts', 'releases'],
       globals: ['get-started'],
       uploadsCollection: 'media',
     }),
@@ -573,7 +575,7 @@ export default buildConfig({
       generateURL: (docs) => docs.reduce((url, doc) => `${url}/${doc.slug as string}`, ''),
     }),
     redirectsPlugin({
-      collections: ['case-studies', 'pages', 'posts'],
+      collections: ['case-studies', 'pages', 'posts', 'releases'],
       overrides: {
         hooks: {
           afterChange: [revalidateRedirects],

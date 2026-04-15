@@ -24,6 +24,9 @@ export const formatPagePath = (
       case 'posts':
         prefix = `/posts/${category}`
         break
+      case 'releases':
+        prefix = '/posts/releases'
+        break
       default:
         prefix = `/${collection}`
     }

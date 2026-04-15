@@ -37,6 +37,7 @@ export async function GET(req: NextRequest): Promise<ImageResponse> {
       blog: 'Blog Post',
       docs: 'Documentation',
       guides: 'Guides & Tutorials',
+      releases: 'Release Notes',
     }
 
     return new ImageResponse(
