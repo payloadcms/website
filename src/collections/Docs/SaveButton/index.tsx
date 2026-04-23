@@ -19,6 +19,8 @@ import { useSearchParams } from 'next/navigation'
 import * as qs from 'qs-esm'
 import React, { useRef } from 'react'
 
+import { branchForVersion } from '../branchForVersion'
+
 import './index.scss'
 
 export const SaveButtonClient: React.FC<SaveButtonClientProps> = (props) => {
@@ -48,7 +50,7 @@ export const SaveButtonClient: React.FC<SaveButtonClientProps> = (props) => {
   const action: string = React.useMemo(() => {
     const docURL = `${baseURL}/${collectionSlug}${id ? `/${id}` : ''}`
     const params = {
-      branch: searchParams.get('branch') ?? (versionField?.value === 'v2' ? '2.x' : 'main'),
+      branch: searchParams.get('branch') ?? branchForVersion(versionField?.value),
       commit: true,
       depth: 0,
       'fallback-locale': 'null',

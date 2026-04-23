@@ -17,6 +17,7 @@ import { topicGroupsToDocsData } from '@root/scripts/syncDocs'
 import { revalidatePath } from 'next/cache'
 
 import { isAdmin } from '../../access/isAdmin'
+import { branchForVersion, isDefaultBranch } from './branchForVersion'
 import { lexicalToMDX } from './mdxToLexical'
 
 export const contentLexicalEditorFeatures: FeatureProviderServer[] = [
@@ -227,7 +228,8 @@ export const Docs: CollectionConfig = {
         }
         const queryParams = req.query
 
-        if (!req.query.branch || req.query.branch === 'main' || req.query.branch === '2.x') {
+        const queryBranch = req.query.branch as string | undefined
+        if (!queryBranch || isDefaultBranch(queryBranch)) {
           return doc // No special branch - no need to request special data
         }
 
@@ -239,7 +241,7 @@ export const Docs: CollectionConfig = {
         const version: string = doc?.version === 'v2' ? 'v2' : 'v3'
 
         if (!branch) {
-          branch = version === 'v2' ? '2.x' : 'main'
+          branch = branchForVersion(version)
         }
 
         const topicGroup = await fetchSingleDoc({
@@ -299,7 +301,7 @@ export const Docs: CollectionConfig = {
             let branch: string = req.query.branch as string
 
             if (!branch) {
-              branch = _doc?.version === 'v2' ? '2.x' : 'main'
+              branch = branchForVersion(_doc?.version)
             }
 
             const response = await fetch(process.env.COMMIT_DOCS_API_URL, {
@@ -319,7 +321,7 @@ export const Docs: CollectionConfig = {
               throw new Error(`Failed to commit docs: ${response.statusText}`)
             }
 
-            if (branch !== '2.x' && branch !== 'main') {
+            if (!isDefaultBranch(branch)) {
               return originalDoc
             }
           }

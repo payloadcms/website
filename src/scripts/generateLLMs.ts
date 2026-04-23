@@ -11,7 +11,7 @@ async function generateLLMs() {
     return
   }
 
-  const output = await fetchDocs({ ref: 'main', version: 'v3' })
+  const output = await fetchDocs({ ref: '3.x', version: 'v3' })
 
   let outputStr = '# Payload\n\n'
   let fullOutputStr = `# Payload Documentation\n\n`

@@ -20,7 +20,7 @@ const headers = {
   Authorization: `token ${process.env.GITHUB_ACCESS_TOKEN}`,
 }
 
-let ref: ('2.x' | 'main') | ({} & string)
+let ref: ('2.x' | '3.x') | ({} & string)
 let source: 'github' | 'local' = 'local'
 let version: ('v2' | 'v3') | ({} & string) = 'v3'
 
@@ -130,7 +130,7 @@ export async function fetchDocs(args?: {
   source?: typeof source
   version?: typeof version
 }): Promise<TopicGroup[]> {
-  ref = args?.ref ?? 'main'
+  ref = args?.ref ?? '3.x'
   source = args?.source ?? 'github'
   version = args?.version ?? 'v3'
 
@@ -201,7 +201,7 @@ export async function fetchSingleDoc(args: {
   topicSlug: string
   version?: typeof version
 }): Promise<null | TopicGroup> {
-  ref = args?.ref ?? 'main'
+  ref = args?.ref ?? '3.x'
   source = args?.source ?? 'github'
   version = args?.version ?? 'v3'
 
