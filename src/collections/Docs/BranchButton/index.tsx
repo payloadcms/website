@@ -3,6 +3,7 @@ import type { CustomComponent, PayloadServerReactComponent } from 'payload'
 import { ShimmerEffect } from '@payloadcms/ui'
 import React from 'react'
 
+import { branchForVersion } from '../branchForVersion'
 import { fetchAllBranches } from './fetchAllBranches'
 import { BranchButtonClient } from './index.client'
 
@@ -35,11 +36,7 @@ export const BranchButtonPromise: PayloadServerReactComponent<CustomComponent> =
 
   let branch: null | string = (branchQueryParam as string) ?? null
   if (!branch) {
-    if (doc.version === 'v3') {
-      branch = 'main'
-    } else if (doc.version === 'v2') {
-      branch = '2.x'
-    }
+    branch = branchForVersion(doc.version)
   }
 
   return <BranchButtonClient branch={branch} branchNames={branchNames} />

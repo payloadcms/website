@@ -10,7 +10,7 @@ import React from 'react'
 import classes from './index.module.scss'
 export const Feedback: React.FC<{ path: string; ref?: string }> = async ({
   path,
-  ref = 'main',
+  ref = '3.x',
 }) => {
   const drawerSlug = 'feedbackDrawer'
   const formName = 'Feedback'

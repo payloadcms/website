@@ -118,7 +118,7 @@ export const syncDocs: PayloadHandler = async (req) => {
       return new Response('No GitHub access token found', { status: 400 })
     }
     try {
-      const allV3Docs = await fetchDocs({ ref: 'main', version: 'v3' })
+      const allV3Docs = await fetchDocs({ ref: '3.x', version: 'v3' })
       const allV2Docs = await fetchDocs({ ref: '2.x', version: 'v2' })
 
       const createdOrUpdatedDocs: string[] = []
