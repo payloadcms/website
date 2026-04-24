@@ -125,6 +125,7 @@ export interface Config {
     media: Media;
     pages: Page;
     posts: Post;
+    releases: Release;
     categories: Category;
     'reusable-content': ReusableContent;
     users: User;
@@ -156,6 +157,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
+    releases: ReleasesSelect<false> | ReleasesSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     'reusable-content': ReusableContentSelect<false> | ReusableContentSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
@@ -3329,6 +3331,91 @@ export interface CommunityHelp {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "releases".
+ */
+export interface Release {
+  id: string;
+  title: string;
+  image?: (string | null) | Media;
+  excerpt?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  content?:
+    | (
+        | {
+            bannerFields: {
+              settings?: {
+                /**
+                 * Leave blank for system default
+                 */
+                theme?: ('light' | 'dark') | null;
+                background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
+              };
+              type?: ('default' | 'success' | 'warning' | 'error') | null;
+              addCheckmark?: boolean | null;
+              content: {
+                root: {
+                  type: string;
+                  children: {
+                    type: any;
+                    version: number;
+                    [k: string]: unknown;
+                  }[];
+                  direction: ('ltr' | 'rtl') | null;
+                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                  indent: number;
+                  version: number;
+                };
+                [k: string]: unknown;
+              };
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'banner';
+          }
+        | BlogContent
+        | Code
+        | BlogMarkdown
+        | MediaBlock
+        | ReusableContentBlock
+      )[]
+    | null;
+  authors: (string | User)[];
+  /**
+   * Auto-generated from GitHub tag for imported releases. Enter manually for non-imported releases.
+   */
+  slug: string;
+  publishedOn: string;
+  githubReleaseId?: number | null;
+  githubTag?: string | null;
+  githubUrl?: string | null;
+  importedFromGitHub?: boolean | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Media;
+  };
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "form-submissions".
  */
 export interface FormSubmission {
@@ -3366,6 +3453,10 @@ export interface Redirect {
       | ({
           relationTo: 'posts';
           value: string | Post;
+        } | null)
+      | ({
+          relationTo: 'releases';
+          value: string | Release;
         } | null);
     url?: string | null;
   };
@@ -3419,6 +3510,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'posts';
         value: string | Post;
+      } | null)
+    | ({
+        relationTo: 'releases';
+        value: string | Release;
       } | null)
     | ({
         relationTo: 'categories';
@@ -3806,6 +3901,55 @@ export interface PostsSelect<T extends boolean = true> {
       };
   publishedOn?: T;
   addToDocs?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "releases_select".
+ */
+export interface ReleasesSelect<T extends boolean = true> {
+  title?: T;
+  image?: T;
+  excerpt?: T;
+  content?:
+    | T
+    | {
+        banner?:
+          | T
+          | {
+              bannerFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    type?: T;
+                    addCheckmark?: T;
+                    content?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+      };
+  authors?: T;
+  slug?: T;
+  publishedOn?: T;
+  githubReleaseId?: T;
+  githubTag?: T;
+  githubUrl?: T;
+  importedFromGitHub?: T;
   meta?:
     | T
     | {

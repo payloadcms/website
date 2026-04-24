@@ -17,6 +17,7 @@ import type {
   PartnerProgram,
   Post,
   Region,
+  Release,
   Specialty,
   TopBar,
 } from '../../payload-types'
@@ -500,6 +501,72 @@ export const fetchForm = async (name: string): Promise<Form> => {
       title: {
         equals: name,
       },
+    },
+  })
+
+  return data.docs[0]
+}
+
+export const fetchReleases = async (): Promise<Partial<Release>[]> => {
+  const payload = await getPayload({ config })
+
+  const data = await payload.find({
+    collection: 'releases',
+    depth: 1,
+    limit: 300,
+    select: {
+      slug: true,
+      authors: true,
+      githubTag: true,
+      image: true,
+      publishedOn: true,
+      title: true,
+    },
+    sort: '-publishedOn',
+    where: {
+      _status: {
+        equals: 'published',
+      },
+    },
+  })
+
+  return data.docs
+}
+
+export const fetchRelease = async (slug: string): Promise<Partial<Release>> => {
+  const { isEnabled: draft } = await draftMode()
+  const payload = await getPayload({ config })
+
+  const data = await payload.find({
+    collection: 'releases',
+    depth: 2,
+    draft,
+    limit: 1,
+    select: {
+      slug: true,
+      authors: true,
+      content: true,
+      excerpt: true,
+      githubTag: true,
+      githubUrl: true,
+      image: true,
+      meta: true,
+      publishedOn: true,
+      title: true,
+    },
+    where: {
+      and: [
+        { slug: { equals: slug } },
+        ...(draft
+          ? []
+          : [
+              {
+                _status: {
+                  equals: 'published',
+                },
+              },
+            ]),
+      ],
     },
   })
 

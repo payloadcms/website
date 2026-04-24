@@ -1,0 +1,182 @@
+@use '@scss/common' as *;
+
+.release {
+  border-bottom: 1px solid var(--grid-line-dark);
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 3rem;
+
+  @include data-theme-selector('dark') {
+    border-color: var(--grid-line-dark);
+  }
+
+  @include data-theme-selector('light') {
+    border-color: var(--grid-line-light);
+  }
+}
+
+.titleWrap {
+  padding: 2.5rem 0;
+}
+
+.title {
+  @include h1;
+  & {
+    margin: 0;
+    width: calc(var(--column) * 11);
+  }
+
+  @include large-break {
+    @include h2;
+    margin: 0 !important;
+  }
+
+  @include mid-break {
+    width: 100%;
+  }
+}
+
+.breadcrumbs {
+  margin: 0 0 1rem;
+}
+
+.allReleases {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  text-decoration: none;
+
+  svg {
+    transform: rotate(180deg);
+  }
+}
+
+.blogWrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.stickyColumn {
+  @include mid-break {
+    display: none;
+  }
+}
+
+.stickyContent {
+  top: 0;
+  position: sticky;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.githubLink {
+  @include body;
+  & {
+    color: var(--theme-elevation-600);
+    text-decoration: none;
+    transition: color 150ms ease;
+  }
+
+  &:hover {
+    color: var(--theme-elevation-900);
+  }
+}
+
+.excerpt {
+  margin: 3rem 0 1rem;
+
+  @include mid-break {
+    margin: 1rem 0;
+  }
+}
+
+.heroImageWrap {
+  margin-inline: calc(var(--column) * -1) calc(var(--column) * -4);
+  @include mid-break {
+    display: none;
+  }
+}
+
+.heroImage {
+  width: 100%;
+
+  & img {
+    width: 100%;
+  }
+}
+
+.blocks {
+  & > * {
+    & > * {
+      margin-top: 2rem;
+
+      &:last-child {
+        margin-bottom: 2rem;
+      }
+    }
+  }
+}
+
+.markdownContent {
+  :global {
+    p {
+      margin: 0.5em 0;
+    }
+
+    h2, h3, h4 {
+      margin-top: 1.5em;
+      margin-bottom: 0.25em;
+    }
+
+    ul, ol {
+      margin: 0.25em 0;
+      padding-left: 1.5em;
+    }
+
+    li {
+      margin: 0.15em 0;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 4px;
+      margin: 0.5em 0;
+    }
+
+    hr {
+      margin: 1em 0;
+    }
+  }
+}
+
+.mobileAuthor {
+  display: none;
+
+  @include mid-break {
+    margin-top: 1rem;
+    display: flex;
+
+    > * {
+      width: 50%;
+    }
+  }
+}
+
+@include small-break {
+  .titleWrap {
+    display: unset;
+  }
+
+  .mobileAuthor {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .heroImage {
+    padding-bottom: 1.5rem;
+  }
+}
