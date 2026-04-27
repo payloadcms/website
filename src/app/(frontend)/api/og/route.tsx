@@ -20,10 +20,22 @@ export async function GET(req: NextRequest): Promise<ImageResponse> {
       new URL('../../../../../public/fonts/RobotoMono-Regular.woff', import.meta.url),
     ).then((res) => res.arrayBuffer())
 
+    const releasesBgDataUrl = await fetch(
+      new URL('../../../../../public/images/release-notes-bg.jpg', import.meta.url),
+    )
+      .then((res) => res.arrayBuffer())
+      .then((buf) => `data:image/jpeg;base64,${Buffer.from(buf).toString('base64')}`)
+
+    const faviconDataUrl = await fetch(
+      new URL('../../../../../public/images/favicon-light.png', import.meta.url),
+    )
+      .then((res) => res.arrayBuffer())
+      .then((buf) => `data:image/png;base64,${Buffer.from(buf).toString('base64')}`)
+
     const { searchParams } = new URL(req.url)
-    const untitledSansRegular = await untitledSansRegularFont
-    const untitledSansMedium = await untitledSansMediumFont
-    const roboto = await robotoFont
+    const untitledSansRegular = untitledSansRegularFont
+    const untitledSansMedium = untitledSansMediumFont
+    const roboto = robotoFont
 
     const hasTitle = searchParams.has('title')
     const title = hasTitle ? searchParams.get('title')?.slice(0, 100) : ''
@@ -37,6 +49,7 @@ export async function GET(req: NextRequest): Promise<ImageResponse> {
       blog: 'Blog Post',
       docs: 'Documentation',
       guides: 'Guides & Tutorials',
+      releases: 'Release Notes',
     }
 
     return new ImageResponse(
@@ -52,6 +65,29 @@ export async function GET(req: NextRequest): Promise<ImageResponse> {
             width: '100%',
           }}
         >
+          <div
+            style={{
+              backgroundImage: `url(${releasesBgDataUrl})`,
+              backgroundSize: 'cover',
+              bottom: 0,
+              left: 0,
+              position: 'absolute',
+              right: 0,
+              top: 0,
+            }}
+          />
+          <div
+            style={{
+              backgroundImage: `url(${process.env.NEXT_PUBLIC_SITE_URL}/images/scanline-light.png)`,
+              backgroundRepeat: 'repeat',
+              bottom: 0,
+              left: 0,
+              opacity: 0.08,
+              position: 'absolute',
+              right: 0,
+              top: 0,
+            }}
+          />
           {/* BG lines */}
           {Array.from({ length: 6 }).map((_, i) => {
             const linePositions = [
@@ -76,22 +112,6 @@ export async function GET(req: NextRequest): Promise<ImageResponse> {
           })}
           <div
             style={{
-              backgroundColor: '#000',
-              backgroundImage: `url(${process.env.NEXT_PUBLIC_SITE_URL}/images/scanline-light.png)`,
-              backgroundRepeat: 'repeat',
-              bottom: 0,
-              color: '#fff',
-              display: 'flex',
-              left: 0,
-              opacity: 0.08,
-              position: 'absolute',
-              right: 0,
-              top: 0,
-            }}
-          />
-          <div
-            style={{
-              backgroundColor: '#000',
               border: '1px solid rgba(255, 255, 255, 0.1)',
               display: 'flex',
               flexDirection: 'column',
@@ -103,45 +123,74 @@ export async function GET(req: NextRequest): Promise<ImageResponse> {
               width: '100%',
             }}
           >
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                fontSize: 28,
-                letterSpacing: '-0.56px',
-                lineHeight: 1.2,
-                textTransform: 'capitalize',
-              }}
-            >
-              {topic && topic}
+            {ogType === 'releases' ? (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    fontFamily: 'UntitledSansMedium',
+                    fontSize: 96,
+                    fontWeight: 500,
+                    letterSpacing: '-0.05em',
+                    lineHeight: 1,
+                  }}
+                >
+                  <span>New</span>
+                  <span>Release</span>
+                </div>
+                <div
+                  style={{
+                    fontFamily: 'Roboto',
+                    fontSize: 28,
+                    letterSpacing: '0.02em',
+                    opacity: 0.7,
+                  }}
+                >
+                  {title}
+                </div>
+              </div>
+            ) : (
               <div
                 style={{
                   display: 'flex',
-                  flexWrap: 'wrap',
-                  fontFamily: 'UntitledSansMedium',
-                  fontSize: 72,
-                  fontWeight: 500,
-                  letterSpacing: '-0.05em',
-                  lineHeight: 1,
-                  marginTop: 20,
+                  flexDirection: 'column',
+                  fontSize: 28,
+                  letterSpacing: '-0.56px',
+                  lineHeight: 1.2,
+                  textTransform: 'capitalize',
                 }}
               >
-                {titlePerWord?.map((word, i) => {
-                  return (
-                    <span
-                      key={i}
-                      style={{
-                        display: 'flex',
-                        paddingRight: '15px',
-                        position: 'relative',
-                      }}
-                    >
-                      {word}
-                    </span>
-                  )
-                })}
+                {topic && topic}
+                <div
+                  style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    fontFamily: 'UntitledSansMedium',
+                    fontSize: 72,
+                    fontWeight: 500,
+                    letterSpacing: '-0.05em',
+                    lineHeight: 1,
+                    marginTop: 20,
+                  }}
+                >
+                  {titlePerWord?.map((word, i) => {
+                    return (
+                      <span
+                        key={i}
+                        style={{
+                          display: 'flex',
+                          paddingRight: '15px',
+                          position: 'relative',
+                        }}
+                      >
+                        {word}
+                      </span>
+                    )
+                  })}
+                </div>
               </div>
-            </div>
+            )}
             <div
               style={{
                 alignItems: 'center',
@@ -154,18 +203,20 @@ export async function GET(req: NextRequest): Promise<ImageResponse> {
               <img
                 alt="Payload CMS"
                 height="40"
-                src={`${process.env.NEXT_PUBLIC_SITE_URL}/images/favicon-light.svg`}
+                src={faviconDataUrl}
                 width="40"
               />
-              <div
-                style={{
-                  fontSize: 20,
-                  letterSpacing: '4px',
-                  textTransform: 'uppercase',
-                }}
-              >
-                {ogTypeLabel[ogType ?? 'docs']}
-              </div>
+              {ogType !== 'releases' && (
+                <div
+                  style={{
+                    fontSize: 20,
+                    letterSpacing: '4px',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  {ogTypeLabel[ogType ?? 'docs']}
+                </div>
+              )}
             </div>
 
             {/* Crosshairs */}

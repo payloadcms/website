@@ -2,6 +2,9 @@ import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical
 import type { BasePayload } from 'payload'
 
 import { convertMarkdownToLexical, editorConfigFactory } from '@payloadcms/richtext-lexical'
+import type { Media } from '@root/payload-types'
+
+import { generateReleaseOgImage } from './generateReleaseOgImage'
 
 const ONE_WEEK_MS = 7 * 24 * 60 * 60 * 1000
 
@@ -36,12 +39,27 @@ export const buildReleasePostData = async ({
   }
   const author = userResult.docs[0]
 
-  const mediaResult = await payload.find({
-    collection: 'media',
-    limit: 1,
-    where: { filename: { equals: 'og-image.jpg' } },
-  })
-  const ogImage = mediaResult.docs.length > 0 ? mediaResult.docs[0] : null
+  const postTitle = `New in Payload: Release ${version}`
+  let uploadedOgImage: Media | null = null
+  try {
+    payload.logger.info({ msg: '[OG] Generating image buffer...' })
+    const imageBuffer = await generateReleaseOgImage(version)
+    payload.logger.info({ msg: `[OG] Buffer size: ${imageBuffer.length}` })
+    uploadedOgImage = await payload.create({
+      collection: 'media',
+      data: { alt: postTitle },
+      file: {
+        data: imageBuffer,
+        mimetype: 'image/png',
+        name: `release-og-${version}.png`,
+        size: imageBuffer.length,
+      },
+    })
+    payload.logger.info({ id: uploadedOgImage?.id, msg: '[OG] Media created' })
+  } catch (err) {
+    payload.logger.error({ err, msg: `OG image generation failed for ${postTitle}` })
+  }
+  payload.logger.info({ id: uploadedOgImage?.id, msg: '[OG] uploadedOgImage after try/catch' })
 
   const editorConfig = await editorConfigFactory.default({ config: payload.config })
   const richText = convertMarkdownToLexical({ editorConfig, markdown: body })
@@ -86,8 +104,12 @@ export const buildReleasePostData = async ({
     ],
     excerpt: excerptContent as SerializedEditorState,
     featuredMedia: 'upload',
-    ...(ogImage ? { image: ogImage.id } : {}),
+    ...(uploadedOgImage ? { image: uploadedOgImage.id } : {}),
+    meta: {
+      ...(uploadedOgImage ? { image: uploadedOgImage.id } : {}),
+      title: postTitle,
+    },
     publishedOn,
-    title: `New in Payload: Release ${version}`,
+    title: postTitle,
   }
 }
