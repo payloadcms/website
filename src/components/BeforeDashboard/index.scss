@@ -1,0 +1,25 @@
+@use '~@payloadcms/ui/scss' as *;
+
+.before-dashboard {
+  margin-bottom: base(1.5);
+
+  &__heading {
+    margin-bottom: base(0.75);
+  }
+
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    gap: base(0.5);
+    align-items: flex-start;
+  }
+
+  &__specific {
+    display: flex;
+    align-items: center;
+
+    .field-type {
+      margin-right: base(0.5);
+    }
+  }
+}

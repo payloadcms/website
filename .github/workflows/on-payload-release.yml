@@ -9,7 +9,6 @@ jobs:
   receive-repository-dispatch:
     runs-on: ubuntu-latest
 
-    # Just log that we received the event
     steps:
       - name: Log the event payload
         if: ${{ github.event_name != 'workflow_dispatch' }}
@@ -24,3 +23,23 @@ jobs:
             {
               "text": "👀 New version of Payload released. Please sync the docs in the Payload CMS Admin."
             }
+
+      - name: Fetch latest Payload release
+        id: release
+        run: |
+          RELEASE=$(curl -s https://api.github.com/repos/payloadcms/payload/releases/latest)
+          echo "version=$(echo "$RELEASE" | jq -r '.tag_name')" >> $GITHUB_OUTPUT
+          echo "$RELEASE" | jq -r '.body' > /tmp/release_body.txt
+
+      - name: Create release post draft
+        run: |
+          jq -n \
+            --arg version "${{ steps.release.outputs.version }}" \
+            --rawfile body /tmp/release_body.txt \
+            '{version: $version, body: $body}' | \
+          curl -X POST \
+            -H "Content-Type: application/json" \
+            -H "X-Release-Secret: ${{ secrets.PAYLOAD_RELEASE_SECRET }}" \
+            --data-binary @- \
+            --fail-with-body \
+            "${{ secrets.PAYLOAD_WEBSITE_URL }}/api/create-release-post"

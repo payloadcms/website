@@ -82,6 +82,8 @@ import { MainMenu } from './globals/MainMenu'
 import { PartnerProgram } from './globals/PartnerProgram'
 import { TopBar } from './globals/TopBar'
 import { opsCounterPlugin } from './plugins/opsCounter'
+import createReleasePost from './scripts/createReleasePost'
+import createReleasePostFromAdmin from './scripts/createReleasePostFromAdmin'
 import redeployWebsite from './scripts/redeployWebsite'
 import { refreshMdxToLexical, syncDocs } from './scripts/syncDocs'
 
@@ -104,6 +106,7 @@ export default buildConfig({
     },
     components: {
       afterNavLinks: ['@root/components/AfterNavActions'],
+      beforeDashboard: ['@root/components/BeforeDashboard'],
     },
     importMap: {
       baseDir: dirname,
@@ -387,6 +390,16 @@ export default buildConfig({
       handler: refreshMdxToLexical,
       method: 'get',
       path: '/refresh/mdx-to-lexical',
+    },
+    {
+      handler: createReleasePost,
+      method: 'post',
+      path: '/create-release-post',
+    },
+    {
+      handler: createReleasePostFromAdmin,
+      method: 'post',
+      path: '/create-release-post-from-admin',
     },
   ],
   globals: [Footer, MainMenu, GetStarted, PartnerProgram, TopBar],
