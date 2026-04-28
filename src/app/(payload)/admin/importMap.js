@@ -42,11 +42,7 @@ import { default as default_26726ff2b18133c6c2dab451ecac5a3e } from '@root/compo
 import { default as default_3ee709fabb34ea93648b8fdb9ee7323a } from '@root/components/AfterNavActions'
 import { default as default_b8668daa8bdf783ddeca7def5b7c2324 } from '@root/components/BeforeDashboard'
 import { VercelBlobClientUploadHandler as VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e } from '@payloadcms/storage-vercel-blob/client'
-import { default as default_e229387af5e21bff3f46f156f2efb24b } from '@zubricks/plugin-google-analytics/widgets/AnalyticsMetricsWrapper'
-import { default as default_83d03cf47a3921584b5f60548f0203e7 } from '@zubricks/plugin-google-analytics/widgets/AnalyticsTopPagesWrapper'
-import { default as default_71e34bedb368f93cc101b4ff0d11d405 } from '@zubricks/plugin-google-analytics/widgets/ActiveUsers'
-import { default as default_aca03ed201d19f133d32b301aa2f10b4 } from '@zubricks/plugin-google-analytics/widgets/ChannelGroupsWrapper'
-import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
+import { CollectionCards as CollectionCards_ab83ff7e88da8d3530831f296ec4756a } from '@payloadcms/ui/rsc'
 
 export const importMap = {
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalCell": RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e,
@@ -93,9 +89,5 @@ export const importMap = {
   "@root/components/AfterNavActions#default": default_3ee709fabb34ea93648b8fdb9ee7323a,
   "@root/components/BeforeDashboard#default": default_b8668daa8bdf783ddeca7def5b7c2324,
   "@payloadcms/storage-vercel-blob/client#VercelBlobClientUploadHandler": VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e,
-  "@zubricks/plugin-google-analytics/widgets/AnalyticsMetricsWrapper#default": default_e229387af5e21bff3f46f156f2efb24b,
-  "@zubricks/plugin-google-analytics/widgets/AnalyticsTopPagesWrapper#default": default_83d03cf47a3921584b5f60548f0203e7,
-  "@zubricks/plugin-google-analytics/widgets/ActiveUsers#default": default_71e34bedb368f93cc101b4ff0d11d405,
-  "@zubricks/plugin-google-analytics/widgets/ChannelGroupsWrapper#default": default_aca03ed201d19f133d32b301aa2f10b4,
-  "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1
+  "@payloadcms/ui/rsc#CollectionCards": CollectionCards_ab83ff7e88da8d3530831f296ec4756a
 }
