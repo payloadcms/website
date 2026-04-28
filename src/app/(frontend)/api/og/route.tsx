@@ -23,16 +23,17 @@ export async function GET(req: NextRequest): Promise<ImageResponse> {
     const { searchParams: earlyParams } = new URL(req.url)
     const isReleases = earlyParams.get('type') === 'releases'
 
-    const [releasesBgDataUrl, faviconDataUrl] = isReleases
-      ? await Promise.all([
-          fetch(new URL('../../../../../public/images/release-notes-bg.jpg', import.meta.url))
-            .then((res) => res.arrayBuffer())
-            .then((buf) => `data:image/jpeg;base64,${Buffer.from(buf).toString('base64')}`),
-          fetch(new URL('../../../../../public/images/favicon-light.png', import.meta.url))
-            .then((res) => res.arrayBuffer())
-            .then((buf) => `data:image/png;base64,${Buffer.from(buf).toString('base64')}`),
-        ])
-      : [null, null]
+    const faviconDataUrl = await fetch(
+      new URL('../../../../../public/images/favicon-light.png', import.meta.url),
+    )
+      .then((res) => res.arrayBuffer())
+      .then((buf) => `data:image/png;base64,${Buffer.from(buf).toString('base64')}`)
+
+    const releasesBgDataUrl = isReleases
+      ? await fetch(new URL('../../../../../public/images/release-notes-bg.jpg', import.meta.url))
+          .then((res) => res.arrayBuffer())
+          .then((buf) => `data:image/jpeg;base64,${Buffer.from(buf).toString('base64')}`)
+      : null
 
     const { searchParams } = new URL(req.url)
     const untitledSansRegular = untitledSansRegularFont
@@ -203,15 +204,13 @@ export async function GET(req: NextRequest): Promise<ImageResponse> {
                 gap: 30,
               }}
             >
-              {faviconDataUrl && (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  alt="Payload CMS"
-                  height="40"
-                  src={faviconDataUrl}
-                  width="40"
-                />
-              )}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                alt="Payload CMS"
+                height="40"
+                src={faviconDataUrl}
+                width="40"
+              />
               {ogType !== 'releases' && (
                 <div
                   style={{
