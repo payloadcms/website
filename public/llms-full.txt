@@ -9027,6 +9027,289 @@ export const ExampleCollection: CollectionConfig = {
 ```
 
 
+# Text Field
+
+Source: https://payloadcms.com/docs/fields/text
+
+
+The Text Field is one of the most commonly used fields. It saves a string to the database and provides the [Admin Panel](../admin/overview) with a simple text input.
+
+<LightDarkImage
+  srcLight="https://payloadcms.com/images/docs/fields/text.png"
+  srcDark="https://payloadcms.com/images/docs/fields/text-dark.png"
+  alt="Shows a text field and read-only text field in the Payload Admin Panel"
+  caption="Admin Panel screenshot of a Text field and read-only Text field"
+/>
+
+To add a Text Field, set the `type` to `text` in your [Field Config](./overview):
+
+```ts
+import type { Field } from 'payload'
+
+export const MyTextField: Field = {
+  // ...
+  type: 'text', // highlight-line
+}
+```
+
+## Config Options
+
+| Option                 | Description                                                                                                                                                                                                                                                                                             |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`name`** \*          | To be used as the property name when stored and retrieved from the database. [More details](../fields/overview#field-names).                                                                                                                                                                         |
+| **`label`**            | Text used as a field label in the Admin Panel or an object with keys for each language.                                                                                                                                                                                                                 |
+| **`unique`**           | Enforce that each entry in the Collection has a unique value for this field. This creates a database-level unique index on the field's path. [More details](../database/indexes#unique-fields).                                                                                                      |
+| **`minLength`**        | Used by the default validation function to ensure values are of a minimum character length.                                                                                                                                                                                                             |
+| **`maxLength`**        | Used by the default validation function to ensure values are of a maximum character length.                                                                                                                                                                                                             |
+| **`validate`**         | Provide a custom validation function that will be executed on both the Admin Panel and the backend. [More details](../fields/overview#validation).                                                                                                                                                   |
+| **`index`**            | Build an [index](../database/indexes) for this field to produce faster queries. Set this field to `true` if your users will perform queries on this field's data often.                                                                                                                                 |
+| **`saveToJWT`**        | If this field is top-level and nested in a config supporting [Authentication](../authentication/overview), include its data in the user JWT.                                                                                                                                                         |
+| **`hooks`**            | Provide Field Hooks to control logic for this field. [More details](../hooks/fields).                                                                                                                                                                                                                   |
+| **`access`**           | Provide Field Access Control to denote what users can see and do with this field's data. [More details](../access-control/fields).                                                                                                                                                                      |
+| **`hidden`**           | Restrict this field's visibility from all APIs entirely. Will still be saved to the database, but will not appear in any API or the Admin Panel.                                                                                                                                                        |
+| **`defaultValue`**     | Provide data to be used for this field's default value. [More details](../fields/overview#default-values).                                                                                                                                                                                           |
+| **`localized`**        | Enable localization for this field. Requires [localization to be enabled](../configuration/localization) in the Base config.                                                                                                                                                                         |
+| **`required`**         | Require this field to have a value.                                                                                                                                                                                                                                                                     |
+| **`admin`**            | Admin-specific configuration. [More details](#admin-options).                                                                                                                                                                                                                                           |
+| **`custom`**           | Extension point for adding custom data (e.g. for plugins)                                                                                                                                                                                                                                               |
+| **`hasMany`**          | Makes this field an ordered array of text instead of just a single text.                                                                                                                                                                                                                                |
+| **`minRows`**          | Minimum number of texts in the array, if `hasMany` is set to true.                                                                                                                                                                                                                                      |
+| **`maxRows`**          | Maximum number of texts in the array, if `hasMany` is set to true.                                                                                                                                                                                                                                      |
+| **`typescriptSchema`** | Override field type generation with providing a JSON schema                                                                                                                                                                                                                                             |
+| **`virtual`**          | Provide `true` to disable field in the database, or provide a string path to [link the field with a relationship](../fields/relationship#linking-virtual-fields-with-relationships). See [Virtual Fields](https://payloadcms.com/blog/learn-how-virtual-fields-can-help-solve-common-cms-challenges) |
+
+_\* An asterisk denotes that a property is required._
+
+## Admin Options
+
+To customize the appearance and behavior of the Text Field in the [Admin Panel](../admin/overview), you can use the `admin` option:
+
+```ts
+import type { Field } from 'payload'
+
+export const MyTextField: Field = {
+  // ...
+  admin: {
+    // highlight-line
+    // ...
+  },
+}
+```
+
+The Text Field inherits all of the default admin options from the base [Field Admin Config](./overview#admin-options), plus the following additional options:
+
+| Option             | Description                                                                                                                 |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------------- |
+| **`placeholder`**  | Set this property to define a placeholder string in the text input.                                                         |
+| **`autoComplete`** | Set this property to a string that will be used for browser autocomplete.                                                   |
+| **`rtl`**          | Override the default text direction of the Admin Panel for this field. Set to `true` to force right-to-left text direction. |
+
+## Example
+
+```ts
+import type { CollectionConfig } from 'payload'
+
+export const ExampleCollection: CollectionConfig = {
+  slug: 'example-collection',
+  fields: [
+    {
+      name: 'pageTitle', // required
+      type: 'text', // required
+      required: true,
+    },
+  ],
+}
+```
+
+## Custom Components
+
+### Field
+
+#### Server Component
+
+```tsx
+import type React from 'react'
+import { TextField } from '@payloadcms/ui'
+import type { TextFieldServerComponent } from 'payload'
+
+export const CustomTextFieldServer: TextFieldServerComponent = ({
+  clientField,
+  path,
+  schemaPath,
+  permissions,
+}) => {
+  return (
+    <TextField
+      field={clientField}
+      path={path}
+      schemaPath={schemaPath}
+      permissions={permissions}
+    />
+  )
+}
+```
+
+#### Client Component
+
+```tsx
+'use client'
+import React from 'react'
+import { TextField } from '@payloadcms/ui'
+import type { TextFieldClientComponent } from 'payload'
+
+export const CustomTextFieldClient: TextFieldClientComponent = (props) => {
+  return <TextField {...props} />
+}
+```
+
+### Label
+
+#### Server Component
+
+```tsx
+import React from 'react'
+import { FieldLabel } from '@payloadcms/ui'
+import type { TextFieldLabelServerComponent } from 'payload'
+
+export const CustomTextFieldLabelServer: TextFieldLabelServerComponent = ({
+  clientField,
+  path,
+  required,
+}) => {
+  return (
+    <FieldLabel
+      label={clientField?.label || clientField?.name}
+      path={path}
+      required={clientField?.required}
+    />
+  )
+}
+```
+
+#### Client Component
+
+```tsx
+'use client'
+import React from 'react'
+import { FieldLabel } from '@payloadcms/ui'
+import type { TextFieldLabelClientComponent } from 'payload'
+
+export const CustomTextFieldLabelClient: TextFieldLabelClientComponent = ({
+  field,
+  path,
+}) => {
+  return (
+    <FieldLabel
+      label={field?.label || field?.name}
+      path={path}
+      required={field?.required}
+    />
+  )
+}
+```
+
+## Slug Field
+
+<Banner type="warning">
+  The slug field is experimental and may change, or even be removed, in future
+  releases. Use at your own risk.
+</Banner>
+
+One common use case for the Text Field is to create a "slug" for a document. A slug is a unique, indexed, URL-friendly string that identifies a particular document, often used to construct the URL of a webpage.
+
+Payload provides a built-in Slug Field so you don't have to built one from scratch. This field automatically generates a slug based on the value of another field, such as a title or name field. It provides UI to lock and unlock the field to protect its value, as well as to re-generate the slug on-demand.
+
+To add a Slug Field, import the `slugField` into your field schema:
+
+```ts
+import { slugField } from 'payload'
+import type { CollectionConfig } from 'payload'
+
+export const ExampleCollection: CollectionConfig = {
+  // ...
+  fields: [
+    // ...
+    // highlight-line
+    slugField(),
+    // highlight-line
+  ],
+}
+```
+
+The slug field exposes a few top-level config options for easy customization:
+
+| Option          | Description                                                                                                                                                                                                                             |
+| --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `name`          | To be used as the slug field's name. Defaults to `slug`.                                                                                                                                                                                |
+| `overrides`     | A function that receives the default fields so you can override on a granular level. See example below. [More details](#slug-overrides).                                                                                                |
+| `checkboxName`  | To be used as the name for the `generateSlug` checkbox field. Defaults to `generateSlug`.                                                                                                                                               |
+| `disableUnique` | Disables the unique index on the field. Useful when you want to add a compound unique index to the collection `indexes` config instead, for example with the multi-tenant plugin where the slug is only unique per tenant, not globally |
+| `useAsSlug`     | The name of the top-level field to use when generating the slug. This field must exist in the same collection. Defaults to `title`.                                                                                                     |
+| `localized`     | Enable localization on the `slug` and `generateSlug` fields. Defaults to `false`.                                                                                                                                                       |
+| `position`      | The position of the slug field. [More details](./overview#admin-options).                                                                                                                                                               |
+| `required`      | Require the slug field. Defaults to `true`.                                                                                                                                                                                             |
+| `slugify`       | Override the default slugify function. [More details](#custom-slugify-function).                                                                                                                                                        |
+
+### Slug Overrides
+
+If the above options aren't sufficient for your use case, you can use the `overrides` function to customize the slug field at a granular level. The `overrides` function receives the default fields that make up the slug field, and you can modify them to any extent you need.
+
+```ts
+import { slugField } from 'payload'
+import type { CollectionConfig } from 'payload'
+
+export const ExampleCollection: CollectionConfig = {
+  // ...
+  fields: [
+    // ...
+    // highlight-line
+    slugField({
+      overrides: (defaultField) => {
+        defaultField.fields[1].label = 'Custom Slug Label'
+        return defaultField
+      },
+    }),
+    // highlight-line
+  ],
+}
+```
+
+### Custom Slugify Function
+
+You can also override the default slugify function of the slug field. This is necessary if the slug requires special treatment, such as character encoding, additional language support, etc.
+
+This functions receives the value of the `useAsSlug` field as `valueToSlugify` and must return a string.
+
+For example, if you wanted to use the [`slugify`](https://www.npmjs.com/package/slugify) package, you could do something like this:
+
+```ts
+import type { CollectionConfig } from 'payload'
+import { slugField } from 'payload'
+import slugify from 'slugify'
+
+export const MyCollection: CollectionConfig = {
+  // ...
+  fields: [
+    // ...
+    slugField({
+      slugify: ({ valueToSlugify }) =>
+        slugify(valueToSlugify, {
+          // ...additional `slugify` options here
+        }),
+    }),
+  ],
+}
+```
+
+The following args are provided to the custom `slugify` function:
+
+| Argument         | Type             | Description                                      |
+| ---------------- | ---------------- | ------------------------------------------------ |
+| `valueToSlugify` | `string`         | The value of the field specified in `useAsSlug`. |
+| `data`           | `object`         | The full document data being saved.              |
+| `req`            | `PayloadRequest` | The Payload request object.                      |
+
+
 # Textarea Field
 
 Source: https://payloadcms.com/docs/fields/textarea
@@ -20026,6 +20309,847 @@ export function MyCustomTabComponent(props: DocumentTabClientProps) {
 ```
 
 
+# Edit View
+
+Source: https://payloadcms.com/docs/custom-components/edit-view
+
+
+The Edit View is where users interact with individual [Collection](../configuration/collections) and [Global](../configuration/globals) Documents within the [Admin Panel](../admin/overview). The Edit View contains the actual form that submits the data to the server. This is where they can view, edit, and save their content. It contains controls for saving, publishing, and previewing the document, all of which can be customized to a high degree.
+
+The Edit View can be swapped out in its entirety for a Custom View, or it can be injected with a number of Custom Components to add additional functionality or presentational elements without replacing the entire view.
+
+<Banner type="warning">
+  **Note:** The Edit View is one of many [Document Views](./document-views) in
+  the Payload Admin Panel. Each Document View is responsible for a different
+  aspect of interacting with a single Document.
+</Banner>
+
+## Custom Edit View
+
+To swap out the entire Edit View with a [Custom View](./custom-views), use the `views.edit.default` property in your [Collection Config](../configuration/collections) or [Global Config](../configuration/globals):
+
+```tsx
+import { buildConfig } from 'payload'
+
+const config = buildConfig({
+  // ...
+  admin: {
+    components: {
+      views: {
+        edit: {
+          // highlight-start
+          default: {
+            Component: '/path/to/MyCustomEditViewComponent',
+          },
+          // highlight-end
+        },
+      },
+    },
+  },
+})
+```
+
+Here is an example of a custom Edit View:
+
+#### Server Component
+
+```tsx
+import React from 'react'
+import type { DocumentViewServerProps } from 'payload'
+
+export function MyCustomServerEditView(props: DocumentViewServerProps) {
+  return <div>This is a custom Edit View (Server)</div>
+}
+```
+
+#### Client Component
+
+```tsx
+'use client'
+import React from 'react'
+import type { DocumentViewClientProps } from 'payload'
+
+export function MyCustomClientEditView(props: DocumentViewClientProps) {
+  return <div>This is a custom Edit View (Client)</div>
+}
+```
+
+_For details on how to build Custom Views, including all available props, see [Building Custom Views](./custom-views#building-custom-views)._
+
+## Custom Components
+
+In addition to swapping out the entire Edit View with a [Custom View](./custom-views), you can also override individual components. This allows you to customize specific parts of the Edit View without swapping out the entire view.
+
+<Banner type="warning">
+  **Important:** Collection and Globals are keyed to a different property in the
+  `admin.components` object and have slightly different options. Be sure to use
+  the correct key for the entity you are working with.
+</Banner>
+
+#### Collections
+
+To override Edit View components for a Collection, use the `admin.components.edit` property in your [Collection Config](../configuration/collections):
+
+```ts
+import type { CollectionConfig } from 'payload'
+
+export const MyCollection: CollectionConfig = {
+  // ...
+  admin: {
+    components: {
+      // highlight-start
+      edit: {
+        // ...
+      },
+      // highlight-end
+    },
+  },
+}
+```
+
+The following options are available:
+
+| Path                     | Description                                                                                                                  |
+| ------------------------ | ---------------------------------------------------------------------------------------------------------------------------- |
+| `beforeDocumentControls` | Inject custom components before the Save / Publish buttons. [More details](#beforedocumentcontrols).                         |
+| `editMenuItems`          | Inject custom components within the 3-dot menu dropdown located in the document control bar. [More details](#editmenuitems). |
+| `SaveButton`             | A button that saves the current document. [More details](#savebutton).                                                       |
+| `SaveDraftButton`        | A button that saves the current document as a draft. [More details](#savedraftbutton).                                       |
+| `PublishButton`          | A button that publishes the current document. [More details](#publishbutton).                                                |
+| `UnpublishButton`        | A button that unpublishes the current document. [More details](#unpublishbutton).                                            |
+| `PreviewButton`          | A button that previews the current document. [More details](#previewbutton).                                                 |
+| `Description`            | A description of the Collection. [More details](#description).                                                               |
+| `Status`                 | A component that represents the status of the current document. [More details](#status).                                     |
+| `Upload`                 | A file upload component. [More details](#upload).                                                                            |
+
+#### Globals
+
+To override Edit View components for Globals, use the `admin.components.elements` property in your [Global Config](../configuration/globals):
+
+```ts
+import type { GlobalConfig } from 'payload'
+
+export const MyGlobal: GlobalConfig = {
+  // ...
+  admin: {
+    components: {
+      // highlight-start
+      elements: {
+        // ...
+      },
+      // highlight-end
+    },
+  },
+}
+```
+
+The following options are available:
+
+| Path                     | Description                                                                                                                  |
+| ------------------------ | ---------------------------------------------------------------------------------------------------------------------------- |
+| `beforeDocumentControls` | Inject custom components before the Save / Publish buttons. [More details](#beforedocumentcontrols).                         |
+| `editMenuItems`          | Inject custom components within the 3-dot menu dropdown located in the document control bar. [More details](#editmenuitems). |
+| `SaveButton`             | A button that saves the current document. [More details](#savebutton).                                                       |
+| `SaveDraftButton`        | A button that saves the current document as a draft. [More details](#savedraftbutton).                                       |
+| `PublishButton`          | A button that publishes the current document. [More details](#publishbutton).                                                |
+| `UnpublishButton`        | A button that unpublishes the current document. [More details](#unpublishbutton).                                            |
+| `PreviewButton`          | A button that previews the current document. [More details](#previewbutton).                                                 |
+| `Description`            | A description of the Global. [More details](#description).                                                                   |
+| `Status`                 | A component that represents the status of the global. [More details](#status).                                               |
+
+### SaveButton
+
+The `SaveButton` component allows you to render a custom Save Button in the Edit View.
+
+#### Configuration Path
+
+- **Collections:** `admin.components.edit.SaveButton`
+- **Globals:** `admin.components.elements.SaveButton`
+
+#### Example for Collections
+
+```ts
+import type { CollectionConfig } from 'payload'
+
+export const Posts: CollectionConfig = {
+  slug: 'posts',
+  admin: {
+    components: {
+      edit: {
+        // highlight-start
+        SaveButton: '/path/to/CustomSaveButton',
+        // highlight-end
+      },
+    },
+  },
+}
+```
+
+#### Example for Globals
+
+```ts
+import type { GlobalConfig } from 'payload'
+
+export const Header: GlobalConfig = {
+  slug: 'header',
+  admin: {
+    components: {
+      elements: {
+        // highlight-start
+        SaveButton: '/path/to/CustomSaveButton',
+        // highlight-end
+      },
+    },
+  },
+}
+```
+
+Here's an example of a custom `SaveButton` component:
+
+#### Server Component
+
+```tsx
+import React from 'react'
+import { SaveButton } from '@payloadcms/ui'
+import type { SaveButtonServerProps } from 'payload'
+
+export function MySaveButton(props: SaveButtonServerProps) {
+  return <SaveButton label="Save" />
+}
+```
+
+#### Client Component
+
+```tsx
+'use client'
+import React from 'react'
+import { SaveButton } from '@payloadcms/ui'
+import type { SaveButtonClientProps } from 'payload'
+
+export function MySaveButton(props: SaveButtonClientProps) {
+  return <SaveButton label="Save" />
+}
+```
+
+### beforeDocumentControls
+
+The `beforeDocumentControls` property allows you to render custom components just before the default document action buttons (like Save, Publish, or Preview). This is useful for injecting custom buttons, status indicators, or any other UI elements before the built-in controls.
+
+To add `beforeDocumentControls` components, use the `components.edit.beforeDocumentControls` property in your [Collection Config](../configuration/collections) or `components.elements.beforeDocumentControls` in your [Global Config](../configuration/globals):
+
+#### Collections
+
+```
+export const MyCollection: CollectionConfig = {
+  admin: {
+    components: {
+      edit: {
+        // highlight-start
+        beforeDocumentControls: ['/path/to/CustomComponent'],
+        // highlight-end
+      },
+    },
+  },
+}
+```
+
+#### Globals
+
+```
+export const MyGlobal: GlobalConfig = {
+  admin: {
+    components: {
+      elements: {
+        // highlight-start
+        beforeDocumentControls: ['/path/to/CustomComponent'],
+        // highlight-end
+      },
+    },
+  },
+}
+```
+
+Here's an example of a custom `beforeDocumentControls` component:
+
+#### Server Component
+
+```tsx
+import React from 'react'
+import type { BeforeDocumentControlsServerProps } from 'payload'
+
+export function MyCustomDocumentControlButton(
+  props: BeforeDocumentControlsServerProps,
+) {
+  return <div>This is a custom beforeDocumentControl button (Server)</div>
+}
+```
+
+#### Client Component
+
+```tsx
+'use client'
+import React from 'react'
+import type { BeforeDocumentControlsClientProps } from 'payload'
+
+export function MyCustomDocumentControlButton(
+  props: BeforeDocumentControlsClientProps,
+) {
+  return <div>This is a custom beforeDocumentControl button (Client)</div>
+}
+```
+
+### editMenuItems
+
+The `editMenuItems` property allows you to inject custom components into the 3-dot menu dropdown located in the document controls bar. This dropdown contains default options including `Create New`, `Duplicate`, `Delete`, and other options when additional features are enabled. Any custom components you add will appear below these default items.
+
+To add `editMenuItems`, use the `components.edit.editMenuItems` property in your [Collection Config](../configuration/collections):
+
+#### Config Example
+
+```ts
+import type { CollectionConfig } from 'payload'
+
+export const Pages: CollectionConfig = {
+  slug: 'pages',
+  admin: {
+    components: {
+      edit: {
+        // highlight-start
+        editMenuItems: ['/path/to/CustomEditMenuItem'],
+        // highlight-end
+      },
+    },
+  },
+}
+```
+
+Here's an example of a custom `editMenuItems` component:
+
+#### Server Component
+
+```tsx
+import React from 'react'
+
+import type { EditMenuItemsServerProps } from 'payload'
+
+export const EditMenuItems = async (props: EditMenuItemsServerProps) => {
+  const href = `/custom-action?id=${props.id}`
+
+  return (
+    <>
+      <a href={href}>Custom Edit Menu Item</a>
+      <a href={href}>
+        Another Custom Edit Menu Item - add as many as you need!
+      </a>
+    </>
+  )
+}
+```
+
+#### Client Component
+
+```tsx
+'use client'
+
+import React from 'react'
+import { PopupList } from '@payloadcms/ui'
+
+import type { EditMenuItemsClientProps } from 'payload'
+
+export const EditMenuItems = (props: EditMenuItemsClientProps) => {
+  const handleClick = () => {
+    console.log('Custom button clicked!')
+  }
+
+  return (
+    <PopupList.ButtonGroup>
+      <PopupList.Button onClick={handleClick}>
+        Custom Edit Menu Item
+      </PopupList.Button>
+      <PopupList.Button onClick={handleClick}>
+        Another Custom Edit Menu Item - add as many as you need!
+      </PopupList.Button>
+    </PopupList.ButtonGroup>
+  )
+}
+```
+
+<Banner type="info">
+  **Styling:** Use Payload's built-in `PopupList.Button` to ensure your menu
+  items automatically match the default dropdown styles. If you want a different
+  look, you can customize the appearance by passing your own `className` to
+  `PopupList.Button`, or use a completely custom button built with a standard
+  HTML `button` element or any other component that fits your design
+  preferences.
+</Banner>
+
+### SaveDraftButton
+
+The `SaveDraftButton` component allows you to render a custom Save Draft Button in the Edit View.
+
+#### Configuration Path
+
+- **Collections:** `admin.components.edit.SaveDraftButton`
+- **Globals:** `admin.components.elements.SaveDraftButton`
+
+#### Example for Collections
+
+```ts
+import type { CollectionConfig } from 'payload'
+
+export const Posts: CollectionConfig = {
+  slug: 'posts',
+  versions: {
+    drafts: true,
+  },
+  admin: {
+    components: {
+      edit: {
+        // highlight-start
+        SaveDraftButton: '/path/to/CustomSaveDraftButton',
+        // highlight-end
+      },
+    },
+  },
+}
+```
+
+#### Example for Globals
+
+```ts
+import type { GlobalConfig } from 'payload'
+
+export const Header: GlobalConfig = {
+  slug: 'header',
+  versions: {
+    drafts: true,
+  },
+  admin: {
+    components: {
+      elements: {
+        // highlight-start
+        SaveDraftButton: '/path/to/CustomSaveDraftButton',
+        // highlight-end
+      },
+    },
+  },
+}
+```
+
+Here's an example of a custom `SaveDraftButton` component:
+
+#### Server Component
+
+```tsx
+import React from 'react'
+import { SaveDraftButton } from '@payloadcms/ui'
+import type { SaveDraftButtonServerProps } from 'payload'
+
+export function MySaveDraftButton(props: SaveDraftButtonServerProps) {
+  return <SaveDraftButton />
+}
+```
+
+#### Client Component
+
+```tsx
+'use client'
+import React from 'react'
+import { SaveDraftButton } from '@payloadcms/ui'
+import type { SaveDraftButtonClientProps } from 'payload'
+
+export function MySaveDraftButton(props: SaveDraftButtonClientProps) {
+  return <SaveDraftButton />
+}
+```
+
+### PublishButton
+
+The `PublishButton` component allows you to render a custom Publish Button in the Edit View.
+
+#### Configuration Path
+
+- **Collections:** `admin.components.edit.PublishButton`
+- **Globals:** `admin.components.elements.PublishButton`
+
+#### Example for Collections
+
+```ts
+import type { CollectionConfig } from 'payload'
+
+export const Posts: CollectionConfig = {
+  slug: 'posts',
+  versions: {
+    drafts: true,
+  },
+  admin: {
+    components: {
+      edit: {
+        // highlight-start
+        PublishButton: '/path/to/CustomPublishButton',
+        // highlight-end
+      },
+    },
+  },
+}
+```
+
+#### Example for Globals
+
+```ts
+import type { GlobalConfig } from 'payload'
+
+export const Header: GlobalConfig = {
+  slug: 'header',
+  versions: {
+    drafts: true,
+  },
+  admin: {
+    components: {
+      elements: {
+        // highlight-start
+        PublishButton: '/path/to/CustomPublishButton',
+        // highlight-end
+      },
+    },
+  },
+}
+```
+
+Here's an example of a custom `PublishButton` component:
+
+#### Server Component
+
+```tsx
+import React from 'react'
+import { PublishButton } from '@payloadcms/ui'
+import type { PublishButtonServerProps } from 'payload'
+
+export function MyPublishButton(props: PublishButtonServerProps) {
+  return <PublishButton label="Publish" />
+}
+```
+
+#### Client Component
+
+```tsx
+'use client'
+import React from 'react'
+import { PublishButton } from '@payloadcms/ui'
+
+export function MyPublishButton() {
+  return <PublishButton label="Publish" />
+}
+```
+
+### UnpublishButton
+
+The `UnpublishButton` property allows you to render a custom Unpublish Button in the Edit View.
+
+To add an `UnpublishButton` component, use the `components.edit.UnpublishButton` property in your [Collection Config](../configuration/collections) or `components.elements.UnpublishButton` in your [Global Config](../configuration/globals):
+
+```ts
+import type { CollectionConfig } from 'payload'
+
+export const MyCollection: CollectionConfig = {
+  // ...
+  admin: {
+    components: {
+      edit: {
+        // highlight-start
+        UnpublishButton: '/path/to/MyUnpublishButton',
+        // highlight-end
+      },
+    },
+  },
+}
+```
+
+Here's an example of a custom `UnpublishButton` component:
+
+#### Server Component
+
+```tsx
+import React from 'react'
+import { UnpublishButton } from '@payloadcms/ui'
+import type { UnpublishButtonServerProps } from 'payload'
+
+export function MyUnpublishButton(props: UnpublishButtonServerProps) {
+  return <UnpublishButton label="Unpublish" />
+}
+```
+
+#### Client Component
+
+```tsx
+'use client'
+import React from 'react'
+import { UnpublishButton } from '@payloadcms/ui'
+
+export function MyUnpublishButton() {
+  return <UnpublishButton label="Unpublish" />
+}
+```
+
+### PreviewButton
+
+The `PreviewButton` component allows you to render a custom Preview Button in the Edit View.
+
+#### Configuration Path
+
+- **Collections:** `admin.components.edit.PreviewButton`
+- **Globals:** `admin.components.elements.PreviewButton`
+
+#### Example for Collections
+
+```ts
+import type { CollectionConfig } from 'payload'
+
+export const Posts: CollectionConfig = {
+  slug: 'posts',
+  admin: {
+    preview: () => 'https://example.com/preview',
+    components: {
+      edit: {
+        // highlight-start
+        PreviewButton: '/path/to/CustomPreviewButton',
+        // highlight-end
+      },
+    },
+  },
+}
+```
+
+#### Example for Globals
+
+```ts
+import type { GlobalConfig } from 'payload'
+
+export const Header: GlobalConfig = {
+  slug: 'header',
+  admin: {
+    preview: () => 'https://example.com/preview',
+    components: {
+      elements: {
+        // highlight-start
+        PreviewButton: '/path/to/CustomPreviewButton',
+        // highlight-end
+      },
+    },
+  },
+}
+```
+
+Here's an example of a custom `PreviewButton` component:
+
+#### Server Component
+
+```tsx
+import React from 'react'
+import { PreviewButton } from '@payloadcms/ui'
+import type { PreviewButtonServerProps } from 'payload'
+
+export function MyPreviewButton(props: PreviewButtonServerProps) {
+  return <PreviewButton />
+}
+```
+
+#### Client Component
+
+```tsx
+'use client'
+import React from 'react'
+import { PreviewButton } from '@payloadcms/ui'
+import type { PreviewButtonClientProps } from 'payload'
+
+export function MyPreviewButton(props: PreviewButtonClientProps) {
+  return <PreviewButton />
+}
+```
+
+### Description
+
+The `Description` property allows you to render a custom description of the Collection or Global in the Edit View.
+
+To add a `Description` component, use the `components.edit.Description` property in your [Collection Config](../configuration/collections) or `components.elements.Description` in your [Global Config](../configuration/globals):
+
+```ts
+import type { CollectionConfig } from 'payload'
+
+export const MyCollection: CollectionConfig = {
+  // ...
+  admin: {
+    components: {
+      // highlight-start
+      Description: '/path/to/MyDescriptionComponent',
+      // highlight-end
+    },
+  },
+}
+```
+
+<Banner type="warning">
+  **Note:** The `Description` component is shared between the Edit View and the
+  [List View](./list-view).
+</Banner>
+
+Here's an example of a custom `Description` component:
+
+#### Server Component
+
+```tsx
+import React from 'react'
+import type { ViewDescriptionServerProps } from 'payload'
+
+export function MyDescriptionComponent(props: ViewDescriptionServerProps) {
+  return <div>This is a custom description component (Server)</div>
+}
+```
+
+#### Client Component
+
+```tsx
+'use client'
+import React from 'react'
+import type { ViewDescriptionClientProps } from 'payload'
+
+export function MyDescriptionComponent(props: ViewDescriptionClientProps) {
+  return <div>This is a custom description component (Client)</div>
+}
+```
+
+### Status
+
+The `Status` component displays the document's draft/published state when versioning with drafts is enabled.
+
+#### Configuration Path
+
+- **Collections:** `admin.components.edit.Status`
+- **Globals:** `admin.components.elements.Status`
+
+#### Example for Collections
+
+```ts
+import type { CollectionConfig } from 'payload'
+
+export const Posts: CollectionConfig = {
+  slug: 'posts',
+  versions: {
+    drafts: true,
+  },
+  admin: {
+    components: {
+      edit: {
+        // highlight-start
+        Status: '/path/to/CustomStatus',
+        // highlight-end
+      },
+    },
+  },
+}
+```
+
+#### Example for Globals
+
+```ts
+import type { GlobalConfig } from 'payload'
+
+export const Header: GlobalConfig = {
+  slug: 'header',
+  versions: {
+    drafts: true,
+  },
+  admin: {
+    components: {
+      elements: {
+        // highlight-start
+        Status: '/path/to/CustomStatus',
+        // highlight-end
+      },
+    },
+  },
+}
+```
+
+### Upload
+
+The `Upload` property allows you to render a custom file upload component in the Edit View. This is only available for upload-enabled Collections.
+
+To add an `Upload` component, use the `components.edit.Upload` property in your [Collection Config](../configuration/collections):
+
+```ts
+import type { CollectionConfig } from 'payload'
+
+export const Media: CollectionConfig = {
+  slug: 'media',
+  upload: true,
+  admin: {
+    components: {
+      edit: {
+        // highlight-start
+        Upload: '/path/to/MyUploadComponent#MyUploadServer',
+        // highlight-end
+      },
+    },
+  },
+}
+```
+
+<Banner type="warning">
+  **Important:** Custom upload components must integrate with Payload's form
+  system to work correctly. You cannot use a simple `<input type="file" />` as
+  it won't connect to Payload's upload API. Instead, use Payload's built-in
+  `<Upload>` component from `@payloadcms/ui` or properly integrate with form
+  hooks like `useDocumentInfo()`.
+</Banner>
+
+Here's an example of a custom `Upload` component:
+
+#### Server Component
+
+```tsx
+import React from 'react'
+import type {
+  PayloadServerReactComponent,
+  SanitizedCollectionConfig,
+} from 'payload'
+import { CustomUploadClient } from './MyUploadComponent.client'
+
+export const MyUploadServer: PayloadServerReactComponent<
+  SanitizedCollectionConfig['admin']['components']['edit']['Upload']
+> = (props) => {
+  return (
+    <div>
+      <h2>Custom Upload Interface</h2>
+      <CustomUploadClient {...props} />
+    </div>
+  )
+}
+```
+
+#### Client Component
+
+```tsx
+'use client'
+import React from 'react'
+import { Upload, useDocumentInfo } from '@payloadcms/ui'
+
+export const CustomUploadClient = () => {
+  const { collectionSlug, docConfig, initialState } = useDocumentInfo()
+
+  return (
+    <Upload
+      collectionSlug={collectionSlug}
+      initialState={initialState}
+      uploadConfig={'upload' in docConfig ? docConfig.upload : undefined}
+    />
+  )
+}
+```
+
+For more details on customizing upload components, including examples with custom actions and drawers, see the [Upload documentation](../upload/overview#customizing-the-upload-ui).
+
+
 # List View
 
 Source: https://payloadcms.com/docs/custom-components/list-view
@@ -25334,6 +26458,407 @@ The reason the client feature does not have the same props available as the serv
 ## More information
 
 Have a look at the [features we've already built](https://github.com/payloadcms/payload/tree/3.x/packages/richtext-lexical/src/features) - understanding how they work will help you understand how to create your own. There is no difference between the features included by default and the ones you create yourself - since those features are all isolated from the "core", you have access to the same APIs, whether the feature is part of Payload or not!
+
+
+# Rendering On Demand
+
+Source: https://payloadcms.com/docs/rich-text/rendering-on-demand
+
+
+Lexical in Payload is a **React Server Component (RSC)**. Historically that created three headaches: 1. You couldn't render the editor directly from the client. 2. Features like blocks, tables and link drawers require the server to know the shape of nested sub-fields at render time. If you tried to render on demand, the server didn't know those schemas. 3. The rich text field is designed to live inside a `Form`. For simple use cases, setting up a full form just to manage editor state was cumbersome.
+
+To simplify rendering richtext on demand, <RenderLexical />, that renders a Lexical editor while still covering the full feature set. On mount, it calls a server action to render the editor on the server using the new `render-field` server function. That server render gives Lexical everything it needs (including nested field schemas) and returns a ready-to-hydrate editor.
+
+<Banner type="warning">
+  `RenderLexical` and the underlying `render-field` server function are
+  experimental and may change in minor releases.
+</Banner>
+
+## Inside an existing Form
+
+If you have an existing Form and want to render a richtext field within it, you can use the `RenderLexical` component like this:
+
+```tsx
+'use client'
+
+import type { JSONFieldClientComponent } from 'payload'
+
+import {
+  buildEditorState,
+  RenderLexical,
+} from '@payloadcms/richtext-lexical/client'
+
+import { lexicalFullyFeaturedSlug } from '../../slugs.js'
+
+export const Component: JSONFieldClientComponent = (args) => {
+  return (
+    <RenderLexical
+      field={{
+        name: 'myFieldName' /* Make sure this matches the field name present in your form */,
+      }}
+      initialValue={buildEditorState<DefaultNodeTypes>({
+        text: 'default value',
+      })}
+      schemaPath={`collection.${lexicalFullyFeaturedSlug}.richText`}
+    />
+  )
+}
+```
+
+## Outside of a Form (you control state)
+
+```tsx
+'use client'
+
+import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
+import type { JSONFieldClientComponent } from 'payload'
+
+import {
+  buildEditorState,
+  RenderLexical,
+} from '@payloadcms/richtext-lexical/client'
+import React, { useState } from 'react'
+
+import { lexicalFullyFeaturedSlug } from '../../slugs.js'
+
+export const Component: JSONFieldClientComponent = (args) => {
+  // Manually manage the editor state
+  const [value, setValue] = useState<DefaultTypedEditorState | undefined>(() =>
+    buildEditorState<DefaultNodeTypes>({ text: 'state default' }),
+  )
+
+  const handleReset = React.useCallback(() => {
+    setValue(buildEditorState<DefaultNodeTypes>({ text: 'state default' }))
+  }, [])
+
+  return (
+    <div>
+      <RenderLexical
+        field={{ name: 'myField' }}
+        initialValue={buildEditorState<DefaultNodeTypes>({
+          text: 'default value',
+        })}
+        schemaPath={`collection.${lexicalFullyFeaturedSlug}.richText`}
+        setValue={setValue as any}
+        value={value}
+      />
+      <button onClick={handleReset} style={{ marginTop: 8 }} type="button">
+        Reset Editor State
+      </button>
+    </div>
+  )
+}
+```
+
+## Choosing the schemaPath
+
+`schemaPath` tells the server which richText field to render. This gives the server the exact nested field schemas (blocks, relationship drawers, upload fields, tables, etc.).
+
+Format:
+
+- `collection.<collectionSlug>.<fieldPath>`
+- `global.<globalSlug>.<fieldPath>`
+
+Example (top level): `collection.posts.richText`
+
+Example (nested in a group/tab): `collection.posts.content.richText`
+
+<Banner type="info">
+  **Tip:** If your target editor lives deep in arrays/blocks and you're unsure of the exact path, you can define a **hidden top-level richText** purely as a "render anchor":
+
+```ts
+{
+  name: 'onDemandAnchor',
+  type: 'richText',
+  admin: { hidden: true }
+}
+```
+
+Then use `schemaPath="collection.posts.onDemandAnchor"`
+
+</Banner>
+
+
+# Lexical Migration
+
+Source: https://payloadcms.com/docs/rich-text/migration
+
+
+## Migrating from Slate
+
+While both Slate and Lexical save the editor state in JSON, the structure of the JSON is different. Payload provides a two-phase migration approach that allows you to safely migrate from Slate to Lexical:
+
+1. **Preview Phase**: Test the migration with an `afterRead` hook that converts data on-the-fly
+2. **Migration Phase**: Run a script to permanently migrate all data in the database
+
+### Phase 1: Preview & Test
+
+First, add the `SlateToLexicalFeature` to every richText field you want to migrate. By default, this feature converts your data from Slate to Lexical format on-the-fly through an `afterRead` hook. If the data is already in Lexical format, it passes through unchanged.
+
+This allows you to test the migration without modifying your database. The on-the-fly conversion happens server-side through the `afterRead` hook, which means:
+
+- **In the Admin Panel**: Preview how your content will look in the Lexical editor
+- **In your API**: All read operations (REST, GraphQL, Local API) return converted Lexical data instead of Slate data
+- **In your application**: Your frontend receives Lexical data, allowing you to test if your app correctly handles the new format
+
+You can verify that:
+
+- All content converts correctly
+- Custom nodes are handled properly
+- Formatting is preserved
+- Your application displays the Lexical data as expected
+- Any custom converters work as expected
+
+**Example:**
+
+```ts
+import type { CollectionConfig } from 'payload'
+
+import { SlateToLexicalFeature } from '@payloadcms/richtext-lexical/migrate'
+import { lexicalEditor } from '@payloadcms/richtext-lexical'
+
+const Pages: CollectionConfig = {
+  slug: 'pages',
+  fields: [
+    {
+      name: 'content',
+      type: 'richText',
+      editor: lexicalEditor({
+        features: ({ defaultFeatures }) => [
+          ...defaultFeatures,
+          SlateToLexicalFeature({}),
+        ],
+      }),
+    },
+  ],
+}
+```
+
+**Important**: In preview mode, if you save a document in the Admin Panel, it will overwrite the Slate data with the converted Lexical data in the database. Only save if you've verified the conversion is correct.
+
+Each richText field has its own `SlateToLexicalFeature` instance because each field may require different converters. For example, one field might contain custom Slate nodes that need custom converters.
+
+### Phase 2: Running the Migration Script
+
+Once you've tested the migration in preview mode and verified the results, you can permanently migrate all data in your database.
+
+#### Why Run the Migration Script?
+
+While the `SlateToLexicalFeature` works well for testing, running the migration script has important benefits:
+
+- **Performance**: The `afterRead` hook converts data on-the-fly, adding overhead to every read operation
+- **Database Consistency**: Direct database operations (e.g., `payload.db.find` instead of `payload.find`) bypass hooks and return unconverted Slate data
+- **Production Ready**: After migration, your data is fully converted and you can remove the migration feature
+
+#### Migration Prerequisites
+
+**CRITICAL: This will permanently overwrite all Slate data. Follow these steps carefully:**
+
+1. **Backup Your Database**: Create a complete backup of your database before proceeding. If anything goes wrong without a backup, data recovery may not be possible.
+
+2. **Convert All richText Fields**: Update your config to use `lexicalEditor()` for all richText fields. The script only converts fields that:
+
+   - Use the Lexical editor
+   - Have `SlateToLexicalFeature` added
+   - Contain Slate data in the database
+
+3. **Test the Preview**: Add `SlateToLexicalFeature` to every richText field (as shown in Phase 1) and thoroughly test in the Admin Panel. Build custom converters for any custom Slate nodes before proceeding.
+
+4. **Disable Hooks**: Once testing is complete, add `disableHooks: true` to all `SlateToLexicalFeature` instances:
+
+```ts
+SlateToLexicalFeature({ disableHooks: true })
+```
+
+This prevents the `afterRead` hook from running during migration, improving performance and ensuring clean data writes.
+
+#### Running the Migration
+
+Create a migration script and run it:
+
+```ts
+import { getPayload } from 'payload'
+import config from '@payload-config'
+import { migrateSlateToLexical } from '@payloadcms/richtext-lexical/migrate'
+
+const payload = await getPayload({ config })
+
+await migrateSlateToLexical({ payload })
+```
+
+The migration will:
+
+- Process all collections and globals
+- Handle all locales (if localization is enabled)
+- Migrate both published and draft documents
+- Recursively process nested fields (arrays, blocks, tabs, groups)
+- Log progress for each collection and document
+- Collect and report any errors at the end
+
+Depending on your database size, this may take considerable time. The script provides detailed progress updates as it runs.
+
+### Converting Custom Slate Nodes
+
+If your Slate editor includes custom nodes, you'll need to create custom converters for them. A converter transforms a Slate node structure into its Lexical equivalent.
+
+#### How Converters Work
+
+Each converter receives the Slate node and returns the corresponding Lexical node. The converter also specifies which Slate node types it handles via the `nodeTypes` array.
+
+#### Example: Simple Node Converter
+
+Here's the built-in Upload converter as an example:
+
+```ts
+import type { SerializedUploadNode } from '@payloadcms/richtext-lexical'
+import type { SlateNodeConverter } from '@payloadcms/richtext-lexical'
+
+export const SlateUploadConverter: SlateNodeConverter = {
+  converter({ slateNode }) {
+    return {
+      type: 'upload',
+      fields: {
+        ...slateNode.fields,
+      },
+      format: '',
+      relationTo: slateNode.relationTo,
+      type: 'upload',
+      value: {
+        id: slateNode.value?.id || '',
+      },
+      version: 1,
+    } as const as SerializedUploadNode
+  },
+  nodeTypes: ['upload'],
+}
+```
+
+#### Example: Node with Children
+
+For nodes that contain child nodes (like links), recursively convert the children:
+
+```ts
+import type { SerializedLinkNode } from '@payloadcms/richtext-lexical'
+import type { SlateNodeConverter } from '@payloadcms/richtext-lexical'
+import { convertSlateNodesToLexical } from '@payloadcms/richtext-lexical/migrate'
+
+export const SlateLinkConverter: SlateNodeConverter = {
+  converter({ converters, slateNode }) {
+    return {
+      type: 'link',
+      children: convertSlateNodesToLexical({
+        canContainParagraphs: false,
+        converters,
+        parentNodeType: 'link',
+        slateNodes: slateNode.children || [],
+      }),
+      direction: 'ltr',
+      fields: {
+        doc: slateNode.doc || null,
+        linkType: slateNode.linkType || 'custom',
+        newTab: slateNode.newTab || false,
+        url: slateNode.url || '',
+      },
+      format: '',
+      indent: 0,
+      version: 2,
+    } as const as SerializedLinkNode
+  },
+  nodeTypes: ['link'],
+}
+```
+
+#### Converter API
+
+Your converter function receives these parameters:
+
+```ts
+{
+  slateNode: SlateNode,         // The Slate node to convert
+  converters: SlateNodeConverter[], // All available converters (for recursive conversion)
+  parentNodeType: string,        // The Lexical node type of the parent
+  childIndex: number,            // Index of this node in parent's children array
+}
+```
+
+#### Adding Custom Converters
+
+You can add custom converters by passing an array of converters to the `converters` property of the `SlateToLexicalFeature` props:
+
+```ts
+import type { CollectionConfig } from 'payload'
+import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import {
+  SlateToLexicalFeature,
+  defaultSlateConverters,
+} from '@payloadcms/richtext-lexical/migrate'
+import { MyCustomConverter } from './converters/MyCustomConverter'
+
+const Pages: CollectionConfig = {
+  slug: 'pages',
+  fields: [
+    {
+      name: 'content',
+      type: 'richText',
+      editor: lexicalEditor({
+        features: ({ defaultFeatures }) => [
+          ...defaultFeatures,
+          SlateToLexicalFeature({
+            converters: [...defaultSlateConverters, MyCustomConverter],
+          }),
+        ],
+      }),
+    },
+  ],
+}
+```
+
+#### Unknown Node Handling
+
+If the migration encounters a Slate node without a converter, it:
+
+1. Logs a warning to the console
+2. Wraps it in an `unknownConverted` node that preserves the original data
+3. Continues migration without failing
+
+This ensures your migration completes even if some converters are missing, allowing you to handle edge cases later.
+
+<Banner type="info">
+  The migration script automatically traverses all collections and fields, retrieves converters from the `SlateToLexicalFeature` on each field, and converts the data using those converters.
+
+If you're manually calling `convertSlateToLexical`, you can pass converters directly:
+
+```ts
+import { convertSlateToLexical } from '@payloadcms/richtext-lexical/migrate'
+
+const lexicalData = convertSlateToLexical({
+  slateData: mySlateData,
+  converters: [...defaultSlateConverters, MyCustomConverter],
+})
+```
+
+</Banner>
+## Migrating lexical data from old version to new version
+
+Each lexical node has a `version` property which is saved in the database. Every time we make a breaking change to the node's data, we increment the version. This way, we can detect an old version and automatically convert old data to the new format once you open up the editor.
+
+The problem is, this migration only happens when you open the editor, modify the richText field (so that the field's `setValue` function is called) and save the document. Until you do that for all documents, some documents will still have the old data.
+
+To solve this, we export an `upgradeLexicalData` function which goes through every single document in your Payload app and re-saves it, if it has a lexical editor. This way, the data is automatically converted to the new format, and that automatic conversion gets applied to every single document in your app.
+
+IMPORTANT: Take a backup of your entire database. If anything goes wrong and you do not have a backup, you are on your own and will not receive any support.
+
+```ts
+import { upgradeLexicalData } from '@payloadcms/richtext-lexical'
+
+await upgradeLexicalData({ payload })
+```
+
+## Migrating from payload-plugin-lexical
+
+Migrating from [payload-plugin-lexical](https://github.com/AlessioGr/payload-plugin-lexical) works similar to migrating from Slate.
+
+Instead of a `SlateToLexicalFeature` there is a `LexicalPluginToLexicalFeature` you can use. And instead of `convertSlateToLexical` you can use `convertLexicalPluginToLexical`.
 
 
 # Views
@@ -33509,6 +35034,165 @@ The plugin detects `PayloadComponent` positions by checking the contextual type 
 This means the plugin works everywhere Payload expects a component path — collection field components, global components, admin panel components, dashboard widgets, and custom views — without needing to hardcode specific config positions.
 
 
+# Plugins
+
+Source: https://payloadcms.com/docs/plugins/overview
+
+
+Payload Plugins take full advantage of the modularity of the [Payload Config](../configuration/overview), allowing developers to easily inject custom—sometimes complex—functionality into Payload apps from a very small touch-point. This is especially useful for sharing your work across multiple projects or with the greater Payload community.
+
+There are many [Official Plugins](#official-plugins) available that solve for some of the most common use cases, such as the [Form Builder Plugin](./form-builder) or [SEO Plugin](./seo). There are also [Community Plugins](#community-plugins) available, maintained entirely by contributing members. To extend Payload's functionality in some other way, you can easily [build your own plugin](./build-your-own).
+
+To configure Plugins, use the `plugins` property in your [Payload Config](../configuration/overview):
+
+```ts
+import { buildConfig } from 'payload'
+
+const config = buildConfig({
+  // ...
+  // highlight-start
+  plugins: [
+    // Add Plugins here
+  ],
+  // highlight-end
+})
+```
+
+Writing Plugins is no more complex than writing regular JavaScript. If you know the basic concept of [callback functions](https://developer.mozilla.org/en-US/docs/Glossary/Callback_function) or how [spread syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax) works, and are up to speed with Payload concepts, then writing a plugin will be a breeze.
+
+<Banner type="success">
+  Because we rely on a simple config-based structure, Payload Plugins simply
+  take in an existing config and return a _modified_ config with new fields,
+  hooks, collections, admin views, or anything else you can think of.
+</Banner>
+
+**Example use cases:**
+
+- Automatically sync data from a specific collection to HubSpot or a similar CRM when data is added or changes
+- Add password-protection functionality to certain documents
+- Add a full e-commerce backend to any Payload app
+- Add custom reporting views to Payload's Admin Panel
+- Encrypt specific collections' data
+- Add a full form builder implementation
+- Integrate all `upload`-enabled collections with a third-party file host like S3 or Cloudinary
+- Add custom endpoints or GraphQL queries / mutations with any type of custom functionality that you can think of
+
+## Official Plugins
+
+Payload maintains a set of Official Plugins that solve for some of the common use cases. These plugins are maintained by the Payload team and its contributors and are guaranteed to be stable and up-to-date.
+
+- [Form Builder](./form-builder)
+- [MCP](./mcp)
+- [Multi-Tenant](./multi-tenant)
+- [Nested Docs](./nested-docs)
+- [Redirects](./redirects)
+- [Search](./search)
+- [Sentry](./sentry)
+- [SEO](./seo)
+- [Stripe](./stripe)
+- [Import/Export](./import-export)
+- [Ecommerce](../ecommerce/overview)
+
+You can also [build your own plugin](./build-your-own) to easily extend Payload's functionality in some other way. Once your plugin is ready, consider [sharing it with the community](#community-plugins).
+
+Plugins are changing every day, so be sure to check back often to see what new plugins may have been added. If you have a specific plugin you would like to see, please feel free to start a new [Discussion](https://github.com/payloadcms/payload/discussions).
+
+<Banner type="warning">
+  For a complete list of Official Plugins, visit the [Packages
+  Directory](https://github.com/payloadcms/payload/tree/3.x/packages) of the
+  [Payload Monorepo](https://github.com/payloadcms/payload).
+</Banner>
+
+## Community Plugins
+
+Community Plugins are those that are maintained entirely by outside contributors. They are a great way to share your work across the ecosystem for others to use. You can discover Community Plugins by browsing the `payload-plugin` topic on [GitHub](https://github.com/topics/payload-plugin).
+
+Some plugins have become so widely used that they are adopted as an [Official Plugin](#official-plugins), such as the [Lexical Plugin](https://github.com/AlessioGr/payload-plugin-lexical). If you have a plugin that you think should be an Official Plugin, please feel free to start a new [Discussion](https://github.com/payloadcms/payload/discussions).
+
+<Banner type="warning">
+  For maintainers building plugins for others to use, please add the
+  `payload-plugin` topic on [GitHub](https://github.com/topics/payload-plugin)
+  to help others find it.
+</Banner>
+
+## Example
+
+The base [Payload Config](../configuration/overview) allows for a `plugins` property which takes an `array` of [Plugin Configs](./build-your-own).
+
+```ts
+import { buildConfig } from 'payload'
+import { addLastModified } from './addLastModified.ts'
+
+const config = buildConfig({
+  // ...
+  // highlight-start
+  plugins: [addLastModified],
+  // highlight-end
+})
+```
+
+<Banner type="warning">
+  Payload Plugins are executed _after_ the incoming config is validated, but
+  before it is sanitized and has had default options merged in. After all
+  plugins are executed, the full config with all plugins will be sanitized.
+</Banner>
+
+Here is an example what the `addLastModified` plugin from above might look like. It adds a `lastModifiedBy` field to all Payload collections. For full details, see [how to build your own plugin](./build-your-own).
+
+```ts
+import { Config, Plugin } from 'payload'
+
+export const addLastModified: Plugin = (incomingConfig: Config): Config => {
+  // Find all incoming auth-enabled collections
+  // so we can create a lastModifiedBy relationship field
+  // to all auth collections
+  const authEnabledCollections = incomingConfig.collections.filter(
+    (collection) => Boolean(collection.auth),
+  )
+
+  // Spread the existing config
+  const config: Config = {
+    ...incomingConfig,
+    collections: incomingConfig.collections.map((collection) => {
+      // Spread each item that we are modifying,
+      // and add our new field - complete with
+      // hooks and proper admin UI config
+      return {
+        ...collection,
+        fields: [
+          ...collection.fields,
+          {
+            name: 'lastModifiedBy',
+            type: 'relationship',
+            relationTo: authEnabledCollections.map(({ slug }) => slug),
+            hooks: {
+              beforeChange: [
+                ({ req }) => ({
+                  value: req?.user?.id,
+                  relationTo: req?.user?.collection,
+                }),
+              ],
+            },
+            admin: {
+              position: 'sidebar',
+              readOnly: true,
+            },
+          },
+        ],
+      }
+    }),
+  }
+
+  return config
+}
+```
+
+<Banner type="success">
+  **Reminder:** See [how to build your own plugin](./build-your-own) for a more
+  in-depth explication on how to create your own Payload Plugin.
+</Banner>
+
+
 # Building Your Own Plugin
 
 Source: https://payloadcms.com/docs/plugins/build-your-own
@@ -34040,6 +35724,771 @@ plugin: ({ config, plugins }) => {
   return config
 }
 ```
+
+
+# Form Builder Plugin
+
+Source: https://payloadcms.com/docs/plugins/form-builder
+
+
+![https://www.npmjs.com/package/@payloadcms/plugin-form-builder](https://img.shields.io/npm/v/@payloadcms/plugin-form-builder)
+
+This plugin allows you to build and manage custom forms directly within the [Admin Panel](../admin/overview). Instead of hard-coding a new form into your website or application every time you need one, admins can simply define the schema for each form they need on-the-fly, and your front-end can map over this schema, render its own UI components, and match your brand's design system.
+
+All form submissions are stored directly in your database and are managed directly from the Admin Panel. When forms are submitted, you can display a custom on-screen confirmation message to the user or redirect them to a dedicated confirmation page. You can even send dynamic, personalized emails derived from the form's data. For example, you may want to send a confirmation email to the user who submitted the form, and also send a notification email to your team.
+
+Forms can be as simple or complex as you need, from a basic contact form, to a multi-step lead generation engine, or even a donation form that processes payment. You may not need to reach for third-party services like HubSpot or Mailchimp for this, but instead use your own first-party tooling, built directly into your own application.
+
+<Banner type="info">
+  This plugin is completely open-source and the [source code can be found
+  here](https://github.com/payloadcms/payload/tree/3.x/packages/plugin-form-builder).
+  If you need help, check out our [Community
+  Help](https://payloadcms.com/community-help). If you think you've found a bug,
+  please [open a new
+  issue](https://github.com/payloadcms/payload/issues/new?assignees=&labels=plugin%3A%20form-builder&template=bug_report.md&title=plugin-form-builder%3A)
+  with as much detail as possible.
+</Banner>
+
+## Core Features
+
+- Build completely dynamic forms directly from the Admin Panel for a variety of use cases
+- Render forms on your front-end using your own UI components and match your brand's design system
+- Send dynamic, personalized emails upon form submission to multiple recipients, derived from the form's data
+- Display a custom confirmation message or automatically redirect upon form submission
+- Build dynamic prices based on form input to use for payment processing (optional)
+
+## Installation
+
+Install the plugin using any JavaScript package manager like [pnpm](https://pnpm.io), [npm](https://npmjs.com), or [Yarn](https://yarnpkg.com):
+
+```bash
+pnpm add @payloadcms/plugin-form-builder
+```
+
+## Basic Usage
+
+In the `plugins` array of your [Payload Config](../configuration/overview), call the plugin with [options](#options):
+
+```ts
+import { buildConfig } from 'payload'
+import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
+
+const config = buildConfig({
+  collections: [
+    {
+      slug: 'pages',
+      fields: [],
+    },
+  ],
+  plugins: [
+    formBuilderPlugin({
+      // see below for a list of available options
+    }),
+  ],
+})
+
+export default config
+```
+
+## Options
+
+### `fields` (option)
+
+The `fields` property is an object of field types to allow your admin editors to build forms with. To override default settings, pass either a boolean value or a partial [Payload Block](../fields/blocks#block-configs) _keyed to the block's slug_. See [Fields](#fields) for more details.
+
+```ts
+// payload.config.ts
+formBuilderPlugin({
+  // ...
+  fields: {
+    text: true,
+    textarea: true,
+    select: true,
+    radio: true,
+    email: true,
+    state: true,
+    country: true,
+    checkbox: true,
+    number: true,
+    message: true,
+    date: false,
+    payment: false,
+    upload: {
+      uploadCollections: ['media', 'documents'], // Required when using upload
+    },
+  },
+})
+```
+
+### `redirectRelationships`
+
+The `redirectRelationships` property is an array of collection slugs that, when enabled, are populated as options in the form's `redirect` field. This field is used to redirect the user to a dedicated confirmation page upon form submission (optional).
+
+```ts
+// payload.config.ts
+formBuilderPlugin({
+  // ...
+  redirectRelationships: ['pages'],
+})
+```
+
+### `beforeEmail`
+
+The `beforeEmail` property is a [beforeChange](../hooks/globals#beforechange) hook that is called just after emails are prepared, but before they are sent. This is a great place to inject your own HTML template to add custom styles.
+
+```ts
+// payload.config.ts
+formBuilderPlugin({
+  // ...
+  beforeEmail: (emailsToSend, beforeChangeParams) => {
+    // modify the emails in any way before they are sent
+    return emails.map((email) => ({
+      ...email,
+      html: email.html, // transform the html in any way you'd like (maybe wrap it in an html template?)
+    }))
+  },
+})
+```
+
+For full types with `beforeChangeParams`, you can import the types from the plugin:
+
+```ts
+import type { BeforeEmail } from '@payloadcms/plugin-form-builder'
+// Your generated FormSubmission type
+import type { FormSubmission } from '@payload-types'
+
+// Pass it through and 'data' or 'originalDoc' will now be typed
+const beforeEmail: BeforeEmail<FormSubmission> = (
+  emailsToSend,
+  beforeChangeParams,
+) => {
+  // modify the emails in any way before they are sent
+  return emails.map((email) => ({
+    ...email,
+    html: email.html, // transform the html in any way you'd like (maybe wrap it in an html template?)
+  }))
+}
+```
+
+### `defaultToEmail`
+
+Provide a fallback for the email address to send form submissions to. If the email in form configuration does not have a to email set, this email address will be used. If this is not provided then it falls back to the `defaultFromAddress` in your [email configuration](../email/overview).
+
+```ts
+// payload.config.ts
+formBuilderPlugin({
+  // ...
+  defaultToEmail: 'test@example.com',
+})
+```
+
+### `formOverrides`
+
+Override anything on the `forms` collection by sending a [Payload Collection Config](../configuration/collections) to the `formOverrides` property.
+
+Note that the `fields` property is a function that receives the default fields and returns an array of fields. This is because the `fields` property is a special case that is merged with the default fields, rather than replacing them. This allows you to map over default fields and modify them as needed.
+
+<Banner type="warning">
+  Good to know: The form collection is publicly available to read by default.
+  The emails field is locked for authenticated users only. If you have any
+  frontend users you should override the access permissions for both the
+  collection and the emails field to make sure you don't leak out any private
+  emails.
+</Banner>
+
+```ts
+// payload.config.ts
+formBuilderPlugin({
+  // ...
+  formOverrides: {
+    slug: 'contact-forms',
+    access: {
+      read: ({ req: { user } }) => !!user, // authenticated users only
+      update: () => false,
+    },
+    fields: ({ defaultFields }) => {
+      return [
+        ...defaultFields,
+        {
+          name: 'custom',
+          type: 'text',
+        },
+      ]
+    },
+  },
+})
+```
+
+### `formSubmissionOverrides`
+
+Override anything on the `form-submissions` collection by sending a [Payload Collection Config](../configuration/collections) to the `formSubmissionOverrides` property.
+
+<Banner type="warning">
+  By default, this plugin relies on [Payload access
+  control](../access-control/collections) to restrict
+  the `update` and `read` operations on the `form-submissions` collection. This
+  is because _anyone_ should be able to create a form submission, even from a
+  public-facing website, but _no one_ should be able to update a submission once
+  it has been created, or read a submission unless they have permission. You can
+  override this behavior or any other property as needed.
+</Banner>
+
+```ts
+// payload.config.ts
+formBuilderPlugin({
+  // ...
+  formSubmissionOverrides: {
+    slug: 'leads',
+    fields: ({ defaultFields }) => {
+      return [
+        ...defaultFields,
+        {
+          name: 'custom',
+          type: 'text',
+        },
+      ]
+    },
+  },
+})
+```
+
+### `handlePayment`
+
+The `handlePayment` property is a [beforeChange](../hooks/globals#beforechange) hook that is called upon form submission. You can integrate into any third-party payment processing API here to accept payment based on form input. You can use the `getPaymentTotal` function to calculate the total cost after all conditions have been applied. This is only applicable if the form has enabled the `payment` field.
+
+First import the utility function. This will execute all of the price conditions that you have set in your form's `payment` field and returns the total price.
+
+```ts
+// payload.config.ts
+import { getPaymentTotal } from '@payloadcms/plugin-form-builder'
+```
+
+Then in your plugin's config:
+
+```ts
+// payload.config.ts
+formBuilderPlugin({
+  // ...
+  handlePayment: async ({ form, submissionData }) => {
+    // first calculate the price
+    const paymentField = form.fields?.find(
+      (field) => field.blockType === 'payment',
+    )
+    const price = getPaymentTotal({
+      basePrice: paymentField.basePrice,
+      priceConditions: paymentField.priceConditions,
+      fieldValues: submissionData,
+    })
+    // then asynchronously process the payment here
+  },
+})
+```
+
+## Fields
+
+Each field represents a form input. To override default settings pass either a boolean value or a partial [Payload Block](../fields/blocks) _keyed to the block's slug_. See [Field Overrides](#field-overrides) for more details on how to do this.
+
+<Banner type="info">
+  **Note:** "Fields" here is in reference to the _fields to build forms with_,
+  not to be confused with the _fields of a collection_ which are set via
+  `formOverrides.fields`.
+</Banner>
+
+### Text
+
+Maps to a `text` input in your front-end. Used to collect a simple string.
+
+| Property       | Type     | Description                                          |
+| -------------- | -------- | ---------------------------------------------------- |
+| `name`         | string   | The name of the field.                               |
+| `label`        | string   | The label of the field.                              |
+| `defaultValue` | string   | The default value of the field.                      |
+| `width`        | string   | The width of the field on the front-end.             |
+| `required`     | checkbox | Whether or not the field is required when submitted. |
+
+### Textarea
+
+Maps to a `textarea` input on your front-end. Used to collect a multi-line string.
+
+| Property       | Type     | Description                                          |
+| -------------- | -------- | ---------------------------------------------------- |
+| `name`         | string   | The name of the field.                               |
+| `label`        | string   | The label of the field.                              |
+| `defaultValue` | string   | The default value of the field.                      |
+| `width`        | string   | The width of the field on the front-end.             |
+| `required`     | checkbox | Whether or not the field is required when submitted. |
+
+### Select
+
+Maps to a `select` input on your front-end. Used to display a list of options.
+
+| Property       | Type     | Description                                                                     |
+| -------------- | -------- | ------------------------------------------------------------------------------- |
+| `name`         | string   | The name of the field.                                                          |
+| `label`        | string   | The label of the field.                                                         |
+| `defaultValue` | string   | The default value of the field.                                                 |
+| `placeholder`  | string   | The placeholder text for the field.                                             |
+| `width`        | string   | The width of the field on the front-end.                                        |
+| `required`     | checkbox | Whether or not the field is required when submitted.                            |
+| `options`      | array    | An array of objects that define the select options. See below for more details. |
+
+#### Select Options
+
+Each option in the `options` array defines a selectable choice for the select field.
+
+| Property | Type   | Description                         |
+| -------- | ------ | ----------------------------------- |
+| `label`  | string | The display text for the option.    |
+| `value`  | string | The value submitted for the option. |
+
+### Radio
+
+Maps to radio button inputs on your front-end. Used to allow users to select a single option from a list of choices.
+
+| Property       | Type     | Description                                                                    |
+| -------------- | -------- | ------------------------------------------------------------------------------ |
+| `name`         | string   | The name of the field.                                                         |
+| `label`        | string   | The label of the field.                                                        |
+| `defaultValue` | string   | The default value of the field.                                                |
+| `width`        | string   | The width of the field on the front-end.                                       |
+| `required`     | checkbox | Whether or not the field is required when submitted.                           |
+| `options`      | array    | An array of objects that define the radio options. See below for more details. |
+
+#### Radio Options
+
+Each option in the `options` array defines a selectable choice for the radio field.
+
+| Property | Type   | Description                         |
+| -------- | ------ | ----------------------------------- |
+| `label`  | string | The display text for the option.    |
+| `value`  | string | The value submitted for the option. |
+
+### Email (field)
+
+Maps to a `text` input with type `email` on your front-end. Used to collect an email address.
+
+| Property       | Type     | Description                                          |
+| -------------- | -------- | ---------------------------------------------------- |
+| `name`         | string   | The name of the field.                               |
+| `label`        | string   | The label of the field.                              |
+| `defaultValue` | string   | The default value of the field.                      |
+| `width`        | string   | The width of the field on the front-end.             |
+| `required`     | checkbox | Whether or not the field is required when submitted. |
+
+### State
+
+Maps to a `select` input on your front-end. Used to collect a US state.
+
+| Property       | Type     | Description                                          |
+| -------------- | -------- | ---------------------------------------------------- |
+| `name`         | string   | The name of the field.                               |
+| `label`        | string   | The label of the field.                              |
+| `defaultValue` | string   | The default value of the field.                      |
+| `width`        | string   | The width of the field on the front-end.             |
+| `required`     | checkbox | Whether or not the field is required when submitted. |
+
+### Country
+
+Maps to a `select` input on your front-end. Used to collect a country.
+
+| Property       | Type     | Description                                          |
+| -------------- | -------- | ---------------------------------------------------- |
+| `name`         | string   | The name of the field.                               |
+| `label`        | string   | The label of the field.                              |
+| `defaultValue` | string   | The default value of the field.                      |
+| `width`        | string   | The width of the field on the front-end.             |
+| `required`     | checkbox | Whether or not the field is required when submitted. |
+
+### Checkbox
+
+Maps to a `checkbox` input on your front-end. Used to collect a boolean value.
+
+| Property       | Type     | Description                                          |
+| -------------- | -------- | ---------------------------------------------------- |
+| `name`         | string   | The name of the field.                               |
+| `label`        | string   | The label of the field.                              |
+| `defaultValue` | checkbox | The default value of the field.                      |
+| `width`        | string   | The width of the field on the front-end.             |
+| `required`     | checkbox | Whether or not the field is required when submitted. |
+
+### Date
+
+Maps to a `date` input on your front-end. Used to collect a date value.
+
+| Property       | Type     | Description                                          |
+| -------------- | -------- | ---------------------------------------------------- |
+| `name`         | string   | The name of the field.                               |
+| `label`        | string   | The label of the field.                              |
+| `defaultValue` | date     | The default value of the field.                      |
+| `width`        | string   | The width of the field on the front-end.             |
+| `required`     | checkbox | Whether or not the field is required when submitted. |
+
+### Number
+
+Maps to a `number` input on your front-end. Used to collect a number.
+
+| Property       | Type     | Description                                          |
+| -------------- | -------- | ---------------------------------------------------- |
+| `name`         | string   | The name of the field.                               |
+| `label`        | string   | The label of the field.                              |
+| `defaultValue` | number   | The default value of the field.                      |
+| `width`        | string   | The width of the field on the front-end.             |
+| `required`     | checkbox | Whether or not the field is required when submitted. |
+
+### Message
+
+Maps to a `RichText` component on your front-end. Used to display an arbitrary message to the user anywhere in the form.
+
+| property  | type     | description                         |
+| --------- | -------- | ----------------------------------- |
+| `message` | richText | The message to display on the form. |
+
+### Payment
+
+Add this field to your form if it should collect payment. Upon submission, the `handlePayment` callback is executed with the form and submission data. You can use this to integrate with any third-party payment processing API.
+
+| property          | type     | description                                                                       |
+| ----------------- | -------- | --------------------------------------------------------------------------------- |
+| `name`            | string   | The name of the field.                                                            |
+| `label`           | string   | The label of the field.                                                           |
+| `defaultValue`    | number   | The default value of the field.                                                   |
+| `width`           | string   | The width of the field on the front-end.                                          |
+| `required`        | checkbox | Whether or not the field is required when submitted.                              |
+| `priceConditions` | array    | An array of objects that define the price conditions. See below for more details. |
+
+#### Price Conditions
+
+Each of the `priceConditions` are executed by the `getPaymentTotal` utility that this plugin provides. You can call this function in your `handlePayment` callback to dynamically calculate the total price of a form upon submission based on the user's input. For example, you could create a price condition that says "if the user selects 'yes' for this checkbox, add $10 to the total price".
+
+| property           | type         | description                                      |
+| ------------------ | ------------ | ------------------------------------------------ |
+| `fieldToUse`       | relationship | The field to use to determine the price.         |
+| `condition`        | string       | The condition to use to determine the price.     |
+| `valueForOperator` | string       | The value to use for the operator.               |
+| `operator`         | string       | The operator to use to determine the price.      |
+| `valueType`        | string       | The type of value to use to determine the price. |
+| `value`            | string       | The value to use to determine the price.         |
+
+### Upload
+
+Add this field to your form to collect file uploads. Files are stored in a specified upload-enabled collection, and the file ID is stored as the submission value. This field is disabled by default and must be explicitly enabled.
+
+| Property           | Type      | Description                                                                                  |
+| ------------------ | --------- | -------------------------------------------------------------------------------------------- |
+| `name`             | string    | The name of the field.                                                                       |
+| `label`            | string    | The label of the field.                                                                      |
+| `uploadCollection` | string \* | The slug of the upload-enabled collection to store files in.                                 |
+| `mimeTypes`        | array     | An array of allowed MIME types (e.g., `image/*`, `application/pdf`). Empty allows all types. |
+| `maxFileSize`      | number    | Maximum file size in bytes. Leave empty for no limit.                                        |
+| `width`            | number    | The width of the field as a percentage (e.g., `50` for 50%).                                 |
+| `required`         | checkbox  | Whether or not the field is required when submitted.                                         |
+| `multiple`         | checkbox  | Whether to allow multiple file uploads.                                                      |
+
+#### Enabling Upload Fields
+
+To use upload fields, enable the `upload` field and provide `uploadCollections` at the top level of the plugin config:
+
+```ts
+// payload.config.ts
+formBuilderPlugin({
+  fields: {
+    upload: true,
+  },
+  uploadCollections: ['media', 'documents'], // Required — available upload collections
+})
+```
+
+#### Frontend Implementation
+
+The simplest way to handle upload fields is to submit files directly with the form as `multipart/form-data`. The form builder will automatically upload files to the appropriate collection and store the file IDs in the submission.
+
+```ts
+async function submitFormWithFiles(
+  formId: string,
+  fields: FormField[],
+  values: Record<string, any>,
+) {
+  const formData = new FormData()
+
+  // Build submission data for non-file fields
+  const submissionData = []
+
+  for (const field of fields) {
+    if (field.blockType === 'upload') {
+      // Files are appended to FormData separately using the field name
+      if (values[field.name]) {
+        formData.append(field.name, values[field.name])
+      }
+    } else if (values[field.name] !== undefined) {
+      submissionData.push({ field: field.name, value: values[field.name] })
+    }
+  }
+
+  // Add the form ID and non-file submission data as JSON
+  formData.append(
+    '_payload',
+    JSON.stringify({
+      form: formId,
+      submissionData,
+    }),
+  )
+
+  const response = await fetch('/api/form-submissions', {
+    method: 'POST',
+    body: formData,
+  })
+
+  return response.json()
+}
+```
+
+The server will:
+
+1. Validate MIME types and file sizes against the field configuration
+2. Upload files to the specified upload collection
+3. Store the created file IDs in the submission data
+
+#### Alternative: Pre-upload Files
+
+If you prefer more control over the upload process (e.g., for progress tracking or resumable uploads), you can upload files separately and submit their IDs:
+
+```ts
+// 1. Upload file to the upload collection
+async function uploadFile(file: File, collectionSlug: string) {
+  const formData = new FormData()
+  formData.append('file', file)
+
+  const response = await fetch(`/api/${collectionSlug}`, {
+    method: 'POST',
+    body: formData,
+  })
+
+  return response.json() // { doc: { id, filename, ... } }
+}
+
+// 2. Submit form with file ID
+async function submitFormWithFileIds(
+  formId: string,
+  fields: FormField[],
+  values: Record<string, any>,
+) {
+  const submissionData = []
+
+  for (const field of fields) {
+    if (field.blockType === 'upload' && values[field.name]) {
+      // Upload file first
+      const uploadResult = await uploadFile(
+        values[field.name],
+        field.uploadCollection,
+      )
+      submissionData.push({ field: field.name, value: uploadResult.doc.id })
+    } else {
+      submissionData.push({ field: field.name, value: values[field.name] })
+    }
+  }
+
+  await fetch('/api/form-submissions', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ form: formId, submissionData }),
+  })
+}
+```
+
+#### Using Presigned URLs for Large Files
+
+If your upload collection uses a storage adapter with `clientUploads` enabled (e.g., S3, Azure, GCS), you can upload files directly to cloud storage using presigned URLs for better performance with large files:
+
+```ts
+async function uploadWithPresignedUrl(
+  file: File,
+  collectionSlug: string,
+  serverHandlerPath: string = '/storage-s3-generate-signed-url',
+) {
+  // 1. Get presigned URL from Payload
+  const signedUrlResponse = await fetch(`/api${serverHandlerPath}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
+    body: JSON.stringify({
+      collectionSlug,
+      filename: file.name,
+      filesize: file.size,
+      mimeType: file.type,
+    }),
+  })
+  const { url } = await signedUrlResponse.json()
+
+  // 2. Upload directly to cloud storage
+  // Note: the browser sets Content-Length automatically and forbids setting it manually.
+  await fetch(url, {
+    method: 'PUT',
+    body: file,
+    headers: {
+      'Content-Type': file.type,
+    },
+  })
+
+  // 3. Create document in Payload (file already in storage)
+  const docResponse = await fetch(`/api/${collectionSlug}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      filename: file.name,
+      mimeType: file.type,
+      filesize: file.size,
+    }),
+  })
+  return docResponse.json()
+}
+```
+
+### Field Overrides
+
+You can provide your own custom fields by passing a new [Payload Block](../fields/blocks#block-configs) object into `fields`. You can override or extend any existing fields by first importing the `fields` from the plugin:
+
+```ts
+import { fields } from '@payloadcms/plugin-form-builder'
+```
+
+Then merging it into your own custom field:
+
+```ts
+// payload.config.ts
+formBuilderPlugin({
+  // ...
+  fields: {
+    text: {
+      ...fields.text,
+      labels: {
+        singular: 'Custom Text Field',
+        plural: 'Custom Text Fields',
+      },
+    },
+  },
+})
+```
+
+### Customizing the date field default value
+
+You can custommise the default value of the date field and any other aspects of the date block in this way.
+Note that the end submission source will be responsible for the timezone of the date. Payload only stores the date in UTC format.
+
+```ts
+import { fields as formFields } from '@payloadcms/plugin-form-builder'
+
+// payload.config.ts
+formBuilderPlugin({
+  fields: {
+    // date: true, // just enable it without any customizations
+    date: {
+      ...formFields.date,
+      fields: [
+        ...(formFields.date && 'fields' in formFields.date
+          ? formFields.date.fields.map((field) => {
+              if ('name' in field && field.name === 'defaultValue') {
+                return {
+                  ...field,
+                  timezone: true, // optionally enable timezone
+                  admin: {
+                    ...field.admin,
+                    description: 'This is a date field',
+                  },
+                }
+              }
+              return field
+            })
+          : []),
+      ],
+    },
+  },
+})
+```
+
+### Preventing generated schema naming conflicts
+
+Plugin fields can cause GraphQL type name collisions with your own blocks or collections. This results in errors like:
+
+```plaintext
+Error: Schema must contain uniquely named types but contains multiple types named "Country"
+```
+
+You can resolve this by overriding:
+
+- `graphQL.singularName` in your collection config (for GraphQL schema conflicts)
+- `interfaceName` in your block config
+- `interfaceName` in the plugin field config
+
+```ts
+// payload.config.ts
+formBuilderPlugin({
+  fields: {
+    country: {
+      interfaceName: 'CountryFormBlock', // overrides the generated type name to avoid a conflict
+    },
+  },
+})
+```
+
+## Email
+
+This plugin relies on the [email configuration](../email/overview) defined in your Payload configuration. It will read from your config and attempt to send your emails using the credentials provided.
+
+### Email formatting
+
+The email contents supports rich text which will be serialized to HTML on the server before being sent. By default it reads the global configuration of your rich text editor.
+
+The email subject and body supports inserting dynamic fields from the form submission data using the `{{field_name}}` syntax. For example, if you have a field called `name` in your form, you can include this in the email body like so:
+
+```html
+Thank you for your submission, {{name}}!
+```
+
+You can also use `{{*}}` as a wildcard to output all the data in a key:value format and `{{*:table}}` to output all the data in a table format.
+
+## TypeScript
+
+All types can be directly imported:
+
+```ts
+import type {
+  PluginConfig,
+  Form,
+  FormSubmission,
+  FieldsConfig,
+  BeforeEmail,
+  HandlePayment,
+  UploadField,
+  UploadFieldMimeType,
+  ...
+} from "@payloadcms/plugin-form-builder/types";
+```
+
+## Examples
+
+The [Examples Directory](https://github.com/payloadcms/payload/tree/3.x/examples) contains an official [Form Builder Plugin Example](https://github.com/payloadcms/payload/tree/3.x/examples/form-builder) which demonstrates exactly how to configure this plugin in Payload and implement it on your front-end. We've also included an in-depth walk-through of how to build a form from scratch in our [Form Builder Plugin Blog Post](https://payloadcms.com/blog/create-custom-forms-with-the-official-form-builder-plugin).
+
+## Troubleshooting
+
+Below are some common troubleshooting tips. To help other developers, please contribute to this section as you troubleshoot your own application.
+
+#### SendGrid 403 Forbidden Error
+
+- If you are using [SendGrid Link Branding](https://docs.sendgrid.com/ui/account-and-settings/how-to-set-up-link-branding) to remove the "via sendgrid.net" part of your email, you must also setup [Domain Authentication](https://docs.sendgrid.com/ui/account-and-settings/how-to-set-up-domain-authentication). This means you can only send emails from an address on this domain — so the `from` addresses in your form submission emails **_cannot_** be anything other than `something@your_domain.com`. This means that from `{{email}}` will not work, but `website@your_domain.com` will. You can still send the form's email address in the body of the email.
+
+## Screenshots
+
+![screenshot 1](https://github.com/payloadcms/plugin-form-builder/blob/main/images/screenshot-1.jpg?raw=true)
+
+![screenshot 2](https://github.com/payloadcms/plugin-form-builder/blob/main/images/screenshot-2.jpg?raw=true)
+
+![screenshot 3](https://github.com/payloadcms/plugin-form-builder/blob/main/images/screenshot-3.jpg?raw=true)
+
+![screenshot 4](https://github.com/payloadcms/plugin-form-builder/blob/main/images/screenshot-4.jpg?raw=true)
+
+![screenshot 5](https://github.com/payloadcms/plugin-form-builder/blob/main/images/screenshot-5.jpg?raw=true)
+
+![screenshot 6](https://github.com/payloadcms/plugin-form-builder/blob/main/images/screenshot-6.jpg?raw=true)
 
 
 # Import Export Plugin
@@ -36299,6 +38748,225 @@ import { PluginConfig } from '@payloadcms/plugin-redirects/types'
 ## Examples
 
 The [Templates Directory](https://github.com/payloadcms/payload/tree/3.x/templates) also contains an official [Website Template](https://github.com/payloadcms/payload/tree/3.x/templates/website) and [E-commerce Template](https://github.com/payloadcms/payload/tree/3.x/templates/ecommerce), both of which use this plugin.
+
+
+# Search Plugin
+
+Source: https://payloadcms.com/docs/plugins/search
+
+
+![https://www.npmjs.com/package/@payloadcms/plugin-search](https://img.shields.io/npm/v/@payloadcms/plugin-search)
+
+This plugin generates records of your documents that are extremely fast to search on. It does so by creating a new `search` collection that is indexed in the database then saving a static copy of each of your documents using only search-critical data. Search records are automatically created, synced, and deleted behind-the-scenes as you manage your application's documents.
+
+For example, if you have a posts collection that is extremely large and complex, this would allow you to sync just the title, excerpt, and slug of each post so you can query on _that_ instead of the original post directly. Search records are static, so querying them also has the significant advantage of bypassing any hooks that may be present on the original documents. You define exactly what data is synced, and you can even modify or fallback this data before it is saved on a per-document basis.
+
+To query search results, use all the existing Payload APIs that you are already familiar with. You can also prioritize search results by setting a custom priority for each collection. For example, you may want to list blog posts before pages. Or you may want one specific post to always appear first. Search records are given a `priority` field that can be used as the `?sort=` parameter in your queries.
+
+This plugin is a great way to implement a fast, immersive search experience such as a search bar in a front-end application. Many applications may not need the power and complexity of a third-party service like Algolia or ElasticSearch. This plugin provides a first-party alternative that is easy to set up and runs entirely on your own database.
+
+<Banner type="info">
+  This plugin is completely open-source and the [source code can be found
+  here](https://github.com/payloadcms/payload/tree/3.x/packages/plugin-search).
+  If you need help, check out our [Community
+  Help](https://payloadcms.com/community-help). If you think you've found a bug,
+  please [open a new
+  issue](https://github.com/payloadcms/payload/issues/new?assignees=&labels=plugin%3A%20search&template=bug_report.md&title=plugin-search%3A)
+  with as much detail as possible.
+</Banner>
+
+## Core Features
+
+- Automatically adds an indexed `search` collection to your database
+- Automatically creates, syncs, and deletes search records as you manage your documents
+- Saves only search-critical data that you define (e.g. title, excerpt, etc.)
+- Allows you to query search results using first-party Payload APIs
+- Allows you to query documents without triggering any of their underlying hooks
+- Allows you to easily prioritize search results by collection or document
+- Allows you to reindex search results by collection on demand
+
+## Installation
+
+Install the plugin using any JavaScript package manager like [pnpm](https://pnpm.io), [npm](https://npmjs.com), or [Yarn](https://yarnpkg.com):
+
+```bash
+  pnpm add @payloadcms/plugin-search
+```
+
+## Basic Usage
+
+In the `plugins` array of your [Payload Config](../configuration/overview), call the plugin with [options](#options):
+
+```js
+import { buildConfig } from 'payload'
+import { searchPlugin } from '@payloadcms/plugin-search'
+
+const config = buildConfig({
+  collections: [
+    {
+      slug: 'pages',
+      fields: [],
+    },
+    {
+      slug: 'posts',
+      fields: [],
+    },
+  ],
+  plugins: [
+    searchPlugin({
+      collections: ['pages', 'posts'],
+      defaultPriorities: {
+        pages: 10,
+        posts: 20,
+      },
+    }),
+  ],
+})
+
+export default config
+```
+
+### Options
+
+#### `collections`
+
+The `collections` property is an array of collection slugs to enable syncing to search. Enabled collections receive a `beforeChange` and `afterDelete` hook that creates, updates, and deletes its respective search record as it changes over time.
+
+#### `localize`
+
+By default, the search plugin will add `localization: true` to the `title` field of the newly added `search` collection if you have localization enabled. If you would like to disable this behavior, you can set this to `false`.
+
+#### `defaultPriorities`
+
+This plugin automatically adds a `priority` field to the `search` collection that can be used as the `?sort=` parameter in your queries. For example, you may want to list blog posts before pages. Or you may want one specific post to always take appear first.
+
+The `defaultPriorities` property is used to set a fallback `priority` on search records during the `create` operation. It accepts an object with keys that are your collection slugs and values that can either be a number or a function that returns a number. The function receives the `doc` as an argument, which is the document being created.
+
+```ts
+// payload.config.ts
+{
+  // ...
+  searchPlugin({
+    defaultPriorities: {
+      pages: ({ doc }) => (doc.title.startsWith('Hello, world!') ? 1 : 10),
+      posts: 20,
+    },
+  }),
+}
+```
+
+#### `searchOverrides`
+
+This plugin automatically creates the `search` collection, but you can override anything on this collection via the `searchOverrides` property. It accepts anything from the [Payload Collection Config](../configuration/collections) and merges it in with the default `search` collection config provided by the plugin.
+
+Note that the `fields` property is a function that receives an object with a `defaultFields` key. This is an array of fields that are automatically added to the `search` collection. You can modify this array or add new fields to it.
+
+```ts
+// payload.config.ts
+{
+  // ...
+  searchPlugin({
+    searchOverrides: {
+      slug: 'search-results',
+      fields: ({ defaultFields }) => [
+        ...defaultFields,
+        {
+          name: 'excerpt',
+          type: 'textarea',
+          admin: {
+            position: 'sidebar',
+          },
+        },
+      ],
+    },
+  }),
+}
+```
+
+#### `beforeSync`
+
+Before creating or updating a search record, the `beforeSync` function runs. This is an [afterChange](../hooks/globals#afterchange) hook that allows you to modify the data or provide fallbacks before its search record is created or updated.
+
+```ts
+// payload.config.ts
+{
+  // ...
+  searchPlugin({
+    beforeSync: ({ originalDoc, searchDoc }) => ({
+      ...searchDoc,
+      // - Modify your docs in any way here, this can be async
+      // - You also need to add the `excerpt` field in the `searchOverrides` config
+      excerpt: originalDoc?.excerpt || 'This is a fallback excerpt',
+    }),
+  }),
+}
+```
+
+#### `syncDrafts`
+
+When `syncDrafts` is true, draft documents will be synced to search. This is false by default. You must have [Payload Drafts](../versions/drafts) enabled for this to apply.
+
+#### `deleteDrafts`
+
+If true, will delete documents from search whose status changes to draft. This is true by default. You must have [Payload Drafts](../versions/drafts) enabled for this to apply.
+
+#### `skipSync`
+
+The `skipSync` function allows you to conditionally skip syncing specific documents to the search index based on locale, document properties, or any other criteria. This is particularly useful for multi-tenant applications where different tenants use different languages, or when you need fine-grained control over what gets indexed.
+
+This function is called once per locale per document and should return `true` to skip syncing or `false` to proceed.
+
+```ts
+// payload.config.ts
+{
+  // ...
+  searchPlugin({
+    skipSync: async ({ locale, doc, collectionSlug, req }) => {
+      // Skip syncing for non-localized collections
+      if (!locale) return false
+
+      // Example: Multi-tenant locale filtering
+      // Only index locales that are enabled for this document's tenant
+      const tenant = await req.payload.findByID({
+        collection: 'tenants',
+        id: doc.tenant.id,
+      })
+
+      return !tenant.allowedLocales.includes(locale)
+    },
+  }),
+}
+```
+
+**Parameters:**
+
+- `locale`: The locale being synced (e.g., `'en'`, `'es'`), or `undefined`
+- `doc`: The document being synced
+- `collectionSlug`: The slug of the collection being synced
+- `req`: The Payload request object
+
+**Common use cases:**
+
+- Multi-tenant applications with per-tenant locale restrictions
+- Skipping indexing for specific document states or flags
+- Conditional indexing based on user permissions or roles
+- Excluding certain locales for specific document types
+
+#### `reindexBatchSize`
+
+A number that, when specified, will be used as the value to determine how many search documents to fetch for reindexing at a time in each batch. If not set, this will default to `50`.
+
+### Collection reindexing
+
+Collection reindexing allows you to recreate search documents from your search-enabled collections on demand. This is useful if you have existing documents that don't already have search indexes, commonly when adding `plugin-search` to an existing project. To get started, navigate to your search collection and click the pill in the top right actions slot of the list view labelled `Reindex`. This will open a popup with options to select one of your search-enabled collections, or all, for reindexing.
+
+## TypeScript
+
+All types can be directly imported:
+
+```ts
+import type { SearchConfig, BeforeSync } from '@payloadcms/plugin-search/types'
+```
 
 
 # Sentry Plugin
