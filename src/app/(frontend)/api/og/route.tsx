@@ -20,17 +20,19 @@ export async function GET(req: NextRequest): Promise<ImageResponse> {
       new URL('../../../../../public/fonts/RobotoMono-Regular.woff', import.meta.url),
     ).then((res) => res.arrayBuffer())
 
-    const releasesBgDataUrl = await fetch(
-      new URL('../../../../../public/images/release-notes-bg.jpg', import.meta.url),
-    )
-      .then((res) => res.arrayBuffer())
-      .then((buf) => `data:image/jpeg;base64,${Buffer.from(buf).toString('base64')}`)
+    const { searchParams: earlyParams } = new URL(req.url)
+    const isReleases = earlyParams.get('type') === 'releases'
 
-    const faviconDataUrl = await fetch(
-      new URL('../../../../../public/images/favicon-light.png', import.meta.url),
-    )
-      .then((res) => res.arrayBuffer())
-      .then((buf) => `data:image/png;base64,${Buffer.from(buf).toString('base64')}`)
+    const [releasesBgDataUrl, faviconDataUrl] = isReleases
+      ? await Promise.all([
+          fetch(new URL('../../../../../public/images/release-notes-bg.jpg', import.meta.url))
+            .then((res) => res.arrayBuffer())
+            .then((buf) => `data:image/jpeg;base64,${Buffer.from(buf).toString('base64')}`),
+          fetch(new URL('../../../../../public/images/favicon-light.png', import.meta.url))
+            .then((res) => res.arrayBuffer())
+            .then((buf) => `data:image/png;base64,${Buffer.from(buf).toString('base64')}`),
+        ])
+      : [null, null]
 
     const { searchParams } = new URL(req.url)
     const untitledSansRegular = untitledSansRegularFont
@@ -65,17 +67,19 @@ export async function GET(req: NextRequest): Promise<ImageResponse> {
             width: '100%',
           }}
         >
-          <div
-            style={{
-              backgroundImage: `url(${releasesBgDataUrl})`,
-              backgroundSize: 'cover',
-              bottom: 0,
-              left: 0,
-              position: 'absolute',
-              right: 0,
-              top: 0,
-            }}
-          />
+          {releasesBgDataUrl && (
+            <div
+              style={{
+                backgroundImage: `url(${releasesBgDataUrl})`,
+                backgroundSize: 'cover',
+                bottom: 0,
+                left: 0,
+                position: 'absolute',
+                right: 0,
+                top: 0,
+              }}
+            />
+          )}
           <div
             style={{
               backgroundImage: `url(${process.env.NEXT_PUBLIC_SITE_URL}/images/scanline-light.png)`,
@@ -199,13 +203,15 @@ export async function GET(req: NextRequest): Promise<ImageResponse> {
                 gap: 30,
               }}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                alt="Payload CMS"
-                height="40"
-                src={faviconDataUrl}
-                width="40"
-              />
+              {faviconDataUrl && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  alt="Payload CMS"
+                  height="40"
+                  src={faviconDataUrl}
+                  width="40"
+                />
+              )}
               {ogType !== 'releases' && (
                 <div
                   style={{

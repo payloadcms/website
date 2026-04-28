@@ -42,9 +42,7 @@ export const buildReleasePostData = async ({
   const postTitle = `New in Payload: Release ${version}`
   let uploadedOgImage: Media | null = null
   try {
-    payload.logger.info({ msg: '[OG] Generating image buffer...' })
     const imageBuffer = await generateReleaseOgImage(version)
-    payload.logger.info({ msg: `[OG] Buffer size: ${imageBuffer.length}` })
     uploadedOgImage = await payload.create({
       collection: 'media',
       data: { alt: postTitle },
@@ -55,11 +53,9 @@ export const buildReleasePostData = async ({
         size: imageBuffer.length,
       },
     })
-    payload.logger.info({ id: uploadedOgImage?.id, msg: '[OG] Media created' })
   } catch (err) {
     payload.logger.error({ err, msg: `OG image generation failed for ${postTitle}` })
   }
-  payload.logger.info({ id: uploadedOgImage?.id, msg: '[OG] uploadedOgImage after try/catch' })
 
   const editorConfig = await editorConfigFactory.default({ config: payload.config })
   const richText = convertMarkdownToLexical({ editorConfig, markdown: body })
