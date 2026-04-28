@@ -110,6 +110,8 @@ async function getDocMatter({ docFilename, topicSlug }) {
       },
     ).then((res) => res.json())
 
+    if (!json.content) return null
+
     const parsedDoc = matter(decodeBase64(json.content))
     parsedDoc.content = parsedDoc.content
       .replace(/\(\/docs\//g, '(../')
