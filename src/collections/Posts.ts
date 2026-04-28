@@ -21,10 +21,44 @@ export const Posts: CollectionConfig = {
   },
   admin: {
     livePreview: {
-      url: ({ data }) => formatPreviewURL('posts', data),
+      url: async ({ data, req }) => {
+        let categorySlug: string | undefined
+        const categoryId = typeof data?.category === 'string' ? data.category : undefined
+        if (categoryId) {
+          try {
+            const cat = await req.payload.findByID({
+              id: categoryId,
+              collection: 'categories',
+              depth: 0,
+              overrideAccess: true,
+              select: { slug: true },
+            })
+            categorySlug = cat?.slug
+          } catch {
+            // ignore
+          }
+        }
+        return formatPreviewURL('posts', data, categorySlug)
+      },
     },
-    preview: (doc) => {
-      return formatPreviewURL('posts', doc, (doc?.category as { slug: string })?.slug)
+    preview: async (doc, { req }) => {
+      let categorySlug: string | undefined
+      const categoryId = typeof doc?.category === 'string' ? doc.category : undefined
+      if (categoryId) {
+        try {
+          const cat = await req.payload.findByID({
+            id: categoryId,
+            collection: 'categories',
+            depth: 0,
+            overrideAccess: true,
+            select: { slug: true },
+          })
+          categorySlug = cat?.slug
+        } catch {
+          // ignore
+        }
+      }
+      return formatPreviewURL('posts', doc, categorySlug)
     },
     useAsTitle: 'title',
   },

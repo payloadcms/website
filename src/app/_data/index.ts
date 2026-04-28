@@ -231,6 +231,7 @@ export const fetchBlogPost = async (slug: string, category): Promise<Partial<Pos
     depth: 2,
     draft,
     limit: 1,
+    overrideAccess: draft,
     select: {
       authors: true,
       authorType: true,

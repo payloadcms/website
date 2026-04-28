@@ -1,18 +1,12 @@
-import { payloadToken } from '@data/token'
-import { cookies, draftMode } from 'next/headers'
-import { redirect } from 'next/navigation'
+import type { NextRequest } from 'next/server'
+import type { PayloadRequest } from 'payload'
 
-export async function GET(
-  req: {
-    cookies: {
-      get: (name: string) => {
-        value: string
-      }
-    }
-  } & Request,
-): Promise<Response> {
-  const cookieStore = await cookies()
-  const token = cookieStore.get(payloadToken)
+import configPromise from '@payload-config'
+import { draftMode } from 'next/headers'
+import { redirect } from 'next/navigation'
+import { getPayload } from 'payload'
+
+export async function GET(req: NextRequest): Promise<Response> {
   const { searchParams } = new URL(req.url)
   const url = searchParams.get('url')
   const secret = searchParams.get('secret')
@@ -21,30 +15,32 @@ export async function GET(
     return new Response('No URL provided', { status: 404 })
   }
 
-  if (!token) {
-    new Response('No token. You are not allowed to preview this page', { status: 403 })
-  }
-
-  // validate the Payload token
-  const userReq = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/users/me`, {
-    headers: {
-      Authorization: `JWT ${token?.value}`,
-    },
-  })
-
-  const userRes = await userReq.json()
-  const parsedDraftMode = await draftMode()
-
-  if (!userReq.ok || !userRes?.user) {
-    parsedDraftMode.disable()
-    return new Response('Invalid token. You are not allowed to preview this page', { status: 403 })
-  }
-
   if (secret !== process.env.NEXT_PRIVATE_DRAFT_SECRET) {
-    return new Response('Invalid secret.', { status: 401 })
+    return new Response('Invalid secret', { status: 401 })
   }
 
-  parsedDraftMode.enable()
+  const payload = await getPayload({ config: configPromise })
+
+  let user
+
+  try {
+    user = await payload.auth({
+      headers: req.headers,
+      req: req as unknown as PayloadRequest,
+    })
+  } catch (err) {
+    payload.logger.error({ err, msg: 'Error verifying token for preview' })
+    return new Response('You are not allowed to preview this page', { status: 403 })
+  }
+
+  const draft = await draftMode()
+
+  if (!user) {
+    draft.disable()
+    return new Response('You are not allowed to preview this page', { status: 403 })
+  }
+
+  draft.enable()
 
   redirect(url)
 }
