@@ -40,6 +40,7 @@ jobs:
           curl -X POST \
             -H "Content-Type: application/json" \
             -H "X-Release-Secret: ${{ secrets.PAYLOAD_RELEASE_SECRET }}" \
+            -H "x-vercel-protection-bypass: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}" \
             --data-binary @- \
             --fail-with-body \
             "${{ secrets.PAYLOAD_WEBSITE_URL }}/api/create-release-post"
