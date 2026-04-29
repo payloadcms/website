@@ -2987,6 +2987,75 @@ export interface RoadmapBlock {
      * Display P0, P1, P2, or TBD badges on each card. Recommended when not grouping by priority.
      */
     showPriorityBadges?: boolean | null;
+    /**
+     * Heading content for the "Now" column
+     */
+    nowColumn?: {
+      /**
+       * Column heading. Defaults to "Now" if left empty.
+       */
+      heading?: {
+        root: {
+          type: string;
+          children: {
+            type: any;
+            version: number;
+            [k: string]: unknown;
+          }[];
+          direction: ('ltr' | 'rtl') | null;
+          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+          indent: number;
+          version: number;
+        };
+        [k: string]: unknown;
+      } | null;
+    };
+    /**
+     * Heading content for the "Next" column
+     */
+    nextColumn?: {
+      /**
+       * Column heading. Defaults to "Next" if left empty.
+       */
+      heading?: {
+        root: {
+          type: string;
+          children: {
+            type: any;
+            version: number;
+            [k: string]: unknown;
+          }[];
+          direction: ('ltr' | 'rtl') | null;
+          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+          indent: number;
+          version: number;
+        };
+        [k: string]: unknown;
+      } | null;
+    };
+    /**
+     * Heading content for the "Later" column
+     */
+    laterColumn?: {
+      /**
+       * Column heading. Defaults to "Later" if left empty.
+       */
+      heading?: {
+        root: {
+          type: string;
+          children: {
+            type: any;
+            version: number;
+            [k: string]: unknown;
+          }[];
+          direction: ('ltr' | 'rtl') | null;
+          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+          indent: number;
+          version: number;
+        };
+        [k: string]: unknown;
+      } | null;
+    };
   };
   id?: string | null;
   blockName?: string | null;

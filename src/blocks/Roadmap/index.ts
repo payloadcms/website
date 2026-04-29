@@ -1,7 +1,26 @@
-import type { Block } from 'payload'
+import type { Block, GroupField } from 'payload'
 
 import { blockFields } from '../../fields/blockFields'
 import richText from '../../fields/richText'
+
+const columnHeadingField = (name: string, defaultLabel: string): GroupField => ({
+  name,
+  type: 'group',
+  admin: {
+    description: `Heading content for the "${defaultLabel}" column`,
+  },
+  fields: [
+    richText({
+      name: 'heading',
+      admin: {
+        description: `Column heading. Defaults to "${defaultLabel}" if left empty.`,
+      },
+      label: 'Heading',
+      required: false,
+    }),
+  ],
+  label: `"${defaultLabel}" Column`,
+})
 
 export const Roadmap: Block = {
   slug: 'roadmap',
@@ -28,6 +47,9 @@ export const Roadmap: Block = {
           defaultValue: false,
           label: 'Show priority badges on cards?',
         },
+        columnHeadingField('nowColumn', 'Now'),
+        columnHeadingField('nextColumn', 'Next'),
+        columnHeadingField('laterColumn', 'Later'),
       ],
     }),
   ],

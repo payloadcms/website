@@ -36,16 +36,15 @@ type GitHubResponse = {
       }
     }
   }
+  errors?: { message: string; type: string }[]
 }
 
-const createQuery = (cursor: null | string = null): string => {
-  // Note: GitHub GraphQL doesn't support label filtering directly in discussions query
-  // We'll fetch all discussions and filter by labels in the response
-  const queryLine = cursor ? `(first: 100, after: "${cursor}")` : `(first: 100)`
-
-  return `query {
-    repository(owner:"payloadcms", name:"payload") {
-      discussions${queryLine} {
+const buildQuery = (
+  cursor: null | string = null,
+): { query: string; variables: Record<string, unknown> } => ({
+  query: `query FetchDiscussions($cursor: String) {
+    repository(owner: "payloadcms", name: "payload") {
+      discussions(first: 100, after: $cursor) {
         pageInfo {
           hasNextPage
           endCursor
@@ -68,8 +67,9 @@ const createQuery = (cursor: null | string = null): string => {
         }
       }
     }
-  }`
-}
+  }`,
+  variables: { cursor },
+})
 
 const extractPriority = (labels: Array<{ name: string }>): RoadmapPriority => {
   const priorityLabel = labels.find((label) => label.name.toLowerCase().startsWith('roadmap:'))
@@ -105,10 +105,10 @@ const fetchRoadmapDiscussions = async (): Promise<GitHubDiscussion[]> => {
   try {
     while (hasNextPage) {
       const response = await fetch('https://api.github.com/graphql', {
-        body: JSON.stringify({ query: createQuery(cursor) }),
+        body: JSON.stringify(buildQuery(cursor)),
         headers,
         method: 'POST',
-        next: { revalidate: 3600 }, // Cache for 1 hour
+        next: { revalidate: 3600 },
       })
 
       if (!response.ok) {
@@ -117,7 +117,13 @@ const fetchRoadmapDiscussions = async (): Promise<GitHubDiscussion[]> => {
 
       const result: GitHubResponse = await response.json()
 
+      if (result.errors?.length) {
+        console.error('[fetchRoadmap] GitHub GraphQL errors:', JSON.stringify(result.errors))
+        break
+      }
+
       if (!result.data?.repository?.discussions) {
+        console.error('[fetchRoadmap] Unexpected response shape:', JSON.stringify(result))
         break
       }
 
@@ -127,12 +133,11 @@ const fetchRoadmapDiscussions = async (): Promise<GitHubDiscussion[]> => {
       hasNextPage = pageInfo.hasNextPage
       cursor = pageInfo.endCursor
     }
-
-    return discussions
   } catch (error) {
     console.error('[fetchRoadmap] Error fetching roadmap discussions:', error)
-    return []
   }
+
+  return discussions
 }
 
 export const fetchRoadmap = async (): Promise<{
@@ -142,32 +147,25 @@ export const fetchRoadmap = async (): Promise<{
 }> => {
   const discussions = await fetchRoadmapDiscussions()
 
-  // Filter only discussions with roadmap labels (excluding TBD)
-  const roadmapDiscussions = discussions.filter((discussion) => {
-    const hasRoadmapLabel = discussion.labels.nodes.some((label) =>
-      label.name.toLowerCase().startsWith('roadmap:'),
+  const roadmapItems: RoadmapItem[] = discussions
+    .filter((discussion) =>
+      discussion.labels.nodes.some((label) => label.name.toLowerCase().startsWith('roadmap:')),
     )
-    const priority = extractPriority(discussion.labels.nodes)
-    return hasRoadmapLabel && priority !== 'TBD'
-  })
+    .map((discussion) => ({
+      commentCount: discussion.comments.totalCount,
+      createdAt: discussion.createdAt,
+      description: discussion.bodyHTML,
+      number: discussion.number,
+      priority: extractPriority(discussion.labels.nodes),
+      title: discussion.title,
+      upvoteCount: discussion.upvoteCount,
+      url: discussion.url,
+    }))
+    .filter((item) => item.priority !== 'TBD')
 
-  const roadmapItems: RoadmapItem[] = roadmapDiscussions.map((discussion) => ({
-    commentCount: discussion.comments.totalCount,
-    createdAt: discussion.createdAt,
-    description: discussion.bodyHTML,
-    number: discussion.number,
-    priority: extractPriority(discussion.labels.nodes),
-    title: discussion.title,
-    upvoteCount: discussion.upvoteCount,
-    url: discussion.url,
-  }))
-
-  // Group by priority (excluding TBD)
-  const grouped = {
+  return {
     P0: roadmapItems.filter((item) => item.priority === 'P0'),
     P1: roadmapItems.filter((item) => item.priority === 'P1'),
     P2: roadmapItems.filter((item) => item.priority === 'P2'),
   }
-
-  return grouped
 }
