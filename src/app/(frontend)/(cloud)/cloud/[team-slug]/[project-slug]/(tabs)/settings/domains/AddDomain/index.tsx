@@ -46,18 +46,12 @@ export const AddDomain: React.FC<{
         (projectDomain) => projectDomain.domain === newDomain.domain,
       )
 
-      // TODO - toast messages
-
       if (!domainExists) {
         try {
           const req = await fetch(
-            `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${projectID}${
-              environmentSlug ? `?env=${environmentSlug}` : ''
-            }`,
+            `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${projectID}/domains?env=${encodeURIComponent(environmentSlug)}`,
             {
-              body: JSON.stringify({
-                domains: [newDomain, ...(projectDomains || [])],
-              }),
+              body: JSON.stringify([newDomain, ...(projectDomains || [])]),
               credentials: 'include',
               headers: {
                 'Content-Type': 'application/json',
@@ -80,7 +74,7 @@ export const AddDomain: React.FC<{
         setFieldKey(generateUUID())
       }
     },
-    [projectID, projectDomains],
+    [projectID, projectDomains, environmentSlug, router],
   )
 
   return (

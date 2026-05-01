@@ -35,11 +35,9 @@ export const ManageDomain: React.FC<Props> = ({ domain, environmentSlug, project
     async (domains: Props['domain'][]) => {
       try {
         const req = await fetch(
-          `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${projectID}${
-            environmentSlug ? `?env=${environmentSlug}` : ''
-          }`,
+          `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${projectID}/domains?env=${encodeURIComponent(environmentSlug)}`,
           {
-            body: JSON.stringify({ domains }),
+            body: JSON.stringify(domains),
             credentials: 'include',
             headers: {
               'Content-Type': 'application/json',
