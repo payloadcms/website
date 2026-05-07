@@ -40,10 +40,8 @@
     }
 
     &:hover {
-      :local() {
-        .icon {
-          opacity: 0.2;
-        }
+      .icon {
+        opacity: 0.2;
       }
     }
   }
@@ -97,17 +95,15 @@
 }
 
 .checked {
-  :local() {
-    .input {
-      border-color: var(--color-base-0);
+  .input {
+    border-color: var(--color-base-0);
 
-      .icon {
-        opacity: 1 !important;
-      }
+    .icon {
+      opacity: 1 !important;
     }
+  }
 
-    .label {
-      color: var(--color-base-0);
-    }
+  .label {
+    color: var(--color-base-0);
   }
 }

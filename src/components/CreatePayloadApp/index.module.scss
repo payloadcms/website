@@ -35,7 +35,7 @@
     width: calc(100% - 2px);
   }
 
-  &:first {
+  &:first-of-type {
     border-top: 1px solid var(--grid-line-dark);
   }
 

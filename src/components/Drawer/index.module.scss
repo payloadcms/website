@@ -49,20 +49,18 @@
 }
 
 .isOpen {
-  &:local() {
-    .content,
-    .blurBG,
-    .close {
-      opacity: 1;
-    }
+  .content,
+  .blurBG,
+  .close {
+    opacity: 1;
+  }
 
-    .close {
-      transition: opacity 300ms ease-in-out;
-    }
+  .close {
+    transition: opacity 300ms ease-in-out;
+  }
 
-    .content {
-      transform: translateX(0);
-    }
+  .content {
+    transform: translateX(0);
   }
 }
 

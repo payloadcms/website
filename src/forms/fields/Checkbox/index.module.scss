@@ -30,10 +30,8 @@
   }
 
   &:hover {
-    :local() {
-      .icon {
-        opacity: 0.2;
-      }
+    .icon {
+      opacity: 0.2;
     }
   }
 }
@@ -70,10 +68,8 @@
 }
 
 .checked {
-  :local() {
-    .icon {
-      opacity: 1 !important;
-    }
+  .icon {
+    opacity: 1 !important;
   }
 }
 

@@ -68,7 +68,7 @@ export const Categories: CollectionConfig = {
     afterChange: [
       async ({ doc, previousDoc }) => {
         revalidatePath(`/posts/${doc.slug}`)
-        revalidateTag('archives')
+        revalidateTag('archives', 'max')
 
         if (doc.slug !== previousDoc?.slug) {
           revalidatePath(`/posts/${previousDoc?.slug}`)
@@ -78,7 +78,7 @@ export const Categories: CollectionConfig = {
     afterDelete: [
       async ({ doc }) => {
         revalidatePath(`/posts/${doc.slug}`)
-        revalidateTag('archives')
+        revalidateTag('archives', 'max')
       },
     ],
   },

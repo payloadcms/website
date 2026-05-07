@@ -14,14 +14,12 @@
 }
 
 .layout--vertical {
-  :local() {
-    .ul {
-      flex-direction: column;
-    }
+  .ul {
+    flex-direction: column;
+  }
 
-    .li {
-      gap: 1rem;
-    }
+  .li {
+    gap: 1rem;
   }
 }
 
@@ -37,10 +35,8 @@
   width: 100%;
   gap: 0.5rem;
 
-  :global {
-    input[type='radio'] {
-      display: none;
-    }
+  :global(input[type='radio']) {
+    display: none;
   }
 }
 
