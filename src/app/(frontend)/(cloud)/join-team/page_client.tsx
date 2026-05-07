@@ -1,7 +1,7 @@
 'use client'
 
-import { Gutter } from '@components/Gutter/index.js'
-import { Heading } from '@components/Heading/index.js'
+import { Gutter } from '@components/Gutter'
+import { Heading } from '@components/Heading'
 import { isValidParamID } from '@root/utilities/isValidParamID'
 import { useRouter, useSearchParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'

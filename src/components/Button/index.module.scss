@@ -304,13 +304,11 @@ $curve: cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .isHovered {
-  &:local() {
-    .icon--arrow {
-      transform: translate3d(2px, -2px, 0);
+  .icon--arrow {
+    transform: translate3d(2px, -2px, 0);
 
-      @include mid-break {
-        transform: translate3d(0, 0, 0);
-      }
+    @include mid-break {
+      transform: translate3d(0, 0, 0);
     }
   }
 }

@@ -17,7 +17,7 @@ export async function revalidateCache(args: { path?: string; tag?: string }): Pr
 
   try {
     if (tag) {
-      revalidateTag(tag)
+      revalidateTag(tag, 'max')
     }
 
     if (path) {

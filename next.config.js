@@ -38,12 +38,10 @@ const localhost = process.env.NEXT_PUBLIC_IS_LIVE
     ]
 
 const nextConfig = withBundleAnalyzer({
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
   reactStrictMode: true,
   images: {
     minimumCacheTTL: 60 * 60 * 24 * 365, // 1 year,
+    qualities: [75, 90],
     remotePatterns: [
       ...localhost,
       {

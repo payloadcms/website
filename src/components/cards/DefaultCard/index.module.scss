@@ -16,13 +16,11 @@
   &:hover {
     @include shadow-lg;
 
-    &:local() {
-      .plusIcon {
-        color: var(--theme-text);
+    .plusIcon {
+      color: var(--theme-text);
 
-        @include mid-break {
-          color: var(--theme-elevation-200);
-        }
+      @include mid-break {
+        color: var(--theme-elevation-200);
       }
     }
   }

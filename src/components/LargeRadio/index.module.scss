@@ -41,10 +41,8 @@
     border-color: var(--theme-success-500);
   }
 
-  &:local() {
-    .checkmark {
-      border-color: var(--theme-success-500);
-    }
+  .checkmark {
+    border-color: var(--theme-success-500);
   }
 }
 
@@ -123,10 +121,8 @@
   .checked {
     border-color: var(--theme-success-600);
 
-    &:local() {
-      .checkmark {
-        border-color: var(--theme-success-700);
-      }
+    .checkmark {
+      border-color: var(--theme-success-700);
     }
   }
 

@@ -78,82 +78,80 @@ $curve: cubic-bezier(0.165, 0.84, 0.44, 1);
 
   @include dark-custom-scrollbar;
 
-  :global {
-    .token.comment,
-    .token.prolog,
-    .token.doctype,
-    .token.cdata,
-    .token.punctuation {
-      color: var(--color-base-500);
-    }
+  :global(.token.comment),
+  :global(.token.prolog),
+  :global(.token.doctype),
+  :global(.token.cdata),
+  :global(.token.punctuation) {
+    color: var(--color-base-500);
+  }
 
-    .token.plain,
-    .token.atrule,
-    .token.attr-value,
-    .token.keyword {
-      color: var(--color-success-250);
-    }
+  :global(.token.plain),
+  :global(.token.atrule),
+  :global(.token.attr-value),
+  :global(.token.keyword) {
+    color: var(--color-success-250);
+  }
 
-    .token.tag,
-    .token.boolean,
-    .token.number,
-    .token.constant,
-    .token.symbol,
-    .token.deleted {
-      color: var(--color-error-500);
-    }
+  :global(.token.tag),
+  :global(.token.boolean),
+  :global(.token.number),
+  :global(.token.constant),
+  :global(.token.symbol),
+  :global(.token.deleted) {
+    color: var(--color-error-500);
+  }
 
-    .token.attr-name,
-    .token.char,
-    .token.builtin,
-    .token.inserted {
-      color: var(--color-base-100);
-    }
+  :global(.token.attr-name),
+  :global(.token.char),
+  :global(.token.builtin),
+  :global(.token.inserted) {
+    color: var(--color-base-100);
+  }
 
-    .token.operator,
-    .token.entity,
-    .token.url,
-    .language-css .token.string,
-    .style .token.string {
-      color: var(--color-base-500);
-    }
+  :global(.token.operator),
+  :global(.token.entity),
+  :global(.token.url),
+  :global(.language-css .token.string),
+  :global(.style .token.string) {
+    color: var(--color-base-500);
+  }
 
-    .token.selector,
-    .token-property,
-    .token.function {
-      color: var(--color-success-500);
-    }
+  :global(.token.selector),
+  :global(.token-property),
+  :global(.token.function) {
+    color: var(--color-success-500);
+  }
 
-    .token.regex,
-    .token.important,
-    .token.variable,
-    .token.string,
-    .token.class-name {
-      color: var(--color-warning-500);
-    }
+  :global(.token.regex),
+  :global(.token.important),
+  :global(.token.variable),
+  :global(.token.string),
+  :global(.token.class-name) {
+    color: var(--color-warning-500);
+  }
 
-    .token.important,
-    .token.bold {
-      font-weight: bold;
-    }
+  :global(.token.important),
+  :global(.token.bold) {
+    font-weight: bold;
+  }
 
-    .token.italic {
-      font-style: italic;
-    }
+  :global(.token.italic) {
+    font-style: italic;
+  }
 
-    .token.entity {
-      cursor: help;
-    }
+  :global(.token.entity) {
+    cursor: help;
+  }
 
-    .token-line {
-      display: block;
-      text-wrap: nowrap;
-    }
+  :global(.token-line) {
+    display: block;
+    text-wrap: nowrap;
+  }
 
-    .token-line:not(:last-child) {
-      height: initial;
-      min-height: 1rem;
-    }
+  :global(.token-line:not(:last-child)) {
+    height: initial;
+    min-height: 1rem;
   }
 
   @include large-break {

@@ -29,11 +29,9 @@
       }
     }
 
-    :global {
-      div.rs__control {
-        border: none;
-        background: none;
-      }
+    :global(div.rs__control) {
+      border: none;
+      background: none;
     }
 
     input,

@@ -15,36 +15,34 @@
       display: flex;
       gap: var(--base);
 
-      :global {
-        label {
-          font-size: initial;
-          align-self: center;
-          margin: 0;
-          width: unset;
+      :global(label) {
+        font-size: initial;
+        align-self: center;
+        margin: 0;
+        width: unset;
+      }
+      :global(.rs__control) {
+        min-width: 160px;
+        border-radius: 4px;
+        background-color: var(--theme-elevation-100);
+        border-color: var(--theme-elevation-150);
+        padding: 0.5rem;
+        :global(.rs__indicators) {
+          position: relative;
+          transform: unset;
+          right: unset;
+          top: unset;
         }
-        .rs__control {
-          min-width: 160px;
+      }
+      :global(.rs__menu) {
+        width: unset;
+        right: 0;
+        :global(.rs__menu-list) {
+          padding: 0.25rem;
           border-radius: 4px;
-          background-color: var(--theme-elevation-100);
-          border-color: var(--theme-elevation-150);
-          padding: 0.5rem;
-          .rs__indicators {
-            position: relative;
-            transform: unset;
-            right: unset;
-            top: unset;
-          }
         }
-        .rs__menu {
-          width: unset;
-          right: 0;
-          .rs__menu-list {
-            padding: 0.25rem;
-            border-radius: 4px;
-          }
-          .rs__option {
-            font-size: initial;
-          }
+        :global(.rs__option) {
+          font-size: initial;
         }
       }
     }
