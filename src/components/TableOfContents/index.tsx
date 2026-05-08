@@ -48,9 +48,9 @@ export const TableOfContents: React.FC<Props> = ({ className = '', headings }) =
     <nav className={[classes.wrap, className].filter(Boolean).join(' ')} id="toc">
       <h6 className={classes.tocTitle}>On this page</h6>
       <ul className={classes.toc}>
-        {headings.map(({ anchor, level, text }) => {
+        {headings.map(({ anchor, level, text }, index) => {
           return (
-            <li className={classes[`heading-${level}`]} key={anchor}>
+            <li className={classes[`heading-${level}`]} key={`${anchor}-${index}`}>
               <a className={classes.link} href={`#${anchor}`}>
                 {text}
               </a>
