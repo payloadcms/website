@@ -49,7 +49,7 @@ function Component() {
     />
     {isV2 && (
       <div className={classes.versionBadge}>
-        Searching in v2 docs
+          {isV2 ? 'Searching in v2 docs' : 'Searching in v3 docs'}
       </div>
     )}
     </div>
