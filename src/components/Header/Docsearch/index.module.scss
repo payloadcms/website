@@ -30,5 +30,23 @@
     & svg {
       display: none;
     }
+
+    .searchWrapper {
+      position: relative;
+    }
+    
+    .versionBadge {
+      position: absolute;
+      top: -8px;
+      right: -4px;
+      background-color: #f59e0b;
+      color: #000;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 4px;
+      pointer-events: none;
+      white-space: nowrap;
+    }
   }
 }
