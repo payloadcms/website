@@ -69,7 +69,7 @@ export const NewsletterSignUp: React.FC<NewsletterSignUpProps> = (props) => {
               hubspotCookie,
               pageName,
               pageUri,
-              submissionData: { field: 'email', value: formData.email },
+              submissionData: [{ field: 'email', value: formData.email }],
             }),
             credentials: 'include',
             headers: {
