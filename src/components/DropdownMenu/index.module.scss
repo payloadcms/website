@@ -13,8 +13,10 @@
 }
 
 .show {
-  .threeDots {
-    color: var(--theme-text);
+  &:local() {
+    .threeDots {
+      color: var(--theme-text);
+    }
   }
 }
 

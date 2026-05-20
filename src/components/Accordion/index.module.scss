@@ -22,19 +22,21 @@
   line-height: inherit;
 
   &[aria-expanded='true'] {
-    .icon-eye {
-      svg [data-show] {
-        display: none;
+    &:local() {
+      .icon-eye {
+        svg [data-show] {
+          display: none;
+        }
+
+        svg [data-hidden] {
+          display: initial;
+        }
       }
 
-      svg [data-hidden] {
-        display: initial;
-      }
-    }
-
-    .icon--chevron {
-      svg {
-        transform: rotate(-90deg);
+      .icon--chevron {
+        svg {
+          transform: rotate(-90deg);
+        }
       }
     }
   }
