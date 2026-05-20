@@ -14,60 +14,64 @@
 }
 
 .scroll-direction--down {
-  :global(.animate-enter) {
-    opacity: 0;
-    visibility: hidden;
-    transform: translate3d(0, 4rem, 0);
-  }
+  :global {
+    .animate-enter {
+      opacity: 0;
+      visibility: hidden;
+      transform: translate3d(0, 4rem, 0);
+    }
 
-  :global(.animate-enter-active),
-  :global(.animate-enter-done) {
-    transform: translate3d(0, 0, 0);
-    opacity: 1;
-    visibility: visible;
-    transition: all 750ms;
-  }
+    .animate-enter-active,
+    .animate-enter-done {
+      transform: translate3d(0, 0, 0);
+      opacity: 1;
+      visibility: visible;
+      transition: all 750ms;
+    }
 
-  :global(.animate-exit) {
-    transform: translate3d(0, 0, 0);
-    opacity: 1;
-    visibility: visible;
-  }
+    .animate-exit {
+      transform: translate3d(0, 0, 0);
+      opacity: 1;
+      visibility: visible;
+    }
 
-  :global(.animate-exit-active) {
-    opacity: 0;
-    visibility: hidden;
-    transform: translate3d(0, -4rem, 0);
-    transition: all 750ms;
+    .animate-exit-active {
+      opacity: 0;
+      visibility: hidden;
+      transform: translate3d(0, -4rem, 0);
+      transition: all 750ms;
+    }
   }
 }
 
 .scroll-direction--up {
-  :global(.animate-enter) {
-    opacity: 0;
-    visibility: hidden;
-    transform: translate3d(0, -4rem, 0);
-  }
+  :global {
+    .animate-enter {
+      opacity: 0;
+      visibility: hidden;
+      transform: translate3d(0, -4rem, 0);
+    }
 
-  :global(.animate-enter-active),
-  :global(.animate-enter-done) {
-    transform: translate3d(0, 0, 0);
-    opacity: 1;
-    visibility: visible;
-    transition: all 750ms;
-  }
+    .animate-enter-active,
+    .animate-enter-done {
+      transform: translate3d(0, 0, 0);
+      opacity: 1;
+      visibility: visible;
+      transition: all 750ms;
+    }
 
-  :global(.animate-exit) {
-    transform: translate3d(0, 0, 0);
-    opacity: 1;
-    visibility: visible;
-  }
+    .animate-exit {
+      transform: translate3d(0, 0, 0);
+      opacity: 1;
+      visibility: visible;
+    }
 
-  :global(.animate-exit-active) {
-    opacity: 0;
-    visibility: hidden;
-    transform: translate3d(0, 4rem, 0);
-    transition: all 750ms;
+    .animate-exit-active {
+      opacity: 0;
+      visibility: hidden;
+      transform: translate3d(0, 4rem, 0);
+      transition: all 750ms;
+    }
   }
 }
 

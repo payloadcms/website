@@ -19,8 +19,10 @@
 }
 
 .disabledRoleRemoval {
-  :global(.rs__multi-value__remove) {
-    display: none;
+  :global {
+    .rs__multi-value__remove {
+      display: none;
+    }
   }
 }
 
