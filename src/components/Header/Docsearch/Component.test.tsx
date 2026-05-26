@@ -1,13 +1,10 @@
-import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
 
-// Mock de usePathname
 jest.mock('next/navigation', () => ({
   usePathname: jest.fn(),
 }))
 
-// Mock de DocSearch
 jest.mock('@docsearch/react', () => ({
   DocSearch: () => <div data-testid="docsearch" />,
 }))
