@@ -16,7 +16,8 @@
     "start": "next start",
     "lint": "next lint",
     "prettier:fix": "prettier --write .",
-    "migrate-lexical-script": "payload run ./src/migrate.ts"
+    "migrate-lexical-script": "payload run ./src/migrate.ts",
+    "test": "jest"
   },
   "dependencies": {
     "@docsearch/react": "^3.9.0",
@@ -82,7 +83,10 @@
     "@octokit/types": "^9.0.0",
     "@payloadcms/eslint-config": "3.28.0",
     "@payloadcms/eslint-plugin": "3.28.0",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
     "@types/cli-progress": "^3.11.0",
+    "@types/jest": "^30.0.0",
     "@types/node": "22.10.2",
     "@types/react": "19.1.8",
     "@types/react-dom": "19.1.6",
@@ -91,7 +95,11 @@
     "discord.js": "^14.7.1",
     "dotenv": "^16.4.7",
     "eslint": "9.22.0",
+    "jest": "^30.4.2",
+    "jest-environment-jsdom": "^30.4.1",
     "prettier": "3.4.2",
+    "ts-jest": "^29.4.11",
+    "ts-node": "^10.9.2",
     "typescript": "5.7.3"
   },
   "pnpm": {

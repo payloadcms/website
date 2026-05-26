@@ -35,27 +35,21 @@ function Component() {
   const path = usePathname()
   const isV2 = path.includes('/docs/v2/')
   return (
-    <div className={classes.searchWrapper}> 
-    <DocSearch
-      apiKey={process.env.NEXT_PUBLIC_ALGOLIA_DOCSEARCH_KEY || ''}
-      appId="9MJY7K9GOW"
-      hitComponent={({ children, hit }) => Hit({ children, hit, path })}
-      indexName="payloadcms"
-      searchParameters={
-        isV2
-          ? { facetFilters: ['version:v2'] }
-          : { facetFilters: ['version:v3'] }
-      }
-    />
-    {isV2 && (
+    <div className={classes.searchWrapper}>
+      <DocSearch
+        apiKey={process.env.NEXT_PUBLIC_ALGOLIA_DOCSEARCH_KEY || ''}
+        appId="9MJY7K9GOW"
+        hitComponent={({ children, hit }) => Hit({ children, hit, path })}
+        indexName="payloadcms"
+        searchParameters={
+          isV2 ? { facetFilters: ['version:v2'] } : { facetFilters: ['version:v3'] }
+        }
+      />
       <div className={classes.versionBadge}>
-          {isV2 ? 'Searching in v2 docs' : 'Searching in v3 docs'}
+        {isV2 ? 'Searching in v2 docs' : 'Searching in v3 docs'}
       </div>
-    )}
     </div>
   )
 }
-
-
 
 export default Component
