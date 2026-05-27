@@ -30,6 +30,10 @@ export const createDraftProject = async ({
     throw new Error('You must be a member of a team to create a project')
   }
 
+  if (!teamID) {
+    throw new Error('Team is required — select a team before continuing.')
+  }
+
   try {
     const draftProject: Partial<Project> = {
       name: projectName || repo?.name || 'Untitled Project',
@@ -39,12 +43,7 @@ export const createDraftProject = async ({
       repositoryFullName: repo?.full_name,
       repositoryID: repo?.id ? repo.id.toString() : undefined, // only applies to the `import` flow
       repositoryName: repo?.name,
-      team:
-        teamID ||
-        // fallback to first team
-        (typeof user.teams?.[0]?.team === 'string'
-          ? user.teams?.[0]?.team
-          : user.teams?.[0]?.team?.id),
+      team: teamID,
       template: templateID,
       // `buildScript`, `installScript`, and `runScript` are automatically set by the API based on any `package-lock.json` found in the repo
       // the user can change these later to whatever they want, but this prevents the user from having `yarn` commands set on an `npm` project, for example

@@ -8,6 +8,7 @@ import { fetchInstalls } from '@cloud/_api/fetchInstalls'
 import { InstallationButton } from '@cloud/_components/InstallationButton/index'
 import { InstallationSelector } from '@cloud/_components/InstallationSelector/index'
 import { useTeamDrawer } from '@cloud/_components/TeamDrawer/index'
+import { TeamSelector } from '@cloud/_components/TeamSelector/index'
 import { cloudSlug } from '@cloud/slug'
 import { Gutter } from '@components/Gutter/index'
 import { Pagination } from '@components/Pagination/index'
@@ -68,6 +69,36 @@ export const ImportProject: React.FC<{
     ({ team }) => typeof team !== 'string' && team?.slug === teamParam,
   )?.team as Team
 
+  // UX filter only; server enforces eligibility via adminOrTeamAdminOwnerFieldAccess
+  // and the restrictProjectCreationToEnterprise beforeChange hook.
+  const eligibleTeams = React.useMemo(
+    () =>
+      user?.teams?.filter(
+        ({ roles, team }) =>
+          typeof team !== 'string' &&
+          team?.isEnterprise &&
+          (roles?.includes('owner') || roles?.includes('admin')),
+      ) ?? [],
+    [user],
+  )
+
+  const initialSelectedTeamID =
+    matchedTeam?.id &&
+    eligibleTeams.some(
+      ({ team }) => (typeof team === 'string' ? team : team?.id) === matchedTeam.id,
+    )
+      ? matchedTeam.id
+      : undefined
+
+  const [selectedTeamID, setSelectedTeamID] = React.useState<string | undefined>(
+    initialSelectedTeamID,
+  )
+
+  const eligibleUser = React.useMemo(
+    () => (user ? { ...user, teams: eligibleTeams } : user),
+    [user, eligibleTeams],
+  )
+
   const onDraftProjectCreate = useCallback(
     ({ slug: draftProjectSlug, team }) =>
       router.push(
@@ -80,31 +111,29 @@ export const ImportProject: React.FC<{
 
   const handleSubmit = useCallback(
     async ({ unflattenedData }) => {
+      if (!selectedTeamID) {
+        throw new Error('Please select a team before continuing.')
+      }
       const foundRepo = results?.repositories?.find(
         (repo) => repo.name === unflattenedData.repositoryName,
       )
-
       if (!foundRepo) {
         throw new Error(`Please select a repository to import.`)
       }
-
       await createDraftProject({
         installID: selectedInstall?.id,
         onSubmit: onDraftProjectCreate,
         repo: foundRepo,
-        teamID: matchedTeam?.id,
+        teamID: selectedTeamID,
         user,
       })
     },
-    [results, selectedInstall, matchedTeam, user, onDraftProjectCreate],
+    [results, selectedInstall, selectedTeamID, user, onDraftProjectCreate],
   )
 
-  // automatically submit the form when a repo is selected
   const onRepoChange = useCallback(() => {
-    const { current } = submitButtonRef
-    if (current) {
-      current.click()
-    }
+    // defer to next tick so the RadioGroup's form-state update commits before submit reads it
+    setTimeout(() => submitButtonRef.current?.click(), 0)
   }, [])
 
   const [TeamDrawer, TeamDrawerToggler] = useTeamDrawer()
@@ -129,112 +158,139 @@ export const ImportProject: React.FC<{
               {'.'}
             </p>
           )}
+          {!noTeams && eligibleTeams.length === 0 && (
+            <p className={classes.error}>
+              {`You don't have create access on any enterprise team. `}
+              <a href="/contact" rel="noopener noreferrer">Contact support</a>
+              {' to request access.'}
+            </p>
+          )}
           <FormProcessing message="Creating project, one moment..." />
           <FormSubmissionError />
         </div>
 
-        <div className={[classes.section, 'cols-16'].join(' ')}>
-          <div className={classes.orgLabel}>
-            <p>Select the org or user to import from.</p>
-            <p className={classes.appPermissions}>
-              {`Don't see your repository? `}
-              <a href={selectedInstall?.html_url} rel="noopener noreferrer" target="_blank">
-                Adjust your GitHub app permissions
-              </a>
-              {'.'}
-            </p>
-          </div>
-          <InstallationSelector
-            hideLabel
-            installs={installs}
-            onChange={setSelectedInstall}
-            onInstall={onInstall}
-            uuid={uuid}
-          />
-        </div>
-        <h4>Repositories</h4>
-        <div className={[classes.section, 'cols-16'].join(' ')}>
-          {installs?.length === 0 && (
-            <div className={classes.noRepos}>
-              <p>
-                {`No installations were found under this profile. To see your repositories, you must first `}
-                <InstallationButton
-                  label="install the GitHub Payload app"
-                  onInstall={onInstall}
-                  uuid={uuid}
-                />
-                {'.'}
-              </p>
+        {eligibleTeams.length > 0 && (
+          <Fragment>
+            <div className={[classes.section, 'cols-16'].join(' ')}>
+              <div className={classes.orgLabel}>
+                <p>Team</p>
+              </div>
+              <TeamSelector
+                initialValue={initialSelectedTeamID}
+                label={false}
+                onChange={(team) => setSelectedTeamID(team?.id)}
+                required
+                user={eligibleUser}
+              />
             </div>
-          )}
-          {installs?.length > 0 && (
-            <Fragment>
-              {cardArray?.length > 0 ? (
-                <RadioGroup
-                  className={[classes.repos, loadingRepos && classes.loading]
-                    .filter(Boolean)
-                    .join(' ')}
-                  hidden
-                  initialValue=""
-                  layout="vertical"
-                  onChange={onRepoChange}
-                  options={cardArray?.map((repo, index) => {
-                    const isHovered = hoverIndex === index
-
-                    return {
-                      label: (
-                        <RepoCard
-                          isHovered={isHovered}
-                          isLoading={loadingRepos}
-                          key={index}
-                          onClick={async (repo) => {
-                            try {
-                              await createDraftProject({
-                                installID: selectedInstall?.id,
-                                onSubmit: onDraftProjectCreate,
-                                repo,
-                                teamID: matchedTeam?.id,
-                                user,
-                              })
-                            } catch (error) {
-                              window.scrollTo(0, 0)
-                              console.error(error) // eslint-disable-line no-console
-                            }
-                          }}
-                          onMouseEnter={() => setHoverIndex(index)}
-                          onMouseLeave={() => setHoverIndex(undefined)}
-                          repo={repo}
-                        />
-                      ),
-                      value: repo?.name,
-                    }
-                  })}
-                  path="repositoryName"
-                  required
-                />
-              ) : (
+            <div className={[classes.section, 'cols-16'].join(' ')}>
+              <div className={classes.orgLabel}>
+                <p>Select the org or user to import from.</p>
+                <p className={classes.appPermissions}>
+                  {`Don't see your repository? `}
+                  <a href={selectedInstall?.html_url} rel="noopener noreferrer" target="_blank">
+                    Adjust your GitHub app permissions
+                  </a>
+                  {'.'}
+                </p>
+              </div>
+              <InstallationSelector
+                hideLabel
+                installs={installs}
+                onChange={setSelectedInstall}
+                onInstall={onInstall}
+                uuid={uuid}
+              />
+            </div>
+            <h4>Repositories</h4>
+            <div className={[classes.section, 'cols-16'].join(' ')}>
+              {installs?.length === 0 && (
                 <div className={classes.noRepos}>
-                  <p className={classes.appPermissions}>
-                    {`No repositories were found in the account "${
-                      (selectedInstall?.account as { login: string })?.login
-                    }". Create a new repository or `}
-                    <a href={selectedInstall?.html_url} rel="noopener noreferrer" target="_blank">
-                      adjust your GitHub app permissions
-                    </a>
+                  <p>
+                    {`No installations were found under this profile. To see your repositories, you must first `}
+                    <InstallationButton
+                      label="install the GitHub Payload app"
+                      onInstall={onInstall}
+                      uuid={uuid}
+                    />
                     {'.'}
                   </p>
                 </div>
               )}
-            </Fragment>
-          )}
-        </div>
-        {installs?.length > 0 && initialRepos && initialRepos?.total_count > perPage && (
-          <Pagination
-            className={classes.pagination}
-            page={page}
-            setPage={setPage}
-            totalPages={Math.ceil(initialRepos?.total_count / perPage)}
-          />
+              {installs?.length > 0 && (
+                <Fragment>
+                  {cardArray?.length > 0 ? (
+                    <RadioGroup
+                      className={[classes.repos, loadingRepos && classes.loading]
+                        .filter(Boolean)
+                        .join(' ')}
+                      hidden
+                      initialValue=""
+                      layout="vertical"
+                      onChange={onRepoChange}
+                      options={cardArray?.map((repo, index) => {
+                        const isHovered = hoverIndex === index
+
+                        return {
+                          label: (
+                            <RepoCard
+                              isHovered={isHovered}
+                              isLoading={loadingRepos}
+                              key={index}
+                              onClick={async (repo) => {
+                                try {
+                                  await createDraftProject({
+                                    installID: selectedInstall?.id,
+                                    onSubmit: onDraftProjectCreate,
+                                    repo,
+                                    teamID: selectedTeamID,
+                                    user,
+                                  })
+                                } catch (error) {
+                                  window.scrollTo(0, 0)
+                                  console.error(error) // eslint-disable-line no-console
+                                }
+                              }}
+                              onMouseEnter={() => setHoverIndex(index)}
+                              onMouseLeave={() => setHoverIndex(undefined)}
+                              repo={repo}
+                            />
+                          ),
+                          value: repo?.name,
+                        }
+                      })}
+                      path="repositoryName"
+                      required
+                    />
+                  ) : (
+                    <div className={classes.noRepos}>
+                      <p className={classes.appPermissions}>
+                        {`No repositories were found in the account "${
+                          (selectedInstall?.account as { login: string })?.login
+                        }". Create a new repository or `}
+                        <a
+                          href={selectedInstall?.html_url}
+                          rel="noopener noreferrer"
+                          target="_blank"
+                        >
+                          adjust your GitHub app permissions
+                        </a>
+                        {'.'}
+                      </p>
+                    </div>
+                  )}
+                </Fragment>
+              )}
+            </div>
+            {installs?.length > 0 && initialRepos && initialRepos?.total_count > perPage && (
+              <Pagination
+                className={classes.pagination}
+                page={page}
+                setPage={setPage}
+                totalPages={Math.ceil(initialRepos?.total_count / perPage)}
+              />
+            )}
+          </Fragment>
         )}
       </Gutter>
       <TeamDrawer />
