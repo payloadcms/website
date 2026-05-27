@@ -10,22 +10,16 @@ import classes from './index.module.scss'
 export const RepoCard: React.FC<{
   isHovered?: boolean
   isLoading?: boolean
-  onClick?: (repo: Repo) => void
   onMouseEnter?: () => void
   onMouseLeave?: () => void
   repo: Repo
 }> = (props) => {
-  const { isLoading, onClick, onMouseEnter, onMouseLeave, repo } = props
+  const { isLoading, onMouseEnter, onMouseLeave, repo } = props
   const { name, description } = repo || {}
 
   return (
-    <button
+    <div
       className={classes.repoCard}
-      onClick={() => {
-        if (typeof onClick === 'function') {
-          onClick(repo)
-        }
-      }}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
@@ -40,6 +34,6 @@ export const RepoCard: React.FC<{
         </>
       )}
       {isLoading && <LoadingShimmer className={classes.shimmer} heightPercent={100} />}
-    </button>
+    </div>
   )
 }

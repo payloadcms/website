@@ -14,10 +14,11 @@ import { Gutter } from '@components/Gutter/index'
 import { Pagination } from '@components/Pagination/index'
 import RadioGroup from '@forms/fields/RadioGroup/index'
 import Form from '@forms/Form/index'
+import { useForm } from '@forms/Form/context'
 import FormProcessing from '@forms/FormProcessing/index'
 import FormSubmissionError from '@forms/FormSubmissionError/index'
 import { useRouter, useSearchParams } from 'next/navigation'
-import React, { Fragment, useCallback, useReducer } from 'react'
+import React, { Fragment, useCallback, useEffect, useReducer } from 'react'
 
 import { createDraftProject } from '../createDraftProject'
 import classes from './page.module.scss'
@@ -25,6 +26,19 @@ import { RepoCard } from './RepoCard/index'
 import { useGetRepos } from './useGetRepos'
 
 const perPage = 30
+
+const ClearSubmissionErrorOnTeamChange: React.FC<{ teamID: string | undefined }> = ({
+  teamID,
+}) => {
+  const { dispatchFields, setHasSubmitted } = useForm()
+  useEffect(() => {
+    if (!teamID) return
+    setHasSubmitted(false)
+    // also reset the radio so a re-click after fixing team counts as a fresh selection
+    dispatchFields({ type: 'REMOVE', path: 'repositoryName' })
+  }, [teamID, setHasSubmitted, dispatchFields])
+  return null
+}
 
 export const ImportProject: React.FC<{
   installs: Install[]
@@ -147,6 +161,7 @@ export const ImportProject: React.FC<{
 
   return (
     <Form onSubmit={handleSubmit} ref={formRef}>
+      <ClearSubmissionErrorOnTeamChange teamID={selectedTeamID} />
       <Gutter>
         <div className={[classes.formState, 'cols-16'].join(' ')}>
           {noTeams && (
@@ -228,6 +243,11 @@ export const ImportProject: React.FC<{
                       initialValue=""
                       layout="vertical"
                       onChange={onRepoChange}
+                      onClick={() => {
+                        // re-clicking the same repo doesn't fire onChange (value unchanged),
+                        // so trigger submit on every label click as well
+                        setTimeout(() => submitButtonRef.current?.click(), 0)
+                      }}
                       options={cardArray?.map((repo, index) => {
                         const isHovered = hoverIndex === index
 
@@ -237,20 +257,6 @@ export const ImportProject: React.FC<{
                               isHovered={isHovered}
                               isLoading={loadingRepos}
                               key={index}
-                              onClick={async (repo) => {
-                                try {
-                                  await createDraftProject({
-                                    installID: selectedInstall?.id,
-                                    onSubmit: onDraftProjectCreate,
-                                    repo,
-                                    teamID: selectedTeamID,
-                                    user,
-                                  })
-                                } catch (error) {
-                                  window.scrollTo(0, 0)
-                                  console.error(error) // eslint-disable-line no-console
-                                }
-                              }}
                               onMouseEnter={() => setHoverIndex(index)}
                               onMouseLeave={() => setHoverIndex(undefined)}
                               repo={repo}
