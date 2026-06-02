@@ -105,6 +105,7 @@ export interface Config {
     statement: Statement;
     steps: StepsBlock;
     stickyHighlights: StickyHighlights;
+    versionSupportTable: VersionSupportTableType;
     exampleTabs: ExampleTabsBlock;
     spotlight: SpotlightBlock;
     video: VideoBlock;
@@ -754,6 +755,7 @@ export interface Page {
     | StepsBlock
     | StickyHighlights
     | ExampleTabsBlock
+    | VersionSupportTableType
   )[];
   slug?: string | null;
   meta?: {
@@ -2955,6 +2957,36 @@ export interface Command {
   id?: string | null;
   blockName?: string | null;
   blockType: 'command';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "VersionSupportTableType".
+ */
+export interface VersionSupportTableType {
+  versionSupportTableFields?: {
+    settings?: {
+      /**
+       * Leave blank for system default
+       */
+      theme?: ('light' | 'dark') | null;
+      background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
+    };
+    heading?: string | null;
+    description?: string | null;
+    rows?:
+      | {
+          payloadVersion: string;
+          releaseDate?: string | null;
+          criticalFixesUntil?: string | null;
+          securityFixesUntil?: string | null;
+          status: 'stable' | 'beta' | 'eol';
+          id?: string | null;
+        }[]
+      | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'versionSupportTable';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
