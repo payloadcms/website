@@ -3,11 +3,14 @@
 .docs-card {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
   padding: 1.5rem;
   text-decoration: none;
-  color: inherit;
+  color: var(--theme-text) !important;
   position: relative;
+
+  &:visited {
+    color: var(--theme-text) !important;
+  }
   border: 1px solid var(--grid-line-light);
   border-radius: 4px;
   overflow: hidden;
@@ -33,12 +36,13 @@
     justify-content: space-between;
     align-items: center;
     gap: 1rem;
+    margin-bottom: 1rem;
   }
 
   &__title {
     font-size: 1.25rem;
     line-height: 1.2em;
-    margin-top: 0 !important;
+    margin: 0 !important;
   }
 
   &__icon {
