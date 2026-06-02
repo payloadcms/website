@@ -16,7 +16,9 @@
   transition: color 25ms linear;
 
   &:hover {
-    color: var(--color-theme-text);
+    &:local() {
+      color: var(--color-theme-text);
+    }
   }
 
   &:focus-visible .iconWrapper {

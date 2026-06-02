@@ -32,7 +32,7 @@ export const UploadBlockMarkdownTransformer: ElementTransformer = {
     }
 
     const altText: string | undefined = fields?.alt
-    const caption: DefaultTypedEditorState = fields?.caption
+    const caption: any = fields?.caption
 
     const captionText =
       caption && hasText(caption)

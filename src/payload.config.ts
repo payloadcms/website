@@ -450,7 +450,7 @@ export default buildConfig({
         hooks: {
           afterChange: [
             ({ doc }) => {
-              revalidateTag(`form-${doc.title}`, 'max')
+              revalidateTag(`form-${doc.title}`)
             },
           ],
         },

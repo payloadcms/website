@@ -13,7 +13,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
   }
 
   if (typeof collection === 'string' && typeof slug === 'string') {
-    revalidateTag(`${collection}_${slug}`, 'max')
+    revalidateTag(`${collection}_${slug}`)
     return NextResponse.json({ now: Date.now(), revalidated: true })
   }
 

@@ -22,18 +22,17 @@ const domainFieldPath = 'newDomain'
 export const AddDomain: React.FC<{
   environmentSlug: string
   project: Project
+  scopedDomains: NonNullable<Project['domains']>
   team: Team
-}> = ({ environmentSlug, project, team }) => {
+}> = ({ environmentSlug, project, scopedDomains, team }) => {
   const [fieldKey, setFieldKey] = React.useState(generateUUID())
 
   const projectID = project?.id
-  const projectDomains = project?.domains
 
   const router = useRouter()
 
   const saveDomain = React.useCallback<OnSubmit>(
     async ({ data }) => {
-      // The type `Project.domains[0]` -> does not work because the array is not required - Payload type issue?
       const newDomain: {
         cloudflareID?: string
         domain: string
@@ -42,7 +41,7 @@ export const AddDomain: React.FC<{
         domain: data[domainFieldPath] as string,
       }
 
-      const domainExists = projectDomains?.find(
+      const domainExists = scopedDomains.find(
         (projectDomain) => projectDomain.domain === newDomain.domain,
       )
 
@@ -51,7 +50,7 @@ export const AddDomain: React.FC<{
           const req = await fetch(
             `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${projectID}/domains?env=${encodeURIComponent(environmentSlug)}`,
             {
-              body: JSON.stringify([newDomain, ...(projectDomains || [])]),
+              body: JSON.stringify([newDomain, ...scopedDomains]),
               credentials: 'include',
               headers: {
                 'Content-Type': 'application/json',
@@ -74,7 +73,7 @@ export const AddDomain: React.FC<{
         setFieldKey(generateUUID())
       }
     },
-    [projectID, projectDomains, environmentSlug, router],
+    [projectID, scopedDomains, environmentSlug, router],
   )
 
   return (

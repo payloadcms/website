@@ -6,6 +6,7 @@ import { Accordion } from '@components/Accordion/index'
 import { HR } from '@components/HR/index'
 import { MaxWidth } from '@components/MaxWidth/index'
 import { CollapsibleGroup } from '@faceless-ui/collapsibles'
+import { PRODUCTION_ENVIRONMENT_SLUG } from '@root/constants'
 import * as React from 'react'
 
 import { NoData } from '../_layoutComponents/NoData/index'
@@ -13,11 +14,27 @@ import { SectionHeader } from '../_layoutComponents/SectionHeader/index'
 import { AddDomain } from './AddDomain/index'
 import { ManageDomain } from './ManageDomain/index'
 
+// Mirror the write endpoint's scoping: prod writes to project.domains, env writes to environments[].domains.
+const selectScopedDomains = (
+  project: Project,
+  environmentSlug: string,
+): NonNullable<Project['domains']> => {
+  if (environmentSlug === PRODUCTION_ENVIRONMENT_SLUG) {
+    return project.domains || []
+  }
+  return project.environments?.find((env) => env.environmentSlug === environmentSlug)?.domains || []
+}
+
 export const ProjectDomainsPage: React.FC<{
   environmentSlug: string
   project: Project
   team: Team
 }> = ({ environmentSlug, project, team }) => {
+  const scopedDomains = React.useMemo(
+    () => selectScopedDomains(project, environmentSlug),
+    [project, environmentSlug],
+  )
+
   return (
     <MaxWidth>
       <SectionHeader
@@ -37,21 +54,27 @@ export const ProjectDomainsPage: React.FC<{
       />
       <CollapsibleGroup transCurve="ease" transTime={250}>
         <Accordion label="New Domain" openOnInit>
-          <AddDomain environmentSlug={environmentSlug} project={project} team={team} />
+          <AddDomain
+            environmentSlug={environmentSlug}
+            project={project}
+            scopedDomains={scopedDomains}
+            team={team}
+          />
         </Accordion>
       </CollapsibleGroup>
       <HR />
-      {project?.domains && project.domains.length > 0 ? (
+      {scopedDomains.length > 0 ? (
         <React.Fragment>
           <SectionHeader title="Manage Domains" />
           <CollapsibleGroup allowMultiple transCurve="ease" transTime={250}>
             <div>
-              {project.domains.map((domain) => (
+              {scopedDomains.map((domain) => (
                 <ManageDomain
                   domain={domain}
                   environmentSlug={environmentSlug}
                   key={domain.id}
                   project={project}
+                  scopedDomains={scopedDomains}
                   team={team}
                 />
               ))}
