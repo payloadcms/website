@@ -10,6 +10,8 @@ import type {
   BannerBlock,
   BrBlock,
   BulletListBlock,
+  CardBlock,
+  CardGroupBlock,
   CodeBlock,
   CommandLineBlock,
   Doc,
@@ -57,6 +59,8 @@ import type { AllowedElements } from '../SpotlightAnimation/types'
 import { type AddHeading, type Heading, type IContext, RichTextContext } from './context'
 import { Arrow } from './Arrow'
 import { BulletList } from './BulletList'
+import { Card } from './Card/index'
+import { CardGroup } from './CardGroup/index'
 import { Heading as HeadingComponent } from './Heading'
 import { Pill } from './Pill'
 import { LightDarkImage } from './LightDarkImage/index'
@@ -80,6 +84,8 @@ export type NodeTypes =
       | BannerBlock
       | BrBlock
       | BulletListBlock
+      | CardBlock
+      | CardGroupBlock
       | CodeBlock
       | CommandLineBlock
       | DownloadBlockType
@@ -115,6 +121,21 @@ export const jsxConverters: (args: { toc?: boolean }) => JSXConvertersFunction<N
         br: () => <br />,
         BulletList: ({ node }) => {
           return <BulletList items={node.fields.items} />
+        },
+        Card: ({ node }) => {
+          return (
+            <Card
+              description={node.fields.description}
+              link={node.fields.link}
+              title={node.fields.title}
+            />
+          )
+        },
+        CardGroup: ({ node, nodesToJSX }) => {
+          const Children = nodesToJSX({
+            nodes: node.fields.content?.root?.children as SerializedLexicalNode[],
+          })
+          return <CardGroup>{Children}</CardGroup>
         },
         Code: ({ node }) => {
           const codeString: string = node.fields.code ?? ''

@@ -56,6 +56,8 @@ export const contentLexicalEditorFeatures: FeatureProviderServer[] = [
       'Pill',
       'Arrow',
       'BulletList',
+      'Card',
+      'CardGroup',
     ],
   }),
 ]
