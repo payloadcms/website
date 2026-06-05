@@ -80,6 +80,8 @@ export interface Config {
     Pill: PillBlock;
     Arrow: ArrowBlock;
     BulletList: BulletListBlock;
+    Card: CardBlock;
+    CardGroup: CardGroupBlock;
     cardGrid: CardGrid;
     caseStudyCards: CaseStudyCards;
     caseStudiesHighlight: CaseStudiesHighlight;
@@ -3066,6 +3068,45 @@ export interface BulletListBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'BulletList';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CardBlock".
+ */
+export interface CardBlock {
+  title: string;
+  description: string;
+  /**
+   * URL the card links to, e.g. /docs/authentication/overview
+   */
+  link: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'Card';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CardGroupBlock".
+ */
+export interface CardGroupBlock {
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'CardGroup';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

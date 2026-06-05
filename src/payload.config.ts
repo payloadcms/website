@@ -59,6 +59,8 @@ import { Docs } from './collections/Docs'
 import { ArrowBlock } from './collections/Docs/blocks/arrow'
 import { BannerBlock } from './collections/Docs/blocks/banner'
 import { BulletListBlock } from './collections/Docs/blocks/bulletList'
+import { CardBlock } from './collections/Docs/blocks/card'
+import { CardGroupBlock } from './collections/Docs/blocks/cardGroup'
 import { CodeBlock } from './collections/Docs/blocks/code'
 import { LightDarkImageBlock } from './collections/Docs/blocks/lightDarkImage'
 import { PayloadMediaBlock } from './collections/Docs/blocks/payloadMedia'
@@ -127,6 +129,8 @@ export default buildConfig({
     PillBlock,
     ArrowBlock,
     BulletListBlock,
+    CardBlock,
+    CardGroupBlock,
     CardGrid,
     CaseStudyCards,
     CaseStudiesHighlight,

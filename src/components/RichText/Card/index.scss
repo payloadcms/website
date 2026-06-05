@@ -1,0 +1,72 @@
+@use '@scss/common' as *;
+
+.docs-card {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  text-decoration: none;
+  color: var(--theme-text) !important;
+  position: relative;
+
+  &:visited {
+    color: var(--theme-text) !important;
+  }
+  border: 1px solid var(--grid-line-light);
+  border-radius: 4px;
+  overflow: hidden;
+  transition-property: border-color;
+  transition-duration: 0.4s;
+  transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
+
+  @include data-theme-selector('dark') {
+    border-color: var(--grid-line-dark);
+  }
+
+  @include data-theme-selector('light') {
+    border-color: var(--grid-line-light);
+  }
+
+  &__scanlines {
+    opacity: 0;
+    transition: opacity 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+
+  &__title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  &__title {
+    font-size: 1.25rem;
+    line-height: 1.2em;
+    margin: 0 !important;
+  }
+
+  &__icon {
+    flex-shrink: 0;
+    transform: translateY(10px);
+    opacity: 0;
+    transition-property: transform, opacity;
+    transition-duration: 0.4s;
+    transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+
+  &__description {
+    margin: 0;
+    color: var(--theme-elevation-750);
+  }
+
+  &:hover {
+    .docs-card__scanlines {
+      opacity: 1;
+    }
+
+    .docs-card__icon {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+}
