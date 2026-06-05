@@ -79,59 +79,6 @@ $curve: cubic-bezier(0.165, 0.84, 0.44, 1);
   @include dark-custom-scrollbar;
 
   :global {
-    .token.comment,
-    .token.prolog,
-    .token.doctype,
-    .token.cdata,
-    .token.punctuation {
-      color: var(--color-base-500);
-    }
-
-    .token.plain,
-    .token.atrule,
-    .token.attr-value,
-    .token.keyword {
-      color: var(--color-success-250);
-    }
-
-    .token.tag,
-    .token.boolean,
-    .token.number,
-    .token.constant,
-    .token.symbol,
-    .token.deleted {
-      color: var(--color-error-500);
-    }
-
-    .token.attr-name,
-    .token.char,
-    .token.builtin,
-    .token.inserted {
-      color: var(--color-base-100);
-    }
-
-    .token.operator,
-    .token.entity,
-    .token.url,
-    .language-css .token.string,
-    .style .token.string {
-      color: var(--color-base-500);
-    }
-
-    .token.selector,
-    .token-property,
-    .token.function {
-      color: var(--color-success-500);
-    }
-
-    .token.regex,
-    .token.important,
-    .token.variable,
-    .token.string,
-    .token.class-name {
-      color: var(--color-warning-500);
-    }
-
     .token.important,
     .token.bold {
       font-weight: bold;
