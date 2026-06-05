@@ -52,6 +52,7 @@ import { Slider } from './blocks/Slider'
 import { Statement } from './blocks/Statement'
 import { Steps } from './blocks/Steps'
 import { StickyHighlights } from './blocks/StickyHighlights'
+import { VersionSupportTable } from './blocks/VersionSupportTable'
 import { CaseStudies } from './collections/CaseStudies'
 import { Categories } from './collections/Categories'
 import { CommunityHelp } from './collections/CommunityHelp'
@@ -156,6 +157,7 @@ export default buildConfig({
     Statement,
     Steps,
     StickyHighlights,
+    VersionSupportTable,
     ExampleTabs,
     {
       slug: 'spotlight',

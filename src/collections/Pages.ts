@@ -84,6 +84,7 @@ export const Pages: CollectionConfig = {
                 'steps',
                 'stickyHighlights',
                 'exampleTabs',
+                'versionSupportTable',
               ],
               blocks: [],
               required: true,

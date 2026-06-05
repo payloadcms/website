@@ -1,0 +1,132 @@
+@use '@scss/common' as *;
+
+.heading {
+  margin-bottom: 0.5rem;
+}
+
+.description {
+  @include body;
+  & {
+    color: var(--theme-elevation-500);
+    margin-bottom: 2rem;
+  }
+}
+
+.tableWrap {
+  display: block;
+  overflow-x: scroll;
+  max-width: 100%;
+  margin-inline: 1px;
+}
+
+.table {
+  border-block: 1px solid var(--theme-border-color);
+  border-collapse: collapse;
+  background-color: var(--theme-bg);
+  width: calc(var(--column) * 16 - 2px);
+
+  * {
+    text-align: left;
+    padding: 0;
+    margin: 0;
+  }
+
+  thead {
+    th {
+      @include small;
+      & {
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--theme-elevation-500);
+        font-weight: 500;
+        padding: 1.5rem;
+        white-space: nowrap;
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      border-top: 1px solid var(--theme-border-color);
+    }
+
+    td {
+      padding: 1rem 1.5rem;
+      white-space: nowrap;
+    }
+  }
+}
+
+.col {
+  width: calc(var(--column) * 3);
+  min-width: 140px;
+}
+
+.colStatus {
+  width: calc(var(--column) * 2);
+  min-width: 100px;
+}
+
+@include mid-break {
+  .table {
+    width: calc(var(--column) * 8 - 2px);
+  }
+
+  .col {
+    width: auto;
+    min-width: 120px;
+  }
+
+  .colStatus {
+    width: auto;
+    min-width: 80px;
+  }
+}
+
+@include small-break {
+  .table {
+    width: auto;
+  }
+
+  .col {
+    min-width: 110px;
+  }
+
+  .colStatus {
+    min-width: 70px;
+  }
+
+  .table thead th {
+    padding: 1rem;
+  }
+
+  .table tbody td {
+    padding: 0.75rem 1rem;
+  }
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.2rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  line-height: 1.4;
+}
+
+.stable {
+  background-color: var(--theme-success-500);
+  color: var(--color-base-950);
+}
+
+.beta {
+  background-color: var(--theme-elevation-200);
+  color: var(--theme-elevation-800);
+}
+
+.eol {
+  background-color: var(--theme-error-500);
+  color: var(--color-base-0);
+}
