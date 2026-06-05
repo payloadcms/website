@@ -54,13 +54,13 @@ import React, { useCallback, useMemo, useState } from 'react'
 
 import type { AllowedElements } from '../SpotlightAnimation/types'
 
-import { type AddHeading, type Heading, type IContext, RichTextContext } from './context'
 import { Arrow } from './Arrow'
 import { BulletList } from './BulletList'
+import { type AddHeading, type Heading, type IContext, RichTextContext } from './context'
 import { Heading as HeadingComponent } from './Heading'
-import { Pill } from './Pill'
 import { LightDarkImage } from './LightDarkImage/index'
 import { PayloadMediaBlock } from './PayloadMedia'
+import { Pill } from './Pill'
 import { ResourceBlock as Resource } from './ResourceBlock'
 import { RestExamples } from './RestExamples'
 import { CustomTableJSXConverters } from './Table/index'
@@ -119,7 +119,12 @@ export const jsxConverters: (args: { toc?: boolean }) => JSXConvertersFunction<N
         Code: ({ node }) => {
           const codeString: string = node.fields.code ?? ''
           return (
-            <Code children={codeString?.trim()} disableMinHeight parentClassName={'lexical-code'} />
+            <Code
+              children={codeString?.trim()}
+              disableMinHeight
+              language={node.fields.language ?? undefined}
+              parentClassName={'lexical-code'}
+            />
           )
         },
         commandLine: ({ node }) => {
