@@ -12,7 +12,7 @@ export const CommunityHelpCTA: React.FC = () => {
       <div className={classes.communityHelps}>
         <h5>Can&apos;t find what you&apos;re looking for?</h5>
         <p className={classes.license}>
-          <Link className={classes.button} href="/talk-to-us" prefetch={false}>
+          <Link className={classes.button} href="/community-help" prefetch={false}>
             Browse communtiy help&nbsp;
             <ArrowIcon className={classes.arrow} />
           </Link>
