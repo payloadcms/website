@@ -3,6 +3,7 @@ import type { Doc } from '@root/payload-types'
 
 import { BackgroundGrid } from '@components/BackgroundGrid'
 import { BackgroundScanline } from '@components/BackgroundScanline/index'
+import { CommunityHelpCTA } from '@components/CommunityHelpCTA/index'
 import { DiscordGitCTA } from '@components/DiscordGitCTA/index'
 import { DocsNavigation } from '@components/DocsNavigation'
 import { Feedback } from '@components/Feedback'
@@ -172,6 +173,7 @@ export const RenderDocs = async ({
             <TableOfContents headings={currentDoc.headings as Heading[]} />
             <div className={classes.discordGitWrap}>
               <DiscordGitCTA appearance="minimal" />
+              <CommunityHelpCTA />
             </div>
             <Feedback path={path} />
           </div>
