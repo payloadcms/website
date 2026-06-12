@@ -126,6 +126,15 @@ export const DocsNavigation = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [resetIndicator])
 
+  // Recompute the indicator position on resize; item offsets shift on reflow
+  // and would otherwise stay stale until the next hover.
+  useEffect(() => {
+    const handleResize = () => resetDefaultIndicator()
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentTopic, currentDoc])
+
   const isActiveTopic = (topic: string) => topic === currentTopic
   const isActiveDoc = (topic: string, doc: string) => topic === currentTopic && doc === currentDoc
 
@@ -220,10 +229,10 @@ export const DocsNavigation = ({
               </Fragment>
             ))}
           </Accordion.Root>
-          {indicatorTop || defaultIndicatorPosition ? (
+          {(indicatorTop ?? defaultIndicatorPosition) != null ? (
             <div
               className={classes.indicator}
-              style={{ top: indicatorTop || defaultIndicatorPosition }}
+              style={{ top: indicatorTop ?? defaultIndicatorPosition }}
             />
           ) : null}
           <div aria-hidden className={classes.navOverlay} />
