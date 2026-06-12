@@ -22,14 +22,34 @@
     border-color: var(--grid-line-light);
   }
 
+  &:before {
+    position: absolute;
+    content: ' ';
+    height: 0.5px;
+    width: 0;
+    bottom: 0;
+    left: 0;
+    transition: all 300ms ease-in-out;
+    background-color: var(--theme-elevation-1000);
+  }
+
+  .arrow {
+    position: absolute;
+    top: 1.5rem;
+    right: 1rem;
+  }
+
   &:hover {
     cursor: pointer;
 
     .arrow {
-      margin-left: .5rem;
       transition: all var(--trans-default) linear;
       transform: translate3D(0, 0, 0);
       opacity: 1;
+    }
+
+    &:before {
+      width: 100%;
     }
   }
 }

@@ -4,18 +4,19 @@ import React from 'react'
 
 import classes from './index.module.scss'
 
-const discordURL = 'https://discord.gg/FSn5QRdsbC'
-
 export const CommunityHelpCTA: React.FC = () => {
   return (
-    <Link aria-label="Community Helps" className={classes.cta} href={discordURL} target="_blank">
+    <Link
+      aria-label="Browse community help"
+      className={classes.cta}
+      href="/community-help"
+      prefetch={false}
+    >
       <div className={classes.communityHelps}>
         <h5>Can&apos;t find what you&apos;re looking for?</h5>
+        <ArrowIcon className={classes.arrow} />
         <p className={classes.license}>
-          <Link className={classes.button} href="/community-help" prefetch={false}>
-            Browse communtiy help&nbsp;
-            <ArrowIcon className={classes.arrow} />
-          </Link>
+          <span className={classes.button}>Browse community help&nbsp;</span>
         </p>
       </div>
     </Link>
