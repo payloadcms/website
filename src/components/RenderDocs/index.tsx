@@ -5,6 +5,7 @@ import { BackgroundGrid } from '@components/BackgroundGrid'
 import { BackgroundScanline } from '@components/BackgroundScanline/index'
 import { CommunityHelpCTA } from '@components/CommunityHelpCTA/index'
 import { DiscordGitCTA } from '@components/DiscordGitCTA/index'
+import { DocsFeedback } from '@components/DocsFeedback/index'
 import { DocsNavigation } from '@components/DocsNavigation'
 import { Feedback } from '@components/Feedback'
 import { Gutter } from '@components/Gutter'
@@ -144,6 +145,9 @@ export const RenderDocs = async ({
               <RichTextWithTOC content={currentDoc.content} />
             </div>
           </Suspense>
+          <div className={classes.feedbackMobile}>
+            <DocsFeedback path={path} />
+          </div>
           {next && (
             <Link
               className={[classes.next, hasRelatedThreads && classes.hasRelatedThreads]
@@ -175,6 +179,7 @@ export const RenderDocs = async ({
               <DiscordGitCTA appearance="minimal" />
               <CommunityHelpCTA />
             </div>
+            <DocsFeedback path={path} />
             <Feedback path={path} />
           </div>
         </aside>

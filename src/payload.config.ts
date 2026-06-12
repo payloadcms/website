@@ -71,6 +71,7 @@ import { TableWithDrawersBlock } from './collections/Docs/blocks/tableWithDrawer
 import { UploadBlock } from './collections/Docs/blocks/upload'
 import { VideoDrawerBlock } from './collections/Docs/blocks/VideoDrawer'
 import { YoutubeBlock } from './collections/Docs/blocks/youtube'
+import { DocsFeedback } from './collections/DocsFeedback'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Budgets, Industries, Regions, Specialties } from './collections/PartnerFilters'
@@ -293,6 +294,7 @@ export default buildConfig({
     CaseStudies,
     CommunityHelp,
     Docs,
+    DocsFeedback,
     Media,
     Pages,
     Posts,
