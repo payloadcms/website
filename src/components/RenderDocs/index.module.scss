@@ -223,6 +223,21 @@
   }
 }
 
+// Desktop shows DocsFeedback in the sidebar (.aside); that aside is hidden at
+// mid-break, so this in-content instance takes over on mobile, above "Next".
+.feedbackMobile {
+  display: none;
+
+  @include mid-break {
+    display: block;
+    border-top: 1px solid var(--theme-border-color);
+
+    .feedback {
+      background-color: red;
+    }
+  }
+}
+
 .hasRelatedThreads {
   border-bottom: 1px solid var(--theme-border-color);
 }

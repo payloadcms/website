@@ -124,6 +124,7 @@ export interface Config {
     'case-studies': CaseStudy;
     'community-help': CommunityHelp;
     docs: Doc;
+    'docs-feedback': DocsFeedback;
     media: Media;
     pages: Page;
     posts: Post;
@@ -155,6 +156,7 @@ export interface Config {
     'case-studies': CaseStudiesSelect<false> | CaseStudiesSelect<true>;
     'community-help': CommunityHelpSelect<false> | CommunityHelpSelect<true>;
     docs: DocsSelect<false> | DocsSelect<true>;
+    'docs-feedback': DocsFeedbackSelect<false> | DocsFeedbackSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
@@ -3370,6 +3372,21 @@ export interface CommunityHelp {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "docs-feedback".
+ */
+export interface DocsFeedback {
+  id: string;
+  /**
+   * The docs page key, e.g. "getting-started/what-is-payload".
+   */
+  path: string;
+  helpful: number;
+  notHelpful: number;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "form-submissions".
  */
 export interface FormSubmission {
@@ -3448,6 +3465,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'docs';
         value: string | Doc;
+      } | null)
+    | ({
+        relationTo: 'docs-feedback';
+        value: string | DocsFeedback;
       } | null)
     | ({
         relationTo: 'media';
@@ -3609,6 +3630,17 @@ export interface DocsSelect<T extends boolean = true> {
   version?: T;
   mdx?: T;
   guides?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "docs-feedback_select".
+ */
+export interface DocsFeedbackSelect<T extends boolean = true> {
+  path?: T;
+  helpful?: T;
+  notHelpful?: T;
   updatedAt?: T;
   createdAt?: T;
 }
