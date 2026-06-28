@@ -91,10 +91,13 @@ export function mdxToLexical({
     headlessEditor.update(
       () => {
         try {
-          $convertFromMarkdownString(mdx, [
-            UploadBlockMarkdownTransformer,
-            ...editorConfig.features.markdownTransformers,
-          ])
+          $convertFromMarkdownString(
+            mdx,
+            [UploadBlockMarkdownTransformer, ...editorConfig.features.markdownTransformers],
+            undefined,
+            false,
+            true,
+          )
         } catch (e) {
           console.error('Error parsing markdown', mdx)
           throw e
