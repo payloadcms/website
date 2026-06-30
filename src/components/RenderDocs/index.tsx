@@ -18,7 +18,7 @@ import { fetchRelatedThreads } from '@data'
 import { ArrowIcon } from '@icons/ArrowIcon/index'
 import { unstable_cache } from 'next/cache'
 import Link from 'next/link'
-import React, { Suspense } from 'react'
+import React from 'react'
 
 import classes from './index.module.scss'
 
@@ -138,13 +138,11 @@ export const RenderDocs = async ({
         />
         <div aria-hidden className={classes.navOverlay} />
         <main className={['cols-8 start-5 cols-m-8 start-m-1', classes.content].join(' ')}>
-          <Suspense fallback={<DocsSkeleton />}>
-            {children}
-            <h1 className={classes.title}>{currentDoc.title}</h1>
-            <div className={classes.mdx}>
-              <RichTextWithTOC content={currentDoc.content} />
-            </div>
-          </Suspense>
+          {children}
+          <h1 className={classes.title}>{currentDoc.title}</h1>
+          <div className={classes.mdx}>
+            <RichTextWithTOC content={currentDoc.content} />
+          </div>
           <div className={classes.feedbackMobile}>
             <DocsFeedback path={path} />
           </div>
@@ -188,10 +186,3 @@ export const RenderDocs = async ({
     </Gutter>
   )
 }
-
-const DocsSkeleton = () => (
-  <div className={classes.skeleton}>
-    <div className={classes.skeletonTitle} />
-    <div className={classes.skeletonContent} />
-  </div>
-)
