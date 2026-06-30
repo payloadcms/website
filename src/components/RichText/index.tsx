@@ -273,13 +273,15 @@ export const RichTextWithTOC: React.FC<Props> = ({ className, content: _content 
 
   const initialData = useMemo(() => ({ content: _content }) as Doc, [_content])
 
-  const {
-    data: { content },
-  } = useLivePreview<Doc>({
+  const { data } = useLivePreview<Doc>({
     depth: 2,
     initialData,
     serverURL: process.env.NEXT_PUBLIC_CMS_URL as string,
   })
+
+  // Fall back to the server-provided content so the doc body is present in the
+  // server-rendered HTML.
+  const content = data?.content ?? _content
 
   const addHeading: AddHeading = useCallback(
     (anchor, heading, type) => {
