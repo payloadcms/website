@@ -36,7 +36,7 @@ export const UploadBlockMarkdownTransformer: ElementTransformer = {
 
     const captionText =
       caption && hasText(caption)
-        ? `\n${lexicalToMDX({ editorConfig: cachedServerEditorConfig as any, editorState: caption })}`
+        ? `\n${lexicalToMDX({ editorConfig: cachedServerEditorConfig as any, editorState: caption as DefaultTypedEditorState<SerializedBlockNode> })}`
         : ''
 
     if (altText?.length) {
