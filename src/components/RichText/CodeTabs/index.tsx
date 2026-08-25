@@ -10,59 +10,64 @@ import React from 'react'
 
 import classes from './index.module.scss'
 
+const preferenceEvent = 'payload:code-tab-change'
+const preferenceKey = 'payload-docs-code-tab'
+
 export const CodeTabs: React.FC<CodeTabsBlockType> = ({ tabs }) => {
-  const tabValues = React.useMemo(
-    () => tabs?.map((tab, index) => tab.id || `code-tab-${index}`) ?? [],
-    [tabs],
-  )
-  const [activeTab, setActiveTab] = React.useState(tabValues[0] ?? '')
+  const [activeTab, setActiveTab] = React.useState(0)
   const [isCopied, setIsCopied] = React.useState(false)
-  const copyTimeout = React.useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
 
   React.useEffect(() => {
-    if (!tabValues.includes(activeTab)) {
-      setActiveTab(tabValues[0] ?? '')
-    }
-  }, [activeTab, tabValues])
+    const selectTab = (label: null | string) => {
+      const index = tabs?.findIndex((tab) => tab.label === label) ?? -1
 
-  React.useEffect(
-    () => () => {
-      clearTimeout(copyTimeout.current)
-    },
-    [],
-  )
+      if (index >= 0) {
+        setActiveTab(index)
+        setIsCopied(false)
+      }
+    }
+
+    const handlePreferenceChange = (event: Event) => {
+      selectTab((event as CustomEvent<string>).detail)
+    }
+
+    selectTab(localStorage.getItem(preferenceKey))
+    window.addEventListener(preferenceEvent, handlePreferenceChange)
+
+    return () => window.removeEventListener(preferenceEvent, handlePreferenceChange)
+  }, [tabs])
 
   if (!tabs?.length) {
     return null
   }
 
-  const activeTabIndex = tabValues.indexOf(activeTab)
-  const activeCode = tabs[activeTabIndex]?.code ?? ''
-
-  const copyActiveCode = async () => {
-    await navigator.clipboard.writeText(activeCode)
+  const copyActiveCode = () => {
+    void navigator.clipboard.writeText(tabs[activeTab]?.code ?? '')
     setIsCopied(true)
-    clearTimeout(copyTimeout.current)
-    copyTimeout.current = setTimeout(() => setIsCopied(false), 1500)
+    setTimeout(() => setIsCopied(false), 1500)
   }
 
   return (
     <Tabs.Root
       className={classes.root}
       onValueChange={(value) => {
-        setActiveTab(value)
+        const index = Number(value)
+        const label = tabs[index]?.label
+
+        setActiveTab(index)
         setIsCopied(false)
+
+        if (label) {
+          localStorage.setItem(preferenceKey, label)
+          window.dispatchEvent(new CustomEvent(preferenceEvent, { detail: label }))
+        }
       }}
-      value={activeTab}
+      value={String(activeTab)}
     >
       <div className={classes.bar}>
         <Tabs.List aria-label="Code examples" className={classes.list}>
           {tabs.map((tab, index) => (
-            <Tabs.Trigger
-              className={classes.trigger}
-              key={tabValues[index]}
-              value={tabValues[index]}
-            >
+            <Tabs.Trigger className={classes.trigger} key={tab.id ?? index} value={String(index)}>
               {tab.label}
             </Tabs.Trigger>
           ))}
@@ -78,7 +83,7 @@ export const CodeTabs: React.FC<CodeTabsBlockType> = ({ tabs }) => {
         </button>
       </div>
       {tabs.map((tab, index) => (
-        <Tabs.Content className={classes.content} key={tabValues[index]} value={tabValues[index]}>
+        <Tabs.Content className={classes.content} key={tab.id ?? index} value={String(index)}>
           <Code
             children={tab.code ?? ''}
             disableMinHeight
