@@ -118,6 +118,7 @@ export interface Config {
     templateCards: TemplateCardsBlock;
     Banner: BannerBlock;
     Code: CodeBlock;
+    CodeTabs: CodeTabsBlock;
     code: Code;
   };
   collections: {
@@ -3339,6 +3340,40 @@ export interface CodeBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'Code';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CodeTabsBlock".
+ */
+export interface CodeTabsBlock {
+  tabs: {
+    label: string;
+    language:
+      | 'bash'
+      | 'css'
+      | 'dockerfile'
+      | 'env'
+      | 'graphql'
+      | 'html'
+      | 'http'
+      | 'js'
+      | 'json'
+      | 'jsx'
+      | 'plaintext'
+      | 'scss'
+      | 'sh'
+      | 'text'
+      | 'ts'
+      | 'tsx'
+      | 'vue'
+      | 'yaml'
+      | 'yml';
+    code: string;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'CodeTabs';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

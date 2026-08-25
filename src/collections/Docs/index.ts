@@ -44,6 +44,7 @@ export const contentLexicalEditorFeatures: FeatureProviderServer[] = [
   BlocksFeature({
     blocks: [
       'Code',
+      'CodeTabs',
       'Banner',
       'YouTube',
       'LightDarkImage',

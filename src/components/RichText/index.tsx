@@ -13,6 +13,7 @@ import type {
   CardBlock,
   CardGroupBlock,
   CodeBlock,
+  CodeTabsBlock,
   CommandLineBlock,
   Doc,
   DownloadBlockType,
@@ -60,6 +61,7 @@ import { Arrow } from './Arrow'
 import { BulletList } from './BulletList'
 import { Card } from './Card/index'
 import { CardGroup } from './CardGroup/index'
+import { CodeTabs } from './CodeTabs'
 import { type AddHeading, type Heading, type IContext, RichTextContext } from './context'
 import { Heading as HeadingComponent } from './Heading'
 import { LightDarkImage } from './LightDarkImage/index'
@@ -87,6 +89,7 @@ export type NodeTypes =
       | CardBlock
       | CardGroupBlock
       | CodeBlock
+      | CodeTabsBlock
       | CommandLineBlock
       | DownloadBlockType
       | LightDarkImageBlock
@@ -147,6 +150,9 @@ export const jsxConverters: (args: { toc?: boolean }) => JSXConvertersFunction<N
               parentClassName={'lexical-code'}
             />
           )
+        },
+        CodeTabs: ({ node }) => {
+          return <CodeTabs {...node.fields} />
         },
         commandLine: ({ node }) => {
           const { command } = node.fields
