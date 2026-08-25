@@ -6,6 +6,8 @@
 
 - [What is Payload?](https://payloadcms.com/docs/getting-started/what-is-payload)
 
+- [Use Cases](https://payloadcms.com/docs/getting-started/use-cases)
+
 - [Payload Concepts](https://payloadcms.com/docs/getting-started/concepts)
 
 - [Installation](https://payloadcms.com/docs/getting-started/installation)

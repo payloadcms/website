@@ -10,34 +10,63 @@ Source: https://payloadcms.com/docs/getting-started/what-is-payload
   title="Introduction to Payload — The open-source Next.js backend"
 />
 
-**Payload is the Next.js fullstack framework.** Write a Payload Config and instantly get:
+## Payload is the Next.js fullstack framework.
 
-- A full Admin Panel using React server / client components, matching the shape of your data and completely extensible with your own React components
-- Automatic database schema, including direct DB access and ownership, with migrations, transactions, proper indexing, and more
-- Instant REST, GraphQL, and straight-to-DB Node.js APIs
-- Authentication which can be used in your own apps
-- A deeply customizable access control pattern
-- File storage and image management tools like cropping / focal point selection
-- Live preview - see your frontend render content changes in realtime as you update
-- Lots more
+Write a Payload Config and instantly get a full Admin Panel, a database with migrations, REST and GraphQL APIs, authentication, access control, file storage, live preview, and more — all in one open-source TypeScript codebase you own and deploy anywhere.
 
-### Instant backend superpowers
+<CardGroup>
+  <Card
+    title="Use Cases"
+    description="See how teams use Payload for headless CMS, internal tools, commerce, and DAM workloads — and whether it fits yours."
+    link="../getting-started/use-cases"
+  />
+  <Card
+    title="Core Concepts"
+    description="Get familiar with the high-level concepts Payload is built around before you write any code."
+    link="../getting-started/concepts"
+  />
+  <Card
+    title="Installation"
+    description="Add Payload to a new or existing Next.js app and get the Admin Panel running in minutes."
+    link="../getting-started/installation"
+  />
+  <Card
+    title="The Admin Panel"
+    description="Explore the auto-generated React UI that matches the shape of your data and extends with your own components."
+    link="../admin/overview"
+  />
+  <Card
+    title="Database & Schema"
+    description="Direct DB access and ownership with migrations, transactions, and proper indexing across MongoDB and Postgres."
+    link="../database/overview"
+  />
+  <Card
+    title="REST & GraphQL APIs"
+    description="Instant REST, GraphQL, and straight-to-DB Node.js APIs generated from your config."
+    link="../rest-api/overview"
+  />
+  <Card
+    title="Authentication"
+    description="A full auth system you can use in your Payload app and reuse in your own frontends."
+    link="../authentication/overview"
+  />
+  <Card
+    title="Access Control"
+    description="A deeply customizable access pattern that runs at the document, field, and operation level."
+    link="../access-control/overview"
+  />
+  <Card
+    title="File Uploads"
+    description="Built-in file storage, image resizing, focal-point cropping, and media access control."
+    link="../upload/overview"
+  />
+</CardGroup>
 
-No matter what you're building, Payload will give you backend superpowers. Your entire Payload config can be installed in one line into any existing Next.js app, and is designed to catapult your development process. Payload takes the most complex and time-consuming parts of any modern web app and makes them simple.
 
-### Open source - deploy anywhere, including Vercel
+# Use Cases
 
-It's fully open source with an MIT license and you can self-host anywhere that you can run a Node.js app. You can also deploy serverless to hosts like Vercel, right inside your existing Next.js application.
+Source: https://payloadcms.com/docs/getting-started/use-cases
 
-### Code-first and version controlled
-
-In Payload, there are no "click ops" - as in clicking around in an Admin Panel to define your schema. In Payload, everything is done the right way—code-first and version controlled like a proper backend. But once developers define how Payload should work, non-technical users can independently make use of its Admin Panel to manage whatever they need to without having to know code whatsoever.
-
-### Fully extensible
-
-Even in spite of how much you get out of the box, you still have full control over every aspect of your app - be it database, admin UI, or anything else. Every part of Payload has been designed to be extensible and customizable with modern TypeScript / React. And you'll fully understand the code that you write.
-
-## Use Cases
 
 Payload started as a headless Content Management System (CMS), but since, we've seen our community leverage Payload in ways far outside of simply managing pages and blog posts. It's grown into a full-stack TypeScript app framework.
 
@@ -107,7 +136,7 @@ Payload flattens CMS and DAM into a single tool that makes no compromises on eit
 
 [Click here](https://payloadcms.com/use-cases/digital-asset-management) for more information on how to get started with Payload as a DAM.
 
-## Choosing a Framework
+## Is Payload Right For You?
 
 Payload is a great choice for applications of all sizes and types, but it might not be the right choice for every project. Here are some guidelines to help you decide if Payload is the right choice for your project.
 
@@ -126,8 +155,6 @@ Payload is a great choice for applications of all sizes and types, but it might 
 - If you already have a full database and just need to visualize the data somehow
 - If you are confident that you won't need code / data ownership at any point in the future
 
-Ready to get started? First, let's review some high-level concepts that are used in Payload.
-
 
 # Payload Concepts
 
@@ -136,118 +163,79 @@ Source: https://payloadcms.com/docs/getting-started/concepts
 
 Payload is based around a small and intuitive set of high-level concepts. Before starting to work with Payload, it's a good idea to familiarize yourself with these concepts in order to establish a common language and understanding when discussing Payload.
 
-## Config
-
-The Payload Config is central to everything that Payload does. It allows for the deep configuration of your application through a simple and intuitive API. The Payload Config is a fully-typed JavaScript object that can be infinitely extended upon. [More details](../configuration/overview).
-
-## Database
-
-Payload is database agnostic, meaning you can use any type of database behind Payload's familiar APIs through what is known as a Database Adapter. [More details](../database/overview).
-
-## Collections
-
-A Collection is a group of records, called Documents, that all share a common schema. Each Collection is stored in the [Database](../database/overview) based on the [Fields](../fields/overview) that you define. [More details](../configuration/collections).
-
-## Globals
-
-Globals are in many ways similar to [Collections](../configuration/collections), except they correspond to only a single Document. Each Global is stored in the [Database](../database/overview) based on the [Fields](../fields/overview) that you define. [More details](../configuration/globals).
-
-## Fields
-
-Fields are the building blocks of Payload. They define the schema of the Documents that will be stored in the [Database](../database/overview), as well as automatically generate the corresponding UI within the Admin Panel. [More details](../fields/overview).
-
-## Hooks
-
-Hooks allow you to execute your own side effects during specific events of the Document lifecycle, such as before read, after create, etc. [More details](../hooks/overview).
-
-## Authentication
-
-Payload provides a secure, portable way to manage user accounts out of the box. Payload Authentication is designed to be used in both the Admin Panel, as well as your own external applications. [More details](../authentication/overview).
-
-## Access Control
-
-Access Control determines what a user can and cannot do with any given Document, such as read, update, etc., as well as what they can and cannot see within the Admin Panel. [More details](../access-control/overview).
-
-## Admin Panel
-
-Payload dynamically generates a beautiful, fully type-safe interface to manage your users and data. The Admin Panel is a React application built using the Next.js App Router. [More details](../admin/overview).
+<CardGroup>
+  <Card
+    title="Config"
+    description="A deeply typed JavaScript object that drives everything Payload does — the central piece of every project."
+    link="../configuration/overview"
+  />
+  <Card
+    title="Database"
+    description="Plug in Postgres, MongoDB, or SQLite behind Payload's APIs via a Database Adapter — Payload is database agnostic."
+    link="../database/overview"
+  />
+  <Card
+    title="Collections"
+    description="A group of records (Documents) that share a schema. The most common way you'll model data in Payload."
+    link="../configuration/collections"
+  />
+  <Card
+    title="Globals"
+    description="Like Collections, but for content that has only one of — settings, navigation, footer, and so on."
+    link="../configuration/globals"
+  />
+  <Card
+    title="Fields"
+    description="The building blocks of Payload — they define your schema and auto-generate the matching Admin UI."
+    link="../fields/overview"
+  />
+  <Card
+    title="Hooks"
+    description="Run your own side effects at specific points in the Document lifecycle — before read, after create, and more."
+    link="../hooks/overview"
+  />
+  <Card
+    title="Authentication"
+    description="A secure, portable user-account system for both the Admin Panel and your own external applications."
+    link="../authentication/overview"
+  />
+  <Card
+    title="Access Control"
+    description="Decide who can read, update, or delete every Document — and what they see in the Admin Panel."
+    link="../access-control/overview"
+  />
+  <Card
+    title="Admin Panel"
+    description="The auto-generated, fully type-safe React interface editors use to manage your data. Built on Next.js."
+    link="../admin/overview"
+  />
+</CardGroup>
 
 ## Retrieving Data
 
 Everything Payload does (create, read, update, delete, login, logout, etc.) is exposed to you via three APIs:
 
-- [Local API](#local-api) - Extremely fast, direct-to-database access
-- [REST API](#rest-api) - Standard HTTP endpoints for querying and mutating data
-- [GraphQL](#graphql-api) - A full GraphQL API with a GraphQL Playground
+<CardGroup>
+  <Card
+    title="Local API"
+    description="Direct-to-database access with no HTTP overhead — call payload.find from any server context, including React Server Components."
+    link="../local-api/overview"
+  />
+  <Card
+    title="REST API"
+    description="Standard HTTP endpoints mounted at /api — fetch documents from any client with full pagination, depth, and sorting."
+    link="../rest-api/overview"
+  />
+  <Card
+    title="GraphQL"
+    description="A full GraphQL API with a Playground at /api/graphql-playground. Works with graphql-request, Apollo, or any other client."
+    link="../graphql/overview"
+  />
+</CardGroup>
 
 <Banner type="success">
   **Note:** All of these APIs share the exact same query language. [More
   details](../queries/overview).
-</Banner>
-
-### Local API
-
-By far one of the most powerful aspects of Payload is the fact that it gives you direct-to-database access to your data through the [Local API](../local-api/overview). It's _extremely_ fast and does not incur any typical HTTP overhead—you query your database directly in Node.js.
-
-The Local API is written in TypeScript, and so it is strongly typed and extremely nice to use. It works anywhere on the server, including custom Next.js Routes, Payload Hooks, Payload Access Control, and React Server Components.
-
-Here's a quick example of a React Server Component fetching data using the Local API:
-
-```tsx
-import React from 'react'
-import config from '@payload-config'
-import { getPayload } from 'payload'
-
-const MyServerComponent: React.FC = () => {
-  const payload = await getPayload({ config })
-
-  // The `findResult` here will be fully typed as `PaginatedDocs<Page>`,
-  // where you will have the `docs` that are returned as well as
-  // information about how many items are returned / are available in total / etc
-  const findResult = await payload.find({ collection: 'pages' })
-
-  return (
-    <ul>
-      {findResult.docs.map((page) => {
-        // Render whatever here!
-        // The `page` is fully typed as your Pages collection!
-      })}
-    </ul>
-  )
-}
-```
-
-<Banner type="info">
-  For more information about the Local API, [click here](../local-api/overview).
-</Banner>
-
-### REST API
-
-By default, the Payload [REST API](../rest-api/overview) is mounted automatically for you at the `/api` path of your app.
-
-For example, if you have a Collection called `pages`:
-
-```ts
-fetch('https://localhost:3000/api/pages') // highlight-line
-  .then((res) => res.json())
-  .then((data) => console.log(data))
-```
-
-<Banner type="info">
-  For more information about the REST API, [click here](../rest-api/overview).
-</Banner>
-
-### GraphQL API
-
-Payload automatically exposes GraphQL queries and mutations through a dedicated [GraphQL API](../graphql/overview). By default, the GraphQL route handler is mounted at the `/api/graphql` path of your app. You'll also find a full GraphQL Playground which can be accessible at the `/api/graphql-playground` path of your app.
-
-You can use any GraphQL client with Payload's GraphQL endpoint. Here are a few packages:
-
-- [`graphql-request`](https://www.npmjs.com/package/graphql-request) - a very lightweight GraphQL client
-- [`@apollo/client`](https://www.apollographql.com/docs/react/api/core/ApolloClient/) - an industry-standard GraphQL client with lots of nice features
-
-<Banner type="info">
-  For more information about the GraphQL API, [click here](../graphql/overview).
 </Banner>
 
 ## Package Structure
@@ -315,7 +303,7 @@ Payload requires the following software:
   - `15.2.9` - `15.2.x`
   - `15.3.9` - `15.3.x`
   - `15.4.11` - `15.4.x`
-  - `16.2.2`+
+  - `16.2.6`+
 - Any [compatible database](../database/overview) (MongoDB, Postgres or SQLite)
 
 <Banner type="warning">
@@ -1000,6 +988,7 @@ The following options are available:
 | `defaultPopulate`    | Specify which fields to select when this Collection is populated from another document. [More Details](../queries/select#defaultpopulate-collection-config-property).                                                |
 | `indexes`            | Define compound indexes for this collection. This can be used to either speed up querying/sorting by 2 or more fields at the same time or to ensure uniqueness between several fields.                               |
 | `forceSelect`        | Specify which fields should be selected always, regardless of the `select` query which can be useful that the field exists for access control / hooks. [More details](../queries/select).                            |
+| `disableBulkDelete`  | Disable the bulk delete operation for the collection in the admin panel and the REST API                                                                                                                             |
 | `disableBulkEdit`    | Disable the bulk edit operation for the collection in the admin panel and the REST API                                                                                                                               |
 
 _\* An asterisk denotes that a property is required._
@@ -6120,9 +6109,9 @@ export const MyJSONField: Field = {
 
 The JSON Field inherits all of the default admin options from the base [Field Admin Config](./overview#admin-options), plus the following additional options:
 
-| Option              | Description                                                                                                                                                   |
-| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`editorOptions`** | Options that can be passed to the monaco editor, [view the full list](https://microsoft.github.io/monaco-editor/typedoc/variables/editor.EditorOptions.html). |
+| Option              | Description                                                                                                                                                                       |
+| ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`editorOptions`** | Options that can be passed to the monaco editor, [view the full list](https://microsoft.github.io/monaco-editor/docs.html#variables/editor_editor_api.editor.EditorOptions.html). |
 
 ## Example
 
@@ -10433,7 +10422,13 @@ Source: https://payloadcms.com/docs/hooks/overview
 
 Hooks allow you to execute your own side effects during specific events of the Document lifecycle. They allow you to do things like mutate data, perform business logic, integrate with third-parties, or anything else, all during precise moments within your application.
 
-With Hooks, you can transform Payload from a traditional CMS into a fully-fledged application framework. There are many use cases for Hooks, including:
+<YouTube
+  id="zYhPeBi5PaU"
+  title="Payload Hooks Explained: When to Use Them, and when to pass logic to the Jobs Queue"
+/>
+With Hooks, you can transform Payload from a traditional CMS into a
+fully-fledged application framework. There are many use cases for Hooks,
+including:
 
 - Modify data before it is read or updated
 - Encrypt and decrypt sensitive data
@@ -13103,6 +13098,14 @@ Source: https://payloadcms.com/docs/rest-api/overview
 The REST API is a fully functional HTTP client that allows you to interact with your Documents in a RESTful manner. It supports all CRUD operations and is equipped with automatic pagination, depth, and sorting.
 All Payload API routes are mounted and prefixed to your config's `routes.api` URL segment (default: `/api`).
 
+For example, if you have a Collection called `pages`, you can fetch its documents directly from the browser or any HTTP client:
+
+```ts
+fetch('https://localhost:3000/api/pages') // highlight-line
+  .then((res) => res.json())
+  .then((data) => console.log(data))
+```
+
 To enhance DX, you can use [Payload SDK](#payload-rest-api-sdk) to query your REST API.
 
 **REST query parameters:**
@@ -13666,13 +13669,12 @@ Additional REST API endpoints can be added to your application by providing an a
 
 Each endpoint object needs to have:
 
-| Property      | Description                                                                                                                                                                                                                                                |
-| ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`path`**    | A string for the endpoint route after the collection or globals slug                                                                                                                                                                                       |
-| **`method`**  | The lowercase HTTP verb to use: 'get', 'head', 'post', 'put', 'delete', 'connect' or 'options'                                                                                                                                                             |
-| **`handler`** | A function that accepts **req** - `PayloadRequest` object which contains [Web Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) properties, currently authenticated `user` and the Local API instance `payload`.                          |
-| **`root`**    | When `true`, defines the endpoint on the root Next.js app, bypassing Payload handlers and the `routes.api` subpath. Note: this only applies to top-level endpoints of your Payload Config, endpoints defined on `collections` or `globals` cannot be root. |
-| **`custom`**  | Extension point for adding custom data (e.g. for plugins)                                                                                                                                                                                                  |
+| Property      | Description                                                                                                                                                                                                                       |
+| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`path`**    | A string for the endpoint route after the collection or globals slug                                                                                                                                                              |
+| **`method`**  | The lowercase HTTP verb to use: 'get', 'head', 'post', 'put', 'delete', 'connect' or 'options'                                                                                                                                    |
+| **`handler`** | A function that accepts **req** - `PayloadRequest` object which contains [Web Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) properties, currently authenticated `user` and the Local API instance `payload`. |
+| **`custom`**  | Extension point for adding custom data (e.g. for plugins)                                                                                                                                                                         |
 
 Example:
 
@@ -13748,6 +13750,20 @@ export const Orders: CollectionConfig = {
   of [Access Control](../access-control/overview) and
   [Hooks](../hooks/overview).
 </Banner>
+
+#### Root-level routes
+
+Custom endpoints defined in your Payload Config are always mounted under your configured `routes.api` path (default: `/api`). To define a route that is not prefixed by this path, add a Next.js [Route Handler](https://nextjs.org/docs/app/api-reference/file-conventions/route) at the desired location in your app directory:
+
+```ts
+// src/app/my-route/route.ts
+
+export const GET = async () => {
+  return Response.json({
+    message: 'This is an example of a custom route.',
+  })
+}
+```
 
 #### Helpful tips
 
@@ -14182,6 +14198,13 @@ In addition to its REST and Local APIs, Payload ships with a fully featured and 
 By default, the GraphQL API is exposed via `/api/graphql`, but you can customize this URL via specifying your `routes` within the main Payload Config.
 
 The labels you provide for your Collections and Globals are used to name the GraphQL types that are created to correspond to your config. Special characters and spaces are removed.
+
+## GraphQL Clients
+
+You can use any GraphQL client with Payload's GraphQL endpoint. Here are a few popular packages:
+
+- [`graphql-request`](https://www.npmjs.com/package/graphql-request) - a very lightweight GraphQL client
+- [`@apollo/client`](https://www.apollographql.com/docs/react/api/core/ApolloClient/) - an industry-standard GraphQL client with lots of nice features
 
 ## GraphQL Options
 
@@ -15594,7 +15617,7 @@ The `admin` directory contains all the _pages_ related to the interface itself, 
 <Banner type="success">
   **Tip:** The `(payload)` folder location is flexible. You can move it to match
   your application's structure by updating the `routes` and `admin.importMap`
-  configuration. See [Customizing Admin Panel Location](./customizing-location)
+  configuration. See [Customizing Admin Panel Location](./admin-panel-location)
   for step-by-step instructions.
 </Banner>
 
@@ -15648,7 +15671,7 @@ The following options are available:
 | `suppressHydrationWarning` | If set to `true`, suppresses React hydration mismatch warnings during the hydration of the root `<html>` tag. Defaults to `false`.              |
 | `theme`                    | Restrict the Admin Panel theme to use only one of your choice. Default is `all`.                                                                |
 | `timezones`                | Configure the timezone settings for the admin panel. [More details](#timezones)                                                                 |
-| `toast`                    | Customize the handling of toast messages within the Admin Panel. [More details](#toasts)                                                        |
+| `toast`                    | Customize the handling of toast messages within the Admin Panel. [More details](#toast)                                                         |
 | `user`                     | The `slug` of the Collection that you want to allow to login to the Admin Panel. [More details](#the-admin-user-collection).                    |
 
 <Banner type="success">
@@ -15779,7 +15802,7 @@ app
 <Banner type="info">
   **Advanced Routing:** For complex scenarios like nesting the admin panel at
   custom paths (e.g., `/admin/content`) or organizing multiple admin dashboards,
-  see [Customizing Admin Panel Location](./customizing-location).
+  see [Customizing Admin Panel Location](./admin-panel-location).
 </Banner>
 
 ### Admin-level Routes
@@ -15957,15 +15980,15 @@ The following options are available for the `admin.toast` configuration:
 
 ### Can I move the Payload admin panel to a custom location?
 
-Yes! Payload is flexible about where the admin panel lives. You can move it to custom routes like `/dashboard`, `/cms`, or nested paths like `/admin/content`. See [Customizing Admin Panel Location](./customizing-location) for step-by-step instructions.
+Yes! Payload is flexible about where the admin panel lives. You can move it to custom routes like `/dashboard`, `/cms`, or nested paths like `/admin/content`. See [Customizing Admin Panel Location](./admin-panel-location) for step-by-step instructions.
 
 ### Which auto-generated files can I safely modify?
 
-Most files in the `(payload)` folder are only created once and can be safely modified. Only the `importMap.js` file is regenerated automatically. See [Understanding Auto-Generated Files](./customizing-location#understanding-auto-generated-files) for a complete reference table.
+Most files in the `(payload)` folder are only created once and can be safely modified. Only the `importMap.js` file is regenerated automatically. See [Understanding Auto-Generated Files](./admin-panel-location#understanding-auto-generated-files) for a complete reference table.
 
 ### Why does layout.tsx say "DO NOT MODIFY" if I need to edit it?
 
-This warning is misleading. The `layout.tsx` file was generated during initial project setup but is never regenerated by Payload. It is safe to modify, especially when customizing your folder structure. See [About the "DO NOT MODIFY" Warning](./customizing-location#about-the-do-not-modify-warning) for details.
+This warning is misleading. The `layout.tsx` file was generated during initial project setup but is never regenerated by Payload. It is safe to modify, especially when customizing your folder structure. See [About the "DO NOT MODIFY" Warning](./admin-panel-location#about-the-do-not-modify-warning) for details.
 
 ### What happens if I edit the import map file directly?
 
@@ -16633,18 +16656,9 @@ Source: https://payloadcms.com/docs/admin/accessibility
 Payload is committed to ensuring that our admin panel is accessible to all users, including those with disabilities. We follow best practices and guidelines to create an inclusive experience.
 
 <Banner type="info">
-  <p>
-    We are actively working towards full compliance with WCAG 2.2 AA standards.
-    If you encounter any accessibility issues, please report them in our{' '}
-    <a
-      href="https://github.com/payloadcms/payload/discussions/14489"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      GitHub Discussion
-    </a>{' '}
-    page.
-  </p>
+  We are actively working towards full compliance with WCAG 2.2 AA standards. If
+  you encounter any accessibility issues, please report them in our [GitHub
+  Discussion](https://github.com/payloadcms/payload/discussions/14489) page.
 </Banner>
 
 ## Compliance standards
@@ -18557,7 +18571,7 @@ The import map is **never regenerated** during:
   **Important:** The import map file should never be manually edited. However,
   the `layout.tsx` file that imports it is safe to modify when customizing your
   folder structure. See [Customizing Admin Panel
-  Location](../admin/customizing-location) for details.
+  Location](../admin/admin-panel-location) for details.
 </Banner>
 
 #### Overriding Import Map Location
@@ -19950,6 +19964,11 @@ Source: https://payloadcms.com/docs/custom-components/dashboard
 </Banner>
 
 The Dashboard is the first page users see when they log into the Payload Admin Panel. By default, it displays cards with the collections and globals. You can customize the dashboard by adding **widgets** - modular components that can display data, analytics, or any other content.
+
+<YouTube
+  id="fXF34Ef6G84"
+  title="Create a flexible admin panel with the new Modular Dashboard feature"
+/>
 
 One of the coolest things about widgets is that each plugin can define its own. Some examples:
 
@@ -27755,7 +27774,7 @@ const config = buildConfig({
 
 You can also pass a function in order to dynamically format URLs. This is useful for multi-tenant applications, localization, or any other scenario where the URL needs to be generated based on the Document being edited.
 
-This is also useful for conditionally rendering Live Preview, similar to access control. See [Conditional Rendering](./conditional-rendering) for more details.
+This is also useful for conditionally rendering Live Preview, similar to access control. See [Conditional Rendering](./overview#conditional-rendering) for more details.
 
 To set dynamic URLs, set the `admin.livePreview.url` property in your [Payload Config](../configuration/overview) to a function:
 
@@ -29838,8 +29857,8 @@ Source: https://payloadcms.com/docs/upload/storage-adapters
 
 Payload offers additional storage adapters to handle file uploads. These adapters allow you to store files in different locations, such as Amazon S3, Vercel Blob Storage, Google Cloud Storage, and more.
 
-| Service              | Package                                                                                                           |
-| -------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| Service              | Package                                                                                                          |
+| -------------------- | ---------------------------------------------------------------------------------------------------------------- |
 | Vercel Blob          | [`@payloadcms/storage-vercel-blob`](https://github.com/payloadcms/payload/tree/3.x/packages/storage-vercel-blob) |
 | AWS S3               | [`@payloadcms/storage-s3`](https://github.com/payloadcms/payload/tree/3.x/packages/storage-s3)                   |
 | Azure                | [`@payloadcms/storage-azure`](https://github.com/payloadcms/payload/tree/3.x/packages/storage-azure)             |
@@ -30046,7 +30065,26 @@ pnpm add @payloadcms/storage-azure
 
 - Configure the `collections` object to specify which collections should use the Azure Blob adapter. The slug _must_ match one of your existing collection slugs.
 - When enabled, this package will automatically set `disableLocalStorage` to `true` for each collection.
-- When deploying to Vercel, server uploads are limited with 4.5MB. Set `clientUploads` to `true` to do uploads directly on the client. You must allow CORS PUT method to your website.
+- When deploying to Vercel, server uploads are limited with 4.5MB. Set `clientUploads` to `true` to do uploads directly on the client.
+
+- Client uploads send each file in a single request, which Azure caps at ~5GB. To upload larger files, set `clientUploads: { chunkLargeFiles: true }` — this uploads through the Azure Blob SDK, which splits the file into blocks and raises the limit to Azure's block-blob maximum.
+
+<Banner type="warning">
+  **`chunkLargeFiles` and CORS:** With `chunkLargeFiles: true`, the Azure Blob SDK
+  sends additional `x-ms-*` headers, so the browser issues a CORS preflight. Your
+  storage account's CORS rules must allow the `OPTIONS` and `PUT` methods **and**
+  those headers. Configure a CORS rule on the Blob service (Storage account →
+  **Resource sharing (CORS)**):
+
+| Field           | Value                                                    |
+| --------------- | -------------------------------------------------------- |
+| Allowed origins | Your site origin (e.g. `https://example.com`)            |
+| Allowed methods | `GET,PUT,OPTIONS` (`HEAD` if reading in-browser)         |
+| Allowed headers | `*` (or at minimum `x-ms-*,content-type,content-length`) |
+| Exposed headers | `*`                                                      |
+| Max age         | `3600`                                                   |
+
+</Banner>
 
 ```ts
 import { azureStorage } from '@payloadcms/storage-azure'
@@ -30282,13 +30320,13 @@ This plugin is configurable to work across many different Payload collections. A
 
 ## Collection-specific options
 
-| Option                        | Type                                                                                                              | Description                                                                                                                                                                                                   |
-| ----------------------------- | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Option                        | Type                                                                                                             | Description                                                                                                                                                                                                   |
+| ----------------------------- | ---------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `adapter` \*                  | [Adapter](https://github.com/payloadcms/payload/blob/3.x/packages/plugin-cloud-storage/src/types.ts#L49)         | Pass in the adapter that you'd like to use for this collection. You can also set this field to `null` for local development if you'd like to bypass cloud storage in certain scenarios and use local storage. |
-| `disableLocalStorage`         | `boolean`                                                                                                         | Choose to disable local storage on this collection. Defaults to `true`.                                                                                                                                       |
-| `disablePayloadAccessControl` | `true`                                                                                                            | Set to `true` to disable Payload's Access Control. [More](#payload-access-control)                                                                                                                            |
+| `disableLocalStorage`         | `boolean`                                                                                                        | Choose to disable local storage on this collection. Defaults to `true`.                                                                                                                                       |
+| `disablePayloadAccessControl` | `true`                                                                                                           | Set to `true` to disable Payload's Access Control. [More](#payload-access-control)                                                                                                                            |
 | `generateFileURL`             | [GenerateFileURL](https://github.com/payloadcms/payload/blob/3.x/packages/plugin-cloud-storage/src/types.ts#L67) | Override the generated file URL with one that you create.                                                                                                                                                     |
-| `prefix`                      | `string`                                                                                                          | Set to `media/images` to upload files inside `media/images` folder in the bucket.                                                                                                                             |
+| `prefix`                      | `string`                                                                                                         | Set to `media/images` to upload files inside `media/images` folder in the bucket.                                                                                                                             |
 
 ## Prefix Composition
 
@@ -34597,8 +34635,10 @@ This will ensure that the WebSocket connection uses the correct protocol (`wss:/
 Alternatively if more of your URL is dynamic, you can set the full URL for the WebSocket connection using the `PAYLOAD_HMR_URL_OVERRIDE` environment variable:
 
 ```
-PAYLOAD_HMR_URL_OVERRIDE=wss://localhost:3000/_next/webpack-hmr
+PAYLOAD_HMR_URL_OVERRIDE=wss://localhost:3000/_next/hmr
 ```
+
+You do not need to set this to match your Next.js version. Next.js serves HMR on `/_next/hmr` from version 16.3 onwards, and on `/_next/webpack-hmr` before that. Payload reads the installed Next.js version and connects to the correct path on its own.
 
 ## Database password encoding issues
 
@@ -34648,6 +34688,62 @@ Payload exports a number of types that you may find useful while writing your ow
 - [Collection hooks](../hooks/collections#typescript)
 - [Global hooks](../hooks/globals#typescript)
 - [Field hooks](../hooks/fields#typescript)
+
+## Type Helpers
+
+Beyond the concrete interfaces in your generated `payload-types.ts` (`Post`, `User`, etc.), Payload exports a set of **generic type helpers** from the `payload` package. Instead of referencing a single collection by name, these resolve dynamically against _all_ of your collections and globals — which makes them especially useful in [Plugins](../plugins/build-your-own#consuming-generated-types), reusable [Hooks](../hooks/overview), and [Access Control](../access-control/overview) functions, where the exact collection may not be known ahead of time.
+
+### How they resolve
+
+When you run [`payload generate:types`](./generating-types), the generated file augments a global `GeneratedTypes` interface inside the `payload` module:
+
+```ts
+// payload-types.ts (generated)
+declare module 'payload' {
+  export interface GeneratedTypes extends Config {}
+}
+```
+
+Every helper below is generic over this augmented interface. Because the augmentation lives in _your_ project, the helpers resolve to _your_ actual collections wherever your code is type-checked — including inside a third-party plugin's source once it is installed in your project. If `GeneratedTypes` has not been augmented (for example, in a plugin's own repository before it is consumed), the helpers gracefully fall back to loose types (`string`, index signatures) rather than erroring.
+
+### Available helpers
+
+| Helper                                  | Resolves to                                                                                |
+| --------------------------------------- | ------------------------------------------------------------------------------------------ |
+| `CollectionSlug`                        | A union of all your collection slugs, e.g. `'posts' \| 'users' \| 'media'`.                |
+| `DataFromCollectionSlug<TSlug>`         | The full document type for a collection (the shape returned after read).                   |
+| `RequiredDataFromCollectionSlug<TSlug>` | The data shape accepted by `create` (system fields like `id`/`createdAt` become optional). |
+| `SelectFromCollectionSlug<TSlug>`       | The `select` type for a collection.                                                        |
+| `TypedCollection`                       | A map of every collection slug to its document type.                                       |
+| `GlobalSlug`                            | A union of all your global slugs.                                                          |
+| `TypedGlobal`                           | A map of every global slug to its data type.                                               |
+| `TypedUser`                             | The user type — a union across all auth-enabled collections.                               |
+| `TypedLocale`                           | A union of your configured locale codes (or `string` if localization is disabled).         |
+| `DefaultDocumentIDType`                 | Your database's default ID type (`string` or `number`).                                    |
+
+### Example
+
+```ts
+import type {
+  CollectionSlug,
+  DataFromCollectionSlug,
+  CollectionAfterChangeHook,
+} from 'payload'
+
+// Constrain a value to any valid collection slug
+const collections: CollectionSlug[] = ['posts', 'users']
+
+// Write a hook that stays generic over whichever slug it is attached to
+function createAuditHook<TSlug extends CollectionSlug>(slug: TSlug) {
+  const hook: CollectionAfterChangeHook<DataFromCollectionSlug<TSlug>> = ({
+    doc,
+  }) => {
+    // `doc` is fully typed to the collection at `slug`
+    return doc
+  }
+  return hook
+}
+```
 
 
 # Generating TypeScript Interfaces
@@ -35464,6 +35560,49 @@ export interface PluginTypes {
 ```
 
 If possible, include [JSDoc comments](https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html#types-1) to describe the options and their types. This allows a developer to see details about the options in their editor.
+
+### Consuming generated types
+
+A common question when building a plugin is how to reference the type of a collection that belongs to the _end user_. At authoring time you don't know which collections the user has, so it's tempting to hand-copy a subset of their interfaces — but that is fragile and quickly drifts out of sync.
+
+Instead, use Payload's generic [type helpers](../typescript/overview#type-helpers). Because a consuming project augments the `GeneratedTypes` interface when it runs `payload generate:types`, helpers like `CollectionSlug` and `DataFromCollectionSlug` resolve to the user's _actual_ collections wherever your plugin's source is type-checked in their project:
+
+```ts
+import type {
+  CollectionSlug,
+  DataFromCollectionSlug,
+  CollectionAfterChangeHook,
+} from 'payload'
+
+export interface PluginTypes {
+  /**
+   * Collections to enable this plugin for
+   */
+  collections?: CollectionSlug[]
+}
+
+// Stays generic over whichever collection slug is passed in
+const createHook = <TSlug extends CollectionSlug>(slug: TSlug) => {
+  const hook: CollectionAfterChangeHook<DataFromCollectionSlug<TSlug>> = ({
+    doc,
+  }) => {
+    // `doc` is typed to the user's collection at `slug`
+    return doc
+  }
+  return hook
+}
+```
+
+<Banner type="info">
+  Within your plugin's own repository, `GeneratedTypes` is not augmented, so
+  these helpers fall back to loose types. To develop against real types,
+  generate them inside your `dev/` project (see the `dev:generate-types` script
+  in the [plugin template](#plugin-template)) — the concrete types materialize
+  once the plugin is installed in a project that has run `payload
+  generate:types`.
+</Banner>
+
+If your plugin needs to contribute its _own_ reusable types into the user's generated file, extend the JSON schema via [`typescript.schema`](../typescript/generating-types#custom-generated-types).
 
 ## Best practices
 
@@ -36498,13 +36637,12 @@ Source: https://payloadcms.com/docs/plugins/import-export
 
 ![https://www.npmjs.com/package/@payloadcms/plugin-import-export](https://img.shields.io/npm/v/@payloadcms/plugin-import-export)
 
-<Banner type="warning">
-  **Note**: This plugin is in **beta** as some aspects of it may change on any
-  minor releases. It is under development.
-</Banner>
-
 This plugin adds features that give admin users the ability to download or create export data as an upload collection and import it back into a project.
 
+<YouTube
+  id="lyAOXO5TcZw"
+  title="A simple, powerful way to manage your data in Payload: Import/Export Plugin"
+/>
 ## Core Features
 
 - Export data as CSV or JSON format via the admin UI
@@ -36618,6 +36756,7 @@ Each item in the `collections` array can have the following properties:
 | `disableJobsQueue`   | boolean              | Run exports synchronously for this collection.                                                   |
 | `disableSave`        | boolean              | Disable save button for this collection.                                                         |
 | `format`             | string               | Force format (`csv` or `json`) for this collection.                                              |
+| `hooks`              | object               | Lifecycle hooks — `before` and `after`. See [Hooks](#hooks).                                     |
 | `limit`              | `number \| function` | Maximum documents to export. Set to `0` for unlimited (default). Overrides global `exportLimit`. |
 | `overrideCollection` | function             | Override the export collection config for this specific target.                                  |
 
@@ -36628,6 +36767,7 @@ Each item in the `collections` array can have the following properties:
 | `batchSize`            | number               | Documents per batch during import. Default: `100`.                                               |
 | `defaultVersionStatus` | string               | Default status for imported docs (`draft` or `published`).                                       |
 | `disableJobsQueue`     | boolean              | Run imports synchronously for this collection.                                                   |
+| `hooks`                | object               | Lifecycle hooks — `before` and `after`. See [Hooks](#hooks).                                     |
 | `limit`                | `number \| function` | Maximum documents to import. Set to `0` for unlimited (default). Overrides global `importLimit`. |
 | `overrideCollection`   | function             | Override the import collection config for this specific target.                                  |
 
@@ -36856,15 +36996,238 @@ importExportPlugin({
 })
 ```
 
+## Hooks
+
+Collection-level hooks let you intercept each batch of documents before it is written (to file on export, or to the database on import) and after it has been written. Hooks fire once per batch and work for both `csv` and `json` formats.
+
+### Hook arguments
+
+All hooks receive:
+
+| Argument       | Type                        | Description                                                          |
+| -------------- | --------------------------- | -------------------------------------------------------------------- |
+| `batchNumber`  | number                      | Current batch, starting at `1`.                                      |
+| `data`         | `Record<string, unknown>[]` | Transformed batch — flat rows for CSV export, nested docs otherwise. |
+| `format`       | string                      | Export/import format. Open-ended (`'csv' \| 'json' \| string`).      |
+| `originalData` | array                       | Source data before transformation. Read-only — do not mutate.        |
+| `req`          | `PayloadRequest`            | The full request object.                                             |
+| `totalBatches` | number                      | Total number of batches in this operation.                           |
+
+`ImportAfterHook` additionally receives `result: ImportResult` (per-batch counts and errors) instead of `data`/`originalData`.
+
+### before hooks — modify data
+
+`before` hooks return the (optionally modified) `data` array, which replaces the batch going into the write step. Returning an empty array skips the write for that batch without aborting remaining batches.
+
+```ts
+import { importExportPlugin } from '@payloadcms/plugin-import-export'
+
+importExportPlugin({
+  collections: [
+    {
+      slug: 'users',
+      export: {
+        hooks: {
+          // Mask sensitive fields before the batch is written to file
+          before: ({ data, format }) => {
+            return data.map((row) => {
+              const { passwordHash: _ph, ssn: _ssn, ...safe } = row
+              return safe
+            })
+          },
+        },
+      },
+      import: {
+        hooks: {
+          // Normalise incoming data before it is written to the database
+          before: ({ data }) => {
+            return data.map((doc) => ({
+              ...doc,
+              email:
+                typeof doc.email === 'string'
+                  ? doc.email.toLowerCase()
+                  : doc.email,
+            }))
+          },
+        },
+      },
+    },
+  ],
+})
+```
+
+### after hooks — logging and observability
+
+`after` hooks fire after the write has completed. Their return value is ignored — use them for logging, metrics, or notifications.
+
+```ts
+importExportPlugin({
+  collections: [
+    {
+      slug: 'orders',
+      export: {
+        hooks: {
+          after: ({ batchNumber, totalBatches, data, format, req }) => {
+            req.payload.logger.info({
+              msg: `Export batch ${batchNumber}/${totalBatches} written`,
+              format,
+              docsInBatch: data.length,
+            })
+          },
+        },
+      },
+      import: {
+        hooks: {
+          after: ({ batchNumber, totalBatches, result, req }) => {
+            req.payload.logger.info({
+              msg: `Import batch ${batchNumber}/${totalBatches} complete`,
+              imported: result.imported,
+              updated: result.updated,
+              errors: result.errors.length,
+            })
+          },
+        },
+      },
+    },
+  ],
+})
+```
+
+### Using originalData for context
+
+`originalData` gives you the raw source before any transformation. For exports it is the original DB documents; for imports it is the raw parsed file rows. This is useful when you need context from the full document while building modified flat rows.
+
+```ts
+export: {
+  hooks: {
+    before: ({ data, originalData }) => {
+      return data.map((row, i) => ({
+        ...row,
+        // Add a computed column not present in the DB document
+        displayName: `${originalData[i]?.firstName} ${originalData[i]?.lastName}`,
+      }))
+    },
+  },
+},
+```
+
+### Column name mapping for foreign systems
+
+When importing from or exporting to a foreign system, column names rarely match your Payload field names. Use the batch `before` hooks to rename keys on the way in or out.
+
+#### Exporting with renamed CSV columns
+
+Use `export.hooks.before` to rewrite every row's keys to the foreign system's column names. The returned shape is what gets written to the file.
+
+```ts
+import { importExportPlugin } from '@payloadcms/plugin-import-export'
+
+const exportRenameMap: Record<string, string> = {
+  title: 'Post Title',
+  excerpt: 'Summary',
+  count: 'View Count',
+}
+
+importExportPlugin({
+  collections: [
+    {
+      slug: 'posts',
+      export: {
+        hooks: {
+          before: ({ data }) =>
+            data.map((row) => {
+              const renamed: Record<string, unknown> = {}
+              for (const [key, value] of Object.entries(row)) {
+                renamed[exportRenameMap[key] ?? key] = value
+              }
+              return renamed
+            }),
+        },
+      },
+    },
+  ],
+})
+```
+
+JSON exports work the same way — the hook receives the fully-transformed batch, and the returned keys become the top-level JSON keys.
+
+#### Importing from foreign CSV columns
+
+Use `import.hooks.before` to rewrite incoming keys back to Payload field names. The hook receives already-unflattened documents, so foreign top-level keys like `Post Title` are still present and can be remapped to `title` before the DB write. Keys you don't include in the returned object are dropped.
+
+```ts
+const importRenameMap: Record<string, string> = {
+  'Post Title': 'title',
+  Summary: 'excerpt',
+  'View Count': 'count',
+}
+
+importExportPlugin({
+  collections: [
+    {
+      slug: 'posts',
+      import: {
+        hooks: {
+          before: ({ data }) =>
+            data.map((doc) => {
+              const renamed: Record<string, unknown> = {}
+              for (const [key, value] of Object.entries(doc)) {
+                const payloadKey = importRenameMap[key]
+                if (payloadKey) {
+                  renamed[payloadKey] = value
+                }
+                // Foreign keys not present in the rename map are dropped.
+              }
+              return renamed
+            }),
+        },
+      },
+    },
+  ],
+})
+```
+
+CSV cell values arrive as strings. Payload coerces basic scalar types automatically on write, but if a target field has stricter validation you can coerce inside the hook (`renamed.count = Number(value)`).
+
+#### Field-level export rename for shared fields
+
+When a field definition is shared across collections and the rename should travel with the field, use the field's own `hooks.beforeExport`. Mutate `siblingData` to add the renamed key and return `undefined` so the original field key is dropped from the output:
+
+```ts
+import type { FieldBeforeExportHook } from '@payloadcms/plugin-import-export'
+
+const sharedNameField = {
+  name: 'sharedName',
+  type: 'text' as const,
+  custom: {
+    'plugin-import-export': {
+      hooks: {
+        beforeExport: (({ siblingData, value }) => {
+          siblingData['Display Name'] = value
+          return undefined
+        }) satisfies FieldBeforeExportHook,
+      },
+    },
+  },
+}
+```
+
+This pattern is export-only. Field-level `hooks.beforeImport` does **not** fire for foreign columns — it's keyed by the incoming column name, so it can't pick up a column whose name doesn't already match a Payload field. For the reverse direction, use the collection-level `import.hooks.before` recipe above.
+
 ## Field Options
 
-In addition to the above plugin configuration options, you can granularly set the following field level options using the `custom['plugin-import-export']` properties in any of your collections.
+In addition to collection-level hooks, you can configure field-level export and import behavior directly on any field's `custom['plugin-import-export']` config. This is especially useful when:
 
-| Property   | Type     | Description                                                                                                                   |
-| ---------- | -------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| `disabled` | boolean  | When `true` the field is completely excluded from the import-export plugin.                                                   |
-| `toCSV`    | function | Custom function used to modify the outgoing CSV data by manipulating the data, siblingData or by returning the desired value. |
-| `fromCSV`  | function | Custom function used to transform incoming CSV data during import.                                                            |
+- You share a field definition across multiple collections and want the behavior to travel with the field
+- You need to transform a deeply nested field without navigating the full document structure in a collection-level hook
+
+| Property             | Type     | Description                                                                 |
+| -------------------- | -------- | --------------------------------------------------------------------------- |
+| `disabled`           | boolean  | When `true` the field is completely excluded from the import-export plugin. |
+| `hooks.beforeExport` | function | Runs before a field value is exported. Works for CSV and JSON.              |
+| `hooks.beforeImport` | function | Runs before a field value is imported. Works for CSV and JSON.              |
+| `toCSV`              | function | **Deprecated** — use `hooks.beforeExport` instead. Will be removed in v4.   |
+| `fromCSV`            | function | **Deprecated** — use `hooks.beforeImport` instead. Will be removed in v4.   |
 
 ### Disabling Fields
 
@@ -36888,95 +37251,136 @@ When a field is disabled:
 - It will be ignored during import operations
 - Nested fields inside disabled parent fields are also excluded
 
-### Customizing Export Data with toCSV
+### hooks.beforeExport
 
-To manipulate the data that a field exports, you can add `toCSV` custom functions. This allows you to modify the outgoing CSV data by manipulating the row object or by returning the desired value.
+Use `hooks.beforeExport` to transform a field's value before it is exported. Works for both `csv` and `json` formats.
 
-The `toCSV` function receives an object with the following properties:
+The `beforeExport` function receives:
 
-| Property     | Type    | Description                                                       |
-| ------------ | ------- | ----------------------------------------------------------------- |
-| `columnName` | string  | The CSV column name given to the field.                           |
-| `doc`        | object  | The top level document.                                           |
-| `row`        | object  | The object data that can be manipulated to assign data to the CSV |
-| `siblingDoc` | object  | The document data at the level where it belongs.                  |
-| `value`      | unknown | The data for the field.                                           |
+| Property      | Type    | Description                                                                                                     |
+| ------------- | ------- | --------------------------------------------------------------------------------------------------------------- |
+| `columnName`  | string  | Column/field path, underscore-separated for nested fields (includes array indices).                             |
+| `data`        | object  | The top-level document being exported.                                                                          |
+| `format`      | string  | `'csv'` or `'json'`.                                                                                            |
+| `siblingData` | object  | Writable output at the current level. CSV: the flat row accumulator. JSON: the sibling output object.           |
+| `siblingDoc`  | object  | Read-only source at the current level, before any transformation. Use this to read another sibling's raw value. |
+| `value`       | unknown | The field value from the source document.                                                                       |
 
-Example - splitting a relationship into multiple columns:
+Return a value to replace the field, `undefined` to use default behavior, or mutate `siblingData` to add extra columns at the same level.
+
+Example — splitting a relationship into multiple columns:
 
 ```ts
-const pages: CollectionConfig = {
-  slug: 'pages',
-  fields: [
-    {
-      name: 'author',
-      type: 'relationship',
-      relationTo: 'users',
-      custom: {
-        'plugin-import-export': {
-          toCSV: ({ value, columnName, row }) => {
-            // Add both `author_id` and the `author_email` to the CSV export
-            if (
-              value &&
-              typeof value === 'object' &&
-              'id' in value &&
-              'email' in value
-            ) {
-              row[`${columnName}_id`] = (value as { id: number | string }).id
-              row[`${columnName}_email`] = (value as { email: string }).email
-            }
-          },
-        },
+import type { FieldBeforeExportHook } from '@payloadcms/plugin-import-export'
+
+const authorFieldWithHooks = {
+  name: 'author',
+  type: 'relationship',
+  relationTo: 'users',
+  custom: {
+    'plugin-import-export': {
+      hooks: {
+        beforeExport: (({ value, columnName, siblingData, format }) => {
+          if (
+            format === 'csv' &&
+            value &&
+            typeof value === 'object' &&
+            'id' in value &&
+            'email' in value
+          ) {
+            siblingData[`${columnName}_id`] = (
+              value as { id: number | string }
+            ).id
+            siblingData[`${columnName}_email`] = (
+              value as { email: string }
+            ).email
+            return undefined
+          }
+          return value
+        }) satisfies FieldBeforeExportHook,
       },
     },
-  ],
+  },
 }
 ```
 
-### Customizing Import Data with fromCSV
+Because the hook is defined on the field itself, you can share `authorFieldWithHooks` across multiple collections and each will get the same export behavior automatically.
 
-To transform data during import, add `fromCSV` custom functions. This allows you to transform incoming CSV data before it's saved to the database.
+### hooks.beforeImport
 
-The `fromCSV` function receives an object with the following properties:
+Use `hooks.beforeImport` to transform a field's value before it is imported. Works for both `csv` and `json` formats.
 
-| Property      | Type    | Description                                 |
-| ------------- | ------- | ------------------------------------------- |
-| `columnName`  | string  | The CSV column name for the field.          |
-| `data`        | object  | The full document data being built.         |
-| `siblingData` | object  | The data at the sibling level of the field. |
-| `value`       | unknown | The raw CSV value for the field.            |
+The `beforeImport` function receives:
 
-Return values:
+| Property      | Type    | Description                                                                              |
+| ------------- | ------- | ---------------------------------------------------------------------------------------- |
+| `columnName`  | string  | Column/field path.                                                                       |
+| `data`        | object  | The full flat row (CSV) or top-level parsed document (JSON) being imported.              |
+| `format`      | string  | `'csv'` or `'json'`.                                                                     |
+| `siblingData` | object  | Data at the current level. CSV: same reference as `data`. JSON: the parent-level object. |
+| `siblingDoc`  | object  | Read-only source at the current level, before any transformation. CSV: same as `data`.   |
+| `value`       | unknown | The raw value from the import file.                                                      |
 
-- Return a value to use that value for the field
-- Return `undefined` to skip setting the field (keeps existing value)
-- Return `null` to explicitly set the field to null
-
-Example - reconstructing a relationship from split columns:
+Return the transformed value, `undefined` to skip, or `null` to explicitly set `null`.
 
 ```ts
-const pages: CollectionConfig = {
-  slug: 'pages',
-  fields: [
-    {
-      name: 'author',
-      type: 'relationship',
-      relationTo: 'users',
-      custom: {
-        'plugin-import-export': {
-          fromCSV: ({ data, columnName }) => {
-            // Reconstruct the relationship from the split columns created by toCSV
+import type { FieldBeforeImportHook } from '@payloadcms/plugin-import-export'
+
+{
+  name: 'author',
+  type: 'relationship',
+  relationTo: 'users',
+  custom: {
+    'plugin-import-export': {
+      hooks: {
+        beforeImport: (({ value, columnName, data, format }) => {
+          if (format === 'csv') {
             const id = data[`${columnName}_id`]
-            if (id) {
-              return id // Return just the ID for the relationship
-            }
-            return undefined // Skip if no ID provided
-          },
-        },
+            return id ?? undefined
+          }
+          return value
+        }) satisfies FieldBeforeImportHook,
       },
     },
-  ],
+  },
 }
+```
+
+### Execution Order
+
+Field-level hooks run **before** collection-level hooks:
+
+1. **Field-level `hooks.beforeExport`/`hooks.beforeImport`**: run per-field, per-document, during transformation
+2. **Collection-level `export.hooks.before`/`import.hooks.before`**: run per-batch, on the already-field-transformed data
+
+### Migrating from toCSV / fromCSV
+
+`toCSV` and `fromCSV` are deprecated and will be removed in v4. Existing hooks continue to work unchanged. New code should use `hooks.beforeExport` / `hooks.beforeImport`, which also run for JSON exports and imports.
+
+```ts
+// Before
+custom: {
+  'plugin-import-export': {
+    toCSV: ({ value, columnName, row, doc }) => {
+      row[`${columnName}_id`] = (value as any).id
+      return doc.title
+    },
+    fromCSV: ({ value, data }) => data[`${value}_key`],
+  },
+},
+
+// After
+custom: {
+  'plugin-import-export': {
+    hooks: {
+      beforeExport: ({ value, columnName, siblingData, data, format }) => {
+        siblingData[`${columnName}_id`] = (value as any).id
+        return data.title
+      },
+      beforeImport: ({ value, data, format }) => data[`${value}_key`],
+    },
+  },
+},
 ```
 
 ### Virtual Fields
@@ -37236,6 +37640,11 @@ This plugin adds [Model Context Protocol](https://modelcontextprotocol.io/docs/g
   with as much detail as possible.
 </Banner>
 
+<YouTube
+  id="UBbElyhoszQ"
+  title="Supercharge Your CMS: Payload MCP Server Overview & Demo"
+/>
+
 ## Core features
 
 - Adds a collection to your config where:
@@ -37332,6 +37741,12 @@ export default config
 | `mcp.serverOptions.serverInfo.name`    | `string`            | The name of the MCP server (default: 'Payload MCP Server').                                    |
 | `mcp.serverOptions.serverInfo.version` | `string`            | The version of the MCP server (default: '1.0.0').                                              |
 
+<Banner type="warning">
+  The generated API Key collection denies Admin Panel, REST, and GraphQL access
+  by default. Access must be manually defined with `overrideApiKeyCollection`
+  before you are able to see the MCP API Keys collection in the admin panel.
+</Banner>
+
 ## How Access Control Works with MCP
 
 <Banner type="warning">
@@ -37356,9 +37771,9 @@ mcpPlugin({
 
 **Step 2 — Allow in the API Key**
 
-In your Payload admin panel, navigate to **MCP → API Keys**, create a new key, and
-toggle the individual capabilities on for each collection, global, tool, prompt, and
-resource you want that key to be able to use.
+After manually configuring access to the API Key collection as described below, navigate to
+**MCP → API Keys** in the Payload admin panel. Create a key and toggle the individual
+capabilities for each collection, global, tool, prompt, and resource you want that key to use.
 
 All MCP requests must include a valid API key as a Bearer token — requests without
 one are rejected immediately. Here is a complete example of an MCP `tools/list` request
@@ -37442,7 +37857,7 @@ Below are configuration examples for popular MCP clients.
 }
 ```
 
-#### [Claude Code](https://docs.claude.ai/en/docs/claude-code/mcp)
+#### [Claude Code](https://code.claude.com/docs/en/mcp)
 
 ```bash
 claude mcp add --transport http Payload http://127.0.0.1:3000/api/mcp \
@@ -37729,13 +38144,53 @@ mcpPlugin({
 
 ## API Key Access to MCP
 
-Payload adds an API key collection that allows admins to manage MCP capabilities. Admins can:
+Payload adds an API Key collection for managing MCP credentials and capabilities. By default, a
+signed-in user from the configured user collection can create and manage only their own keys. The
+owner is assigned automatically and cannot be changed.
+
+Requests authenticated with a key act as its owner. To let administrators issue and manage keys
+for other users, override both the collection access and the `user` field access with
+`overrideApiKeyCollection`:
+
+```ts
+import type { PayloadRequest } from 'payload'
+
+const isAdmin = ({ req }: { req: PayloadRequest }) =>
+  Boolean(
+    req.user &&
+      req.user.collection === 'users' &&
+      'role' in req.user &&
+      req.user.role === 'admin',
+  )
+
+mcpPlugin({
+  overrideApiKeyCollection: (collection) => {
+    collection.access = {
+      create: isAdmin,
+      delete: isAdmin,
+      read: isAdmin,
+      unlock: isAdmin,
+      update: isAdmin,
+    }
+    collection.fields = collection.fields.map((field) =>
+      'name' in field && field.name === 'user'
+        ? { ...field, access: { create: isAdmin, update: isAdmin } }
+        : field,
+    )
+    return collection
+  },
+  // ... other options
+})
+```
+
+Replace `isAdmin` with the permission check used by your application. Only grant this access to
+users trusted to issue credentials that act as another user. Once configured, administrators can:
 
 - Create user associated API keys for MCP clients
 - `Allow` or `disallow` endpoint traffic in real-time
 - `Allow` or `disallow` tools, resources, and prompts
 
-You can customize the API Key collection using the `overrideApiKeyCollection` option:
+The same callback can also customize the API Key collection:
 
 ```ts
 mcpPlugin({
@@ -37976,6 +38431,10 @@ This plugin sets up multi-tenancy for your application from within your [Admin P
   issue](https://github.com/payloadcms/payload/issues/new/choose) with as much
   detail as possible.
 </Banner>
+<YouTube
+  id="oX7ZHWuin-I"
+  title="One Payload instance—endless possibilities: Payload Multi-Tenant Plugin"
+/>
 
 ## Core features
 
@@ -39809,6 +40268,11 @@ Payload provides an Ecommerce Plugin that allows you to add ecommerce functional
   issue](https://github.com/payloadcms/payload/issues/new?assignees=&labels=plugin%3A%redirects&template=bug_report.md&title=plugin-ecommerce%3A)
   with as much detail as possible.
 </Banner>
+
+<YouTube
+  id="7IaAAqRy7U4"
+  title="Build a production ready online store with the Payload ecommerce template"
+/>
 
 ## Core features
 
@@ -42541,6 +43005,22 @@ to consider these main aspects:
 
 Payload can be deployed _anywhere that Next.js can run_ - including Vercel, Netlify, SST, DigitalOcean, AWS, and more. Because it's open source, you can self-host it.
 
+<VideoDrawer
+  id="8jPNsLX7XGg"
+  label="Deploy Payload on Cloudflare Workers"
+  drawerTitle="Deploy Payload on Cloudflare Workers"
+/>
+<VideoDrawer
+  id="Teug6mTdRsg"
+  label="Deploy Payload with Cloudflare Workers (Full Guide)"
+  drawerTitle="Deploy Payload with Cloudflare Workers (Full Guide)"
+/>
+<VideoDrawer
+  id="7jAYKaRaI30"
+  label="Deploy Payload on Vercel"
+  drawerTitle="Deploy Payload on Vercel in minutes with our one click templates"
+/>
+
 But it's important to remember that most Payload projects will also need a database, file storage, an email provider, and a CDN. Make sure you have all of the requirements that your project needs, no matter what deployment platform you choose.
 
 ## Basics
@@ -42602,7 +43082,10 @@ unsupported `$facet` aggregation.
 ### CosmosDB
 
 <Banner type="warning">
-While Azure Cosmos DB offers a MongoDB API it is not fully compatible due to strict and limited indexing behavior and many core features may not work reliably. For more details, see the [MongoDB driver's CosmosDB compatibility documentation](https://www.mongodb.com/docs/drivers/cosmosdb-support/#compatibility).
+  While Azure Cosmos DB offers a MongoDB API it is not fully compatible due to
+  strict and limited indexing behavior and many core features may not work
+  reliably. For more details, see the [MongoDB driver's CosmosDB compatibility
+  documentation](https://www.mongodb.com/docs/drivers/cosmosdb-support/#compatibility).
 </Banner>
 
 To improve compatibility, spread the `compatibilityOptions.cosmosdb` preset into your adapter. This applies all recommended settings at once:

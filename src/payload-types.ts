@@ -195,9 +195,14 @@ export interface Config {
     topBar: TopBarSelect<false> | TopBarSelect<true>;
   };
   locale: null;
-  user: User & {
-    collection: 'users';
+  widgets: {
+    'analytics-overview': AnalyticsOverviewWidget;
+    'top-pages': TopPagesWidget;
+    'active-users': ActiveUsersWidget;
+    'channel-groups': ChannelGroupsWidget;
+    collections: CollectionsWidget;
   };
+  user: User;
   jobs: {
     tasks: unknown;
     workflows: unknown;
@@ -1817,9 +1822,6 @@ export interface Form {
       )[]
     | null;
   submitButtonLabel?: string | null;
-  /**
-   * Choose whether to display an on-page message or redirect to a different page after they submit the form.
-   */
   confirmationType?: ('message' | 'redirect') | null;
   confirmationMessage?: {
     root: {
@@ -1839,9 +1841,6 @@ export interface Form {
   redirect?: {
     url: string;
   };
-  /**
-   * Send custom emails when the form submits. Use comma separated lists to send the same email to multiple recipients. To reference a value from this form, wrap that field's name with double curly brackets, i.e. {{firstName}}. You can use a wildcard {{*}} to output all data and {{*:table}} to format it as an HTML table in the email.
-   */
   emails?:
     | {
         emailTo?: string | null;
@@ -1850,9 +1849,6 @@ export interface Form {
         replyTo?: string | null;
         emailFrom?: string | null;
         subject: string;
-        /**
-         * Enter the message that should be sent in this email.
-         */
         message?: {
           root: {
             type: string;
@@ -2910,6 +2906,7 @@ export interface User {
       }[]
     | null;
   password?: string | null;
+  collection: 'users';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -5008,6 +5005,56 @@ export interface TopBarSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "analytics-overview_widget".
+ */
+export interface AnalyticsOverviewWidget {
+  data?: {
+    period?: ('7days' | '30days' | '90days') | null;
+  };
+  width: 'medium' | 'large' | 'x-large' | 'full';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "top-pages_widget".
+ */
+export interface TopPagesWidget {
+  data?: {
+    period?: ('7days' | '30days' | '90days') | null;
+  };
+  width: 'medium' | 'large' | 'x-large' | 'full';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "active-users_widget".
+ */
+export interface ActiveUsersWidget {
+  data?: {
+    [k: string]: unknown;
+  };
+  width: 'x-small' | 'small' | 'medium' | 'large' | 'x-large' | 'full';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "channel-groups_widget".
+ */
+export interface ChannelGroupsWidget {
+  data?: {
+    period?: ('7days' | '30days' | '90days') | null;
+  };
+  width: 'x-small' | 'small' | 'medium' | 'large' | 'x-large' | 'full';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "collections_widget".
+ */
+export interface CollectionsWidget {
+  data?: {
+    [k: string]: unknown;
+  };
+  width: 'full';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
