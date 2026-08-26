@@ -37,10 +37,16 @@ const localhost = process.env.NEXT_PUBLIC_IS_LIVE
       },
     ]
 
+const blobStore = process.env.BLOB_STORE_ID
+  ? [
+      {
+        protocol: 'https',
+        hostname: process.env.BLOB_STORE_ID,
+      },
+    ]
+  : []
+
 const nextConfig = withBundleAnalyzer({
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
   reactStrictMode: true,
   images: {
     minimumCacheTTL: 60 * 60 * 24 * 365, // 1 year,
@@ -81,11 +87,8 @@ const nextConfig = withBundleAnalyzer({
         hostname: 'img.youtube.com',
         port: '',
       },
-      {
-        protocol: 'https',
-        hostname: process.env.BLOB_STORE_ID,
-      },
-    ].filter(Boolean),
+      ...blobStore,
+    ],
   },
   sassOptions: {
     silenceDeprecations: ['legacy-js-api', 'import'], // https://github.com/vercel/next.js/issues/71638

@@ -454,7 +454,7 @@ export default buildConfig({
         hooks: {
           afterChange: [
             ({ doc }) => {
-              revalidateTag(`form-${doc.title}`)
+              revalidateTag(`form-${doc.title}`, { expire: 0 })
             },
           ],
         },
