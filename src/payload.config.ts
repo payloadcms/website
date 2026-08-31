@@ -62,6 +62,7 @@ import { BulletListBlock } from './collections/Docs/blocks/bulletList'
 import { CardBlock } from './collections/Docs/blocks/card'
 import { CardGroupBlock } from './collections/Docs/blocks/cardGroup'
 import { CodeBlock } from './collections/Docs/blocks/code'
+import { ComponentPreviewBlock } from './collections/Docs/blocks/componentPreview'
 import { LightDarkImageBlock } from './collections/Docs/blocks/lightDarkImage'
 import { PayloadMediaBlock } from './collections/Docs/blocks/payloadMedia'
 import { PillBlock } from './collections/Docs/blocks/pill'
@@ -132,6 +133,7 @@ export default buildConfig({
     BulletListBlock,
     CardBlock,
     CardGroupBlock,
+    ComponentPreviewBlock,
     CardGrid,
     CaseStudyCards,
     CaseStudiesHighlight,

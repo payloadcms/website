@@ -138,6 +138,9 @@ importers:
       instantsearch.js:
         specifier: ^4.72.2
         version: 4.84.0(algoliasearch@4.25.3)
+      lucide-react:
+        specifier: ^1.38.0
+        version: 1.38.0(react@19.2.3)
       next:
         specifier: 16.3.3
         version: 16.3.3(@opentelemetry/api@1.9.0)(@types/node@22.10.2)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(sass@1.94.2)
@@ -3443,6 +3446,11 @@ packages:
   loose-envify@1.4.0:
     resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}
     hasBin: true
+
+  lucide-react@1.38.0:
+    resolution: {integrity: sha512-xZCyBd/wiVUDactoCc+42TjL0aB7EBOXsuX+tjz+W/sGzw2KhHpL1NOH3FIaVUcpimvUBpIYfz34Ofj9S5JEzQ==}
+    peerDependencies:
+      react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
   magic-bytes.js@1.13.1:
     resolution: {integrity: sha512-x5sn4UX2k5gCWlcfmoFwG4TPie8+dctESyqOBdhB5p6MsgWXdBKGmt9nXPObj/JI50TTL928lc5Yt1WntMn1bw==}
@@ -8591,6 +8599,10 @@ snapshots:
   loose-envify@1.4.0:
     dependencies:
       js-tokens: 4.0.0
+
+  lucide-react@1.38.0(react@19.2.3):
+    dependencies:
+      react: 19.2.3
 
   magic-bytes.js@1.13.1: {}
 

@@ -9,6 +9,7 @@ import {
   type SerializedBlockNode,
   ServerBlockNode,
 } from '@payloadcms/richtext-lexical'
+import { $getRoot } from '@payloadcms/richtext-lexical/lexical'
 import { createHeadlessEditor } from '@payloadcms/richtext-lexical/lexical/headless'
 import {
   $convertToMarkdownString,
@@ -16,6 +17,40 @@ import {
 } from '@payloadcms/richtext-lexical/lexical/markdown'
 import { hasText } from '@payloadcms/richtext-lexical/shared'
 import { deepCopyObjectSimple } from 'payload'
+
+const escapedTablePipePlaceholder = '\uE000'
+const markdownTableRow = /^\|.+\|\s?$/
+
+const protectEscapedTablePipes = (mdx: string): string =>
+  mdx
+    .split('\n')
+    .map((line) =>
+      markdownTableRow.test(line) ? line.replace(/\\\|/g, escapedTablePipePlaceholder) : line,
+    )
+    .join('\n')
+
+const escapeInlineCodePipesInTables = (markdown: string): string =>
+  markdown
+    .split('\n')
+    .map((line) => {
+      if (!markdownTableRow.test(line)) {
+        return line
+      }
+
+      let insideInlineCode = false
+      let escapedLine = ''
+
+      for (const character of line) {
+        if (character === '`') {
+          insideInlineCode = !insideInlineCode
+        }
+
+        escapedLine += character === '|' && insideInlineCode ? '\\|' : character
+      }
+
+      return escapedLine
+    })
+    .join('\n')
 
 export const UploadBlockMarkdownTransformer: ElementTransformer = {
   type: 'element',
@@ -80,6 +115,7 @@ export function mdxToLexical({
   editorState: DefaultTypedEditorState<SerializedBlockNode>
 } {
   cachedServerEditorConfig = editorConfig
+  const protectedMDX = protectEscapedTablePipes(mdx)
 
   const headlessEditor = createHeadlessEditor({
     nodes: getEnabledNodes({
@@ -92,12 +128,21 @@ export function mdxToLexical({
       () => {
         try {
           $convertFromMarkdownString(
-            mdx,
+            protectedMDX,
             [UploadBlockMarkdownTransformer, ...editorConfig.features.markdownTransformers],
             undefined,
             false,
             true,
           )
+
+          $getRoot()
+            .getAllTextNodes()
+            .forEach((node) => {
+              const text = node.getTextContent()
+              if (text.includes(escapedTablePipePlaceholder)) {
+                node.setTextContent(text.split(escapedTablePipePlaceholder).join('|'))
+              }
+            })
         } catch (e) {
           console.error('Error parsing markdown', mdx)
           throw e
@@ -157,6 +202,7 @@ export const lexicalToMDX = ({
       ...editorConfig.features.markdownTransformers,
     ])
   })
+  markdown = escapeInlineCodePipesInTables(markdown)
 
   if (!frontMatterData) {
     return markdown

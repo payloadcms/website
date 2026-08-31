@@ -14,6 +14,7 @@ import type {
   CardGroupBlock,
   CodeBlock,
   CommandLineBlock,
+  ComponentPreviewBlock,
   Doc,
   DownloadBlockType,
   LightDarkImageBlock,
@@ -60,6 +61,7 @@ import { Arrow } from './Arrow'
 import { BulletList } from './BulletList'
 import { Card } from './Card/index'
 import { CardGroup } from './CardGroup/index'
+import { ComponentPreview } from './ComponentPreview'
 import { type AddHeading, type Heading, type IContext, RichTextContext } from './context'
 import { Heading as HeadingComponent } from './Heading'
 import { LightDarkImage } from './LightDarkImage/index'
@@ -75,6 +77,7 @@ import { VideoDrawer } from './VideoDrawer'
 type Props = {
   className?: string
   content: any
+  version?: string
 }
 
 export type NodeTypes =
@@ -88,6 +91,7 @@ export type NodeTypes =
       | CardGroupBlock
       | CodeBlock
       | CommandLineBlock
+      | ComponentPreviewBlock
       | DownloadBlockType
       | LightDarkImageBlock
       | PayloadMediaBlockType
@@ -105,8 +109,11 @@ export type NodeTypes =
   | SerializedLabelNode
   | SerializedLargeBodyNode
 
-export const jsxConverters: (args: { toc?: boolean }) => JSXConvertersFunction<NodeTypes> =
-  ({ toc }) =>
+export const jsxConverters: (args: {
+  toc?: boolean
+  version?: string
+}) => JSXConvertersFunction<NodeTypes> =
+  ({ toc, version }) =>
   ({ defaultConverters }) => {
     const converters: JSXConverters<NodeTypes> = {
       ...defaultConverters,
@@ -154,6 +161,15 @@ export const jsxConverters: (args: { toc?: boolean }) => JSXConvertersFunction<N
             return <CommandLine command={command} lexical />
           }
           return null
+        },
+        ComponentPreview: ({ node }) => {
+          return (
+            <ComponentPreview
+              component={node.fields.component}
+              example={node.fields.example}
+              version={version}
+            />
+          )
         },
         downloadBlock: ({ node }) => {
           return <Download {...node.fields} />
@@ -268,7 +284,7 @@ export const jsxConverters: (args: { toc?: boolean }) => JSXConvertersFunction<N
     return converters
   }
 
-export const RichTextWithTOC: React.FC<Props> = ({ className, content: _content }) => {
+export const RichTextWithTOC: React.FC<Props> = ({ className, content: _content, version }) => {
   const [toc, setTOC] = useState<Map<string, Heading>>(new Map())
 
   const initialData = useMemo(() => ({ content: _content }) as Doc, [_content])
@@ -307,7 +323,7 @@ export const RichTextWithTOC: React.FC<Props> = ({ className, content: _content 
     <RichTextContext value={context}>
       <SerializedRichText
         className={['payload-richtext', 'docs-richtext', className].filter(Boolean).join(' ')}
-        converters={jsxConverters({ toc: true })}
+        converters={jsxConverters({ toc: true, version })}
         data={content}
       />
     </RichTextContext>

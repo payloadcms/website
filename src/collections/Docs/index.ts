@@ -58,6 +58,7 @@ export const contentLexicalEditorFeatures: FeatureProviderServer[] = [
       'BulletList',
       'Card',
       'CardGroup',
+      'ComponentPreview',
     ],
   }),
 ]

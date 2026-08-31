@@ -1,0 +1,280 @@
+@use '@scss/common.scss' as *;
+
+.preview {
+  overflow: hidden;
+  margin: 2rem 0;
+  border: 1px solid var(--theme-elevation-200);
+  border-radius: 4px;
+  background: var(--theme-elevation-0);
+}
+
+.toolbar {
+  display: flex;
+  min-height: 3rem;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #2f2f2f;
+  padding: 0 0.75rem;
+  background: #0d0d0d;
+  color: #fff;
+}
+
+.tabs {
+  display: flex;
+  align-self: stretch;
+  gap: 0.25rem;
+}
+
+.tab,
+.copy,
+.themeButton {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: #a6a6a6;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.875rem;
+}
+
+.tab {
+  position: relative;
+  padding: 0 0.75rem;
+
+  &[aria-selected='true'] {
+    color: #fff;
+
+    &::after {
+      position: absolute;
+      right: 0.75rem;
+      bottom: -1px;
+      left: 0.75rem;
+      height: 2px;
+      background: currentColor;
+      content: '';
+    }
+  }
+}
+
+.copy {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+
+  &:hover {
+    color: #fff;
+  }
+}
+
+.tab:focus-visible,
+.copy:focus-visible,
+.themeButton:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+}
+
+.themeToggle {
+  display: flex;
+  gap: 0.125rem;
+  border: 1px solid #353535;
+  border-radius: 3px;
+  padding: 0.125rem;
+  background: #181818;
+}
+
+.themeButton {
+  border-radius: 2px;
+  padding: 0.35rem 0.6rem;
+
+  &[aria-pressed='true'] {
+    background: #333;
+    color: #fff;
+  }
+
+  &:hover:not([aria-pressed='true']) {
+    color: #fff;
+  }
+}
+
+.canvas {
+  --style-radius-s: 3px;
+  --style-radius-m: 4px;
+  --style-radius-l: 8px;
+  --gutter-h: 60px;
+  --accessibility-outline: 2px solid var(--theme-text);
+  --accessibility-outline-offset: 2px;
+  display: flex;
+  min-height: 15rem;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 3rem;
+  background-color: var(--theme-elevation-0);
+  background-image: radial-gradient(
+    color-mix(in srgb, var(--theme-elevation-400) 22%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 16px 16px;
+  animation: preview-panel-in 100ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition:
+    opacity 60ms ease-in,
+    transform 60ms ease-in;
+}
+
+// Keep the preview independent from the website theme. These mappings mirror
+// @payloadcms/ui v3's scss/colors.scss and scss/app.scss so components receive
+// the same elevation, background, input, and text tokens as the Admin Panel.
+.canvas[data-theme='light'] {
+  --theme-success-100: rgb(218, 237, 248);
+  --theme-success-150: rgb(188, 225, 248);
+  --theme-success-600: rgb(11, 110, 153);
+  --theme-success-800: rgb(18, 66, 90);
+  --theme-error-100: rgb(252, 229, 227);
+  --theme-error-150: rgb(247, 208, 204);
+  --theme-error-300: rgb(253, 154, 146);
+  --theme-error-400: rgb(246, 109, 103);
+  --theme-error-600: rgb(182, 54, 54);
+  --theme-error-800: rgb(105, 39, 37);
+  --theme-error-950: rgb(44, 26, 24);
+  --theme-warning-150: rgb(243, 212, 186);
+  --theme-warning-800: rgb(90, 55, 19);
+  --theme-elevation-0: var(--color-base-0);
+  --theme-elevation-50: var(--color-base-50);
+  --theme-elevation-100: var(--color-base-100);
+  --theme-elevation-150: var(--color-base-150);
+  --theme-elevation-200: var(--color-base-200);
+  --theme-elevation-250: var(--color-base-250);
+  --theme-elevation-300: var(--color-base-300);
+  --theme-elevation-350: var(--color-base-350);
+  --theme-elevation-400: var(--color-base-400);
+  --theme-elevation-450: var(--color-base-450);
+  --theme-elevation-500: var(--color-base-500);
+  --theme-elevation-550: var(--color-base-550);
+  --theme-elevation-600: var(--color-base-600);
+  --theme-elevation-650: var(--color-base-650);
+  --theme-elevation-700: var(--color-base-700);
+  --theme-elevation-750: var(--color-base-750);
+  --theme-elevation-800: var(--color-base-800);
+  --theme-elevation-850: var(--color-base-850);
+  --theme-elevation-900: var(--color-base-900);
+  --theme-elevation-950: var(--color-base-950);
+  --theme-elevation-1000: var(--color-base-1000);
+  --theme-bg: var(--theme-elevation-0);
+  --theme-input-bg: var(--theme-elevation-0);
+  --theme-text: var(--theme-elevation-800);
+  --theme-border-color: var(--theme-elevation-150);
+  color: var(--theme-text);
+  color-scheme: light;
+
+  :global(.tooltip:not(.field-error)) {
+    background-color: var(--theme-elevation-100);
+    color: var(--theme-elevation-1000);
+  }
+
+  :global(.tooltip--position-top:not(.field-error))::after {
+    border-top-color: var(--theme-elevation-100);
+  }
+
+  :global(.tooltip--position-bottom:not(.field-error))::after {
+    border-bottom-color: var(--theme-elevation-100);
+  }
+}
+
+.canvas[data-theme='dark'] {
+  --theme-success-100: rgb(19, 44, 58);
+  --theme-success-150: rgb(18, 56, 76);
+  --theme-success-600: rgb(36, 164, 223);
+  --theme-success-800: rgb(156, 216, 253);
+  --theme-error-100: rgb(64, 32, 29);
+  --theme-error-150: rgb(86, 36, 33);
+  --theme-error-300: rgb(144, 44, 43);
+  --theme-error-400: rgb(182, 54, 54);
+  --theme-error-600: rgb(246, 109, 103);
+  --theme-error-800: rgb(254, 193, 188);
+  --theme-error-950: rgb(250, 241, 240);
+  --theme-warning-150: rgb(73, 47, 21);
+  --theme-warning-800: rgb(243, 200, 162);
+  --theme-elevation-0: var(--color-base-900);
+  --theme-elevation-50: var(--color-base-850);
+  --theme-elevation-100: var(--color-base-800);
+  --theme-elevation-150: var(--color-base-750);
+  --theme-elevation-200: var(--color-base-700);
+  --theme-elevation-250: var(--color-base-650);
+  --theme-elevation-300: var(--color-base-600);
+  --theme-elevation-350: var(--color-base-550);
+  --theme-elevation-400: var(--color-base-450);
+  --theme-elevation-450: var(--color-base-400);
+  --theme-elevation-500: var(--color-base-500);
+  --theme-elevation-550: var(--color-base-350);
+  --theme-elevation-600: var(--color-base-300);
+  --theme-elevation-650: var(--color-base-250);
+  --theme-elevation-700: var(--color-base-200);
+  --theme-elevation-750: var(--color-base-150);
+  --theme-elevation-800: var(--color-base-100);
+  --theme-elevation-850: var(--color-base-50);
+  --theme-elevation-900: var(--color-base-0);
+  --theme-elevation-950: var(--color-base-0);
+  --theme-elevation-1000: var(--color-base-0);
+  --theme-bg: var(--theme-elevation-0);
+  --theme-input-bg: var(--theme-elevation-50);
+  --theme-text: var(--theme-elevation-1000);
+  --theme-border-color: var(--theme-elevation-150);
+  color: var(--theme-text);
+  color-scheme: dark;
+}
+
+.code {
+  animation: preview-panel-in 100ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition:
+    opacity 60ms ease-in,
+    transform 60ms ease-in;
+
+  :global(.code-block-wrap) {
+    border: 0;
+  }
+}
+
+.leaving {
+  opacity: 0;
+  transform: translateY(-3px);
+}
+
+@keyframes preview-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(3px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .canvas,
+  .code {
+    animation: none;
+  }
+}
+
+.unsupported {
+  margin: 2rem 0;
+  border: 1px solid var(--theme-elevation-200);
+  padding: 1.5rem;
+  color: var(--theme-elevation-700);
+}
+
+@include mid-break {
+  .canvas {
+    min-height: 11rem;
+    padding: 2rem 1rem;
+  }
+}

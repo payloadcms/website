@@ -1,0 +1,100 @@
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.stack,
+.componentWidth,
+.demoPanel,
+.skeletonLayout {
+  width: min(100%, 36rem);
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  :global(.banner) {
+    margin-bottom: 0;
+  }
+}
+
+.demoPanel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.animatedContent {
+  margin-top: 1rem;
+  border: 1px solid var(--theme-border-color);
+  border-radius: 4px;
+  padding: 1rem;
+  background: var(--theme-elevation-50);
+}
+
+.skeletonLayout {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.skeletonLines {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.copyDemo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.gutterFrame {
+  width: min(100%, 36rem);
+  border: 1px solid var(--theme-elevation-250);
+  background: var(--theme-elevation-50);
+}
+
+.gutterContent {
+  padding: 1rem 0;
+  background: var(--theme-elevation-150);
+  text-align: center;
+}
+
+.iconStates {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.iconState {
+  display: flex;
+  min-width: 4rem;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--theme-elevation-600);
+  font-size: 0.75rem;
+
+  :global(.hamburger) {
+    color: var(--theme-text);
+  }
+}
+
+.tooltipTarget {
+  position: relative;
+}
+
+.collapsibleDemo {
+  width: min(100%, 36rem);
+  align-self: flex-start;
+}

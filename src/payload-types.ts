@@ -82,6 +82,7 @@ export interface Config {
     BulletList: BulletListBlock;
     Card: CardBlock;
     CardGroup: CardGroupBlock;
+    ComponentPreview: ComponentPreviewBlock;
     cardGrid: CardGrid;
     caseStudyCards: CaseStudyCards;
     caseStudiesHighlight: CaseStudiesHighlight;
@@ -3106,6 +3107,27 @@ export interface CardGroupBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'CardGroup';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ComponentPreviewBlock".
+ */
+export interface ComponentPreviewBlock {
+  component: 'AnimateHeight' | 'Banner' | 'Button' | 'Card' | 'Pill' | 'PillSelector' | 'ShimmerEffect' | 'Thumbnail';
+  example:
+    | 'actions'
+    | 'basic'
+    | 'fallback'
+    | 'interactive'
+    | 'primary'
+    | 'sizes'
+    | 'styles'
+    | 'variants'
+    | 'disabled'
+    | 'shapes';
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'ComponentPreview';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

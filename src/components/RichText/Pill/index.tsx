@@ -7,5 +7,5 @@ interface PillProps {
 }
 
 export const Pill: React.FC<PillProps> = ({ text }) => {
-  return <div className="pill">{text}</div>
+  return <div className="rich-text-pill">{text}</div>
 }

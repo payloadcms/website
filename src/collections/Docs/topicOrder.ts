@@ -54,6 +54,7 @@ export const topicOrder: TopicOrder = {
       topics: [
         'Admin',
         'Custom-Components',
+        'UI-Components',
         'Authentication',
         'Rich-Text',
         'Live-Preview',

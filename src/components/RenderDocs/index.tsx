@@ -141,7 +141,7 @@ export const RenderDocs = async ({
           {children}
           <h1 className={classes.title}>{currentDoc.title}</h1>
           <div className={classes.mdx}>
-            <RichTextWithTOC content={currentDoc.content} />
+            <RichTextWithTOC content={currentDoc.content} version={currentDoc.version} />
           </div>
           <div className={classes.feedbackMobile}>
             <DocsFeedback path={path} />
