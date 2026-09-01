@@ -9,6 +9,7 @@ import { componentExamples } from './examples'
 import classes from './index.module.scss'
 
 type PreviewTheme = 'dark' | 'light'
+type PreviewTab = 'code' | 'design' | 'preview'
 
 type Props = {
   component: string
@@ -17,7 +18,7 @@ type Props = {
 }
 
 export const ComponentPreview: React.FC<Props> = ({ component, example, version }) => {
-  const [activeTab, setActiveTab] = useState<'code' | 'preview'>('preview')
+  const [activeTab, setActiveTab] = useState<PreviewTab>('preview')
   const [copied, setCopied] = useState(false)
   const [isLeaving, setIsLeaving] = useState(false)
   const [previewTheme, setPreviewTheme] = useState<PreviewTheme>('light')
@@ -49,14 +50,22 @@ export const ComponentPreview: React.FC<Props> = ({ component, example, version 
   }
 
   const previewID = `${id}-preview`
+  const designID = `${id}-design`
   const codeID = `${id}-code`
+  const copyLabel = activeTab === 'design' ? 'Copy CSS' : 'Copy code'
 
-  const copyCode = async () => {
-    await navigator.clipboard.writeText(selectedExample.code)
+  const copyActiveCode = async () => {
+    const code = activeTab === 'design' ? selectedExample.design?.code : selectedExample.code
+
+    if (!code) {
+      return
+    }
+
+    await navigator.clipboard.writeText(code)
     setCopied(true)
   }
 
-  const switchTab = (nextTab: 'code' | 'preview') => {
+  const switchTab = (nextTab: PreviewTab) => {
     if (nextTab === activeTab || isLeaving) {
       return
     }
@@ -88,6 +97,19 @@ export const ComponentPreview: React.FC<Props> = ({ component, example, version 
           >
             Preview
           </button>
+          {selectedExample.design ? (
+            <button
+              aria-controls={designID}
+              aria-selected={activeTab === 'design'}
+              className={classes.tab}
+              id={`${id}-design-tab`}
+              onClick={() => switchTab('design')}
+              role="tab"
+              type="button"
+            >
+              Design
+            </button>
+          ) : null}
           <button
             aria-controls={codeID}
             aria-selected={activeTab === 'code'}
@@ -117,10 +139,10 @@ export const ComponentPreview: React.FC<Props> = ({ component, example, version 
             </div>
           ) : (
             <button
-              aria-label={copied ? 'Copied' : 'Copy code'}
+              aria-label={copied ? 'Copied' : copyLabel}
               className={classes.copy}
-              onClick={copyCode}
-              title={copied ? 'Copied' : 'Copy code'}
+              onClick={copyActiveCode}
+              title={copied ? 'Copied' : copyLabel}
               type="button"
             >
               {copied ? (
@@ -129,7 +151,7 @@ export const ComponentPreview: React.FC<Props> = ({ component, example, version 
                 <Copy aria-hidden="true" size={16} strokeWidth={1.5} />
               )}
               <span aria-live="polite" className="visually-hidden">
-                {copied ? 'Code copied to clipboard' : ''}
+                {copied ? `${activeTab === 'design' ? 'CSS' : 'Code'} copied to clipboard` : ''}
               </span>
             </button>
           )}
@@ -144,6 +166,40 @@ export const ComponentPreview: React.FC<Props> = ({ component, example, version 
           role="tabpanel"
         >
           {selectedExample.render({ theme: previewTheme })}
+        </div>
+      ) : activeTab === 'design' && selectedExample.design ? (
+        <div
+          aria-labelledby={`${id}-design-tab`}
+          className={[classes.design, isLeaving && classes.leaving].filter(Boolean).join(' ')}
+          id={designID}
+          role="tabpanel"
+        >
+          <div className={classes.designFile}>
+            Add to <code>app/(payload)/custom.scss</code>
+          </div>
+          <p className={classes.designDescription}>{selectedExample.design.description}</p>
+          <div className={classes.designCode}>
+            <Code disableMinHeight language="scss" showLineNumbers={false}>
+              {selectedExample.design.code}
+            </Code>
+          </div>
+          <p className={classes.variableLabel}>What this override changes</p>
+          <div className={classes.variables}>
+            {selectedExample.design.variables.map((variable) => (
+              <div className={classes.variable} key={variable.name}>
+                <div className={classes.variableName}>
+                  <code>{variable.name}</code>
+                </div>
+                <p>{variable.description}</p>
+              </div>
+            ))}
+          </div>
+          <p className={classes.designNote}>
+            Scope the selector under <code>html[data-theme='light']</code> or{' '}
+            <code>html[data-theme='dark']</code> when the two themes need different values. Prefix
+            it with your own class or parent selector to limit the override to one instance or Admin
+            view.
+          </p>
         </div>
       ) : (
         <div

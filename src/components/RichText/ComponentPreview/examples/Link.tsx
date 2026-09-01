@@ -4,7 +4,13 @@ import type { ComponentExamples } from './types'
 
 export const linkExamples: ComponentExamples = {
   basic: {
-    code: `<Link href="/admin/collections/posts">View posts</Link>`,
-    render: () => <Link href="#link-example">View posts</Link>,
+    code: `<Link className="custom-admin-link" href="/admin/collections/posts">
+  View posts
+</Link>`,
+    render: () => (
+      <Link className="custom-admin-link" href="#link-example">
+        View posts
+      </Link>
+    ),
   },
 }

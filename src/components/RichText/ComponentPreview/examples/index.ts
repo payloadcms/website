@@ -8,6 +8,7 @@ import { codeEditorExamples } from './CodeEditor'
 import { collapsibleExamples } from './Collapsible'
 import { copyToClipboardExamples } from './CopyToClipboard'
 import { datePickerExamples } from './DatePicker'
+import { componentDesigns } from './designs'
 import { dropzoneExamples } from './Dropzone'
 import { errorPillExamples } from './ErrorPill'
 import { gutterExamples } from './Gutter'
@@ -27,7 +28,7 @@ import { thumbnailExamples } from './Thumbnail'
 import { timezonePickerExamples } from './TimezonePicker'
 import { tooltipExamples } from './Tooltip'
 
-export const componentExamples: Record<string, ComponentExamples> = {
+const examplesWithoutDesign: Record<string, ComponentExamples> = {
   AnimateHeight: animateHeightExamples,
   Banner: bannerExamples,
   Button: buttonExamples,
@@ -55,3 +56,20 @@ export const componentExamples: Record<string, ComponentExamples> = {
   TimezonePicker: timezonePickerExamples,
   Tooltip: tooltipExamples,
 }
+
+export const componentExamples: Record<string, ComponentExamples> = Object.fromEntries(
+  Object.entries(examplesWithoutDesign).map(([componentName, examples]) => [
+    componentName,
+    Object.fromEntries(
+      Object.entries(examples).map(([exampleName, example]) => {
+        const design = example.design || componentDesigns[componentName]?.[exampleName]
+
+        if (!design) {
+          throw new Error(`Missing Design documentation for ${componentName}.${exampleName}`)
+        }
+
+        return [exampleName, { ...example, design }]
+      }),
+    ),
+  ]),
+)
