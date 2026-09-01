@@ -7,17 +7,24 @@ import { cardExamples } from './Card'
 import { codeEditorExamples } from './CodeEditor'
 import { collapsibleExamples } from './Collapsible'
 import { copyToClipboardExamples } from './CopyToClipboard'
+import { datePickerExamples } from './DatePicker'
+import { dropzoneExamples } from './Dropzone'
 import { errorPillExamples } from './ErrorPill'
 import { gutterExamples } from './Gutter'
 import { hamburgerExamples } from './Hamburger'
 import { linkExamples } from './Link'
+import { listAndPaginationExamples } from './ListAndPagination'
+import { modalsAndDrawersExamples } from './ModalsAndDrawers'
+import { motionAndLoadingExamples } from './MotionAndLoading'
 import { pillExamples } from './Pill'
 import { pillSelectorExamples } from './PillSelector'
 import { popupExamples } from './Popup'
 import { reactSelectExamples } from './ReactSelect'
 import { searchFilterExamples } from './SearchFilter'
 import { shimmerEffectExamples } from './ShimmerEffect'
+import { tableExamples } from './Table'
 import { thumbnailExamples } from './Thumbnail'
+import { timezonePickerExamples } from './TimezonePicker'
 import { tooltipExamples } from './Tooltip'
 
 export const componentExamples: Record<string, ComponentExamples> = {
@@ -28,16 +35,23 @@ export const componentExamples: Record<string, ComponentExamples> = {
   CodeEditor: codeEditorExamples,
   Collapsible: collapsibleExamples,
   CopyToClipboard: copyToClipboardExamples,
+  DatePicker: datePickerExamples,
+  Dropzone: dropzoneExamples,
   ErrorPill: errorPillExamples,
   Gutter: gutterExamples,
   Hamburger: hamburgerExamples,
   Link: linkExamples,
+  ListAndPagination: listAndPaginationExamples,
+  ModalsAndDrawers: modalsAndDrawersExamples,
+  MotionAndLoading: motionAndLoadingExamples,
   Pill: pillExamples,
   PillSelector: pillSelectorExamples,
   Popup: popupExamples,
   ReactSelect: reactSelectExamples,
   SearchFilter: searchFilterExamples,
   ShimmerEffect: shimmerEffectExamples,
+  Table: tableExamples,
   Thumbnail: thumbnailExamples,
+  TimezonePicker: timezonePickerExamples,
   Tooltip: tooltipExamples,
 }

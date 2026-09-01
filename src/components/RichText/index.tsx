@@ -142,7 +142,7 @@ export const jsxConverters: (args: {
           const Children = nodesToJSX({
             nodes: node.fields.content?.root?.children as SerializedLexicalNode[],
           })
-          return <CardGroup>{Children}</CardGroup>
+          return <CardGroup variant={node.fields.variant}>{Children}</CardGroup>
         },
         Code: ({ node }) => {
           const codeString: string = node.fields.code ?? ''

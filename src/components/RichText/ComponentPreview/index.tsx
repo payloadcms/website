@@ -4,6 +4,7 @@ import Code from '@components/Code'
 import { Check, Copy } from 'lucide-react'
 import React, { useEffect, useId, useRef, useState } from 'react'
 
+import './datePicker.scss'
 import { componentExamples } from './examples'
 import classes from './index.module.scss'
 

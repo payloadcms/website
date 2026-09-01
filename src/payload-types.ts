@@ -3089,6 +3089,7 @@ export interface CardBlock {
  * via the `definition` "CardGroupBlock".
  */
 export interface CardGroupBlock {
+  variant: 'default' | 'compact';
   content?: {
     root: {
       type: string;
@@ -3113,18 +3114,55 @@ export interface CardGroupBlock {
  * via the `definition` "ComponentPreviewBlock".
  */
 export interface ComponentPreviewBlock {
-  component: 'AnimateHeight' | 'Banner' | 'Button' | 'Card' | 'Pill' | 'PillSelector' | 'ShimmerEffect' | 'Thumbnail';
+  component:
+    | 'AnimateHeight'
+    | 'Banner'
+    | 'Button'
+    | 'Card'
+    | 'CodeEditor'
+    | 'Collapsible'
+    | 'CopyToClipboard'
+    | 'DatePicker'
+    | 'Dropzone'
+    | 'ErrorPill'
+    | 'Gutter'
+    | 'Hamburger'
+    | 'Link'
+    | 'ListAndPagination'
+    | 'ModalsAndDrawers'
+    | 'MotionAndLoading'
+    | 'Pill'
+    | 'PillSelector'
+    | 'Popup'
+    | 'ReactSelect'
+    | 'SearchFilter'
+    | 'ShimmerEffect'
+    | 'Table'
+    | 'Thumbnail'
+    | 'TimezonePicker'
+    | 'Tooltip';
   example:
     | 'actions'
     | 'basic'
+    | 'counts'
+    | 'confirmation'
+    | 'disabled'
+    | 'drawer'
+    | 'error'
     | 'fallback'
     | 'interactive'
+    | 'menu'
+    | 'overlay'
+    | 'pagination'
     | 'primary'
+    | 'progress'
+    | 'readOnly'
+    | 'shapes'
     | 'sizes'
+    | 'states'
+    | 'staggered'
     | 'styles'
-    | 'variants'
-    | 'disabled'
-    | 'shapes';
+    | 'variants';
   id?: string | null;
   blockName?: string | null;
   blockType: 'ComponentPreview';

@@ -86,6 +86,8 @@
   font-size: 0.75rem;
 
   :global(.hamburger) {
+    width: fit-content;
+    height: fit-content;
     color: var(--theme-text);
   }
 }
@@ -128,6 +130,127 @@
 .popupPortalDark {
   --theme-input-bg: rgb(34, 34, 34);
   --theme-text: rgb(255, 255, 255);
+  --theme-elevation-100: rgb(47, 47, 47);
+  --theme-elevation-150: rgb(60, 60, 60);
+  --theme-elevation-800: rgb(235, 235, 235);
+}
+
+.datePickerDemo,
+.timezoneDemo {
+  width: min(100%, 24rem);
+}
+
+.datePickerDemo {
+  display: flex;
+  width: min(100%, 18rem);
+  flex-direction: column;
+  gap: 0.5rem;
+
+  > label {
+    font-size: 0.875rem;
+  }
+}
+
+.dropzoneContent {
+  display: flex;
+  width: 100%;
+  min-height: 5rem;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+
+  > span {
+    color: var(--theme-elevation-600);
+    font-size: 0.875rem;
+  }
+}
+
+.tableDemo {
+  width: min(100%, 44rem);
+}
+
+.loadingOverlayDemo {
+  position: relative;
+  display: flex;
+  width: min(100%, 36rem);
+  min-height: 12rem;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid var(--theme-elevation-250);
+  border-radius: var(--style-radius-s);
+
+  :global(.loading-overlay) {
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    width: auto;
+    height: auto;
+  }
+}
+
+.staggeredShimmers {
+  display: flex;
+  width: min(100%, 36rem);
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.progressBarDemo {
+  position: relative;
+  display: flex;
+  width: min(100%, 36rem);
+  min-height: 8rem;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid var(--theme-elevation-250);
+  border-radius: var(--style-radius-s);
+
+  :global(.progress-bar) {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    left: 0;
+    width: auto;
+  }
+}
+
+.paginationDemo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+
+  > span {
+    color: var(--theme-elevation-600);
+    font-size: 0.75rem;
+  }
+}
+
+.overlayPortal {
+  --base: 20px;
+  --gutter-h: 32px;
+  --z-modal: 100;
+  --style-radius-s: 3px;
+  color: var(--theme-text);
+}
+
+.overlayPortalLight {
+  --theme-bg: rgb(255, 255, 255);
+  --theme-text: rgb(47, 47, 47);
+  --theme-elevation-0: rgb(255, 255, 255);
+  --theme-elevation-100: rgb(235, 235, 235);
+  --theme-elevation-150: rgb(221, 221, 221);
+  --theme-elevation-800: rgb(47, 47, 47);
+}
+
+.overlayPortalDark {
+  --theme-bg: rgb(34, 34, 34);
+  --theme-text: rgb(255, 255, 255);
+  --theme-elevation-0: rgb(34, 34, 34);
   --theme-elevation-100: rgb(47, 47, 47);
   --theme-elevation-150: rgb(60, 60, 60);
   --theme-elevation-800: rgb(235, 235, 235);

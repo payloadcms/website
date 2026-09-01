@@ -82,15 +82,12 @@
 .themeToggle {
   display: flex;
   gap: 0.125rem;
-  border: 1px solid #353535;
   border-radius: 3px;
-  padding: 0.125rem;
   background: #181818;
 }
 
 .themeButton {
   border-radius: 2px;
-  padding: 0.35rem 0.6rem;
 
   &[aria-pressed='true'] {
     background: #333;
