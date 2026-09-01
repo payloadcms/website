@@ -98,3 +98,37 @@
   width: min(100%, 36rem);
   align-self: flex-start;
 }
+
+.searchDemo {
+  display: flex;
+  width: min(100%, 36rem);
+  flex-direction: column;
+  gap: 0.75rem;
+
+  > span {
+    color: var(--theme-elevation-600);
+    font-size: 0.75rem;
+  }
+}
+
+.popupPortal {
+  --base: 20px;
+  --z-popup: 60;
+  --style-radius-s: 3px;
+}
+
+.popupPortalLight {
+  --theme-input-bg: rgb(255, 255, 255);
+  --theme-text: rgb(47, 47, 47);
+  --theme-elevation-100: rgb(235, 235, 235);
+  --theme-elevation-150: rgb(221, 221, 221);
+  --theme-elevation-800: rgb(47, 47, 47);
+}
+
+.popupPortalDark {
+  --theme-input-bg: rgb(34, 34, 34);
+  --theme-text: rgb(255, 255, 255);
+  --theme-elevation-100: rgb(47, 47, 47);
+  --theme-elevation-150: rgb(60, 60, 60);
+  --theme-elevation-800: rgb(235, 235, 235);
+}

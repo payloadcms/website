@@ -142,7 +142,7 @@ export const ComponentPreview: React.FC<Props> = ({ component, example, version 
           id={previewID}
           role="tabpanel"
         >
-          {selectedExample.render()}
+          {selectedExample.render({ theme: previewTheme })}
         </div>
       ) : (
         <div
