@@ -62,11 +62,8 @@ import { Arrow } from './Arrow'
 import { BulletList } from './BulletList'
 import { Card } from './Card/index'
 import { CardGroup } from './CardGroup/index'
-<<<<<<< HEAD
-import { ComponentPreview } from './ComponentPreview'
-=======
 import { CodeTabs } from './CodeTabs'
->>>>>>> origin/main
+import { ComponentPreview } from './ComponentPreview'
 import { type AddHeading, type Heading, type IContext, RichTextContext } from './context'
 import { Heading as HeadingComponent } from './Heading'
 import { LightDarkImage } from './LightDarkImage/index'
