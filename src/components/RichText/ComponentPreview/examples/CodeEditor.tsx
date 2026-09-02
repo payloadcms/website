@@ -17,9 +17,15 @@ export const codeEditorExamples: ComponentExamples = {
   readOnly
   value={'{\\n  "title": "Payload UI",\\n  "enabled": true\\n}'}
 />`,
-    render: () => (
+    render: ({ theme }) => (
       <div className={classes.componentWidth}>
-        <CodeEditor defaultLanguage="json" minHeight={110} readOnly value={value} />
+        <CodeEditor
+          defaultLanguage="json"
+          minHeight={110}
+          readOnly
+          theme={theme === 'dark' ? 'vs-dark' : 'vs'}
+          value={value}
+        />
       </div>
     ),
   },

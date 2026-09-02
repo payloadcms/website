@@ -516,20 +516,20 @@ export const componentDesigns: Record<string, Record<string, ComponentDesign>> =
   },
   SearchFilter: {
     interactive: createDesign({
-      code: `.search-filter__input {
-  background: #f3f1ff;
+      code: `.search-bar {
+  --search-bg: #f3f1ff;
   border: 1px solid #c8c0ff;
   border-radius: 999px;
 }
 
-.search-filter__input:focus {
+.search-bar:focus-within {
   border-color: #6d5dfc;
   box-shadow: 0 0 0 3px #ded8ff;
 }`,
       description:
-        'Target the SearchFilter input and focus state to create a branded search control without changing debouncing behavior.',
+        'Override the SearchBar surface and focus state without changing the SearchFilter debounce behavior it composes.',
       variables: [
-        ['background', 'Search input surface.'],
+        ['--search-bg', 'Search control surface.'],
         ['border', 'Search input outline.'],
         ['box-shadow', 'Keyboard and pointer focus ring.'],
       ],

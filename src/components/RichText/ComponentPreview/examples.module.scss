@@ -13,6 +13,14 @@
   width: min(100%, 36rem);
 }
 
+.cardDemo {
+  width: min(100%, 20rem);
+
+  :global(.card) {
+    align-items: center;
+  }
+}
+
 .stack {
   display: flex;
   flex-direction: column;
@@ -117,6 +125,18 @@
   --base: 20px;
   --z-popup: 60;
   --style-radius-s: 3px;
+
+  :global(.popup-divider) {
+    margin: calc(var(--base) * 0.75) 0;
+  }
+}
+
+.popupDemo {
+  display: flex;
+  width: 100%;
+  min-height: 18rem;
+  align-items: center;
+  justify-content: center;
 }
 
 .popupPortalLight {
@@ -138,6 +158,21 @@
 .datePickerDemo,
 .timezoneDemo {
   width: min(100%, 24rem);
+  min-height: 16rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reactSelectDemo {
+  display: flex;
+  width: min(100%, 36rem);
+  min-height: 16rem;
+  align-items: center;
+
+  :global(.react-select) {
+    width: 100%;
+  }
 }
 
 .datePickerDemo {
@@ -254,4 +289,166 @@
   --theme-elevation-100: rgb(47, 47, 47);
   --theme-elevation-150: rgb(60, 60, 60);
   --theme-elevation-800: rgb(235, 235, 235);
+}
+
+.overlayExampleFrame {
+  position: relative;
+  display: flex;
+  width: min(100%, 44rem);
+  min-height: 28rem;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.drawerOverlayExampleFrame {
+  width: calc(
+    100% + var(--component-preview-padding-inline) + var(--component-preview-padding-inline)
+  );
+  min-height: calc(
+    28rem + var(--component-preview-padding-block) + var(--component-preview-padding-block)
+  );
+  margin-block: calc(0rem - var(--component-preview-padding-block));
+  margin-inline: calc(0rem - var(--component-preview-padding-inline));
+}
+
+.overlayExampleContainer {
+  position: absolute !important;
+  z-index: 1 !important;
+  inset: 0;
+  visibility: visible !important;
+  pointer-events: none !important;
+
+  :global(.component-preview-modal__modal-item) {
+    pointer-events: auto;
+  }
+}
+
+.confirmationOverlayExampleContainer {
+  :global(.confirmation-modal__wrapper) {
+    width: min(calc(100% - 4rem), 32rem);
+    border: 1px solid var(--theme-elevation-400);
+    border-radius: var(--style-radius-s);
+    background: var(--theme-bg);
+    box-shadow: 0 2px 16px -2px rgba(0, 0, 0, 0.2);
+    animation: preview-modal-in 160ms cubic-bezier(0.2, 0, 0, 1) both;
+  }
+
+  :global(.confirmation-modal__content) {
+    h1 {
+      margin: 0;
+      font-size: 32px;
+      line-height: 36px;
+      letter-spacing: 0;
+    }
+
+    p {
+      margin: 0;
+    }
+  }
+}
+
+.drawerPreviewSurface {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  overflow: hidden;
+  visibility: hidden;
+  border: 1px solid var(--theme-elevation-400);
+  pointer-events: none;
+  transform: translateX(100%);
+  transition: transform 420ms cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+
+  &[data-state='open'] {
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(0);
+  }
+
+  &[data-state='closing'] {
+    visibility: visible;
+    transform: translateX(100%);
+  }
+}
+
+.drawerPreviewDismiss {
+  appearance: none;
+  flex: 1 1 auto;
+  border: 0;
+  padding: 0;
+  background: color-mix(in srgb, var(--theme-elevation-800) 10%, transparent);
+  cursor: pointer;
+}
+
+.drawerPreviewContent {
+  position: relative;
+  display: flex;
+  width: min(72%, 32rem);
+  flex: 0 0 min(72%, 32rem);
+  flex-direction: column;
+  gap: 2rem;
+  padding: 3rem 2rem;
+  background: var(--theme-bg);
+  box-shadow: -2px 0 16px -2px rgba(0, 0, 0, 0.2);
+
+  p {
+    max-width: 28rem;
+    margin: 0;
+  }
+}
+
+.drawerPreviewHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  h2 {
+    flex: 1;
+    margin: 0;
+    font-size: 32px;
+    line-height: 36px;
+    letter-spacing: 0;
+  }
+}
+
+.drawerPreviewClose {
+  appearance: none;
+  display: flex;
+  width: 2rem;
+  height: 2rem;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+
+  svg {
+    width: 2rem;
+    height: 2rem;
+  }
+}
+
+@keyframes preview-modal-in {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .confirmationOverlayExampleContainer :global(.confirmation-modal__wrapper) {
+    animation: none;
+  }
+
+  .drawerPreviewSurface {
+    transition: none;
+  }
 }

@@ -100,6 +100,9 @@
 }
 
 .canvas {
+  --base-body-size: 13px;
+  --component-preview-padding-block: 3rem;
+  --component-preview-padding-inline: 3rem;
   --style-radius-s: 3px;
   --style-radius-m: 4px;
   --style-radius-l: 8px;
@@ -345,6 +348,8 @@
 
 @include mid-break {
   .canvas {
+    --component-preview-padding-block: 2rem;
+    --component-preview-padding-inline: 1rem;
     min-height: 11rem;
     padding: 2rem 1rem;
   }

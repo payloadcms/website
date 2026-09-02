@@ -1,6 +1,6 @@
 'use client'
 
-import { SearchFilter } from '@payloadcms/ui/elements/SearchFilter'
+import { SearchBar } from '@payloadcms/ui/elements/SearchBar'
 import { useState } from 'react'
 
 import type { ComponentExamples } from './types'
@@ -11,7 +11,7 @@ const Demo = () => {
   const [search, setSearch] = useState('')
   return (
     <div className={classes.searchDemo}>
-      <SearchFilter handleChange={(value) => setSearch(value || '')} label="Search posts" />
+      <SearchBar label="Search posts" onSearchChange={(value) => setSearch(value || '')} />
       <span aria-live="polite">Debounced value: {search || '—'}</span>
     </div>
   )
@@ -21,9 +21,9 @@ export const searchFilterExamples: ComponentExamples = {
   interactive: {
     code: `const [search, setSearch] = useState('')
 
-<SearchFilter
-  handleChange={(value) => setSearch(value || '')}
+<SearchBar
   label="Search posts"
+  onSearchChange={(value) => setSearch(value || '')}
 />`,
     render: () => <Demo />,
   },

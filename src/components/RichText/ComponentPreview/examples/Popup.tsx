@@ -16,21 +16,23 @@ export const popupExamples: ComponentExamples = {
   </PopupList.ButtonGroup>
 </Popup>`,
     render: ({ theme }) => (
-      <Popup
-        button="Actions"
-        portalClassName={[
-          classes.popupPortal,
-          theme === 'dark' ? classes.popupPortalDark : classes.popupPortalLight,
-        ].join(' ')}
-        size="small"
-      >
-        <PopupList.ButtonGroup>
-          <PopupList.Button onClick={() => undefined}>Edit</PopupList.Button>
-          <PopupList.Button onClick={() => undefined}>Duplicate</PopupList.Button>
-          <PopupList.Divider />
-          <PopupList.Button onClick={() => undefined}>Delete</PopupList.Button>
-        </PopupList.ButtonGroup>
-      </Popup>
+      <div className={classes.popupDemo}>
+        <Popup
+          button="Actions"
+          portalClassName={[
+            classes.popupPortal,
+            theme === 'dark' ? classes.popupPortalDark : classes.popupPortalLight,
+          ].join(' ')}
+          size="small"
+        >
+          <PopupList.ButtonGroup>
+            <PopupList.Button onClick={() => undefined}>Edit</PopupList.Button>
+            <PopupList.Button onClick={() => undefined}>Duplicate</PopupList.Button>
+            <PopupList.Divider />
+            <PopupList.Button onClick={() => undefined}>Delete</PopupList.Button>
+          </PopupList.ButtonGroup>
+        </Popup>
+      </div>
     ),
   },
 }

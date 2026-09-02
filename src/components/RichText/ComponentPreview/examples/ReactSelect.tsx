@@ -16,7 +16,7 @@ const options: Option<string>[] = [
 const Demo = () => {
   const [value, setValue] = useState<Option<string>>(options[0])
   return (
-    <div className={classes.componentWidth}>
+    <div className={classes.reactSelectDemo}>
       <ReactSelect
         isClearable={false}
         onChange={(nextValue) => setValue(nextValue as Option<string>)}
