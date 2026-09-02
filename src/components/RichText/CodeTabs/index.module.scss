@@ -1,0 +1,90 @@
+.root {
+  margin-bottom: 2rem;
+  overflow: hidden;
+  border: 1px solid var(--color-base-700);
+  border-radius: 4px;
+  background: var(--color-base-850);
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--color-base-700);
+  background: var(--color-base-900);
+}
+
+.list {
+  display: flex;
+  flex: 1;
+  gap: 0.25rem;
+  min-width: 0;
+  overflow-x: auto;
+  padding: 0.75rem;
+}
+
+.trigger {
+  appearance: none;
+  padding: 0.25rem 0.625rem;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--color-base-300);
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  white-space: nowrap;
+
+  &:hover {
+    background: var(--color-base-850);
+    color: var(--color-base-100);
+  }
+
+  &:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: -3px;
+  }
+
+  &[data-state='active'] {
+    border-color: var(--color-base-700);
+    background: var(--color-base-800);
+    color: var(--color-base-100);
+    box-shadow: 0 1px 2px rgb(0 0 0 / 30%);
+  }
+}
+
+.copyButton {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 0.75rem;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--color-base-300);
+  cursor: pointer;
+
+  &:hover {
+    border-color: var(--color-base-700);
+    background: var(--color-base-800);
+    color: var(--color-base-100);
+  }
+
+  &:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: -3px;
+  }
+}
+
+.content:focus-visible {
+  outline: 2px solid var(--theme-text);
+  outline-offset: -2px;
+}
+
+.code {
+  margin: 0;
+  background: var(--color-base-850);
+}
