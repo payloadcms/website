@@ -16,13 +16,14 @@ import { TableOfContents } from '@components/TableOfContents/index'
 import { VersionSelector } from '@components/VersionSelector/index'
 import { fetchRelatedThreads } from '@data'
 import { ArrowIcon } from '@icons/ArrowIcon/index'
+import { branchForVersion, isDocVersion } from '@root/collections/Docs/branchForVersion'
 import { unstable_cache } from 'next/cache'
 import Link from 'next/link'
 import React from 'react'
 
 import classes from './index.module.scss'
 
-export type DocsVersion = 'beta' | 'current' | 'dynamic' | 'local' | 'v2'
+export type DocsVersion = 'beta' | 'current' | 'dynamic' | 'local' | 'local/v4' | 'v2'
 
 export const RenderDocs = async ({
   children,
@@ -76,6 +77,9 @@ export const RenderDocs = async ({
   const docIndex = topic?.docs.findIndex((doc) => doc.slug === currentDoc.slug)
 
   const path = `${topicSlug.toLowerCase()}/${currentDoc.slug}`
+  const feedbackRef = isDocVersion(currentDoc.version)
+    ? branchForVersion(currentDoc.version)
+    : '3.x'
 
   const hideVersionSelector =
     process.env.NEXT_PUBLIC_ENABLE_BETA_DOCS !== 'true' &&
@@ -178,7 +182,7 @@ export const RenderDocs = async ({
               <CommunityHelpCTA />
             </div>
             <DocsFeedback path={path} />
-            <Feedback path={path} />
+            <Feedback docsBranch={feedbackRef} path={path} />
           </div>
         </aside>
       </div>

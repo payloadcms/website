@@ -19,9 +19,11 @@ export const VersionSelector: React.FC<{
         className={classes.select}
         defaultValue={initialVersion}
         onChange={(e) => {
-          e.target.value === 'latest'
-            ? router.push('/docs')
-            : router.push(`/docs/${e.target.value}`)
+          if (e.target.value === 'latest') {
+            router.push('/docs')
+          } else {
+            router.push(`/docs/${e.target.value}`)
+          }
         }}
       >
         <option
@@ -30,7 +32,7 @@ export const VersionSelector: React.FC<{
           value="latest"
         />
         {process.env.NEXT_PUBLIC_ENABLE_BETA_DOCS === 'true' && (
-          <option className={classes.option} label="Beta" value="beta" />
+          <option className={classes.option} label="Version 4 (Beta)" value="beta" />
         )}
         {process.env.NEXT_PUBLIC_ENABLE_LEGACY_DOCS === 'true' && (
           <option

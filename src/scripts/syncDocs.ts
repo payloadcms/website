@@ -3,6 +3,7 @@ import type { PayloadHandler, PayloadRequest, RequiredDataFromCollectionSlug } f
 
 import { sanitizeServerEditorConfig } from '@payloadcms/richtext-lexical'
 import { contentLexicalEditorFeatures } from '@root/collections/Docs'
+import { versionToBranch } from '@root/collections/Docs/branchForVersion'
 import { mdxToLexical } from '@root/collections/Docs/mdxToLexical'
 
 import { fetchDocs } from './fetchDocs'
@@ -118,11 +119,15 @@ export const syncDocs: PayloadHandler = async (req) => {
       return new Response('No GitHub access token found', { status: 400 })
     }
     try {
-      const allV3Docs = await fetchDocs({ ref: '3.x', version: 'v3' })
-      const allV2Docs = await fetchDocs({ ref: '2.x', version: 'v2' })
+      // fetchDocs uses module-level source context, so keep these calls sequential.
+      const allV4Docs = await fetchDocs({ ref: versionToBranch.v4, version: 'v4' })
+      const allV3Docs = await fetchDocs({ ref: versionToBranch.v3, version: 'v3' })
+      const allV2Docs = await fetchDocs({ ref: versionToBranch.v2, version: 'v2' })
 
       const createdOrUpdatedDocs: string[] = []
       createdOrUpdatedDocs.push(
+        ...(await importTopicGroups({ req, topicGroups: allV4Docs, version: 'v4' }))
+          .createdOrUpdatedDocs,
         ...(await importTopicGroups({ req, topicGroups: allV3Docs, version: 'v3' }))
           .createdOrUpdatedDocs,
         ...(await importTopicGroups({ req, topicGroups: allV2Docs, version: 'v2' }))

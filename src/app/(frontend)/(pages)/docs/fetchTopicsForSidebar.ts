@@ -1,3 +1,4 @@
+import type { DocVersion } from '@root/collections/Docs/branchForVersion'
 import type { ParsedDocForNav, TopicForNav, TopicGroupForNav } from '@root/collections/Docs/types'
 import type { Payload } from 'payload'
 
@@ -8,7 +9,7 @@ export const fetchTopicsForSidebar = async ({
   version,
 }: {
   payload: Payload
-  version: 'v2' | 'v3'
+  version: DocVersion
 }): Promise<TopicGroupForNav[]> => {
   const result = await payload.find({
     collection: 'docs',

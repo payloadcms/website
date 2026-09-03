@@ -17,7 +17,12 @@ import { topicGroupsToDocsData } from '@root/scripts/syncDocs'
 import { revalidatePath } from 'next/cache'
 
 import { isAdmin } from '../../access/isAdmin'
-import { branchForVersion, isDefaultBranch } from './branchForVersion'
+import {
+  branchForVersion,
+  docsBasePathForVersion,
+  isDefaultBranch,
+  isDocVersion,
+} from './branchForVersion'
 import { lexicalToMDX } from './mdxToLexical'
 
 export const contentLexicalEditorFeatures: FeatureProviderServer[] = [
@@ -92,8 +97,8 @@ export const Docs: CollectionConfig = {
     },
     defaultColumns: ['path', 'topic', 'slug', 'title', 'version'],
     livePreview: {
-      url: ({ collectionConfig, data, locale }) =>
-        `${process.env.NEXT_PUBLIC_CMS_URL}/docs/${data.path}`,
+      url: ({ data }) =>
+        `${process.env.NEXT_PUBLIC_CMS_URL}${docsBasePathForVersion(data.version)}/${data.topic}/${data.slug}`,
     },
     useAsTitle: 'path',
   },
@@ -242,7 +247,7 @@ export const Docs: CollectionConfig = {
         }
 
         let branch: string = queryParams.branch as string
-        const version: string = doc?.version === 'v2' ? 'v2' : 'v3'
+        const version = isDocVersion(doc?.version) ? doc.version : 'v3'
 
         if (!branch) {
           branch = branchForVersion(version)
@@ -331,12 +336,15 @@ export const Docs: CollectionConfig = {
           }
         }
 
-        if (_doc?.version === 'v2') {
-          revalidatePath('/(frontend)/(pages)/docs/v2/[topic]/[doc]', 'page')
-        } else {
-          // Revalidate all doc paths, to ensure that the sidebar is up-to-date for all docs
-          revalidatePath('/(frontend)/(pages)/docs/[topic]/[doc]', 'page')
-        }
+        const route =
+          _doc?.version === 'v2'
+            ? '/(frontend)/(pages)/docs/v2/[topic]/[doc]'
+            : _doc?.version === 'v4'
+              ? '/(frontend)/(pages)/docs/beta/[topic]/[doc]'
+              : '/(frontend)/(pages)/docs/[topic]/[doc]'
+
+        // Revalidate all doc paths, to ensure that the sidebar is up-to-date for this version.
+        revalidatePath(route, 'page')
       },
     ],
   },
