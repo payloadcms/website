@@ -60,7 +60,11 @@ function getHeadings(source: string): Heading[] {
 
   return headingLines.map((raw) => {
     const textWithAnchor = raw.replace(/^#{2,}\s/, '') // Remove heading hashes
-    const [text, customAnchor] = textWithAnchor.split('#') // Split by '#'
+    const customAnchorMatch = textWithAnchor.match(/#([\w-]+)\s*$/)
+    const customAnchor = customAnchorMatch?.[1]
+    const text = customAnchorMatch
+      ? textWithAnchor.slice(0, customAnchorMatch.index).trim()
+      : textWithAnchor
     const level = raw.startsWith('###') ? 3 : 2
     const anchor = slugify(customAnchor ? customAnchor.trim() : text.trim())
     return { id: anchor, anchor, level, text: text.trim() }
