@@ -88,6 +88,7 @@
 
 .themeButton {
   border-radius: 2px;
+  padding: 0.25rem 0.5rem;
 
   &[aria-pressed='true'] {
     background: #333;

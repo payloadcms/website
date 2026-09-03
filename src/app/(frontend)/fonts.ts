@@ -1,5 +1,15 @@
-import { Roboto_Mono } from 'next/font/google'
+import { Inter, Roboto_Mono } from 'next/font/google'
 import localFont from 'next/font/local'
+
+export const payloadV4Inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-family-sans',
+})
+
+export const payloadV4RobotoMono = Roboto_Mono({
+  subsets: ['latin'],
+  variable: '--font-family-mono',
+})
 
 // TODO: Fix the ESM/TS issue with the `localFont` import
 export const untitledSans = localFont({

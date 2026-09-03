@@ -2,10 +2,11 @@
 
 import Code from '@components/Code'
 import { Check, Copy } from 'lucide-react'
+import dynamic from 'next/dynamic'
 import React, { useEffect, useId, useRef, useState } from 'react'
 
 import './datePicker.scss'
-import { componentExamples } from './examples'
+import { componentExamplesByVersion } from './examples'
 import classes from './index.module.scss'
 
 type PreviewTheme = 'dark' | 'light'
@@ -16,6 +17,10 @@ type Props = {
   example: string
   version?: string
 }
+
+const PayloadV4Preview = dynamic(() =>
+  import('@payloadcms/v4-preview-runtime').then((module) => module.PayloadV4Preview),
+)
 
 export const ComponentPreview: React.FC<Props> = ({ component, example, version }) => {
   const [activeTab, setActiveTab] = useState<PreviewTab>('preview')
@@ -38,7 +43,8 @@ export const ComponentPreview: React.FC<Props> = ({ component, example, version 
     return () => window.clearTimeout(timeout)
   }, [copied])
 
-  const selectedExample = componentExamples[component]?.[example]
+  const previewVersion = version === 'v4' ? 'v4' : 'v3'
+  const selectedExample = componentExamplesByVersion[previewVersion][component]?.[example]
 
   if (!selectedExample) {
     return (
@@ -53,6 +59,7 @@ export const ComponentPreview: React.FC<Props> = ({ component, example, version 
   const designID = `${id}-design`
   const codeID = `${id}-code`
   const copyLabel = activeTab === 'design' ? 'Copy CSS' : 'Copy code'
+  const isV4Preview = previewVersion === 'v4'
 
   const copyActiveCode = async () => {
     const code = activeTab === 'design' ? selectedExample.design?.code : selectedExample.code
@@ -165,7 +172,11 @@ export const ComponentPreview: React.FC<Props> = ({ component, example, version 
           id={previewID}
           role="tabpanel"
         >
-          {selectedExample.render({ theme: previewTheme })}
+          {isV4Preview ? (
+            <PayloadV4Preview component={component} example={example} theme={previewTheme} />
+          ) : (
+            selectedExample.render?.({ theme: previewTheme })
+          )}
         </div>
       ) : activeTab === 'design' && selectedExample.design ? (
         <div
@@ -175,11 +186,11 @@ export const ComponentPreview: React.FC<Props> = ({ component, example, version 
           role="tabpanel"
         >
           <div className={classes.designFile}>
-            Add to <code>app/(payload)/custom.scss</code>
+            Add to <code>app/(payload)/{isV4Preview ? 'custom.css' : 'custom.scss'}</code>
           </div>
           <p className={classes.designDescription}>{selectedExample.design.description}</p>
           <div className={classes.designCode}>
-            <Code disableMinHeight language="scss" showLineNumbers={false}>
+            <Code disableMinHeight language={isV4Preview ? 'css' : 'scss'} showLineNumbers={false}>
               {selectedExample.design.code}
             </Code>
           </div>
@@ -194,12 +205,21 @@ export const ComponentPreview: React.FC<Props> = ({ component, example, version 
               </div>
             ))}
           </div>
-          <p className={classes.designNote}>
-            Scope the selector under <code>html[data-theme='light']</code> or{' '}
-            <code>html[data-theme='dark']</code> when the two themes need different values. Prefix
-            it with your own class or parent selector to limit the override to one instance or Admin
-            view.
-          </p>
+          {isV4Preview ? (
+            <p className={classes.designNote}>
+              Payload 4 places its defaults in <code>@layer payload-default</code>. Put layered
+              overrides in <code>@layer payload</code>, and scope tokens under{' '}
+              <code>[data-theme='light']</code> or <code>[data-theme='dark']</code> when the themes
+              need different values.
+            </p>
+          ) : (
+            <p className={classes.designNote}>
+              Scope the selector under <code>html[data-theme='light']</code> or{' '}
+              <code>html[data-theme='dark']</code> when the two themes need different values. Prefix
+              it with your own class or parent selector to limit the override to one instance or
+              Admin view.
+            </p>
+          )}
         </div>
       ) : (
         <div

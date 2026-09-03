@@ -48,6 +48,7 @@ const blobStore = process.env.BLOB_STORE_ID
 
 const nextConfig = withBundleAnalyzer({
   reactStrictMode: true,
+  transpilePackages: ['@payloadcms/v4-preview-runtime'],
   images: {
     minimumCacheTTL: 60 * 60 * 24 * 365, // 1 year,
     remotePatterns: [

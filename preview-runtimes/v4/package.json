@@ -1,0 +1,18 @@
+{
+  "name": "@payloadcms/v4-preview-runtime",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.tsx",
+    "./styles.css": "./src/styles.css"
+  },
+  "dependencies": {
+    "@payloadcms/ui": "4.0.0-canary.14",
+    "payload": "4.0.0-canary.14"
+  },
+  "peerDependencies": {
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3"
+  }
+}

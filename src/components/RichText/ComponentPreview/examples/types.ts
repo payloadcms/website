@@ -12,7 +12,7 @@ export type ComponentDesign = {
 export type ComponentExample = {
   code: string
   design?: ComponentDesign
-  render: (context: { theme: 'dark' | 'light' }) => React.ReactNode
+  render?: (context: { theme: 'dark' | 'light' }) => React.ReactNode
 }
 
 export type ComponentExamples = Record<string, ComponentExample>

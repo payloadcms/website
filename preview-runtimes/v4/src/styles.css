@@ -1,0 +1,14 @@
+@import '@payloadcms/ui/css';
+
+.payload-v4-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text);
+  color-scheme: light;
+  font-family: var(--font-family-sans);
+}
+
+.payload-v4-preview[data-theme='dark'] {
+  color-scheme: dark;
+}
