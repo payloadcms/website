@@ -90,6 +90,31 @@ const deploymentStates: DeploymentStates = {
     status: 'ERROR',
     step: 0,
   },
+  pausing: {
+    label: 'Pausing your project',
+    status: 'SUSPENDED',
+    step: 0,
+  },
+  paused: {
+    label: 'Paused. Contact info@payloadcms.com to resume your project.',
+    status: 'SUSPENDED',
+    step: 0,
+  },
+  pauseError: {
+    label: 'Failed to pause project',
+    status: 'ERROR',
+    step: 0,
+  },
+  unpausing: {
+    label: 'Resuming your project',
+    status: 'SUSPENDED',
+    step: 0,
+  },
+  unpauseError: {
+    label: 'Failed to resume project',
+    status: 'ERROR',
+    step: 0,
+  },
 }
 
 const initialDeploymentPhases: DeploymentPhases[] = [
@@ -130,7 +155,19 @@ export const InfraOffline: React.FC<{
     'error',
     'infraCreationError',
   ].includes(infraStatus)
-  const deploymentStep = deploymentStates[infraStatus]
+  const isOffline = [
+    'suspended',
+    'pausing',
+    'paused',
+    'pauseError',
+    'unpausing',
+    'unpauseError',
+  ].includes(infraStatus)
+  const deploymentStep = deploymentStates[infraStatus] ?? {
+    label: 'Loading project status…',
+    status: 'SUCCESS' as const,
+    step: 0,
+  }
 
   const {
     reload: reloadDeployments,
@@ -188,6 +225,12 @@ export const InfraOffline: React.FC<{
     label = 'Project has been suspended'
   } else if (infraStatus === 'reinstating') {
     label = 'Reinstating in progress'
+  } else if (infraStatus === 'paused') {
+    label = 'Project is paused'
+  } else if (infraStatus === 'pausing') {
+    label = 'Pausing in progress'
+  } else if (infraStatus === 'unpausing') {
+    label = 'Resuming in progress'
   } else {
     label = `Initial Deployment ${failedDeployment ? 'failed' : 'in progress'}`
   }
@@ -196,7 +239,7 @@ export const InfraOffline: React.FC<{
     <>
       <Gutter>
         <ExtendedBackground
-          borderHighlight={!failedDeployment && infraStatus !== 'suspended'}
+          borderHighlight={!failedDeployment && !isOffline}
           pixels
           upperChildren={
             <div className={classes.content}>
@@ -229,11 +272,10 @@ export const InfraOffline: React.FC<{
                         >
                           to your repository
                         </Link>
-                        {` to re-trigger a deployment.${
-                          unsuccessfulDeployment || hasDeployedBefore
+                        {` to re-trigger a deployment.${unsuccessfulDeployment || hasDeployedBefore
                             ? ' Check the logs below for more information.'
                             : ''
-                        }`}
+                          }`}
                       </React.Fragment>
                     }
                   />
@@ -319,7 +361,7 @@ export const InfraOffline: React.FC<{
         />
       </Gutter>
 
-      {latestDeployment && infraStatus !== 'suspended' && (
+      {latestDeployment && !isOffline && (
         <DeploymentLogs
           deployment={latestDeployment}
           environmentSlug={environmentSlug}
