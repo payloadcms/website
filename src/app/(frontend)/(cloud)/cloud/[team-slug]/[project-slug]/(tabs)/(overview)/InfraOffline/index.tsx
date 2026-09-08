@@ -70,6 +70,21 @@ const deploymentStates: DeploymentStates = {
     status: 'SUCCESS',
     step: 0,
   },
+  paused: {
+    label: 'Paused. Contact support@payloadcms.com to resume your project.',
+    status: 'SUSPENDED',
+    step: 0,
+  },
+  pauseError: {
+    label: 'Failed to pause project',
+    status: 'ERROR',
+    step: 0,
+  },
+  pausing: {
+    label: 'Pausing your project',
+    status: 'SUSPENDED',
+    step: 0,
+  },
   reinstating: {
     label: 'Reinstating your project',
     status: 'SUCCESS',
@@ -81,7 +96,7 @@ const deploymentStates: DeploymentStates = {
     step: 0,
   },
   suspended: {
-    label: 'Suspended. Contact info@payloadcms.com if you think this was a mistake.',
+    label: 'Suspended. Contact support@payloadcms.com if you think this was a mistake.',
     status: 'SUSPENDED',
     step: 0,
   },
@@ -90,29 +105,14 @@ const deploymentStates: DeploymentStates = {
     status: 'ERROR',
     step: 0,
   },
-  pausing: {
-    label: 'Pausing your project',
-    status: 'SUSPENDED',
-    step: 0,
-  },
-  paused: {
-    label: 'Paused. Contact info@payloadcms.com to resume your project.',
-    status: 'SUSPENDED',
-    step: 0,
-  },
-  pauseError: {
-    label: 'Failed to pause project',
+  unpauseError: {
+    label: 'Failed to resume project',
     status: 'ERROR',
     step: 0,
   },
   unpausing: {
     label: 'Resuming your project',
     status: 'SUSPENDED',
-    step: 0,
-  },
-  unpauseError: {
-    label: 'Failed to resume project',
-    status: 'ERROR',
     step: 0,
   },
 }
@@ -156,12 +156,12 @@ export const InfraOffline: React.FC<{
     'infraCreationError',
   ].includes(infraStatus)
   const isOffline = [
-    'suspended',
-    'pausing',
     'paused',
     'pauseError',
-    'unpausing',
+    'pausing',
+    'suspended',
     'unpauseError',
+    'unpausing',
   ].includes(infraStatus)
   const deploymentStep = deploymentStates[infraStatus] ?? {
     label: 'Loading project status…',
@@ -272,10 +272,11 @@ export const InfraOffline: React.FC<{
                         >
                           to your repository
                         </Link>
-                        {` to re-trigger a deployment.${unsuccessfulDeployment || hasDeployedBefore
+                        {` to re-trigger a deployment.${
+                          unsuccessfulDeployment || hasDeployedBefore
                             ? ' Check the logs below for more information.'
                             : ''
-                          }`}
+                        }`}
                       </React.Fragment>
                     }
                   />
