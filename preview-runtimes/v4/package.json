@@ -8,6 +8,7 @@
     "./styles.css": "./src/styles.css"
   },
   "dependencies": {
+    "@payloadcms/translations": "4.0.0-canary.14",
     "@payloadcms/ui": "4.0.0-canary.14",
     "payload": "4.0.0-canary.14"
   },

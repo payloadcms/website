@@ -156,6 +156,9 @@ importers:
       payload:
         specifier: 3.88.0
         version: 3.88.0(graphql@16.8.1)(typescript@5.7.3)
+      postcss:
+        specifier: 8.5.23
+        version: 8.5.23
       prism-react-renderer:
         specifier: ^2.3.1
         version: 2.4.1(react@19.2.3)
@@ -256,6 +259,9 @@ importers:
 
   preview-runtimes/v4:
     dependencies:
+      '@payloadcms/translations':
+        specifier: 4.0.0-canary.14
+        version: 4.0.0-canary.14
       '@payloadcms/ui':
         specifier: 4.0.0-canary.14
         version: 4.0.0-canary.14(@types/react@19.1.8)(monaco-editor@0.55.1)(payload@4.0.0-canary.14(graphql@16.8.1)(typescript@5.7.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(typescript@5.7.3)

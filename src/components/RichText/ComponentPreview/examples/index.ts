@@ -27,8 +27,6 @@ import { tableExamples } from './Table'
 import { thumbnailExamples } from './Thumbnail'
 import { timezonePickerExamples } from './TimezonePicker'
 import { tooltipExamples } from './Tooltip'
-import { v4ComponentExamples } from './v4'
-
 const examplesWithoutDesign: Record<string, ComponentExamples> = {
   AnimateHeight: animateHeightExamples,
   Banner: bannerExamples,
@@ -58,7 +56,7 @@ const examplesWithoutDesign: Record<string, ComponentExamples> = {
   Tooltip: tooltipExamples,
 }
 
-const v3ComponentExamples: Record<string, ComponentExamples> = Object.fromEntries(
+export const v3ComponentExamples: Record<string, ComponentExamples> = Object.fromEntries(
   Object.entries(examplesWithoutDesign).map(([componentName, examples]) => [
     componentName,
     Object.fromEntries(
@@ -74,8 +72,3 @@ const v3ComponentExamples: Record<string, ComponentExamples> = Object.fromEntrie
     ),
   ]),
 )
-
-export const componentExamplesByVersion: Record<'v3' | 'v4', Record<string, ComponentExamples>> = {
-  v3: v3ComponentExamples,
-  v4: v4ComponentExamples,
-}

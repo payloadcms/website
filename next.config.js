@@ -109,7 +109,7 @@ const nextConfig = withBundleAnalyzer({
       '@graphql': path.resolve(dirname, './src/graphql'),
     },
   },
-  webpack: (config) => {
+  webpack: (config, { webpack }) => {
     const configCopy = { ...config }
     configCopy.resolve = {
       ...config.resolve,
@@ -133,6 +133,19 @@ const nextConfig = withBundleAnalyzer({
         '@graphql': path.resolve(dirname, './src/graphql'),
       },
     }
+    configCopy.plugins.push(
+      new webpack.NormalModuleReplacementPlugin(/\.(css|scss)$/, (resource) => {
+        const isV4UIStyle =
+          resource.context.includes(`${path.sep}.pnpm${path.sep}@payloadcms+ui@4`) ||
+          resource.context.includes(
+            `${path.sep}preview-runtimes${path.sep}v4${path.sep}node_modules${path.sep}@payloadcms${path.sep}ui${path.sep}`,
+          )
+
+        if (isV4UIStyle) {
+          resource.request = path.resolve(dirname, './src/css/empty.css')
+        }
+      }),
+    )
     return configCopy
   },
   redirects,
