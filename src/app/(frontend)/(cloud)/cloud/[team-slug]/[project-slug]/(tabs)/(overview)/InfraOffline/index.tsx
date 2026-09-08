@@ -70,6 +70,21 @@ const deploymentStates: DeploymentStates = {
     status: 'SUCCESS',
     step: 0,
   },
+  paused: {
+    label: 'Paused. Contact support@payloadcms.com to resume your project.',
+    status: 'SUSPENDED',
+    step: 0,
+  },
+  pauseError: {
+    label: 'Failed to pause project',
+    status: 'ERROR',
+    step: 0,
+  },
+  pausing: {
+    label: 'Pausing your project',
+    status: 'SUSPENDED',
+    step: 0,
+  },
   reinstating: {
     label: 'Reinstating your project',
     status: 'SUCCESS',
@@ -81,13 +96,23 @@ const deploymentStates: DeploymentStates = {
     step: 0,
   },
   suspended: {
-    label: 'Suspended. Contact info@payloadcms.com if you think this was a mistake.',
+    label: 'Suspended. Contact support@payloadcms.com if you think this was a mistake.',
     status: 'SUSPENDED',
     step: 0,
   },
   suspendingError: {
     label: 'Failed to suspend project',
     status: 'ERROR',
+    step: 0,
+  },
+  unpauseError: {
+    label: 'Failed to resume project',
+    status: 'ERROR',
+    step: 0,
+  },
+  unpausing: {
+    label: 'Resuming your project',
+    status: 'SUSPENDED',
     step: 0,
   },
 }
@@ -130,7 +155,19 @@ export const InfraOffline: React.FC<{
     'error',
     'infraCreationError',
   ].includes(infraStatus)
-  const deploymentStep = deploymentStates[infraStatus]
+  const isOffline = [
+    'paused',
+    'pauseError',
+    'pausing',
+    'suspended',
+    'unpauseError',
+    'unpausing',
+  ].includes(infraStatus)
+  const deploymentStep = deploymentStates[infraStatus] ?? {
+    label: 'Loading project status…',
+    status: 'SUCCESS' as const,
+    step: 0,
+  }
 
   const {
     reload: reloadDeployments,
@@ -188,6 +225,12 @@ export const InfraOffline: React.FC<{
     label = 'Project has been suspended'
   } else if (infraStatus === 'reinstating') {
     label = 'Reinstating in progress'
+  } else if (infraStatus === 'paused') {
+    label = 'Project is paused'
+  } else if (infraStatus === 'pausing') {
+    label = 'Pausing in progress'
+  } else if (infraStatus === 'unpausing') {
+    label = 'Resuming in progress'
   } else {
     label = `Initial Deployment ${failedDeployment ? 'failed' : 'in progress'}`
   }
@@ -196,7 +239,7 @@ export const InfraOffline: React.FC<{
     <>
       <Gutter>
         <ExtendedBackground
-          borderHighlight={!failedDeployment && infraStatus !== 'suspended'}
+          borderHighlight={!failedDeployment && !isOffline}
           pixels
           upperChildren={
             <div className={classes.content}>
@@ -319,7 +362,7 @@ export const InfraOffline: React.FC<{
         />
       </Gutter>
 
-      {latestDeployment && infraStatus !== 'suspended' && (
+      {latestDeployment && !isOffline && (
         <DeploymentLogs
           deployment={latestDeployment}
           environmentSlug={environmentSlug}

@@ -55,6 +55,11 @@ export interface Project {
     | 'reinstatingError'
     | 'suspended'
     | 'suspendingError'
+    | 'pausing'
+    | 'paused'
+    | 'pauseError'
+    | 'unpausing'
+    | 'unpauseError'
   deletedOn?: string
   troubleshoot?: boolean
   slug: string
@@ -83,6 +88,11 @@ export interface Project {
       | 'reinstatingError'
       | 'suspended'
       | 'suspendingError'
+      | 'pausing'
+      | 'paused'
+      | 'pauseError'
+      | 'unpausing'
+      | 'unpauseError'
     deletedOn?: string
     troubleshoot?: boolean
     digitalOceanAppID?: string
