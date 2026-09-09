@@ -1,9 +1,7 @@
-@import '@payloadcms/ui/css';
+@import './generated/scoped.css';
 
 .payload-v4-preview {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: contents;
   color: var(--color-text);
   color-scheme: light;
   font-family: var(--font-family-sans);
@@ -11,4 +9,179 @@
 
 .payload-v4-preview[data-theme='dark'] {
   color-scheme: dark;
+}
+
+.payload-v4-preview__row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--spacer-2);
+}
+
+.payload-v4-preview__collapsible {
+  width: min(100%, 36rem);
+  align-self: flex-start;
+}
+
+.payload-v4-preview__date-picker {
+  display: flex;
+  flex: 0 1 24rem;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: var(--spacer-1);
+  width: 24rem;
+  max-width: 100%;
+  min-height: 18rem;
+}
+
+.payload-v4-preview__date-picker > label {
+  font-family: var(--text-body-medium-font-family);
+  font-size: var(--text-body-medium-font-size);
+  font-weight: var(--text-body-medium-font-weight);
+  line-height: var(--text-body-medium-line-height);
+}
+
+.payload-v4-preview .custom-admin-link {
+  color: var(--color-text-brand);
+  font-weight: var(--font-weight-strong);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.payload-v4-preview .custom-admin-link:hover {
+  color: var(--color-text);
+}
+
+.payload-v4-preview__pagination-demo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--spacer-3);
+  width: min(100%, 36rem);
+}
+
+.payload-v4-preview__pagination-demo > span {
+  color: var(--color-text-secondary);
+  font-family: var(--text-body-medium-font-family);
+  font-size: var(--text-body-medium-font-size);
+  line-height: var(--text-body-medium-line-height);
+}
+
+.payload-v4-preview__loading-demo,
+.payload-v4-preview__progress-demo {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 1 32rem;
+  width: 32rem;
+  max-width: 100%;
+  min-height: 10rem;
+  overflow: hidden;
+  border: var(--stroke-width-small) solid var(--color-border);
+  border-radius: var(--radius-medium);
+  background: var(--color-bg);
+}
+
+.payload-v4-preview__loading-demo .loading-overlay,
+.payload-v4-preview__progress-demo .progress-bar {
+  position: absolute;
+}
+
+.payload-v4-preview__loading-demo .loading-overlay {
+  z-index: 1;
+}
+
+.payload-v4-preview__staggered-shimmers {
+  display: grid;
+  flex: 0 1 32rem;
+  gap: var(--spacer-2);
+  width: 32rem;
+  max-width: 100%;
+}
+
+.payload-v4-preview__stack {
+  display: grid;
+  gap: var(--spacer-2);
+  width: min(100%, 40rem);
+}
+
+.payload-v4-preview__gutter-frame {
+  width: min(100%, 40rem);
+  border: var(--stroke-width-small) solid var(--color-border);
+}
+
+.payload-v4-preview__gutter-content {
+  padding-block: var(--spacer-3);
+  background: var(--color-bg-secondary);
+  text-align: center;
+}
+
+.payload-v4-preview__component-width {
+  flex: 0 1 32rem;
+  width: 32rem;
+  max-width: 100%;
+}
+
+.payload-v4-preview__demo-panel {
+  display: grid;
+  flex: 0 1 32rem;
+  gap: var(--spacer-3);
+  width: 32rem;
+  max-width: 100%;
+}
+
+.payload-v4-preview__animated-content {
+  padding: var(--spacer-3);
+  border: var(--stroke-width-small) solid var(--color-border);
+  border-radius: var(--radius-medium);
+  background: var(--color-bg-secondary);
+}
+
+.payload-v4-preview__card {
+  flex: 0 1 20rem;
+  width: 20rem;
+  max-width: 100%;
+}
+
+.payload-v4-preview__copy {
+  display: flex;
+  align-items: center;
+  gap: var(--spacer-1);
+}
+
+.payload-v4-preview__skeleton-layout {
+  display: flex;
+  align-items: center;
+  flex: 0 1 32rem;
+  gap: var(--spacer-3);
+  width: 32rem;
+  max-width: 100%;
+}
+
+.payload-v4-preview__skeleton-lines {
+  display: grid;
+  flex: 1;
+  gap: var(--spacer-2);
+}
+
+.payload-v4-preview__pill-selector {
+  flex: 0 1 36rem;
+  width: 36rem;
+  max-width: 100%;
+}
+
+.payload-v4-preview__react-select {
+  display: flex;
+  align-items: center;
+  flex: 0 1 28rem;
+  width: 28rem;
+  max-width: 100%;
+  min-height: 16rem;
+}
+
+.payload-v4-preview__react-select > div {
+  width: 100%;
 }

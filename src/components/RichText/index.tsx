@@ -305,16 +305,17 @@ export const RichTextWithTOC: React.FC<Props> = ({ className, content: _content,
   // server-rendered HTML.
   const content = data?.content ?? _content
 
-  const addHeading: AddHeading = useCallback(
-    (anchor, heading, type) => {
-      if (!toc.has(anchor)) {
-        const newTOC = new Map(toc)
-        newTOC.set(anchor, { type, anchor, heading })
-        setTOC(newTOC)
+  const addHeading: AddHeading = useCallback((anchor, heading, type) => {
+    setTOC((currentTOC) => {
+      if (currentTOC.has(anchor)) {
+        return currentTOC
       }
-    },
-    [toc],
-  )
+
+      const newTOC = new Map(currentTOC)
+      newTOC.set(anchor, { type, anchor, heading })
+      return newTOC
+    })
+  }, [])
 
   if (!content) {
     return null

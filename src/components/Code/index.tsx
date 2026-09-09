@@ -16,8 +16,10 @@ require('prismjs/components/prism-bash')
 // css-extras must load before prism-scss so scss inherits its color/unit patterns.
 require('prismjs/components/prism-css-extras')
 require('prismjs/components/prism-scss')
+require('prismjs/components/prism-diff')
 require('prismjs/components/prism-docker')
 require('prismjs/components/prism-http')
+require('prismjs/components/prism-markdown')
 
 // The bundled TypeScript grammar deletes `literal-property` (so unquoted object
 // keys go untokenized) but keeps `function-variable` (so a key whose value is a

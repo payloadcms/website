@@ -1,6 +1,7 @@
 export const languages = {
   bash: 'Bash',
   css: 'CSS',
+  diff: 'Diff',
   dockerfile: 'Dockerfile',
   env: 'Environment Variables',
   graphql: 'GraphQL',
@@ -9,6 +10,7 @@ export const languages = {
   js: 'JavaScript',
   json: 'JSON',
   jsx: 'JSX',
+  markdown: 'Markdown',
   plaintext: 'Plain Text',
   scss: 'SCSS',
   sh: 'Shell',

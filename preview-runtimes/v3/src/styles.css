@@ -1,0 +1,12 @@
+@import './generated/scoped.css';
+
+.payload-v3-preview {
+  display: contents;
+  color: var(--theme-text);
+  color-scheme: light;
+  font-family: var(--font-body);
+}
+
+.payload-v3-preview[data-theme='dark'] {
+  color-scheme: dark;
+}

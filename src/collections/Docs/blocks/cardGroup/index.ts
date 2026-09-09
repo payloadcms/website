@@ -33,7 +33,7 @@ export const CardGroupBlock: Block = {
     }),
     import: ({ children, markdownToLexical, props }) => ({
       content: markdownToLexical ? markdownToLexical({ markdown: children }) : undefined,
-      variant: props.variant,
+      variant: props.variant ?? 'default',
     }),
   },
 }

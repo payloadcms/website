@@ -20,9 +20,9 @@ const headers = {
   Authorization: `token ${process.env.GITHUB_ACCESS_TOKEN}`,
 }
 
-let ref: ('2.x' | '3.x') | ({} & string)
+let ref: ('2.x' | '3.x' | 'main') | ({} & string)
 let source: 'github' | 'local' = 'local'
-let version: ('v2' | 'v3') | ({} & string) = 'v3'
+let version: ('v2' | 'v3' | 'v4') | ({} & string) = 'v3'
 
 const decodeBase64 = (string: string) => {
   const buff = Buffer.from(string, 'base64')
@@ -60,7 +60,11 @@ function getHeadings(source: string): Heading[] {
 
   return headingLines.map((raw) => {
     const textWithAnchor = raw.replace(/^#{2,}\s/, '') // Remove heading hashes
-    const [text, customAnchor] = textWithAnchor.split('#') // Split by '#'
+    const customAnchorMatch = textWithAnchor.match(/#([\w-]+)\s*$/)
+    const customAnchor = customAnchorMatch?.[1]
+    const text = customAnchorMatch
+      ? textWithAnchor.slice(0, customAnchorMatch.index).trim()
+      : textWithAnchor
     const level = raw.startsWith('###') ? 3 : 2
     const anchor = slugify(customAnchor ? customAnchor.trim() : text.trim())
     return { id: anchor, anchor, level, text: text.trim() }
@@ -72,6 +76,7 @@ function getLocalDocsPath(): string {
   const docDirs = {
     v2: process.env.DOCS_DIR_V2 ? path.resolve(process.env.DOCS_DIR_V2) : nodeModuleDocsPath,
     v3: process.env.DOCS_DIR_V3 ? path.resolve(process.env.DOCS_DIR_V3) : nodeModuleDocsPath,
+    v4: process.env.DOCS_DIR_V4 ? path.resolve(process.env.DOCS_DIR_V4) : nodeModuleDocsPath,
   }
   return docDirs?.[ref] || nodeModuleDocsPath
 }

@@ -2,6 +2,11 @@ import type { BlockJSX } from 'payload'
 
 import { languages } from '../shared'
 
+const languageAliases: Record<string, keyof typeof languages> = {
+  md: 'markdown',
+  txt: 'text',
+}
+
 export const codeConverter: BlockJSX = {
   customEndRegex: {
     optional: true,
@@ -27,10 +32,14 @@ export const codeConverter: BlockJSX = {
     }
 
     const languageMatch = (openMatch ? openMatch[1] : '') ?? ''
-    const language = (openMatch ? openMatch[1] : 'plaintext') ?? 'plaintext'
+    const requestedLanguage = (openMatch ? openMatch[1] : 'plaintext') ?? 'plaintext'
+    const language =
+      requestedLanguage in languages
+        ? (requestedLanguage as keyof typeof languages)
+        : (languageAliases[requestedLanguage] ?? 'plaintext')
 
-    if (!languages[language]) {
-      console.error(`Invalid language "${language}"`, openMatch, children, props)
+    if (!(requestedLanguage in languages) && !languageAliases[requestedLanguage]) {
+      console.warn(`Unsupported language "${requestedLanguage}", using plaintext`, props)
     }
 
     const isSingleLineAndComplete =

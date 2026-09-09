@@ -9,8 +9,10 @@ function Hit({ children, hit, path }) {
 
   let url = hit?.url
 
-  if (path.includes('/docs/v2/')) {
-    url = url.replace('/docs/', '/docs/v2/')
+  const docsVersion = path.match(/^\/docs\/(beta|v2)(?=\/)/)?.[1]
+
+  if (docsVersion) {
+    url = url.replace('/docs/', `/docs/${docsVersion}/`)
   }
 
   return (

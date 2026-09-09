@@ -8,9 +8,9 @@ import Link from 'next/link'
 import React from 'react'
 
 import classes from './index.module.scss'
-export const Feedback: React.FC<{ path: string; ref?: string }> = async ({
+export const Feedback: React.FC<{ docsBranch?: string; path: string }> = async ({
+  docsBranch = '3.x',
   path,
-  ref = '3.x',
 }) => {
   const drawerSlug = 'feedbackDrawer'
   const formName = 'Feedback'
@@ -28,7 +28,7 @@ export const Feedback: React.FC<{ path: string; ref?: string }> = async ({
     <div className={classes.feedbackWrapper}>
       <Link
         className={classes.gitHubLink}
-        href={`https://github.com/payloadcms/payload/blob/${ref}/docs/${path}.mdx`}
+        href={`https://github.com/payloadcms/payload/blob/${docsBranch}/docs/${path}.mdx`}
         target="_blank"
       >
         Edit this page on GitHub <ArrowIcon className={classes.arrow} />

@@ -14,10 +14,10 @@ interface CardProps {
   title: string
 }
 
-const DOCS_VARIANT = /^\/docs\/(local|v2|dynamic)(?=\/)/
+const DOCS_VARIANT = /^\/docs\/(local\/v4|local|beta|v2|dynamic)(?=\/)/
 
 // Mirror an absolute `/docs/X` link into the current docs variant route
-// (`/docs/local/X`, `/docs/v2/X`, etc.) so authors can write the canonical
+// (`/docs/local/X`, `/docs/beta/X`, etc.) so authors can write the canonical
 // production path and have it resolve correctly under any variant.
 function resolveLink(link: string, pathname: null | string): string {
   if (!pathname || !link.startsWith('/docs/')) return link

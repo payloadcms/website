@@ -112,6 +112,10 @@
   --accessibility-outline-offset: 2px;
 }
 
+.versionScope {
+  display: contents;
+}
+
 .canvas {
   display: flex;
   min-height: 15rem;

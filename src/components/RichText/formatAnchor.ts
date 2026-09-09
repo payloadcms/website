@@ -34,11 +34,18 @@ export const formatAnchor: (children: string | string[]) => {
     }
   }
 
-  if (typeof children === 'string' && children.includes('#')) {
+  if (typeof children === 'string') {
+    const customAnchorMatch = children.match(/#([\w-]+)\s*$/)
+
+    if (!customAnchorMatch) {
+      return { label: flattenChildren(children) }
+    }
+
     return {
-      label: children.split('#')[0],
-      tag: children.split('#')[1],
+      label: children.slice(0, customAnchorMatch.index),
+      tag: customAnchorMatch[1],
     }
   }
+
   return { label: flattenChildren(children) }
 }

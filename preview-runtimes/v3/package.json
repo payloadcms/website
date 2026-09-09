@@ -1,0 +1,19 @@
+{
+  "name": "@payloadcms/v3-preview-runtime",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.tsx",
+    "./styles.css": "./src/styles.css"
+  },
+  "dependencies": {
+    "@faceless-ui/modal": "3.0.0",
+    "@payloadcms/ui": "3.88.0",
+    "payload": "3.88.0"
+  },
+  "peerDependencies": {
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3"
+  }
+}

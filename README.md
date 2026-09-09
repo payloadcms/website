@@ -79,25 +79,24 @@ COMMIT_DOCS_API_KEY=
 
 #### Working on docs locally - local markdown files
 
-If you have the docs stored locally as markdown files and would like to preview them in the website, you can use the /docs/local/ route in the website. First, you need to set the `DOCS_DIR_V3` environment variable to point to your local `docs` directory.
+If you have the docs stored locally as markdown files and would like to preview them in the website, use the `/docs/local/` route for Payload 3 or `/docs/local/v4/` for Payload 4. Set the corresponding environment variable to point to the local `docs` directory.
 
 ```env
 // .env
 DOCS_DIR_V3=/documents/github/payload/docs
+DOCS_DIR_V4=/documents/github/payload/docs
 ```
 
-Then, just open the `/docs/local/` route: http://localhost:3000/docs/local/getting-started/concepts.
+Then open the matching local route, for example http://localhost:3000/docs/local/getting-started/what-is-payload or http://localhost:3000/docs/local/v4/getting-started/what-is-payload.
 
 Every time you make a change to the markdown files, just reload the page to see the changes reflected. The local MDX files are read, automatically converted to lexical on-the-fly, and rendered in the website. This process will not make any changes to the database.
 
 #### Beta and Legacy environment flags
 
-You can also specify a `beta` version and `legacy` version to render different versions of the docs:
+You can enable the Payload 4 beta docs and Payload 2 legacy docs:
 
-- Set the environment variable `NEXT_PUBLIC_ENABLE_BETA_DOCS` to `true` to enable the beta docs.
-- Specify a branch, commit, or tag with `NEXT_PUBLIC_BETA_DOCS_REF`. The default for the beta docs is `beta`.
+- Set `NEXT_PUBLIC_ENABLE_BETA_DOCS` to `true` to serve Payload 4 docs from the Payload `main` branch under `/docs/beta`.
 - Set the environment variable `NEXT_PUBLIC_ENABLE_LEGACY_DOCS` to `true` to enable the legacy docs.
-- Specify a branch, commit, or tag with `NEXT_PUBLIC_LEGACY_DOCS_REF`. The default for the legacy docs is `null`, and will fallback to the `main` branch.
 
 ### License
 

@@ -3377,6 +3377,7 @@ export interface CodeBlock {
     | (
         | 'bash'
         | 'css'
+        | 'diff'
         | 'dockerfile'
         | 'env'
         | 'graphql'
@@ -3385,6 +3386,7 @@ export interface CodeBlock {
         | 'js'
         | 'json'
         | 'jsx'
+        | 'markdown'
         | 'plaintext'
         | 'scss'
         | 'sh'
@@ -3411,6 +3413,7 @@ export interface CodeTabsBlock {
     language:
       | 'bash'
       | 'css'
+      | 'diff'
       | 'dockerfile'
       | 'env'
       | 'graphql'
@@ -3419,6 +3422,7 @@ export interface CodeTabsBlock {
       | 'js'
       | 'json'
       | 'jsx'
+      | 'markdown'
       | 'plaintext'
       | 'scss'
       | 'sh'
