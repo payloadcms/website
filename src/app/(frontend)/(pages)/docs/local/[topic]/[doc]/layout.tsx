@@ -1,3 +1,4 @@
+import '@payloadcms/v3-preview-runtime/styles.css'
 import { Footer } from '@components/Footer/index'
 import { Header } from '@components/Header/index'
 import { fetchGlobals } from '@data/index'

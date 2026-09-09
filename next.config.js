@@ -1,8 +1,14 @@
 import { withPayload } from '@payloadcms/next/withPayload'
+import fs from 'node:fs'
 import path from 'path'
 import { fileURLToPath } from 'node:url'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
+const rootPayloadUIMajor = Number(
+  JSON.parse(
+    fs.readFileSync(path.resolve(dirname, 'node_modules/@payloadcms/ui/package.json'), 'utf8'),
+  ).version.split('.')[0],
+)
 
 import { redirects } from './redirects.js'
 
@@ -48,7 +54,7 @@ const blobStore = process.env.BLOB_STORE_ID
 
 const nextConfig = withBundleAnalyzer({
   reactStrictMode: true,
-  transpilePackages: ['@payloadcms/v4-preview-runtime'],
+  transpilePackages: ['@payloadcms/v3-preview-runtime', '@payloadcms/v4-preview-runtime'],
   images: {
     minimumCacheTTL: 60 * 60 * 24 * 365, // 1 year,
     remotePatterns: [
@@ -135,13 +141,19 @@ const nextConfig = withBundleAnalyzer({
     }
     configCopy.plugins.push(
       new webpack.NormalModuleReplacementPlugin(/\.(css|scss)$/, (resource) => {
+        const isV3UIStyle =
+          rootPayloadUIMajor !== 3 &&
+          (resource.context.includes(`${path.sep}.pnpm${path.sep}@payloadcms+ui@3`) ||
+            resource.context.includes(
+              `${path.sep}preview-runtimes${path.sep}v3${path.sep}node_modules${path.sep}@payloadcms${path.sep}ui${path.sep}`,
+            ))
         const isV4UIStyle =
           resource.context.includes(`${path.sep}.pnpm${path.sep}@payloadcms+ui@4`) ||
           resource.context.includes(
             `${path.sep}preview-runtimes${path.sep}v4${path.sep}node_modules${path.sep}@payloadcms${path.sep}ui${path.sep}`,
           )
 
-        if (isV4UIStyle) {
+        if (isV3UIStyle || isV4UIStyle) {
           resource.request = path.resolve(dirname, './src/css/empty.css')
         }
       }),

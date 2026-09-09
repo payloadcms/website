@@ -90,6 +90,9 @@ importers:
       '@payloadcms/ui':
         specifier: 3.88.0
         version: 3.88.0(@types/react@19.1.8)(monaco-editor@0.55.1)(next@16.3.3(@opentelemetry/api@1.9.0)(@types/node@22.10.2)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(sass@1.94.2))(payload@3.88.0(graphql@16.8.1)(typescript@5.7.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(typescript@5.7.3)
+      '@payloadcms/v3-preview-runtime':
+        specifier: workspace:*
+        version: link:preview-runtimes/v3
       '@payloadcms/v4-preview-runtime':
         specifier: workspace:*
         version: link:preview-runtimes/v4
@@ -256,6 +259,24 @@ importers:
       typescript:
         specifier: 5.7.3
         version: 5.7.3
+
+  preview-runtimes/v3:
+    dependencies:
+      '@faceless-ui/modal':
+        specifier: 3.0.0
+        version: 3.0.0(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      '@payloadcms/ui':
+        specifier: 3.88.0
+        version: 3.88.0(@types/react@19.1.8)(monaco-editor@0.55.1)(next@16.3.3(@opentelemetry/api@1.9.0)(@types/node@22.10.2)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(sass@1.94.2))(payload@3.88.0(graphql@16.8.1)(typescript@5.7.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(typescript@5.7.3)
+      payload:
+        specifier: 3.88.0
+        version: 3.88.0(graphql@16.8.1)(typescript@5.7.3)
+      react:
+        specifier: ^19.2.3
+        version: 19.2.3
+      react-dom:
+        specifier: ^19.2.3
+        version: 19.2.3(react@19.2.3)
 
   preview-runtimes/v4:
     dependencies:

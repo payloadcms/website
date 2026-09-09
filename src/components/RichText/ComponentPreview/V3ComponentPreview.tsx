@@ -1,10 +1,9 @@
 'use client'
 
+import { PayloadV3Preview, v3ComponentExamples } from '@payloadcms/v3-preview-runtime'
 import React from 'react'
 
-import './datePicker.scss'
 import { ComponentPreviewUI } from './ComponentPreviewUI'
-import { v3ComponentExamples } from './examples'
 
 type Props = {
   component: string
@@ -18,7 +17,9 @@ export const V3ComponentPreview: React.FC<Props> = ({ component, example, versio
   return (
     <ComponentPreviewUI
       isV4Preview={false}
-      renderPreview={(theme) => selectedExample?.render?.({ theme })}
+      renderPreview={(theme) => (
+        <PayloadV3Preview component={component} example={example} theme={theme} />
+      )}
       selectedExample={selectedExample}
       version={version}
     />
