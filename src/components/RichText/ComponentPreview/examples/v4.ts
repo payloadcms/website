@@ -505,7 +505,7 @@ const datePickerDesign = {
     --field-border-radius: 0.5rem;
   }
 
-  .date-time-picker .react-datepicker {
+  .react-datepicker {
     --color-bg: #ffffff;
     --color-bg-selected-strong: #6d5dfc;
     --color-text-onselected-strong: #ffffff;
@@ -700,16 +700,16 @@ const reactSelectDesign = {
     --field-border-radius: 0.5rem;
   }
 
-  .react-select .rs__option--is-focused {
+  .rs__floating-menu-portal .rs__option--is-focused {
     --color-bg-secondary: #f2efff;
   }
 
-  .react-select .rs__option--is-selected {
+  .rs__floating-menu-portal .rs__option--is-selected {
     --color-bg-selected: #e4dfff;
   }
 }`,
   description:
-    'Override field and option tokens within ReactSelect to customize its control, focus state, and menu without changing other Admin fields.',
+    'Override field tokens within ReactSelect, then target its portalled menu to customize the control, focus state, and options without changing other Admin fields.',
   variables: [
     {
       name: '--field-color-bg',
@@ -983,18 +983,26 @@ const pillSelectorExamples: ComponentExamples = {
 
 const reactSelectExamples: ComponentExamples = {
   basic: {
-    code: `const options = [
+    code: `import type { ReactSelectOption } from '@payloadcms/ui'
+
+const options: ReactSelectOption[] = [
   { label: 'Draft', value: 'draft' },
   { label: 'Published', value: 'published' },
   { label: 'Archived', value: 'archived' },
 ]
 
-const [value, setValue] = useState(options[0])
+const [value, setValue] = useState<ReactSelectOption | null>(options[0] ?? null)
+
+const handleChange = (
+  nextValue: ReactSelectOption | ReactSelectOption[] | null,
+) => {
+  setValue(Array.isArray(nextValue) ? null : nextValue)
+}
 
 <ReactSelect
   aria-label="Status"
   isClearable={false}
-  onChange={setValue}
+  onChange={handleChange}
   options={options}
   placeholder="Select a status"
   value={value}
@@ -1002,20 +1010,28 @@ const [value, setValue] = useState(options[0])
     design: reactSelectDesign,
   },
   multiple: {
-    code: `const options = [
+    code: `import type { ReactSelectOption } from '@payloadcms/ui'
+
+const options: ReactSelectOption[] = [
   { label: 'Posts', value: 'posts' },
   { label: 'Media', value: 'media' },
   { label: 'Pages', value: 'pages' },
   { label: 'Users', value: 'users' },
 ]
 
-const [value, setValue] = useState(options.slice(0, 2))
+const [value, setValue] = useState<ReactSelectOption[]>(options.slice(0, 2))
+
+const handleChange = (
+  nextValue: ReactSelectOption | ReactSelectOption[] | null,
+) => {
+  setValue(Array.isArray(nextValue) ? nextValue : nextValue ? [nextValue] : [])
+}
 
 <ReactSelect
   aria-label="Collections"
   isMulti
   isSortable
-  onChange={setValue}
+  onChange={handleChange}
   options={options}
   placeholder="Select collections"
   value={value}
