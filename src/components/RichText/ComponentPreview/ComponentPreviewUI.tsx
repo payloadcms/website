@@ -1,6 +1,7 @@
 'use client'
 
 import Code from '@components/Code'
+import { useThemePreference } from '@root/providers/Theme/index'
 import { Check, Copy } from 'lucide-react'
 import React, { useEffect, useId, useRef, useState } from 'react'
 
@@ -24,16 +25,23 @@ export const ComponentPreviewUI: React.FC<Props> = ({
   selectedExample,
   version,
 }) => {
+  const { theme: siteTheme } = useThemePreference()
   const [activeTab, setActiveTab] = useState<PreviewTab>('preview')
   const [copied, setCopied] = useState(false)
   const [isLeaving, setIsLeaving] = useState(false)
-  const [previewTheme, setPreviewTheme] = useState<PreviewTheme>('light')
+  const [previewTheme, setPreviewTheme] = useState<PreviewTheme>(siteTheme ?? 'light')
   const id = useId()
   const transitionTimeout = useRef<number | undefined>(undefined)
 
   useEffect(() => {
     return () => window.clearTimeout(transitionTimeout.current)
   }, [])
+
+  useEffect(() => {
+    if (siteTheme) {
+      setPreviewTheme(siteTheme)
+    }
+  }, [siteTheme])
 
   useEffect(() => {
     if (!copied) {
