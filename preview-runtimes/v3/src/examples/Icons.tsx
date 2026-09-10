@@ -25,6 +25,8 @@ import {
   SwapIcon,
   XIcon,
 } from '@payloadcms/ui'
+import { Tooltip } from '@payloadcms/ui/elements/Tooltip'
+import { useState } from 'react'
 
 import type { ComponentExamples } from './types'
 
@@ -57,6 +59,32 @@ const icons = [
   { Icon: SwapIcon, label: 'SwapIcon' },
   { Icon: XIcon, label: 'XIcon' },
 ]
+
+const IconGallery = () => {
+  const [activeIcon, setActiveIcon] = useState<null | string>(null)
+
+  return (
+    <div className={classes.iconGrid}>
+      {icons.map(({ Icon, label }) => (
+        <span
+          aria-label={label}
+          className={classes.iconSample}
+          key={label}
+          onMouseEnter={() => setActiveIcon(label)}
+          onMouseLeave={() => setActiveIcon(null)}
+          role="img"
+        >
+          <span aria-hidden="true" className={classes.iconGraphic}>
+            <Icon />
+          </span>
+          <Tooltip delay={0} position="top" show={activeIcon === label} staticPositioning>
+            {label}
+          </Tooltip>
+        </span>
+      ))}
+    </div>
+  )
+}
 
 export const iconsExamples: ComponentExamples = {
   gallery: {
@@ -94,17 +122,6 @@ export function Toolbar() {
         { name: 'width', description: 'Rendered icon width.' },
       ],
     },
-    render: () => (
-      <div className={classes.iconGrid}>
-        {icons.map(({ Icon, label }) => (
-          <div className={classes.iconSample} key={label}>
-            <span aria-hidden="true" className={classes.iconGraphic}>
-              <Icon />
-            </span>
-            <code>{label}</code>
-          </div>
-        ))}
-      </div>
-    ),
+    render: () => <IconGallery />,
   },
 }
