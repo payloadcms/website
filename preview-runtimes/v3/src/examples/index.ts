@@ -8,11 +8,15 @@ import { codeEditorExamples } from './CodeEditor'
 import { collapsibleExamples } from './Collapsible'
 import { copyToClipboardExamples } from './CopyToClipboard'
 import { datePickerExamples } from './DatePicker'
+import { documentActionsExamples } from './DocumentActions'
 import { v3ComponentDocumentation } from './documentation'
+import { documentStateExamples } from './DocumentState'
+import { draggableSortableExamples } from './DraggableSortable'
 import { dropzoneExamples } from './Dropzone'
 import { errorPillExamples } from './ErrorPill'
 import { gutterExamples } from './Gutter'
 import { hamburgerExamples } from './Hamburger'
+import { iconsExamples } from './Icons'
 import { linkExamples } from './Link'
 import { listAndPaginationExamples } from './ListAndPagination'
 import { modalsAndDrawersExamples } from './ModalsAndDrawers'
@@ -23,10 +27,13 @@ import { popupExamples } from './Popup'
 import { reactSelectExamples } from './ReactSelect'
 import { searchFilterExamples } from './SearchFilter'
 import { shimmerEffectExamples } from './ShimmerEffect'
+import { stepNavigationExamples } from './StepNavigation'
 import { tableExamples } from './Table'
+import { tableCellsExamples } from './TableCells'
 import { thumbnailExamples } from './Thumbnail'
 import { timezonePickerExamples } from './TimezonePicker'
 import { tooltipExamples } from './Tooltip'
+import { uploadHelpersExamples } from './UploadHelpers'
 
 const componentRenders: Record<string, ComponentRenders> = {
   AnimateHeight: animateHeightExamples,
@@ -37,10 +44,14 @@ const componentRenders: Record<string, ComponentRenders> = {
   Collapsible: collapsibleExamples,
   CopyToClipboard: copyToClipboardExamples,
   DatePicker: datePickerExamples,
+  DocumentActions: documentActionsExamples,
+  DocumentState: documentStateExamples,
+  DraggableSortable: draggableSortableExamples,
   Dropzone: dropzoneExamples,
   ErrorPill: errorPillExamples,
   Gutter: gutterExamples,
   Hamburger: hamburgerExamples,
+  Icons: iconsExamples,
   Link: linkExamples,
   ListAndPagination: listAndPaginationExamples,
   ModalsAndDrawers: modalsAndDrawersExamples,
@@ -51,10 +62,13 @@ const componentRenders: Record<string, ComponentRenders> = {
   ReactSelect: reactSelectExamples,
   SearchFilter: searchFilterExamples,
   ShimmerEffect: shimmerEffectExamples,
+  StepNavigation: stepNavigationExamples,
   Table: tableExamples,
+  TableCells: tableCellsExamples,
   Thumbnail: thumbnailExamples,
   TimezonePicker: timezonePickerExamples,
   Tooltip: tooltipExamples,
+  UploadHelpers: uploadHelpersExamples,
 }
 
 for (const [componentName, examples] of Object.entries(componentRenders)) {
