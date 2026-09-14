@@ -9,10 +9,17 @@ export type ComponentDesign = {
   }>
 }
 
-export type ComponentExample = {
+export type ComponentExampleDocumentation = {
   code: string
-  design?: ComponentDesign
-  render?: (context: { theme: 'dark' | 'light' }) => React.ReactNode
+  design: ComponentDesign
 }
 
+export type ComponentRender = {
+  render: (context: { theme: 'dark' | 'light' }) => React.ReactNode
+}
+
+export type ComponentExample = ComponentExampleDocumentation & ComponentRender
+
+export type ComponentDocumentation = Record<string, ComponentExampleDocumentation>
 export type ComponentExamples = Record<string, ComponentExample>
+export type ComponentRenders = Record<string, ComponentRender>

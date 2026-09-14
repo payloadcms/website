@@ -3,7 +3,7 @@
 import { type Option, ReactSelect } from '@payloadcms/ui/elements/ReactSelect'
 import { useState } from 'react'
 
-import type { ComponentExamples } from './types'
+import type { ComponentRenders } from './types'
 
 import classes from '../examples.module.scss'
 
@@ -28,23 +28,8 @@ const Demo = () => {
   )
 }
 
-export const reactSelectExamples: ComponentExamples = {
+export const reactSelectExamples: ComponentRenders = {
   basic: {
-    code: `const options = [
-  { label: 'Draft', value: 'draft' },
-  { label: 'Published', value: 'published' },
-  { label: 'Archived', value: 'archived' },
-]
-
-const [value, setValue] = useState(options[0])
-
-<ReactSelect
-  isClearable={false}
-  onChange={setValue}
-  options={options}
-  placeholder="Select a status"
-  value={value}
-/>`,
     render: () => <Demo />,
   },
 }

@@ -3,7 +3,7 @@
 import { Pagination } from '@payloadcms/ui/elements/Pagination'
 import { useState } from 'react'
 
-import type { ComponentExamples } from './types'
+import type { ComponentRenders } from './types'
 
 import classes from '../examples.module.scss'
 
@@ -29,20 +29,8 @@ const PaginationDemo = () => {
   )
 }
 
-export const listAndPaginationExamples: ComponentExamples = {
+export const listAndPaginationExamples: ComponentRenders = {
   pagination: {
-    code: `const [page, setPage] = useState(4)
-const totalPages = 12
-
-<Pagination
-  hasNextPage={page < totalPages}
-  hasPrevPage={page > 1}
-  nextPage={page + 1}
-  onChange={setPage}
-  page={page}
-  prevPage={page - 1}
-  totalPages={totalPages}
-/>`,
     render: () => <PaginationDemo />,
   },
 }

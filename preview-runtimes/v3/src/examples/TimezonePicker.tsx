@@ -5,7 +5,7 @@ import { TranslationProvider } from '@payloadcms/ui/providers/Translation'
 import { en } from 'payload/i18n/en'
 import { useState } from 'react'
 
-import type { ComponentExamples } from './types'
+import type { ComponentRenders } from './types'
 
 import classes from '../examples.module.scss'
 
@@ -39,22 +39,8 @@ const Demo = () => {
   )
 }
 
-export const timezonePickerExamples: ComponentExamples = {
+export const timezonePickerExamples: ComponentRenders = {
   basic: {
-    code: `const options = [
-  { label: 'America/Detroit', value: 'America/Detroit' },
-  { label: 'America/Los_Angeles', value: 'America/Los_Angeles' },
-  { label: 'Europe/London', value: 'Europe/London' },
-]
-
-const [timezone, setTimezone] = useState('America/Detroit')
-
-<TimezonePicker
-  id="timezone"
-  onChange={setTimezone}
-  options={options}
-  selectedTimezone={timezone}
-/>`,
     render: () => <Demo />,
   },
 }

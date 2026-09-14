@@ -7,7 +7,7 @@ import { useModal } from '@payloadcms/ui/elements/Modal'
 import { XIcon } from '@payloadcms/ui/icons/X'
 import { useCallback, useState } from 'react'
 
-import type { ComponentExamples } from './types'
+import type { ComponentRenders } from './types'
 
 import classes from '../examples.module.scss'
 
@@ -140,20 +140,8 @@ const DrawerDemo = () => {
   )
 }
 
-export const modalsAndDrawersExamples: ComponentExamples = {
+export const modalsAndDrawersExamples: ComponentRenders = {
   confirmation: {
-    code: `const modalSlug = 'confirm-action'
-const { openModal } = useModal()
-
-<Button onClick={() => openModal(modalSlug)}>Open confirmation modal</Button>
-<ConfirmationModal
-  body="Confirm before continuing with this action."
-  cancelLabel="Cancel"
-  confirmLabel="Confirm"
-  heading="Confirm action"
-  modalSlug={modalSlug}
-  onConfirm={() => performAction()}
-/>`,
     render: ({ theme }) => (
       <OverlayExampleFrame theme={theme}>
         <ConfirmationDemo />
@@ -161,21 +149,6 @@ const { openModal } = useModal()
     ),
   },
   drawer: {
-    code: `const drawerSlug = 'example-drawer'
-const { closeModal, openModal } = useModal()
-
-<Button onClick={() => openModal(drawerSlug)}>Open drawer</Button>
-<Drawer slug={drawerSlug} title="Drawer example">
-  <DrawerContentContainer>
-    <p>Place supporting information or controls related to the current view here.</p>
-    <Button
-      buttonStyle="secondary"
-      onClick={() => closeModal(drawerSlug)}
-    >
-      Close drawer
-    </Button>
-  </DrawerContentContainer>
-</Drawer>`,
     render: ({ theme }) => (
       <div
         className={[
