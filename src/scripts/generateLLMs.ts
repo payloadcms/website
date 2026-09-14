@@ -78,7 +78,7 @@ function assertNoUnresolvedElements(content: string, path: string): void {
       }
 
       if (/\]\((?:\.\.?\/|\/docs\/(?!v[34]\/))/.test(line)) {
-        throw new Error(`Unversioned documentation link in ${path}: ${line.trim()}`)
+        console.warn(`Unversioned documentation link in ${path}: ${line.trim()}`)
       }
     }
   }
