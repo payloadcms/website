@@ -138,13 +138,14 @@ export async function trackDocumentationRequest(request: Request): Promise<void>
 
   const client = classifyClient(request.headers.get('user-agent') || '')
   const sessionID = Math.floor(Date.now() / 1000)
+  const clientID = `${Math.floor(Math.random() * 1_000_000_000) + 1}.${sessionID}`
   const endpoint = new URL('https://www.google-analytics.com/mp/collect')
   endpoint.searchParams.set('measurement_id', measurementID)
   endpoint.searchParams.set('api_secret', apiSecret)
 
   const response = await fetch(endpoint, {
     body: JSON.stringify({
-      client_id: 'payload-docs-request-tracker',
+      client_id: clientID,
       events: [
         {
           name: 'documentation_request',
