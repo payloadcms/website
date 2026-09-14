@@ -1,398 +1,297 @@
-# Payload
+# Payload Documentation
 
-## Basics
+> Official Payload documentation, organized by major version. Match the documentation version to the installed `payload` and `@payloadcms/ui` major version.
 
-### Getting Started
+## Documentation versions
 
-- [What is Payload?](https://payloadcms.com/docs/getting-started/what-is-payload)
+- [Payload 3.x documentation](https://payloadcms.com/docs/v3/llms.txt): Current stable documentation. Use this for Payload 3.x projects.
+- [Payload 4.x documentation](https://payloadcms.com/docs/v4/llms.txt): Beta documentation. Use this only for Payload 4.x projects.
 
-- [Use Cases](https://payloadcms.com/docs/getting-started/use-cases)
+## Complete documentation
 
-- [Payload Concepts](https://payloadcms.com/docs/getting-started/concepts)
+- [Payload 3.x complete documentation](https://payloadcms.com/docs/v3/llms-full.txt): All stable 3.x documentation in one file.
+- [Payload 4.x complete documentation](https://payloadcms.com/docs/v4/llms-full.txt): All 4.x documentation in one file.
 
-- [Installation](https://payloadcms.com/docs/getting-started/installation)
+## Current stable documentation
 
+### Basics
 
-### Configuration
+#### Getting Started
 
-- [The Payload Config](https://payloadcms.com/docs/configuration/overview)
+- [What is Payload?](https://payloadcms.com/docs/v3/getting-started/what-is-payload.md): Payload is a next-gen application framework that can be used as a Content Management System, enterprise tool framework, headless commerce platform, or digital asset management tool.
+- [Use Cases](https://payloadcms.com/docs/v3/getting-started/use-cases.md): Payload powers headless CMS, internal tools, headless commerce, and DAM workloads. Learn whether Payload is the right framework for your project.
+- [Payload Concepts](https://payloadcms.com/docs/v3/getting-started/concepts.md): Payload is based around a small and intuitive set of concepts. Key concepts include collections, globals, fields and more.
+- [Installation](https://payloadcms.com/docs/v3/getting-started/installation.md): To quickly get started with Payload, simply run npx create-payload-app or install from scratch.
 
-- [Collection Configs](https://payloadcms.com/docs/configuration/collections)
-
-- [Global Configs](https://payloadcms.com/docs/configuration/globals)
-
-- [I18n](https://payloadcms.com/docs/configuration/i18n)
-
-- [Localization](https://payloadcms.com/docs/configuration/localization)
-
-- [Environment Variables](https://payloadcms.com/docs/configuration/environment-vars)
-
-
-### Database
-
-- [Database](https://payloadcms.com/docs/database/overview)
-
-- [Migrations](https://payloadcms.com/docs/database/migrations)
-
-- [Transactions](https://payloadcms.com/docs/database/transactions)
-
-- [Indexes](https://payloadcms.com/docs/database/indexes)
-
-- [MongoDB](https://payloadcms.com/docs/database/mongodb)
-
-- [Postgres](https://payloadcms.com/docs/database/postgres)
-
-- [SQLite](https://payloadcms.com/docs/database/sqlite)
-
-
-### Fields
-
-- [Fields Overview](https://payloadcms.com/docs/fields/overview)
-
-- [Array Field](https://payloadcms.com/docs/fields/array)
-
-- [Blocks Field](https://payloadcms.com/docs/fields/blocks)
-
-- [Checkbox Field](https://payloadcms.com/docs/fields/checkbox)
-
-- [Code Field](https://payloadcms.com/docs/fields/code)
-
-- [JSON Field](https://payloadcms.com/docs/fields/json)
-
-- [Collapsible Field](https://payloadcms.com/docs/fields/collapsible)
-
-- [Date Field](https://payloadcms.com/docs/fields/date)
-
-- [Email Field](https://payloadcms.com/docs/fields/email)
-
-- [Group Field](https://payloadcms.com/docs/fields/group)
-
-- [Number Field](https://payloadcms.com/docs/fields/number)
-
-- [Point Field](https://payloadcms.com/docs/fields/point)
-
-- [Radio Group Field](https://payloadcms.com/docs/fields/radio)
-
-- [Relationship Field](https://payloadcms.com/docs/fields/relationship)
-
-- [Join Field](https://payloadcms.com/docs/fields/join)
-
-- [Rich Text Field](https://payloadcms.com/docs/fields/rich-text)
-
-- [Row Field](https://payloadcms.com/docs/fields/row)
-
-- [Select Field](https://payloadcms.com/docs/fields/select)
-
-- [Tabs Field](https://payloadcms.com/docs/fields/tabs)
-
-- [Text Field](https://payloadcms.com/docs/fields/text)
-
-- [Textarea Field](https://payloadcms.com/docs/fields/textarea)
-
-- [UI Field](https://payloadcms.com/docs/fields/ui)
-
-- [Upload Field](https://payloadcms.com/docs/fields/upload)
-
-
-### Access Control
-
-- [Access Control](https://payloadcms.com/docs/access-control/overview)
-
-- [Collection Access Control](https://payloadcms.com/docs/access-control/collections)
-
-- [Globals Access Control](https://payloadcms.com/docs/access-control/globals)
-
-- [Field-level Access Control](https://payloadcms.com/docs/access-control/fields)
-
-
-### Hooks
-
-- [Hooks Overview](https://payloadcms.com/docs/hooks/overview)
-
-- [Collection Hooks](https://payloadcms.com/docs/hooks/collections)
-
-- [Global Hooks](https://payloadcms.com/docs/hooks/globals)
-
-- [Field Hooks](https://payloadcms.com/docs/hooks/fields)
-
-- [Context](https://payloadcms.com/docs/hooks/context)
-
-
-## Managing Data
-
-### Local API
-
-- [Local API](https://payloadcms.com/docs/local-api/overview)
-
-- [Using Payload outside Next.js](https://payloadcms.com/docs/local-api/outside-nextjs)
-
-- [Using Local API Operations with Server Functions](https://payloadcms.com/docs/local-api/server-functions)
-
-- [Respecting Access Control with Local API Operations](https://payloadcms.com/docs/local-api/access-control)
-
-
-### REST API
-
-- [REST API](https://payloadcms.com/docs/rest-api/overview)
-
-
-### GraphQL
-
-- [GraphQL Overview](https://payloadcms.com/docs/graphql/overview)
-
-- [Adding your own Queries and Mutations](https://payloadcms.com/docs/graphql/extending)
-
-- [GraphQL Schema](https://payloadcms.com/docs/graphql/graphql-schema)
-
-
-### Queries
-
-- [Querying your Documents](https://payloadcms.com/docs/queries/overview)
-
-- [Sort](https://payloadcms.com/docs/queries/sort)
-
-- [Depth](https://payloadcms.com/docs/queries/depth)
-
-- [Select](https://payloadcms.com/docs/queries/select)
-
-- [Pagination](https://payloadcms.com/docs/queries/pagination)
-
-
-## Features
-
-### Admin
-
-- [The Admin Panel](https://payloadcms.com/docs/admin/overview)
-
-- [Preview](https://payloadcms.com/docs/admin/preview)
-
-- [Custom Admin Panel Location](https://payloadcms.com/docs/admin/admin-panel-location)
-
-- [Document Locking](https://payloadcms.com/docs/admin/locked-documents)
-
-- [Accessibility](https://payloadcms.com/docs/admin/accessibility)
-
-- [Customizing CSS & SCSS](https://payloadcms.com/docs/admin/customizing-css)
-
-- [React Hooks](https://payloadcms.com/docs/admin/react-hooks)
-
-- [Managing User Preferences](https://payloadcms.com/docs/admin/preferences)
-
-- [Page Metadata](https://payloadcms.com/docs/admin/metadata)
-
-
-### Custom Components
-
-- [Swap in your own React components](https://payloadcms.com/docs/custom-components/overview)
-
-- [Root Components](https://payloadcms.com/docs/custom-components/root-components)
-
-- [Swap in your own React Context providers](https://payloadcms.com/docs/custom-components/custom-providers)
-
-- [Customizing Views](https://payloadcms.com/docs/custom-components/custom-views)
-
-- [Dashboard Widgets](https://payloadcms.com/docs/custom-components/dashboard)
-
-- [Document Views](https://payloadcms.com/docs/custom-components/document-views)
-
-- [Edit View](https://payloadcms.com/docs/custom-components/edit-view)
-
-- [List View](https://payloadcms.com/docs/custom-components/list-view)
-
-
-### Authentication
-
-- [Authentication Overview](https://payloadcms.com/docs/authentication/overview)
-
-- [Authentication Operations](https://payloadcms.com/docs/authentication/operations)
-
-- [Authentication Emails](https://payloadcms.com/docs/authentication/email)
-
-- [Cookie Strategy](https://payloadcms.com/docs/authentication/cookies)
-
-- [JWT Strategy](https://payloadcms.com/docs/authentication/jwt)
-
-- [API Key Strategy](https://payloadcms.com/docs/authentication/api-keys)
-
-- [Custom Strategies](https://payloadcms.com/docs/authentication/custom-strategies)
-
-- [Token Data](https://payloadcms.com/docs/authentication/token-data)
-
-
-### Rich Text
-
-- [Rich Text Editor](https://payloadcms.com/docs/rich-text/overview)
-
-- [Lexical Converters](https://payloadcms.com/docs/rich-text/converters)
-
-- [Converting JSX](https://payloadcms.com/docs/rich-text/converting-jsx)
-
-- [Converting HTML](https://payloadcms.com/docs/rich-text/converting-html)
-
-- [Converting Markdown](https://payloadcms.com/docs/rich-text/converting-markdown)
-
-- [Converting Plaintext](https://payloadcms.com/docs/rich-text/converting-plaintext)
-
-- [Official Features](https://payloadcms.com/docs/rich-text/official-features)
-
-- [Blocks](https://payloadcms.com/docs/rich-text/blocks)
-
-- [Custom Features](https://payloadcms.com/docs/rich-text/custom-features)
-
-- [Rendering On Demand](https://payloadcms.com/docs/rich-text/rendering-on-demand)
-
-- [Lexical Migration](https://payloadcms.com/docs/rich-text/migration)
-
-- [Views](https://payloadcms.com/docs/rich-text/views)
-
-- [Slate Editor](https://payloadcms.com/docs/rich-text/slate)
-
-
-### Live Preview
-
-- [Live Preview](https://payloadcms.com/docs/live-preview/overview)
-
-- [Implementing Live Preview in your frontend](https://payloadcms.com/docs/live-preview/frontend)
-
-- [Server-side Live Preview](https://payloadcms.com/docs/live-preview/server)
-
-- [Client-side Live Preview](https://payloadcms.com/docs/live-preview/client)
-
-
-### Versions
-
-- [Versions](https://payloadcms.com/docs/versions/overview)
-
-- [Drafts](https://payloadcms.com/docs/versions/drafts)
-
-- [Autosave](https://payloadcms.com/docs/versions/autosave)
-
-
-### Upload
-
-- [Uploads](https://payloadcms.com/docs/upload/overview)
-
-- [Storage Adapters](https://payloadcms.com/docs/upload/storage-adapters)
-
-
-### Folders
-
-- [Folders](https://payloadcms.com/docs/folders/overview)
-
-
-### Email
-
-- [Email Functionality](https://payloadcms.com/docs/email/overview)
-
-
-### Jobs Queue
-
-- [Jobs Queue](https://payloadcms.com/docs/jobs-queue/overview)
-
-- [Quick Start Example](https://payloadcms.com/docs/jobs-queue/quick-start-example)
-
-- [Tasks](https://payloadcms.com/docs/jobs-queue/tasks)
-
-- [Workflows](https://payloadcms.com/docs/jobs-queue/workflows)
-
-- [Jobs](https://payloadcms.com/docs/jobs-queue/jobs)
-
-- [Queues](https://payloadcms.com/docs/jobs-queue/queues)
-
-- [Job Schedules](https://payloadcms.com/docs/jobs-queue/schedules)
-
-
-### Query Presets
-
-- [Query Presets](https://payloadcms.com/docs/query-presets/overview)
-
-
-### Trash
-
-- [Trash](https://payloadcms.com/docs/trash/overview)
-
-
-### Troubleshooting
-
-- [Troubleshooting](https://payloadcms.com/docs/troubleshooting/troubleshooting)
-
-
-### TypeScript
-
-- [TypeScript - Overview](https://payloadcms.com/docs/typescript/overview)
-
-- [Generating TypeScript Interfaces](https://payloadcms.com/docs/typescript/generating-types)
-
-- [TypeScript Plugin (Experimental)](https://payloadcms.com/docs/typescript/ts-plugin)
-
-
-## Ecosystem
-
-### Plugins
-
-- [Plugins](https://payloadcms.com/docs/plugins/overview)
-
-- [Building Your Own Plugin](https://payloadcms.com/docs/plugins/build-your-own)
-
-- [Advanced Plugin API](https://payloadcms.com/docs/plugins/plugin-api)
-
-- [Form Builder Plugin](https://payloadcms.com/docs/plugins/form-builder)
-
-- [Import Export Plugin](https://payloadcms.com/docs/plugins/import-export)
-
-- [MCP Plugin](https://payloadcms.com/docs/plugins/mcp)
-
-- [Multi-Tenant Plugin](https://payloadcms.com/docs/plugins/multi-tenant)
-
-- [Nested Docs Plugin](https://payloadcms.com/docs/plugins/nested-docs)
-
-- [Redirects Plugin](https://payloadcms.com/docs/plugins/redirects)
-
-- [Search Plugin](https://payloadcms.com/docs/plugins/search)
-
-- [Sentry Plugin](https://payloadcms.com/docs/plugins/sentry)
-
-- [SEO Plugin](https://payloadcms.com/docs/plugins/seo)
-
-- [Stripe Plugin](https://payloadcms.com/docs/plugins/stripe)
-
-
-### Ecommerce
-
-- [Ecommerce Overview](https://payloadcms.com/docs/ecommerce/overview)
-
-- [Ecommerce Plugin](https://payloadcms.com/docs/ecommerce/plugin)
-
-- [Ecommerce Frontend](https://payloadcms.com/docs/ecommerce/frontend)
-
-- [Payment Adapters](https://payloadcms.com/docs/ecommerce/payments)
-
-- [Advanced uses and examples](https://payloadcms.com/docs/ecommerce/advanced)
-
-
-### Examples
-
-- [Examples](https://payloadcms.com/docs/examples/overview)
-
-
-### Integrations
-
-- [Vercel Content Link](https://payloadcms.com/docs/integrations/vercel-content-link)
-
-
-## Deployment
-
-### Production
-
-- [Building without a DB connection](https://payloadcms.com/docs/production/building-without-a-db-connection)
-
-- [Production Deployment](https://payloadcms.com/docs/production/deployment)
-
-- [Preventing Production API Abuse](https://payloadcms.com/docs/production/preventing-abuse)
-
-
-### Performance
-
-- [Performance](https://payloadcms.com/docs/performance/overview)
-
+#### Configuration
+
+- [The Payload Config](https://payloadcms.com/docs/v3/configuration/overview.md): The Payload Config is central to everything that Payload does, from adding custom React components, to modifying collections, controlling localization and much more.
+- [Collection Configs](https://payloadcms.com/docs/v3/configuration/collections.md): Structure your Collections for your needs by defining fields, adding slugs and labels, establishing access control, tying in hooks, setting timestamps and more.
+- [Global Configs](https://payloadcms.com/docs/v3/configuration/globals.md): Set up your Global config for your needs by defining fields, adding slugs and labels, establishing access control, tying in hooks and more.
+- [I18n](https://payloadcms.com/docs/v3/configuration/i18n.md): Manage and customize internationalization support in your CMS editor experience
+- [Localization](https://payloadcms.com/docs/v3/configuration/localization.md): Add and maintain as many locales as you need by adding Localization to your Payload Config, set options for default locale, fallbacks, fields and more.
+- [Environment Variables](https://payloadcms.com/docs/v3/configuration/environment-vars.md): Learn how to use Environment Variables in your Payload project
+
+#### Database
+
+- [Database](https://payloadcms.com/docs/v3/database/overview.md): With Payload, you bring your own database and own your data. You have full control.
+- [Migrations](https://payloadcms.com/docs/v3/database/migrations.md): Payload features first-party database migrations all done in TypeScript.
+- [Transactions](https://payloadcms.com/docs/v3/database/transactions.md): Database transactions are fully supported within Payload.
+- [Indexes](https://payloadcms.com/docs/v3/database/indexes.md): Index fields to produce faster queries.
+- [MongoDB](https://payloadcms.com/docs/v3/database/mongodb.md): Payload has supported MongoDB natively since we started. The flexible nature of MongoDB lends itself well to Payload's powerful fields.
+- [Postgres](https://payloadcms.com/docs/v3/database/postgres.md): Payload supports Postgres through an officially supported Drizzle Database Adapter.
+- [SQLite](https://payloadcms.com/docs/v3/database/sqlite.md): Payload supports SQLite through an officially supported Drizzle Database Adapter.
+
+#### Fields
+
+- [Fields Overview](https://payloadcms.com/docs/v3/fields/overview.md): Fields are the building blocks of Payload, find out how to add or remove a field, change field type, add hooks, define Access Control and Validation.
+- [Fields Generated by Payload](https://payloadcms.com/docs/v3/fields/default-fields.md): Learn which fields Payload generates automatically and how to override their configuration.
+- [Array Field](https://payloadcms.com/docs/v3/fields/array.md): Array Fields are intended for sets of repeating fields, that you define. Learn how to use Array Fields, see examples and options.
+- [Blocks Field](https://payloadcms.com/docs/v3/fields/blocks.md): The Blocks Field is a great layout builder and can be used to construct any flexible content model. Learn how to use Block Fields, see examples and options.
+- [Checkbox Field](https://payloadcms.com/docs/v3/fields/checkbox.md): Checkbox field types allow the developer to save a boolean value in the database. Learn how to use Checkbox fields, see examples and options.
+- [Code Field](https://payloadcms.com/docs/v3/fields/code.md): The Code field type will store any string in the Database. Learn how to use Code fields, see examples and options.
+- [JSON Field](https://payloadcms.com/docs/v3/fields/json.md): The JSON field type will store any string in the Database. Learn how to use JSON fields, see examples and options.
+- [Collapsible Field](https://payloadcms.com/docs/v3/fields/collapsible.md): With the Collapsible field, you can place fields within a collapsible layout component that can be collapsed / expanded.
+- [Date Field](https://payloadcms.com/docs/v3/fields/date.md): The Date field type stores a Date in the database. Learn how to use and customize the Date field, see examples and options.
+- [Email Field](https://payloadcms.com/docs/v3/fields/email.md): The Email field enforces that the value provided is a valid email address. Learn how to use Email fields, see examples and options.
+- [Group Field](https://payloadcms.com/docs/v3/fields/group.md): The Group field allows other fields to be nested under a common property. Learn how to use Group fields, see examples and options.
+- [Number Field](https://payloadcms.com/docs/v3/fields/number.md): Number fields store and validate numeric data. Learn how to use and format Number fields, see examples and Number field options.
+- [Point Field](https://payloadcms.com/docs/v3/fields/point.md): The Point field type stores coordinates in the database. Learn how to use Point field for geolocation and geometry.
+- [Radio Group Field](https://payloadcms.com/docs/v3/fields/radio.md): The Radio field type allows for the selection of one value from a predefined set of possible values. Learn how to use Radio fields, see examples and options.
+- [Relationship Field](https://payloadcms.com/docs/v3/fields/relationship.md): The Relationship field provides the ability to relate documents together. Learn how to use Relationship fields, see examples and options.
+- [Join Field](https://payloadcms.com/docs/v3/fields/join.md): The Join field provides the ability to work on related documents. Learn how to use Join field, see examples and options.
+- [Rich Text Field](https://payloadcms.com/docs/v3/fields/rich-text.md): The Rich Text field allows dynamic content to be written through the Admin Panel. Learn how to use Rich Text fields, see examples and options.
+- [Row Field](https://payloadcms.com/docs/v3/fields/row.md): With the Row field you can arrange fields next to each other in the Admin Panel to help you customize your Dashboard.
+- [Select Field](https://payloadcms.com/docs/v3/fields/select.md): The Select field provides a dropdown-style interface for choosing options from a predefined list. Learn how to use Select fields, see examples and options.
+- [Tabs Field](https://payloadcms.com/docs/v3/fields/tabs.md): The Tabs field is a great way to organize complex editing experiences into specific tab-based areas.
+- [Text Field](https://payloadcms.com/docs/v3/fields/text.md): Text field types simply save a string to the database and provide the Admin Panel with a text input. Learn how to use Text fields, see examples and options.
+- [Textarea Field](https://payloadcms.com/docs/v3/fields/textarea.md): Textarea field types save a string to the database, similar to the Text field type but equipped for longer text. Learn how to use Textarea fields, see examples and options.
+- [UI Field](https://payloadcms.com/docs/v3/fields/ui.md): UI fields are purely presentational and allow developers to customize the Admin Panel to a very fine degree, including adding actions and other functions.
+- [Upload Field](https://payloadcms.com/docs/v3/fields/upload.md): Upload fields will allow a file to be uploaded, only from a collection supporting Uploads. Learn how to use Upload fields, see examples and options.
+
+#### Access Control
+
+- [Access Control](https://payloadcms.com/docs/v3/access-control/overview.md): Payload makes it simple to define and manage Access Control. By declaring roles, you can set permissions and restrict what your users can interact with.
+- [Collection Access Control](https://payloadcms.com/docs/v3/access-control/collections.md): With Collection-level Access Control you can define which users can create, read, update or delete Collections.
+- [Globals Access Control](https://payloadcms.com/docs/v3/access-control/globals.md): Global-level Access Control is specified within each Global's `access` property and allows you to define which users can read or update Globals.
+- [Field-level Access Control](https://payloadcms.com/docs/v3/access-control/fields.md): Field-level Access Control is specified within a field's config, and allows you to define which users can create, read or update Fields.
+
+#### Hooks
+
+- [Hooks Overview](https://payloadcms.com/docs/v3/hooks/overview.md): Hooks allow you to add your own logic to Payload, including integrating with third-party APIs, adding auto-generated data, or modifying Payload's base functionality.
+- [Collection Hooks](https://payloadcms.com/docs/v3/hooks/collections.md): You can add hooks to any Collection, several hook types are available including beforeChange, afterRead, afterDelete and more.
+- [Global Hooks](https://payloadcms.com/docs/v3/hooks/globals.md): Hooks can be added to any Global and allow you to validate data, flatten locales, hide protected fields, remove fields and more.
+- [Field Hooks](https://payloadcms.com/docs/v3/hooks/fields.md): Hooks can be added to any fields, and optionally modify the return value of the field before the operation continues.
+- [Context](https://payloadcms.com/docs/v3/hooks/context.md): Context allows you to pass in extra data that can be shared between hooks
+
+### Managing Data
+
+#### Local API
+
+- [Local API](https://payloadcms.com/docs/v3/local-api/overview.md): The Payload Local API allows you to interact with your database and execute the same operations that are available through REST and GraphQL within Node, directly on your server.
+- [Using Payload outside Next.js](https://payloadcms.com/docs/v3/local-api/outside-nextjs.md): Payload can be used outside of Next.js within standalone scripts or in other frameworks like Remix, SvelteKit, Nuxt, and similar.
+- [Using Local API Operations with Server Functions](https://payloadcms.com/docs/v3/local-api/server-functions.md): Learn to use Local API operations with Server Functions in Payload to manage server-side logic, data interactions, and custom workflows directly within your CMS.
+- [Respecting Access Control with Local API Operations](https://payloadcms.com/docs/v3/local-api/access-control.md): Learn how to implement and enforce access control in Payload's Local API operations, ensuring that the right permissions are respected during data manipulation.
+
+#### REST API
+
+- [REST API](https://payloadcms.com/docs/v3/rest-api/overview.md): Payload generates a fully functional REST API from your Collection and Global configs.
+
+#### GraphQL
+
+- [GraphQL Overview](https://payloadcms.com/docs/v3/graphql/overview.md): Payload ships with a fully featured and extensible GraphQL API, which can be used in addition to the REST and Local APIs to give you more flexibility.
+- [Adding your own Queries and Mutations](https://payloadcms.com/docs/v3/graphql/extending.md): Payload allows you to add your own GraphQL queries and mutations, simply set up GraphQL in your main Payload Config by following these instructions.
+- [GraphQL Schema](https://payloadcms.com/docs/v3/graphql/graphql-schema.md): Output your own GraphQL schema based on your collections and globals to a file.
+
+#### Queries
+
+- [Querying your Documents](https://payloadcms.com/docs/v3/queries/overview.md): Payload provides a querying language through all APIs, allowing you to filter or search through documents within a Collection.
+- [Sort](https://payloadcms.com/docs/v3/queries/sort.md): Payload sort allows you to order your documents by a field in ascending or descending order.
+- [Depth](https://payloadcms.com/docs/v3/queries/depth.md): Payload depth determines how many levels down related documents should be automatically populated when retrieved.
+- [Select](https://payloadcms.com/docs/v3/queries/select.md): Payload select determines which fields are selected to the result.
+- [Pagination](https://payloadcms.com/docs/v3/queries/pagination.md): Payload queries are equipped with automatic pagination so you create paginated lists of documents within your app.
+
+### Features
+
+#### Admin
+
+- [The Admin Panel](https://payloadcms.com/docs/v3/admin/overview.md): Manage your data and customize the Payload Admin Panel by swapping in your own React components. Create, modify or remove views, fields, styles and much more.
+- [Preview](https://payloadcms.com/docs/v3/admin/preview.md): Enable links to your front-end to preview published or draft content.
+- [Custom Admin Panel Location](https://payloadcms.com/docs/v3/admin/admin-panel-location.md): Learn how to move and customize the location of your Payload Admin Panel, including nested routes and custom folder structures.
+- [Document Locking](https://payloadcms.com/docs/v3/admin/locked-documents.md): Ensure your documents are locked during editing to prevent concurrent changes from multiple users and maintain data integrity.
+- [Accessibility](https://payloadcms.com/docs/v3/admin/accessibility.md): Our commitment and approach to accessibility within the admin panel.
+- [Customizing CSS & SCSS](https://payloadcms.com/docs/v3/admin/customizing-css.md): Customize the Payload Admin Panel further by adding your own CSS or SCSS style sheet to the configuration, powerful theme and design options are waiting for you.
+- [React Hooks](https://payloadcms.com/docs/v3/admin/react-hooks.md): Make use of all of the powerful React hooks that Payload provides.
+- [Managing User Preferences](https://payloadcms.com/docs/v3/admin/preferences.md): Store the preferences of your users as they interact with the Admin Panel.
+- [Page Metadata](https://payloadcms.com/docs/v3/admin/metadata.md): Customize the metadata of your pages within the Admin Panel
+
+#### Custom Components
+
+- [Swap in your own React components](https://payloadcms.com/docs/v3/custom-components/overview.md): Fully customize your Admin Panel by swapping in your own React components. Add fields, remove views, update routes and change functions to sculpt your perfect Dashboard.
+- [Root Components](https://payloadcms.com/docs/v3/custom-components/root-components.md)
+- [Swap in your own React Context providers](https://payloadcms.com/docs/v3/custom-components/custom-providers.md)
+- [Customizing Views](https://payloadcms.com/docs/v3/custom-components/custom-views.md)
+- [Dashboard Widgets](https://payloadcms.com/docs/v3/custom-components/dashboard.md): Create custom dashboard widgets to display data, analytics, or any other content in the Payload Admin Panel.
+- [Document Views](https://payloadcms.com/docs/v3/custom-components/document-views.md)
+- [Edit View](https://payloadcms.com/docs/v3/custom-components/edit-view.md)
+- [List View](https://payloadcms.com/docs/v3/custom-components/list-view.md)
+
+#### UI Components
+
+- [UI Components](https://payloadcms.com/docs/v3/ui-components/overview.md): Use the React components that power the Payload Admin Panel in your own Custom Components.
+- [AnimateHeight](https://payloadcms.com/docs/v3/ui-components/animate-height.md): Animate content between collapsed and expanded heights with Payload's AnimateHeight component.
+- [Banner](https://payloadcms.com/docs/v3/ui-components/banner.md): Display contextual information and status messages with Payload's Banner component.
+- [Button](https://payloadcms.com/docs/v3/ui-components/button.md): Use Payload's Button component for actions and navigation in Admin Panel Custom Components.
+- [Card](https://payloadcms.com/docs/v3/ui-components/card.md): Group a title and related actions with Payload's Card component.
+- [CodeEditor](https://payloadcms.com/docs/v3/ui-components/code-editor.md): Display and edit structured text with Payload's CodeEditor component.
+- [Collapsible](https://payloadcms.com/docs/v3/ui-components/collapsible.md): Show and hide a section of content with Payload's Collapsible component.
+- [CopyToClipboard](https://payloadcms.com/docs/v3/ui-components/copy-to-clipboard.md): Copy a string to the clipboard with Payload's CopyToClipboard component.
+- [DatePicker](https://payloadcms.com/docs/v3/ui-components/date-picker.md): Select dates and times with Payload's DatePicker component.
+- [Dropzone](https://payloadcms.com/docs/v3/ui-components/dropzone.md): Accept files through drag, drop, and paste interactions with Payload's Dropzone component.
+- [ErrorPill](https://payloadcms.com/docs/v3/ui-components/error-pill.md): Display a compact validation error count with Payload's ErrorPill component.
+- [Gutter](https://payloadcms.com/docs/v3/ui-components/gutter.md): Align content to Payload's horizontal Admin Panel gutters.
+- [Hamburger](https://payloadcms.com/docs/v3/ui-components/hamburger.md): Display Payload's open and close navigation icons with the Hamburger component.
+- [Link](https://payloadcms.com/docs/v3/ui-components/link.md): Navigate within the Payload Admin Panel using Payload's router-aware Link component.
+- [List and Pagination Controls](https://payloadcms.com/docs/v3/ui-components/list-and-pagination-controls.md): Add pagination, page-size, sorting, and selection controls to Payload Admin lists.
+- [Modals and Drawers](https://payloadcms.com/docs/v3/ui-components/modals-and-drawers.md): Present focused actions and supporting content in Payload modals and drawers.
+- [Motion and Loading](https://payloadcms.com/docs/v3/ui-components/motion-and-loading.md): Communicate loading and layout changes with Payload's motion and loading components.
+- [Navigation Controls](https://payloadcms.com/docs/v3/ui-components/navigation-controls.md): Compose Payload Admin navigation controls and step navigation state.
+- [Pill](https://payloadcms.com/docs/v3/ui-components/pill.md): Display compact statuses, categories, and actions with Payload's Pill component.
+- [PillSelector](https://payloadcms.com/docs/v3/ui-components/pill-selector.md): Let users select one or more compact options with Payload's PillSelector component.
+- [Popup](https://payloadcms.com/docs/v3/ui-components/popup.md): Display an anchored menu or custom surface with Payload's Popup component.
+- [ReactSelect](https://payloadcms.com/docs/v3/ui-components/react-select.md): Select one or more options with Payload's ReactSelect component.
+- [SearchBar](https://payloadcms.com/docs/v3/ui-components/search-filter.md): Add a complete, debounced search control with Payload's SearchBar component.
+- [ShimmerEffect](https://payloadcms.com/docs/v3/ui-components/shimmer-effect.md): Represent loading content with Payload's ShimmerEffect component.
+- [Table](https://payloadcms.com/docs/v3/ui-components/table.md): Display pre-rendered column data with Payload's Table component.
+- [Thumbnail](https://payloadcms.com/docs/v3/ui-components/thumbnail.md): Preview an uploaded file or render a file fallback with Payload's Thumbnail component.
+- [TimezonePicker](https://payloadcms.com/docs/v3/ui-components/timezone-picker.md): Select a timezone with Payload's TimezonePicker component.
+- [Tooltip](https://payloadcms.com/docs/v3/ui-components/tooltip.md): Display brief contextual help with Payload's Tooltip component.
+- [Upload](https://payloadcms.com/docs/v3/ui-components/upload.md): Extend Payload's upload-enabled Collection interface while preserving form and upload behavior.
+
+#### Authentication
+
+- [Authentication Overview](https://payloadcms.com/docs/v3/authentication/overview.md): Payload provides highly secure user Authentication out of the box, and you can fully customize, override, or remove the default Authentication support.
+- [Authentication Operations](https://payloadcms.com/docs/v3/authentication/operations.md): Enabling Authentication automatically makes key operations available such as Login, Logout, Verify, Unlock, Reset Password and more.
+- [Authentication Emails](https://payloadcms.com/docs/v3/authentication/email.md): Email Verification allows users to verify their email address before their account is fully activated. Email Verification ties directly into the Email functionality that Payload provides.
+- [Cookie Strategy](https://payloadcms.com/docs/v3/authentication/cookies.md): Enable HTTP Cookie based authentication to interface with Payload.
+- [JWT Strategy](https://payloadcms.com/docs/v3/authentication/jwt.md): Enable JSON Web Token based authentication to interface with Payload.
+- [API Key Strategy](https://payloadcms.com/docs/v3/authentication/api-keys.md): Enable API key based authentication to interface with Payload.
+- [Custom Strategies](https://payloadcms.com/docs/v3/authentication/custom-strategies.md): Create custom authentication strategies to handle everything auth in Payload.
+- [Token Data](https://payloadcms.com/docs/v3/authentication/token-data.md): Storing data for read on the request object.
+
+#### Rich Text
+
+- [Rich Text Editor](https://payloadcms.com/docs/v3/rich-text/overview.md): The Payload editor, based on Lexical, allows for great customization with unparalleled ease.
+- [Lexical Converters](https://payloadcms.com/docs/v3/rich-text/converters.md): Conversion between lexical, markdown, jsx and html
+- [Converting JSX](https://payloadcms.com/docs/v3/rich-text/converting-jsx.md): Converting between lexical richtext and JSX
+- [Converting HTML](https://payloadcms.com/docs/v3/rich-text/converting-html.md): Converting between lexical richtext and HTML
+- [Converting Markdown](https://payloadcms.com/docs/v3/rich-text/converting-markdown.md): Converting between lexical richtext and Markdown / MDX
+- [Converting Plaintext](https://payloadcms.com/docs/v3/rich-text/converting-plaintext.md): Converting between lexical richtext and plaintext
+- [Official Features](https://payloadcms.com/docs/v3/rich-text/official-features.md): Features officially maintained by Payload.
+- [Blocks](https://payloadcms.com/docs/v3/rich-text/blocks.md): Using the BlocksFeature to add custom blocks and inline blocks to the Lexical editor
+- [Custom Features](https://payloadcms.com/docs/v3/rich-text/custom-features.md): Building custom features
+- [Rendering On Demand](https://payloadcms.com/docs/v3/rich-text/rendering-on-demand.md): Rendering rich text on demand
+- [Lexical Migration](https://payloadcms.com/docs/v3/rich-text/migration.md): Migration from slate and payload-plugin-lexical to lexical
+- [Views](https://payloadcms.com/docs/v3/rich-text/views.md): Customize how Lexical nodes render in the admin panel using view overrides, and reuse the same node maps with JSX converters.
+- [Slate Editor](https://payloadcms.com/docs/v3/rich-text/slate.md): The Slate editor is our old rich text editor and will be removed in 4.0.
+
+#### Live Preview
+
+- [Live Preview](https://payloadcms.com/docs/v3/live-preview/overview.md): With Live Preview you can render your front-end application directly within the Admin Panel. Your changes take effect as you type. No save needed.
+- [Implementing Live Preview in your frontend](https://payloadcms.com/docs/v3/live-preview/frontend.md): Learn how to implement Live Preview in your front-end application.
+- [Server-side Live Preview](https://payloadcms.com/docs/v3/live-preview/server.md): Learn how to implement Live Preview in your server-side front-end application.
+- [Client-side Live Preview](https://payloadcms.com/docs/v3/live-preview/client.md): Learn how to implement Live Preview in your client-side front-end application.
+
+#### Versions
+
+- [Versions](https://payloadcms.com/docs/v3/versions/overview.md): Keep a version history or audit log of changes and publish collection documents and globals.
+- [Drafts](https://payloadcms.com/docs/v3/versions/drafts.md): Enable drafts on collection documents or globals and build true preview environments for your data.
+- [Autosave](https://payloadcms.com/docs/v3/versions/autosave.md): Using Payload's Draft functionality, you can configure your collections and globals to autosave changes as drafts, and publish only you're ready.
+
+#### Upload
+
+- [Uploads](https://payloadcms.com/docs/v3/upload/overview.md): Payload supports uploads, storage and management of files directly on your server, combined with powerful file access control.
+- [Storage Adapters](https://payloadcms.com/docs/v3/upload/storage-adapters.md): Payload provides additional storage adapters to handle file uploads. These adapters allow you to store files in different locations, such as Amazon S3, Vercel Blob Storage, Google Cloud Storage, Uploadthing, and more.
+
+#### Folders
+
+- [Folders](https://payloadcms.com/docs/v3/folders/overview.md): Folders allow you to group documents across collections, and are a great way to organize your content.
+
+#### Email
+
+- [Email Functionality](https://payloadcms.com/docs/v3/email/overview.md): Payload uses an adapter pattern to enable email functionality. Set up email functions such as password resets, order confirmations and more.
+
+#### Jobs Queue
+
+- [Jobs Queue](https://payloadcms.com/docs/v3/jobs-queue/overview.md): Payload provides all you need to run job queues, which are helpful to offload long-running processes into separate workers.
+- [Quick Start Example](https://payloadcms.com/docs/v3/jobs-queue/quick-start-example.md): A Queue is a specific group of jobs which can be executed in the order that they were added.
+- [Tasks](https://payloadcms.com/docs/v3/jobs-queue/tasks.md): A Task is a distinct function declaration that can be run within Payload's Jobs Queue.
+- [Workflows](https://payloadcms.com/docs/v3/jobs-queue/workflows.md): A Task is a distinct function declaration that can be run within Payload's Jobs Queue.
+- [Jobs](https://payloadcms.com/docs/v3/jobs-queue/jobs.md): A Job is a set of work that is offloaded from your APIs and will be processed at a later date.
+- [Queues](https://payloadcms.com/docs/v3/jobs-queue/queues.md): A Queue is a specific group of jobs which can be executed in the order that they were added.
+- [Job Schedules](https://payloadcms.com/docs/v3/jobs-queue/schedules.md): Payload allows you to schedule jobs to run periodically
+
+#### Query Presets
+
+- [Query Presets](https://payloadcms.com/docs/v3/query-presets/overview.md): Query Presets allow you to save and share filters, columns, and sort orders for your collections.
+
+#### Trash
+
+- [Trash](https://payloadcms.com/docs/v3/trash/overview.md): Enable soft deletes for your collections to mark documents as deleted without permanently removing them.
+
+#### Troubleshooting
+
+- [Troubleshooting](https://payloadcms.com/docs/v3/troubleshooting/troubleshooting.md): Troubleshooting Common Issues in Payload
+
+#### TypeScript
+
+- [TypeScript - Overview](https://payloadcms.com/docs/v3/typescript/overview.md): Payload is the most powerful TypeScript headless CMS available.
+- [Generating TypeScript Interfaces](https://payloadcms.com/docs/v3/typescript/generating-types.md): Generate your own TypeScript interfaces based on your collections and globals.
+- [TypeScript Plugin (Experimental)](https://payloadcms.com/docs/v3/typescript/ts-plugin.md): IDE support for PayloadComponent import paths – inline validation, autocomplete, and go-to-definition.
+
+### Ecosystem
+
+#### Plugins
+
+- [Plugins](https://payloadcms.com/docs/v3/plugins/overview.md): Plugins provide a great way to modularize Payload functionalities into easy-to-use enhancements and extensions of your Payload apps.
+- [Building Your Own Plugin](https://payloadcms.com/docs/v3/plugins/build-your-own.md): Starting to build your own plugin? Find everything you need and learn best practices with the Payload plugin template.
+- [Advanced Plugin API](https://payloadcms.com/docs/v3/plugins/plugin-api.md): Use definePlugin and RegisteredPlugins to build powerful, interoperable plugins with execution ordering and typed cross-plugin communication.
+- [Form Builder Plugin](https://payloadcms.com/docs/v3/plugins/form-builder.md): Easily build and manage forms from the Admin Panel. Send dynamic, personalized emails and even accept and process payments.
+- [Import Export Plugin](https://payloadcms.com/docs/v3/plugins/import-export.md): Add Import and export functionality to create CSV and JSON data exports
+- [MCP Plugin](https://payloadcms.com/docs/v3/plugins/mcp.md): MCP (Model Context Protocol) capabilities with Payload
+- [Multi-Tenant Plugin](https://payloadcms.com/docs/v3/plugins/multi-tenant.md): Scaffolds multi-tenancy for your Payload application
+- [Nested Docs Plugin](https://payloadcms.com/docs/v3/plugins/nested-docs.md): Nested documents in a parent, child, and sibling relationship.
+- [Redirects Plugin](https://payloadcms.com/docs/v3/plugins/redirects.md): Automatically create redirects for your Payload application
+- [Search Plugin](https://payloadcms.com/docs/v3/plugins/search.md): Generates records of your documents that are extremely fast to search on.
+- [Sentry Plugin](https://payloadcms.com/docs/v3/plugins/sentry.md): Integrate Sentry error tracking into your Payload application
+- [SEO Plugin](https://payloadcms.com/docs/v3/plugins/seo.md): Manage SEO metadata from your Payload admin
+- [Stripe Plugin](https://payloadcms.com/docs/v3/plugins/stripe.md): Easily accept payments with Stripe
+
+#### Ecommerce
+
+- [Ecommerce Overview](https://payloadcms.com/docs/v3/ecommerce/overview.md): Add ecommerce functionality to your Payload CMS application with this plugin.
+- [Ecommerce Plugin](https://payloadcms.com/docs/v3/ecommerce/plugin.md): Add ecommerce functionality to your Payload CMS application with this plugin.
+- [Ecommerce Frontend](https://payloadcms.com/docs/v3/ecommerce/frontend.md): Add ecommerce functionality to your Payload CMS application with this plugin.
+- [Payment Adapters](https://payloadcms.com/docs/v3/ecommerce/payments.md): Add ecommerce functionality to your Payload CMS application with this plugin.
+- [Advanced uses and examples](https://payloadcms.com/docs/v3/ecommerce/advanced.md): Add ecommerce functionality to your Payload CMS application with this plugin.
+
+#### Examples
+
+- [Examples](https://payloadcms.com/docs/v3/examples/overview.md)
+
+#### Integrations
+
+- [Vercel Content Link](https://payloadcms.com/docs/v3/integrations/vercel-content-link.md): Payload + Vercel Content Link allows your editors to navigate directly from the content rendered on your front-end to the fields in Payload that control it.
+
+### Deployment
+
+#### Production
+
+- [Building without a DB connection](https://payloadcms.com/docs/v3/production/building-without-a-db-connection.md): You don't want to have a DB connection while building your Docker container? Learn how to prevent that!
+- [Production Deployment](https://payloadcms.com/docs/v3/production/deployment.md): When your Payload based app is ready, tested, looking great, it is time to deploy. Learn how to deploy your app and what to consider before deployment.
+- [Preventing Production API Abuse](https://payloadcms.com/docs/v3/production/preventing-abuse.md): Payload has built-in security that can be configured to combat production API abuse such as limiting login attempts and IP requests.
+
+#### Performance
+
+- [Performance](https://payloadcms.com/docs/v3/performance/overview.md): Ensure your Payload app runs as quickly and efficiently as possible.
 

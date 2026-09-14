@@ -1,14 +1,11 @@
 import { Hamburger } from '@payloadcms/ui/elements/Hamburger'
 
-import type { ComponentExamples } from './types'
+import type { ComponentRenders } from './types'
 
 import classes from '../examples.module.scss'
 
-export const hamburgerExamples: ComponentExamples = {
+export const hamburgerExamples: ComponentRenders = {
   states: {
-    code: `<Hamburger />
-<Hamburger isActive />
-<Hamburger closeIcon="collapse" isActive />`,
     render: () => (
       <div className={classes.iconStates}>
         <div className={classes.iconState}>

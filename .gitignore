@@ -2,6 +2,8 @@
 
 /src/docs
 /preview-runtimes/v4/src/generated
+/public/docs/v3
+/public/docs/v4
 
 # dependencies
 /node_modules

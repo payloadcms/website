@@ -10,7 +10,7 @@ import {
 import { ProgressBar } from '@payloadcms/ui/providers/RouteTransition/ProgressBar'
 import { Suspense, use, useEffect, useRef, useState } from 'react'
 
-import type { ComponentExamples } from './types'
+import type { ComponentRenders } from './types'
 
 import classes from '../examples.module.scss'
 
@@ -70,28 +70,14 @@ const ProgressBarDemo = () => (
   </RouteTransitionProvider>
 )
 
-export const motionAndLoadingExamples: ComponentExamples = {
+export const motionAndLoadingExamples: ComponentRenders = {
   overlay: {
-    code: `const [show, setShow] = useState(false)
-
-<Button onClick={() => setShow(true)}>Show loading overlay</Button>
-<LoadingOverlay loadingText="Loading" show={show} />`,
     render: () => <OverlayDemo />,
   },
   progress: {
-    code: `<RouteTransitionProvider>
-  <ProgressBar />
-  <Link href="/admin/collections/posts">View posts</Link>
-</RouteTransitionProvider>`,
     render: () => <ProgressBarDemo />,
   },
   staggered: {
-    code: `<StaggeredShimmers
-  count={4}
-  height={12}
-  renderDelay={0}
-  shimmerDelay={75}
-/>`,
     render: () => (
       <StaggeredShimmers
         className={classes.staggeredShimmers}

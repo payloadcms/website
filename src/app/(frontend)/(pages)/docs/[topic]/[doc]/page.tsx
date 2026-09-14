@@ -76,6 +76,11 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
   const currentDoc = docs?.docs?.[0]
 
   return {
+    alternates: {
+      types: {
+        'text/markdown': `/docs/v3/${topicSlug}/${docSlug}.md`,
+      },
+    },
     description: currentDoc?.description || `Payload ${topicSlug} Documentation`,
     openGraph: mergeOpenGraph({
       images: [

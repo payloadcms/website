@@ -1,4 +1,4 @@
-import type { ComponentExamples } from './types'
+import type { ComponentExamples, ComponentRenders } from './types'
 
 import { animateHeightExamples } from './AnimateHeight'
 import { bannerExamples } from './Banner'
@@ -8,7 +8,7 @@ import { codeEditorExamples } from './CodeEditor'
 import { collapsibleExamples } from './Collapsible'
 import { copyToClipboardExamples } from './CopyToClipboard'
 import { datePickerExamples } from './DatePicker'
-import { componentDesigns } from './designs'
+import { v3ComponentDocumentation } from './documentation'
 import { dropzoneExamples } from './Dropzone'
 import { errorPillExamples } from './ErrorPill'
 import { gutterExamples } from './Gutter'
@@ -27,7 +27,8 @@ import { tableExamples } from './Table'
 import { thumbnailExamples } from './Thumbnail'
 import { timezonePickerExamples } from './TimezonePicker'
 import { tooltipExamples } from './Tooltip'
-const examplesWithoutDesign: Record<string, ComponentExamples> = {
+
+const componentRenders: Record<string, ComponentRenders> = {
   AnimateHeight: animateHeightExamples,
   Banner: bannerExamples,
   Button: buttonExamples,
@@ -56,18 +57,26 @@ const examplesWithoutDesign: Record<string, ComponentExamples> = {
   Tooltip: tooltipExamples,
 }
 
+for (const [componentName, examples] of Object.entries(componentRenders)) {
+  for (const exampleName of Object.keys(examples)) {
+    if (!v3ComponentDocumentation[componentName]?.[exampleName]) {
+      throw new Error(`Missing preview documentation for ${componentName}.${exampleName}`)
+    }
+  }
+}
+
 export const v3ComponentExamples: Record<string, ComponentExamples> = Object.fromEntries(
-  Object.entries(examplesWithoutDesign).map(([componentName, examples]) => [
+  Object.entries(v3ComponentDocumentation).map(([componentName, examples]) => [
     componentName,
     Object.fromEntries(
       Object.entries(examples).map(([exampleName, example]) => {
-        const design = example.design || componentDesigns[componentName]?.[exampleName]
+        const render = componentRenders[componentName]?.[exampleName]?.render
 
-        if (!design) {
-          throw new Error(`Missing Design documentation for ${componentName}.${exampleName}`)
+        if (!render) {
+          throw new Error(`Missing preview render for ${componentName}.${exampleName}`)
         }
 
-        return [exampleName, { ...example, design }]
+        return [exampleName, { ...example, render }]
       }),
     ),
   ]),

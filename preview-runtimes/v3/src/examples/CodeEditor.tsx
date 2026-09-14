@@ -1,6 +1,6 @@
 import { CodeEditor } from '@payloadcms/ui/elements/CodeEditor'
 
-import type { ComponentExamples } from './types'
+import type { ComponentRenders } from './types'
 
 import classes from '../examples.module.scss'
 
@@ -9,14 +9,8 @@ const value = `{
   "enabled": true
 }`
 
-export const codeEditorExamples: ComponentExamples = {
+export const codeEditorExamples: ComponentRenders = {
   readOnly: {
-    code: `<CodeEditor
-  defaultLanguage="json"
-  minHeight={110}
-  readOnly
-  value={'{\\n  "title": "Payload UI",\\n  "enabled": true\\n}'}
-/>`,
     render: ({ theme }) => (
       <div className={classes.componentWidth}>
         <CodeEditor

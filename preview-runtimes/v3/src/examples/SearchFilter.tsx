@@ -3,7 +3,7 @@
 import { SearchBar } from '@payloadcms/ui/elements/SearchBar'
 import { useState } from 'react'
 
-import type { ComponentExamples } from './types'
+import type { ComponentRenders } from './types'
 
 import classes from '../examples.module.scss'
 
@@ -17,14 +17,8 @@ const Demo = () => {
   )
 }
 
-export const searchFilterExamples: ComponentExamples = {
+export const searchFilterExamples: ComponentRenders = {
   interactive: {
-    code: `const [search, setSearch] = useState('')
-
-<SearchBar
-  label="Search posts"
-  onSearchChange={(value) => setSearch(value || '')}
-/>`,
     render: () => <Demo />,
   },
 }

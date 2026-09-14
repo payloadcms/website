@@ -1,14 +1,11 @@
 import { Collapsible } from '@payloadcms/ui/elements/Collapsible'
 
-import type { ComponentExamples } from './types'
+import type { ComponentRenders } from './types'
 
 import classes from '../examples.module.scss'
 
-export const collapsibleExamples: ComponentExamples = {
+export const collapsibleExamples: ComponentRenders = {
   basic: {
-    code: `<Collapsible header="Collapsible header">
-  Collapsible content
-</Collapsible>`,
     render: () => (
       <div className={classes.collapsibleDemo}>
         <Collapsible header="Collapsible header">Collapsible content</Collapsible>
@@ -16,9 +13,6 @@ export const collapsibleExamples: ComponentExamples = {
     ),
   },
   error: {
-    code: `<Collapsible collapsibleStyle="error" header="Collapsible header">
-  Correct the invalid fields in this section.
-</Collapsible>`,
     render: () => (
       <div className={classes.collapsibleDemo}>
         <Collapsible collapsibleStyle="error" header="Collapsible header">
