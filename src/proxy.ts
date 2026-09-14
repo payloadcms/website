@@ -23,5 +23,39 @@ export function proxy(request: NextRequest, event: NextFetchEvent): NextResponse
 }
 
 export const config = {
-  matcher: ['/llms.txt', '/llms-full.txt', '/docs/:path*'],
+  matcher: [
+    {
+      missing: [
+        { type: 'header', key: 'next-router-prefetch' },
+        { type: 'header', key: 'next-router-segment-prefetch' },
+        { type: 'header', key: 'next-router-state-tree' },
+        { type: 'header', key: 'rsc' },
+        { type: 'header', key: 'purpose', value: 'prefetch' },
+        { type: 'query', key: '_rsc' },
+      ],
+      source: '/llms.txt',
+    },
+    {
+      missing: [
+        { type: 'header', key: 'next-router-prefetch' },
+        { type: 'header', key: 'next-router-segment-prefetch' },
+        { type: 'header', key: 'next-router-state-tree' },
+        { type: 'header', key: 'rsc' },
+        { type: 'header', key: 'purpose', value: 'prefetch' },
+        { type: 'query', key: '_rsc' },
+      ],
+      source: '/llms-full.txt',
+    },
+    {
+      missing: [
+        { type: 'header', key: 'next-router-prefetch' },
+        { type: 'header', key: 'next-router-segment-prefetch' },
+        { type: 'header', key: 'next-router-state-tree' },
+        { type: 'header', key: 'rsc' },
+        { type: 'header', key: 'purpose', value: 'prefetch' },
+        { type: 'query', key: '_rsc' },
+      ],
+      source: '/docs/:path*',
+    },
+  ],
 }
