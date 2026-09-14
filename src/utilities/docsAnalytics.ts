@@ -137,6 +137,7 @@ export async function trackDocumentationRequest(request: Request): Promise<void>
   }
 
   const client = classifyClient(request.headers.get('user-agent') || '')
+  const sessionID = Math.floor(Date.now() / 1000)
   const endpoint = new URL('https://www.google-analytics.com/mp/collect')
   endpoint.searchParams.set('measurement_id', measurementID)
   endpoint.searchParams.set('api_secret', apiSecret)
@@ -153,9 +154,11 @@ export async function trackDocumentationRequest(request: Request): Promise<void>
             document_path: url.pathname,
             document_type: document.type,
             documentation_version: document.version,
+            engagement_time_msec: 1,
             page_location: `${url.origin}${url.pathname}`,
             referrer_host: getReferrerHost(request.headers.get('referer')),
             requested_format: getRequestedFormat(request.headers.get('accept')),
+            session_id: sessionID,
           },
         },
       ],
