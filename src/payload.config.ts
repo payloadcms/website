@@ -317,6 +317,9 @@ export default buildConfig({
     'https://discord.com/api',
   ].filter(Boolean),
   db: mongooseAdapter({
+    connectOptions: {
+      maxConnecting: 10,
+    },
     url: process.env.DATABASE_URI || '',
   }),
   defaultDepth: 1,
