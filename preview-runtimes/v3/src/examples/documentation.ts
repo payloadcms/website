@@ -190,6 +190,73 @@ export const v3ComponentDocumentation: Record<string, ComponentDocumentation> = 
       design: componentDesigns['Card']['basic'],
     },
   },
+  ChoiceInputs: {
+    checkbox: {
+      code: `const [checked, setChecked] = useState(true)
+
+<CheckboxInput
+  checked={checked}
+  label="Feature this project"
+  name="featured"
+  onToggle={(event) => setChecked(event.target.checked)}
+/>`,
+      design: {
+        code: `.checkbox-input__input {
+  border-color: var(--theme-elevation-400);
+  border-radius: 4px;
+}
+
+.checkbox-input--checked .checkbox-input__input {
+  background: var(--theme-elevation-800);
+  color: var(--theme-elevation-0);
+}`,
+        description:
+          'Style the checkbox control and its checked modifier while leaving the native input and label connection intact.',
+        variables: [
+          { name: 'background', description: 'Checked control surface.' },
+          { name: 'border-color', description: 'Checkbox outline.' },
+          { name: 'border-radius', description: 'Checkbox corner radius.' },
+          { name: 'color', description: 'Check icon color.' },
+        ],
+      },
+    },
+    select: {
+      code: `const options = [
+  { label: 'Planned', value: 'planned' },
+  { label: 'In progress', value: 'in-progress' },
+  { label: 'Complete', value: 'complete' },
+]
+
+const [value, setValue] = useState('in-progress')
+
+<SelectInput
+  label="Status"
+  name="status"
+  onChange={(option) => setValue(option?.value || '')}
+  options={options}
+  path="status"
+  value={value}
+/>`,
+      design: {
+        code: `.field-type.select .rs__control {
+  background: var(--theme-input-bg);
+  border-color: var(--theme-elevation-250);
+  border-radius: 6px;
+}
+
+.field-type.select .rs__control--is-focused {
+  border-color: var(--theme-elevation-500);
+}`,
+        description:
+          'Customize the ReactSelect control within SelectInput while retaining Payload’s field label, description, and error structure.',
+        variables: [
+          { name: '--theme-input-bg', description: 'Select control surface.' },
+          { name: 'border-color', description: 'Resting and focused outline color.' },
+          { name: 'border-radius', description: 'Select control corner radius.' },
+        ],
+      },
+    },
+  },
   CodeEditor: {
     readOnly: {
       code: `<CodeEditor
@@ -551,6 +618,85 @@ const selectFile = (files: FileList) => {
       design: componentDesigns['ErrorPill']['counts'],
     },
   },
+  FieldChrome: {
+    labels: {
+      code: `<div className="field-type text">
+  <FieldLabel
+    htmlFor="project-name"
+    label="Project name"
+    required
+  />
+  <div className="field-type__wrap">
+    <input
+      aria-label="Project name"
+      defaultValue="Payload website"
+      id="project-name"
+      type="text"
+    />
+  </div>
+</div>`,
+      design: {
+        code: `.field-label {
+  color: var(--theme-text);
+  font-weight: 600;
+}
+
+.field-label .required {
+  color: var(--theme-error-500);
+}`,
+        description:
+          'Style the shared FieldLabel class and its required marker to keep custom inputs aligned with the rest of the Admin Panel.',
+        variables: [
+          { name: 'color', description: 'Label and required-marker color.' },
+          { name: 'font-weight', description: 'Label emphasis.' },
+        ],
+      },
+    },
+    messages: {
+      code: `<div className="field-type text error">
+  <FieldLabel
+    htmlFor="project-slug"
+    label="Project slug"
+    required
+  />
+  <div className="field-type__wrap">
+    <FieldError
+      message="This field is required."
+      path="projectSlug"
+      showError
+    />
+    <input
+      aria-invalid="true"
+      aria-label="Project slug"
+      id="project-slug"
+      type="text"
+    />
+    <FieldDescription
+      description="Use a short, recognizable slug for this project."
+      path="projectSlug"
+    />
+  </div>
+</div>`,
+      design: {
+        code: `.field-description {
+  color: var(--theme-elevation-600);
+  font-size: 0.875rem;
+}
+
+.field-error.tooltip {
+  background: var(--theme-error-500);
+  color: var(--theme-elevation-0);
+}`,
+        description:
+          'Customize helper and validation messages through their shared classes while preserving the visibility behavior controlled by the field state.',
+        variables: [
+          { name: 'background', description: 'Validation tooltip surface.' },
+          { name: 'color', description: 'Helper or validation text color.' },
+          { name: 'font-size', description: 'Helper text size.' },
+        ],
+      },
+    },
+  },
   Gutter: {
     basic: {
       code: `<Gutter>
@@ -761,6 +907,68 @@ const [value, setValue] = useState(options[0])
       design: componentDesigns['ReactSelect']['basic'],
     },
   },
+  RelationshipInputs: {
+    relationship: {
+      code: `const [value, setValue] = useState<ValueWithRelation[]>([])
+
+<RelationshipInput
+  allowCreate={false}
+  appearance="select"
+  hasMany
+  label="Related posts"
+  onChange={setValue}
+  path="relatedPosts"
+  placeholder="Choose posts"
+  relationTo={['posts']}
+  value={value}
+/>`,
+      design: {
+        code: `.field-type.relationship .rs__control {
+  background: var(--theme-input-bg);
+  border-color: var(--theme-elevation-250);
+  border-radius: 6px;
+}`,
+        description:
+          'Style the RelationshipInput select surface through its field wrapper while preserving document drawer behavior.',
+        variables: [
+          { name: '--theme-input-bg', description: 'Relationship control surface.' },
+          { name: 'border-color', description: 'Relationship control outline.' },
+          { name: 'border-radius', description: 'Relationship control corner radius.' },
+        ],
+      },
+    },
+    upload: {
+      code: `const [value, setValue] = useState<string | number>()
+
+<UploadInput
+  allowCreate
+  label="Media"
+  onChange={setValue}
+  path="media"
+  relationTo="media"
+  required
+  value={value}
+/>`,
+      design: {
+        code: `.field-type.upload .dropzone {
+  background: var(--theme-elevation-50);
+  border-color: var(--theme-elevation-250);
+  border-radius: 6px;
+}
+
+.field-type.upload .btn--style-pill {
+  border-color: var(--theme-elevation-300);
+}`,
+        description:
+          'Customize the UploadInput drop target and its Create New and Choose from existing controls without changing their drawer behavior.',
+        variables: [
+          { name: 'background', description: 'Upload selection surface.' },
+          { name: 'border-color', description: 'Drop target or action outline.' },
+          { name: 'border-radius', description: 'Upload selection corner radius.' },
+        ],
+      },
+    },
+  },
   SearchFilter: {
     interactive: {
       code: `const [search, setSearch] = useState('')
@@ -958,6 +1166,72 @@ export const CustomCell = ({ cellData }: DefaultCellComponentProps) => {
         variables: [
           { name: 'color', description: 'Text color for a specific column.' },
           { name: 'font-weight', description: 'Text emphasis for a specific column.' },
+        ],
+      },
+    },
+  },
+  TextInputs: {
+    text: {
+      code: `const [value, setValue] = useState('Quarterly report')
+
+<TextInput
+  description="Displayed as the document title."
+  label="Title"
+  onChange={(event) => setValue(event.target.value)}
+  path="title"
+  required
+  value={value}
+/>`,
+      design: {
+        code: `.field-type.text input {
+  background: var(--theme-input-bg);
+  border: 1px solid var(--theme-elevation-250);
+  border-radius: 6px;
+}
+
+.field-type.text input:focus {
+  border-color: var(--theme-elevation-500);
+}`,
+        description:
+          'Target the TextInput field wrapper and native input to customize its surface, outline, and focus treatment.',
+        variables: [
+          { name: '--theme-input-bg', description: 'Input surface inherited from the theme.' },
+          { name: 'border', description: 'Input outline.' },
+          { name: 'border-radius', description: 'Input corner radius.' },
+        ],
+      },
+    },
+    textarea: {
+      code: `const [value, setValue] = useState(
+  'A concise summary for the project dashboard.',
+)
+
+<TextareaInput
+  description="Keep the summary brief and useful."
+  label="Summary"
+  onChange={(event) => setValue(event.target.value)}
+  path="summary"
+  rows={4}
+  value={value}
+/>`,
+      design: {
+        code: `.field-type.textarea textarea {
+  background: var(--theme-input-bg);
+  border: 1px solid var(--theme-elevation-250);
+  border-radius: 6px;
+  resize: vertical;
+}
+
+.field-type.textarea textarea:focus {
+  border-color: var(--theme-elevation-500);
+}`,
+        description:
+          'Style the native textarea inside Payload’s field wrapper while retaining its label, description, and validation layout.',
+        variables: [
+          { name: '--theme-input-bg', description: 'Textarea surface inherited from the theme.' },
+          { name: 'border', description: 'Textarea outline.' },
+          { name: 'border-radius', description: 'Textarea corner radius.' },
+          { name: 'resize', description: 'Allowed manual resize direction.' },
         ],
       },
     },
