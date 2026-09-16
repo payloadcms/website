@@ -139,7 +139,8 @@
 // Keep the preview independent from the website theme. These mappings mirror
 // @payloadcms/ui v3's scss/colors.scss and scss/app.scss so components receive
 // the same elevation, background, input, and text tokens as the Admin Panel.
-.canvas[data-theme='light'] {
+.canvas[data-theme='light'],
+.versionScope[data-payload-preview-version='v3'][data-theme='light'] {
   --theme-success-100: rgb(218, 237, 248);
   --theme-success-150: rgb(188, 225, 248);
   --theme-success-600: rgb(11, 110, 153);
@@ -195,7 +196,8 @@
   }
 }
 
-.canvas[data-theme='dark'] {
+.canvas[data-theme='dark'],
+.versionScope[data-payload-preview-version='v3'][data-theme='dark'] {
   --theme-success-100: rgb(19, 44, 58);
   --theme-success-150: rgb(18, 56, 76);
   --theme-success-600: rgb(36, 164, 223);

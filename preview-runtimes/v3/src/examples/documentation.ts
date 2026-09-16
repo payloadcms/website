@@ -508,6 +508,38 @@ const selectFiles = (files: FileList) => {
 </Dropzone>`,
       design: componentDesigns['Dropzone']['basic'],
     },
+    uploadEmptyState: {
+      code: `const inputRef = useRef<HTMLInputElement>(null)
+const [fileName, setFileName] = useState<string>()
+
+const selectFile = (files: FileList) => {
+  setFileName(files[0]?.name)
+}
+
+<Dropzone onChange={selectFile}>
+  <Button
+    buttonStyle="pill"
+    margin={false}
+    onClick={() => inputRef.current?.click()}
+    size="small"
+  >
+    Select a file
+  </Button>
+  <input
+    aria-label="Select a file"
+    hidden
+    onChange={(event) => event.target.files && selectFile(event.target.files)}
+    ref={inputRef}
+    type="file"
+  />
+  <span>or</span>
+  <Button buttonStyle="pill" margin={false} size="small">
+    Paste URL
+  </Button>
+  <span>{fileName || 'or drag and drop a file'}</span>
+</Dropzone>`,
+      design: componentDesigns['Dropzone']['basic'],
+    },
   },
   ErrorPill: {
     counts: {
