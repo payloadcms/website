@@ -181,6 +181,7 @@
   }
 
   :global(.stroke) {
+    fill: none;
     stroke: currentColor;
   }
 
@@ -396,6 +397,32 @@
   > span {
     color: var(--theme-elevation-600);
     font-size: 0.875rem;
+  }
+}
+
+.fieldChromeField,
+.fieldInputPreview,
+.relationshipFieldPreview,
+.contextualFieldPreview {
+  width: min(100%, 36rem);
+}
+
+.relationshipFieldPreview {
+  min-height: 18rem;
+  align-self: flex-start;
+}
+
+.contextualFieldPreview {
+  pointer-events: none;
+
+  // The preview canvas has a fixed minimum height. Keep UploadInput's
+  // percentage-height dropzone sized to its content, as it is in a form.
+  :global(.dropzone) {
+    height: auto !important;
+  }
+
+  :global(.upload__dropzoneContent__buttons) {
+    align-items: center;
   }
 }
 
