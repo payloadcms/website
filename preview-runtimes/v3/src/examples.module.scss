@@ -399,6 +399,39 @@
   }
 }
 
+.uploadDropzoneContent {
+  display: flex;
+  width: 100%;
+  min-height: 5rem;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0 0.5rem;
+
+  > span {
+    color: var(--theme-elevation-600);
+    font-size: 0.875rem;
+  }
+}
+
+.uploadDropzoneActions {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 0.5rem;
+
+  :global(.btn) {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  > span {
+    color: var(--theme-elevation-600);
+    font-size: 0.875rem;
+  }
+}
+
 .tableDemo {
   width: min(100%, 44rem);
 }
