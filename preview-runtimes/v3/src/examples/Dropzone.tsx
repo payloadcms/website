@@ -20,12 +20,7 @@ const Demo = () => {
     <div className={classes.componentWidth}>
       <Dropzone multipleFiles onChange={selectFiles}>
         <div className={classes.dropzoneContent}>
-          <Button
-            buttonStyle="secondary"
-            margin={false}
-            onClick={() => inputRef.current?.click()}
-            size="small"
-          >
+          <Button margin={false} onClick={() => inputRef.current?.click()}>
             Select files
           </Button>
           <input

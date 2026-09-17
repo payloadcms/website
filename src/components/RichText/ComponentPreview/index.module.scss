@@ -101,6 +101,7 @@
 }
 
 .canvas {
+  --base: 20px;
   --base-body-size: 13px;
   --component-preview-padding-block: 3rem;
   --component-preview-padding-inline: 3rem;
@@ -134,6 +135,11 @@
   transition:
     opacity 60ms ease-in,
     transform 60ms ease-in;
+
+  &:has([data-component-preview-size='compact']) {
+    min-height: 0;
+    padding-block: 1.5rem;
+  }
 }
 
 // Keep the preview independent from the website theme. These mappings mirror

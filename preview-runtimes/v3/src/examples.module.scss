@@ -408,7 +408,9 @@
 }
 
 .relationshipFieldPreview {
-  min-height: 18rem;
+  width: 100%;
+  max-width: 36rem;
+  min-height: 12rem;
   align-self: flex-start;
 }
 
@@ -423,6 +425,10 @@
 
   :global(.upload__dropzoneContent__buttons) {
     align-items: center;
+  }
+
+  :global(.upload__dragAndDropText) {
+    margin: 0;
   }
 }
 
