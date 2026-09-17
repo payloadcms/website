@@ -13,7 +13,6 @@ const Demo = () => {
   return (
     <div className={classes.tooltipTarget}>
       <Button
-        buttonStyle="secondary"
         extraButtonProps={{
           onBlur: () => setShow(false),
           onFocus: () => setShow(true),

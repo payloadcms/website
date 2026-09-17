@@ -119,7 +119,6 @@ export const v3ComponentDocumentation: Record<string, ComponentDocumentation> = 
       code: `const [isOpen, setIsOpen] = useState(true)
 
 <Button
-  buttonStyle="secondary"
   extraButtonProps={{ 'aria-controls': 'details-panel', 'aria-expanded': isOpen }}
   margin={false}
   onClick={() => setIsOpen(!isOpen)}
@@ -556,10 +555,8 @@ const selectFiles = (files: FileList) => {
 
 <Dropzone multipleFiles onChange={selectFiles}>
   <Button
-    buttonStyle="secondary"
     margin={false}
     onClick={() => inputRef.current?.click()}
-    size="small"
   >
     Select files
   </Button>
@@ -1273,7 +1270,6 @@ const [timezone, setTimezone] = useState('America/Detroit')
 
 <div style={{ position: 'relative' }}>
   <Button
-    buttonStyle="secondary"
     extraButtonProps={{
       onBlur: () => setShow(false),
       onFocus: () => setShow(true),
