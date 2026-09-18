@@ -34,6 +34,7 @@ import { Slider } from '@blocks/Slider/index'
 import { Statement } from '@blocks/Statement/index'
 import { Steps } from '@blocks/Steps/index'
 import { StickyHighlights } from '@blocks/StickyHighlights/index'
+import { VersionSupportTable } from '@blocks/VersionSupportTable/index'
 import { getFieldsKeyFromBlock } from '@components/RenderBlocks/utilities'
 import { useThemePreference } from '@root/providers/Theme/index'
 import { toKebabCase } from '@utilities/to-kebab-case'
@@ -71,6 +72,7 @@ const blockComponents = {
   statement: Statement,
   steps: Steps,
   stickyHighlights: StickyHighlights,
+  versionSupportTable: VersionSupportTable,
 }
 
 export type BlocksProp = RelatedPostsBlock | ReusableContent['layout'][0] | ReusableContentBlockType
