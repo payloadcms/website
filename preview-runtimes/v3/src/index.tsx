@@ -22,9 +22,5 @@ export function PayloadV3Preview({ component, example, theme }: Props) {
     return <p>Preview unavailable.</p>
   }
 
-  return (
-    <div className="payload-v3-preview" data-theme={theme}>
-      {preview({ theme })}
-    </div>
-  )
+  return <div className="payload-v3-preview">{preview({ theme })}</div>
 }

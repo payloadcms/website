@@ -28,7 +28,7 @@ const OverlayDemo = () => {
 
   return (
     <div className={classes.loadingOverlayDemo}>
-      <Button disabled={show} margin={false} onClick={showOverlay} size="small">
+      <Button disabled={show} margin={false} onClick={showOverlay}>
         Show loading overlay
       </Button>
       <LoadingOverlay animationDuration="200ms" loadingText="Loading" show={show} />
@@ -53,7 +53,7 @@ const SimulatedRouteTransition = () => {
   }
 
   return (
-    <Button margin={false} onClick={beginTransition} size="small">
+    <Button margin={false} onClick={beginTransition}>
       Simulate route transition
     </Button>
   )

@@ -13,7 +13,6 @@ const Demo = () => {
   return (
     <div className={classes.demoPanel}>
       <Button
-        buttonStyle="secondary"
         extraButtonProps={{ 'aria-controls': 'details-panel', 'aria-expanded': isOpen }}
         margin={false}
         onClick={() => setIsOpen(!isOpen)}

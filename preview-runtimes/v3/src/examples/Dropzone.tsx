@@ -20,12 +20,7 @@ const Demo = () => {
     <div className={classes.componentWidth}>
       <Dropzone multipleFiles onChange={selectFiles}>
         <div className={classes.dropzoneContent}>
-          <Button
-            buttonStyle="secondary"
-            margin={false}
-            onClick={() => inputRef.current?.click()}
-            size="small"
-          >
+          <Button margin={false} onClick={() => inputRef.current?.click()}>
             Select files
           </Button>
           <input
@@ -43,8 +38,51 @@ const Demo = () => {
   )
 }
 
+const UploadEmptyStateDemo = () => {
+  const inputRef = useRef<HTMLInputElement>(null)
+  const [fileName, setFileName] = useState<string>()
+
+  const selectFile = (files: FileList) => {
+    setFileName(files[0]?.name)
+  }
+
+  return (
+    <div className={classes.componentWidth}>
+      <Dropzone onChange={selectFile}>
+        <div className={classes.uploadDropzoneContent}>
+          <div className={classes.uploadDropzoneActions}>
+            <Button
+              buttonStyle="pill"
+              margin={false}
+              onClick={() => inputRef.current?.click()}
+              size="small"
+            >
+              Select a file
+            </Button>
+            <input
+              aria-label="Select a file"
+              hidden
+              onChange={(event) => event.target.files && selectFile(event.target.files)}
+              ref={inputRef}
+              type="file"
+            />
+            <span>or</span>
+            <Button buttonStyle="pill" margin={false} size="small">
+              Paste URL
+            </Button>
+          </div>
+          <span>{fileName || 'or drag and drop a file'}</span>
+        </div>
+      </Dropzone>
+    </div>
+  )
+}
+
 export const dropzoneExamples: ComponentRenders = {
   basic: {
     render: () => <Demo />,
+  },
+  uploadEmptyState: {
+    render: () => <UploadEmptyStateDemo />,
   },
 }
