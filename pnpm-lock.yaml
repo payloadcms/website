@@ -165,6 +165,9 @@ importers:
       prism-react-renderer:
         specifier: ^2.3.1
         version: 2.4.1(react@19.2.3)
+      prismjs:
+        specifier: 1.30.0
+        version: 1.30.0
       qs-esm:
         specifier: 7.0.2
         version: 7.0.2
@@ -4231,6 +4234,10 @@ packages:
     resolution: {integrity: sha512-ey8Ls/+Di31eqzUxC46h8MksNuGx/n0AAC8uKpwFau4RPDYLuE3EXTp8N8G2vX2N7UC/+IXeNUnlWBGGcAG+Ig==}
     peerDependencies:
       react: '>=16.0.0'
+
+  prismjs@1.30.0:
+    resolution: {integrity: sha512-DEvV2ZF2r2/63V+tK8hQvrR2ZGn10srHbXviTlcv7Kpzw8jWiNTqbVgjO3IY8RxrrOUF8VPMQQFysYYYv0YZxw==}
+    engines: {node: '>=6'}
 
   process-warning@5.0.0:
     resolution: {integrity: sha512-a39t9ApHNx2L4+HBnQKqxxHNs1r7KF+Intd8Q/g1bUh6q0WIp9voPXJ/x0j+ZL45KF1pJd9+q2jLIRMfvEshkA==}
@@ -10014,6 +10021,8 @@ snapshots:
       '@types/prismjs': 1.26.5
       clsx: 2.1.1
       react: 19.2.3
+
+  prismjs@1.30.0: {}
 
   process-warning@5.0.0: {}
 
