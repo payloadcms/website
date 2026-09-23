@@ -3153,6 +3153,7 @@ export interface ComponentPreviewBlock {
     | 'fallback'
     | 'interactive'
     | 'menu'
+    | 'multiple'
     | 'overlay'
     | 'pagination'
     | 'primary'

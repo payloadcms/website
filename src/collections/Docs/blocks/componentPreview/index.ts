@@ -50,6 +50,7 @@ export const ComponentPreviewBlock: Block = {
         { label: 'Fallback', value: 'fallback' },
         { label: 'Interactive', value: 'interactive' },
         { label: 'Menu', value: 'menu' },
+        { label: 'Multiple', value: 'multiple' },
         { label: 'Overlay', value: 'overlay' },
         { label: 'Pagination', value: 'pagination' },
         { label: 'Primary', value: 'primary' },
