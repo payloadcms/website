@@ -903,6 +903,26 @@ const [value, setValue] = useState(options[0])
 />`,
       design: componentDesigns['ReactSelect']['basic'],
     },
+    multiple: {
+      code: `const options = [
+  { label: 'Posts', value: 'posts' },
+  { label: 'Media', value: 'media' },
+  { label: 'Pages', value: 'pages' },
+  { label: 'Users', value: 'users' },
+]
+
+const [value, setValue] = useState(options.slice(0, 2))
+
+<ReactSelect
+  isMulti
+  isSortable
+  onChange={setValue}
+  options={options}
+  placeholder="Select collections"
+  value={value}
+/>`,
+      design: componentDesigns['ReactSelect']['basic'],
+    },
   },
   RelationshipInputs: {
     relationship: {
