@@ -59,8 +59,24 @@ export const FieldPreviewProviders = ({ children }: { children: React.ReactNode 
   </TranslationProvider>
 )
 
-export const RelationshipPreviewProviders = ({ children }: { children: React.ReactNode }) => (
-  <ConfigProvider config={previewConfig as never}>
+export const RelationshipPreviewProviders = ({
+  apiRoute = previewConfig.routes.api,
+  children,
+}: {
+  apiRoute?: string
+  children: React.ReactNode
+}) => (
+  <ConfigProvider
+    config={
+      {
+        ...previewConfig,
+        routes: {
+          ...previewConfig.routes,
+          api: apiRoute,
+        },
+      } as never
+    }
+  >
     <FieldPreviewProviders>
       <AuthProvider
         permissions={previewPermissions as never}
