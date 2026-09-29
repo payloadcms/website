@@ -101,7 +101,7 @@ export const HeaderIntersectionObserver: React.FC<HeaderIntersectionObserverProp
 
   React.useEffect(() => {
     setHeaderTheme(theme)
-  }, [pathname])
+  }, [pathname, theme])
 
   return (
     <Context
