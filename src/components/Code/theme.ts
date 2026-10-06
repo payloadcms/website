@@ -48,7 +48,11 @@ export const theme: PrismTheme = {
     },
     {
       style: { color: '#7ee787' },
-      types: ['tag'],
+      types: ['inserted', 'tag'],
+    },
+    {
+      style: { color: '#ff7b72' },
+      types: ['deleted'],
     },
     {
       style: { color: '#ffa657' },
