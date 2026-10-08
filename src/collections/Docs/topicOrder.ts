@@ -46,7 +46,15 @@ export const topicOrder: TopicOrder = {
   v3: [
     {
       groupLabel: 'Basics',
-      topics: ['Getting-Started', 'Configuration', 'Database', 'Fields', 'Access-Control', 'Hooks'],
+      topics: [
+        'Getting-Started',
+        'Migration-Guide',
+        'Configuration',
+        'Database',
+        'Fields',
+        'Access-Control',
+        'Hooks',
+      ],
     },
     {
       groupLabel: 'Managing Data',
