@@ -1,5 +1,7 @@
 import type { ComponentExamples } from './types'
 
+import { v4AdditionalComponentExamples } from './v4-additional'
+
 const animateHeightDesign = {
   code: `@layer payload {
   .expandable-content {
@@ -1054,6 +1056,7 @@ const shimmerEffectExamples: ComponentExamples = {
 }
 
 export const v4ComponentExamples: Record<string, ComponentExamples> = {
+  ...v4AdditionalComponentExamples,
   AnimateHeight: animateHeightExamples,
   Banner: bannerExamples,
   Button: buttonExamples,
