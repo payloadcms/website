@@ -1,5 +1,3 @@
-import { PayloadIcon } from '@payloadcms/ui'
-
 import type { ComponentExamples } from './types'
 
 import classes from '../examples.module.scss'
@@ -39,7 +37,7 @@ export function OrderView() {
         },
         {
           name: 'color',
-          description: 'Linked breadcrumb text and inherited icon color.',
+          description: 'Linked breadcrumb text color.',
         },
         {
           name: 'text-decoration-color',
@@ -49,18 +47,18 @@ export function OrderView() {
     },
     render: () => (
       <div className={classes.stepNavDemo}>
-        <nav className="step-nav">
-          <a className="step-nav__home" href="#step-navigation-preview" tabIndex={0}>
-            <span title="Dashboard">
-              <PayloadIcon />
-            </span>
+        <nav aria-label="Breadcrumb" className="step-nav">
+          <a className="step-nav__item step-nav__first" href="#step-navigation-preview">
+            Dashboard
           </a>
-          <span>/</span>
-          <a href="#step-navigation-preview">
-            <span>Orders</span>
+          <span className="step-nav__separator">/</span>
+          <a className="step-nav__item" href="#step-navigation-preview">
+            Orders
           </a>
-          <span>/</span>
-          <span className="step-nav__last">Order #1042</span>
+          <span className="step-nav__separator">/</span>
+          <span aria-current="page" className="step-nav__item step-nav__last">
+            Order #1042
+          </span>
         </nav>
       </div>
     ),
