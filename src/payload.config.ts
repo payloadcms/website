@@ -388,7 +388,7 @@ export default buildConfig({
   endpoints: [
     {
       handler: syncDocs,
-      method: 'get',
+      method: 'post',
       path: '/sync/docs',
     },
     {
