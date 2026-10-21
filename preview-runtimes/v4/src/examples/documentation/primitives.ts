@@ -1,6 +1,4 @@
-import type { ComponentExamples } from './types'
-
-import { v4AdditionalComponentExamples } from './v4-additional'
+import type { ComponentDocumentation } from '../types'
 
 const animateHeightDesign = {
   code: `@layer payload {
@@ -740,7 +738,7 @@ const reactSelectDesign = {
   ],
 }
 
-const animateHeightExamples: ComponentExamples = {
+const animateHeightExamples: ComponentDocumentation = {
   interactive: {
     code: `const [isOpen, setIsOpen] = useState(true)
 
@@ -759,7 +757,7 @@ const animateHeightExamples: ComponentExamples = {
   },
 }
 
-const buttonExamples: ComponentExamples = {
+const buttonExamples: ComponentDocumentation = {
   disabled: {
     code: `<Button disabled margin={false}>Save changes</Button>`,
     design: buttonDisabledDesign,
@@ -784,7 +782,7 @@ const buttonExamples: ComponentExamples = {
   },
 }
 
-const cardExamples: ComponentExamples = {
+const cardExamples: ComponentDocumentation = {
   actions: {
     code: `<Card
   actions={
@@ -807,7 +805,7 @@ const cardExamples: ComponentExamples = {
   },
 }
 
-const collapsibleExamples: ComponentExamples = {
+const collapsibleExamples: ComponentDocumentation = {
   basic: {
     code: `<Collapsible header="Collapsible header">
   Collapsible content
@@ -822,7 +820,7 @@ const collapsibleExamples: ComponentExamples = {
   },
 }
 
-const copyToClipboardExamples: ComponentExamples = {
+const copyToClipboardExamples: ComponentDocumentation = {
   basic: {
     code: `<span>post_123456789</span>
 <CopyToClipboard
@@ -834,7 +832,7 @@ const copyToClipboardExamples: ComponentExamples = {
   },
 }
 
-const datePickerExamples: ComponentExamples = {
+const datePickerExamples: ComponentDocumentation = {
   basic: {
     code: `const [value, setValue] = useState<Date>()
 
@@ -849,7 +847,7 @@ const datePickerExamples: ComponentExamples = {
   },
 }
 
-const errorPillExamples: ComponentExamples = {
+const errorPillExamples: ComponentDocumentation = {
   counts: {
     code: `const { i18n } = useTranslation()
 
@@ -861,7 +859,7 @@ const errorPillExamples: ComponentExamples = {
   },
 }
 
-const bannerExamples: ComponentExamples = {
+const bannerExamples: ComponentDocumentation = {
   basic: {
     code: `<Banner>Review these changes before publishing.</Banner>`,
     design: bannerDesign,
@@ -876,7 +874,7 @@ const bannerExamples: ComponentExamples = {
   },
 }
 
-const gutterExamples: ComponentExamples = {
+const gutterExamples: ComponentDocumentation = {
   basic: {
     code: `<Gutter>
   <div>Content aligned to the Admin Panel gutter</div>
@@ -885,7 +883,7 @@ const gutterExamples: ComponentExamples = {
   },
 }
 
-const linkExamples: ComponentExamples = {
+const linkExamples: ComponentDocumentation = {
   basic: {
     code: `<Link className="custom-admin-link" href="/admin/collections/posts">
   View posts
@@ -894,7 +892,7 @@ const linkExamples: ComponentExamples = {
   },
 }
 
-const listAndPaginationExamples: ComponentExamples = {
+const listAndPaginationExamples: ComponentDocumentation = {
   pagination: {
     code: `const [page, setPage] = useState(4)
 const totalPages = 12
@@ -912,7 +910,7 @@ const totalPages = 12
   },
 }
 
-const motionAndLoadingExamples: ComponentExamples = {
+const motionAndLoadingExamples: ComponentDocumentation = {
   overlay: {
     code: `const [show, setShow] = useState(false)
 
@@ -938,7 +936,7 @@ const motionAndLoadingExamples: ComponentExamples = {
   },
 }
 
-const pillExamples: ComponentExamples = {
+const pillExamples: ComponentDocumentation = {
   shapes: {
     code: `<Pill>Default</Pill>
 <Pill rounded>Rounded</Pill>`,
@@ -959,7 +957,7 @@ const pillExamples: ComponentExamples = {
   },
 }
 
-const pillSelectorExamples: ComponentExamples = {
+const pillSelectorExamples: ComponentDocumentation = {
   interactive: {
     code: `const [pills, setPills] = useState([
   { name: 'Posts', selected: true },
@@ -983,7 +981,7 @@ const pillSelectorExamples: ComponentExamples = {
   },
 }
 
-const reactSelectExamples: ComponentExamples = {
+const reactSelectExamples: ComponentDocumentation = {
   basic: {
     code: `import type { ReactSelectOption } from '@payloadcms/ui'
 
@@ -1042,7 +1040,7 @@ const handleChange = (
   },
 }
 
-const shimmerEffectExamples: ComponentExamples = {
+const shimmerEffectExamples: ComponentDocumentation = {
   basic: {
     code: `<ShimmerEffect height={60} width="100%" />`,
     design: shimmerDesign,
@@ -1055,8 +1053,7 @@ const shimmerEffectExamples: ComponentExamples = {
   },
 }
 
-export const v4ComponentExamples: Record<string, ComponentExamples> = {
-  ...v4AdditionalComponentExamples,
+export const primitiveDocumentation: Record<string, ComponentDocumentation> = {
   AnimateHeight: animateHeightExamples,
   Banner: bannerExamples,
   Button: buttonExamples,

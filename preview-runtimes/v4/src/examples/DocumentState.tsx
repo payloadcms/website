@@ -1,36 +1,12 @@
 'use client'
-
 import { en } from '@payloadcms/translations/languages/en'
 import { Button } from '@payloadcms/ui/elements/Button'
 import { Locked } from '@payloadcms/ui/elements/Locked'
 import { TranslationProvider } from '@payloadcms/ui/providers/Translation'
 
-import type { ComponentDesign, ComponentExamples } from './types'
+import type { ComponentRenders } from './types'
 
 import classes from '../examples.module.scss'
-
-const modalStateDesign: ComponentDesign = {
-  code: `.document-locked,
-.document-take-over {
-  background: rgb(255 255 255 / 88%);
-  backdrop-filter: blur(8px);
-}
-
-.document-locked__wrapper,
-.document-take-over__wrapper {
-  border: 1px solid #c8c0ff;
-  border-radius: 8px;
-}`,
-  description:
-    'Target each document-state surface and its inner wrapper to customize the interruption without changing its permission or navigation behavior.',
-  variables: [
-    { name: 'background', description: 'Surface displayed over the interrupted Edit View.' },
-    { name: 'backdrop-filter', description: 'Visual separation from the underlying document.' },
-    { name: 'border', description: 'Optional outline around the state message.' },
-    { name: 'border-radius', description: 'State message corner radius.' },
-  ],
-}
-
 const PreviewTranslationProvider = ({ children }: { children: React.ReactNode }) => (
   <TranslationProvider
     dateFNSKey="en-US"
@@ -42,18 +18,8 @@ const PreviewTranslationProvider = ({ children }: { children: React.ReactNode })
     {children}
   </TranslationProvider>
 )
-
-export const documentStateExamples: ComponentExamples = {
+export const documentStateExamples: ComponentRenders = {
   lockedDocument: {
-    code: `<DocumentLocked
-  handleGoBack={() => router.back()}
-  isActive={isLocked}
-  onReadOnly={() => setReadOnly(true)}
-  onTakeOver={takeOverDocument}
-  updatedAt={lockedAt}
-  user={lockingUser}
-/>`,
-    design: modalStateDesign,
     render: () => (
       <div className={classes.documentStatePanel}>
         <div className="document-locked__wrapper">
@@ -81,24 +47,6 @@ export const documentStateExamples: ComponentExamples = {
     ),
   },
   lockIndicator: {
-    code: `<Locked user={lockingUser} />`,
-    design: {
-      code: `.locked {
-  color: #6d5dfc;
-  background: #f3f1ff;
-  border: 1px solid #c8c0ff;
-  border-radius: 999px;
-  padding: 0.35rem;
-}`,
-      description:
-        'Style the compact Locked indicator directly while preserving its built-in editor tooltip.',
-      variables: [
-        { name: 'color', description: 'Lock icon color.' },
-        { name: 'background', description: 'Indicator surface.' },
-        { name: 'border', description: 'Indicator outline.' },
-        { name: 'padding', description: 'Clickable area around the lock icon.' },
-      ],
-    },
     render: () => (
       <PreviewTranslationProvider>
         <Locked
@@ -115,12 +63,6 @@ export const documentStateExamples: ComponentExamples = {
     ),
   },
   takenOver: {
-    code: `<DocumentTakeOver
-  handleBackToDashboard={() => router.push('/admin')}
-  isActive={hasLostEditAccess}
-  onReadOnly={() => setReadOnly(true)}
-/>`,
-    design: modalStateDesign,
     render: () => (
       <div className={classes.documentStatePanel}>
         <div className="document-take-over__wrapper">

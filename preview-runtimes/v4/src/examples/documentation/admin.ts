@@ -1,4 +1,4 @@
-import type { ComponentExamples } from './types'
+import type { ComponentDocumentation } from '../types'
 
 const dropzoneDesign = {
   code: `@layer payload {
@@ -17,7 +17,7 @@ const dropzoneDesign = {
   ],
 }
 
-export const v4AdditionalComponentExamples: Record<string, ComponentExamples> = {
+export const adminDocumentation: Record<string, ComponentDocumentation> = {
   ChoiceInputs: {
     checkbox: {
       code: `const [checked, setChecked] = useState(true)
