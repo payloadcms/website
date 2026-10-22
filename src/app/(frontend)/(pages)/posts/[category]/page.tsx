@@ -1,8 +1,8 @@
 import { Archive } from '@components/Archive'
+import { PayloadRedirects } from '@components/PayloadRedirects'
 import { fetchArchive, fetchArchives } from '@data'
 import { unstable_cache } from 'next/cache'
 import { draftMode } from 'next/headers'
-import { notFound } from 'next/navigation'
 import React from 'react'
 
 export default async ({
@@ -18,13 +18,19 @@ export default async ({
     ? await fetchArchive(category, draft)
     : await unstable_cache(fetchArchive, [`${category}-archive`])(category, draft)
 
+  const url = `/posts/${category}`
   const posts = archive?.posts?.docs
 
   if (!archive || !posts) {
-    notFound()
+    return <PayloadRedirects url={url} />
   }
 
-  return <Archive category={category} />
+  return (
+    <>
+      <PayloadRedirects disableNotFound url={url} />
+      <Archive category={category} />
+    </>
+  )
 }
 
 export const generateStaticParams = async () => {
