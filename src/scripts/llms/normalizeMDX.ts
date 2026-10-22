@@ -1,5 +1,5 @@
 import { v3ComponentDocumentation } from '../../../preview-runtimes/v3/src/examples/documentation'
-import { v4ComponentExamples } from '../../components/RichText/ComponentPreview/examples/v4'
+import { v4ComponentDocumentation } from '../../../preview-runtimes/v4/src/examples/documentation'
 
 type DocsVersion = 'v3' | 'v4'
 
@@ -20,7 +20,7 @@ type PreviewDocumentation = Record<
 
 const previewDocumentation: Record<DocsVersion, PreviewDocumentation> = {
   v3: v3ComponentDocumentation,
-  v4: v4ComponentExamples,
+  v4: v4ComponentDocumentation,
 }
 
 function getStringAttribute(source: string, name: string): string | undefined {

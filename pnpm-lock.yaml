@@ -283,6 +283,9 @@ importers:
 
   preview-runtimes/v4:
     dependencies:
+      '@faceless-ui/modal':
+        specifier: 3.0.2
+        version: 3.0.2(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       '@payloadcms/translations':
         specifier: 4.0.0-canary.14
         version: 4.0.0-canary.14
@@ -902,6 +905,12 @@ packages:
 
   '@faceless-ui/modal@3.0.1':
     resolution: {integrity: sha512-fRPQPXZlND6nw4ubwOmHns9kwemcrrebh2PioJ1w8T/XuRO9s0QvYSzj7y0GI/ZwD8Zl0VKSMgcQSAigw6ekrg==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+
+  '@faceless-ui/modal@3.0.2':
+    resolution: {integrity: sha512-2BK5ipSTIejnpAH4MsZ8aX9g7HxQrFybPpTAPVq8/RDRXxxShfwOuuhuxOx7KyZ1nWHtMGTWFpB0wkCAtg037w==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
@@ -5812,6 +5821,14 @@ snapshots:
       react-transition-group: 4.4.5(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
 
   '@faceless-ui/modal@3.0.1(react-dom@19.2.3(react@19.2.3))(react@19.2.3)':
+    dependencies:
+      body-scroll-lock: 4.0.0-beta.0
+      focus-trap: 7.5.4
+      react: 19.2.3
+      react-dom: 19.2.3(react@19.2.3)
+      react-transition-group: 4.4.5(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+
+  '@faceless-ui/modal@3.0.2(react-dom@19.2.3(react@19.2.3))(react@19.2.3)':
     dependencies:
       body-scroll-lock: 4.0.0-beta.0
       focus-trap: 7.5.4
