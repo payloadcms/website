@@ -29,22 +29,22 @@ export const adminDocumentation: Record<string, ComponentDocumentation> = {
   onToggle={(event) => setChecked(event.target.checked)}
 />`,
       design: {
-        code: `.checkbox-input__input {
-  border-color: var(--color-border);
-  border-radius: 4px;
+        code: `.checkbox-input__visuals {
+  --checkbox-border-color: var(--color-border);
+  border-radius: var(--radius-small);
 }
 
-.checkbox-input--checked .checkbox-input__input {
-  background: var(--color-text);
-  color: var(--color-text-onbrand);
+.checkbox-input__control:checked + .checkbox-input__visuals {
+  --checkbox-bg: var(--color-bg-brand);
+  --checkbox-mark-color: var(--color-icon-onbrand);
 }`,
         description:
-          'Style the checkbox control and its checked modifier while leaving the native input and label connection intact.',
+          'Customize the v4 checkbox visuals through their component variables while leaving the native input and label connection intact.',
         variables: [
-          { name: 'background', description: 'Checked control surface.' },
-          { name: 'border-color', description: 'Checkbox outline.' },
+          { name: '--checkbox-bg', description: 'Checked control surface.' },
+          { name: '--checkbox-border-color', description: 'Checkbox outline.' },
+          { name: '--checkbox-mark-color', description: 'Check icon color.' },
           { name: 'border-radius', description: 'Checkbox corner radius.' },
-          { name: 'color', description: 'Check icon color.' },
         ],
       },
     },
@@ -116,26 +116,28 @@ const [value, setValue] = useState('in-progress')
 <PublishButton />`,
       design: {
         code: `#action-save-draft.btn--style-secondary {
-  --color: #6d5dfc;
-  --btn-border: 1px solid #6d5dfc;
-  --hover-color: #5947e5;
-  --hover-btn-border: 1px solid #5947e5;
+  color: var(--color-text-brand);
+  border-color: var(--color-border-brand-strong);
 }
 
-#action-publish.btn--style-primary {
-  --bg-color: #6d5dfc;
-  --color: #ffffff;
-  --hover-bg: #5947e5;
-  --hover-color: #ffffff;
+#action-save-draft.btn--style-secondary:hover:not(.btn--disabled) {
+  background-color: var(--color-bg-brand-tertiary);
+}
+
+#action-save.btn--style-primary {
+  color: var(--color-text-onbrand);
+  background-color: var(--color-bg-brand);
+}
+
+#action-save.btn--style-primary:hover:not(.btn--disabled) {
+  background-color: var(--color-bg-brand-hover);
 }`,
         description:
           'Use the stable action IDs together with Button style classes when Save and Publish controls need treatment distinct from other Admin buttons.',
         variables: [
-          { name: '--bg-color', description: 'Primary action background.' },
-          { name: '--color', description: 'Action label color.' },
-          { name: '--hover-bg', description: 'Primary action background on interaction.' },
-          { name: '--btn-border', description: 'Secondary action border.' },
-          { name: '--hover-btn-border', description: 'Secondary action border on interaction.' },
+          { name: 'background-color', description: 'Action background.' },
+          { name: 'border-color', description: 'Secondary action border.' },
+          { name: 'color', description: 'Action label color.' },
         ],
       },
     },
@@ -143,18 +145,18 @@ const [value, setValue] = useState('in-progress')
       code: `<SaveButton />`,
       design: {
         code: `#action-save.btn--style-primary {
-  --bg-color: #6d5dfc;
-  --color: #ffffff;
-  --hover-bg: #5947e5;
-  --hover-color: #ffffff;
+  color: var(--color-text-onbrand);
+  background-color: var(--color-bg-brand);
+}
+
+#action-save.btn--style-primary:hover:not(.btn--disabled) {
+  background-color: var(--color-bg-brand-hover);
 }`,
         description:
           'Use the Save action ID together with its Button style class when the document Save control needs treatment distinct from other primary Admin buttons.',
         variables: [
-          { name: '--bg-color', description: 'Save action background.' },
-          { name: '--color', description: 'Save action label color.' },
-          { name: '--hover-bg', description: 'Save action background on interaction.' },
-          { name: '--hover-color', description: 'Save action label color on interaction.' },
+          { name: 'background-color', description: 'Save action background.' },
+          { name: 'color', description: 'Save action label color.' },
         ],
       },
     },
@@ -170,19 +172,17 @@ const [value, setValue] = useState('in-progress')
   user={lockingUser}
 />`,
       design: {
-        code: `.document-locked,
-.document-take-over {
+        code: `dialog[data-payload-modal-slug='document-locked'] {
   background: rgb(255 255 255 / 88%);
   backdrop-filter: blur(8px);
 }
 
-.document-locked__wrapper,
-.document-take-over__wrapper {
+dialog[data-payload-modal-slug='document-locked'] > .dialog {
   border: 1px solid #c8c0ff;
   border-radius: 8px;
 }`,
         description:
-          'Target each document-state surface and its inner wrapper to customize the interruption without changing its permission or navigation behavior.',
+          'Target the document lock dialog by its stable modal slug to customize the interruption without changing its permission or navigation behavior.',
         variables: [
           { name: 'background', description: 'Surface displayed over the interrupted Edit View.' },
           {
@@ -221,19 +221,17 @@ const [value, setValue] = useState('in-progress')
   onReadOnly={() => setReadOnly(true)}
 />`,
       design: {
-        code: `.document-locked,
-.document-take-over {
+        code: `dialog[data-payload-modal-slug='document-take-over'] {
   background: rgb(255 255 255 / 88%);
   backdrop-filter: blur(8px);
 }
 
-.document-locked__wrapper,
-.document-take-over__wrapper {
+dialog[data-payload-modal-slug='document-take-over'] > .dialog {
   border: 1px solid #c8c0ff;
   border-radius: 8px;
 }`,
         description:
-          'Target each document-state surface and its inner wrapper to customize the interruption without changing its permission or navigation behavior.',
+          'Target the document takeover dialog by its stable modal slug to customize the interruption without changing its permission or navigation behavior.',
         variables: [
           { name: 'background', description: 'Surface displayed over the interrupted Edit View.' },
           {
@@ -277,6 +275,7 @@ export function SortableList() {
 
   return (
     <DraggableSortable
+      className="sortable-list"
       ids={items.map(({ id }) => id)}
       onDragEnd={({ moveFromIndex, moveToIndex }) => {
         setItems((current) => moveItem(current, moveFromIndex, moveToIndex))
@@ -286,6 +285,7 @@ export function SortableList() {
         <DraggableSortableItem id={id} key={id}>
           {({ attributes, isDragging, listeners, setNodeRef, transform, transition }) => (
             <div
+              className="sortable-item"
               ref={setNodeRef}
               style={{ opacity: isDragging ? 0.6 : 1, transform, transition }}
             >
@@ -493,10 +493,10 @@ const selectFile = (files: FileList) => {
 export function Toolbar() {
   return (
     <div className="toolbar">
-      <span aria-hidden="true"><PlusIcon /></span>
-      <span aria-hidden="true"><EditIcon /></span>
-      <span aria-hidden="true"><CopyIcon /></span>
-      <span aria-hidden="true"><SearchIcon /></span>
+      <span aria-hidden="true" className="toolbar-icon"><PlusIcon /></span>
+      <span aria-hidden="true" className="toolbar-icon"><EditIcon /></span>
+      <span aria-hidden="true" className="toolbar-icon"><CopyIcon /></span>
+      <span aria-hidden="true" className="toolbar-icon"><SearchIcon /></span>
     </div>
   )
 }`,

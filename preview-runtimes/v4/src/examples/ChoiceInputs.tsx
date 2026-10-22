@@ -2,10 +2,8 @@
 
 import type { Option } from '@payloadcms/ui/elements/ReactSelect'
 
-import { ReactSelect } from '@payloadcms/ui/elements/ReactSelect'
 import { CheckboxInput } from '@payloadcms/ui/fields/Checkbox'
-import { FieldDescription } from '@payloadcms/ui/fields/FieldDescription'
-import { FieldLabel } from '@payloadcms/ui/fields/FieldLabel'
+import { SelectInput } from '@payloadcms/ui/fields/Select'
 import { useState } from 'react'
 
 import type { ComponentRenders } from './types'
@@ -33,26 +31,18 @@ const CheckboxInputDemo = () => {
 }
 
 const SelectInputDemo = () => {
-  const [value, setValue] = useState<Option<string>>(options[1])
+  const [value, setValue] = useState('in-progress')
 
   return (
-    <div className="field-type select" data-size="large">
-      <FieldLabel htmlFor="status" label="Status" />
-      <div className="field-type__wrap">
-        <ReactSelect
-          aria-label="Status"
-          inputId="status"
-          menuPortalTarget={null}
-          onChange={(option) => setValue(option as Option<string>)}
-          options={options}
-          value={value}
-        />
-      </div>
-      <FieldDescription
-        description="Controls where the project appears in the workflow."
-        path="status"
-      />
-    </div>
+    <SelectInput
+      description="Controls where the project appears in the workflow."
+      label="Status"
+      name="status"
+      onChange={(option) => setValue((option as null | Option<string>)?.value || '')}
+      options={options}
+      path="status"
+      value={value}
+    />
   )
 }
 
