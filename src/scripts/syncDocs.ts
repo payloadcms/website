@@ -5,6 +5,7 @@ import { sanitizeServerEditorConfig } from '@payloadcms/richtext-lexical'
 import { contentLexicalEditorFeatures } from '@root/collections/Docs'
 import { versionToBranch } from '@root/collections/Docs/branchForVersion'
 import { mdxToLexical } from '@root/collections/Docs/mdxToLexical'
+import { topicOrder } from '@root/collections/Docs/topicOrder'
 
 import { fetchDocs } from './fetchDocs'
 
@@ -111,18 +112,61 @@ const importTopicGroups: (args: {
   return { createdOrUpdatedDocs }
 }
 
+const validateTopicGroups = ({
+  topicGroups,
+  version,
+}: {
+  topicGroups: TopicGroup[]
+  version: keyof typeof versionToBranch
+}): void => {
+  // The legacy 2.x navigation still contains this topic, but the directory does not exist
+  // on the 2.x branch. All other configured topics must be present and contain documents.
+  const optionalTopics = version === 'v2' ? new Set(['experimental']) : new Set<string>()
+  const fetchedTopics = new Map(
+    topicGroups.flatMap(({ topics }) =>
+      topics.map((topic) => [topic.slug, topic.docs.length] as const),
+    ),
+  )
+  const missingTopics = topicOrder[version]
+    .flatMap(({ topics }) => topics.map((topic) => topic.toLowerCase()))
+    .filter((topic) => !optionalTopics.has(topic) && !fetchedTopics.get(topic))
+
+  if (missingTopics.length > 0) {
+    throw new Error(
+      `Refusing to sync incomplete ${version} documentation. Missing or empty topics: ${missingTopics.join(', ')}`,
+    )
+  }
+}
+
 export const syncDocs: PayloadHandler = async (req) => {
   const { payload } = req
 
   try {
+    const isAdmin = req.user?.collection === 'users' && req.user.roles?.includes('admin')
+    const providedSecret = req.headers.get('x-release-secret')
+    const isAutomation = Boolean(
+      process.env.PAYLOAD_RELEASE_SECRET && providedSecret === process.env.PAYLOAD_RELEASE_SECRET,
+    )
+
+    if (!isAdmin && !isAutomation) {
+      return Response.json({ message: 'Unauthorized', success: false }, { status: 401 })
+    }
+
     if (!process.env.GITHUB_ACCESS_TOKEN) {
-      return new Response('No GitHub access token found', { status: 400 })
+      return Response.json(
+        { message: 'No GitHub access token found', success: false },
+        { status: 400 },
+      )
     }
     try {
       // fetchDocs uses module-level source context, so keep these calls sequential.
       const allV4Docs = await fetchDocs({ ref: versionToBranch.v4, version: 'v4' })
       const allV3Docs = await fetchDocs({ ref: versionToBranch.v3, version: 'v3' })
       const allV2Docs = await fetchDocs({ ref: versionToBranch.v2, version: 'v2' })
+
+      validateTopicGroups({ topicGroups: allV4Docs, version: 'v4' })
+      validateTopicGroups({ topicGroups: allV3Docs, version: 'v3' })
+      validateTopicGroups({ topicGroups: allV2Docs, version: 'v2' })
 
       const createdOrUpdatedDocs: string[] = []
       createdOrUpdatedDocs.push(
@@ -148,10 +192,11 @@ export const syncDocs: PayloadHandler = async (req) => {
       throw new Error(err)
     }
 
-    return new Response(JSON.stringify({ success: true }), { status: 200 })
+    return Response.json({ success: true }, { status: 200 })
   } catch (err: unknown) {
     console.error('Error syncing docs', err)
-    return new Response(JSON.stringify({ message: err, success: false }), { status: 400 })
+    const message = err instanceof Error ? err.message : String(err)
+    return Response.json({ message, success: false }, { status: 500 })
   }
 }
 
