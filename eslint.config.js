@@ -61,6 +61,14 @@ const config = [
     },
   },
   {
+    files: ['tests/*.mjs'],
+    languageOptions: {
+      parserOptions: {
+        projectService: { allowDefaultProject: ['tests/*.mjs'] },
+      },
+    },
+  },
+  {
     name: 'Next.js pages',
     rules: {
       'no-restricted-exports': 'off',

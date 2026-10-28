@@ -28,7 +28,7 @@ const PostPage = async ({
 
   const blogPost = await getPost(slug, category, draft)
 
-  const url = `/${category}/${slug}`
+  const url = `/posts/${category}/${slug}`
 
   if (!blogPost) {
     return <PayloadRedirects url={url} />
@@ -105,7 +105,7 @@ export async function generateMetadata({
           ]
         : undefined,
       title: post?.meta?.title ?? undefined,
-      url: `/${category}/${slug}`,
+      url: `/posts/${category}/${slug}`,
     }),
     title: post?.meta?.title ?? post?.title ?? undefined,
   }
