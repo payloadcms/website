@@ -1,18 +1,15 @@
 'use client'
 
+import type { MediaProps } from '@components/Media/types'
 import type { StaticImageData } from 'next/image'
 
+import { standardSizes } from '@utilities/image-sizes'
 import NextImage from 'next/image'
-import React, { useState } from 'react'
+import React from 'react'
 
-import type { Props } from '../types'
-
-import cssVariables from '../../../../cssVariables.cjs'
 import classes from './index.module.scss'
 
-const { breakpoints } = cssVariables
-
-export const Image: React.FC<Props> = (props) => {
+export const Image: React.FC<MediaProps> = (props) => {
   const {
     alt: altFromProps,
     fill,
@@ -27,12 +24,13 @@ export const Image: React.FC<Props> = (props) => {
     width: widthFromProps,
   } = props
 
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = React.useState(true)
 
   let width: null | number | undefined = widthFromProps
   let height: null | number | undefined = heightFromProps
   let alt = altFromProps
   let src: null | StaticImageData | string | undefined = srcFromProps
+  const sizes = sizesFromProps || standardSizes
 
   const hasDarkModeFallback =
     resource?.darkModeFallback &&
@@ -46,13 +44,6 @@ export const Image: React.FC<Props> = (props) => {
     alt = resource.alt
     src = resource.url
   }
-
-  // NOTE: this is used by the browser to determine which image to download at different screen sizes
-  const sizes =
-    sizesFromProps ||
-    Object.entries(breakpoints)
-      .map(([, value]) => `(max-width: ${value}px) ${value}px`)
-      .join(', ')
 
   const baseClasses = [
     isLoading && classes.placeholder,
