@@ -1,5 +1,9 @@
 name: on-payload-release
 
+concurrency:
+  cancel-in-progress: false
+  group: on-payload-release
+
 on:
   workflow_dispatch:
   repository_dispatch:
@@ -14,22 +18,33 @@ jobs:
         if: ${{ github.event_name != 'workflow_dispatch' }}
         run: 'echo "Event received: ${{ toJson(github.event.client_payload) }}"'
 
-      - name: Slack notification to sync docs
-        uses: slackapi/slack-github-action@v2.1.1
-        with:
-          webhook: ${{ secrets.SLACK_WEBHOOK_WEBSITE_CHANNEL }}
-          webhook-type: incoming-webhook
-          payload: |
-            {
-              "text": "👀 New version of Payload released. Please sync the docs in the Payload CMS Admin."
-            }
-
       - name: Fetch latest Payload release
         id: release
         run: |
           RELEASE=$(curl -s https://api.github.com/repos/payloadcms/payload/releases/latest)
           echo "version=$(echo "$RELEASE" | jq -r '.tag_name')" >> $GITHUB_OUTPUT
           echo "$RELEASE" | jq -r '.body' > /tmp/release_body.txt
+
+      - name: Sync documentation
+        id: sync_docs
+        continue-on-error: true
+        run: |
+          curl -X POST \
+            -H "X-Release-Secret: ${{ secrets.PAYLOAD_RELEASE_SECRET }}" \
+            -H "x-vercel-protection-bypass: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}" \
+            --fail-with-body \
+            "${{ secrets.PAYLOAD_WEBSITE_URL }}/api/sync/docs"
+
+      - name: Notify Slack when documentation sync fails
+        if: ${{ always() && steps.sync_docs.outcome == 'failure' }}
+        uses: slackapi/slack-github-action@v2.1.1
+        with:
+          webhook: ${{ secrets.SLACK_WEBHOOK_WEBSITE_CHANNEL }}
+          webhook-type: incoming-webhook
+          payload: |
+            {
+              "text": "🚨 Payload docs failed to sync after release ${{ steps.release.outputs.version }}. Review the workflow run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            }
 
       - name: Create release post draft
         run: |
@@ -44,3 +59,7 @@ jobs:
             --data-binary @- \
             --fail-with-body \
             "${{ secrets.PAYLOAD_WEBSITE_URL }}/api/create-release-post"
+
+      - name: Fail workflow when documentation sync fails
+        if: ${{ always() && steps.sync_docs.outcome == 'failure' }}
+        run: exit 1

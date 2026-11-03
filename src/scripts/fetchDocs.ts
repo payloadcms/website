@@ -108,14 +108,26 @@ async function getFilenames({ topicSlug }): Promise<string[]> {
 
 async function getDocMatter({ docFilename, topicSlug }) {
   if (source === 'github') {
-    const json: GithubAPIResponse = await fetch(
+    const response = await fetch(
       `${githubAPI}/contents/docs/${topicSlug}/${docFilename}?ref=${ref}`,
       {
         headers,
       },
-    ).then((res) => res.json())
+    )
 
-    if (!json.content) return null
+    if (!response.ok) {
+      throw new Error(
+        `Failed to fetch ${version} documentation file ${topicSlug}/${docFilename}: ${response.status} ${response.statusText}`,
+      )
+    }
+
+    const json: GithubAPIResponse = await response.json()
+
+    if (!json.content) {
+      throw new Error(
+        `GitHub returned no content for ${version} documentation file ${topicSlug}/${docFilename}`,
+      )
+    }
 
     const parsedDoc = matter(decodeBase64(json.content))
     parsedDoc.content = parsedDoc.content

@@ -1,11 +1,11 @@
 'use client'
 
+import type { ComponentExample } from '@payloadcms/v4-preview-runtime'
+
 import Code from '@components/Code'
 import { useThemePreference } from '@root/providers/Theme/index'
 import { Check, Copy } from 'lucide-react'
 import React, { useEffect, useId, useRef, useState } from 'react'
-
-import type { ComponentExample } from './examples/types'
 
 import classes from './index.module.scss'
 

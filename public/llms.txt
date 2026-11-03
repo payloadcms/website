@@ -23,6 +23,10 @@
 - [Payload Concepts](https://payloadcms.com/docs/v3/getting-started/concepts.md): Payload is based around a small and intuitive set of concepts. Key concepts include collections, globals, fields and more.
 - [Installation](https://payloadcms.com/docs/v3/getting-started/installation.md): To quickly get started with Payload, simply run npx create-payload-app or install from scratch.
 
+#### Migration Guide
+
+- [2.0 to 3.0 Migration Guide](https://payloadcms.com/docs/v3/migration-guide/overview.md): Upgrade guide for Payload 2.x projects migrating to 3.0.
+
 #### Configuration
 
 - [The Payload Config](https://payloadcms.com/docs/v3/configuration/overview.md): The Payload Config is central to everything that Payload does, from adding custom React components, to modifying collections, controlling localization and much more.
@@ -143,14 +147,20 @@
 - [Banner](https://payloadcms.com/docs/v3/ui-components/banner.md): Display contextual information and status messages with Payload's Banner component.
 - [Button](https://payloadcms.com/docs/v3/ui-components/button.md): Use Payload's Button component for actions and navigation in Admin Panel Custom Components.
 - [Card](https://payloadcms.com/docs/v3/ui-components/card.md): Group a title and related actions with Payload's Card component.
+- [Checkbox and Select Inputs](https://payloadcms.com/docs/v3/ui-components/checkbox-and-select-inputs.md): Build custom boolean and option controls with Payload's CheckboxInput and SelectInput components.
 - [CodeEditor](https://payloadcms.com/docs/v3/ui-components/code-editor.md): Display and edit structured text with Payload's CodeEditor component.
 - [Collapsible](https://payloadcms.com/docs/v3/ui-components/collapsible.md): Show and hide a section of content with Payload's Collapsible component.
 - [CopyToClipboard](https://payloadcms.com/docs/v3/ui-components/copy-to-clipboard.md): Copy a string to the clipboard with Payload's CopyToClipboard component.
 - [DatePicker](https://payloadcms.com/docs/v3/ui-components/date-picker.md): Select dates and times with Payload's DatePicker component.
+- [Document Actions](https://payloadcms.com/docs/v3/ui-components/document-actions.md): Use Payload's context-aware save, publish, and bulk document actions in Admin Panel Custom Components.
+- [Document State](https://payloadcms.com/docs/v3/ui-components/document-state.md): Communicate document locks, editing takeovers, and unsaved changes in the Payload Admin Panel.
+- [Draggable Sortable](https://payloadcms.com/docs/v3/ui-components/draggable-sortable.md): Reorder custom Admin Panel content with Payload's drag-and-drop components.
 - [Dropzone](https://payloadcms.com/docs/v3/ui-components/dropzone.md): Accept files through drag, drop, and paste interactions with Payload's Dropzone component.
 - [ErrorPill](https://payloadcms.com/docs/v3/ui-components/error-pill.md): Display a compact validation error count with Payload's ErrorPill component.
+- [Field Labels and Messages](https://payloadcms.com/docs/v3/ui-components/field-labels-and-messages.md): Add Payload field labels, descriptions, and validation messages to Custom Components.
 - [Gutter](https://payloadcms.com/docs/v3/ui-components/gutter.md): Align content to Payload's horizontal Admin Panel gutters.
 - [Hamburger](https://payloadcms.com/docs/v3/ui-components/hamburger.md): Display Payload's open and close navigation icons with the Hamburger component.
+- [Icons](https://payloadcms.com/docs/v3/ui-components/icons.md): Use Payload's exported icons in Custom Views, controls, and other Admin Panel UI.
 - [Link](https://payloadcms.com/docs/v3/ui-components/link.md): Navigate within the Payload Admin Panel using Payload's router-aware Link component.
 - [List and Pagination Controls](https://payloadcms.com/docs/v3/ui-components/list-and-pagination-controls.md): Add pagination, page-size, sorting, and selection controls to Payload Admin lists.
 - [Modals and Drawers](https://payloadcms.com/docs/v3/ui-components/modals-and-drawers.md): Present focused actions and supporting content in Payload modals and drawers.
@@ -160,13 +170,18 @@
 - [PillSelector](https://payloadcms.com/docs/v3/ui-components/pill-selector.md): Let users select one or more compact options with Payload's PillSelector component.
 - [Popup](https://payloadcms.com/docs/v3/ui-components/popup.md): Display an anchored menu or custom surface with Payload's Popup component.
 - [ReactSelect](https://payloadcms.com/docs/v3/ui-components/react-select.md): Select one or more options with Payload's ReactSelect component.
+- [Relationship and Upload Inputs](https://payloadcms.com/docs/v3/ui-components/relationship-and-upload-inputs.md): Select related documents and media from Custom Fields with Payload's RelationshipInput and UploadInput components.
 - [SearchBar](https://payloadcms.com/docs/v3/ui-components/search-filter.md): Add a complete, debounced search control with Payload's SearchBar component.
 - [ShimmerEffect](https://payloadcms.com/docs/v3/ui-components/shimmer-effect.md): Represent loading content with Payload's ShimmerEffect component.
+- [Step Navigation](https://payloadcms.com/docs/v3/ui-components/step-navigation.md): Set the Admin Panel's header breadcrumbs from a Payload Custom View.
 - [Table](https://payloadcms.com/docs/v3/ui-components/table.md): Display pre-rendered column data with Payload's Table component.
+- [Table Cells](https://payloadcms.com/docs/v3/ui-components/table-cells.md): Render Payload field values and create custom cells for Admin Panel tables.
+- [Text Inputs](https://payloadcms.com/docs/v3/ui-components/text-inputs.md): Build custom text controls with Payload's TextInput and TextareaInput components.
 - [Thumbnail](https://payloadcms.com/docs/v3/ui-components/thumbnail.md): Preview an uploaded file or render a file fallback with Payload's Thumbnail component.
 - [TimezonePicker](https://payloadcms.com/docs/v3/ui-components/timezone-picker.md): Select a timezone with Payload's TimezonePicker component.
 - [Tooltip](https://payloadcms.com/docs/v3/ui-components/tooltip.md): Display brief contextual help with Payload's Tooltip component.
 - [Upload](https://payloadcms.com/docs/v3/ui-components/upload.md): Extend Payload's upload-enabled Collection interface while preserving form and upload behavior.
+- [Upload Helpers](https://payloadcms.com/docs/v3/ui-components/upload-helpers.md): Display upload metadata, browse generated image sizes, and edit image adjustments.
 
 #### Authentication
 

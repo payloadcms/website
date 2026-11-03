@@ -1,10 +1,9 @@
 'use client'
 
-import { PayloadV4Preview } from '@payloadcms/v4-preview-runtime'
+import { PayloadV4Preview, v4ComponentExamples } from '@payloadcms/v4-preview-runtime'
 import React from 'react'
 
 import { ComponentPreviewUI } from './ComponentPreviewUI'
-import { v4ComponentExamples } from './examples/v4'
 
 type Props = {
   component: string
