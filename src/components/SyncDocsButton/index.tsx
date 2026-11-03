@@ -17,7 +17,7 @@ const SyncDocsButton: React.FC = () => {
 
   const syncDocs = async () => {
     setIsSyncing(true)
-    const res = await fetch(`${api}/sync/docs`)
+    const res = await fetch(`${api}/sync/docs`, { method: 'POST' })
     if (res.ok) {
       toast.success('Documentation synced successfully')
       setIsSyncing(false)

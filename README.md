@@ -47,7 +47,7 @@ The locally running app must run on `local.payloadcms.com:3000` because of http-
 
 ### Documentation
 
-The documentation for this site is stored in the [Payload repo](https://github.com/payloadcms/payload) as Markdown files. These are fetched when you press the "Sync Docs" button in the CMS. Pressing that button does the following:
+The documentation for this site is stored in the [Payload repo](https://github.com/payloadcms/payload) as Markdown files. A published Payload release automatically triggers a documentation sync through the `on-payload-release` workflow. The "Sync Docs" button in the CMS remains available as a manual fallback. A sync does the following:
 
 1. Docs are pulled from the Payload repo on GitHub.
 2. The docs are converted from MDX to Lexical and stored in the CMS.

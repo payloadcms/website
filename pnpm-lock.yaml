@@ -283,6 +283,9 @@ importers:
 
   preview-runtimes/v4:
     dependencies:
+      '@faceless-ui/modal':
+        specifier: 3.0.1
+        version: 3.0.1(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       '@payloadcms/translations':
         specifier: 4.0.0-canary.14
         version: 4.0.0-canary.14
