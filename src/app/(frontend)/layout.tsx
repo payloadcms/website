@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { GoogleAnalytics } from '@components/Analytics/GoogleAnalytics/index'
 import { GoogleTagManager } from '@components/Analytics/GoogleTagManager/index'
 import { PrivacyBanner } from '@components/PrivacyBanner/index'
+import { payloadFavicon, payloadFaviconDark, payloadFaviconLight } from '@payloadcms/ui/assets'
 import { Providers } from '@providers/index'
 import { PrivacyProvider } from '@root/providers/Privacy/index'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
@@ -17,7 +18,30 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <html lang="en">
       <PrivacyProvider>
         <head>
-          <link href="/images/favicon.svg" rel="icon" />
+          <link
+            href={
+              typeof payloadFaviconDark === 'object' ? payloadFaviconDark.src : payloadFaviconDark
+            }
+            rel="icon"
+            sizes="32x32"
+            type="image/png"
+          />
+          <link
+            href={
+              typeof payloadFaviconLight === 'object'
+                ? payloadFaviconLight.src
+                : payloadFaviconLight
+            }
+            media="(prefers-color-scheme: dark)"
+            rel="icon"
+            sizes="32x32"
+            type="image/png"
+          />
+          <link
+            href={typeof payloadFavicon === 'object' ? payloadFavicon.src : payloadFavicon}
+            rel="icon"
+            type="image/svg+xml"
+          />
           <link href={process.env.NEXT_PUBLIC_CLOUD_CMS_URL} rel="dns-prefetch" />
           <link href="https://api.github.com/repos/payloadcms/payload" rel="dns-prefetch" />
           <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" rel="stylesheet" />
