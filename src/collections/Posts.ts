@@ -354,33 +354,36 @@ export const Posts: CollectionConfig = {
       async ({ doc, previousDoc, req }) => {
         try {
           const category = await req.payload.findByID({
-            id: doc.category,
+            id: typeof doc.category === 'string' ? doc.category : doc.category.id,
             collection: 'categories',
             select: {
               slug: true,
             },
           })
 
-          const previousCategory = await req.payload.findByID({
-            id: previousDoc.category,
-            collection: 'categories',
-            select: {
-              slug: true,
-            },
-          })
-
-          if (!category) {
-            throw new Error('Category not found')
-          } else {
-            revalidatePath(`/${category.slug}/${doc.slug}`)
+          if (category) {
+            revalidatePath(`/posts/${category.slug}`)
+            revalidatePath(`/posts/${category.slug}/${doc.slug}`)
             console.log(`Revalidated: /posts/${category.slug}/${doc.slug}`)
           }
 
-          if (!previousCategory) {
-            throw new Error('Previous category not found')
-          } else {
-            revalidatePath(`/${previousCategory.slug}/${previousDoc.slug}`)
-            console.log(`Revalidated: /posts/${previousCategory.slug}/${previousDoc.slug}`)
+          if (previousDoc?.category) {
+            const previousCategory = await req.payload.findByID({
+              id:
+                typeof previousDoc.category === 'string'
+                  ? previousDoc.category
+                  : previousDoc.category.id,
+              collection: 'categories',
+              select: {
+                slug: true,
+              },
+            })
+
+            if (previousCategory) {
+              revalidatePath(`/posts/${previousCategory.slug}`)
+              revalidatePath(`/posts/${previousCategory.slug}/${previousDoc.slug}`)
+              console.log(`Revalidated: /posts/${previousCategory.slug}/${previousDoc.slug}`)
+            }
           }
         } catch (error) {
           console.error(error)
@@ -391,7 +394,7 @@ export const Posts: CollectionConfig = {
       async ({ doc, req }) => {
         try {
           const category = await req.payload.findByID({
-            id: doc.category,
+            id: typeof doc.category === 'string' ? doc.category : doc.category.id,
             collection: 'categories',
             select: {
               slug: true,
@@ -401,8 +404,8 @@ export const Posts: CollectionConfig = {
           if (!category) {
             throw new Error('Category not found')
           } else {
-            revalidatePath(`/${category.slug}`)
-            revalidatePath(`/${category.slug}/${doc.slug}`)
+            revalidatePath(`/posts/${category.slug}`)
+            revalidatePath(`/posts/${category.slug}/${doc.slug}`)
             console.log(`Revalidated: /posts/${category.slug}`)
             console.log(`Revalidated: /posts/${category.slug}/${doc.slug}`)
           }

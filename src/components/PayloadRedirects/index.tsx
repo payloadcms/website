@@ -1,7 +1,7 @@
 import type { CaseStudy, Page, Post } from '@types'
 import type React from 'react'
 
-import { getCachedDocument } from '@utilities/getDocument'
+import { getCachedDocumentByID } from '@utilities/getDocument'
 import { getCachedRedirects } from '@utilities/getRedirects'
 import { notFound, redirect } from 'next/navigation'
 
@@ -12,41 +12,48 @@ interface Props {
 
 /* This component helps us with SSR based dynamic redirects */
 export const PayloadRedirects: React.FC<Props> = async ({ disableNotFound, url }) => {
-  const slug = url.startsWith('/') ? url : `${url}`
-
+  const path = url.startsWith('/') ? url : `/${url}`
   const redirects = await getCachedRedirects()()
-
-  const redirectItem = redirects.find((redirect) => redirect.from === slug)
+  const redirectItem = redirects.find((redirect) => redirect.from === path)
 
   if (redirectItem) {
-    if (redirectItem.to?.url) {
+    if (redirectItem.to?.type === 'custom' && redirectItem.to.url) {
       redirect(redirectItem.to.url)
     }
 
-    let redirectUrl: string
+    const reference = redirectItem.to?.type === 'reference' ? redirectItem.to.reference : undefined
 
-    if (typeof redirectItem.to?.reference?.value === 'string') {
-      const collection = redirectItem.to?.reference?.relationTo
-      const id = redirectItem.to?.reference?.value
+    if (reference?.value) {
+      const document =
+        typeof reference.value === 'string'
+          ? await getCachedDocumentByID(reference.relationTo, reference.value)()
+          : reference.value
+      let redirectUrl: string | undefined
 
-      const document = await getCachedDocument(collection, id)()
-      redirectUrl =
-        redirectItem.to?.reference?.relationTo === 'posts'
-          ? '/blog/'
-          : redirectItem.to?.reference?.relationTo === 'case-studies'
-            ? '/case-studies/'
-            : `${'breadcrumbs' in document && document.breadcrumbs?.at(-1)?.url}`
-    } else {
-      redirectUrl =
-        redirectItem.to?.reference?.relationTo === 'posts'
-          ? `/blog/${redirectItem.to?.reference?.value?.slug}`
-          : redirectItem.to?.reference?.relationTo === 'case-studies'
-            ? `/case-studies/${redirectItem.to?.reference?.value?.slug}`
-            : `${redirectItem.to?.reference?.value?.breadcrumbs?.at(-1)?.url}`
-    }
+      if (document) {
+        if (reference.relationTo === 'posts') {
+          const post = document as Post
+          const category =
+            typeof post.category === 'string'
+              ? await getCachedDocumentByID('categories', post.category)()
+              : post.category
 
-    if (redirectUrl) {
-      redirect(redirectUrl)
+          if (category && 'slug' in category && category.slug && post.slug) {
+            redirectUrl = `/posts/${category.slug}/${post.slug}`
+          }
+        } else if (reference.relationTo === 'case-studies') {
+          const caseStudy = document as CaseStudy
+          if (caseStudy.slug) {
+            redirectUrl = `/case-studies/${caseStudy.slug}`
+          }
+        } else if (reference.relationTo === 'pages') {
+          redirectUrl = (document as Page).breadcrumbs?.at(-1)?.url ?? undefined
+        }
+      }
+
+      if (redirectUrl) {
+        redirect(redirectUrl)
+      }
     }
   }
 

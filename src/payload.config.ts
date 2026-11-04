@@ -600,6 +600,7 @@ export default buildConfig({
       overrides: {
         hooks: {
           afterChange: [revalidateRedirects],
+          afterDelete: [revalidateRedirects],
         },
       },
     }),

@@ -6,15 +6,16 @@ import { getPayload } from 'payload'
 
 type Collection = keyof Config['collections']
 
-async function getDocument(collection: Collection, slug: string, depth = 0) {
+async function getDocumentByID(collection: Collection, id: string) {
   const payload = await getPayload({ config: configPromise })
 
   const page = await payload.find({
     collection,
-    depth,
+    depth: 2,
+    limit: 1,
     where: {
-      slug: {
-        equals: slug,
+      id: {
+        equals: id,
       },
     },
   })
@@ -23,9 +24,9 @@ async function getDocument(collection: Collection, slug: string, depth = 0) {
 }
 
 /**
- * Returns a unstable_cache function mapped with the cache tag for the slug
+ * Resolve relationship IDs with enough depth to populate a post's category.
  */
-export const getCachedDocument = (collection: Collection, slug: string) =>
-  unstable_cache(async () => getDocument(collection, slug), [collection, slug], {
-    tags: [`${collection}_${slug}`],
+export const getCachedDocumentByID = (collection: Collection, id: string) =>
+  unstable_cache(async () => getDocumentByID(collection, id), [collection, 'id', id], {
+    tags: [`${collection}_${id}`],
   })
