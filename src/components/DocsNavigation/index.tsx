@@ -55,10 +55,14 @@ export const DocsNavigation = ({
 
   useEffect(() => {
     const preference = window.localStorage.getItem(openTopicsLocalStorageKey)
-    if (preference) {
-      setOpenTopicPreferences(JSON.parse(preference))
+    const parsedPreference = preference ? JSON.parse(preference) : []
+
+    if (Array.isArray(parsedPreference) && parsedPreference.includes(currentTopic)) {
+      setOpenTopicPreferences(parsedPreference)
     } else {
-      setOpenTopicPreferences([currentTopic])
+      const updatedPreference = [currentTopic]
+      setOpenTopicPreferences(updatedPreference)
+      window.localStorage.setItem(openTopicsLocalStorageKey, JSON.stringify(updatedPreference))
     }
   }, [currentTopic])
 
