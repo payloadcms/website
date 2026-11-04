@@ -292,7 +292,7 @@ export const MobileNav: React.FC<NavItems> = (props) => {
                   {starCount}
                 </a>
                 {user && <Avatar className={classes.avatar} />}
-                <DocSearch />
+                <DocSearch variant="mobile" />
                 <div
                   aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
                   className={[classes.modalToggler, isMenuOpen ? classes.hamburgerOpen : '']

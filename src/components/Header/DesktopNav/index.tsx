@@ -291,7 +291,7 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ hideBackground, menuCta, 
                   {menuCta && menuCta.label && <CMSLink {...menuCta} className={classes.button} />}
                 </>
               )}
-              <DocSearch />
+              <DocSearch variant="desktop" />
             </div>
           </div>
         </div>
