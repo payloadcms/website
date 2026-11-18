@@ -54,16 +54,23 @@ export const fetchPage = async (incomingSlugSegments: string[]): Promise<null | 
   const slugSegments = incomingSlugSegments || ['home']
   const slug = slugSegments.at(-1)
 
+  const pagePath = `/${slugSegments.join('/')}`
+
   const data = await payload.find({
     collection: 'pages',
     depth: 2,
     draft,
-    limit: 1,
+    limit: 10000,
     where: {
       and: [
         {
           slug: {
             equals: slug,
+          },
+        },
+        {
+          breadcrumbs__url: {
+            equals: pagePath,
           },
         },
         ...(draft
@@ -78,8 +85,6 @@ export const fetchPage = async (incomingSlugSegments: string[]): Promise<null | 
       ],
     },
   })
-
-  const pagePath = `/${slugSegments.join('/')}`
 
   const page = data.docs.find(({ breadcrumbs }: Page) => {
     if (!breadcrumbs) {
